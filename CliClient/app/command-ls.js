@@ -13,11 +13,11 @@ import { cliUtils } from './cli-utils.js';
 class Command extends BaseCommand {
 
 	usage() {
-		return 'ls [note-pattern]';
+		return 'ls [pattern]';
 	}
 
 	description() {
-		return _('Displays the notes in the current notebook. Use `ls /` to display the list of notebooks.');
+		return _('Displays the notes in [notebook]. Use `ls /` to display the list of notebooks.');
 	}
 	
 	options() {
@@ -36,7 +36,7 @@ class Command extends BaseCommand {
 	}
 
 	async action(args) {
-		let pattern = args['note-pattern'];
+		let pattern = args['pattern'];
 		let items = [];
 		let options = args.options;
 

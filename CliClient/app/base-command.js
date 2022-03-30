@@ -34,20 +34,6 @@ class BaseCommand {
 
 	async cancel() {}
 
-	name() {
-		let r = this.usage().split(' ');
-		return r[0];
-	}
-
-	metadata() {
-		return {
-			name: this.name(),
-			usage: this.usage(),
-			options: this.options(),
-			hidden: this.hidden(),
-		};
-	}
-
 }
 
 export { BaseCommand };

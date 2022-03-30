@@ -9,7 +9,7 @@ import { autocompleteItems } from './autocomplete.js';
 class Command extends BaseCommand {
 
 	usage() {
-		return 'cat <note>';
+		return 'cat <title>';
 	}
 
 	description() {
@@ -27,7 +27,7 @@ class Command extends BaseCommand {
 	}
 
 	async action(args) {
-		let title = args['note'];
+		let title = args['title'];
 
 		let item = await app().loadItem(BaseModel.TYPE_NOTE, title, { parent: app().currentFolder() });
 		if (!item) throw new Error(_('Cannot find "%s".', title));
