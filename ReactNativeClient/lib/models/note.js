@@ -126,11 +126,7 @@ class Note extends BaseItem {
 			let r = null;
 			r = noteFieldComp(a.user_updated_time, b.user_updated_time); if (r) return r;
 			r = noteFieldComp(a.user_created_time, b.user_created_time); if (r) return r;
-
-			const titleA = a.title ? a.title.toLowerCase() : '';
-			const titleB = b.title ? b.title.toLowerCase() : '';
-			r = noteFieldComp(titleA, titleB); if (r) return r;
-			
+			r = noteFieldComp(a.title.toLowerCase(), b.title.toLowerCase()); if (r) return r;
 			return noteFieldComp(a.id, b.id);
 		}
 
@@ -390,16 +386,9 @@ class Note extends BaseItem {
 
 		return super.save(o, options).then((note) => {
 			this.dispatch({
-				type: 'NOTE_UPDATE_ONE',
+				type: 'NOTES_UPDATE_ONE',
 				note: note,
 			});
-
-			if ('todo_due' in o || 'todo_completed' in o || 'is_todo' in o || 'is_conflict' in o) {
-				this.dispatch({
-					type: 'EVENT_NOTE_ALARM_FIELD_CHANGE',
-					id: note.id,
-				});
-			}
 			
 			return note;
 		});
@@ -409,8 +398,8 @@ class Note extends BaseItem {
 		let r = await super.delete(id, options);
 
 		this.dispatch({
-			type: 'NOTE_DELETE',
-			id: id,
+			type: 'NOTES_DELETE',
+			noteId: id,
 		});
 	}
 
@@ -418,19 +407,11 @@ class Note extends BaseItem {
 		const result = super.batchDelete(ids, options);
 		for (let i = 0; i < ids.length; i++) {
 			this.dispatch({
-				type: 'NOTE_DELETE',
-				id: ids[i],
+				type: 'NOTES_DELETE',
+				noteId: ids[i],
 			});
 		}
 		return result;
-	}
-
-	static dueNotes() {
-		return this.modelSelectAll('SELECT id, title, body, is_todo, todo_due, todo_completed, is_conflict FROM notes WHERE is_conflict = 0 AND is_todo = 1 AND todo_completed = 0 AND todo_due > ?', [time.unixMs()]);
-	}
-
-	static needAlarm(note) {
-		return note.is_todo && !note.todo_completed && note.todo_due >= time.unixMs() && !note.is_conflict;
 	}
 
 	// Tells whether the conflict between the local and remote note can be ignored.

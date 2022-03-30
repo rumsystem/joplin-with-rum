@@ -34,19 +34,6 @@ class Folder extends BaseItem {
 		}
 	}
 
-	static async findUniqueFolderTitle(title) {
-		let counter = 1;
-		let titleToTry = title;
-		while (true) {
-			const folder = await this.loadByField('title', titleToTry);
-			if (!folder) return titleToTry;
-			titleToTry = title + ' (' + counter + ')';
-			counter++;
-			if (counter >= 100) titleToTry = title + ' (' + ((new Date()).getTime()) + ')';
-			if (counter >= 1000) throw new Error('Cannot find unique title');
-		}
-	}
-
 	static noteIds(parentId) {
 		return this.db().selectAll('SELECT id FROM notes WHERE is_conflict = 0 AND parent_id = ?', [parentId]).then((rows) => {			
 			let output = [];
@@ -86,7 +73,7 @@ class Folder extends BaseItem {
 
 		this.dispatch({
 			type: 'FOLDER_DELETE',
-			id: folderId,
+			folderId: folderId,
 		});
 	}
 
@@ -156,7 +143,7 @@ class Folder extends BaseItem {
 
 		return super.save(o, options).then((folder) => {
 			this.dispatch({
-				type: 'FOLDER_UPDATE_ONE',
+				type: 'FOLDERS_UPDATE_ONE',
 				folder: folder,
 			});
 			return folder;

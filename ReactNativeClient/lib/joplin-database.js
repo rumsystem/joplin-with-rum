@@ -160,7 +160,6 @@ class JoplinDatabase extends Database {
 				let tableName = tableRows[i].name;
 				if (tableName == 'android_metadata') continue;
 				if (tableName == 'table_fields') continue;
-				if (tableName == 'sqlite_sequence') continue;
 				chain.push(() => {
 					return this.selectAll('PRAGMA table_info("' + tableName + '")').then((pragmas) => {
 						for (let i = 0; i < pragmas.length; i++) {
@@ -202,12 +201,10 @@ class JoplinDatabase extends Database {
 		// default value and thus might cause problems. In that case, the default value
 		// must be set in the synchronizer too.
 
-		const existingDatabaseVersions = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+		const existingDatabaseVersions = [0, 1, 2, 3, 4, 5];
 
 		let currentVersionIndex = existingDatabaseVersions.indexOf(fromVersion);
-		// currentVersionIndex < 0 if for the case where an old version of Joplin used with a newer
-		// version of the database, so that migration is not run in this case.
-		if (currentVersionIndex == existingDatabaseVersions.length - 1 || currentVersionIndex < 0) return false;
+		if (currentVersionIndex == existingDatabaseVersions.length - 1) return false;
 		
 		while (currentVersionIndex < existingDatabaseVersions.length - 1) {
 			const targetVersion = existingDatabaseVersions[currentVersionIndex + 1];
@@ -254,20 +251,6 @@ class JoplinDatabase extends Database {
 					queries.push('UPDATE ' + n + ' SET user_updated_time = updated_time');
 					queries.push('CREATE INDEX ' + n + '_user_updated_time ON ' + n + ' (user_updated_time)');
 				}
-			}
-
-			if (targetVersion == 6) {
-				queries.push('CREATE TABLE alarms (id INTEGER PRIMARY KEY AUTOINCREMENT, note_id TEXT NOT NULL, trigger_time INT NOT NULL)');
-				queries.push('CREATE INDEX alarm_note_id ON alarms (note_id)');
-			}
-
-			if (targetVersion == 7) {
-				queries.push('ALTER TABLE resources ADD COLUMN file_extension TEXT NOT NULL DEFAULT ""');
-			}
-
-			if (targetVersion == 8) {
-				queries.push('ALTER TABLE sync_items ADD COLUMN sync_disabled INT NOT NULL DEFAULT "0"');
-				queries.push('ALTER TABLE sync_items ADD COLUMN sync_disabled_reason TEXT NOT NULL DEFAULT ""');
 			}
 
 			queries.push({ sql: 'UPDATE version SET version = ?', params: [targetVersion] });

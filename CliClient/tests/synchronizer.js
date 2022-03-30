@@ -1,5 +1,3 @@
-require('app-module-path').addPath(__dirname);
-
 const { time } = require('lib/time-utils.js');
 const { setupDatabase, setupDatabaseAndSynchronizer, db, synchronizer, fileApi, sleep, clearDatabase, switchClient, syncTargetId } = require('test-utils.js');
 const { Folder } = require('lib/models/folder.js');
@@ -9,13 +7,12 @@ const { Database } = require('lib/database.js');
 const { Setting } = require('lib/models/setting.js');
 const { BaseItem } = require('lib/models/base-item.js');
 const { BaseModel } = require('lib/base-model.js');
-const SyncTargetRegistry = require('lib/SyncTargetRegistry.js');
 
 process.on('unhandledRejection', (reason, p) => {
 	console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
 });
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000; // The first test is slow because the database needs to be built
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 9000; // The first test is slow because the database needs to be built
 
 async function allItems() {
 	let folders = await Folder.all();
@@ -38,7 +35,7 @@ async function localItemsSameAsRemote(locals, expect) {
 			expect(!!remote).toBe(true);
 			if (!remote) continue;
 
-			if (syncTargetId() == SyncTargetRegistry.nameToId('filesystem')) {
+			if (syncTargetId() == Setting.SYNC_TARGET_FILESYSTEM) {
 				expect(remote.updated_time).toBe(Math.floor(dbItem.updated_time / 1000) * 1000);
 			} else {
 				expect(remote.updated_time).toBe(dbItem.updated_time);
@@ -100,7 +97,6 @@ describe('Synchronizer', function() {
 		await synchronizer().start();
 
 		let all = await allItems();
-
 		await localItemsSameAsRemote(all, expect);
 
 		done();
@@ -608,53 +604,5 @@ describe('Synchronizer', function() {
 
 		done();
 	});
-
-	it('items should be downloaded again when user cancels in the middle of delta operation', async (done) => {
-		let folder1 = await Folder.save({ title: "folder1" });
-		let note1 = await Note.save({ title: "un", is_todo: 1, parent_id: folder1.id });
-		await synchronizer().start();
-
-		await switchClient(2);
-
-		synchronizer().debugFlags_ = ['cancelDeltaLoop2'];		
-		let context = await synchronizer().start();
-		let notes = await Note.all();
-		expect(notes.length).toBe(0);
-
-		synchronizer().debugFlags_ = [];
-		await synchronizer().start({ context: context });
-		notes = await Note.all();
-		expect(notes.length).toBe(1);
-
-		done();
-	});
-
-	it('items should skip items that cannot be synced', async (done) => {
-		let folder1 = await Folder.save({ title: "folder1" });
-		let note1 = await Note.save({ title: "un", is_todo: 1, parent_id: folder1.id });
-		const noteId = note1.id;
-		await synchronizer().start();
-		let disabledItems = await BaseItem.syncDisabledItems();
-		expect(disabledItems.length).toBe(0);
-		await Note.save({ id: noteId, title: "un mod", });
-		synchronizer().debugFlags_ = ['cannotSync'];
-		await synchronizer().start();
-		synchronizer().debugFlags_ = [];
-		await synchronizer().start(); // Another sync to check that this item is now excluded from sync
-
-		await switchClient(2);
-
-		await synchronizer().start();
-		let notes = await Note.all();
-		expect(notes.length).toBe(1);
-		expect(notes[0].title).toBe('un');
-
-		await switchClient(1);
-
-		disabledItems = await BaseItem.syncDisabledItems();
-		expect(disabledItems.length).toBe(1);
-
-		done();
-	});
-
+	
 });

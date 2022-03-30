@@ -1,14 +1,13 @@
 const { Setting } = require('lib/models/setting.js');
 
 const globalStyle = {
-	fontSize: 12,
-	fontFamily: 'sans-serif',
+	fontSize: 16,
 	margin: 15, // No text and no interactive component should be within this margin
 	itemMarginTop: 10,
 	itemMarginBottom: 10,
 	backgroundColor: "#ffffff",
 	oddBackgroundColor: "#dddddd",
-	color: "#222222", // For regular text
+	color: "#555555", // For regular text
 	colorError: "red",
 	colorWarn: "#9A5B00",
 	colorFaded: "#777777", // For less important text
@@ -16,34 +15,23 @@ const globalStyle = {
 	dividerColor: "#dddddd",
 	selectedColor: '#e5e5e5',
 	disabledOpacity: 0.3,
+	headerHeight: 20,
 	buttonMinWidth: 50,
 	buttonMinHeight: 30,
 	textAreaLineHeight: 17,
 
-	backgroundColor2: "#2B2634",
-	color2: "#ffffff",
-	selectedColor2: "#5A4D70",
-	colorError2: "#ff6c6c",
-
-	warningBackgroundColor: "#FFD08D",
-
-	headerHeight: 35,
-	headerButtonHPadding: 6,
-
-	toolbarHeight: 35,
-
 	raisedBackgroundColor: "#0080EF",
 	raisedColor: "#003363",
 	raisedHighlightedColor: "#ffffff",
-};
 
-// For WebView - must correspond to the properties above
-globalStyle.htmlFontSize = globalStyle.fontSize + 'px';
-globalStyle.htmlColor ='black'; // Note: CSS in WebView component only supports named colors or rgb() notation
-globalStyle.htmlBackgroundColor ='white';
-globalStyle.htmlDividerColor = 'rgb(150,150,150)';
-globalStyle.htmlLinkColor ='blue';
-globalStyle.htmlLineHeight ='20px';
+	// For WebView - must correspond to the properties above
+	htmlFontSize: '16px',
+	htmlColor: 'black', // Note: CSS in WebView component only supports named colors or rgb() notation
+	htmlBackgroundColor: 'white',
+	htmlDividerColor: 'Gainsboro',
+	htmlLinkColor: 'blue',
+	htmlLineHeight: '20px',
+};
 
 globalStyle.marginRight = globalStyle.margin;
 globalStyle.marginLeft = globalStyle.margin;
@@ -61,23 +49,9 @@ globalStyle.lineInput = {
 	backgroundColor: globalStyle.backgroundColor,
 };
 
-globalStyle.textStyle = {
-	color: globalStyle.color,
-	fontFamily: globalStyle.fontFamily,
-	fontSize: globalStyle.fontSize,
-};
-
-globalStyle.textStyle2 = Object.assign({}, globalStyle.textStyle, {
-	color: globalStyle.color2,
-});
-
-globalStyle.h2Style = Object.assign({}, globalStyle.textStyle);
-globalStyle.h2Style.fontSize *= 1.3;
-
 let themeCache_ = {};
 
 function themeStyle(theme) {
-	if (!theme) throw new Error('Theme must be specified');
 	if (themeCache_[theme]) return themeCache_[theme];
 
 	let output = Object.assign({}, globalStyle);

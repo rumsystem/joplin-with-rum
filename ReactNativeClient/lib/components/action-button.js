@@ -134,7 +134,6 @@ const ActionButton = connect(
 	(state) => {
 		return {
 			folders: state.folders,
-			locale: state.settings.locale,
 		};
 	}
 )(ActionButtonComponent)

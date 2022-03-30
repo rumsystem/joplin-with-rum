@@ -62,12 +62,11 @@ class BaseModel {
 		return temp;
 	}
 
-	static fieldType(name, defaultValue = null) {
+	static fieldType(name) {
 		let fields = this.fields();
 		for (let i = 0; i < fields.length; i++) {
 			if (fields[i].name == name) return fields[i].type;
 		}
-		if (defaultValue !== null) return defaultValue;
 		throw new Error('Unknown field: ' + name);
 	}
 
@@ -202,23 +201,17 @@ class BaseModel {
 		let output = {};
 		let type = null;
 		for (let n in newModel) {
-			if (!newModel.hasOwnProperty(n)) continue;
 			if (n == 'type_') {
-				type = newModel[n];
+				type = n;
 				continue;
 			}
+			if (!newModel.hasOwnProperty(n)) continue;
 			if (!(n in oldModel) || newModel[n] !== oldModel[n]) {
 				output[n] = newModel[n];
 			}
 		}
 		if (type !== null) output.type_ = type;
 		return output;
-	}
-
-	static modelsAreSame(oldModel, newModel) {
-		const diff = this.diffObjects(oldModel, newModel);
-		delete diff.type_;
-		return !Object.getOwnPropertyNames(diff).length;
 	}
 
 	static saveQuery(o, options) {
@@ -239,9 +232,6 @@ class BaseModel {
 			o.updated_time = timeNow;
 		}
 
-		// The purpose of user_updated_time is to allow the user to manually set the time of a note (in which case
-		// options.autoTimestamp will be `false`). However note that if the item is later changed, this timestamp
-		// will be set again to the current time.
 		if (options.autoTimestamp && this.hasField('user_updated_time')) {
 			o.user_updated_time = timeNow;
 		}
@@ -282,18 +272,6 @@ class BaseModel {
 		options = this.modOptions(options);
 		options.isNew = this.isNew(o, options);
 
-		// Diff saving is an optimisation which takes a new version of the item and an old one,
-		// do a diff and save only this diff. IMPORTANT: When using this make sure that both
-		// models have been normalised using ItemClass.filter()
-		const isDiffSaving = options && options.oldItem && !options.isNew;
-
-		if (isDiffSaving) {
-			const newObject = BaseModel.diffObjects(options.oldItem, o);
-			newObject.type_ = o.type_;
-			newObject.id = o.id;
-			o = newObject;
-		}
-
 		o = this.filter(o);
 
 		let queries = [];
@@ -308,21 +286,12 @@ class BaseModel {
 
 		return this.db().transactionExecBatch(queries).then(() => {
 			o = Object.assign({}, o);
-			if (modelId) o.id = modelId;
+			o.id = modelId;
 			if ('updated_time' in saveQuery.modObject) o.updated_time = saveQuery.modObject.updated_time;
 			if ('created_time' in saveQuery.modObject) o.created_time = saveQuery.modObject.created_time;
 			if ('user_updated_time' in saveQuery.modObject) o.user_updated_time = saveQuery.modObject.user_updated_time;
 			if ('user_created_time' in saveQuery.modObject) o.user_created_time = saveQuery.modObject.user_created_time;
 			o = this.addModelMd(o);
-
-			if (isDiffSaving) {
-				for (let n in options.oldItem) {
-					if (!options.oldItem.hasOwnProperty(n)) continue;
-					if (n in o) continue;
-					o[n] = options.oldItem[n];
-				}
-			}
-
 			return this.filter(o);
 		}).catch((error) => {
 			Log.error('Cannot save model', error);
@@ -353,32 +322,23 @@ class BaseModel {
 		let output = Object.assign({}, model);
 		for (let n in output) {
 			if (!output.hasOwnProperty(n)) continue;
-
 			// The SQLite database doesn't have booleans so cast everything to int
-			if (output[n] === true) {
-				output[n] = 1;
-			} else if (output[n] === false) {
-				output[n] = 0; 
-			} else {
-				const t = this.fieldType(n, Database.TYPE_UNKNOWN);
-				if (t === Database.TYPE_INT) {
-					output[n] = !n ? 0 : parseInt(output[n], 10);
-				}
-			}
+			if (output[n] === true) output[n] = 1;
+			if (output[n] === false) output[n] = 0;
 		}
 		
 		return output;
 	}
 
 	static delete(id, options = null) {
-		if (!id) throw new Error('Cannot delete object without an ID');
 		options = this.modOptions(options);
+		if (!id) throw new Error('Cannot delete object without an ID');
 		return this.db().exec('DELETE FROM ' + this.tableName() + ' WHERE id = ?', [id]);
 	}
 
 	static batchDelete(ids, options = null) {
-		if (!ids.length) return;
 		options = this.modOptions(options);
+		if (!ids.length) throw new Error('Cannot delete object without an ID');
 		return this.db().exec('DELETE FROM ' + this.tableName() + ' WHERE id IN ("' + ids.join('","') + '")');
 	}	
 
@@ -400,7 +360,6 @@ BaseModel.TYPE_RESOURCE = 4;
 BaseModel.TYPE_TAG = 5;
 BaseModel.TYPE_NOTE_TAG = 6;
 BaseModel.TYPE_SEARCH = 7;
-BaseModel.TYPE_ALARM = 8;
 
 BaseModel.db_ = null;
 BaseModel.dispatch = function(o) {};

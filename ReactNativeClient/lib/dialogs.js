@@ -8,8 +8,7 @@ const { Keyboard } = require('react-native');
 let dialogs = {};
 
 dialogs.confirm = (parentComponent, message) => {
-	if (!parentComponent) throw new Error('parentComponent is required');
-	if (!('dialogbox' in parentComponent)) throw new Error('A "dialogbox" component must be defined on the parent component!');
+	if (!'dialogbox' in parentComponent) throw new Error('A "dialogbox" component must be defined on the parent component!');
 
 	return new Promise((resolve, reject) => {
 		Keyboard.dismiss();
@@ -34,8 +33,7 @@ dialogs.confirm = (parentComponent, message) => {
 };
 
 dialogs.pop = (parentComponent, message, buttons) => {
-	if (!parentComponent) throw new Error('parentComponent is required');
-	if (!('dialogbox' in parentComponent)) throw new Error('A "dialogbox" component must be defined on the parent component!');
+	if (!'dialogbox' in parentComponent) throw new Error('A "dialogbox" component must be defined on the parent component!');
 
 	return new Promise((resolve, reject) => {
 		Keyboard.dismiss();

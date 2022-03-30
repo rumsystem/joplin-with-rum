@@ -1,20 +1,14 @@
 const React = require('react'); const Component = React.Component;
-const { Keyboard, NativeModules, BackHandler } = require('react-native');
-const { SafeAreaView } = require('react-navigation');
+const { Keyboard, NativeModules } = require('react-native');
 const { connect, Provider } = require('react-redux');
 const { BackButtonService } = require('lib/services/back-button.js');
-const AlarmService = require('lib/services/AlarmService.js');
-const AlarmServiceDriver = require('lib/services/AlarmServiceDriver');
-const Alarm = require('lib/models/Alarm');
 const { createStore, applyMiddleware } = require('redux');
 const { shimInit } = require('lib/shim-init-react.js');
 const { Log } = require('lib/log.js');
-const { time } = require('lib/time-utils.js');
 const { AppNav } = require('lib/components/app-nav.js');
 const { Logger } = require('lib/logger.js');
 const { Note } = require('lib/models/note.js');
 const { Folder } = require('lib/models/folder.js');
-const BaseSyncTarget = require('lib/BaseSyncTarget.js');
 const { FoldersScreenUtils } = require('lib/folders-screen-utils.js');
 const { Resource } = require('lib/models/resource.js');
 const { Tag } = require('lib/models/tag.js');
@@ -42,13 +36,6 @@ const { _, setLocale, closestSupportedLocale, defaultLocale } = require('lib/loc
 const RNFetchBlob = require('react-native-fetch-blob').default;
 const { PoorManIntervals } = require('lib/poor-man-intervals.js');
 const { reducer, defaultState } = require('lib/reducer.js');
-const DropdownAlert = require('react-native-dropdownalert').default;
-
-const SyncTargetRegistry = require('lib/SyncTargetRegistry.js');
-const SyncTargetOneDrive = require('lib/SyncTargetOneDrive.js');
-const SyncTargetOneDriveDev = require('lib/SyncTargetOneDriveDev.js');
-SyncTargetRegistry.addClass(SyncTargetOneDrive);
-SyncTargetRegistry.addClass(SyncTargetOneDriveDev);
 
 const generalMiddleware = store => next => async (action) => {
 	if (action.type !== 'SIDE_MENU_OPEN_PERCENT') reg.logger().info('Reducer action', action.type);
@@ -59,24 +46,15 @@ const generalMiddleware = store => next => async (action) => {
 
 	if (action.type == 'NAV_GO') Keyboard.dismiss();
 
-	if (['NOTE_UPDATE_ONE', 'NOTE_DELETE', 'FOLDER_UPDATE_ONE', 'FOLDER_DELETE'].indexOf(action.type) >= 0) {
-		if (!await reg.syncTarget().syncStarted()) reg.scheduleSync();
+	if (['NOTES_UPDATE_ONE', 'NOTES_DELETE', 'FOLDERS_UPDATE_ONE', 'FOLDER_DELETE'].indexOf(action.type) >= 0) {
+		if (!await reg.syncStarted()) reg.scheduleSync();
 	}
 
-	if (['EVENT_NOTE_ALARM_FIELD_CHANGE', 'NOTE_DELETE'].indexOf(action.type) >= 0) {
-		await AlarmService.updateNoteNotification(action.id, action.type === 'NOTE_DELETE');
-	}
-
-	if (action.type == 'SETTING_UPDATE_ONE' && action.key == 'sync.interval' || action.type == 'SETTING_UPDATE_ALL') {
+	if (action.type == 'SETTINGS_UPDATE_ONE' && action.key == 'sync.interval' || action.type == 'SETTINGS_UPDATE_ALL') {
 		reg.setupRecurrentSync();
 	}
 
-	if ((action.type == 'SETTING_UPDATE_ONE' && (action.key == 'dateFormat' || action.key == 'timeFormat')) || (action.type == 'SETTING_UPDATE_ALL')) {
-		time.setDateFormat(Setting.value('dateFormat'));
-		time.setTimeFormat(Setting.value('timeFormat'));
-	}
-
-	if (action.type == 'SETTING_UPDATE_ONE' && action.key == 'locale' || action.type == 'SETTING_UPDATE_ALL') {
+	if (action.type == 'SETTINGS_UPDATE_ONE' && action.key == 'locale' || action.type == 'SETTINGS_UPDATE_ALL') {
 		setLocale(Setting.value('locale'));
 	}	
 
@@ -103,7 +81,6 @@ const appDefaultState = Object.assign({}, defaultState, {
 		routeName: 'Welcome',
 		params: {},
 	},
-	noteSelectionEnabled: false,
 });
 
 const appReducer = (state = appDefaultState, action) => {
@@ -165,7 +142,7 @@ const appReducer = (state = appDefaultState, action) => {
 				newState = Object.assign({}, state);
 
 				if ('noteId' in action) {
-					newState.selectedNoteIds = action.noteId ? [action.noteId] : [];
+					newState.selectedNoteId = action.noteId;
 				}
 
 				if ('folderId' in action) {
@@ -210,41 +187,6 @@ const appReducer = (state = appDefaultState, action) => {
 				newState.sideMenuOpenPercent = action.value;
 				break;
 
-			case 'NOTE_SELECTION_TOGGLE':
-
-				newState = Object.assign({}, state);
-
-				const noteId = action.id;
-				const newSelectedNoteIds = state.selectedNoteIds.slice();
-				const existingIndex = state.selectedNoteIds.indexOf(noteId);
-
-				if (existingIndex >= 0) {
-					newSelectedNoteIds.splice(existingIndex, 1);
-				} else {
-					newSelectedNoteIds.push(noteId);
-				}
-
-				newState.selectedNoteIds = newSelectedNoteIds;
-				newState.noteSelectionEnabled = !!newSelectedNoteIds.length;
-				break;
-
-			case 'NOTE_SELECTION_START':
-
-				if (!state.noteSelectionEnabled) {
-					newState = Object.assign({}, state);
-					newState.noteSelectionEnabled = true;
-					newState.selectedNoteIds = [action.id];
-				}
-				break;
-
-			case 'NOTE_SELECTION_END':
-
-				newState = Object.assign({}, state);
-				newState.noteSelectionEnabled = false;
-				newState.selectedNoteIds = [];
-				break;
-
-
 		}
 	} catch (error) {
 		error.message = 'In reducer: ' + error.message + ' Action: ' + JSON.stringify(action);
@@ -256,13 +198,12 @@ const appReducer = (state = appDefaultState, action) => {
 
 let store = createStore(appReducer, applyMiddleware(generalMiddleware));
 
-async function initialize(dispatch) {
+async function initialize(dispatch, backButtonHandler) {
 	shimInit();
 
 	Setting.setConstant('env', __DEV__ ? 'dev' : 'prod');
 	Setting.setConstant('appId', 'net.cozic.joplin');
 	Setting.setConstant('appType', 'mobile');
-	//Setting.setConstant('resourceDir', () => { return RNFetchBlob.fs.dirs.DocumentDir; });
 	Setting.setConstant('resourceDir', RNFetchBlob.fs.dirs.DocumentDir);
 
 	const logDatabase = new Database(new DatabaseDriverReactNative());
@@ -275,7 +216,6 @@ async function initialize(dispatch) {
 	mainLogger.setLevel(Logger.LEVEL_DEBUG);
 
 	reg.setLogger(mainLogger);
-	reg.setShowErrorMessageBoxHandler((message) => { alert(message) });
 
 	reg.logger().info('====================================');
 	reg.logger().info('Starting application ' + Setting.value('appId') + ' (' + Setting.value('env') + ')');
@@ -296,7 +236,6 @@ async function initialize(dispatch) {
 	reg.dispatch = dispatch;
 	BaseModel.dispatch = dispatch;
 	FoldersScreenUtils.dispatch = dispatch;
-	BaseSyncTarget.dispatch = dispatch;
 	BaseModel.db_ = db;
 
 	BaseItem.loadClass('Note', Note);
@@ -305,14 +244,11 @@ async function initialize(dispatch) {
 	BaseItem.loadClass('Tag', Tag);
 	BaseItem.loadClass('NoteTag', NoteTag);
 
-	AlarmService.setDriver(new AlarmServiceDriver());
-	AlarmService.setLogger(mainLogger);
-
 	try {
 		if (Setting.value('env') == 'prod') {
 			await db.open({ name: 'joplin.sqlite' })
 		} else {
-			await db.open({ name: 'joplin-68.sqlite' })
+			await db.open({ name: 'joplin-66.sqlite' })
 			//await db.open({ name: 'joplin-67.sqlite' })
 
 			// await db.exec('DELETE FROM notes');
@@ -333,11 +269,8 @@ async function initialize(dispatch) {
 			const locale = NativeModules.I18nManager.localeIdentifier
 			if (!locale) locale = defaultLocale();
 			Setting.setValue('locale', closestSupportedLocale(locale));
-			if (Setting.value('env') === 'dev') Setting.setValue('sync.target', SyncTargetRegistry.nameToId('onedrive_dev'));
 			Setting.setValue('firstStart', 0)
 		}
-
-		reg.logger().info('Sync target: ' + Setting.value('sync.target'));
 
 		setLocale(Setting.value('locale'));
 
@@ -348,7 +281,7 @@ async function initialize(dispatch) {
 		const tags = await Tag.all();
 
 		dispatch({
-			type: 'TAG_UPDATE_ALL',
+			type: 'TAGS_UPDATE_ALL',
 			tags: tags,
 		});
 
@@ -373,17 +306,15 @@ async function initialize(dispatch) {
 		reg.logger().error('Initialization error:', error);
 	}
 
+	BackButtonService.initialize(backButtonHandler);
+
 	reg.setupRecurrentSync();
 
-	PoorManIntervals.setTimeout(() => {
-		AlarmService.garbageCollect();
-	}, 1000 * 60 * 60);
-
-	reg.scheduleSync().then(() => {
-		// Wait for the first sync before updating the notifications, since synchronisation
-		// might change the notifications.
-		AlarmService.updateAllNotifications();
-	});
+	if (Setting.value('env') == 'dev') {
+		// reg.scheduleSync();
+	} else {
+		reg.scheduleSync();
+	}
 
 	reg.logger().info('Application initialized');
 }
@@ -393,42 +324,25 @@ class AppComponent extends React.Component {
 	constructor() {
 		super();
 		this.lastSyncStarted_ = defaultState.syncStarted;
-
-		this.backButtonHandler_ = () => {
-			return this.backButtonHandler();
-		}
 	}
 
 	async componentDidMount() {
 		if (this.props.appState == 'starting') {
 			this.props.dispatch({
-				type: 'APP_STATE_SET',
+				type: 'SET_APP_STATE',
 				state: 'initializing',
 			});
 
-			await initialize(this.props.dispatch);
+			await initialize(this.props.dispatch, this.backButtonHandler.bind(this));
 
 			this.props.dispatch({
-				type: 'APP_STATE_SET',
+				type: 'SET_APP_STATE',
 				state: 'ready',
 			});
 		}
-
-		BackButtonService.initialize(this.backButtonHandler_);
-
-		AlarmService.setInAppNotificationHandler(async (alarmId) => {
-			const alarm = await Alarm.load(alarmId);
-			const notification = await Alarm.makeNotification(alarm);
-			this.dropdownAlert_.alertWithType('info', notification.title, notification.body ? notification.body : '');
-		});
 	}
 
 	async backButtonHandler() {
-		if (this.props.noteSelectionEnabled) {
-			this.props.dispatch({ type: 'NOTE_SELECTION_END' });
-			return true;
-		}
-
 		if (this.props.showSideMenu) {
 			this.props.dispatch({ type: 'SIDE_MENU_CLOSE' });
 			return true;
@@ -438,8 +352,6 @@ class AppComponent extends React.Component {
 			this.props.dispatch({ type: 'NAV_BACK' });
 			return true;
 		}
-
-		BackHandler.exitApp();
 
 		return false;
 	}
@@ -462,7 +374,7 @@ class AppComponent extends React.Component {
 	render() {
 		if (this.props.appState != 'ready') return null;
 
-		const sideMenuContent = <SafeAreaView style={{flex:1}}><SideMenuContent/></SafeAreaView>;
+		const sideMenuContent = <SideMenuContent/>;
 
 		const appNavInit = {
 			Welcome: { screen: WelcomeScreen },
@@ -488,10 +400,7 @@ class AppComponent extends React.Component {
 				}}
 				>
 				<MenuContext style={{ flex: 1 }}>
-					<SafeAreaView style={{flex:1}}>
-						<AppNav screens={appNavInit} />
-					</SafeAreaView>
-					<DropdownAlert ref={ref => this.dropdownAlert_ = ref} tapToCloseEnabled={true} />
+					<AppNav screens={appNavInit} />
 				</MenuContext>
 			</SideMenu>
 		);
@@ -504,7 +413,6 @@ const mapStateToProps = (state) => {
 		showSideMenu: state.showSideMenu,
 		syncStarted: state.syncStarted,
 		appState: state.appState,
-		noteSelectionEnabled: state.noteSelectionEnabled,
 	};
 };
 

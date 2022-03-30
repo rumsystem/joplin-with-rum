@@ -1,2 +1,2 @@
 cd android
-gradlew.bat installDebug --console plain
+gradlew.bat installDebug

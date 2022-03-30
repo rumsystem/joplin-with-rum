@@ -101,10 +101,6 @@ msgid "Cancelling background synchronisation... Please wait."
 msgstr ""
 
 #, javascript-format
-msgid "No such command: %s"
-msgstr ""
-
-#, javascript-format
 msgid "The command \"%s\" is only available in GUI mode"
 msgstr ""
 
@@ -128,6 +124,10 @@ msgstr ""
 
 #, javascript-format
 msgid "Cannot find \"%s\"."
+msgstr ""
+
+#, javascript-format
+msgid "Cannot access %s"
 msgstr ""
 
 msgid "Displays the given note."
@@ -470,196 +470,12 @@ msgid ""
 "will be shared with any third party."
 msgstr ""
 
-msgid "Search:"
-msgstr ""
-
-msgid "File"
-msgstr ""
-
-msgid "New note"
-msgstr ""
-
-msgid "New to-do"
-msgstr ""
-
-msgid "New notebook"
-msgstr ""
-
-msgid "Import Evernote notes"
-msgstr ""
-
-msgid "Evernote Export Files"
-msgstr ""
-
-msgid "Quit"
-msgstr ""
-
-msgid "Edit"
-msgstr ""
-
-msgid "Copy"
-msgstr ""
-
-msgid "Cut"
-msgstr ""
-
-msgid "Paste"
-msgstr ""
-
-msgid "Search in all the notes"
-msgstr ""
-
-msgid "Tools"
-msgstr ""
-
-msgid "Synchronisation status"
-msgstr ""
-
-msgid "Options"
-msgstr ""
-
-msgid "Help"
-msgstr ""
-
-msgid "Website and documentation"
-msgstr ""
-
-msgid "About Joplin"
-msgstr ""
-
-#, javascript-format
-msgid "%s %s (%s, %s)"
-msgstr ""
-
-msgid "OK"
-msgstr ""
-
-msgid "Cancel"
-msgstr ""
-
-msgid "Back"
-msgstr ""
-
-#, javascript-format
-msgid ""
-"New notebook \"%s\" will be created and file \"%s\" will be imported into it"
-msgstr ""
-
-msgid "Please create a notebook first."
-msgstr ""
-
-msgid "Note title:"
-msgstr ""
-
-msgid "Please create a notebook first"
-msgstr ""
-
-msgid "To-do title:"
-msgstr ""
-
-msgid "Notebook title:"
-msgstr ""
-
-msgid "Add or remove tags:"
-msgstr ""
-
-msgid "Separate each tag by a comma."
-msgstr ""
-
-msgid "Rename notebook:"
-msgstr ""
-
-msgid "Set alarm:"
-msgstr ""
-
-msgid "Layout"
-msgstr ""
-
-msgid "Some items cannot be synchronised."
-msgstr ""
-
-msgid "View them now"
-msgstr ""
-
-msgid "Add or remove tags"
-msgstr ""
-
-msgid "Switch between note and to-do type"
-msgstr ""
-
-msgid "Delete"
-msgstr ""
-
-msgid "Delete notes?"
-msgstr ""
-
-msgid "No notes in here. Create one by clicking on \"New note\"."
-msgstr ""
-
-#, javascript-format
-msgid "Unsupported link or message: %s"
-msgstr ""
-
-msgid "Attach file"
-msgstr ""
-
-msgid "Set alarm"
-msgstr ""
-
-msgid "Refresh"
-msgstr ""
-
-msgid "Clear"
-msgstr ""
-
-msgid "OneDrive Login"
-msgstr ""
-
-msgid "Import"
-msgstr ""
-
-msgid "Synchronisation Status"
-msgstr ""
-
-msgid "Delete notebook?"
-msgstr ""
-
-msgid "Remove this tag from all the notes?"
-msgstr ""
-
-msgid "Remove this search from the sidebar?"
-msgstr ""
-
-msgid "Rename"
-msgstr ""
-
-msgid "Synchronise"
-msgstr ""
-
-msgid "Notebooks"
-msgstr ""
-
-msgid "Tags"
-msgstr ""
-
-msgid "Searches"
-msgstr ""
-
 #, javascript-format
 msgid "Usage: %s"
 msgstr ""
 
 #, javascript-format
 msgid "Unknown flag: %s"
-msgstr ""
-
-msgid "File system"
-msgstr ""
-
-msgid "OneDrive"
-msgstr ""
-
-msgid "OneDrive Dev (For testing only)"
 msgstr ""
 
 #, javascript-format
@@ -676,16 +492,8 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Could not synchronize with OneDrive.\n"
-"\n"
-"This error often happens when using OneDrive for Business, which "
-"unfortunately cannot be supported.\n"
-"\n"
-"Please consider using a regular OneDrive account."
-msgstr ""
-
-#, javascript-format
-msgid "Cannot access %s"
+"Please set the \"sync.2.path\" config value to the desired synchronisation "
+"destination."
 msgstr ""
 
 #, javascript-format
@@ -752,12 +560,30 @@ msgstr ""
 msgid "Cannot move note to \"%s\" notebook"
 msgstr ""
 
+#, javascript-format
+msgid "Invalid option value: \"%s\". Possible values are: %s."
+msgstr ""
+
 msgid "File system synchronisation target directory"
 msgstr ""
 
 msgid ""
 "The path to synchronise with when file system synchronisation is enabled. "
 "See `sync.target`."
+msgstr ""
+
+msgid "Synchronisation target"
+msgstr ""
+
+msgid ""
+"The target to synchonise to. If synchronising with the file system, set "
+"`sync.2.path` to specify the target directory."
+msgstr ""
+
+msgid "File system"
+msgstr ""
+
+msgid "OneDrive"
 msgstr ""
 
 msgid "Text editor"
@@ -771,22 +597,10 @@ msgstr ""
 msgid "Language"
 msgstr ""
 
-msgid "Date format"
-msgstr ""
-
-msgid "Time format"
-msgstr ""
-
-msgid "Theme"
-msgstr ""
-
-msgid "Light"
-msgstr ""
-
-msgid "Dark"
-msgstr ""
-
 msgid "Show uncompleted todos on top of the lists"
+msgstr ""
+
+msgid "Show advanced options"
 msgstr ""
 
 msgid "Save geo-location with notes"
@@ -810,29 +624,13 @@ msgstr ""
 msgid "%d hours"
 msgstr ""
 
-msgid "Automatically update the application"
+msgid "Theme"
 msgstr ""
 
-msgid "Show advanced options"
+msgid "Light"
 msgstr ""
 
-msgid "Synchronisation target"
-msgstr ""
-
-msgid ""
-"The target to synchonise to. If synchronising with the file system, set "
-"`sync.2.path` to specify the target directory."
-msgstr ""
-
-#, javascript-format
-msgid "Invalid option value: \"%s\". Possible values are: %s."
-msgstr ""
-
-msgid "Items that cannot be synchronised"
-msgstr ""
-
-#, javascript-format
-msgid "\"%s\": \"%s\""
+msgid "Dark"
 msgstr ""
 
 msgid "Sync status (synced items / total items)"
@@ -861,17 +659,16 @@ msgstr ""
 msgid "%s: %d notes"
 msgstr ""
 
-msgid "Coming alarms"
+msgid "New to-do"
 msgstr ""
 
-#, javascript-format
-msgid "On %s: %s"
+msgid "New note"
+msgstr ""
+
+msgid "New notebook"
 msgstr ""
 
 msgid "There are currently no notes. Create one by clicking on the (+) button."
-msgstr ""
-
-msgid "Delete these notes?"
 msgstr ""
 
 msgid "Log"
@@ -880,23 +677,10 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-msgid "Export Debug Report"
-msgstr ""
-
 msgid "Configuration"
 msgstr ""
 
-msgid "Move to notebook..."
-msgstr ""
-
-#, javascript-format
-msgid "Move %d notes to notebook \"%s\"?"
-msgstr ""
-
-msgid "Select date"
-msgstr ""
-
-msgid "Confirm"
+msgid "Synchronise"
 msgstr ""
 
 msgid "Cancel synchronisation"
@@ -909,6 +693,9 @@ msgstr ""
 msgid "Edit notebook"
 msgstr ""
 
+msgid "Refresh"
+msgstr ""
+
 msgid "This note has been modified:"
 msgstr ""
 
@@ -918,17 +705,16 @@ msgstr ""
 msgid "Discard changes"
 msgstr ""
 
-#, javascript-format
-msgid "Unsupported image type: %s"
+msgid "Cancel"
 msgstr ""
 
-msgid "Attach photo"
+msgid "Attach file"
 msgstr ""
 
-msgid "Attach any file"
+msgid "Delete note"
 msgstr ""
 
-msgid "Convert to note"
+msgid "Convert to regular note"
 msgstr ""
 
 msgid "Convert to todo"
@@ -940,7 +726,13 @@ msgstr ""
 msgid "Show metadata"
 msgstr ""
 
-msgid "View on map"
+msgid "View location on map"
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Delete notebook?"
 msgstr ""
 
 msgid "Delete notebook"

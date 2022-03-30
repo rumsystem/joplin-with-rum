@@ -5,6 +5,7 @@ const { mime } = require('lib/mime-utils.js');
 const { filename } = require('lib/path-utils.js');
 const { FsDriverDummy } = require('lib/fs-driver-dummy.js');
 const { markdownUtils } = require('lib/markdown-utils.js');
+const lodash = require('lodash');
 
 class Resource extends BaseItem {
 
@@ -32,15 +33,10 @@ class Resource extends BaseItem {
 		return super.serialize(item, 'resource', fieldNames);
 	}
 
-	static filename(resource) {
-		let extension = resource.file_extension;
-		if (!extension) extension = resource.mime ? mime.toFileExtension(resource.mime) : '';
-		extension = extension ? '.' + extension : '';
-		return resource.id + extension;
-	}
-
 	static fullPath(resource) {
-		return Setting.value('resourceDir') + '/' + this.filename(resource);
+		let extension = mime.toFileExtension(resource.mime);
+		extension = extension ? '.' + extension : '';
+		return Setting.value('resourceDir') + '/' + resource.id + extension;
 	}
 
 	static markdownTag(resource) {

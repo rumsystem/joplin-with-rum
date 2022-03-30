@@ -22,10 +22,6 @@ class Synchronizer {
 		this.appType_ = appType;
 		this.cancelling_ = false;
 
-		// Debug flags are used to test certain hard-to-test conditions
-		// such as cancelling in the middle of a loop.
-		this.debugFlags_ = [];
-
 		this.onProgress_ = function(s) {};
 		this.progressReport_ = {};
 
@@ -208,7 +204,6 @@ class Synchronizer {
 					let action = null;
 					let updateSyncTimeOnly = true;
 					let reason = '';					
-					let remoteContent = null;
 
 					if (!remote) {
 						if (!local.sync_time) {
@@ -221,25 +216,7 @@ class Synchronizer {
 							reason = 'remote has been deleted, but local has changes';
 						}
 					} else {
-						// Note: in order to know the real updated_time value, we need to load the content. In theory we could
-						// rely on the file timestamp (in remote.updated_time) but in practice it's not accurate enough and
-						// can lead to conflicts (for example when the file timestamp is slightly ahead of it's real
-						// updated_time). updated_time is set and managed by clients so it's always accurate.
-						// Same situation below for updateLocal.
-						// 
-						// This is a bit inefficient because if the resulting action is "updateRemote" we don't need the whole
-						// content, but for now that will do since being reliable is the priority.
-						//
-						// TODO: assuming a particular sync target is guaranteed to have accurate timestamps, the driver maybe
-						// could expose this with a accurateTimestamps() method that returns "true". In that case, the test
-						// could be done using the file timestamp and the potentially unecessary content loading could be skipped.
-						// OneDrive does not appear to have accurate timestamps as lastModifiedDateTime would occasionally be
-						// a few seconds ahead of what it was set with setTimestamp()
-						remoteContent = await this.api().get(path);
-						if (!remoteContent) throw new Error('Got metadata for path but could not fetch content: ' + path);
-						remoteContent = await BaseItem.unserialize(remoteContent);
-
-						if (remoteContent.updated_time > local.sync_time) {
+						if (remote.updated_time > local.sync_time) {
 							// Since, in this loop, we are only dealing with items that require sync, if the
 							// remote has been modified after the sync time, it means both items have been
 							// modified and so there's a conflict.
@@ -253,36 +230,22 @@ class Synchronizer {
 
 					this.logSyncOperation(action, local, remote, reason);
 
-					const handleCannotSyncItem = async (syncTargetId, item, cannotSyncReason) => {
-						await ItemClass.saveSyncDisabled(syncTargetId, item, cannotSyncReason);
-						this.dispatch({ type: 'SYNC_HAS_DISABLED_SYNC_ITEMS' });
-					}
-
 					if (local.type_ == BaseModel.TYPE_RESOURCE && (action == 'createRemote' || (action == 'itemConflict' && remote))) {
 						let remoteContentPath = this.resourceDirName_ + '/' + local.id;
-						try {
-							// TODO: handle node and mobile in the same way
-							if (shim.isNode()) {
-								let resourceContent = '';
-								try {
-									resourceContent = await Resource.content(local);
-								} catch (error) {
-									error.message = 'Cannot read resource content: ' + local.id + ': ' + error.message;
-									this.logger().error(error);
-									this.progressReport_.errors.push(error);
-								}
-								await this.api().put(remoteContentPath, resourceContent);
-							} else {
-								const localResourceContentPath = Resource.fullPath(local);
-								await this.api().put(remoteContentPath, null, { path: localResourceContentPath, source: 'file' });
+						// TODO: handle node and mobile in the same way
+						if (shim.isNode()) {
+							let resourceContent = '';
+							try {
+								resourceContent = await Resource.content(local);
+							} catch (error) {
+								error.message = 'Cannot read resource content: ' + local.id + ': ' + error.message;
+								this.logger().error(error);
+								this.progressReport_.errors.push(error);
 							}
-						} catch (error) {
-							if (error && error.code === 'cannotSync') {
-								await handleCannotSyncItem(syncTargetId, local, error.message);
-								action = null;
-							} else {
-								throw error;
-							}
+							await this.api().put(remoteContentPath, resourceContent);
+						} else {
+							const localResourceContentPath = Resource.fullPath(local);
+							await this.api().put(remoteContentPath, null, { path: localResourceContentPath, source: 'file' });
 						}
 					}
 
@@ -299,32 +262,15 @@ class Synchronizer {
 						// await this.api().setTimestamp(tempPath, local.updated_time);
 						// await this.api().move(tempPath, path);
 
-						let canSync = true;
-						try {
-							if (this.debugFlags_.indexOf('cannotSync') >= 0) {
-								const error = new Error('Testing cannotSync');
-								error.code = 'cannotSync';
-								throw error;
-							}
-							await this.api().put(path, content);
-						} catch (error) {
-							if (error && error.code === 'cannotSync') {
-								await handleCannotSyncItem(syncTargetId, local, error.message);
-								canSync = false;
-							} else {
-								throw error;
-							}
-						}
-
-						if (canSync) {
-							await this.api().setTimestamp(path, local.updated_time);
-							await ItemClass.saveSyncTime(syncTargetId, local, time.unixMs());
-						}
+						await this.api().put(path, content);
+						await this.api().setTimestamp(path, local.updated_time);
+						await ItemClass.saveSyncTime(syncTargetId, local, time.unixMs());
 
 					} else if (action == 'itemConflict') {
 
 						if (remote) {
-							local = remoteContent;
+							let remoteContent = await this.api().get(path);
+							local = await BaseItem.unserialize(remoteContent);
 
 							const syncTimeQueries = BaseItem.updateSyncTimeQueries(syncTargetId, local, time.unixMs());
 							await ItemClass.save(local, { autoTimestamp: false, nextQueries: syncTimeQueries });
@@ -340,9 +286,12 @@ class Synchronizer {
 						// so in this case we just take the remote content.
 						// ------------------------------------------------------------------------------
 
+						let loadedRemote = null;
 						let mustHandleConflict = true;
-						if (remoteContent) {
-							mustHandleConflict = Note.mustHandleConflict(local, remoteContent);
+						if (remote) {
+							const remoteContent = await this.api().get(path);
+							loadedRemote = await BaseItem.unserialize(remoteContent);
+							mustHandleConflict = Note.mustHandleConflict(local, loadedRemote);
 						}
 
 						// ------------------------------------------------------------------------------
@@ -363,7 +312,7 @@ class Synchronizer {
 						// ------------------------------------------------------------------------------
 
 						if (remote) {
-							local = remoteContent;
+							local = loadedRemote;
 							const syncTimeQueries = BaseItem.updateSyncTimeQueries(syncTargetId, local, time.unixMs());
 							await ItemClass.save(local, { autoTimestamp: false, nextQueries: syncTimeQueries });
 						} else {
@@ -405,11 +354,10 @@ class Synchronizer {
 			let context = null;
 			let newDeltaContext = null;
 			let localFoldersToDelete = [];
-			let hasCancelled = false;
 			if (lastContext.delta) context = lastContext.delta;
 
 			while (true) {
-				if (this.cancelling() || hasCancelled) break;
+				if (this.cancelling()) break;
 
 				let listResult = await this.api().delta('', {
 					context: context,
@@ -424,42 +372,26 @@ class Synchronizer {
 
 				let remotes = listResult.items;
 				for (let i = 0; i < remotes.length; i++) {
-					if (this.cancelling() || this.debugFlags_.indexOf('cancelDeltaLoop2') >= 0) {
-						hasCancelled = true;
-						break;
-					}
+					if (this.cancelling()) break;
 
 					let remote = remotes[i];
 					if (!BaseItem.isSystemPath(remote.path)) continue; // The delta API might return things like the .sync, .resource or the root folder
-
-					const loadContent = async () => {
-						content = await this.api().get(path);
-						if (!content) return null;
-						return await BaseItem.unserialize(content);
-					}
 
 					let path = remote.path;
 					let action = null;
 					let reason = '';
 					let local = await BaseItem.loadItemByPath(path);
-					let ItemClass = null;
-					let content = null;
 					if (!local) {
-						if (remote.isDeleted !== true) {
+						if (!remote.isDeleted) {
 							action = 'createLocal';
 							reason = 'remote exists but local does not';
-							content = await loadContent();
-							ItemClass = content ? BaseItem.itemClass(content) : null;
 						}
 					} else {
-						ItemClass = BaseItem.itemClass(local);
-						local = ItemClass.filter(local);
 						if (remote.isDeleted) {
 							action = 'deleteLocal';
 							reason = 'remote has been deleted';
 						} else {
-							content = await loadContent();								
-							if (content && content.updated_time > local.updated_time) {
+							if (remote.updated_time > local.updated_time) {
 								action = 'updateLocal';
 								reason = 'remote is more recent than local';
 							}
@@ -472,34 +404,31 @@ class Synchronizer {
 
 					if (action == 'createLocal' || action == 'updateLocal') {
 
+						let content = await this.api().get(path);
 						if (content === null) {
 							this.logger().warn('Remote has been deleted between now and the list() call? In that case it will be handled during the next sync: ' + path);
 							continue;
 						}
-						content = ItemClass.filter(content);
+						content = await BaseItem.unserialize(content);
+						let ItemClass = BaseItem.itemClass(content);
 
-						// 2017-12-03: This was added because the new user_updated_time and user_created_time properties were added
-						// to the items. However changing the database is not enough since remote items that haven't been synced yet
-						// will not have these properties and, since they are required, it would cause a problem. So this check
-						// if they are present and, if not, set them to a reasonable default.
-						// Let's leave these two lines for 6 months, by which time all the clients should have been synced.
-						if (!content.user_updated_time) content.user_updated_time = content.updated_time;
-						if (!content.user_created_time) content.user_created_time = content.created_time;
-
+						let newContent = Object.assign({}, content);
 						let options = {
 							autoTimestamp: false,
-							nextQueries: BaseItem.updateSyncTimeQueries(syncTargetId, content, time.unixMs()),
+							nextQueries: BaseItem.updateSyncTimeQueries(syncTargetId, newContent, time.unixMs()),
 						};
 						if (action == 'createLocal') options.isNew = true;
-						if (action == 'updateLocal') options.oldItem = local;
 
-						if (content.type_ == BaseModel.TYPE_RESOURCE && action == 'createLocal') {
-							let localResourceContentPath = Resource.fullPath(content);
-							let remoteResourceContentPath = this.resourceDirName_ + '/' + content.id;
+						if (newContent.type_ == BaseModel.TYPE_RESOURCE && action == 'createLocal') {
+							let localResourceContentPath = Resource.fullPath(newContent);
+							let remoteResourceContentPath = this.resourceDirName_ + '/' + newContent.id;
 							await this.api().get(remoteResourceContentPath, { path: localResourceContentPath, target: 'file' });
 						}
 
-						await ItemClass.save(content, options);
+						if (!newContent.user_updated_time) newContent.user_updated_time = newContent.updated_time;
+						if (!newContent.user_created_time) newContent.user_created_time = newContent.created_time;
+
+						await ItemClass.save(newContent, options);
 
 					} else if (action == 'deleteLocal') {
 
@@ -514,18 +443,11 @@ class Synchronizer {
 					}
 				}
 
-				// If user has cancelled, don't record the new context (2) so that synchronisation
-				// can start again from the previous context (1) next time. It is ok if some items
-				// have been synced between (1) and (2) because the loop above will handle the same
-				// items being synced twice as an update. If the local and remote items are indentical
-				// the update will simply be skipped.
-				if (!hasCancelled) {
-					if (!listResult.hasMore) {
-						newDeltaContext = listResult.context;
-						break;
-					}
-					context = listResult.context;
+				if (!listResult.hasMore) {
+					newDeltaContext = listResult.context;
+					break;
 				}
+				context = listResult.context;
 			}
 
 			outputContext.delta = newDeltaContext ? newDeltaContext : lastContext.delta;

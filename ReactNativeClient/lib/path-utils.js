@@ -1,13 +1,13 @@
 function dirname(path) {
 	if (!path) throw new Error('Path is empty');
-	let s = path.split(/\/|\\/);
+	let s = path.split('/');
 	s.pop();
 	return s.join('/');
 }
 
 function basename(path) {
 	if (!path) throw new Error('Path is empty');
-	let s = path.split(/\/|\\/);
+	let s = path.split('/');
 	return s[s.length - 1];
 }
 
@@ -35,14 +35,4 @@ function isHidden(path) {
 	return b[0] === '.';
 }
 
-function safeFileExtension(e) {
-	if (!e || !e.replace) return '';
-	return e.replace(/[^a-zA-Z0-9]/g, '')
-}
-
-function toSystemSlashes(path, os) {
-	if (os === 'win32') return path.replace(/\//g, "\\");
-	return path.replace(/\\/g, "/");
-}
-
-module.exports = { basename, dirname, filename, isHidden, fileExtension, safeFileExtension, toSystemSlashes };
+module.exports = { basename, dirname, filename, isHidden, fileExtension };

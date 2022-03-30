@@ -113,7 +113,6 @@ const NoteList = connect(
 			items: state.notes,
 			notesSource: state.notesSource,
 			theme: state.settings.theme,
-			noteSelectionEnabled: state.noteSelectionEnabled,
 		};
 	}
 )(NoteListComponent)

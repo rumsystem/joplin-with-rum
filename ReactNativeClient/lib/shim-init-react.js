@@ -9,12 +9,6 @@ function shimInit() {
 	shim.setInterval = PoorManIntervals.setInterval;
 	shim.clearInterval = PoorManIntervals.clearInterval;
 
-	shim.fetch = async function(url, options = null) {
-		return shim.fetchWithRetry(() => {
-			return shim.nativeFetch_(url, options)
-		}, options);
-	}
-
 	shim.fetchBlob = async function(url, options) {
 		if (!options || !options.path) throw new Error('fetchBlob: target file path is missing');
 
@@ -27,17 +21,10 @@ function shimInit() {
 
 		delete options.path;
 
-		const doFetchBlob = () => {
-			return RNFetchBlob.config({
+		try {
+			let response = await RNFetchBlob.config({
 				path: localFilePath
 			}).fetch(method, url, headers);
-		}
-
-		try {
-			const response = await shim.fetchWithRetry(doFetchBlob, options);
-			// let response = await RNFetchBlob.config({
-			// 	path: localFilePath
-			// }).fetch(method, url, headers);
 
 			// Returns an object that's roughtly compatible with a standard Response object
 			let output = {

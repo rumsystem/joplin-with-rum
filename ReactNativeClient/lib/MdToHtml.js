@@ -2,23 +2,15 @@ const MarkdownIt = require('markdown-it');
 const Entities = require('html-entities').AllHtmlEntities;
 const htmlentities = (new Entities()).encode;
 const { Resource } = require('lib/models/resource.js');
-const ModelCache = require('lib/ModelCache');
 const { shim } = require('lib/shim.js');
 const md5 = require('md5');
 
 class MdToHtml {
 
-	constructor(options = null) {
-		if (!options) options = {};
-
-		this.supportsResourceLinks_ = !!options.supportsResourceLinks;
+	constructor() {
 		this.loadedResources_ = {};
 		this.cachedContent_ = null;
 		this.cachedContentKey_ = null;
-		this.modelCache_ = new ModelCache();
-
-		// Must include last "/"
-		this.resourceBaseUrl_ = ('resourceBaseUrl' in options) ? options.resourceBaseUrl : null;
 	}
 
 	makeContentKey(resources, body, style, options) {
@@ -82,16 +74,13 @@ class MdToHtml {
 			this.loadedResources_[id] = {};
 
 			const resource = await Resource.load(id);
-			//const resource = await this.modelCache_.load(Resource, id);
+			resource.base64 = await shim.readLocalFileBase64(Resource.fullPath(resource));
 
-			if (!resource) {
-				// Can happen for example if an image is attached to a note, but the resource hasn't
-				// been downloaded from the sync target yet.
-				console.warn('Cannot load resource: ' + id);
-				return;
-			}
+			let newResources = Object.assign({}, this.loadedResources_);
+			newResources[id] = resource;
+			this.loadedResources_ = newResources;
 
-			this.loadedResources_[id] = resource;
+			console.info('Resource loaded: ', resource.title);
 
 			if (options.onResourceLoaded) options.onResourceLoaded();
 		}
@@ -100,45 +89,38 @@ class MdToHtml {
 		const href = this.getAttr_(attrs, 'src');
 
 		if (!Resource.isResourceUrl(href)) {
-			return '<img title="' + htmlentities(title) + '" src="' + href + '"/>';
+			return '<span>' + href + '</span><img title="' + htmlentities(title) + '" src="' + href + '"/>';
 		}
 
 		const resourceId = Resource.urlToId(href);
-		const resource = this.loadedResources_[resourceId];
-		if (!resource) {
+		if (!this.loadedResources_[resourceId]) {
 			loadResource(resourceId);
 			return '';
 		}
 
-		if (!resource.id) return ''; // Resource is being loaded
+		const r = this.loadedResources_[resourceId];
+		if (!r.base64) return '';
 
-		const mime = resource.mime ? resource.mime.toLowerCase() : '';
+		const mime = r.mime.toLowerCase();
 		if (mime == 'image/png' || mime == 'image/jpg' || mime == 'image/jpeg' || mime == 'image/gif') {
-			let src = './' + Resource.filename(resource);
-			if (this.resourceBaseUrl_ !== null) src = this.resourceBaseUrl_ + src;
+			const src = 'data:' + r.mime + ';base64,' + r.base64;
 			let output = '<img title="' + htmlentities(title) + '" src="' + src + '"/>';
 			return output;
 		}
 		
-		return '[Image: ' + htmlentities(resource.title) + ' (' + htmlentities(mime) + ')]';
+		return '[Image: ' + htmlentities(r.title) + ' (' + htmlentities(mime) + ')]';
 	}
 
 	renderOpenLink_(attrs, options) {
-		let href = this.getAttr_(attrs, 'href');
+		const href = this.getAttr_(attrs, 'href');
 		const title = this.getAttr_(attrs, 'title');
 		const text = this.getAttr_(attrs, 'text');
-		const isResourceUrl = Resource.isResourceUrl(href);
 
-		if (isResourceUrl && !this.supportsResourceLinks_) {
+		if (Resource.isResourceUrl(href)) {
 			// In mobile, links to local resources, such as PDF, etc. currently aren't supported.
 			// Ideally they should be opened in the user's browser.
-			return '<span style="opacity: 0.5">(Resource not yet supported: '; //+ htmlentities(text) + ']';
+			return '[Resource not yet supported: ' + htmlentities(text) + ']';
 		} else {
-			if (isResourceUrl) {
-				const resourceId = Resource.pathToId(href);
-				href = 'joplin://' + resourceId;
-			}
-
 			const js = options.postMessageSyntax + "(" + JSON.stringify(href) + "); return false;";
 			let output = "<a title='" + htmlentities(title) + "' href='#' onclick='" + js + "'>";
 			return output;
@@ -147,10 +129,9 @@ class MdToHtml {
 
 	renderCloseLink_(attrs, options) {
 		const href = this.getAttr_(attrs, 'href');
-		const isResourceUrl = Resource.isResourceUrl(href);
 
-		if (isResourceUrl && !this.supportsResourceLinks_) {
-			return ')</span>';
+		if (Resource.isResourceUrl(href)) {
+			return '';
 		} else {
 			return '</a>';
 		}
@@ -158,26 +139,17 @@ class MdToHtml {
 
 	renderTokens_(tokens, options) {
 		let output = [];
-		let previousToken = null;
-		let anchorAttrs = [];
 		for (let i = 0; i < tokens.length; i++) {
 			const t = tokens[i];
-			const nextToken = i < tokens.length ? tokens[i+1] : null;
 
 			let tag = t.tag;
 			let openTag = null;
 			let closeTag = null;
 			let attrs = t.attrs ? t.attrs : [];
-			const isCodeBlock = tag === 'code' && t.block;
 
-			// if (t.map) attrs.push(['data-map', t.map.join(':')]);
+			if (t.map) attrs.push(['data-map', t.map.join(':')]);
 
-			if (previousToken && previousToken.tag === 'li' && tag === 'p') {
-				// Markdown-it render list items as <li><p>Text<p></li> which makes it
-				// complicated to style and layout the HTML, so we remove this extra
-				// <p> here and below in closeTag.
-				openTag = null;
-			} else if (tag && t.type.indexOf('_open') >= 0) {
+			if (tag && t.type.indexOf('_open') >= 0) {
 				openTag = tag;
 			} else if (tag && t.type.indexOf('_close') >= 0) {
 				closeTag = tag;
@@ -185,33 +157,20 @@ class MdToHtml {
 				openTag = tag;
 			} else if (t.type === 'link_open') {
 				openTag = 'a';
-			} else if (isCodeBlock) {
-				openTag = 'pre';
 			}
 
 			if (openTag) {
 				if (openTag === 'a') {
-					anchorAttrs.push(attrs);
 					output.push(this.renderOpenLink_(attrs, options));
 				} else {
-					const attrsHtml = this.renderAttrs_(attrs);
+					const attrsHtml = attrs ? this.renderAttrs_(attrs) : '';
 					output.push('<' + openTag + (attrsHtml ? ' ' + attrsHtml : '') + '>');
 				}
-			}
-
-			if (isCodeBlock) {
-				const codeAttrs = ['code'];
-				if (t.info) codeAttrs.push(t.info); // t.info contains the language when the token is a codeblock
-				output.push('<code class="' + codeAttrs.join(' ') + '">');
 			}
 
 			if (t.type === 'image') {
 				if (t.content) attrs.push(['title', t.content]);
 				output.push(this.renderImage_(attrs, options));
-			} else if (t.type === 'softbreak') {
-				output.push('<br/>');
-			} else if (t.type === 'hr') {
-				output.push('<hr/>');
 			} else {
 				if (t.children) {
 					const parsedChildren = this.renderTokens_(t.children, options);
@@ -223,27 +182,19 @@ class MdToHtml {
 				}
 			}
  
- 			if (nextToken && nextToken.tag === 'li' && t.tag === 'p') {
- 				closeTag = null;
- 			} else if (t.type === 'link_close') {
+			if (t.type === 'link_close') {
 				closeTag = 'a';
 			} else if (tag && t.type.indexOf('inline') >= 0) {
 				closeTag = openTag;
-			} else if (isCodeBlock) {
-				closeTag = openTag;
 			}
-
-			if (isCodeBlock) output.push('</code>');
 
 			if (closeTag) {
 				if (closeTag === 'a') {
-					output.push(this.renderCloseLink_(anchorAttrs.pop(), options));
+					output.push(this.renderCloseLink_(attrs, options));
 				} else {
 					output.push('</' + closeTag + '>');
 				}
-			}
-
-			previousToken = t;
+			}			
 		}
 		return output.join('');
 	}
@@ -251,15 +202,13 @@ class MdToHtml {
 	render(body, style, options = null) {
 		if (!options) options = {};
 		if (!options.postMessageSyntax) options.postMessageSyntax = 'postMessage';
-		if (!options.paddingBottom) options.paddingBottom = '0';
+
+		console.info(style);
 
 		const cacheKey = this.makeContentKey(this.loadedResources_, body, style, options);
 		if (this.cachedContentKey_ === cacheKey) return this.cachedContent_;
 
-		const md = new MarkdownIt({
-			breaks: true,
-			linkify: true,
-		});
+		const md = new MarkdownIt();
 		const env = {};
 
 		// Hack to make checkboxes clickable. Ideally, checkboxes should be parsed properly in
@@ -289,9 +238,8 @@ class MdToHtml {
 			let loopCount = 0;
 			while (renderedBody.indexOf('mJOPm') >= 0) {
 				renderedBody = renderedBody.replace(/mJOPmCHECKBOXm([A-Z]+)m(\d+)m/, function(v, type, index) {
-
-					const js = options.postMessageSyntax + "('checkboxclick:" + type + ':' + index + "'); this.classList.contains('tick') ? this.classList.remove('tick') : this.classList.add('tick'); return false;";
-					return '<a href="#" onclick="' + js + '" class="checkbox ' + (type == 'NOTICK' ? '' : 'tick') + '"><span>' + '' + '</span></a>';
+					const js = options.postMessageSyntax + "('checkboxclick:" + type + ':' + index + "'); this.textContent = this.textContent == '☐' ? '☑' : '☐'; return false;";
+					return '<a href="#" onclick="' + js + '" class="checkbox">' + (type == 'NOTICK' ? '☐' : '☑') + '</a>';
 				});
 				if (loopCount++ >= 9999) break;
 			}
@@ -312,21 +260,16 @@ class MdToHtml {
 				line-height: ` + style.htmlLineHeight + `;
 				background-color: ` + style.htmlBackgroundColor + `;
 				font-family: sans-serif;
-				padding-bottom: ` + options.paddingBottom + `;
 			}
-			p, h1, h2, h3, h4, h5, h6, ul, table {
-				margin-top: 0;
+			p, h1, h2, h3, h4, ul {
+				margin-top: 14px;
 				margin-bottom: 14px;
 			}
 			h1 {
-				font-size: 1.5em;
-				font-weight: bold;
-			}
-			h2 {
 				font-size: 1.2em;
 				font-weight: bold;
 			}
-			h3, h4, h5, h6 {
+			h2 {
 				font-size: 1em;
 				font-weight: bold;
 			}
@@ -334,24 +277,14 @@ class MdToHtml {
 				color: ` + style.htmlLinkColor + `
 			}
 			ul {
-				padding-left: 1.3em;
+				padding-left: 1em;
 			}
 			a.checkbox {
-				display: inline-block;
+				font-size: 1.6em;
 				position: relative;
-				top: .5em;
+				top: 0.1em;
 				text-decoration: none;
-				width: 1.65em; /* Need to cut a bit the right border otherwise the SVG will display a black line */
-				height: 1.7em;
-				margin-right: .3em;
-				background-color:  ` + style.htmlColor + `;
-				/* Awesome Font square-o */
-				-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1792 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1312 256h-832q-66 0-113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113-47t47-113v-832q0-66-47-113t-113-47zm288 160v832q0 119-84.5 203.5t-203.5 84.5h-832q-119 0-203.5-84.5t-84.5-203.5v-832q0-119 84.5-203.5t203.5-84.5h832q119 0 203.5 84.5t84.5 203.5z'/></svg>");
-			}
-			a.checkbox.tick {
-				left: .1245em; /* square-o and check-square-o aren't exactly aligned so add this extra gap to align them  */
-				/* Awesome Font check-square-o */
-				-webkit-mask: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1792 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1472 930v318q0 119-84.5 203.5t-203.5 84.5h-832q-119 0-203.5-84.5t-84.5-203.5v-832q0-119 84.5-203.5t203.5-84.5h832q63 0 117 25 15 7 18 23 3 17-9 29l-49 49q-10 10-23 10-3 0-9-2-23-6-45-6h-832q-66 0-113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113-47t47-113v-254q0-13 9-22l64-64q10-10 23-10 6 0 12 3 20 8 20 29zm231-489l-814 814q-24 24-57 24t-57-24l-430-430q-24-24-24-57t24-57l110-110q24-24 57-24t57 24l263 263 647-647q24-24 57-24t57 24l110 110q24 24 24 57t-24 57z'/></svg>");
+				color: ` + style.htmlColor + `;
 			}
 			table {
 				border-collapse: collapse;
@@ -361,19 +294,16 @@ class MdToHtml {
 				padding: .5em 1em .5em 1em;
 			}
 			hr {
-				border: none;
-				border-bottom: 1px solid ` + style.htmlDividerColor + `;
+				border: 1px solid ` + style.htmlDividerColor + `;
 			}
 			img {
-				width: auto;
-				max-width: 100%;
+				width: 100%;
 			}
 		`;
 
 		const styleHtml = '<style>' + normalizeCss + "\n" + css + '</style>';
 
 		const output = styleHtml + renderedBody;
-
 		this.cachedContent_ = output;
 		this.cachedContentKey_ = cacheKey;
 		return this.cachedContent_;

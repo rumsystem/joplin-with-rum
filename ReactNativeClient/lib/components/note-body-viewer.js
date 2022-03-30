@@ -1,8 +1,7 @@
 const React = require('react'); const Component = React.Component;
-const { Platform, WebView, View, Linking } = require('react-native');
+const { WebView, View, Linking } = require('react-native');
 const { globalStyle } = require('lib/components/global-style.js');
 const { Resource } = require('lib/models/resource.js');
-const { Setting } = require('lib/models/setting.js');
 const { reg } = require('lib/registry.js');
 const MdToHtml = require('lib/MdToHtml.js');
 
@@ -19,7 +18,7 @@ class NoteBodyViewer extends Component {
 	}
 
 	componentWillMount() {
-		this.mdToHtml_ = new MdToHtml({ supportsResourceLinks: false });
+		this.mdToHtml_ = new MdToHtml();
 		this.isMounted_ = true;
 	}
 
@@ -48,49 +47,18 @@ class NoteBodyViewer extends Component {
 			onResourceLoaded: () => {
 				this.forceUpdate();
 			},
-			paddingBottom: '3.8em', // Extra bottom padding to make it possible to scroll past the action button (so that it doesn't overlap the text)
 		};
 
 		const html = this.mdToHtml_.render(note ? note.body : '', this.props.webViewStyle, mdOptions);
 
 		let webViewStyle = {}
-		// On iOS, the onLoadEnd() event is never fired so always
-		// display the webview (don't do the little trick
-		// to avoid the white flash).
-		if (Platform.OS !== 'ios') {
-			webViewStyle.opacity = this.state.webViewLoaded ? 1 : 0.01;
-		}
-
-		// On iOS scalesPageToFit work like this:
-		//
-		// Find the widest image, resize it *and everything else* by x% so that
-		// the image fits within the viewport. The problem is that it means if there's
-		// a large image, everything is going to be scaled to a very small size, making
-		// the text unreadable.
-		//
-		// On Android:
-		//
-		// Find the widest elements and scale them (and them only) to fit within the viewport
-		// It means it's going to scale large images, but the text will remain at the normal
-		// size.
-		//
-		// That means we can use scalesPageToFix on Android but not on iOS.
-		// The weird thing is that on iOS, scalesPageToFix=false along with a CSS
-		// rule "img { max-width: 100% }", works like scalesPageToFix=true on Android.
-		// So we use scalesPageToFix=false on iOS along with that CSS rule.
-
-		// `baseUrl` is where the images will be loaded from. So images must use a path relative to resourceDir.
-		const source = {
-			html: html,
-			baseUrl: 'file://' + Setting.value('resourceDir') + '/',
-		};
+		webViewStyle.opacity = this.state.webViewLoaded ? 1 : 0.01;
 
 		return (
 			<View style={style}>
 				<WebView
-					scalesPageToFit={Platform.OS !== 'ios'}
 					style={webViewStyle}
-					source={source}
+					source={{ html: html }}
 					onLoadEnd={() => this.onLoadEnd()}
 					onError={(e) => reg.logger().error('WebView error', e) }
 					onMessage={(event) => {
