@@ -9,18 +9,6 @@ const { _ } = require('lib/locale.js');
 
 class ConfigScreenComponent extends React.Component {
 
-	constructor() {
-		super();
-
-		this.state = {
-			settings: {},
-		};
-	}
-
-	componentWillMount() {
-		this.setState({ settings: this.props.settings });
-	}
-
 	settingToComponent(key, value) {
 		const theme = themeStyle(this.props.theme);
 
@@ -40,9 +28,7 @@ class ConfigScreenComponent extends React.Component {
 		};
 
 		const updateSettingValue = (key, value) => {
-			const settings = Object.assign({}, this.state.settings);
-			settings[key] = value;
-			this.setState({ settings: settings });
+			Setting.setValue(key, value);
 		}
 
 		// Component key needs to be key+value otherwise it doesn't update when the settings change.
@@ -66,53 +52,22 @@ class ConfigScreenComponent extends React.Component {
 				</div>
 			);
 		} else if (md.type === Setting.TYPE_BOOL) {
-			const onCheckboxClick = (event) => {
-				updateSettingValue(key, !value)
-			}
-
 			return (
 				<div key={key+value} style={rowStyle}>
 					<div style={controlStyle}>
-						<input id={'setting_checkbox_' + key} type="checkbox" defaultChecked={!!value} onChange={(event) => { onCheckboxClick(event) }}/><label onClick={(event) => { onCheckboxClick(event) }} style={labelStyle} htmlFor={'setting_checkbox_' + key}>{md.label()}</label>
+						<label><input type="checkbox" defaultChecked={!!value} onChange={(event) => { updateSettingValue(key, !!event.target.checked) }}/><span style={labelStyle}> {md.label()}</span></label>
 					</div>
 				</div>
 			);
-		} else if (md.type === Setting.TYPE_STRING) {
-			const onTextChange = (event) => {
-				const settings = Object.assign({}, this.state.settings);
-				settings[key] = event.target.value;
-				this.setState({ settings: settings });
-			}
-
-			return (
-				<div key={key+value} style={rowStyle}>
-					<div style={labelStyle}><label>{md.label()}</label></div>
-					<input type="text" style={controlStyle} value={this.state.settings[key]} onChange={(event) => {onTextChange(event)}} />
-				</div>
-			);
-		} else {
-			console.warn('Type not implemented: ' + key);
 		}
 
 		return output;
 	}
 
-	onSaveClick() {
-		for (let n in this.state.settings) {
-			if (!this.state.settings.hasOwnProperty(n)) continue;
-			Setting.setValue(n, this.state.settings[n]);
-		}
-		this.props.dispatch({ type: 'NAV_BACK' });
-	}
-
-	onCancelClick() {
-		this.props.dispatch({ type: 'NAV_BACK' });
-	}
-
 	render() {
 		const theme = themeStyle(this.props.theme);
 		const style = this.props.style;
-		const settings = this.state.settings;
+		const settings = this.props.settings;
 
 		const headerStyle = {
 			width: style.width,
@@ -122,21 +77,15 @@ class ConfigScreenComponent extends React.Component {
 			padding: 10,
 		};
 
-		const buttonStyle = {
-			display: this.state.settings === this.props.settings ? 'none' : 'inline-block',
-			marginRight: 10,
-		}
-
 		let settingComps = [];
 		let keys = Setting.keys(true, 'desktop');
 		for (let i = 0; i < keys.length; i++) {
 			const key = keys[i];
+			if (key === 'sync.target') continue;
 			if (!(key in settings)) {
 				console.warn('Missing setting: ' + key);
 				continue;
 			}
-			const md = Setting.settingMetadata(key);
-			if (md.show && !md.show(settings)) continue;
 			const comp = this.settingToComponent(key, settings[key]);
 			if (!comp) continue;
 			settingComps.push(comp);
@@ -147,8 +96,6 @@ class ConfigScreenComponent extends React.Component {
 				<Header style={headerStyle} />
 				<div style={containerStyle}>
 					{ settingComps }
-					<button onClick={() => {this.onSaveClick()}} style={buttonStyle}>{_('Save')}</button>
-					<button onClick={() => {this.onCancelClick()}} style={buttonStyle}>{_('Cancel')}</button>
 				</div>
 			</div>
 		);
