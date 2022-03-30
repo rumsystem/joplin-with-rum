@@ -321,6 +321,9 @@ class AppGui {
 			action: async () => {
 				if (this.widget('folderList').hasFocus) {
 					const item = this.widget('folderList').selectedJoplinItem;
+
+					if (!item) return;
+
 					if (item.type_ === BaseModel.TYPE_FOLDER) {
 						await this.processCommand('rmbook ' + item.id);
 					} else if (item.type_ === BaseModel.TYPE_TAG) {
@@ -337,6 +340,10 @@ class AppGui {
 					this.stdout(_('Please select the note or notebook to be deleted first.'));
 				}
 			}
+		};
+
+		shortcuts['BACKSPACE'] = {
+			alias: 'DELETE',
 		};
 
 		shortcuts[' '] = {
@@ -519,22 +526,22 @@ class AppGui {
 			return;
 		}	
 
-		try {			
-			let note = this.widget('noteList').currentItem;
-			let folder = this.widget('folderList').currentItem;
-			let args = splitCommandString(cmd);
+		let note = this.widget('noteList').currentItem;
+		let folder = this.widget('folderList').currentItem;
+		let args = splitCommandString(cmd);
 
-			for (let i = 0; i < args.length; i++) {
-				if (args[i] == '$n') {
-					args[i] = note ? note.id : '';
-				} else if (args[i] == '$b') {
-					args[i] = folder ? folder.id : '';
-				} else  if (args[i] == '$c') {
-					const item = this.activeListItem();
-					args[i] = item ? item.id : '';
-				}
+		for (let i = 0; i < args.length; i++) {
+			if (args[i] == '$n') {
+				args[i] = note ? note.id : '';
+			} else if (args[i] == '$b') {
+				args[i] = folder ? folder.id : '';
+			} else  if (args[i] == '$c') {
+				const item = this.activeListItem();
+				args[i] = item ? item.id : '';
 			}
+		}
 
+		try {
 			await this.app().execCommand(args);
 		} catch (error) {
 			this.stdout(error.message);
@@ -765,7 +772,10 @@ class AppGui {
 				// -------------------------------------------------------------------------
 
 				const shortcutKey = this.currentShortcutKeys_.join('');
-				const cmd = shortcutKey in this.shortcuts_ ? this.shortcuts_[shortcutKey] : null;
+				let cmd = shortcutKey in this.shortcuts_ ? this.shortcuts_[shortcutKey] : null;
+
+				// If this command is an alias to another command, resolve to the actual command
+				if (cmd && cmd.alias) cmd = this.shortcuts_[cmd.alias];
 
 				let processShortcutKeys = !this.app().currentCommand() && cmd;
 				if (cmd && cmd.canRunAlongOtherCommands) processShortcutKeys = true;

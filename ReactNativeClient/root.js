@@ -274,7 +274,6 @@ async function initialize(dispatch, backButtonHandler) {
 	mainLogger.setLevel(Logger.LEVEL_DEBUG);
 
 	reg.setLogger(mainLogger);
-	reg.setShowErrorMessageBoxHandler((message) => { alert(message) });
 
 	reg.logger().info('====================================');
 	reg.logger().info('Starting application ' + Setting.value('appId') + ' (' + Setting.value('env') + ')');
@@ -311,7 +310,7 @@ async function initialize(dispatch, backButtonHandler) {
 		if (Setting.value('env') == 'prod') {
 			await db.open({ name: 'joplin.sqlite' })
 		} else {
-			await db.open({ name: 'joplin-68.sqlite' })
+			await db.open({ name: 'joplin-67.sqlite' })
 			//await db.open({ name: 'joplin-67.sqlite' })
 
 			// await db.exec('DELETE FROM notes');
