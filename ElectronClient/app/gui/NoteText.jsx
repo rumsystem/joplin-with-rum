@@ -319,18 +319,12 @@ class NoteTextComponent extends React.Component {
 
 			await this.saveIfNeeded();
 			const note = await Note.load(noteId);
+			const newNote = await shim.attachFileToNote(note, filePaths[0]);
 
-			try {
-				reg.logger().info('Attaching ' + filePaths[0]);
-				const newNote = await shim.attachFileToNote(note, filePaths[0]);
-				reg.logger().info('File was attached.');
-				this.setState({
-					note: newNote,
-					lastSavedNote: Object.assign({}, newNote),
-				});
-			} catch (error) {
-				reg.logger().error(error);
-			}
+			this.setState({
+				note: newNote,
+				lastSavedNote: Object.assign({}, newNote),
+			});
 		}}));
 
 		menu.popup(bridge().window());

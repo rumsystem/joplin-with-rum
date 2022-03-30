@@ -1,6 +1,6 @@
 {
   "name": "Joplin",
-  "version": "0.10.20",
+  "version": "0.10.19",
   "description": "Joplin for Desktop",
   "main": "main.js",
   "scripts": {
@@ -26,11 +26,7 @@
       "icon": "../../Assets/Joplin.ico"
     },
     "mac": {
-      "icon": "../../Assets/macOs.icns",
-      "asar": false
-    },
-    "linux": {
-      "asar": false
+      "icon": "../../Assets/macOs.icns"
     }
   },
   "homepage": "https://github.com/laurent22/joplin#readme",
