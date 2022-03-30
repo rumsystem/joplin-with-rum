@@ -1,12 +1,13 @@
 require('app-module-path').addPath(__dirname);
 
 const { time } = require('lib/time-utils.js');
-const { setupDatabase, setupDatabaseAndSynchronizer, db, synchronizer, fileApi, sleep, clearDatabase, switchClient, syncTargetId } = require('test-utils.js');
+const { setupDatabase, setupDatabaseAndSynchronizer, db, synchronizer, fileApi, sleep, clearDatabase, switchClient, syncTargetId, encryptionService, loadEncryptionMasterKey } = require('test-utils.js');
 const { Folder } = require('lib/models/folder.js');
 const { Note } = require('lib/models/note.js');
 const { Tag } = require('lib/models/tag.js');
 const { Database } = require('lib/database.js');
 const { Setting } = require('lib/models/setting.js');
+const MasterKey = require('lib/models/MasterKey');
 const { BaseItem } = require('lib/models/base-item.js');
 const { BaseModel } = require('lib/base-model.js');
 const SyncTargetRegistry = require('lib/SyncTargetRegistry.js');
@@ -497,7 +498,13 @@ describe('Synchronizer', function() {
 		done();
 	});
 
-	it('should sync tags', async (done) => {
+	async function shoudSyncTagTest(withEncryption) {
+		let masterKey = null;
+		if (withEncryption) {
+			Setting.setValue('encryption.enabled', true);
+			masterKey = await loadEncryptionMasterKey();
+		}
+
 		let f1 = await Folder.save({ title: "folder" });
 		let n1 = await Note.save({ title: "mynote" });
 		let n2 = await Note.save({ title: "mynote2" });
@@ -507,6 +514,12 @@ describe('Synchronizer', function() {
 		await switchClient(2);
 
 		await synchronizer().start();
+		if (withEncryption) {
+			const masterKey_2 = await MasterKey.load(masterKey.id);
+			await encryptionService().loadMasterKey(masterKey_2, '123456', true);
+			let t = await Tag.load(tag.id);
+			await Tag.decrypt(t);
+		}
 		let remoteTag = await Tag.loadByTitle(tag.title);
 		expect(!!remoteTag).toBe(true);
 		expect(remoteTag.id).toBe(tag.id);
@@ -532,7 +545,15 @@ describe('Synchronizer', function() {
 		noteIds = await Tag.noteIds(tag.id);
 		expect(noteIds.length).toBe(1);
 		expect(remoteNoteIds[0]).toBe(noteIds[0]);
+	}
 
+	it('should sync tags', async (done) => {
+		await shoudSyncTagTest(false);
+		done();
+	});
+
+	it('should sync encrypted tags', async (done) => {
+		await shoudSyncTagTest(true);
 		done();
 	});
 
@@ -569,13 +590,11 @@ describe('Synchronizer', function() {
 		done();
 	});
 
-	it('should not consider it is a conflict if neither the title nor body of the note have changed', async (done) => {
-		// That was previously a common conflict:
-		// - Client 1 mark todo as "done", and sync
-		// - Client 2 doesn't sync, mark todo as "done" todo. Then sync.
-		// In theory it is a conflict because the todo_completed dates are different
-		// but in practice it doesn't matter, we can just take the date when the
-		// todo was marked as "done" the first time.
+	async function ignorableNoteConflictTest(withEncryption) {
+		if (withEncryption) {
+			Setting.setValue('encryption.enabled', true);
+			await loadEncryptionMasterKey();
+		}
 
 		let folder1 = await Folder.save({ title: "folder1" });
 		let note1 = await Note.save({ title: "un", is_todo: 1, parent_id: folder1.id });
@@ -598,13 +617,36 @@ describe('Synchronizer', function() {
 		note2conf = await Note.load(note1.id);
 		await synchronizer().start();
 
-		let conflictedNotes = await Note.conflictedNotes();
-		expect(conflictedNotes.length).toBe(0);
+		if (!withEncryption) {
+			// That was previously a common conflict:
+			// - Client 1 mark todo as "done", and sync
+			// - Client 2 doesn't sync, mark todo as "done" todo. Then sync.
+			// In theory it is a conflict because the todo_completed dates are different
+			// but in practice it doesn't matter, we can just take the date when the
+			// todo was marked as "done" the first time.
 
-		let notes = await Note.all();
-		expect(notes.length).toBe(1);
-		expect(notes[0].id).toBe(note1.id);
-		expect(notes[0].todo_completed).toBe(note2.todo_completed);
+			let conflictedNotes = await Note.conflictedNotes();
+			expect(conflictedNotes.length).toBe(0);
+
+			let notes = await Note.all();
+			expect(notes.length).toBe(1);
+			expect(notes[0].id).toBe(note1.id);
+			expect(notes[0].todo_completed).toBe(note2.todo_completed);		
+		} else {
+			// If the notes are encrypted however it's not possible to do this kind of
+			// smart conflict resolving since we don't know the content, so in that
+			// case it's handled as a regular conflict.
+
+			let conflictedNotes = await Note.conflictedNotes();
+			expect(conflictedNotes.length).toBe(1);
+
+			let notes = await Note.all();
+			expect(notes.length).toBe(2);
+		}
+	}
+
+	it('should not consider it is a conflict if neither the title nor body of the note have changed', async (done) => {
+		await ignorableNoteConflictTest(false);
 
 		done();
 	});
@@ -629,12 +671,12 @@ describe('Synchronizer', function() {
 		done();
 	});
 
-	it('items should skip items that cannot be synced', async (done) => {
+	it('should skip items that cannot be synced', async (done) => {
 		let folder1 = await Folder.save({ title: "folder1" });
 		let note1 = await Note.save({ title: "un", is_todo: 1, parent_id: folder1.id });
 		const noteId = note1.id;
 		await synchronizer().start();
-		let disabledItems = await BaseItem.syncDisabledItems();
+		let disabledItems = await BaseItem.syncDisabledItems(syncTargetId());
 		expect(disabledItems.length).toBe(0);
 		await Note.save({ id: noteId, title: "un mod", });
 		synchronizer().debugFlags_ = ['cannotSync'];
@@ -651,8 +693,58 @@ describe('Synchronizer', function() {
 
 		await switchClient(1);
 
-		disabledItems = await BaseItem.syncDisabledItems();
+		disabledItems = await BaseItem.syncDisabledItems(syncTargetId());
 		expect(disabledItems.length).toBe(1);
+
+		done();
+	});
+
+	it('notes and folders should get encrypted when encryption is enabled', async (done) => {
+		Setting.setValue('encryption.enabled', true);
+		const masterKey = await loadEncryptionMasterKey();
+		let folder1 = await Folder.save({ title: "folder1" });
+		let note1 = await Note.save({ title: "un", body: 'to be encrypted', parent_id: folder1.id });
+		await synchronizer().start();
+		// After synchronisation, remote items should be encrypted but local ones remain plain text
+		note1 = await Note.load(note1.id);
+		expect(note1.title).toBe('un');
+
+		await switchClient(2);
+
+		await synchronizer().start();
+		let folder1_2 = await Folder.load(folder1.id);
+		let note1_2 = await Note.load(note1.id);
+		let masterKey_2 = await MasterKey.load(masterKey.id);
+		// On this side however it should be received encrypted
+		expect(!note1_2.title).toBe(true);
+		expect(!folder1_2.title).toBe(true);
+		expect(!!note1_2.encryption_cipher_text).toBe(true);
+		expect(!!folder1_2.encryption_cipher_text).toBe(true);
+		// Master key is already encrypted so it does not get re-encrypted during sync
+		expect(masterKey_2.content).toBe(masterKey.content);
+		expect(masterKey_2.checksum).toBe(masterKey.checksum);
+		// Now load the master key we got from client 1 and try to decrypt
+		await encryptionService().loadMasterKey(masterKey_2, '123456', true);
+		// Get the decrypted items back
+		await Folder.decrypt(folder1_2);
+		await Note.decrypt(note1_2);
+		folder1_2 = await Folder.load(folder1.id);
+		note1_2 = await Note.load(note1.id);
+		// Check that properties match the original items. Also check
+		// the encryption did not affect the updated_time timestamp.
+		expect(note1_2.title).toBe(note1.title);
+		expect(note1_2.body).toBe(note1.body);
+		expect(note1_2.updated_time).toBe(note1.updated_time);
+		expect(!note1_2.encryption_cipher_text).toBe(true);
+		expect(folder1_2.title).toBe(folder1.title);
+		expect(folder1_2.updated_time).toBe(folder1.updated_time);
+		expect(!folder1_2.encryption_cipher_text).toBe(true);
+
+		done();
+	});
+
+	it('should always handle conflict if local or remote are encrypted', async (done) => {
+		await ignorableNoteConflictTest(true);
 
 		done();
 	});
