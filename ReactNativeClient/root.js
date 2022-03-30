@@ -1,5 +1,5 @@
 const React = require('react'); const Component = React.Component;
-const { Keyboard, NativeModules } = require('react-native');
+const { Keyboard, NativeModules, PushNotificationIOS } = require('react-native');
 const { connect, Provider } = require('react-redux');
 const { BackButtonService } = require('lib/services/back-button.js');
 const { createStore, applyMiddleware } = require('redux');
@@ -37,10 +37,11 @@ const { _, setLocale, closestSupportedLocale, defaultLocale } = require('lib/loc
 const RNFetchBlob = require('react-native-fetch-blob').default;
 const { PoorManIntervals } = require('lib/poor-man-intervals.js');
 const { reducer, defaultState } = require('lib/reducer.js');
+const PushNotification = require('react-native-push-notification');
+
 const SyncTargetRegistry = require('lib/SyncTargetRegistry.js');
 const SyncTargetOneDrive = require('lib/SyncTargetOneDrive.js');
 const SyncTargetOneDriveDev = require('lib/SyncTargetOneDriveDev.js');
-
 SyncTargetRegistry.addClass(SyncTargetOneDrive);
 SyncTargetRegistry.addClass(SyncTargetOneDriveDev);
 
@@ -363,6 +364,26 @@ async function initialize(dispatch, backButtonHandler) {
 	} else {
 		reg.scheduleSync();
 	}
+
+
+	reg.logger().info('Scheduling iOS notification');
+
+	PushNotificationIOS.scheduleLocalNotification({
+		alertTitle: "From Joplin",
+		alertBody : "Testing notification on iOS",
+		fireDate: new Date(Date.now() + (10 * 1000)),
+	});
+
+
+
+	// const r = PushNotification.localNotificationSchedule({
+	// 	id: '222456',
+	// 	message: "My Notification Message", // (required)
+	// 	date: new Date(Date.now() + (10 * 1000)) // in 60 secs
+	// });
+
+	//PushNotification.cancelLocalNotifications({ id: '222456' });
+
 
 	reg.logger().info('Application initialized');
 }
