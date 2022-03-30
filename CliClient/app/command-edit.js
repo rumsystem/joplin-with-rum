@@ -3,10 +3,10 @@ const { BaseCommand } = require('./base-command.js');
 const { uuid } = require('lib/uuid.js');
 const { app } = require('./app.js');
 const { _ } = require('lib/locale.js');
-const Folder = require('lib/models/Folder.js');
-const Note = require('lib/models/Note.js');
-const Setting = require('lib/models/Setting.js');
-const BaseModel = require('lib/BaseModel.js');
+const { Folder } = require('lib/models/folder.js');
+const { Note } = require('lib/models/note.js');
+const { Setting } = require('lib/models/setting.js');
+const { BaseModel } = require('lib/base-model.js');
 const { cliUtils } = require('./cli-utils.js');
 const { time } = require('lib/time-utils.js');
 
@@ -43,8 +43,6 @@ class Command extends BaseCommand {
 
 			if (!app().currentFolder()) throw new Error(_('No active notebook.'));
 			let note = await app().loadItem(BaseModel.TYPE_NOTE, title);
-
-			this.encryptionCheck(note);
 
 			if (!note) {
 				const ok = await this.prompt(_('Note does not exist: "%s". Create it?', title));

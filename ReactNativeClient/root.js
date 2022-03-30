@@ -12,16 +12,15 @@ const { Log } = require('lib/log.js');
 const { time } = require('lib/time-utils.js');
 const { AppNav } = require('lib/components/app-nav.js');
 const { Logger } = require('lib/logger.js');
-const Note = require('lib/models/Note.js');
-const Folder = require('lib/models/Folder.js');
+const { Note } = require('lib/models/note.js');
+const { Folder } = require('lib/models/folder.js');
 const BaseSyncTarget = require('lib/BaseSyncTarget.js');
 const { FoldersScreenUtils } = require('lib/folders-screen-utils.js');
-const Resource = require('lib/models/Resource.js');
-const Tag = require('lib/models/Tag.js');
-const NoteTag = require('lib/models/NoteTag.js');
-const BaseItem = require('lib/models/BaseItem.js');
-const MasterKey = require('lib/models/MasterKey.js');
-const BaseModel = require('lib/BaseModel.js');
+const { Resource } = require('lib/models/resource.js');
+const { Tag } = require('lib/models/tag.js');
+const { NoteTag } = require('lib/models/note-tag.js');
+const { BaseItem } = require('lib/models/base-item.js');
+const { BaseModel } = require('lib/base-model.js');
 const { JoplinDatabase } = require('lib/joplin-database.js');
 const { Database } = require('lib/database.js');
 const { NotesScreen } = require('lib/components/screens/notes.js');
@@ -33,7 +32,7 @@ const { StatusScreen } = require('lib/components/screens/status.js');
 const { WelcomeScreen } = require('lib/components/screens/welcome.js');
 const { SearchScreen } = require('lib/components/screens/search.js');
 const { OneDriveLoginScreen } = require('lib/components/screens/onedrive-login.js');
-const Setting = require('lib/models/Setting.js');
+const { Setting } = require('lib/models/setting.js');
 const { MenuContext } = require('react-native-popup-menu');
 const { SideMenu } = require('lib/components/side-menu.js');
 const { SideMenuContent } = require('lib/components/side-menu-content.js');
@@ -305,7 +304,6 @@ async function initialize(dispatch) {
 	BaseItem.loadClass('Resource', Resource);
 	BaseItem.loadClass('Tag', Tag);
 	BaseItem.loadClass('NoteTag', NoteTag);
-	BaseItem.loadClass('MasterKey', MasterKey);
 
 	AlarmService.setDriver(new AlarmServiceDriver());
 	AlarmService.setLogger(mainLogger);
@@ -351,7 +349,7 @@ async function initialize(dispatch) {
 
 		dispatch({
 			type: 'TAG_UPDATE_ALL',
-			items: tags,
+			tags: tags,
 		});
 
 		let folderId = Setting.value('activeFolderId');

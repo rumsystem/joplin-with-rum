@@ -2,10 +2,10 @@ const React = require('react');
 const { connect } = require('react-redux');
 const shared = require('lib/components/shared/side-menu-shared.js');
 const { Synchronizer } = require('lib/synchronizer.js');
-const BaseModel = require('lib/BaseModel.js');
-const Folder = require('lib/models/Folder.js');
-const Note = require('lib/models/Note.js');
-const Tag = require('lib/models/Tag.js');
+const { BaseModel } = require('lib/base-model.js');
+const { Folder } = require('lib/models/folder.js');
+const { Note } = require('lib/models/note.js');
+const { Tag } = require('lib/models/tag.js');
 const { _ } = require('lib/locale.js');
 const { themeStyle } = require('../theme.js');
 const { bridge } = require('electron').remote.require('./bridge');
@@ -98,7 +98,7 @@ class SideBarComponent extends React.Component {
 
 		let deleteMessage = '';
 		if (itemType === BaseModel.TYPE_FOLDER) {
-			deleteMessage = _('Delete notebook? All notes within this notebook will also be deleted.');
+			deleteMessage = _('Delete notebook?');
 		} else if (itemType === BaseModel.TYPE_TAG) {
 			deleteMessage = _('Remove this tag from all the notes?');
 		} else if (itemType === BaseModel.TYPE_SEARCH) {
@@ -106,11 +106,6 @@ class SideBarComponent extends React.Component {
 		}
 
 		const menu = new Menu();
-
-		let item = null;
-		if (itemType === BaseModel.TYPE_FOLDER) {
-			item = BaseModel.byId(this.props.folders, itemId);
-		}
 
 		menu.append(new MenuItem({label: _('Delete'), click: async () => {
 			const ok = bridge().showConfirmMessageBox(deleteMessage);
@@ -128,11 +123,11 @@ class SideBarComponent extends React.Component {
 			}
 		}}))
 
-		if (itemType === BaseModel.TYPE_FOLDER && !item.encryption_applied) {
+		if (itemType === BaseModel.TYPE_FOLDER) {
 			menu.append(new MenuItem({label: _('Rename'), click: async () => {
 				this.props.dispatch({
 					type: 'WINDOW_COMMAND',
-					name: 'renameFolder',
+					name: 'renameNotebook',
 					id: itemId,
 				});
 			}}))
@@ -185,8 +180,6 @@ class SideBarComponent extends React.Component {
 			}
 		}
 
-		const itemTitle = Folder.displayTitle(folder);
-
 		return <a
 			className="list-item"
 			onDragOver={(event) => { onDragOver(event, folder) } }
@@ -196,14 +189,14 @@ class SideBarComponent extends React.Component {
 			data-type={BaseModel.TYPE_FOLDER}
 			onContextMenu={(event) => this.itemContextMenu(event)}
 			key={folder.id}
-			style={style} onClick={() => {this.folderItem_click(folder)}}>{itemTitle}
+			style={style} onClick={() => {this.folderItem_click(folder)}}>{folder.title}
 		</a>
 	}
 
 	tagItem(tag, selected) {
 		let style = Object.assign({}, this.style().listItem);
 		if (selected) style = Object.assign(style, this.style().listItemSelected);
-		return <a className="list-item" href="#" data-id={tag.id} data-type={BaseModel.TYPE_TAG} onContextMenu={(event) => this.itemContextMenu(event)} key={tag.id} style={style} onClick={() => {this.tagItem_click(tag)}}>{Tag.displayTitle(tag)}</a>
+		return <a className="list-item" href="#" data-id={tag.id} data-type={BaseModel.TYPE_TAG} onContextMenu={(event) => this.itemContextMenu(event)} key={tag.id} style={style} onClick={() => {this.tagItem_click(tag)}}>{tag.title}</a>
 	}
 
 	searchItem(search, selected) {
