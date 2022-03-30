@@ -1,7 +1,7 @@
 const React = require('react');
-const { Note } = require('lib/models/note.js');
+const Note = require('lib/models/Note.js');
 const { time } = require('lib/time-utils.js');
-const { Setting } = require('lib/models/setting.js');
+const Setting = require('lib/models/Setting.js');
 const { IconButton } = require('./IconButton.min.js');
 const Toolbar = require('./Toolbar.min.js');
 const { connect } = require('react-redux');
@@ -425,7 +425,7 @@ class NoteTextComponent extends React.Component {
 
 		const innerWidth = rootStyle.width - rootStyle.paddingLeft - rootStyle.paddingRight - borderWidth;
 
-		if (!note) {
+		if (!note || !!note.encryption_applied) {
 			const emptyDivStyle = Object.assign({
 				backgroundColor: 'black',
 				opacity: 0.1,
