@@ -1,6 +1,5 @@
-const Note = require('lib/models/Note.js');
+const Note = require('lib/models/note.js').Note;
 const TextWidget = require('tkwidgets/TextWidget.js');
-const { _ } = require('lib/locale.js');
 
 class NoteWidget extends TextWidget {
 
@@ -33,15 +32,8 @@ class NoteWidget extends TextWidget {
 		this.reloadNote();
 	}
 
-	welcomeText() {
-		return _('Welcome to Joplin!\n\nType `:help shortcuts` for the list of keyboard shortcuts, or just `:help` for usage information.\n\nFor example, to create a notebook press `mb`; to create a note press `mn`.');
-	}
-
 	reloadNote() {
-		if (!this.noteId_ && !this.notes.length) {
-			this.text = this.welcomeText();
-			this.scrollTop = 0;
-		} else if (this.noteId_) {
+		if (this.noteId_) {
 			this.doAsync('loadNote', async () => {
 				this.note_ = await Note.load(this.noteId_);
 				this.text = this.note_ ? this.note_.title + "\n\n" + this.note_.body : '';
