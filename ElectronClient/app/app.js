@@ -276,10 +276,6 @@ class Application extends BaseApplication {
 	async start(argv) {
 		argv = await super.start(argv);
 
-		if (Setting.value('openDevTools')) {
-			bridge().window().webContents.openDevTools();
-		}
-
 		this.updateMenu('Main');
 
 		this.initRedux();

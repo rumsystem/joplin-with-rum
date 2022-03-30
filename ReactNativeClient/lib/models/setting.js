@@ -400,7 +400,6 @@ Setting.constants_ = {
 	resourceDir: '',
 	profileDir: '',
 	tempDir: '',
-	openDevTools: false,
 }
 
 module.exports = { Setting };
