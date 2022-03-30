@@ -1,7 +1,7 @@
-const moment = require('moment');
-const { _ } = require('lib/locale.js');
-const { time } = require('lib/time-utils.js');
-const { FsDriverDummy } = require('lib/fs-driver-dummy.js');
+import moment from 'moment';
+import { _ } from 'lib/locale.js';
+import { time } from 'lib/time-utils.js';
+import { FsDriverDummy } from 'lib/fs-driver-dummy.js';
 
 class Logger {
 
@@ -111,6 +111,8 @@ class Logger {
 			} else if (target.type == 'file') {
 				let serializedObject = this.objectsToString(...object);
 				Logger.fsDriver().appendFileSync(target.path, line + serializedObject + "\n");
+			} else if (target.type == 'vorpal') {
+				//target.vorpal.log(...object);
 			} else if (target.type == 'database') {
 				let msg = this.objectsToString(...object);
 
@@ -178,4 +180,4 @@ Logger.LEVEL_WARN = 20;
 Logger.LEVEL_INFO = 30;
 Logger.LEVEL_DEBUG = 40;
 
-module.exports = { Logger };
+export { Logger };

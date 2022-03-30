@@ -1,9 +1,8 @@
-const fs = require('fs-extra');
-const { shim } = require('lib/shim.js');
-const { GeolocationNode } = require('lib/geolocation-node.js');
-const { FileApiDriverLocal } = require('lib/file-api-driver-local.js');
-const { time } = require('lib/time-utils.js');
-const { setLocale, defaultLocale, closestSupportedLocale } = require('lib/locale.js');
+import fs from 'fs-extra';
+import { shim } from 'lib/shim.js';
+import { GeolocationNode } from 'lib/geolocation-node.js';
+import { FileApiDriverLocal } from 'lib/file-api-driver-local.js';
+import { time } from 'lib/time-utils.js';
 
 function fetchRequestCanBeRetried(error) {
 	if (!error) return false;
@@ -42,23 +41,7 @@ function shimInit() {
 	shim.Geolocation = GeolocationNode;
 	shim.FormData = require('form-data');
 
-	shim.detectAndSetLocale = function (Setting) {
-		let locale = process.env.LANG;
-		if (!locale) locale = defaultLocale();
-		locale = locale.split('.');
-		locale = locale[0];
-		locale = closestSupportedLocale(locale);
-		Setting.setValue('locale', locale);
-		setLocale(locale);
-		return locale;
-	}
-
 	const nodeFetch = require('node-fetch');
-
-	shim.readLocalFileBase64 = (path) => {
-		const data = fs.readFileSync(path);
-		return new Buffer(data).toString('base64');
-	}
 
 	shim.fetch = async function(url, options = null) {
 		if (!options) options = {};
@@ -161,4 +144,4 @@ function shimInit() {
 	}
 }
 
-module.exports = { shimInit };
+export { shimInit }

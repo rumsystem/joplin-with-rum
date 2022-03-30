@@ -34,4 +34,4 @@ function promiseWhile(callback) {
 	}, 100);
 }
 
-module.exports = { promiseChain, promiseWhile };
+export { promiseChain, promiseWhile }

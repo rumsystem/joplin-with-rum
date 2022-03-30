@@ -1,3 +1,3 @@
-const { main } = require('./main.js');
+import { main } from './main.js';
 
 main();

@@ -1,4 +1,4 @@
-const { BackHandler } = require('react-native');
+import { BackHandler } from 'react-native';
 
 class BackButtonService {
 
@@ -40,4 +40,4 @@ class BackButtonService {
 BackButtonService.defaultHandler_ = null;
 BackButtonService.handlers_ = [];
 
-module.exports = { BackButtonService };
+export { BackButtonService };

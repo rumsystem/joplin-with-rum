@@ -1,41 +1,41 @@
-const React = require('react'); const Component = React.Component;
-const { Keyboard, NativeModules } = require('react-native');
-const { connect, Provider } = require('react-redux');
-const { BackButtonService } = require('lib/services/back-button.js');
-const { createStore, applyMiddleware } = require('redux');
-const { shimInit } = require('lib/shim-init-react.js');
-const { Log } = require('lib/log.js');
-const { AppNav } = require('lib/components/app-nav.js');
-const { Logger } = require('lib/logger.js');
-const { Note } = require('lib/models/note.js');
-const { Folder } = require('lib/models/folder.js');
-const { FoldersScreenUtils } = require('lib/folders-screen-utils.js');
-const { Resource } = require('lib/models/resource.js');
-const { Tag } = require('lib/models/tag.js');
-const { NoteTag } = require('lib/models/note-tag.js');
-const { BaseItem } = require('lib/models/base-item.js');
-const { BaseModel } = require('lib/base-model.js');
-const { JoplinDatabase } = require('lib/joplin-database.js');
-const { Database } = require('lib/database.js');
-const { NotesScreen } = require('lib/components/screens/notes.js');
-const { NoteScreen } = require('lib/components/screens/note.js');
-const { ConfigScreen } = require('lib/components/screens/config.js');
-const { FolderScreen } = require('lib/components/screens/folder.js');
-const { LogScreen } = require('lib/components/screens/log.js');
-const { StatusScreen } = require('lib/components/screens/status.js');
-const { WelcomeScreen } = require('lib/components/screens/welcome.js');
-const { SearchScreen } = require('lib/components/screens/search.js');
-const { OneDriveLoginScreen } = require('lib/components/screens/onedrive-login.js');
-const { Setting } = require('lib/models/setting.js');
-const { MenuContext } = require('react-native-popup-menu');
-const { SideMenu } = require('lib/components/side-menu.js');
-const { SideMenuContent } = require('lib/components/side-menu-content.js');
-const { DatabaseDriverReactNative } = require('lib/database-driver-react-native');
-const { reg } = require('lib/registry.js');
-const { _, setLocale, closestSupportedLocale, defaultLocale } = require('lib/locale.js');
-const RNFetchBlob = require('react-native-fetch-blob').default;
-const { PoorManIntervals } = require('lib/poor-man-intervals.js');
-const { reducer, defaultState } = require('lib/reducer.js');
+import React, { Component } from 'react';
+import { Keyboard, NativeModules } from 'react-native';
+import { connect, Provider } from 'react-redux'
+import { BackButtonService } from 'lib/services/back-button.js';
+import { createStore, applyMiddleware } from 'redux';
+import { shimInit } from 'lib/shim-init-react.js';
+import { Log } from 'lib/log.js'
+import { AppNav } from 'lib/components/app-nav.js'
+import { Logger } from 'lib/logger.js'
+import { Note } from 'lib/models/note.js'
+import { Folder } from 'lib/models/folder.js'
+import { FoldersScreenUtils } from 'lib/folders-screen-utils.js';
+import { Resource } from 'lib/models/resource.js'
+import { Tag } from 'lib/models/tag.js'
+import { NoteTag } from 'lib/models/note-tag.js'
+import { BaseItem } from 'lib/models/base-item.js'
+import { BaseModel } from 'lib/base-model.js'
+import { JoplinDatabase } from 'lib/joplin-database.js'
+import { Database } from 'lib/database.js'
+import { NotesScreen } from 'lib/components/screens/notes.js'
+import { NoteScreen } from 'lib/components/screens/note.js'
+import { ConfigScreen } from 'lib/components/screens/config.js'
+import { FolderScreen } from 'lib/components/screens/folder.js'
+import { LogScreen } from 'lib/components/screens/log.js'
+import { StatusScreen } from 'lib/components/screens/status.js'
+import { WelcomeScreen } from 'lib/components/screens/welcome.js'
+import { SearchScreen } from 'lib/components/screens/search.js'
+import { OneDriveLoginScreen } from 'lib/components/screens/onedrive-login.js'
+import { Setting } from 'lib/models/setting.js'
+import { MenuContext } from 'react-native-popup-menu';
+import { SideMenu } from 'lib/components/side-menu.js';
+import { SideMenuContent } from 'lib/components/side-menu-content.js';
+import { DatabaseDriverReactNative } from 'lib/database-driver-react-native';
+import { reg } from 'lib/registry.js';
+import { _, setLocale, closestSupportedLocale, defaultLocale } from 'lib/locale.js';
+import RNFetchBlob from 'react-native-fetch-blob';
+import { PoorManIntervals } from 'lib/poor-man-intervals.js';
+import { reducer, defaultState } from 'lib/reducer.js';
 
 const generalMiddleware = store => next => async (action) => {
 	if (action.type !== 'SIDE_MENU_OPEN_PERCENT') reg.logger().info('Reducer action', action.type);
@@ -65,138 +65,7 @@ const generalMiddleware = store => next => async (action) => {
   	return result;
 }
 
-let navHistory = [];
-
-function historyCanGoBackTo(route) {
-	if (route.routeName == 'Note') return false;
-	if (route.routeName == 'Folder') return false;
-
-	return true;
-}
-
-const appDefaultState = Object.assign({}, defaultState, {
-	sideMenuOpenPercent: 0,
-	route: {
-		type: 'NAV_GO',
-		routeName: 'Welcome',
-		params: {},
-	},
-});
-
-const appReducer = (state = appDefaultState, action) => {
-	let newState = state;
-	let historyGoingBack = false;
-
-	try {
-		switch (action.type) {
-
-			case 'NAV_BACK':
-
-				if (!navHistory.length) break;
-
-				let newAction = null;
-				while (navHistory.length) {
-					newAction = navHistory.pop();
-					if (newAction.routeName != state.route.routeName) break;
-				}
-
-				action = newAction ? newAction : navHistory.pop();
-
-				historyGoingBack = true;
-
-				// Fall throught
-
-			case 'NAV_GO':
-
-				const currentRoute = state.route;
-				const currentRouteName = currentRoute ? currentRoute.routeName : '';
-
-				if (!historyGoingBack && historyCanGoBackTo(currentRoute)) {
-					// If the route *name* is the same (even if the other parameters are different), we
-					// overwrite the last route in the history with the current one. If the route name
-					// is different, we push a new history entry.
-					if (currentRoute.routeName == action.routeName) {
-						// nothing
-					} else {
-						navHistory.push(currentRoute);
-					}
-				}
-
-				// HACK: whenever a new screen is loaded, all the previous screens of that type
-				// are overwritten with the new screen parameters. This is because the way notes
-				// are currently loaded is not optimal (doesn't retain history properly) so
-				// this is a simple fix without doing a big refactoring to change the way notes
-				// are loaded. Might be good enough since going back to different folders
-				// is probably not a common workflow.
-				for (let i = 0; i < navHistory.length; i++) {
-					let n = navHistory[i];
-					if (n.routeName == action.routeName) {
-						navHistory[i] = Object.assign({}, action);
-					}
-				}
-
-				if (action.routeName == 'Welcome') navHistory = [];
-
-				//reg.logger().info('Route: ' + currentRouteName + ' => ' + action.routeName);
-
-				newState = Object.assign({}, state);
-
-				if ('noteId' in action) {
-					newState.selectedNoteId = action.noteId;
-				}
-
-				if ('folderId' in action) {
-					newState.selectedFolderId = action.folderId;
-					newState.notesParentType = 'Folder';
-				}
-
-				if ('tagId' in action) {
-					newState.selectedTagId = action.tagId;
-					newState.notesParentType = 'Tag';
-				}
-
-				if ('itemType' in action) {
-					newState.selectedItemType = action.itemType;
-				}
-
-				newState.route = action;
-				newState.historyCanGoBack = !!navHistory.length;
-				break;
-
-			case 'SIDE_MENU_TOGGLE':
-
-				newState = Object.assign({}, state);
-				newState.showSideMenu = !newState.showSideMenu
-				break;
-
-			case 'SIDE_MENU_OPEN':
-
-				newState = Object.assign({}, state);
-				newState.showSideMenu = true
-				break;
-
-			case 'SIDE_MENU_CLOSE':
-
-				newState = Object.assign({}, state);
-				newState.showSideMenu = false
-				break;
-
-			case 'SIDE_MENU_OPEN_PERCENT':
-
-				newState = Object.assign({}, state);
-				newState.sideMenuOpenPercent = action.value;
-				break;
-
-		}
-	} catch (error) {
-		error.message = 'In reducer: ' + error.message + ' Action: ' + JSON.stringify(action);
-		throw error;
-	}
-
-	return reducer(newState, action);
-}
-
-let store = createStore(appReducer, applyMiddleware(generalMiddleware));
+let store = createStore(reducer, applyMiddleware(generalMiddleware));
 
 async function initialize(dispatch, backButtonHandler) {
 	shimInit();
@@ -409,11 +278,11 @@ class AppComponent extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		historyCanGoBack: state.historyCanGoBack,
-		showSideMenu: state.showSideMenu,
-		syncStarted: state.syncStarted,
-		appState: state.appState,
-	};
+  		historyCanGoBack: state.historyCanGoBack,
+  		showSideMenu: state.showSideMenu,
+  		syncStarted: state.syncStarted,
+  		appState: state.appState,
+  	};
 };
 
 const App = connect(mapStateToProps)(AppComponent);
@@ -428,4 +297,4 @@ class Root extends React.Component {
 	}
 }
 
-module.exports = { Root };
+export { Root };

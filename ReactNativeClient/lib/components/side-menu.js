@@ -1,11 +1,11 @@
-const React = require('react'); const Component = React.Component;
-const { connect } = require('react-redux');
-const { Log } = require('lib/log.js');
-const SideMenu_ = require('react-native-side-menu').default;
+import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import { Log } from 'lib/log.js';
+import SideMenu_ from 'react-native-side-menu';
 
 class SideMenuComponent extends SideMenu_ {};
 
-const MySideMenu = connect(
+const SideMenu = connect(
 	(state) => {
 		return {
 			isOpen: state.showSideMenu,
@@ -13,4 +13,4 @@ const MySideMenu = connect(
 	}
 )(SideMenuComponent)
 
-module.exports = { SideMenu: MySideMenu };
+export { SideMenu };

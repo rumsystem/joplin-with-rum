@@ -1,7 +1,7 @@
-const moment = require('moment');
-const { time } = require('lib/time-utils.js');
-const { dirname, basename } = require('lib/path-utils.js');
-const { OneDriveApi } = require('lib/onedrive-api.js');
+import moment from 'moment';
+import { time } from 'lib/time-utils.js';
+import { dirname, basename } from 'lib/path-utils.js';
+import { OneDriveApi } from 'lib/onedrive-api.js';
 
 class FileApiDriverOneDrive {
 
@@ -274,4 +274,4 @@ class FileApiDriverOneDrive {
 
 }
 
-module.exports = { FileApiDriverOneDrive };
+export { FileApiDriverOneDrive };

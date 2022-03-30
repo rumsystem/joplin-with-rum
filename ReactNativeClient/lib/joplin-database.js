@@ -1,7 +1,7 @@
-const { uuid } = require('lib/uuid.js');
-const { promiseChain } = require('lib/promise-utils.js');
-const { time } = require('lib/time-utils.js');
-const { Database } = require('lib/database.js');
+import { uuid } from 'lib/uuid.js';
+import { promiseChain } from 'lib/promise-utils.js';
+import { time } from 'lib/time-utils.js'
+import { Database } from 'lib/database.js'
 
 const structureSql = `
 CREATE TABLE folders (
@@ -304,4 +304,4 @@ Database.TYPE_INT = 1;
 Database.TYPE_TEXT = 2;
 Database.TYPE_NUMERIC = 3;
 
-module.exports = { JoplinDatabase };
+export { JoplinDatabase };

@@ -1,4 +1,4 @@
-const { time } = require('lib/time-utils.js');
+import { time } from 'lib/time-utils.js';
 
 class PoorManIntervals {
 
@@ -53,4 +53,4 @@ PoorManIntervals.lastUpdateTime_ = 0;
 PoorManIntervals.intervalId_ = 0;
 PoorManIntervals.intervals_ = [];
 
-module.exports = { PoorManIntervals };
+export { PoorManIntervals }

@@ -1,6 +1,6 @@
-const React = require('react'); const Component = React.Component;
-const { StyleSheet, TouchableHighlight } = require('react-native');
-const Icon = require('react-native-vector-icons/Ionicons').default;
+import React, { Component } from 'react';
+import { StyleSheet, TouchableHighlight } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const styles = {
 	checkboxIcon: {
@@ -66,4 +66,4 @@ class Checkbox extends Component {
 
 }
 
-module.exports = { Checkbox };
+export { Checkbox };

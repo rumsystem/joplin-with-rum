@@ -18,7 +18,7 @@
     ],
     "owner": "Laurent Cozic"
   },
-  "version": "0.10.65",
+  "version": "0.10.66",
   "bin": {
     "joplin": "./main.js"
   },
@@ -27,10 +27,11 @@
   },
   "dependencies": {
     "app-module-path": "^2.2.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "cache-require-paths": "^0.3.0",
     "follow-redirects": "^1.2.4",
     "form-data": "^2.1.4",
     "fs-extra": "^3.0.1",
-    "html-entities": "^1.2.1",
     "jssha": "^2.3.0",
     "levenshtein": "^1.0.5",
     "lodash": "^4.17.4",
@@ -47,22 +48,34 @@
     "sax": "^1.2.2",
     "server-destroy": "^1.0.1",
     "sharp": "^0.18.4",
+    "source-map-support": "^0.4.15",
     "sprintf-js": "^1.1.1",
     "sqlite3": "^3.1.8",
     "string-padding": "^1.0.2",
     "string-to-stream": "^1.1.0",
     "strip-ansi": "^4.0.0",
     "tcp-port-used": "^0.1.2",
-    "tkwidgets": "^0.5.19",
+    "tkwidgets": "^0.5.20",
     "uuid": "^3.0.1",
     "word-wrap": "^1.2.3",
     "yargs-parser": "^7.0.0"
   },
   "devDependencies": {
+    "babel-changed": "^7.0.0",
+    "babel-cli": "^6.24.1",
+    "babel-plugin-syntax-async-functions": "^6.1.4",
+    "babel-plugin-transform-regenerator": "^6.1.4",
+    "babel-polyfill": "^6.1.4",
+    "babel-preset-env": "^1.5.1",
+    "babel-preset-es2015": "^6.1.4",
+    "babel-preset-react": "^6.24.1",
     "gettext-parser": "^1.2.2",
     "jasmine": "^2.6.0"
   },
   "scripts": {
-    "test": "jasmine"
+    "babelbuild": "babel app -d build",
+    "build": "babel-changed app -d build --source-maps && babel-changed app/lib/models -d build/lib/models --source-maps && babel-changed app/lib/services -d build/lib/services --source-maps",
+    "clean": "babel-changed --reset",
+    "test": "babel-changed tests -d tests-build --source-maps && jasmine"
   }
 }

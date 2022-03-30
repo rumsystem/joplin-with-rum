@@ -1,4 +1,4 @@
-const { shim } = require('lib/shim.js');
+import { shim } from 'lib/shim.js'
 
 const tcpPortUsed = require('tcp-port-used');
 
@@ -30,4 +30,4 @@ netUtils.findAvailablePort = async (possiblePorts, extraRandomPortsToTry = 20) =
 	return port;
 }
 
-module.exports = { netUtils };
+export { netUtils };

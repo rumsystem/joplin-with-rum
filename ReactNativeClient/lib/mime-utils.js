@@ -20,4 +20,4 @@ const mime = {
 
 }
 
-module.exports = { mime };
+export { mime };

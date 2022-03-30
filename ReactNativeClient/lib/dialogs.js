@@ -1,5 +1,5 @@
-const DialogBox = require('react-native-dialogbox').default;
-const { Keyboard } = require('react-native');
+import DialogBox from 'react-native-dialogbox';
+import { Keyboard } from 'react-native';
 
 // Add this at the bottom of the component:
 //
@@ -63,4 +63,4 @@ dialogs.error = (parentComponent, message) => {
 
 dialogs.DialogBox = DialogBox
 
-module.exports = { dialogs };
+export { dialogs };

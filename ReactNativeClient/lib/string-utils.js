@@ -122,4 +122,4 @@ function wrap(text, indent, width) {
 	});
 }
 
-module.exports = { removeDiacritics, escapeFilename, wrap };
+export { removeDiacritics, escapeFilename, wrap };

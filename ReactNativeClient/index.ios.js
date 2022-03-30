@@ -4,7 +4,7 @@
  * @flow
  */
 
-const React = require('react'); const Component = React.Component;
+import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
@@ -12,7 +12,7 @@ import {
   View
 } from 'react-native';
 
-module.exports = default class Joplin extends Component {;
+export default class Joplin extends Component {
   render() {
     return (
       <View style={styles.container}>

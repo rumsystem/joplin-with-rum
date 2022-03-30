@@ -1,7 +1,7 @@
-const { shim } = require('lib/shim.js');
-const { stringify } = require('query-string');
-const { time } = require('lib/time-utils.js');
-const { Logger } = require('lib/logger.js');
+import { shim } from 'lib/shim.js';
+import { stringify } from 'query-string';
+import { time } from 'lib/time-utils.js';
+import { Logger } from 'lib/logger.js'
 
 class OneDriveApi {
 
@@ -45,10 +45,6 @@ class OneDriveApi {
 
 	tokenBaseUrl() {
 		return 'https://login.microsoftonline.com/common/oauth2/v2.0/token';
-	}
-
-	nativeClientRedirectUrl() {
-		return 'https://login.microsoftonline.com/common/oauth2/nativeclient';
 	}
 
 	auth() {
@@ -291,4 +287,4 @@ class OneDriveApi {
 
 }
 
-module.exports = { OneDriveApi };
+export { OneDriveApi };

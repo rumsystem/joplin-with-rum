@@ -1,6 +1,6 @@
-const React = require('react'); const Component = React.Component;
-const { StyleSheet } = require('react-native');
-const { globalStyle, themeStyle } = require('lib/components/global-style.js');
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
+import { globalStyle, themeStyle } from 'lib/components/global-style.js';
 
 const styleObject_ = {
 	screen: {
@@ -37,4 +37,4 @@ class BaseScreenComponent extends React.Component {
 
 }
 
-module.exports = { BaseScreenComponent };
+export { BaseScreenComponent };

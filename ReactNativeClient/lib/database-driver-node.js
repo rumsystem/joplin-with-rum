@@ -69,4 +69,4 @@ class DatabaseDriverNode {
 
 }
 
-module.exports = { DatabaseDriverNode };
+export { DatabaseDriverNode };
