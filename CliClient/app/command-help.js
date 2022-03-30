@@ -26,8 +26,6 @@ class Command extends BaseCommand {
 			output.push(renderCommandHelp(command));
 		}
 
-		output.sort();
-
 		this.log(output.join("\n\n"));
 	}
 

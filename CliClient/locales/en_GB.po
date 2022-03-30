@@ -123,9 +123,6 @@ msgstr ""
 msgid "Displays a geolocation URL for the note."
 msgstr ""
 
-msgid "Displays usage information."
-msgstr ""
-
 msgid "Imports an Evernote notebook file (.enex file)."
 msgstr ""
 
@@ -244,13 +241,6 @@ msgid "Synchronisation is already in progress."
 msgstr ""
 
 #, javascript-format
-msgid ""
-"Lock file is already being hold. If you know that no synchronisation is "
-"taking place, you may delete the lock file at \"%s\" and resume the "
-"operation."
-msgstr ""
-
-#, javascript-format
 msgid "Synchronisation target: %s (%s)"
 msgstr ""
 
@@ -263,7 +253,7 @@ msgstr ""
 msgid "Done."
 msgstr ""
 
-msgid "Cancelling... Please wait."
+msgid "Cancelling..."
 msgstr ""
 
 msgid ""
@@ -293,10 +283,6 @@ msgstr ""
 
 #, javascript-format
 msgid "%s %s (%s)"
-msgstr ""
-
-#, javascript-format
-msgid "Received %s"
 msgstr ""
 
 msgid "Fatal error:"
@@ -352,9 +338,6 @@ msgstr ""
 
 #, javascript-format
 msgid "Last error: %s (stacktrace in log)."
-msgstr ""
-
-msgid "Cancelling..."
 msgstr ""
 
 #, javascript-format

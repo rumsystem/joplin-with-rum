@@ -5,6 +5,7 @@ import { BaseModel } from 'lib/base-model.js';
 import { Folder } from 'lib/models/folder.js';
 import { Setting } from 'lib/models/setting.js';
 import { Note } from 'lib/models/note.js';
+import { autocompleteFolders } from './autocomplete.js';
 import { sprintf } from 'sprintf-js';
 import { time } from 'lib/time-utils.js';
 import { cliUtils } from './cli-utils.js';
@@ -28,6 +29,10 @@ class Command extends BaseCommand {
 			['-f, --format <format>', _('Either "text" or "json"')],
 			['-l, --long', _('Use long list format. Format is ID, NOTE_COUNT (for notebook), DATE, TODO_CHECKED (for todos), TITLE')],
 		];
+	}
+
+	autocomplete() {
+		return { data: autocompleteFolders };
 	}
 
 	async action(args) {

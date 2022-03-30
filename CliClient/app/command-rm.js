@@ -5,6 +5,7 @@ import { BaseItem } from 'lib/models/base-item.js';
 import { Folder } from 'lib/models/folder.js';
 import { Note } from 'lib/models/note.js';
 import { BaseModel } from 'lib/base-model.js';
+import { autocompleteItems } from './autocomplete.js';
 import { cliUtils } from './cli-utils.js';
 
 class Command extends BaseCommand {
@@ -15,6 +16,10 @@ class Command extends BaseCommand {
 
 	description() {
 		return _('Deletes the notes matching <note-pattern>.');
+	}
+
+	autocomplete() {
+		return { data: autocompleteItems };
 	}
 
 	options() {

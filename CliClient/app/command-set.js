@@ -5,6 +5,7 @@ import { BaseModel } from 'lib/base-model.js';
 import { Folder } from 'lib/models/folder.js';
 import { Note } from 'lib/models/note.js';
 import { BaseItem } from 'lib/models/base-item.js';
+import { autocompleteItems } from './autocomplete.js';
 
 class Command extends BaseCommand {
 
@@ -14,6 +15,10 @@ class Command extends BaseCommand {
 
 	description() {
 		return _('Sets the property <name> of the given <note> to the given [value].');
+	}
+
+	autocomplete() {
+		return { data: autocompleteItems };
 	}
 
 	hidden() {

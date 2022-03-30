@@ -6,6 +6,7 @@ import { Folder } from 'lib/models/folder.js';
 import { Note } from 'lib/models/note.js';
 import { Setting } from 'lib/models/setting.js';
 import { BaseModel } from 'lib/base-model.js';
+import { autocompleteItems } from './autocomplete.js';
 import { cliUtils } from './cli-utils.js';
 
 class Command extends BaseCommand {
@@ -16,6 +17,10 @@ class Command extends BaseCommand {
 
 	description() {
 		return _('Edit note.');
+	}
+
+	autocomplete() {
+		return { data: autocompleteItems };
 	}
 
 	async action(args) {
