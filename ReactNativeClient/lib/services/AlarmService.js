@@ -53,7 +53,7 @@ class AlarmService {
 
 		const driver = this.driver();
 
-		let alarm = noteId ? await Alarm.byNoteId(noteId) : null;
+		let alarm = await Alarm.byNoteId(note.id);
 		let clearAlarm = false;
 
 		const makeNotificationFromAlarm = (alarm) => {
