@@ -286,15 +286,10 @@ class ScreenHeaderComponent extends Component {
 		if (!this.props.noteSelectionEnabled) {
 			for (let i = 0; i < this.props.menuOptions.length; i++) {
 				let o = this.props.menuOptions[i];
-
-				if (o.isDivider) {
-					menuOptionComponents.push(<View key={'menuOption_' + key++} style={this.styles().divider}/>);
-				} else {
-					menuOptionComponents.push(
-						<MenuOption value={o.onPress} key={'menuOption_' + key++} style={this.styles().contextMenuItem}>
-							<Text style={this.styles().contextMenuItemText}>{o.title}</Text>
-						</MenuOption>);
-				}
+				menuOptionComponents.push(
+					<MenuOption value={o.onPress} key={'menuOption_' + key++} style={this.styles().contextMenuItem}>
+						<Text style={this.styles().contextMenuItemText}>{o.title}</Text>
+					</MenuOption>);
 			}
 
 			if (this.props.showAdvancedOptions) {

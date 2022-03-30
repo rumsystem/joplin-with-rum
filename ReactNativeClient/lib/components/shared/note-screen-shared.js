@@ -35,14 +35,9 @@ shared.saveNoteButton_press = async function(comp) {
 	}
 
 	// Save only the properties that have changed
-	let diff = null;
-	if (!isNew) {
-		diff = BaseModel.diffObjects(comp.state.lastSavedNote, note);
-		diff.type_ = note.type_;
-		diff.id = note.id;
-	} else {
-		diff = Object.assign({}, note);
-	}
+	const diff = BaseModel.diffObjects(comp.state.lastSavedNote, note);
+	diff.type_ = note.type_;
+	diff.id = note.id;
 
 	const savedNote = await Note.save(diff);
 

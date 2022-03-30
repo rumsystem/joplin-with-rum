@@ -275,8 +275,7 @@ function importEnex(parentFolderId, filePath, importOptions = null) {
 					let attr = currentNodeAttributes();
 					noteResource.dataEncoding = attr.encoding;
 				}
-				if (!(n in noteResource)) noteResource[n] = '';
-				noteResource[n] += text;
+				noteResource[n] = text;
 			} else if (note) {
 				if (n == 'title') {
 					note.title = text;

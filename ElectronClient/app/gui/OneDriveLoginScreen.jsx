@@ -41,13 +41,10 @@ class OneDriveLoginScreenComponent extends React.Component {
 			const url = event.url;
 
 			if (this.authCode_) return;
+			if (url.indexOf(this.redirectUrl() + '?code=') !== 0) return;
 
-			const urlParse = require('url').parse;
-			const parsedUrl = urlParse(url.trim(), true);
-
-			if (!('code' in parsedUrl.query)) return;
-
-			this.authCode_ = parsedUrl.query.code;
+			let code = url.split('?code=');
+			this.authCode_ = code[1];
 
 			try {
 				await reg.syncTarget().api().execTokenRequest(this.authCode_, this.redirectUrl(), true);
@@ -56,7 +53,7 @@ class OneDriveLoginScreenComponent extends React.Component {
 			} catch (error) {
 				bridge().showMessageBox({
 					type: 'error',
-					message: 'Could not login to OneDrive. Please try again.\n\n' + error.message + "\n\n" + url.match(/.{1,64}/g).join('\n'),
+					message: error.message,
 				});
 			}
 
