@@ -1,4 +1,4 @@
-import stringPadding from 'string-padding';
+const stringPadding = require('string-padding');
 
 const BLOCK_OPEN = "[[BLOCK_OPEN]]";
 const BLOCK_CLOSE = "[[BLOCK_CLOSE]]";
@@ -620,4 +620,4 @@ async function enexXmlToMd(stream, resources) {
 	return processMdArrayNewLines(mdLines);
 }
 
-export { enexXmlToMd, processMdArrayNewLines, NEWLINE, addResourceTag };
+module.exports = { enexXmlToMd, processMdArrayNewLines, NEWLINE, addResourceTag };
