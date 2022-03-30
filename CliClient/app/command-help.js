@@ -2,7 +2,7 @@ const { BaseCommand } = require('./base-command.js');
 const { app } = require('./app.js');
 const { renderCommandHelp } = require('./help-utils.js');
 const { Database } = require('lib/database.js');
-const { Setting } = require('lib/models/setting.js');
+const Setting = require('lib/models/Setting.js');
 const { wrap } = require('lib/string-utils.js');
 const { _ } = require('lib/locale.js');
 const { cliUtils } = require('./cli-utils.js');
@@ -65,11 +65,9 @@ class Command extends BaseCommand {
 		} else {
 			const commandNames = this.allCommands().map((a) => a.name());
 
-			this.stdout(_('Type `help [command]` for more information about a command.'));
+			this.stdout(_('Type `help [command]` for more information about a command; or type `help all` for the complete usage information.'));
 			this.stdout('');
 			this.stdout(_('The possible commands are:'));
-			this.stdout('');
-			this.stdout(_('Type `help all` for the complete help of all the commands.'));
 			this.stdout('');
 			this.stdout(commandNames.join(', '));
 			this.stdout('');
