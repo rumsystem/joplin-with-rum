@@ -1,10 +1,8 @@
-const BaseItem = require('lib/models/BaseItem.js');
-const Folder = require('lib/models/Folder.js');
-const Note = require('lib/models/Note.js');
-const Resource = require('lib/models/Resource.js');
-const MasterKey = require('lib/models/MasterKey.js');
-const BaseModel = require('lib/BaseModel.js');
-const DecryptionWorker = require('lib/services/DecryptionWorker');
+const { BaseItem } = require('lib/models/base-item.js');
+const { Folder } = require('lib/models/folder.js');
+const { Note } = require('lib/models/note.js');
+const { Resource } = require('lib/models/resource.js');
+const { BaseModel } = require('lib/base-model.js');
 const { sprintf } = require('sprintf-js');
 const { time } = require('lib/time-utils.js');
 const { Logger } = require('lib/logger.js');
@@ -23,7 +21,6 @@ class Synchronizer {
 		this.logger_ = new Logger();
 		this.appType_ = appType;
 		this.cancelling_ = false;
-		this.autoStartDecryptionWorker_ = true;
 
 		// Debug flags are used to test certain hard-to-test conditions
 		// such as cancelling in the middle of a loop.
@@ -53,14 +50,6 @@ class Synchronizer {
 
 	logger() {
 		return this.logger_;
-	}
-
-	setEncryptionService(v) {
-		this.encryptionService_ = v;
-	}
-
-	encryptionService(v) {
-		return this.encryptionService_;
 	}
 
 	static reportToLines(report) {
@@ -180,9 +169,6 @@ class Synchronizer {
 
 		this.cancelling_ = false;
 
-		const masterKeysBefore = await MasterKey.count();
-		let hasAutoEnabledEncryption = false;
-
 		// ------------------------------------------------------------------------
 		// First, find all the items that have been changed since the
 		// last sync and apply the changes to remote.
@@ -218,6 +204,7 @@ class Synchronizer {
 					if (donePaths.indexOf(path) > 0) throw new Error(sprintf('Processing a path that has already been done: %s. sync_time was not updated?', path));
 
 					let remote = await this.api().stat(path);
+					let content = await ItemClass.serialize(local);
 					let action = null;
 					let updateSyncTimeOnly = true;
 					let reason = '';					
@@ -271,13 +258,24 @@ class Synchronizer {
 						this.dispatch({ type: 'SYNC_HAS_DISABLED_SYNC_ITEMS' });
 					}
 
-					if (local.type_ == BaseModel.TYPE_RESOURCE && (action == 'createRemote' || action === 'updateRemote' || (action == 'itemConflict' && remote))) {
+					if (local.type_ == BaseModel.TYPE_RESOURCE && (action == 'createRemote' || (action == 'itemConflict' && remote))) {
+						let remoteContentPath = this.resourceDirName_ + '/' + local.id;
 						try {
-							const remoteContentPath = this.resourceDirName_ + '/' + local.id;
-							const result = await Resource.fullPathForSyncUpload(local);
-							local = result.resource;
-							const localResourceContentPath = result.path;
-							await this.api().put(remoteContentPath, null, { path: localResourceContentPath, source: 'file' });
+							// TODO: handle node and mobile in the same way
+							if (shim.isNode()) {
+								let resourceContent = '';
+								try {
+									resourceContent = await Resource.content(local);
+								} catch (error) {
+									error.message = 'Cannot read resource content: ' + local.id + ': ' + error.message;
+									this.logger().error(error);
+									this.progressReport_.errors.push(error);
+								}
+								await this.api().put(remoteContentPath, resourceContent);
+							} else {
+								const localResourceContentPath = Resource.fullPath(local);
+								await this.api().put(remoteContentPath, null, { path: localResourceContentPath, source: 'file' });
+							}
 						} catch (error) {
 							if (error && error.code === 'cannotSync') {
 								await handleCannotSyncItem(syncTargetId, local, error.message);
@@ -308,7 +306,6 @@ class Synchronizer {
 								error.code = 'cannotSync';
 								throw error;
 							}
-							const content = await ItemClass.serializeForSync(local);
 							await this.api().put(path, content);
 						} catch (error) {
 							if (error && error.code === 'cannotSync') {
@@ -325,11 +322,6 @@ class Synchronizer {
 						}
 
 					} else if (action == 'itemConflict') {
-
-						// ------------------------------------------------------------------------------
-						// For non-note conflicts, we take the remote version (i.e. the version that was
-						// synced first) and overwrite the local content.
-						// ------------------------------------------------------------------------------
 
 						if (remote) {
 							local = remoteContent;
@@ -509,17 +501,6 @@ class Synchronizer {
 
 						await ItemClass.save(content, options);
 
-						if (!hasAutoEnabledEncryption && content.type_ === BaseModel.TYPE_MASTER_KEY && !masterKeysBefore) {
-							hasAutoEnabledEncryption = true;
-							this.logger().info('One master key was downloaded and none was previously available: automatically enabling encryption');
-							this.logger().info('Using master key: ', content);
-							await this.encryptionService().enableEncryption(content);
-							await this.encryptionService().loadMasterKeysFromSettings();
-							this.logger().info('Encryption has been enabled with downloaded master key as active key. However, note that no password was initially supplied. It will need to be provided by user.');
-						}
-
-						if (!!content.encryption_applied) this.dispatch({ type: 'SYNC_GOT_ENCRYPTED_ITEM' });
-
 					} else if (action == 'deleteLocal') {
 
 						if (local.type_ == BaseModel.TYPE_FOLDER) {
@@ -572,14 +553,8 @@ class Synchronizer {
 				await BaseItem.deleteOrphanSyncItems();
 			}
 		} catch (error) {
-			if (error && ['cannotEncryptEncrypted', 'noActiveMasterKey'].indexOf(error.code) >= 0) {
-				// Only log an info statement for this since this is a common condition that is reported
-				// in the application, and needs to be resolved by the user
-				this.logger().info(error.message);
-			} else {
-				this.logger().error(error);
-				this.progressReport_.errors.push(error);
-			}
+			this.logger().error(error);
+			this.progressReport_.errors.push(error);
 		}
 
 		if (this.cancelling()) {

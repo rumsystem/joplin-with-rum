@@ -33,7 +33,7 @@ iOS              | <a href='https://itunes.apple.com/us/app/joplin/id1315599797'
 
 On macOS:
 
-	brew install joplin
+	brew install node joplin
 
 On Linux or Windows (via [WSL](https://msdn.microsoft.com/en-us/commandline/wsl/faq?f=255&MSPPError=-2147217396)):
 
@@ -76,6 +76,10 @@ On the **desktop application**, open the "File" menu, click "Import Evernote not
 
 On the **terminal application**, in [command-line mode](/terminal#command-line-mode), type `import-enex /path/to/file.enex`. This will import the notes into a new notebook named after the filename.
 
+# Importing notes from Standard Notes
+
+[Tutorial](https://programadorwebvalencia.com/migrate-notes-from-standard-notes-to-joplin/)
+
 # Synchronisation
 
 One of the goals of Joplin was to avoid being tied to any particular company or service, whether it is Evernote, Google or Microsoft. As such the synchronisation is designed without any hard dependency to any particular service. Most of the synchronisation process is done at an abstract level and access to external services, such as OneDrive or Dropbox, is done via lightweight drivers. It is easy to support new services by creating simple drivers that provide a filesystem-like interface, i.e. the ability to read, write, delete and list items. It is also simple to switch from one service to another or to even sync to multiple services at once. Each note, notebook, tags, as well as the relation between items is transmitted as plain text files during synchronisation, which means the data can also be moved to a different application, can be easily backed up, inspected, etc.
@@ -108,7 +112,7 @@ If for any reason the notifications do not work, please [open an issue](https://
 
 # Localisation
 
-Joplin is currently available in English, French and Spanish. If you would like to contribute a translation, it is quite straightforward, please follow these steps:
+Joplin is currently available in English, French, Spanish, German, Portuguese and Italian. If you would like to contribute a translation, it is quite straightforward, please follow these steps:
 
 - [Download Poedit](https://poedit.net/), the translation editor, and install it.
 - [Download the file to be translated](https://raw.githubusercontent.com/laurent22/joplin/master/CliClient/locales/joplin.pot).

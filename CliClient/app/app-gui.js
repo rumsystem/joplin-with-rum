@@ -1,9 +1,9 @@
 const { Logger } = require('lib/logger.js');
-const Folder = require('lib/models/Folder.js');
-const Tag = require('lib/models/Tag.js');
-const BaseModel = require('lib/BaseModel.js');
-const Note = require('lib/models/Note.js');
-const Resource = require('lib/models/Resource.js');
+const { Folder } = require('lib/models/folder.js');
+const { Tag } = require('lib/models/tag.js');
+const { BaseModel } = require('lib/base-model.js');
+const { Note } = require('lib/models/note.js');
+const { Resource } = require('lib/models/resource.js');
 const { cliUtils } = require('./cli-utils.js');
 const { reducer, defaultState } = require('lib/reducer.js');
 const { splitCommandString } = require('lib/string-utils.js');
@@ -14,7 +14,6 @@ const chalk = require('chalk');
 const tk = require('terminal-kit');
 const TermWrapper = require('tkwidgets/framework/TermWrapper.js');
 const Renderer = require('tkwidgets/framework/Renderer.js');
-const DecryptionWorker = require('lib/services/DecryptionWorker');
 
 const BaseWidget = require('tkwidgets/BaseWidget.js');
 const ListWidget = require('tkwidgets/ListWidget.js');
@@ -66,7 +65,6 @@ class AppGui {
 		// a regular command it's not necessary since the process
 		// exits right away.
 		reg.setupRecurrentSync();
-		DecryptionWorker.instance().scheduleStart();
 	}
 
 	store() {
@@ -82,8 +80,16 @@ class AppGui {
 		await this.renderer_.renderRoot();
 	}
 
-	prompt(initialText = '', promptString = ':', options = null) {
-		return this.widget('statusBar').prompt(initialText, promptString, options);
+	termSaveState() {
+		return this.term().saveState();
+	}
+
+	termRestoreState(state) {
+		return this.term().restoreState(state);
+	}
+
+	prompt(initialText = '', promptString = ':') {
+		return this.widget('statusBar').prompt(initialText, promptString);
 	}
 
 	stdoutMaxWidth() {
@@ -550,6 +556,10 @@ class AppGui {
 		}
 
 		this.widget('console').scrollBottom();
+		
+		// Invalidate so that the screen is redrawn in case inputting a command has moved
+		// the GUI up (in particular due to autocompletion), it's moved back to the right position.
+		this.widget('root').invalidate();
 	}
 
 	async updateFolderList() {

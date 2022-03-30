@@ -12,16 +12,15 @@ const { Log } = require('lib/log.js');
 const { time } = require('lib/time-utils.js');
 const { AppNav } = require('lib/components/app-nav.js');
 const { Logger } = require('lib/logger.js');
-const Note = require('lib/models/Note.js');
-const Folder = require('lib/models/Folder.js');
+const { Note } = require('lib/models/note.js');
+const { Folder } = require('lib/models/folder.js');
 const BaseSyncTarget = require('lib/BaseSyncTarget.js');
 const { FoldersScreenUtils } = require('lib/folders-screen-utils.js');
-const Resource = require('lib/models/Resource.js');
-const Tag = require('lib/models/Tag.js');
-const NoteTag = require('lib/models/NoteTag.js');
-const BaseItem = require('lib/models/BaseItem.js');
-const MasterKey = require('lib/models/MasterKey.js');
-const BaseModel = require('lib/BaseModel.js');
+const { Resource } = require('lib/models/resource.js');
+const { Tag } = require('lib/models/tag.js');
+const { NoteTag } = require('lib/models/note-tag.js');
+const { BaseItem } = require('lib/models/base-item.js');
+const { BaseModel } = require('lib/base-model.js');
 const { JoplinDatabase } = require('lib/joplin-database.js');
 const { Database } = require('lib/database.js');
 const { NotesScreen } = require('lib/components/screens/notes.js');
@@ -33,8 +32,7 @@ const { StatusScreen } = require('lib/components/screens/status.js');
 const { WelcomeScreen } = require('lib/components/screens/welcome.js');
 const { SearchScreen } = require('lib/components/screens/search.js');
 const { OneDriveLoginScreen } = require('lib/components/screens/onedrive-login.js');
-const { EncryptionConfigScreen } = require('lib/components/screens/encryption-config.js');
-const Setting = require('lib/models/Setting.js');
+const { Setting } = require('lib/models/setting.js');
 const { MenuContext } = require('react-native-popup-menu');
 const { SideMenu } = require('lib/components/side-menu.js');
 const { SideMenuContent } = require('lib/components/side-menu-content.js');
@@ -51,10 +49,6 @@ const SyncTargetOneDrive = require('lib/SyncTargetOneDrive.js');
 const SyncTargetOneDriveDev = require('lib/SyncTargetOneDriveDev.js');
 SyncTargetRegistry.addClass(SyncTargetOneDrive);
 SyncTargetRegistry.addClass(SyncTargetOneDriveDev);
-
-const FsDriverRN = require('lib/fs-driver-rn.js').FsDriverRN;
-const DecryptionWorker = require('lib/services/DecryptionWorker');
-const EncryptionService = require('lib/services/EncryptionService');
 
 const generalMiddleware = store => next => async (action) => {
 	if (action.type !== 'SIDE_MENU_OPEN_PERCENT') reg.logger().info('Reducer action', action.type);
@@ -88,10 +82,6 @@ const generalMiddleware = store => next => async (action) => {
 
 	if (action.type == 'NAV_GO' && action.routeName == 'Notes') {
 		Setting.setValue('activeFolderId', newState.selectedFolderId);
-	}
-
-	if (action.type === 'SYNC_GOT_ENCRYPTED_ITEM') {
-		DecryptionWorker.instance().scheduleStart();
 	}
 
   	return result;
@@ -314,11 +304,6 @@ async function initialize(dispatch) {
 	BaseItem.loadClass('Resource', Resource);
 	BaseItem.loadClass('Tag', Tag);
 	BaseItem.loadClass('NoteTag', NoteTag);
-	BaseItem.loadClass('MasterKey', MasterKey);
-
-	const fsDriver = new FsDriverRN();
-
-	Resource.fsDriver_ = fsDriver;
 
 	AlarmService.setDriver(new AlarmServiceDriver());
 	AlarmService.setLogger(mainLogger);
@@ -356,21 +341,6 @@ async function initialize(dispatch) {
 
 		setLocale(Setting.value('locale'));
 
-		// ----------------------------------------------------------------
-		// E2EE SETUP
-		// ----------------------------------------------------------------
-
-		EncryptionService.fsDriver_ = fsDriver;
-		EncryptionService.instance().setLogger(mainLogger);
-		BaseItem.encryptionService_ = EncryptionService.instance();
-		DecryptionWorker.instance().setLogger(mainLogger);
-		DecryptionWorker.instance().setEncryptionService(EncryptionService.instance());
-		await EncryptionService.instance().loadMasterKeysFromSettings();
-
-		// ----------------------------------------------------------------
-		// / E2EE SETUP
-		// ----------------------------------------------------------------
-
 		reg.logger().info('Loading folders...');
 
 		await FoldersScreenUtils.refreshFolders();
@@ -379,14 +349,7 @@ async function initialize(dispatch) {
 
 		dispatch({
 			type: 'TAG_UPDATE_ALL',
-			items: tags,
-		});
-
-		const masterKeys = await MasterKey.all();
-
-		dispatch({
-			type: 'MASTERKEY_UPDATE_ALL',
-			items: masterKeys,
+			tags: tags,
 		});
 
 		let folderId = Setting.value('activeFolderId');
@@ -420,8 +383,6 @@ async function initialize(dispatch) {
 		// Wait for the first sync before updating the notifications, since synchronisation
 		// might change the notifications.
 		AlarmService.updateAllNotifications();
-
-		DecryptionWorker.instance().scheduleStart();
 	});
 
 	reg.logger().info('Application initialized');
@@ -509,7 +470,6 @@ class AppComponent extends React.Component {
 			Note: { screen: NoteScreen },
 			Folder: { screen: FolderScreen },
 			OneDriveLogin: { screen: OneDriveLoginScreen },
-			EncryptionConfig: { screen: EncryptionConfigScreen },
 			Log: { screen: LogScreen },
 			Status: { screen: StatusScreen },
 			Search: { screen: SearchScreen },
