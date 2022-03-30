@@ -12,7 +12,7 @@ install:
   - yarn
 
 build_script:
-  - ps: cd ElectronClient\app
+  - ps: cd Electron\app
   - yarn dist
 
 test: off
