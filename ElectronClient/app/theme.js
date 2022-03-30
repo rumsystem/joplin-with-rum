@@ -1,4 +1,4 @@
-const { Setting } = require('lib/models/setting.js');
+const Setting = require('lib/models/Setting.js');
 
 const globalStyle = {
 	fontSize: 12,
@@ -24,6 +24,8 @@ const globalStyle = {
 	color2: "#ffffff",
 	selectedColor2: "#5A4D70",
 	colorError2: "#ff6c6c",
+
+	warningBackgroundColor: "#FFD08D",
 
 	headerHeight: 35,
 	headerButtonHPadding: 6,
@@ -63,11 +65,18 @@ globalStyle.textStyle = {
 	color: globalStyle.color,
 	fontFamily: globalStyle.fontFamily,
 	fontSize: globalStyle.fontSize,
+	lineHeight: '1.6em',
 };
 
 globalStyle.textStyle2 = Object.assign({}, globalStyle.textStyle, {
 	color: globalStyle.color2,
 });
+
+globalStyle.h1Style = Object.assign({}, globalStyle.textStyle);
+globalStyle.h1Style.fontSize *= 1.5;
+
+globalStyle.h2Style = Object.assign({}, globalStyle.textStyle);
+globalStyle.h2Style.fontSize *= 1.3;
 
 let themeCache_ = {};
 

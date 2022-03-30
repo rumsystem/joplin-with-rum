@@ -1,0 +1,1185 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Laurent Cozic
+# This file is distributed under the same license as the Joplin-CLI package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Joplin-CLI 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: Samuel Blickle <blickle.samuel@gmail.com>\n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.5\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Give focus to next pane"
+msgstr "Das nächste Fenster fokussieren"
+
+msgid "Give focus to previous pane"
+msgstr "Das vorherige Fenster fokussieren"
+
+msgid "Enter command line mode"
+msgstr "Zum Terminal-Modus wechseln"
+
+msgid "Exit command line mode"
+msgstr "Den Terminal-Modus verlassen"
+
+msgid "Edit the selected note"
+msgstr "Die ausgewählte Notiz bearbeiten"
+
+msgid "Cancel the current command."
+msgstr "Den momentanen Befehl abbrechen."
+
+msgid "Exit the application."
+msgstr "Das Programm verlassen."
+
+msgid "Delete the currently selected note or notebook."
+msgstr "Die/das momentan ausgewählte Notiz(-buch) löschen."
+
+msgid "To delete a tag, untag the associated notes."
+msgstr ""
+"Hebe die Markierungen zugehöriger Notizen auf, um eine Markierung zu löschen."
+
+msgid "Please select the note or notebook to be deleted first."
+msgstr ""
+"Wähle bitte zuerst eine Notiz oder ein Notizbuch aus, das gelöscht werden "
+"soll."
+
+msgid "Set a to-do as completed / not completed"
+msgstr "Ein To-Do as abgeschlossen / nicht abgeschlossen markieren"
+
+#, fuzzy
+msgid "[t]oggle [c]onsole between maximized/minimized/hidden/visible."
+msgstr ""
+"Schal[t]e das Terminal zwischen maximiert/minimiert/versteckt/sichtbar um."
+
+msgid "Search"
+msgstr "Suchen"
+
+msgid "[t]oggle note [m]etadata."
+msgstr "Notiz-[M]etadata einschal[t]en."
+
+msgid "[M]ake a new [n]ote"
+msgstr "Eine neue [N]otiz [m]achen"
+
+msgid "[M]ake a new [t]odo"
+msgstr "Ein neues [T]o-Do [m]achen"
+
+msgid "[M]ake a new note[b]ook"
+msgstr "Ein neues Notiz[b]uch [m]achen"
+
+msgid "Copy ([Y]ank) the [n]ote to a notebook."
+msgstr "Die Notiz zu einem Notizbuch kopieren."
+
+msgid "Move the note to a notebook."
+msgstr "Die Notiz zu einem Notizbuch verschieben."
+
+msgid "Press Ctrl+D or type \"exit\" to exit the application"
+msgstr "Drücke Strg+D oder tippe \"exit\", um das Programm zu verlassen"
+
+#, javascript-format
+msgid "More than one item match \"%s\". Please narrow down your query."
+msgstr ""
+"Mehr als eine Notiz stimmt mit \"%s\" überein. Bitte schränke deine Suche "
+"ein."
+
+msgid "No notebook selected."
+msgstr "Kein Notizbuch ausgewählt."
+
+msgid "No notebook has been specified."
+msgstr "Kein Notizbuch wurde angegeben."
+
+msgid "Y"
+msgstr "J"
+
+msgid "n"
+msgstr "n"
+
+msgid "N"
+msgstr "N"
+
+msgid "y"
+msgstr "j"
+
+msgid "Cancelling background synchronisation... Please wait."
+msgstr "Breche Hintergrund-Synchronisation ab... Bitte warten."
+
+#, javascript-format
+msgid "No such command: %s"
+msgstr "Ungültiger Befehl: %s"
+
+#, javascript-format
+msgid "The command \"%s\" is only available in GUI mode"
+msgstr "Der Befehl \"%s\" ist nur im GUI Modus verfügbar"
+
+#, javascript-format
+msgid "Missing required argument: %s"
+msgstr "Fehlendes benötigtes Argument: %s"
+
+#, javascript-format
+msgid "%s: %s"
+msgstr "%s: %s"
+
+msgid "Your choice: "
+msgstr "Deine Auswahl: "
+
+#, javascript-format
+msgid "Invalid answer: %s"
+msgstr "Ungültige Antwort: %s"
+
+msgid "Attaches the given file to the note."
+msgstr "Hängt die ausgewählte Datei an die Notiz an."
+
+#, javascript-format
+msgid "Cannot find \"%s\"."
+msgstr "Kann \"%s\" nicht finden."
+
+msgid "Displays the given note."
+msgstr "Zeigt die jeweilige Notiz an."
+
+msgid "Displays the complete information about note."
+msgstr "Zeigt alle Informationen über die Notiz an."
+
+msgid ""
+"Gets or sets a config value. If [value] is not provided, it will show the "
+"value of [name]. If neither [name] nor [value] is provided, it will list the "
+"current configuration."
+msgstr ""
+"Zeigt an oder stellt einen Optionswert. Wenn kein [Wert] angegeben ist, wird "
+"der Wert vom gegebenen [Namen] angezeigt. Wenn weder [Name] noch [Wert] "
+"gegeben sind, wird eine Liste der momentanen Konfiguration angezeigt."
+
+msgid "Also displays unset and hidden config variables."
+msgstr ""
+"Zeigt auch nicht angegebene oder versteckte Konfigurationsvariablen an."
+
+#, javascript-format
+msgid "%s = %s (%s)"
+msgstr "%s = %s (%s)"
+
+#, javascript-format
+msgid "%s = %s"
+msgstr "%s = %s"
+
+msgid ""
+"Duplicates the notes matching <note> to [notebook]. If no notebook is "
+"specified the note is duplicated in the current notebook."
+msgstr ""
+"Dupliziert die Notizen die mit <note> übereinstimmen zu [Notizbuch]. Wenn "
+"kein Notizbuch angegeben ist, wird die Notiz in das momentane Notizbuch "
+"kopiert."
+
+msgid "Marks a to-do as done."
+msgstr "Markiert ein To-Do als abgeschlossen."
+
+#, javascript-format
+msgid "Note is not a to-do: \"%s\""
+msgstr "Notiz ist kein To-Do: \"%s\""
+
+msgid "Edit note."
+msgstr "Notiz bearbeiten."
+
+msgid ""
+"No text editor is defined. Please set it using `config editor <editor-path>`"
+msgstr ""
+"Kein Textverarbeitungsprogramm angegeben. Bitte lege eines mit `config "
+"editor <Pfad-Zum-Textverarbeitungsprogramm>` fest"
+
+msgid "No active notebook."
+msgstr "Kein aktives Notizbuch."
+
+#, javascript-format
+msgid "Note does not exist: \"%s\". Create it?"
+msgstr "Notiz \"%s\" existiert nicht. Soll sie erstellt werden?"
+
+msgid "Starting to edit note. Close the editor to get back to the prompt."
+msgstr ""
+"Beginne die Notiz zu bearbeiten. Schließe das Textverarbeitungsprogramm, um "
+"zurück zum Terminal zu gelangen."
+
+msgid "Note has been saved."
+msgstr "Die Notiz wurde gespeichert."
+
+msgid "Exits the application."
+msgstr "Schließt das Programm."
+
+msgid ""
+"Exports Joplin data to the given directory. By default, it will export the "
+"complete database including notebooks, notes, tags and resources."
+msgstr ""
+"Exportiert Joplins Dateien zu dem angegebenen Pfad. Standardmäßig wird die "
+"komplette Datenbank inklusive Notizbüchern, Notizen, Markierungen und "
+"Anhängen exportiert."
+
+msgid "Exports only the given note."
+msgstr "Exportiert nur die angegebene Notiz."
+
+msgid "Exports only the given notebook."
+msgstr "Exportiert nur das angegebene Notizbuch."
+
+msgid "Displays a geolocation URL for the note."
+msgstr "Zeigt die Standort-URL der Notiz an."
+
+msgid "Displays usage information."
+msgstr "Zeigt die Nutzungsstatistik an."
+
+msgid "Shortcuts are not available in CLI mode."
+msgstr "Tastenkürzel sind im CLI Modus nicht verfügbar."
+
+#, fuzzy
+msgid ""
+"Type `help [command]` for more information about a command; or type `help "
+"all` for the complete usage information."
+msgstr ""
+"Tippe `help [Befehl]` ein, um mehr Informationen über einen Befehl zu "
+"erhalten."
+
+msgid "The possible commands are:"
+msgstr "Mögliche Befehle sind:"
+
+msgid ""
+"In any command, a note or notebook can be refered to by title or ID, or "
+"using the shortcuts `$n` or `$b` for, respectively, the currently selected "
+"note or notebook. `$c` can be used to refer to the currently selected item."
+msgstr ""
+"In jedem Befehl können Notizen oder Notizbücher durch ihren Titel oder ihre "
+"ID spezifiziert werden, oder durch die Abkürzung `$n` oder `$b` um entweder "
+"das momentan ausgewählte Notizbuch oder die momentan ausgewählte Notiz zu "
+"wählen. `$c` kann benutzt werden, um auf die momentane Auswahl zu verweisen."
+
+msgid "To move from one pane to another, press Tab or Shift+Tab."
+msgstr ""
+"Um ein von einem Fenster zu einem anderen zu wechseln, drücke Tab oder Shift"
+"+Tab."
+
+msgid ""
+"Use the arrows and page up/down to scroll the lists and text areas "
+"(including this console)."
+msgstr ""
+"Benutze die Pfeiltasten und Bild hoch/runter um durch Listen und Texte zu "
+"scrollen (inklusive diesem Terminal)."
+
+msgid "To maximise/minimise the console, press \"TC\"."
+msgstr "Um das Terminal zu maximieren/minimieren, drücke \"TC\"."
+
+msgid "To enter command line mode, press \":\""
+msgstr "Um den Kommandozeilen Modus aufzurufen, drücke \":\""
+
+msgid "To exit command line mode, press ESCAPE"
+msgstr "Um den Kommandozeilen Modus zu beenden, drücke ESCAPE"
+
+msgid ""
+"For the complete list of available keyboard shortcuts, type `help shortcuts`"
+msgstr ""
+"Um die komplette Liste von verfügbaren Tastenkürzeln anzuzeigen, tippe `help "
+"shortcuts` ein"
+
+msgid "Imports an Evernote notebook file (.enex file)."
+msgstr "Importiert eine Evernote Notizbuch-Datei (.enex Datei)."
+
+msgid "Do not ask for confirmation."
+msgstr "Nicht nach einer Bestätigung fragen."
+
+#, javascript-format
+msgid "File \"%s\" will be imported into existing notebook \"%s\". Continue?"
+msgstr ""
+"Datei \"%s\" wird in das existierende Notizbuch \"%s\" importiert. "
+"Fortfahren?"
+
+#, javascript-format
+msgid ""
+"New notebook \"%s\" will be created and file \"%s\" will be imported into "
+"it. Continue?"
+msgstr ""
+"Neues Notizbuch \"%s\" wird erstellt und die Datei \"%s\" wird hinein "
+"importiert. Fortfahren?"
+
+#, javascript-format
+msgid "Found: %d."
+msgstr "Gefunden: %d."
+
+#, javascript-format
+msgid "Created: %d."
+msgstr "Erstellt: %d."
+
+#, javascript-format
+msgid "Updated: %d."
+msgstr "Aktualisiert: %d."
+
+#, javascript-format
+msgid "Skipped: %d."
+msgstr "Übersprungen: %d."
+
+#, javascript-format
+msgid "Resources: %d."
+msgstr "Anhänge: %d."
+
+#, javascript-format
+msgid "Tagged: %d."
+msgstr "Markiert: %d."
+
+msgid "Importing notes..."
+msgstr "Importiere Notizen..."
+
+#, javascript-format
+msgid "The notes have been imported: %s"
+msgstr "Die Notizen wurden importiert: %s"
+
+msgid ""
+"Displays the notes in the current notebook. Use `ls /` to display the list "
+"of notebooks."
+msgstr ""
+"Zeigt die Notizen im momentanen Notizbuch an. Benutze `ls /` um eine Liste "
+"aller Notizbücher anzuzeigen."
+
+msgid "Displays only the first top <num> notes."
+msgstr "Zeigt nur die ersten <num> Notizen an."
+
+msgid "Sorts the item by <field> (eg. title, updated_time, created_time)."
+msgstr ""
+"Sortiert nach <field> ( z.B. Titel, Bearbeitungszeitpunkt, "
+"Erstellungszeitpunkt)"
+
+msgid "Reverses the sorting order."
+msgstr "Dreht die Sortierreihenfolge um."
+
+msgid ""
+"Displays only the items of the specific type(s). Can be `n` for notes, `t` "
+"for to-dos, or `nt` for notes and to-dos (eg. `-tt` would display only the "
+"to-dos, while `-ttd` would display notes and to-dos."
+msgstr ""
+"Zeigt nur bestimmte Item Typen an. Kann `n` für Notizen sein, `t` für To-"
+"Dos, oder `nt` für Notizen und To-Dos ( z.B. zeigt `-tt` nur To-Dos an, "
+"während `-ttd` Notizen und To-Dos anzeigt)."
+
+msgid "Either \"text\" or \"json\""
+msgstr "Entweder \"text\" oder \"json\""
+
+msgid ""
+"Use long list format. Format is ID, NOTE_COUNT (for notebook), DATE, "
+"TODO_CHECKED (for to-dos), TITLE"
+msgstr ""
+"Verwende ausführliches Listen Format. Das Format lautet: ID, NOTIZEN_ANZAHL "
+"(für Notizbuch), DATUM, TODO_BEARBEITET (für To-Dos), TITEL"
+
+msgid "Please select a notebook first."
+msgstr "Bitte wähle erst ein Notizbuch aus."
+
+msgid "Creates a new notebook."
+msgstr "Erstellt ein neues Notizbuch."
+
+msgid "Creates a new note."
+msgstr "Erstellt eine neue Notiz."
+
+msgid "Notes can only be created within a notebook."
+msgstr "Notizen können nur in einem Notizbuch erstellt werden."
+
+msgid "Creates a new to-do."
+msgstr "Erstellt ein neues To-Do."
+
+msgid "Moves the notes matching <note> to [notebook]."
+msgstr "Verschiebt die Notizen, die mit <note> übereinstimmen, zu [Notizbuch]"
+
+msgid "Renames the given <item> (note or notebook) to <name>."
+msgstr "Benennt das angegebene <item> ( Notiz oder Notizbuch ) zu <name> um."
+
+msgid "Deletes the given notebook."
+msgstr "Löscht das ausgewählte Notizbuch."
+
+msgid "Deletes the notebook without asking for confirmation."
+msgstr "Löscht das Notizbuch, ohne nach einer Bestätigung zu fragen."
+
+msgid "Delete notebook? All notes within this notebook will also be deleted."
+msgstr ""
+"Notizbuch wirklich löschen? Alle Notizen darin werden ebenfalls gelöscht."
+
+msgid "Deletes the notes matching <note-pattern>."
+msgstr "Löscht die Notizen, die mit <note-pattern> übereinstimmen."
+
+msgid "Deletes the notes without asking for confirmation."
+msgstr "Löscht die Notizen, ohne nach einer Bestätigung zu fragen."
+
+#, javascript-format
+msgid "%d notes match this pattern. Delete them?"
+msgstr ""
+"%d Notizen stimmen mit diesem Muster überein. Sollen sie gelöscht werden?"
+
+msgid "Delete note?"
+msgstr "Notiz löschen?"
+
+msgid "Searches for the given <pattern> in all the notes."
+msgstr "Sucht nach dem angegebenen <pattern> in allen Notizen."
+
+#, javascript-format
+msgid ""
+"Sets the property <name> of the given <note> to the given [value]. Possible "
+"properties are:\n"
+"\n"
+"%s"
+msgstr ""
+"Setzt die Eigenschaft <name> der gegebenen <note> auf den gegebenen [Wert]. "
+"Mögliche Werte sind:\n"
+"\n"
+"%s"
+
+msgid "Displays summary about the notes and notebooks."
+msgstr "Zeigt eine Zusammenfassung der Notizen und Notizbücher an."
+
+msgid "Synchronises with remote storage."
+msgstr "Synchronisiert mit Remotespeicher."
+
+msgid "Sync to provided target (defaults to sync.target config value)"
+msgstr ""
+"Mit dem angegebenen Ziel synchronisieren (voreingestellt auf den sync.target "
+"Optionswert)"
+
+msgid "Synchronisation is already in progress."
+msgstr "Synchronisation ist bereits im Gange."
+
+#, javascript-format
+msgid ""
+"Lock file is already being hold. If you know that no synchronisation is "
+"taking place, you may delete the lock file at \"%s\" and resume the "
+"operation."
+msgstr ""
+"Eine Sperrdatei ist vorhanden. Wenn du dir sicher bist, dass keine "
+"Synchronisation im Gange ist, kannst du die Sperrdatei \"%s\" löschen und "
+"fortfahren."
+
+msgid ""
+"Authentication was not completed (did not receive an authentication token)."
+msgstr ""
+"Authentifizierung wurde nicht abgeschlossen (keinen Authentifizierung-Token "
+"erhalten)."
+
+#, javascript-format
+msgid "Synchronisation target: %s (%s)"
+msgstr "Synchronisationsziel: %s (%s)"
+
+msgid "Cannot initialize synchroniser."
+msgstr "Kann Synchronisierer nicht initialisieren."
+
+msgid "Starting synchronisation..."
+msgstr "Starte Synchronisation..."
+
+msgid "Cancelling... Please wait."
+msgstr "Breche ab... Bitte warten."
+
+#, fuzzy
+msgid ""
+"<tag-command> can be \"add\", \"remove\" or \"list\" to assign or remove "
+"[tag] from [note], or to list the notes associated with [tag]. The command "
+"`tag list` can be used to list all the tags."
+msgstr ""
+"<tag-command> kann \"add\", \"remove\" or \"list\" sein, um eine "
+"[Markierung] zu [Notiz] zuzuweisen oder zu entfernen, oder um mit "
+"[Markierung] markierte Notizen anzuzeigen. Mit dem Befehl `tag list` können "
+"alle Notizen angezeigt werden."
+
+#, javascript-format
+msgid "Invalid command: \"%s\""
+msgstr "Ungültiger Befehl: \"%s\""
+
+msgid ""
+"<todo-command> can either be \"toggle\" or \"clear\". Use \"toggle\" to "
+"toggle the given to-do between completed and uncompleted state (If the "
+"target is a regular note it will be converted to a to-do). Use \"clear\" to "
+"convert the to-do back to a regular note."
+msgstr ""
+"<todo-command> kann entweder \"toggle\" oder \"clear\" sein. Benutze \"toggle"
+"\", um ein To-Do abzuschließen, oder es zu beginnen (Wenn das Ziel eine "
+"normale Notiz ist, wird diese in ein To-Do umgewandelt). Benutze \"clear\", "
+"um es zurück in ein To-Do zu verwandeln."
+
+msgid "Marks a to-do as non-completed."
+msgstr "Makiert ein To-Do als nicht-abgeschlossen."
+
+msgid ""
+"Switches to [notebook] - all further operations will happen within this "
+"notebook."
+msgstr ""
+"Wechselt zu [Notizbuch] - alle weiteren Aktionen werden in diesem Notizbuch "
+"ausgeführt."
+
+msgid "Displays version information"
+msgstr "Zeigt die Versionsnummer an"
+
+#, javascript-format
+msgid "%s %s (%s)"
+msgstr "%s %s (%s)"
+
+msgid "Enum"
+msgstr ""
+
+#, javascript-format
+msgid "Type: %s."
+msgstr "Typ: %s."
+
+#, javascript-format
+msgid "Possible values: %s."
+msgstr "Mögliche Werte: %s."
+
+#, javascript-format
+msgid "Default: %s"
+msgstr "Standard: %s"
+
+msgid "Possible keys/values:"
+msgstr "Mögliche Werte:"
+
+msgid "Fatal error:"
+msgstr "Schwerwiegender Fehler:"
+
+msgid ""
+"The application has been authorised - you may now close this browser tab."
+msgstr ""
+"Das Programm wurde autorisiert - Du kannst diesen Browsertab nun schließen."
+
+msgid "The application has been successfully authorised."
+msgstr "Das Programm wurde erfolgreich autorisiert."
+
+msgid ""
+"Please open the following URL in your browser to authenticate the "
+"application. The application will create a directory in \"Apps/Joplin\" and "
+"will only read and write files in this directory. It will have no access to "
+"any files outside this directory nor to any other personal data. No data "
+"will be shared with any third party."
+msgstr ""
+"Bitte öffne die folgende URL in deinem Browser, um das Programm zu "
+"authentifizieren. Das Programm wird einen Ordner in \"Apps/Joplin\" "
+"erstellen und wird nur in diesem Ordner schreiben und lesen. Es wird weder "
+"Zugriff auf Dateien außerhalb dieses Ordners haben, noch auf andere "
+"persönliche Daten. Es werden keine Daten mit Dritten geteilt."
+
+msgid "Search:"
+msgstr "Suchen:"
+
+msgid ""
+"Welcome to Joplin!\n"
+"\n"
+"Type `:help shortcuts` for the list of keyboard shortcuts, or just `:help` "
+"for usage information.\n"
+"\n"
+"For example, to create a notebook press `mb`; to create a note press `mn`."
+msgstr ""
+"Willkommen bei Joplin!\n"
+"\n"
+"Tippe `:help shortcuts` für eine Liste der Shortcuts oder `:help` für "
+"Nutzungsinformationen ein.\n"
+"\n"
+"Um zum Beispiel ein Notizbuch zu erstellen, drücke `mb`; um eine Notiz zu "
+"erstellen drücke `mn`."
+
+msgid "File"
+msgstr "Datei"
+
+msgid "New note"
+msgstr "Neue Notiz"
+
+msgid "New to-do"
+msgstr "Neues To-Do"
+
+msgid "New notebook"
+msgstr "Neues Notizbuch"
+
+msgid "Import Evernote notes"
+msgstr "Evernote Notizen importieren"
+
+msgid "Evernote Export Files"
+msgstr "Evernote Export Dateien"
+
+msgid "Quit"
+msgstr "Verlassen"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Copy"
+msgstr "Kopieren"
+
+msgid "Cut"
+msgstr "Ausschneiden"
+
+msgid "Paste"
+msgstr "Einfügen"
+
+msgid "Search in all the notes"
+msgstr "Alle Notizen durchsuchen"
+
+msgid "Tools"
+msgstr "Werkzeuge"
+
+msgid "Synchronisation status"
+msgstr "Status der Synchronisation"
+
+msgid "Options"
+msgstr "Optionen"
+
+msgid "Help"
+msgstr "Hilfe"
+
+msgid "Website and documentation"
+msgstr "Webseite und Dokumentation"
+
+msgid "About Joplin"
+msgstr "Über Joplin"
+
+#, javascript-format
+msgid "%s %s (%s, %s)"
+msgstr "%s %s (%s, %s)"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#, javascript-format
+msgid "Notes and settings are stored in: %s"
+msgstr "Notizen und Einstellungen gespeichert in: %s"
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid ""
+"Disabling encryption means *all* your notes and attachments are going to be "
+"re-synchronised and sent unencrypted to the sync target. Do you wish to "
+"continue?"
+msgstr ""
+
+msgid ""
+"Enabling encryption means *all* your notes and attachments are going to be "
+"re-synchronised and sent encrypted to the sync target. Do not lose the "
+"password as, for security purposes, this will be the *only* way to decrypt "
+"the data! To enable encryption, please enter your password below."
+msgstr ""
+
+msgid "Disable encryption"
+msgstr ""
+
+msgid "Enable encryption"
+msgstr ""
+
+msgid "Master Keys"
+msgstr ""
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Source"
+msgstr "Quelle"
+
+msgid "Created"
+msgstr "Erstellt"
+
+msgid "Updated"
+msgstr "Aktualisiert"
+
+msgid "Password"
+msgstr "Passwort"
+
+msgid "Password OK"
+msgstr "Passwort OK"
+
+msgid ""
+"Note: Only one master key is going to be used for encryption (the one marked "
+"as \"active\"). Any of the keys might be used for decryption, depending on "
+"how the notes or notebooks were originally encrypted."
+msgstr ""
+"Hinweis: Nur ein Hauptschlüssel wird für die Verschlüsselung verwendet (der "
+"als \"aktiv\" markierte). Jeder der Schlüssel kann für die Entschlüsselung "
+"verwendet werden, abhängig davon, wie die jeweiligen Notizen oder "
+"Notizbücher ursprünglich verschlüsselt wurden."
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Encryption is:"
+msgstr ""
+
+#, fuzzy
+msgid "Enabled"
+msgstr "Deaktiviert"
+
+msgid "Disabled"
+msgstr "Deaktiviert"
+
+msgid "Back"
+msgstr "Zurück"
+
+#, javascript-format
+msgid ""
+"New notebook \"%s\" will be created and file \"%s\" will be imported into it"
+msgstr ""
+"Neues Notizbuch \"%s\" wird erstellt und die Datei \"%s\" wird hinein "
+"importiert"
+
+msgid "Please create a notebook first."
+msgstr "Bitte erstelle zuerst ein Notizbuch."
+
+msgid "Note title:"
+msgstr "Notizen Titel:"
+
+msgid "Please create a notebook first"
+msgstr "Bitte erstelle zuerst ein Notizbuch"
+
+msgid "To-do title:"
+msgstr "To-Do Titel:"
+
+msgid "Notebook title:"
+msgstr "Notizbuch Titel:"
+
+msgid "Add or remove tags:"
+msgstr "Füge hinzu oder entferne Markierungen:"
+
+msgid "Separate each tag by a comma."
+msgstr "Trenne jede Markierung mit einem Komma."
+
+msgid "Rename notebook:"
+msgstr "Benne Notizbuch um:"
+
+msgid "Set alarm:"
+msgstr "Alarm erstellen:"
+
+msgid "Layout"
+msgstr "Layout"
+
+msgid "Some items cannot be synchronised."
+msgstr "Manche Objekte können nicht synchronisiert werden."
+
+msgid "View them now"
+msgstr "Zeige sie jetzt an"
+
+#, fuzzy
+msgid "Some items cannot be decrypted."
+msgstr "Kann Synchronisierer nicht initialisieren."
+
+msgid "Set the password"
+msgstr ""
+
+msgid "Add or remove tags"
+msgstr "Markierungen hinzufügen oder entfernen"
+
+msgid "Switch between note and to-do type"
+msgstr "Zwischen Notiz und To-Do Typ wechseln"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Delete notes?"
+msgstr "Notizen löschen?"
+
+msgid "No notes in here. Create one by clicking on \"New note\"."
+msgstr ""
+"Hier sind noch keine Notizen. Erstelle eine, indem du auf \"Neue Notiz\" "
+"drückst."
+
+msgid ""
+"There is currently no notebook. Create one by clicking on \"New notebook\"."
+msgstr ""
+"Momentan existieren noch keine Notizbücher. Erstelle eines, indem du auf den "
+"(+) Knopf drückst."
+
+#, javascript-format
+msgid "Unsupported link or message: %s"
+msgstr "Nicht unterstützter Link oder Nachricht: %s"
+
+msgid "Attach file"
+msgstr "Datei anhängen"
+
+msgid "Set alarm"
+msgstr "Alarm erstellen"
+
+msgid "Refresh"
+msgstr "Aktualisieren"
+
+msgid "Clear"
+msgstr ""
+
+msgid "OneDrive Login"
+msgstr "OneDrive Login"
+
+msgid "Import"
+msgstr "Importieren"
+
+msgid "Synchronisation Status"
+msgstr "Synchronisations Status"
+
+msgid "Encryption Options"
+msgstr ""
+
+msgid "Remove this tag from all the notes?"
+msgstr "Diese Markierung von allen Notizen entfernen?"
+
+msgid "Remove this search from the sidebar?"
+msgstr "Diese Suche von der Seitenleiste entfernen?"
+
+msgid "Rename"
+msgstr "Umbenennen"
+
+msgid "Synchronise"
+msgstr "Synchronisieren"
+
+msgid "Notebooks"
+msgstr "Notizbücher"
+
+msgid "Tags"
+msgstr "Markierungen"
+
+msgid "Searches"
+msgstr "Suchen"
+
+msgid "Please select where the sync status should be exported to"
+msgstr ""
+"Bitte wähle aus, wohin der Synchronisations Status exportiert werden soll"
+
+#, javascript-format
+msgid "Usage: %s"
+msgstr "Nutzung: %s"
+
+#, javascript-format
+msgid "Unknown flag: %s"
+msgstr "Unbekanntes Argument: %s"
+
+msgid "File system"
+msgstr "Dateisystem"
+
+msgid "OneDrive"
+msgstr "OneDrive"
+
+msgid "OneDrive Dev (For testing only)"
+msgstr "OneDrive Dev (Nur für Tests)"
+
+#, javascript-format
+msgid "Unknown log level: %s"
+msgstr "Unbekanntes Log Level: %s"
+
+#, javascript-format
+msgid "Unknown level ID: %s"
+msgstr "Unbekannte Level ID: %s"
+
+msgid ""
+"Cannot refresh token: authentication data is missing. Starting the "
+"synchronisation again may fix the problem."
+msgstr ""
+"Kann Token nicht erneuern: Authentifikationsdaten nicht vorhanden. Ein "
+"Neustart der Synchronisation könnte das Problem beheben."
+
+msgid ""
+"Could not synchronize with OneDrive.\n"
+"\n"
+"This error often happens when using OneDrive for Business, which "
+"unfortunately cannot be supported.\n"
+"\n"
+"Please consider using a regular OneDrive account."
+msgstr ""
+"Konnte nicht mit OneDrive synchronisieren.\n"
+"\n"
+"Dieser Fehler kommt oft vor, wenn OneDrive Business benutzt wird, das leider "
+"nicht unterstützt wird.\n"
+"\n"
+"Bitte benutze stattdessen einen normalen OneDrive Account."
+
+#, javascript-format
+msgid "Cannot access %s"
+msgstr "Kann nicht auf %s zugreifen"
+
+#, javascript-format
+msgid "Created local items: %d."
+msgstr "Lokale Objekte erstellt: %d."
+
+#, javascript-format
+msgid "Updated local items: %d."
+msgstr "Lokale Objekte aktualisiert: %d."
+
+#, javascript-format
+msgid "Created remote items: %d."
+msgstr "Remote Objekte erstellt: %d."
+
+#, javascript-format
+msgid "Updated remote items: %d."
+msgstr "Remote Objekte aktualisiert: %d."
+
+#, javascript-format
+msgid "Deleted local items: %d."
+msgstr "Lokale Objekte gelöscht: %d."
+
+#, javascript-format
+msgid "Deleted remote items: %d."
+msgstr "Remote Objekte gelöscht: %d."
+
+#, javascript-format
+msgid "State: \"%s\"."
+msgstr "Status: \"%s\"."
+
+msgid "Cancelling..."
+msgstr "Breche ab..."
+
+#, javascript-format
+msgid "Completed: %s"
+msgstr "Abgeschlossen: %s"
+
+#, javascript-format
+msgid "Synchronisation is already in progress. State: %s"
+msgstr "Synchronisation ist bereits im Gange. Status: %s"
+
+msgid "Conflicts"
+msgstr "Konflikte"
+
+#, javascript-format
+msgid "A notebook with this title already exists: \"%s\""
+msgstr "Ein Notizbuch mit diesem Titel existiert bereits : \"%s\""
+
+#, javascript-format
+msgid "Notebooks cannot be named \"%s\", which is a reserved title."
+msgstr ""
+"Notizbuch kann nicht \"%s\" genannt werden. Dies ist ein reservierter Titel."
+
+msgid "Untitled"
+msgstr "Unbenannt"
+
+msgid "This note does not have geolocation information."
+msgstr "Diese Notiz hat keine Standort-Informationen."
+
+#, javascript-format
+msgid "Cannot copy note to \"%s\" notebook"
+msgstr "Kann Notiz nicht zu Notizbuch \"%s\" kopieren"
+
+#, javascript-format
+msgid "Cannot move note to \"%s\" notebook"
+msgstr "Kann Notiz nicht zu Notizbuch \"%s\" verschieben"
+
+msgid "Text editor"
+msgstr "Textverarbeitungsprogramm"
+
+msgid ""
+"The editor that will be used to open a note. If none is provided it will try "
+"to auto-detect the default editor."
+msgstr ""
+"Das Textverarbeitungsprogramm, mit dem Notizen geöffnet werden. Wenn keines "
+"ausgewählt wurde, wird Joplin versuchen das standard-"
+"Textverarbeitungsprogramm zu erkennen."
+
+msgid "Language"
+msgstr "Sprache"
+
+msgid "Date format"
+msgstr "Datumsformat"
+
+msgid "Time format"
+msgstr "Zeitformat"
+
+msgid "Theme"
+msgstr "Thema"
+
+msgid "Light"
+msgstr "Hell"
+
+msgid "Dark"
+msgstr "Dunkel"
+
+msgid "Show uncompleted todos on top of the lists"
+msgstr "Zeige unvollständige To-Dos oben in der Liste"
+
+msgid "Save geo-location with notes"
+msgstr "Momentanen Standort zusammen mit Notizen speichern"
+
+msgid "Synchronisation interval"
+msgstr "Synchronisationsinterval"
+
+#, javascript-format
+msgid "%d minutes"
+msgstr "%d Minuten"
+
+#, javascript-format
+msgid "%d hour"
+msgstr "%d Stunde"
+
+#, javascript-format
+msgid "%d hours"
+msgstr "%d Stunden"
+
+msgid "Automatically update the application"
+msgstr "Die Applikation automatisch aktualisieren"
+
+msgid "Show advanced options"
+msgstr "Erweiterte Optionen anzeigen"
+
+msgid "Synchronisation target"
+msgstr "Synchronisationsziel"
+
+msgid ""
+"The target to synchonise to. If synchronising with the file system, set "
+"`sync.2.path` to specify the target directory."
+msgstr ""
+"Das Synchronisationsziel, mit dem synchronisiert werden soll. Wenn mit dem "
+"Dateisystem synchronisiert werden soll, setze den Wert zu `sync.2.path`, um "
+"den Zielpfad zu spezifizieren."
+
+msgid "Directory to synchronise with (absolute path)"
+msgstr "Verzeichnis zum synchronisieren (absoluter Pfad)"
+
+msgid ""
+"The path to synchronise with when file system synchronisation is enabled. "
+"See `sync.target`."
+msgstr ""
+"Der Pfad, mit dem synchronisiert wird, wenn Dateisystem-Synchronisation "
+"aktiviert ist. Siehe `sync.target`."
+
+#, javascript-format
+msgid "Invalid option value: \"%s\". Possible values are: %s."
+msgstr "Ungültiger Optionswert: \"%s\". Mögliche Werte sind: %s."
+
+msgid "Items that cannot be synchronised"
+msgstr "Objekte können nicht synchronisiert werden"
+
+#, javascript-format
+msgid "\"%s\": \"%s\""
+msgstr "\"%s\": \"%s\""
+
+msgid "Sync status (synced items / total items)"
+msgstr "Synchronisationsstatus (synchronisierte Objekte / gesamte Objekte)"
+
+#, javascript-format
+msgid "%s: %d/%d"
+msgstr "%s: %d/%d"
+
+#, javascript-format
+msgid "Total: %d/%d"
+msgstr "Insgesamt: %d/%d"
+
+#, javascript-format
+msgid "Conflicted: %d"
+msgstr "In Konflikt %d"
+
+#, javascript-format
+msgid "To delete: %d"
+msgstr "Zu löschen: %d"
+
+msgid "Folders"
+msgstr "Ordner"
+
+#, javascript-format
+msgid "%s: %d notes"
+msgstr "%s: %d Notizen"
+
+msgid "Coming alarms"
+msgstr "Anstehende Alarme"
+
+#, javascript-format
+msgid "On %s: %s"
+msgstr "Auf %s: %s"
+
+msgid "There are currently no notes. Create one by clicking on the (+) button."
+msgstr ""
+"Momentan existieren noch keine Notizen. Erstelle eine, indem du auf den (+) "
+"Knopf drückst."
+
+msgid "Delete these notes?"
+msgstr "Sollen diese Notizen gelöscht werden?"
+
+msgid "Log"
+msgstr "Log"
+
+msgid "Export Debug Report"
+msgstr "Fehlerbreicht exportieren"
+
+msgid "Configuration"
+msgstr "Konfiguration"
+
+msgid "Move to notebook..."
+msgstr "In Notizbuch verschieben..."
+
+#, javascript-format
+msgid "Move %d notes to notebook \"%s\"?"
+msgstr "%d Notizen in das Notizbuch \"%s\" verschieben?"
+
+msgid "Select date"
+msgstr "Datum auswählen"
+
+msgid "Confirm"
+msgstr "Bestätigen"
+
+msgid "Cancel synchronisation"
+msgstr "Synchronisation abbrechen"
+
+#, javascript-format
+msgid "The notebook could not be saved: %s"
+msgstr "Dieses Notizbuch konnte nicht gespeichert werden: %s"
+
+msgid "Edit notebook"
+msgstr "Notizbuch bearbeiten"
+
+msgid "This note has been modified:"
+msgstr "Diese Notiz wurde verändert:"
+
+msgid "Save changes"
+msgstr "Änderungen speichern"
+
+msgid "Discard changes"
+msgstr "Änderungen verwerfen"
+
+#, javascript-format
+msgid "Unsupported image type: %s"
+msgstr "Nicht unterstütztes Fotoformat: %s"
+
+msgid "Attach photo"
+msgstr "Foto anhängen"
+
+msgid "Attach any file"
+msgstr "Beliebige Datei anhängen"
+
+msgid "Convert to note"
+msgstr "In eine Notiz umwandeln"
+
+msgid "Convert to todo"
+msgstr "In ein To-Do umwandeln"
+
+msgid "Hide metadata"
+msgstr "Metadaten verstecken"
+
+msgid "Show metadata"
+msgstr "Metadaten anzeigen"
+
+msgid "View on map"
+msgstr "Auf der Karte anzeigen"
+
+msgid "Delete notebook"
+msgstr "Notizbuch löschen"
+
+msgid "Login with OneDrive"
+msgstr "Mit OneDrive anmelden"
+
+msgid ""
+"Click on the (+) button to create a new note or notebook. Click on the side "
+"menu to access your existing notebooks."
+msgstr ""
+"Drücke auf den (+) Knopf, um eine neue Notiz oder ein neues Notizbuch zu "
+"erstellen. Tippe auf die Seitenleiste, um auf deine existierenden "
+"Notizbücher zuzugreifen."
+
+msgid "You currently have no notebook. Create one by clicking on (+) button."
+msgstr ""
+"Du hast noch kein Notizbuch. Erstelle eines, indem du auf den (+) Knopf "
+"drückst."
+
+msgid "Welcome"
+msgstr "Willkommen"
+
+#~ msgid "Delete notebook?"
+#~ msgstr "Notizbuch löschen?"
+
+#~ msgid "Delete notebook \"%s\"?"
+#~ msgstr "Notizbuch \"%s\" löschen?"
+
+#~ msgid "File system synchronisation target directory"
+#~ msgstr "Dateisystem-Synchronisation Zielpfad"
+
+#~ msgid "Set or clear alarm:"
+#~ msgstr "Erstelle oder entferne Alarm:"

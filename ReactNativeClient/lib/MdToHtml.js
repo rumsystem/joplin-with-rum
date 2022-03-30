@@ -1,7 +1,7 @@
 const MarkdownIt = require('markdown-it');
 const Entities = require('html-entities').AllHtmlEntities;
 const htmlentities = (new Entities()).encode;
-const { Resource } = require('lib/models/resource.js');
+const Resource = require('lib/models/Resource.js');
 const ModelCache = require('lib/ModelCache');
 const { shim } = require('lib/shim.js');
 const md5 = require('md5');
@@ -100,7 +100,7 @@ class MdToHtml {
 		const href = this.getAttr_(attrs, 'src');
 
 		if (!Resource.isResourceUrl(href)) {
-			return '<span>' + href + '</span><img title="' + htmlentities(title) + '" src="' + href + '"/>';
+			return '<img title="' + htmlentities(title) + '" src="' + href + '"/>';
 		}
 
 		const resourceId = Resource.urlToId(href);

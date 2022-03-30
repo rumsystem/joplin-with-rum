@@ -1,7 +1,7 @@
 const { reg } = require('lib/registry.js');
-const { Folder } = require('lib/models/folder.js');
-const { BaseModel } = require('lib/base-model.js');
-const { Note } = require('lib/models/note.js');
+const Folder = require('lib/models/Folder.js');
+const BaseModel = require('lib/BaseModel.js');
+const Note = require('lib/models/Note.js');
 
 const shared = {};
 
@@ -29,22 +29,31 @@ shared.saveNoteButton_press = async function(comp) {
 	}
 
 	let isNew = !note.id;
+	let titleWasAutoAssigned = false;
 
 	if (isNew && !note.title) {
 		note.title = Note.defaultTitle(note);
+		titleWasAutoAssigned = true;
 	}
 
 	// Save only the properties that have changed
-	let diff = null;
+	// let diff = null;
+	// if (!isNew) {
+	// 	diff = BaseModel.diffObjects(comp.state.lastSavedNote, note);
+	// 	diff.type_ = note.type_;
+	// 	diff.id = note.id;
+	// } else {
+	// 	diff = Object.assign({}, note);
+	// }
+
+	// const savedNote = await Note.save(diff);
+
+	let options = {};
 	if (!isNew) {
-		diff = BaseModel.diffObjects(comp.state.lastSavedNote, note);
-		diff.type_ = note.type_;
-		diff.id = note.id;
-	} else {
-		diff = Object.assign({}, note);
+		options.fields = BaseModel.diffObjectsFields(comp.state.lastSavedNote, note);
 	}
 
-	const savedNote = await Note.save(diff);
+	const savedNote = ('fields' in options) && !options.fields.length ? Object.assign({}, note) : await Note.save(note, { userSideValidation: true });
 
 	const stateNote = comp.state.note;
 	// Re-assign any property that might have changed during saving (updated_time, etc.)
@@ -54,8 +63,11 @@ shared.saveNoteButton_press = async function(comp) {
 		// But we preserve the current title and body because
 		// the user might have changed them between the time
 		// saveNoteButton_press was called and the note was
-		// saved (it's done asynchronously)
-		note.title = stateNote.title;
+		// saved (it's done asynchronously).
+		//
+		// If the title was auto-assigned above, we don't restore
+		// it from the state because it will be empty there.
+		if (!titleWasAutoAssigned) note.title = stateNote.title;
 		note.body = stateNote.body;
 	}
 
