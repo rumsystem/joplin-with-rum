@@ -1,9 +1,9 @@
 const { BaseCommand } = require('./base-command.js');
 const { app } = require('./app.js');
 const { _ } = require('lib/locale.js');
-const BaseModel = require('lib/BaseModel.js');
-const Folder = require('lib/models/Folder.js');
-const Note = require('lib/models/Note.js');
+const { BaseModel } = require('lib/base-model.js');
+const { Folder } = require('lib/models/folder.js');
+const { Note } = require('lib/models/note.js');
 
 class Command extends BaseCommand {
 
@@ -20,7 +20,6 @@ class Command extends BaseCommand {
 		const name = args['name'];
 
 		const item = await app().loadItem('folderOrNote', pattern);
-		this.encryptionCheck(item);
 		if (!item) throw new Error(_('Cannot find "%s".', pattern));
 
 		const newItem = {

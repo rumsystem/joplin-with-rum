@@ -2,8 +2,8 @@ const { BaseCommand } = require('./base-command.js');
 const { app } = require('./app.js');
 const { _ } = require('lib/locale.js');
 const { OneDriveApiNodeUtils } = require('./onedrive-api-node-utils.js');
-const Setting = require('lib/models/Setting.js');
-const BaseItem = require('lib/models/BaseItem.js');
+const { Setting } = require('lib/models/setting.js');
+const { BaseItem } = require('lib/models/base-item.js');
 const { Synchronizer } = require('lib/synchronizer.js');
 const { reg } = require('lib/registry.js');
 const { cliUtils } = require('./cli-utils.js');
@@ -32,6 +32,7 @@ class Command extends BaseCommand {
 	options() {
 		return [
 			['--target <target>', _('Sync to provided target (defaults to sync.target config value)')],
+			['--random-failures', 'For debugging purposes. Do not use.'],
 		];
 	}
 
@@ -139,6 +140,7 @@ class Command extends BaseCommand {
 					cliUtils.redrawDone();
 					this.stdout(msg);
 				},
+				randomFailures: args.options['random-failures'] === true,
 			};
 
 			this.stdout(_('Synchronisation target: %s (%s)', Setting.enumOptionLabel('sync.target', this.syncTargetId_), this.syncTargetId_));

@@ -12,7 +12,7 @@ The notes can be [synchronised](#synchronisation) with various targets including
 
 On macOS:
 
-	brew install joplin
+	brew install node joplin
 
 On Linux or Windows (via [WSL](https://msdn.microsoft.com/en-us/commandline/wsl/faq?f=255&MSPPError=-2147217396)):
 
@@ -79,7 +79,7 @@ Rename the currently selected notebook ($b) to "Something":
 
 Attach a local file to the currently selected note ($n):
 
-	attach $n /home/laurent/pictures/Vacation12.jpg
+	ren $n /home/laurent/pictures/Vacation12.jpg
 
 The configuration can also be changed from command-line mode. For example, to change the current editor to Sublime Text:
 
@@ -136,25 +136,6 @@ Since this is still an actual URL, the terminal will still make it clickable. An
 # Attachments / Resources
 
 In Markdown, links to resources are represented as a simple ID to the resource. In order to give access to these resources, they will be, like links, converted to local URLs. Clicking this link will then open a browser, which will handle the file - i.e. display the image, open the PDF file, etc.
-
-# Shell mode
-
-Commands can also be used directly from a shell. To view the list of available commands, type `joplin help all`. To reference a note, notebook or tag you can either use the ID (type `joplin ls -l` to view the ID) or by title.
-
-For example, this will create a new note "My note" in the notebook "My notebook":
-
-	$ joplin mkbook "My notebook"
-	$ joplin use "My notebook"
-	$ joplin mknote "My note"
-
-To view the newly created note:
-
-	$ joplin ls -l
-	fe889 07/12/2017 17:57 My note
-
-Give a new title to the note:
-
-	$ joplin set fe889 title "New title"
 
 # Available shortcuts
 
@@ -359,7 +340,7 @@ The following commands are available in [command-line mode](#command-line-mode):
 
 # License
 
-Copyright (c) 2016-2018 Laurent Cozic
+Copyright (c) 2016-2017 Laurent Cozic
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
