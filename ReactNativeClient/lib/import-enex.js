@@ -212,92 +212,51 @@ function importEnex(parentFolderId, filePath, importOptions = null) {
 		async function processNotes() {
 			if (processingNotes) return false;
 
-			try {
-				processingNotes = true;
-				stream.pause();
+			processingNotes = true;
+			stream.pause();
 
-				while (notes.length) {
-					let note = notes.shift();
-					const contentStream = stringToStream(note.bodyXml);
-					const body = await enexXmlToMd(contentStream, note.resources);
-					delete note.bodyXml;
+			let chain = [];
+			while (notes.length) {
+				let note = notes.shift();
+				const contentStream = stringToStream(note.bodyXml);
+				chain.push(() => {
+					return enexXmlToMd(contentStream, note.resources).then((body) => {
+						delete note.bodyXml;
 
-					// console.info('-----------------------------------------------------------');
-					// console.info(body);
-					// console.info('-----------------------------------------------------------');
+						// console.info('-----------------------------------------------------------');
+						// console.info(body);
+						// console.info('-----------------------------------------------------------');
 
-					note.id = uuid.create();
-					note.parent_id = parentFolderId;
-					note.body = body;
+						note.id = uuid.create();
+						note.parent_id = parentFolderId;
+						note.body = body;
 
-					// Notes in enex files always have a created timestamp but not always an
-					// updated timestamp (it the note has never been modified). For sync
-					// we require an updated_time property, so set it to create_time in that case
-					if (!note.updated_time) note.updated_time = note.created_time;
+						// Notes in enex files always have a created timestamp but not always an
+						// updated timestamp (it the note has never been modified). For sync
+						// we require an updated_time property, so set it to create_time in that case
+						if (!note.updated_time) note.updated_time = note.created_time;
 
-					const result = await saveNoteToStorage(note, importOptions.fuzzyMatching);
-
-					if (result.noteUpdated) {
-						progressState.updated++;
-					} else if (result.noteCreated) {
-						progressState.created++;
-					} else if (result.noteSkipped) {
-						progressState.skipped++;
-					}
-					progressState.resourcesCreated += result.resourcesCreated;
-					progressState.notesTagged += result.notesTagged;
-					importOptions.onProgress(progressState);
-				}
-			} catch(error) {
-				console.error(error);
+						return saveNoteToStorage(note, importOptions.fuzzyMatching);
+					}).then((result) => {
+						if (result.noteUpdated) {
+							progressState.updated++;
+						} else if (result.noteCreated) {
+							progressState.created++;
+						} else if (result.noteSkipped) {
+							progressState.skipped++;
+						}
+						progressState.resourcesCreated += result.resourcesCreated;
+						progressState.notesTagged += result.notesTagged;
+						importOptions.onProgress(progressState);
+					});
+				});
 			}
 
-			stream.resume();
-			processingNotes = false;
-			return true;
-
-			// let chain = [];
-			// while (notes.length) {
-			// 	let note = notes.shift();
-			// 	const contentStream = stringToStream(note.bodyXml);
-			// 	chain.push(() => {
-			// 		return enexXmlToMd(contentStream, note.resources).then((body) => {
-			// 			delete note.bodyXml;
-
-			// 			// console.info('-----------------------------------------------------------');
-			// 			// console.info(body);
-			// 			// console.info('-----------------------------------------------------------');
-
-			// 			note.id = uuid.create();
-			// 			note.parent_id = parentFolderId;
-			// 			note.body = body;
-
-			// 			// Notes in enex files always have a created timestamp but not always an
-			// 			// updated timestamp (it the note has never been modified). For sync
-			// 			// we require an updated_time property, so set it to create_time in that case
-			// 			if (!note.updated_time) note.updated_time = note.created_time;
-
-			// 			return saveNoteToStorage(note, importOptions.fuzzyMatching);
-			// 		}).then((result) => {
-			// 			if (result.noteUpdated) {
-			// 				progressState.updated++;
-			// 			} else if (result.noteCreated) {
-			// 				progressState.created++;
-			// 			} else if (result.noteSkipped) {
-			// 				progressState.skipped++;
-			// 			}
-			// 			progressState.resourcesCreated += result.resourcesCreated;
-			// 			progressState.notesTagged += result.notesTagged;
-			// 			importOptions.onProgress(progressState);
-			// 		});
-			// 	});
-			// }
-
-			// return promiseChain(chain).then(() => {
-			// 	stream.resume();
-			// 	processingNotes = false;
-			// 	return true;
-			// });
+			return promiseChain(chain).then(() => {
+				stream.resume();
+				processingNotes = false;
+				return true;
+			});
 		}
 
 		saxStream.on('error', (error) => {
@@ -364,11 +323,7 @@ function importEnex(parentFolderId, filePath, importOptions = null) {
 				noteResourceRecognition.objID = extractRecognitionObjId(data);
 			} else if (note) {
 				if (n == 'content') {
-					if ('bodyXml' in note) {
-						note.bodyXml += data;
-					} else {
-						note.bodyXml = data;
-					}
+					note.bodyXml = data;
 				}
 			}
 		});
