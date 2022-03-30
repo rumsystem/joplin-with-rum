@@ -18,4 +18,4 @@ shim.uploadBlob = () => { throw new Error('Not implemented'); }
 shim.setInterval = setInterval;
 shim.clearInterval = clearInterval;
 
-module.exports = { shim };
+export { shim };

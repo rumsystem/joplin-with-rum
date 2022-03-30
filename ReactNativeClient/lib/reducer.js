@@ -1,4 +1,4 @@
-const { Note } = require('lib/models/note.js');
+import { Note } from 'lib/models/note.js';
 
 const defaultState = {
 	notes: [],
@@ -419,4 +419,4 @@ const reducer = (state = defaultState, action) => {
 	return newState;
 }
 
-module.exports = { reducer, defaultState };
+export { reducer, defaultState };

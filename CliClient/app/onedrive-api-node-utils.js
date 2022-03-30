@@ -1,5 +1,5 @@
-const { _ } = require('lib/locale.js');
-const { netUtils } = require('lib/net-utils.js');
+import { _ } from 'lib/locale.js'
+import { netUtils } from 'lib/net-utils.js'
 
 const http = require("http");
 const urlParser = require("url");
@@ -119,4 +119,4 @@ class OneDriveApiNodeUtils {
 
 }
 
-module.exports = { OneDriveApiNodeUtils };
+export { OneDriveApiNodeUtils };

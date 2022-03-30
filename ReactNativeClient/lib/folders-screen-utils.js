@@ -1,4 +1,4 @@
-const { Folder } = require('lib/models/folder.js');
+import { Folder } from 'lib/models/folder.js'
 
 class FoldersScreenUtils {
 
@@ -13,4 +13,4 @@ class FoldersScreenUtils {
 
 }
 
-module.exports = { FoldersScreenUtils };
+export { FoldersScreenUtils }

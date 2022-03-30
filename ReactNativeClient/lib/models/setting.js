@@ -1,8 +1,8 @@
-const { BaseModel } = require('lib/base-model.js');
-const { Database } = require('lib/database.js');
-const { Logger } = require('lib/logger.js');
-const { sprintf } = require('sprintf-js');
-const { _, supportedLocalesToLanguages, defaultLocale } = require('lib/locale.js');
+import { BaseModel } from 'lib/base-model.js';
+import { Database } from 'lib/database.js';
+import { Logger } from 'lib/logger.js';
+import { sprintf } from 'sprintf-js';
+import { _, supportedLocalesToLanguages, defaultLocale } from 'lib/locale.js';
 
 class Setting extends BaseModel {
 
@@ -386,4 +386,4 @@ Setting.constants_ = {
 	tempDir: '',
 }
 
-module.exports = { Setting };
+export { Setting };

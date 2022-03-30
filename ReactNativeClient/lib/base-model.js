@@ -1,7 +1,7 @@
-const { Log } = require('lib/log.js');
-const { Database } = require('lib/database.js');
-const { uuid } = require('lib/uuid.js');
-const { time } = require('lib/time-utils.js');
+import { Log } from 'lib/log.js';
+import { Database } from 'lib/database.js';
+import { uuid } from 'lib/uuid.js';
+import { time } from 'lib/time-utils.js';
 
 class BaseModel {
 
@@ -364,4 +364,4 @@ BaseModel.TYPE_SEARCH = 7;
 BaseModel.db_ = null;
 BaseModel.dispatch = function(o) {};
 
-module.exports = { BaseModel };
+export { BaseModel };

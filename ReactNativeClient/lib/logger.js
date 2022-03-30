@@ -1,7 +1,7 @@
-const moment = require('moment');
-const { _ } = require('lib/locale.js');
-const { time } = require('lib/time-utils.js');
-const { FSdRiverdUmmy } = require('lib/fs-driver-dummy.js');
+import moment from 'moment';
+import { _ } from 'lib/locale.js';
+import { time } from 'lib/time-utils.js';
+import { FsDriverDummy } from 'lib/fs-driver-dummy.js';
 
 class Logger {
 
@@ -180,4 +180,4 @@ Logger.LEVEL_WARN = 20;
 Logger.LEVEL_INFO = 30;
 Logger.LEVEL_DEBUG = 40;
 
-module.exports = { Logger };
+export { Logger };

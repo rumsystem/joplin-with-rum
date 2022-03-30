@@ -1,4 +1,4 @@
-const { time } = require('lib/time-utils.js');
+import { time } from 'lib/time-utils.js';
 
 class FileApiDriverMemory {
 
@@ -165,4 +165,4 @@ class FileApiDriverMemory {
 
 }
 
-module.exports = { FileApiDriverMemory };
+export { FileApiDriverMemory };

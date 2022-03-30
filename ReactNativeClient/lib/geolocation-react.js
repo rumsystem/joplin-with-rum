@@ -1,4 +1,4 @@
-const { Setting } = require('lib/models/setting.js');
+import { Setting } from 'lib/models/setting.js';
 
 class GeolocationReact {
 
@@ -35,4 +35,4 @@ class GeolocationReact {
 
 }
 
-module.exports = { GeolocationReact };
+export { GeolocationReact };

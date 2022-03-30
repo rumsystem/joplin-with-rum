@@ -1,4 +1,4 @@
-const { Logger } = require('lib/logger.js');
+import { Logger } from 'lib/logger.js';
 
 class ReactLogger extends Logger {
 
@@ -6,4 +6,4 @@ class ReactLogger extends Logger {
 
 }
 
-module.exports = { ReactLogger };
+export { ReactLogger }

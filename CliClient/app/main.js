@@ -2,21 +2,22 @@
 
 // Loading time: 20170803: 1.5s with no commands
 
-require('app-module-path').addPath(__dirname);
+require('source-map-support').install();
+require('babel-plugin-transform-runtime');
 
-const { app } = require('./app.js');
-const { BaseModel } = require('lib/base-model.js');
-const { Folder } = require('lib/models/folder.js');
-const { Resource } = require('lib/models/resource.js');
-const { BaseItem } = require('lib/models/base-item.js');
-const { Note } = require('lib/models/note.js');
-const { Tag } = require('lib/models/tag.js');
-const { NoteTag } = require('lib/models/note-tag.js');
-const { Setting } = require('lib/models/setting.js');
-const { Logger } = require('lib/logger.js');
-const { FsDriverNode } = require('./fs-driver-node.js');
-const { shimInit } = require('lib/shim-init-node.js');
-const { _ } = require('lib/locale.js');
+import { app } from './app.js';
+import { BaseModel } from 'lib/base-model.js';
+import { Folder } from 'lib/models/folder.js';
+import { Resource } from 'lib/models/resource.js';
+import { BaseItem } from 'lib/models/base-item.js';
+import { Note } from 'lib/models/note.js';
+import { Tag } from 'lib/models/tag.js';
+import { NoteTag } from 'lib/models/note-tag.js';
+import { Setting } from 'lib/models/setting.js';
+import { Logger } from 'lib/logger.js';
+import { FsDriverNode } from './fs-driver-node.js';
+import { shimInit } from 'lib/shim-init-node.js';
+import { _ } from 'lib/locale.js';
 
 const fsDriver = new FsDriverNode();
 Logger.fsDriver_ = fsDriver;

@@ -13,4 +13,4 @@ const markdownUtils = {
 
 };
 
-module.exports = { markdownUtils };
+export { markdownUtils };

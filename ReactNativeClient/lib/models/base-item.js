@@ -1,9 +1,9 @@
-const { BaseModel } = require('lib/base-model.js');
-const { Database } = require('lib/database.js');
-const { Setting } = require('lib/models/setting.js');
-const { time } = require('lib/time-utils.js');
-const { sprintf } = require('sprintf-js');
-const moment = require('moment');
+import { BaseModel } from 'lib/base-model.js';
+import { Database } from 'lib/database.js';
+import { Setting } from 'lib/models/setting.js';
+import { time } from 'lib/time-utils.js';
+import { sprintf } from 'sprintf-js';
+import moment from 'moment';
 
 class BaseItem extends BaseModel {
 
@@ -435,4 +435,4 @@ BaseItem.syncItemDefinitions_ = [
 	{ type: BaseModel.TYPE_NOTE_TAG, className: 'NoteTag' },
 ];
 
-module.exports = { BaseItem };
+export { BaseItem };

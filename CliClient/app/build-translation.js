@@ -1,14 +1,15 @@
 "use strict"
 
-require('app-module-path').addPath(__dirname);
+require('source-map-support').install();
+require('babel-plugin-transform-runtime');
 
 const processArgs = process.argv.splice(2, process.argv.length);
 
 const silentLog = processArgs.indexOf('--silent') >= 0;
 
-const { basename, dirname } = require('lib/path-utils.js');
-const fs = require('fs-extra');
-const gettextParser = require('gettext-parser');
+import { basename, dirname } from 'lib/path-utils.js';
+import fs from 'fs-extra';
+import gettextParser from 'gettext-parser';
 
 const rootDir = dirname(dirname(__dirname));
 const cliDir = rootDir + '/CliClient';
