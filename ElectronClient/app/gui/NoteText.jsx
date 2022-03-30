@@ -1,7 +1,7 @@
 const React = require('react');
-const Note = require('lib/models/Note.js');
+const { Note } = require('lib/models/note.js');
 const { time } = require('lib/time-utils.js');
-const Setting = require('lib/models/Setting.js');
+const { Setting } = require('lib/models/setting.js');
 const { IconButton } = require('./IconButton.min.js');
 const Toolbar = require('./Toolbar.min.js');
 const { connect } = require('react-redux');
@@ -37,6 +37,7 @@ class NoteTextComponent extends React.Component {
 			webviewReady: false,
 			scrollHeight: null,
 			editorScrollTop: 0,
+			editor:null
 		};
 
 		this.lastLoadedNoteId_ = null;
@@ -167,6 +168,13 @@ class NoteTextComponent extends React.Component {
 	async componentWillReceiveProps(nextProps) {
 		if ('noteId' in nextProps && nextProps.noteId !== this.props.noteId) {
 			await this.reloadNote(nextProps);
+			const editor=this.state.editor;
+			if(editor){
+				const session = editor.getSession();
+				const undoManager = session.getUndoManager();
+				undoManager.reset();
+				session.setUndoManager(undoManager);
+			}
 		}
 
 		if ('syncStarted' in nextProps && !nextProps.syncStarted && !this.isModified()) {
@@ -334,6 +342,10 @@ class NoteTextComponent extends React.Component {
 		this.scheduleSave();
 	}
 
+	aceEditor_onLoad(editor){
+		this.setState({editor:editor});
+	}
+
 	async commandAttachFile() {
 		const noteId = this.props.noteId;
 		if (!noteId) return;
@@ -418,7 +430,7 @@ class NoteTextComponent extends React.Component {
 
 		const innerWidth = rootStyle.width - rootStyle.paddingLeft - rootStyle.paddingRight - borderWidth;
 
-		if (!note || !!note.encryption_applied) {
+		if (!note) {
 			const emptyDivStyle = Object.assign({
 				backgroundColor: 'black',
 				opacity: 0.1,
@@ -549,7 +561,6 @@ class NoteTextComponent extends React.Component {
 		delete editorRootStyle.width;
 		delete editorRootStyle.height;
 		delete editorRootStyle.fontSize;
-
 		const editor =  <AceEditor
 			value={body}
 			mode="markdown"
@@ -559,6 +570,7 @@ class NoteTextComponent extends React.Component {
 			height={editorStyle.height + 'px'}
 			fontSize={editorStyle.fontSize}
 			showGutter={false}
+			onLoad={editor => this.aceEditor_onLoad.bind(this)(editor)}
 			name="note-editor"
 			wrapEnabled={true}
 			onScroll={(event) => { this.editor_scroll(); }}

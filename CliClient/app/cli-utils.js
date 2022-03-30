@@ -178,39 +178,38 @@ cliUtils.promptConfirm = function(message, answers = null) {
 	});
 }
 
-// Note: initialText is there to have the same signature as statusBar.prompt() so that
-// it can be a drop-in replacement, however initialText is not used (and cannot be
-// with readline.question?).
-cliUtils.prompt = function(initialText = '', promptString = ':', options = null) {
-	if (!options) options = {};
-
+cliUtils.promptInput = function(message) {
 	const readline = require('readline');
-	const Writable = require('stream').Writable;
-
-	const mutableStdout = new Writable({
-		write: function(chunk, encoding, callback) {
-			if (!this.muted)
-			process.stdout.write(chunk, encoding);
-			callback();
-		}
-	});
 
 	const rl = readline.createInterface({
 		input: process.stdin,
-		output: mutableStdout,
-		terminal: true,
+		output: process.stdout
 	});
 
 	return new Promise((resolve, reject) => {
-		mutableStdout.muted = false;
-
-		rl.question(promptString, (answer) => {
+		rl.question(message + ' ', (answer) => {
 			rl.close();
-			if (!!options.secure) this.stdout_('');
 			resolve(answer);
 		});
+	});
+}
 
-		mutableStdout.muted = !!options.secure;
+// Note: initialText is there to have the same signature as statusBar.prompt() so that
+// it can be a drop-in replacement, however initialText is not used (and cannot be
+// with readline.question?).
+cliUtils.prompt = function(initialText = '', promptString = ':') {
+	const readline = require('readline');
+
+	const rl = readline.createInterface({
+		input: process.stdin,
+		output: process.stdout
+	});
+
+	return new Promise((resolve, reject) => {
+		rl.question(promptString, (answer) => {
+			rl.close();
+			resolve(answer);
+		});
 	});
 }
 
