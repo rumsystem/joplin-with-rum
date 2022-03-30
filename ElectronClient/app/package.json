@@ -1,6 +1,6 @@
 {
   "name": "Joplin",
-  "version": "0.10.15",
+  "version": "0.10.9",
   "description": "Joplin for Desktop",
   "main": "main.js",
   "scripts": {
@@ -29,9 +29,6 @@
       ]
     },
     "mac": {
-      "asar": false
-    },
-    "linux": {
       "asar": false
     }
   },
