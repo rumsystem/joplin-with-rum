@@ -18,9 +18,9 @@ Three types of applications are available: for the **desktop** (Windows, macOS a
 
 Operating System | Download
 -----------------|--------
-Windows          | <a href='https://github.com/laurent22/joplin/releases/download/v0.10.39/Joplin-Setup-0.10.39.exe'><img alt='Get it on Windows' height="40px" src='https://raw.githubusercontent.com/laurent22/joplin/master/docs/images/BadgeWindows.png'/></a>
-macOS          | <a href='https://github.com/laurent22/joplin/releases/download/v0.10.39/Joplin-0.10.39.dmg'><img alt='Get it on macOS' height="40px" src='https://raw.githubusercontent.com/laurent22/joplin/master/docs/images/BadgeMacOS.png'/></a>
-Linux          | <a href='https://github.com/laurent22/joplin/releases/download/v0.10.39/Joplin-0.10.39-x86_64.AppImage'><img alt='Get it on macOS' height="40px" src='https://raw.githubusercontent.com/laurent22/joplin/master/docs/images/BadgeLinux.png'/></a>
+Windows          | <a href='https://github.com/laurent22/joplin/releases/download/v0.10.40/Joplin-Setup-0.10.40.exe'><img alt='Get it on Windows' height="40px" src='https://raw.githubusercontent.com/laurent22/joplin/master/docs/images/BadgeWindows.png'/></a>
+macOS          | <a href='https://github.com/laurent22/joplin/releases/download/v0.10.40/Joplin-0.10.40.dmg'><img alt='Get it on macOS' height="40px" src='https://raw.githubusercontent.com/laurent22/joplin/master/docs/images/BadgeMacOS.png'/></a>
+Linux          | <a href='https://github.com/laurent22/joplin/releases/download/v0.10.40/Joplin-0.10.40-x86_64.AppImage'><img alt='Get it on macOS' height="40px" src='https://raw.githubusercontent.com/laurent22/joplin/master/docs/images/BadgeLinux.png'/></a>
 
 ## Mobile applications
 
@@ -75,13 +75,6 @@ To import Evernote data, first export your Evernote notebooks to ENEX files as d
 On the **desktop application**, open the "File" menu, click "Import Evernote notes" and select your ENEX file. This will open a new screen which will display the import progress. The notes will be imported into a new separate notebook (so that, in case of a mistake, the notes are not mixed up with any existing notes). If needed then can then be moved to a different notebook, or the notebook can be renamed, etc.
 
 On the **terminal application**, in [command-line mode](/terminal#command-line-mode), type `import-enex /path/to/file.enex`. This will import the notes into a new notebook named after the filename.
-
-# Importing notes from other applications
-
-In general the way to import notes from any application into Joplin is to convert the notes to ENEX files (Evernote format) and to import these ENEX files into Joplin using the method above. Most note-taking applications support ENEX files so it should be relatively straightforward. For help about specific applications, see below:
-
-* Standard Notes: Please see [this tutorial](https://programadorwebvalencia.com/migrate-notes-from-standard-notes-to-joplin/)
-* Tomboy Notes: Export the notes to ENEX files [as described here](https://askubuntu.com/questions/243691/how-can-i-export-my-tomboy-notes-into-evernote/608551) for example, and import these ENEX files into Joplin.
 
 # Synchronisation
 
