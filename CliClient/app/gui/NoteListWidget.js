@@ -1,4 +1,4 @@
-const Note = require('lib/models/Note.js');
+const Note = require('lib/models/note.js').Note;
 const ListWidget = require('tkwidgets/ListWidget.js');
 
 class NoteListWidget extends ListWidget {
@@ -10,7 +10,7 @@ class NoteListWidget extends ListWidget {
 		this.updateIndexFromSelectedNoteId_ = false;
 
 		this.itemRenderer = (note) => {
-			let label = Note.displayTitle(note); // + ' ' + note.id;
+			let label = note.title; // + ' ' + note.id;
 			if (note.is_todo) {
 				label = '[' + (note.todo_completed ? 'X' : ' ') + '] ' + label;
 			}
