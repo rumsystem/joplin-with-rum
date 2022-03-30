@@ -1,23 +1,10 @@
 const { time } = require('lib/time-utils.js');
-const fs = require('fs-extra');
 
 class FileApiDriverMemory {
 
 	constructor() {
 		this.items_ = [];
 		this.deletedItems_ = [];
-	}
-
-	encodeContent_(content) {
-		if (content instanceof Buffer) {
-			return content.toString('base64');
-		} else {
-			return Buffer.from(content).toString('base64');
-		}
-	}
-
-	decodeContent_(content) {
-		return Buffer.from(content, 'base64').toString('ascii');
 	}
 
 	itemIndexByPath(path) {
@@ -78,20 +65,11 @@ class FileApiDriverMemory {
 		});
 	}
 
-	async get(path, options) {
+	get(path) {
 		let item = this.itemByPath(path);
 		if (!item) return Promise.resolve(null);
 		if (item.isDir) return Promise.reject(new Error(path + ' is a directory, not a file'));
-
-		let output = null;
-		if (options.target === 'file') {
-			await fs.writeFile(options.path, Buffer.from(item.content, 'base64'));
-		} else {
-			const content = this.decodeContent_(item.content);
-			output = Promise.resolve(content);
-		}
-
-		return output;
+		return Promise.resolve(item.content);
 	}
 
 	mkdir(path) {
@@ -101,18 +79,14 @@ class FileApiDriverMemory {
 		return Promise.resolve();
 	}
 
-	async put(path, content, options = null) {
-		if (!options) options = {};
-
-		if (options.source === 'file') content = await fs.readFile(options.path);
-
+	put(path, content) {
 		let index = this.itemIndexByPath(path);
 		if (index < 0) {
 			let item = this.newItem(path, false);
-			item.content = this.encodeContent_(content);
+			item.content = content;
 			this.items_.push(item);
 		} else {
-			this.items_[index].content = this.encodeContent_(content);
+			this.items_[index].content = content;
 			this.items_[index].updated_time = time.unix();
 		}
 		return Promise.resolve();
