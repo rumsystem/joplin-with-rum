@@ -194,7 +194,7 @@ function addResourceTag(lines, resource, alt = "") {
 
 
 function isBlockTag(n) {
-	return n=="div" || n=="p" || n=="dl" || n=="dd" || n == 'dt' || n=="center";
+	return ["div", "p", "dl", "dd", 'dt', "center", 'address'].indexOf(n) >= 0;
 }
 
 function isStrongTag(n) {
@@ -214,7 +214,7 @@ function isAnchor(n) {
 }
 
 function isIgnoredEndTag(n) {
-	return n=="en-note" || n=="en-todo" || n=="span" || n=="body" || n=="html" || n=="font" || n=="br" || n=='hr' || n=='s' || n == 'tbody' || n == 'sup' || n == 'img' || n == 'abbr' || n == 'cite' || n == 'thead' || n == 'small' || n == 'tt' || n == 'sub';
+	return ["en-note", "en-todo", "span", "body", "html", "font", "br", 'hr', 'tbody', 'sup', 'img', 'abbr', 'cite', 'thead', 'small', 'tt', 'sub', 'colgroup', 'col', 'ins', 'caption', 'var', 'map', 'area'].indexOf(n) >= 0;
 }
 
 function isListTag(n) {
@@ -223,7 +223,7 @@ function isListTag(n) {
 
 // Elements that don't require any special treatment beside adding a newline character
 function isNewLineOnlyEndTag(n) {
-	return n=="div" || n=="p" || n=="li" || n=="h1" || n=="h2" || n=="h3" || n=="h4" || n=="h5" || n=='h6' || n=="dl" || n=="dd" || n == 'dt' || n=="center";
+	return ["div", "p", "li", "h1", "h2", "h3", "h4", "h5", 'h6', "dl", "dd", 'dt', "center", 'address'].indexOf(n) >= 0;
 }
 
 function isCodeTag(n) {
@@ -246,6 +246,10 @@ function isCodeTag(n) {
 	// }
 	// <code>
 	return n == "pre" || n == "code";
+}
+
+function isInlineCodeTag(n) {
+	return ['samp', 'kbd'].indexOf(n) >= 0;
 }
 
 function isNewLineBlock(s) {
@@ -320,15 +324,6 @@ function enexXmlToMdArray(stream, resources) {
 					type: 'table',
 					lines: [],
 					parent: section,
-					toString: function() {
-						let output = [];
-						output.push(BLOCK_OPEN);
-						for (let i = 0; i < this.lines.length; i++) {
-							output = output.concat(this.lines[i].toMdLines());
-						}
-						output.push(BLOCK_CLOSE);
-						return processMdArrayNewLines(output);
-					},
 				};
 				section.lines.push(newSection);
 				section = newSection;
@@ -345,17 +340,6 @@ function enexXmlToMdArray(stream, resources) {
 					lines: [],
 					parent: section,
 					isHeader: false,
-					// Normally tables are rendered properly as markdown, but for table within table within table... we cannot
-					// handle this in Markdown so simply render it as one cell per line.
-					toMdLines: function() {
-						let output = [];
-						output.push(BLOCK_OPEN);
-						for (let i = 0; i < this.lines.length; i++) {
-							output.push(this.lines[i].toString());
-						}
-						output.push(BLOCK_CLOSE);
-						return output;
-					},
 				}
 
 				section.lines.push(newSection);
@@ -372,9 +356,6 @@ function enexXmlToMdArray(stream, resources) {
 					type: 'td',
 					lines: [],
 					parent: section,
-					toString: function() {
-						return processMdArrayNewLines(this.lines);
-					},
 				};
 
 				section.lines.push(newSection);
@@ -400,7 +381,7 @@ function enexXmlToMdArray(stream, resources) {
 				section.lines.push("**");
 			} else if (isStrikeTag(n)) {
 				section.lines.push('(');
-			} else if (n == 'samp') {
+			} else if (isInlineCodeTag(n)) {
 				section.lines.push('`');
 			} else if (n == 'q') {
 				section.lines.push('"');
@@ -517,7 +498,7 @@ function enexXmlToMdArray(stream, resources) {
 						section.lines = addResourceTag(section.lines, resource, nodeAttributes.alt);
 					}
 				}
-			} else if (n == "span" || n == "font" || n == 'sup' || n == 'cite' || n == 'abbr' || n == 'small' || n == 'tt' || n == 'sub') {
+			} else if (["span", "font", 'sup', 'cite', 'abbr', 'small', 'tt', 'sub', 'colgroup', 'col', 'ins', 'caption', 'var', 'map', 'area'].indexOf(n) >= 0) {
 				// Inline tags that can be ignored in Markdown
 			} else {
 				console.warn("Unsupported start tag: " + n);
@@ -546,7 +527,7 @@ function enexXmlToMdArray(stream, resources) {
 				section.lines.push("**");
 			} else if (isStrikeTag(n)) {
 				section.lines.push(')');
-			} else if (n == 'samp') {
+			} else if (isInlineCodeTag(n)) {
 				section.lines.push('`');
 			} else if (isEmTag(n)) {
 				section.lines.push("*");
@@ -564,6 +545,10 @@ function enexXmlToMdArray(stream, resources) {
 
 				if (section.lines.length < 1) throw new Error('Invalid anchor tag closing'); // Sanity check, but normally not possible
 
+				const pushEmptyAnchor = (url) => {
+					section.lines.push('[link](' + url + ')');
+				}
+
 				// When closing the anchor tag, check if there's is any text content. If not
 				// put the URL as is (don't wrap it in [](url)). The markdown parser, using
 				// GitHub flavour, will turn this URL into a link. This is to generate slightly
@@ -571,13 +556,38 @@ function enexXmlToMdArray(stream, resources) {
 				let previous = section.lines[section.lines.length - 1];
 				if (previous == '[') {
 					section.lines.pop();
-					section.lines.push(url);
+					pushEmptyAnchor(url);
 				} else if (!previous || previous == url) {
 					section.lines.pop();
 					section.lines.pop();
-					section.lines.push(url);
+					pushEmptyAnchor(url);
 				} else {
-					section.lines.push('](' + url + ')');
+					// Need to remove any new line character between the current ']' and the previous '['
+					// otherwise it won't render properly.
+					let allSpaces = true;
+					for (let i = section.lines.length - 1; i >= 0; i--) {
+						const c = section.lines[i];
+						if (c === '[') {
+							break;
+						} else {
+							if (c === BLOCK_CLOSE || c === BLOCK_OPEN || c === NEWLINE) {
+								section.lines[i] = SPACE;
+							} else {
+								if (!isWhiteSpace(c)) allSpaces = false;
+							}
+						}
+					}
+
+					if (allSpaces) {
+						for (let i = section.lines.length - 1; i >= 0; i--) {
+							const c = section.lines.pop();
+							if (c === '[') break;
+						}						
+						//section.lines.push(url);
+						pushEmptyAnchor(url);
+					} else {
+						section.lines.push('](' + url + ')');
+					}
 				}
 			} else if (isListTag(n)) {
 				section.lines.push(BLOCK_CLOSE);
@@ -607,50 +617,28 @@ function enexXmlToMdArray(stream, resources) {
 	});
 }
 
-function setTableCellContent(table) {
-	if (!table.type == 'table') throw new Error('Only for tables');
-
-	for (let trIndex = 0; trIndex < table.lines.length; trIndex++) {
-		const tr = table.lines[trIndex];
-		for (let tdIndex = 0; tdIndex < tr.lines.length; tdIndex++) {
-			let td = tr.lines[tdIndex];
-			td.content = processMdArrayNewLines(td.lines);
-			td.content = td.content.replace(/\n\n\n\n\n/g, ' ');
-			td.content = td.content.replace(/\n\n\n\n/g, ' ');
-			td.content = td.content.replace(/\n\n\n/g, ' ');
-			td.content = td.content.replace(/\n\n/g, ' ');
-			td.content = td.content.replace(/\n/g, ' ');
-		}
-	}
-
-	return table;
+function removeTableCellNewLines(cellText) {
+	return cellText.replace(/\n+/g, " ");
 }
 
-function cellWidth(cellText) {
-	const lines = cellText.split("\n");
-	let maxWidth = 0;
-	for (let i = 0; i < lines.length; i++) {
-		const line = lines[i];
-		if (line.length > maxWidth) maxWidth = line.length;
-	}
-	return maxWidth;
-}
-
-function colWidths(table) {
-	let output = [];
+function tableHasSubTables(table) {
 	for (let trIndex = 0; trIndex < table.lines.length; trIndex++) {
 		const tr = table.lines[trIndex];
 		for (let tdIndex = 0; tdIndex < tr.lines.length; tdIndex++) {
 			const td = tr.lines[tdIndex];
-			const w = Math.min(cellWidth(td.content), 20); // Have to set a max width otherwise it can be extremely long for notes that import entire web pages (eg. Hacker News comment pages)
-			if (output.length <= tdIndex) output.push(0);
-			if (w > output[tdIndex]) output[tdIndex] = w;
+			for (let i = 0; i < td.lines.length; i++) {
+				if (typeof td.lines[i] === 'object') return true;
+			}
 		}
 	}
-	return output;
+	return false;
 }
 
-function drawTable(table, colWidths) {	
+// Markdown tables don't support tables within tables, which is common in notes that are complete web pages, for example when imported
+// via Web Clipper. So to handle this, we render all the outer tables as regular text (as if replacing all the <table>, <tr> and <td>
+// elements by <div>) and only the inner ones, those that don't contain any other tables, are rendered as actual tables. This is generally
+// the required behaviour since the outer tables are usually for layout and the inner ones are the content.
+function drawTable(table) {
 	// | First Header  | Second Header |
 	// | ------------- | ------------- |
 	// | Content Cell  | Content Cell  |
@@ -658,8 +646,11 @@ function drawTable(table, colWidths) {
 
 	// There must be at least 3 dashes separating each header cell.
 	// https://gist.github.com/IanWang/28965e13cdafdef4e11dc91f578d160d#tables
+
+	const flatRender = tableHasSubTables(table); // Render the table has regular text
 	const minColWidth = 3;
 	let lines = [];
+	lines.push(BLOCK_OPEN);
 	let headerDone = false;
 	for (let trIndex = 0; trIndex < table.lines.length; trIndex++) {
 		const tr = table.lines[trIndex];
@@ -667,37 +658,79 @@ function drawTable(table, colWidths) {
 		let line = [];
 		let headerLine = [];
 		let emptyHeader = null;
-		for (let tdIndex = 0; tdIndex < colWidths.length; tdIndex++) {
-			const width = Math.max(minColWidth, colWidths[tdIndex]);
-			const cell = tr.lines[tdIndex] ? tr.lines[tdIndex].content : '';
-			line.push(stringPadding(cell, width, ' ', stringPadding.RIGHT));
+		for (let tdIndex = 0; tdIndex < tr.lines.length; tdIndex++) {
+			const td = tr.lines[tdIndex];
 
-			if (!headerDone) {
-				if (!isHeader) {
-					if (!emptyHeader) emptyHeader = [];
-					let h = stringPadding(' ', width, ' ', stringPadding.RIGHT);
-					if (!width) h = '';
-					emptyHeader.push(h);
+			if (flatRender) {
+				line.push(BLOCK_OPEN);
+
+				let currentCells = [];
+
+				const renderCurrentCells = () => {
+					if (!currentCells.length) return;
+					const cellText = processMdArrayNewLines(currentCells);
+					line.push(cellText);
+					currentCells = [];
 				}
-				headerLine.push('-'.repeat(width));
+
+				// In here, recursively render the tables
+				for (let i = 0; i < td.lines.length; i++) {
+					const c = td.lines[i];
+					if (typeof c === 'object') { // This is a table
+						renderCurrentCells();
+						currentCells = currentCells.concat(drawTable(c));
+					} else { // This is plain text
+						currentCells.push(c);
+					}
+				}
+
+				renderCurrentCells();
+
+				line.push(BLOCK_CLOSE);
+			} else { // Regular table rendering
+
+				// A cell in a Markdown table cannot have new lines so remove them
+				const cellText = removeTableCellNewLines(processMdArrayNewLines(td.lines));
+
+				const width = Math.max(cellText.length, 3);
+				line.push(stringPadding(cellText, width, ' ', stringPadding.RIGHT));
+
+				if (!headerDone) {
+					if (!isHeader) {
+						if (!emptyHeader) emptyHeader = [];
+						let h = stringPadding(' ', width, ' ', stringPadding.RIGHT);
+						emptyHeader.push(h);
+					}
+					headerLine.push('-'.repeat(width));
+				}
+
 			}
 		}
 
-		if (emptyHeader) {
-			lines.push('| ' + emptyHeader.join(' | ') + ' |');
-			lines.push('| ' + headerLine.join(' | ') + ' |');
+		if (flatRender) {
 			headerDone = true;
-		}
+			lines.push(BLOCK_OPEN);
+			lines = lines.concat(line);
+			lines.push(BLOCK_CLOSE);
+		} else {
+			if (emptyHeader) {
+				lines.push('| ' + emptyHeader.join(' | ') + ' |');
+				lines.push('| ' + headerLine.join(' | ') + ' |');
+				headerDone = true;
+			}
 
-		lines.push('| ' + line.join(' | ') + ' |');
+			lines.push('| ' + line.join(' | ') + ' |');
 
-		if (!headerDone) {
-			lines.push('| ' + headerLine.join(' | ') + ' |');
-			headerDone = true;
+			if (!headerDone) {
+				lines.push('| ' + headerLine.join(' | ') + ' |');
+				headerDone = true;
+			}
 		}
 	}
 
-	return lines.join('<<<<:D>>>>' + NEWLINE + '<<<<:D>>>>').split('<<<<:D>>>>');
+	lines.push(BLOCK_CLOSE);
+
+	return flatRender ? lines : lines.join('<<<<:D>>>>' + NEWLINE + '<<<<:D>>>>').split('<<<<:D>>>>');
 }
 
 async function enexXmlToMd(stream, resources) {
@@ -708,13 +741,9 @@ async function enexXmlToMd(stream, resources) {
 	for (let i = 0; i < result.content.lines.length; i++) {
 		let line = result.content.lines[i];
 		if (typeof line === 'object') { // A table
-			let table = setTableCellContent(line);
-			//console.log(require('util').inspect(table, false, null))
-			const cw = colWidths(table);
-			const tableLines = drawTable(table, cw);
-			mdLines.push(BLOCK_OPEN);
+			const table = line;
+			const tableLines = drawTable(table);
 			mdLines = mdLines.concat(tableLines);
-			mdLines.push(BLOCK_CLOSE);
 		} else { // an actual line
 			mdLines.push(line);
 		}
