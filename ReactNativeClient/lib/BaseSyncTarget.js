@@ -2,11 +2,16 @@ const { reg } = require('lib/registry.js');
 
 class BaseSyncTarget {
 
-	constructor(db) {
+	constructor(db, options = null) {
 		this.db_ = db;
 		this.synchronizer_ = null;
 		this.initState_ = null;
 		this.logger_ = null;
+		this.options_ = options;
+	}
+
+	option(name, defaultValue = null) {
+		return this.options_ && (name in this.options_) ? this.options_[name] : defaultValue;
 	}
 
 	logger() {
@@ -25,16 +30,39 @@ class BaseSyncTarget {
 		return false;
 	}
 
-	name() {
-		throw new Error('Not implemented');
+	static id() {
+		throw new Error('id() not implemented');
 	}
 
-	label() {
-		throw new Error('Not implemented');
+	// Note: it cannot be called just "name()" because that's a reserved keyword and
+	// it would throw an obscure error in React Native.
+	static targetName() {
+		throw new Error('targetName() not implemented');
+	}
+
+	static label() {
+		throw new Error('label() not implemented');
 	}
 
 	async initSynchronizer() {
-		throw new Error('Not implemented');
+		throw new Error('initSynchronizer() not implemented');
+	}
+
+	async initFileApi() {
+		throw new Error('initFileApi() not implemented');
+	}
+
+	async fileApi() {
+		if (this.fileApi_) return this.fileApi_;
+		this.fileApi_ = await this.initFileApi();
+		return this.fileApi_;
+	}
+
+	// Usually each sync target should create and setup its own file API via initFileApi()
+	// but for testing purposes it might be convenient to provide it here so that multiple
+	// clients can share and sync to the same file api (see test-utils.js)
+	setFileApi(v) {
+		this.fileApi_ = v;
 	}
 
 	async synchronizer() {
@@ -78,5 +106,7 @@ class BaseSyncTarget {
 	}
 
 }
+
+BaseSyncTarget.dispatch = (action) => {};
 
 module.exports = BaseSyncTarget;

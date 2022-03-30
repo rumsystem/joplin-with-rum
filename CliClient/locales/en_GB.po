@@ -631,7 +631,13 @@ msgstr ""
 msgid "Unknown flag: %s"
 msgstr ""
 
+msgid "File system"
+msgstr ""
+
 msgid "OneDrive"
+msgstr ""
+
+msgid "OneDrive Dev (For testing only)"
 msgstr ""
 
 #, javascript-format
@@ -715,27 +721,12 @@ msgstr ""
 msgid "Cannot move note to \"%s\" notebook"
 msgstr ""
 
-#, javascript-format
-msgid "Invalid option value: \"%s\". Possible values are: %s."
-msgstr ""
-
 msgid "File system synchronisation target directory"
 msgstr ""
 
 msgid ""
 "The path to synchronise with when file system synchronisation is enabled. "
 "See `sync.target`."
-msgstr ""
-
-msgid "Synchronisation target"
-msgstr ""
-
-msgid ""
-"The target to synchonise to. If synchronising with the file system, set "
-"`sync.2.path` to specify the target directory."
-msgstr ""
-
-msgid "File system"
 msgstr ""
 
 msgid "Text editor"
@@ -786,6 +777,18 @@ msgid "Automatically update the application"
 msgstr ""
 
 msgid "Show advanced options"
+msgstr ""
+
+msgid "Synchronisation target"
+msgstr ""
+
+msgid ""
+"The target to synchonise to. If synchronising with the file system, set "
+"`sync.2.path` to specify the target directory."
+msgstr ""
+
+#, javascript-format
+msgid "Invalid option value: \"%s\". Possible values are: %s."
 msgstr ""
 
 msgid "Sync status (synced items / total items)"

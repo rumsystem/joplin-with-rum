@@ -9,6 +9,7 @@ const { AppNav } = require('lib/components/app-nav.js');
 const { Logger } = require('lib/logger.js');
 const { Note } = require('lib/models/note.js');
 const { Folder } = require('lib/models/folder.js');
+const BaseSyncTarget = require('lib/BaseSyncTarget.js');
 const { FoldersScreenUtils } = require('lib/folders-screen-utils.js');
 const { Resource } = require('lib/models/resource.js');
 const { Tag } = require('lib/models/tag.js');
@@ -36,6 +37,12 @@ const { _, setLocale, closestSupportedLocale, defaultLocale } = require('lib/loc
 const RNFetchBlob = require('react-native-fetch-blob').default;
 const { PoorManIntervals } = require('lib/poor-man-intervals.js');
 const { reducer, defaultState } = require('lib/reducer.js');
+const SyncTargetRegistry = require('lib/SyncTargetRegistry.js');
+const SyncTargetOneDrive = require('lib/SyncTargetOneDrive.js');
+const SyncTargetOneDriveDev = require('lib/SyncTargetOneDriveDev.js');
+
+SyncTargetRegistry.addClass(SyncTargetOneDrive);
+SyncTargetRegistry.addClass(SyncTargetOneDriveDev);
 
 const generalMiddleware = store => next => async (action) => {
 	if (action.type !== 'SIDE_MENU_OPEN_PERCENT') reg.logger().info('Reducer action', action.type);
@@ -47,7 +54,7 @@ const generalMiddleware = store => next => async (action) => {
 	if (action.type == 'NAV_GO') Keyboard.dismiss();
 
 	if (['NOTE_UPDATE_ONE', 'NOTE_DELETE', 'FOLDER_UPDATE_ONE', 'FOLDER_DELETE'].indexOf(action.type) >= 0) {
-		if (!await reg.syncStarted()) reg.scheduleSync();
+		if (!await reg.syncTarget().syncStarted()) reg.scheduleSync();
 	}
 
 	if (action.type == 'SETTING_UPDATE_ONE' && action.key == 'sync.interval' || action.type == 'SETTING_UPDATE_ALL') {
@@ -273,6 +280,7 @@ async function initialize(dispatch, backButtonHandler) {
 	reg.dispatch = dispatch;
 	BaseModel.dispatch = dispatch;
 	FoldersScreenUtils.dispatch = dispatch;
+	BaseSyncTarget.dispatch = dispatch;
 	BaseModel.db_ = db;
 
 	BaseItem.loadClass('Note', Note);
@@ -306,8 +314,11 @@ async function initialize(dispatch, backButtonHandler) {
 			const locale = NativeModules.I18nManager.localeIdentifier
 			if (!locale) locale = defaultLocale();
 			Setting.setValue('locale', closestSupportedLocale(locale));
+			if (Setting.value('env') === 'dev') Setting.setValue('sync.target', SyncTargetRegistry.nameToId('onedrive_dev'));
 			Setting.setValue('firstStart', 0)
 		}
+
+		reg.logger().info('Sync target: ' + Setting.value('sync.target'));
 
 		setLocale(Setting.value('locale'));
 
