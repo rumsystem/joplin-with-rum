@@ -1,29 +1,30 @@
-import React, { Component } from 'react';
-import { Keyboard, BackHandler, View, Button, TextInput, WebView, Text, StyleSheet, Linking, Image } from 'react-native';
-import { connect } from 'react-redux'
-import { uuid } from 'lib/uuid.js';
-import { Log } from 'lib/log.js'
-import { Note } from 'lib/models/note.js'
-import { Resource } from 'lib/models/resource.js'
-import { Folder } from 'lib/models/folder.js'
-import { BackButtonService } from 'lib/services/back-button.js';
-import { BaseModel } from 'lib/base-model.js'
-import { ActionButton } from 'lib/components/action-button.js';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { ScreenHeader } from 'lib/components/screen-header.js';
-import { time } from 'lib/time-utils.js';
-import { Checkbox } from 'lib/components/checkbox.js'
-import { _ } from 'lib/locale.js';
-import { reg } from 'lib/registry.js';
-import { shim } from 'lib/shim.js';
-import { BaseScreenComponent } from 'lib/components/base-screen.js';
-import { dialogs } from 'lib/dialogs.js';
-import { globalStyle, themeStyle } from 'lib/components/global-style.js';
-import DialogBox from 'react-native-dialogbox';
-import { NoteBodyViewer } from 'lib/components/note-body-viewer.js';
-import RNFetchBlob from 'react-native-fetch-blob';
-import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker';
-import ImageResizer from 'react-native-image-resizer';
+const React = require('react'); const Component = React.Component;
+const { Keyboard, BackHandler, View, Button, TextInput, WebView, Text, StyleSheet, Linking, Image } = require('react-native');
+const { connect } = require('react-redux');
+const { uuid } = require('lib/uuid.js');
+const { Log } = require('lib/log.js');
+const { Note } = require('lib/models/note.js');
+const { Resource } = require('lib/models/resource.js');
+const { Folder } = require('lib/models/folder.js');
+const { BackButtonService } = require('lib/services/back-button.js');
+const { BaseModel } = require('lib/base-model.js');
+const { ActionButton } = require('lib/components/action-button.js');
+const Icon = require('react-native-vector-icons/Ionicons').default;
+const { ScreenHeader } = require('lib/components/screen-header.js');
+const { time } = require('lib/time-utils.js');
+const { Checkbox } = require('lib/components/checkbox.js');
+const { _ } = require('lib/locale.js');
+const { reg } = require('lib/registry.js');
+const { shim } = require('lib/shim.js');
+const { BaseScreenComponent } = require('lib/components/base-screen.js');
+const { dialogs } = require('lib/dialogs.js');
+const { globalStyle, themeStyle } = require('lib/components/global-style.js');
+const DialogBox = require('react-native-dialogbox').default;
+const { NoteBodyViewer } = require('lib/components/note-body-viewer.js');
+const RNFetchBlob = require('react-native-fetch-blob').default;
+const { DocumentPicker, DocumentPickerUtil } = require('react-native-document-picker');
+const ImageResizer = require('react-native-image-resizer').default;
+const shared = require('lib/components/shared/note-screen-shared.js');
 
 class NoteScreenComponent extends BaseScreenComponent {
 	
@@ -41,7 +42,6 @@ class NoteScreenComponent extends BaseScreenComponent {
 			folder: null,
 			lastSavedNote: null,
 			isLoading: true,
-			resources: {},
 			titleTextInputHeight: 20,
 		};
 
@@ -128,125 +128,41 @@ class NoteScreenComponent extends BaseScreenComponent {
 	}
 
 	isModified() {
-		if (!this.state.note || !this.state.lastSavedNote) return false;
-		let diff = BaseModel.diffObjects(this.state.note, this.state.lastSavedNote);
-		delete diff.type_;
-		return !!Object.getOwnPropertyNames(diff).length;
+		return shared.isModified(this);
 	}
 
 	async componentWillMount() {
 		BackButtonService.addHandler(this.backHandler);
 
-		let note = null;
-		let mode = 'view';
-		if (!this.props.noteId) {
-			note = this.props.itemType == 'todo' ? Note.newTodo(this.props.folderId) : Note.new(this.props.folderId);
-			mode = 'edit';
-		} else {
-			note = await Note.load(this.props.noteId);
-		}
-
-		const folder = Folder.byId(this.props.folders, note.parent_id);
-
-		this.setState({
-			lastSavedNote: Object.assign({}, note),
-			note: note,
-			mode: mode,
-			folder: folder,
-			isLoading: false,
-		});
+		await shared.initState(this);
 
 		this.refreshNoteMetadata();
+	}
+
+	refreshNoteMetadata(force = null) {
+		return shared.refreshNoteMetadata(this, force);
 	}
 
 	componentWillUnmount() {
 		BackButtonService.removeHandler(this.backHandler);
 	}
 
-	noteComponent_change(propName, propValue) {
-		let note = Object.assign({}, this.state.note);
-		note[propName] = propValue;
-		this.setState({ note: note });
-	}
-
-	async refreshNoteMetadata(force = null) {
-		if (force !== true && !this.state.showNoteMetadata) return;
-
-		let noteMetadata = await Note.serializeAllProps(this.state.note);
-		this.setState({ noteMetadata: noteMetadata });
-	}
-
 	title_changeText(text) {
-		this.noteComponent_change('title', text);
+		shared.noteComponent_change(this, 'title', text);
 	}
 
 	body_changeText(text) {
-		this.noteComponent_change('body', text);
-	}
-
-	async noteExists(noteId) {
-		const existingNote = await Note.load(noteId);
-		return !!existingNote;
+		shared.noteComponent_change(this, 'body', text);
 	}
 
 	async saveNoteButton_press() {
-		let note = Object.assign({}, this.state.note);
-
-		// Note has been deleted while user was modifying it. In that, we
-		// just save a new note by clearing the note ID.
-		if (note.id && !(await this.noteExists(note.id))) delete note.id;
-
-		reg.logger().info('Saving note: ', note);
-
-		if (!note.parent_id) {
-			let folder = await Folder.defaultFolder();
-			if (!folder) {
-				Log.warn('Cannot save note without a notebook');
-				return;
-			}
-			note.parent_id = folder.id;
-		}
-
-		let isNew = !note.id;
-
-		if (isNew && !note.title) {
-			note.title = Note.defaultTitle(note);
-		}
-		
-		note = await Note.save(note);
-		this.setState({
-			lastSavedNote: Object.assign({}, note),
-			note: note,
-		});
-		if (isNew) Note.updateGeolocation(note.id);
-		this.refreshNoteMetadata();
+		await shared.saveNoteButton_press(this);
 
 		Keyboard.dismiss();
 	}
 
 	async saveOneProperty(name, value) {
-		let note = Object.assign({}, this.state.note);
-
-		// Note has been deleted while user was modifying it. In that, we
-		// just save a new note by clearing the note ID.
-		if (note.id && !(await this.noteExists(note.id))) delete note.id;
-
-		reg.logger().info('Saving note property: ', note.id, name, value);
-
-		if (note.id) {
-			let toSave = { id: note.id };
-			toSave[name] = value;
-			toSave = await Note.save(toSave);
-			note[name] = toSave[name];
-
-			this.setState({
-				lastSavedNote: Object.assign({}, note),
-				note: note,
-			});
-		} else {
-			note[name] = value;
-			this.setState({	note: note });
-		}
+		await shared.saveOneProperty(this, name, value);
 	}
 
 	async deleteNote_onPress() {
@@ -353,15 +269,11 @@ class NoteScreenComponent extends BaseScreenComponent {
 	}
 
 	toggleIsTodo_onPress() {
-		let newNote = Note.toggleIsTodo(this.state.note);
-		let newState = { note: newNote };
-		//if (!newNote.id) newState.lastSavedNote = Object.assign({}, newNote);
-		this.setState(newState);
+		shared.toggleIsTodo_onPress(this);
 	}
 
 	showMetadata_onPress() {
-		this.setState({ showNoteMetadata: !this.state.showNoteMetadata });
-		this.refreshNoteMetadata(true);
+		shared.showMetadata_onPress(this);
 	}
 
 	async showOnMap_onPress() {
@@ -570,4 +482,4 @@ const NoteScreen = connect(
 	}
 )(NoteScreenComponent)
 
-export { NoteScreen };
+module.exports = { NoteScreen };

@@ -1,5 +1,5 @@
-import { _ } from 'lib/locale.js';
-import { reg } from 'lib/registry.js';
+const { _ } = require('lib/locale.js');
+const { reg } = require('lib/registry.js');
 
 class BaseCommand {
 
@@ -96,4 +96,4 @@ class BaseCommand {
 
 }
 
-export { BaseCommand };
+module.exports = { BaseCommand };

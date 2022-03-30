@@ -1,8 +1,8 @@
-import { uuid } from 'lib/uuid.js';
-import { promiseChain } from 'lib/promise-utils.js';
-import { Logger } from 'lib/logger.js'
-import { time } from 'lib/time-utils.js'
-import { sprintf } from 'sprintf-js';
+const { uuid } = require('lib/uuid.js');
+const { promiseChain } = require('lib/promise-utils.js');
+const { Logger } = require('lib/logger.js');
+const { time } = require('lib/time-utils.js');
+const { sprintf } = require('sprintf-js');
 
 class Database {
 
@@ -310,4 +310,4 @@ Database.TYPE_INT = 1;
 Database.TYPE_TEXT = 2;
 Database.TYPE_NUMERIC = 3;
 
-export { Database };
+module.exports = { Database };

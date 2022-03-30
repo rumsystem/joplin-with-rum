@@ -13,9 +13,14 @@ shim.fetch = typeof fetch !== 'undefined' ? fetch : null;
 shim.FormData = typeof FormData !== 'undefined' ? FormData : null;
 shim.fs = null;
 shim.FileApiDriverLocal = null;
-shim.readLocalFileBase64 = () => { throw new Error('Not implemented'); }
+shim.readLocalFileBase64 = (path) => { throw new Error('Not implemented'); }
 shim.uploadBlob = () => { throw new Error('Not implemented'); }
-shim.setInterval = setInterval;
-shim.clearInterval = clearInterval;
+shim.setInterval = function(fn, interval) {
+	return setInterval(fn, interval);
+}
+shim.clearInterval = function(id) {
+	return clearInterval(id);
+}
+shim.detectAndSetLocale = null;
 
-export { shim };
+module.exports = { shim };

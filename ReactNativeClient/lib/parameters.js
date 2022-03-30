@@ -1,4 +1,4 @@
-import { Setting } from 'lib/models/setting.js';
+const { Setting } = require('lib/models/setting.js');
 
 const parameters_ = {};
 
@@ -32,4 +32,4 @@ function parameters() {
 	return output;
 }
 
-export { parameters }
+module.exports = { parameters };

@@ -1,4 +1,4 @@
-import { Setting } from 'lib/models/setting.js';
+const { Setting } = require('lib/models/setting.js');
 
 const globalStyle = {
 	fontSize: 16,
@@ -69,4 +69,4 @@ function themeStyle(theme) {
 	return themeCache_[theme];
 }
 
-export { globalStyle, themeStyle }
+module.exports = { globalStyle, themeStyle };
