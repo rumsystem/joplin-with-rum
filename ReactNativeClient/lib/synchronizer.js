@@ -253,22 +253,36 @@ class Synchronizer {
 
 					this.logSyncOperation(action, local, remote, reason);
 
+					const handleCannotSyncItem = async (syncTargetId, item, cannotSyncReason) => {
+						await ItemClass.saveSyncDisabled(syncTargetId, item, cannotSyncReason);
+						this.dispatch({ type: 'SYNC_HAS_DISABLED_SYNC_ITEMS' });
+					}
+
 					if (local.type_ == BaseModel.TYPE_RESOURCE && (action == 'createRemote' || (action == 'itemConflict' && remote))) {
 						let remoteContentPath = this.resourceDirName_ + '/' + local.id;
-						// TODO: handle node and mobile in the same way
-						if (shim.isNode()) {
-							let resourceContent = '';
-							try {
-								resourceContent = await Resource.content(local);
-							} catch (error) {
-								error.message = 'Cannot read resource content: ' + local.id + ': ' + error.message;
-								this.logger().error(error);
-								this.progressReport_.errors.push(error);
+						try {
+							// TODO: handle node and mobile in the same way
+							if (shim.isNode()) {
+								let resourceContent = '';
+								try {
+									resourceContent = await Resource.content(local);
+								} catch (error) {
+									error.message = 'Cannot read resource content: ' + local.id + ': ' + error.message;
+									this.logger().error(error);
+									this.progressReport_.errors.push(error);
+								}
+								await this.api().put(remoteContentPath, resourceContent);
+							} else {
+								const localResourceContentPath = Resource.fullPath(local);
+								await this.api().put(remoteContentPath, null, { path: localResourceContentPath, source: 'file' });
 							}
-							await this.api().put(remoteContentPath, resourceContent);
-						} else {
-							const localResourceContentPath = Resource.fullPath(local);
-							await this.api().put(remoteContentPath, null, { path: localResourceContentPath, source: 'file' });
+						} catch (error) {
+							if (error && error.code === 'cannotSync') {
+								await handleCannotSyncItem(syncTargetId, local, error.message);
+								action = null;
+							} else {
+								throw error;
+							}
 						}
 					}
 
@@ -285,9 +299,27 @@ class Synchronizer {
 						// await this.api().setTimestamp(tempPath, local.updated_time);
 						// await this.api().move(tempPath, path);
 
-						await this.api().put(path, content);
-						await this.api().setTimestamp(path, local.updated_time);
-						await ItemClass.saveSyncTime(syncTargetId, local, time.unixMs());
+						let canSync = true;
+						try {
+							if (this.debugFlags_.indexOf('cannotSync') >= 0) {
+								const error = new Error('Testing cannotSync');
+								error.code = 'cannotSync';
+								throw error;
+							}
+							await this.api().put(path, content);
+						} catch (error) {
+							if (error && error.code === 'cannotSync') {
+								await handleCannotSyncItem(syncTargetId, local, error.message);
+								canSync = false;
+							} else {
+								throw error;
+							}
+						}
+
+						if (canSync) {
+							await this.api().setTimestamp(path, local.updated_time);
+							await ItemClass.saveSyncTime(syncTargetId, local, time.unixMs());
+						}
 
 					} else if (action == 'itemConflict') {
 
@@ -410,14 +442,18 @@ class Synchronizer {
 					let action = null;
 					let reason = '';
 					let local = await BaseItem.loadItemByPath(path);
+					let ItemClass = null;
 					let content = null;
 					if (!local) {
 						if (remote.isDeleted !== true) {
 							action = 'createLocal';
 							reason = 'remote exists but local does not';
 							content = await loadContent();
+							ItemClass = content ? BaseItem.itemClass(content) : null;
 						}
 					} else {
+						ItemClass = BaseItem.itemClass(local);
+						local = ItemClass.filter(local);
 						if (remote.isDeleted) {
 							action = 'deleteLocal';
 							reason = 'remote has been deleted';
@@ -440,7 +476,6 @@ class Synchronizer {
 							this.logger().warn('Remote has been deleted between now and the list() call? In that case it will be handled during the next sync: ' + path);
 							continue;
 						}
-						let ItemClass = BaseItem.itemClass(content);
 						content = ItemClass.filter(content);
 
 						// 2017-12-03: This was added because the new user_updated_time and user_created_time properties were added
@@ -451,34 +486,20 @@ class Synchronizer {
 						if (!content.user_updated_time) content.user_updated_time = content.updated_time;
 						if (!content.user_created_time) content.user_created_time = content.created_time;
 
-						let newContent = null;
-
-						if (action === 'createLocal') {
-							newContent = Object.assign({}, content);							
-						} else if (action === 'updateLocal') {
-							newContent = BaseModel.diffObjects(local, content);
-							newContent.type_ = content.type_;
-							newContent.id = content.id;
-						} else {
-							throw new Error('Unknown action: ' + action);
-						}
-
 						let options = {
 							autoTimestamp: false,
-							nextQueries: BaseItem.updateSyncTimeQueries(syncTargetId, newContent, time.unixMs()),
+							nextQueries: BaseItem.updateSyncTimeQueries(syncTargetId, content, time.unixMs()),
 						};
 						if (action == 'createLocal') options.isNew = true;
+						if (action == 'updateLocal') options.oldItem = local;
 
-						if (newContent.type_ == BaseModel.TYPE_RESOURCE && action == 'createLocal') {
-							let localResourceContentPath = Resource.fullPath(newContent);
-							let remoteResourceContentPath = this.resourceDirName_ + '/' + newContent.id;
+						if (content.type_ == BaseModel.TYPE_RESOURCE && action == 'createLocal') {
+							let localResourceContentPath = Resource.fullPath(content);
+							let remoteResourceContentPath = this.resourceDirName_ + '/' + content.id;
 							await this.api().get(remoteResourceContentPath, { path: localResourceContentPath, target: 'file' });
 						}
 
-						// if (!newContent.user_updated_time) newContent.user_updated_time = newContent.updated_time;
-						// if (!newContent.user_created_time) newContent.user_created_time = newContent.created_time;
-
-						await ItemClass.save(newContent, options);
+						await ItemClass.save(content, options);
 
 					} else if (action == 'deleteLocal') {
 
