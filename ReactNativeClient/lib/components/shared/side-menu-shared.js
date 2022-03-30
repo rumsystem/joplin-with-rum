@@ -20,13 +20,23 @@ shared.renderTags = function(props, renderItem) {
 	return tagItems;
 }
 
+shared.renderSearches = function(props, renderItem) {
+	let searches = props.searches.slice();
+	let searchItems = [];
+	for (let i = 0; i < searches.length; i++) {
+		const search = searches[i];
+		searchItems.push(renderItem(search, props.selectedSearchId == search.id && props.notesParentType == 'Search'));
+	}
+	return searchItems;
+}
+
 shared.synchronize_press = async function(comp) {
 	const { Setting } = require('lib/models/setting.js');
 	const { reg } = require('lib/registry.js');
 
 	const action = comp.props.syncStarted ? 'cancel' : 'start';
 
-	if (Setting.value('sync.target') == Setting.SYNC_TARGET_ONEDRIVE && !reg.oneDriveApi().auth()) {		
+	if (!reg.syncTarget().isAuthenticated()) {		
 		comp.props.dispatch({
 			type: 'NAV_GO',
 			routeName: 'OneDriveLogin',
@@ -36,7 +46,7 @@ shared.synchronize_press = async function(comp) {
 
 	let sync = null;
 	try {
-		sync = await reg.synchronizer(Setting.value('sync.target'))
+		sync = await reg.syncTarget().synchronizer();
 	} catch (error) {
 		reg.logger().info('Could not acquire synchroniser:');
 		reg.logger().info(error);

@@ -11,14 +11,25 @@ const { Note } = require('lib/models/note.js');
 const { Tag } = require('lib/models/tag.js');
 const { Setting } = require('lib/models/setting.js');
 const { Logger } = require('lib/logger.js');
+const { splitCommandString } = require('lib/string-utils.js');
 const { sprintf } = require('sprintf-js');
 const { reg } = require('lib/registry.js');
+const { time } = require('lib/time-utils.js');
+const BaseSyncTarget = require('lib/BaseSyncTarget.js');
 const { fileExtension } = require('lib/path-utils.js');
 const { shim } = require('lib/shim.js');
 const { _, setLocale, defaultLocale, closestSupportedLocale } = require('lib/locale.js');
 const os = require('os');
 const fs = require('fs-extra');
 const EventEmitter = require('events');
+const SyncTargetRegistry = require('lib/SyncTargetRegistry.js');
+const SyncTargetFilesystem = require('lib/SyncTargetFilesystem.js');
+const SyncTargetOneDrive = require('lib/SyncTargetOneDrive.js');
+const SyncTargetOneDriveDev = require('lib/SyncTargetOneDriveDev.js');
+
+SyncTargetRegistry.addClass(SyncTargetFilesystem);
+SyncTargetRegistry.addClass(SyncTargetOneDrive);
+SyncTargetRegistry.addClass(SyncTargetOneDriveDev);
 
 class BaseApplication {
 
@@ -55,15 +66,20 @@ class BaseApplication {
 	}
 
 	switchCurrentFolder(folder) {
-		this.dispatch({
-			type: 'FOLDERS_SELECT',
-			id: folder ? folder.id : '',
-		});
+		if (!this.hasGui()) {
+			this.currentFolder_ = Object.assign({}, folder);
+			Setting.setValue('activeFolderId', folder ? folder.id : '');
+		} else {
+			this.dispatch({
+				type: 'FOLDER_SELECT',
+				id: folder ? folder.id : '',
+			});
+		}
 	}
 
 	// Handles the initial flags passed to main script and
 	// returns the remaining args.
-	async handleStartFlags_(argv) {
+	async handleStartFlags_(argv, setDefaults = true) {
 		let matched = {};
 		argv = argv.slice(0);
 		argv.splice(0, 2); // First arguments are the node executable, and the node JS file
@@ -88,6 +104,12 @@ class BaseApplication {
 
 			if (arg == '--is-demo') {
 				Setting.setConstant('isDemo', true);
+				argv.splice(0, 1);
+				continue;
+			}
+
+			if (arg == '--open-dev-tools') {
+				Setting.setConstant('openDevTools', true);
 				argv.splice(0, 1);
 				continue;
 			}
@@ -118,8 +140,10 @@ class BaseApplication {
 			}
 		}
 
-		if (!matched.logLevel) matched.logLevel = Logger.LEVEL_INFO;
-		if (!matched.env) matched.env = 'prod';
+		if (setDefaults) {
+			if (!matched.logLevel) matched.logLevel = Logger.LEVEL_INFO;
+			if (!matched.env) matched.env = 'prod';
+		}
 
 		return {
 			matched: matched,
@@ -136,10 +160,22 @@ class BaseApplication {
 		process.exit(code);
 	}
 
-	async refreshNotes(parentType, parentId) {
-		this.logger().debug('Refreshing notes:', parentType, parentId);
+	async refreshNotes(state) {
+		let parentType = state.notesParentType;
+		let parentId = null;
+		
+		if (parentType === 'Folder') {
+			parentId = state.selectedFolderId;
+			parentType = BaseModel.TYPE_FOLDER;
+		} else if (parentType === 'Tag') {
+			parentId = state.selectedTagId;
+			parentType = BaseModel.TYPE_TAG;
+		} else if (parentType === 'Search') {
+			parentId = state.selectedSearchId;
+			parentType = BaseModel.TYPE_SEARCH;
+		}
 
-		const state = this.store().getState();
+		this.logger().debug('Refreshing notes:', parentType, parentId);
 
 		let options = {
 			order: state.notesOrder,
@@ -169,14 +205,14 @@ class BaseApplication {
 		}
 
 		this.store().dispatch({
-			type: 'NOTES_UPDATE_ALL',
+			type: 'NOTE_UPDATE_ALL',
 			notes: notes,
 			notesSource: source,
 		});
 
 		this.store().dispatch({
-			type: 'NOTES_SELECT',
-			noteId: notes.length ? notes[0].id : null,
+			type: 'NOTE_SELECT',
+			id: notes.length ? notes[0].id : null,
 		});
 	}
 
@@ -196,35 +232,64 @@ class BaseApplication {
 		return false;
 	}
 
-	generalMiddleware() {
-		const middleware = store => next => async (action) => {
-			this.logger().debug('Reducer action', this.reducerActionToString(action));
+	uiType() {
+		return this.hasGui() ? 'gui' : 'cli';
+	}
 
-			const result = next(action);
-			const newState = store.getState();
-
-			if (action.type == 'FOLDERS_SELECT' || action.type === 'FOLDER_DELETE') {
-				Setting.setValue('activeFolderId', newState.selectedFolderId);
-				this.currentFolder_ = newState.selectedFolderId ? await Folder.load(newState.selectedFolderId) : null;
-				await this.refreshNotes(Folder.modelType(), newState.selectedFolderId);
-			}
-
-			if (action.type == 'TAGS_SELECT') {
-				await this.refreshNotes(Tag.modelType(), action.id);
-			}
-
-			if (action.type == 'SEARCH_SELECT') {
-				await this.refreshNotes(BaseModel.TYPE_SEARCH, action.id);
-			}
-
-			if (this.hasGui() && action.type == 'SETTINGS_UPDATE_ONE' && action.key == 'sync.interval' || action.type == 'SETTINGS_UPDATE_ALL') {
-				reg.setupRecurrentSync();
-			}
-
-		  	return result;
+	generalMiddlewareFn() {
+		const middleware = store => next => (action) => {
+			return this.generalMiddleware(store, next, action);
 		}
 
 		return middleware;
+	}
+
+	async generalMiddleware(store, next, action) {
+		this.logger().debug('Reducer action', this.reducerActionToString(action));
+
+		const result = next(action);
+		const newState = store.getState();
+
+		if (action.type == 'FOLDER_SELECT' || action.type === 'FOLDER_DELETE') {
+			Setting.setValue('activeFolderId', newState.selectedFolderId);
+			this.currentFolder_ = newState.selectedFolderId ? await Folder.load(newState.selectedFolderId) : null;
+			await this.refreshNotes(newState);
+		}
+
+		if (this.hasGui() && action.type == 'SETTING_UPDATE_ONE' && action.key == 'uncompletedTodosOnTop' || action.type == 'SETTING_UPDATE_ALL') {
+			await this.refreshNotes(newState);
+		}
+
+		if ((action.type == 'SETTING_UPDATE_ONE' && (action.key == 'dateFormat' || action.key == 'timeFormat')) || (action.type == 'SETTING_UPDATE_ALL')) {
+			time.setDateFormat(Setting.value('dateFormat'));
+			time.setTimeFormat(Setting.value('timeFormat'));
+		}
+
+		if (action.type == 'TAG_SELECT' || action.type === 'TAG_DELETE') {
+			await this.refreshNotes(newState);
+		}
+
+		if (action.type == 'SEARCH_SELECT' || action.type === 'SEARCH_DELETE') {
+			await this.refreshNotes(newState);
+		}
+
+		if (action.type === 'NOTE_UPDATE_ONE') {
+			// If there is a conflict, we refresh the folders so as to display "Conflicts" folder
+			if (action.note && action.note.is_conflict) {
+				await FoldersScreenUtils.refreshFolders();
+			}
+		}
+
+		// if (action.type === 'NOTE_DELETE') {
+		// 	// Update folders if a note is deleted in case the deleted note was a conflict
+		// 	await FoldersScreenUtils.refreshFolders();
+		// }
+
+		if (this.hasGui() && action.type == 'SETTING_UPDATE_ONE' && action.key == 'sync.interval' || action.type == 'SETTING_UPDATE_ALL') {
+			reg.setupRecurrentSync();
+		}
+
+	  	return result;
 	}
 
 	dispatch(action) {
@@ -236,10 +301,27 @@ class BaseApplication {
 	}
 
 	initRedux() {
-		this.store_ = createStore(this.reducer, applyMiddleware(this.generalMiddleware()));
+		this.store_ = createStore(this.reducer, applyMiddleware(this.generalMiddlewareFn()));
 		BaseModel.dispatch = this.store().dispatch;
 		FoldersScreenUtils.dispatch = this.store().dispatch;
 		reg.dispatch = this.store().dispatch;
+		BaseSyncTarget.dispatch = this.store().dispatch;
+	}
+
+	async readFlagsFromFile(flagPath) {
+		if (!fs.existsSync(flagPath)) return {};
+		let flagContent = fs.readFileSync(flagPath, 'utf8');
+		if (!flagContent) return {};
+
+		flagContent = flagContent.trim();
+
+		let flags = splitCommandString(flagContent);
+		flags.splice(0, 0, 'cmd');
+		flags.splice(0, 0, 'node');
+
+		flags = await this.handleStartFlags_(flags, false);
+		
+		return flags.matched;
 	}
 
 	async start(argv) {
@@ -272,6 +354,9 @@ class BaseApplication {
 		await fs.mkdirp(resourceDir, 0o755);
 		await fs.mkdirp(tempDir, 0o755);
 
+		const extraFlags = await this.readFlagsFromFile(profileDir + '/flags.txt');
+		initArgs = Object.assign(initArgs, extraFlags);
+
 		this.logger_.addTarget('file', { path: profileDir + '/log.txt' });
 		//this.logger_.addTarget('console');
 		this.logger_.setLevel(initArgs.logLevel);
@@ -286,12 +371,10 @@ class BaseApplication {
 			this.dbLogger_.setLevel(Logger.LEVEL_WARN);
 		}
 
-		// const packageJson = require('./package.json');
-		// this.logger_.info(sprintf('Starting %s %s (%s)...', packageJson.name, packageJson.version, Setting.value('env')));
 		this.logger_.info('Profile directory: ' + profileDir);
 
 		this.database_ = new JoplinDatabase(new DatabaseDriverNode());
-		//this.database_.setLogExcludedQueryTypes(['SELECT']);
+		this.database_.setLogExcludedQueryTypes(['SELECT']);
 		this.database_.setLogger(this.dbLogger_);
 		await this.database_.open({ name: profileDir + '/database.sqlite' });
 
@@ -303,6 +386,7 @@ class BaseApplication {
 		if (Setting.value('firstStart')) {
 			const locale = shim.detectAndSetLocale(Setting);
 			reg.logger().info('First start: detected locale as ' + locale);
+			if (Setting.value('env') === 'dev') Setting.setValue('sync.target', SyncTargetRegistry.nameToId('onedrive_dev'));
 			Setting.setValue('firstStart', 0)
 		} else {
 			setLocale(Setting.value('locale'));

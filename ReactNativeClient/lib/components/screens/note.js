@@ -1,15 +1,19 @@
 const React = require('react'); const Component = React.Component;
-const { Keyboard, BackHandler, View, Button, TextInput, WebView, Text, StyleSheet, Linking, Image } = require('react-native');
+const { Platform, Keyboard, BackHandler, View, Button, TextInput, WebView, Text, StyleSheet, Linking, Image } = require('react-native');
 const { connect } = require('react-redux');
 const { uuid } = require('lib/uuid.js');
 const { Log } = require('lib/log.js');
+const RNFS = require('react-native-fs');
 const { Note } = require('lib/models/note.js');
+const { Setting } = require('lib/models/setting.js');
 const { Resource } = require('lib/models/resource.js');
 const { Folder } = require('lib/models/folder.js');
 const { BackButtonService } = require('lib/services/back-button.js');
 const { BaseModel } = require('lib/base-model.js');
 const { ActionButton } = require('lib/components/action-button.js');
 const Icon = require('react-native-vector-icons/Ionicons').default;
+const { fileExtension, basename, safeFileExtension } = require('lib/path-utils.js');
+const mimeUtils = require('lib/mime-utils.js').mime;
 const { ScreenHeader } = require('lib/components/screen-header.js');
 const { time } = require('lib/time-utils.js');
 const { Checkbox } = require('lib/components/checkbox.js');
@@ -25,6 +29,9 @@ const RNFetchBlob = require('react-native-fetch-blob').default;
 const { DocumentPicker, DocumentPickerUtil } = require('react-native-document-picker');
 const ImageResizer = require('react-native-image-resizer').default;
 const shared = require('lib/components/shared/note-screen-shared.js');
+const ImagePicker = require('react-native-image-picker');
+const AlarmService = require('lib/services/AlarmService.js');
+const { SelectDateTimeDialog } = require('lib/components/select-date-time-dialog.js');
 
 class NoteScreenComponent extends BaseScreenComponent {
 	
@@ -43,8 +50,12 @@ class NoteScreenComponent extends BaseScreenComponent {
 			lastSavedNote: null,
 			isLoading: true,
 			titleTextInputHeight: 20,
+			alarmDialogShown: false,
 		};
 
+		// iOS doesn't support multiline text fields properly so disable it
+		this.enableMultilineTitle_ = Platform.OS !== 'ios';
+		
 		this.saveButtonHasBeenShown_ = false;
 
 		this.styles_ = {};
@@ -185,7 +196,7 @@ class NoteScreenComponent extends BaseScreenComponent {
 
 	async pickDocument() {
 		return new Promise((resolve, reject) => {
-			DocumentPicker.show({ filetype: [DocumentPickerUtil.images()] }, (error,res) => {
+			DocumentPicker.show({ filetype: [DocumentPickerUtil.allFiles()] }, (error,res) => {
 				if (error) {
 					// Also returns an error if the user doesn't pick a file
 					// so just resolve with null.
@@ -207,56 +218,103 @@ class NoteScreenComponent extends BaseScreenComponent {
 		});
 	}
 
-	async attachFile_onPress() {
-		const res = await this.pickDocument();
-		if (!res) {
-			reg.logger().info('Did not get any file (user cancel?)');
+	showImagePicker(options) {
+		return new Promise((resolve, reject) => {
+			ImagePicker.showImagePicker(options, (response) => {
+				resolve(response);
+			});
+		});
+	}
+
+	async resizeImage(localFilePath, targetPath, mimeType) {
+		const maxSize = Resource.IMAGE_MAX_DIMENSION;
+
+		let dimensions = await this.imageDimensions(localFilePath);
+
+		reg.logger().info('Original dimensions ', dimensions);
+		if (dimensions.width > maxSize || dimensions.height > maxSize) {
+			dimensions.width = maxSize;
+			dimensions.height = maxSize;
+		}
+		reg.logger().info('New dimensions ', dimensions);
+
+		const format = mimeType == 'image/png' ? 'PNG' : 'JPEG';
+		reg.logger().info('Resizing image ' + localFilePath);
+		const resizedImage = await ImageResizer.createResizedImage(localFilePath, dimensions.width, dimensions.height, format, 85); //, 0, targetPath);
+		
+		const resizedImagePath = resizedImage.uri;
+		reg.logger().info('Resized image ', resizedImagePath);
+		reg.logger().info('Moving ' + resizedImagePath + ' => ' + targetPath);
+		
+		await RNFS.copyFile(resizedImagePath, targetPath);
+		
+		try {
+			await RNFS.unlink(resizedImagePath);
+		} catch (error) {
+			reg.logger().warn('Error when unlinking cached file: ', error);
+		}
+	}
+
+	async attachFile(pickerResponse, fileType) {
+		if (!pickerResponse) {
+			reg.logger().warn('Got no response from picker');
 			return;
 		}
 
-		const localFilePath = res.uri;
+		if (pickerResponse.error) {
+			reg.logger().warn('Got error from picker', pickerResponse.error);
+			return;
+		}
+
+		if (pickerResponse.didCancel) {
+			reg.logger().info('User cancelled picker');
+			return;
+		}
+
+		const localFilePath = pickerResponse.uri;
+		let mimeType = pickerResponse.type;
+
+		if (!mimeType) {
+			const ext = fileExtension(localFilePath);
+			mimeType = mimeUtils.fromFileExtension(ext);
+		}
+
+		if (!mimeType && fileType === 'image') {
+			// Assume JPEG if we couldn't determine the file type. It seems to happen with the image picker
+			// when the file path is something like content://media/external/images/media/123456
+			// If the image is not a JPEG, something will throw an error below, but there's a good chance
+			// it will work.
+			reg.logger().info('Missing file type and could not detect it - assuming image/jpg');
+			mimeType = 'image/jpg';
+		}
 
 		reg.logger().info('Got file: ' + localFilePath);
-		reg.logger().info('Got type: ' + res.type);
-
-		// res.uri,
-		// res.type, // mime type
-		// res.fileName,
-		// res.fileSize
+		reg.logger().info('Got type: ' + mimeType);
 
 		let resource = Resource.new();
 		resource.id = uuid.create();
-		resource.mime = res.type;
-		resource.title = res.fileName ? res.fileName : _('Untitled');
+		resource.mime = mimeType;
+		resource.title = pickerResponse.fileName ? pickerResponse.fileName : _('Untitled');
+		resource.file_extension = safeFileExtension(fileExtension(pickerResponse.fileName));
+
+		if (!resource.mime) resource.mime = 'application/octet-stream';
 
 		let targetPath = Resource.fullPath(resource);
 
-		if (res.type == 'image/jpeg' || res.type == 'image/jpg' || res.type == 'image/png') {
-			const maxSize = Resource.IMAGE_MAX_DIMENSION;
-
-			let dimensions = await this.imageDimensions(localFilePath);
-
-			reg.logger().info('Original dimensions ', dimensions);
-			if (dimensions.width > maxSize || dimensions.height > maxSize) {
-				dimensions.width = maxSize;
-				dimensions.height = maxSize;
+		try {
+			if (mimeType == 'image/jpeg' || mimeType == 'image/jpg' || mimeType == 'image/png') {
+				await this.resizeImage(localFilePath, targetPath, pickerResponse.mime);
+			} else {
+				if (fileType === 'image') {
+					dialogs.error(this, _('Unsupported image type: %s', mimeType));
+					return;
+				} else {
+					await RNFetchBlob.fs.cp(localFilePath, targetPath);
+				}
 			}
-			reg.logger().info('New dimensions ', dimensions);
-
-			const format = res.type == 'image/png' ? 'PNG' : 'JPEG';
-			reg.logger().info('Resizing image ' + localFilePath);
-			const resizedImage = await ImageResizer.createResizedImage(localFilePath, dimensions.width, dimensions.height, format, 85);
-			const resizedImagePath = resizedImage.uri;
-			reg.logger().info('Resized image ', resizedImagePath);
-			RNFetchBlob.fs.cp(resizedImagePath, targetPath); // mv doesn't work ("source path does not exist") so need to do cp and unlink
-			
-			try {
-				RNFetchBlob.fs.unlink(resizedImagePath);
-			} catch (error) {
-				reg.logger().info('Error when unlinking cached file: ', error);
-			}
-		} else {
-			RNFetchBlob.fs.cp(localFilePath, targetPath);
+		} catch (error) {
+			reg.logger().warn('Could not attach file:', error);
+			return;
 		}
 
 		await Resource.save(resource, { isNew: true });
@@ -268,8 +326,38 @@ class NoteScreenComponent extends BaseScreenComponent {
 		this.setState({ note: newNote });
 	}
 
+	async attachImage_onPress() {
+		const options = {
+			mediaType: 'photo',
+		};
+		const response = await this.showImagePicker(options);
+		await this.attachFile(response, 'image');
+	}
+
+	async attachFile_onPress() {
+		const response = await this.pickDocument();
+		await this.attachFile(response, 'all');
+	}
+
 	toggleIsTodo_onPress() {
 		shared.toggleIsTodo_onPress(this);
+	}
+
+	setAlarm_onPress() {
+		this.setState({ alarmDialogShown: true });
+	}
+
+	async onAlarmDialogAccept(date) {
+		let newNote = Object.assign({}, this.state.note);
+		newNote.todo_due = date ? date.getTime() : 0;
+
+		await this.saveOneProperty('todo_due', date ? date.getTime() : 0);
+
+		this.setState({ alarmDialogShown: false });
+	}
+
+	onAlarmDialogReject() {
+		this.setState({ alarmDialogShown: false });
 	}
 
 	showMetadata_onPress() {
@@ -294,17 +382,26 @@ class NoteScreenComponent extends BaseScreenComponent {
 
 		let output = [];
 
-		output.push({ title: _('Attach file'), onPress: () => { this.attachFile_onPress(); } });
-		output.push({ title: _('Delete note'), onPress: () => { this.deleteNote_onPress(); } });
+		// The file attachement modules only work in Android >= 5 (Version 21)
+		// https://github.com/react-community/react-native-image-picker/issues/606
+		let canAttachPicture = true;
+		if (Platform.OS === 'android' && Platform.Version < 21) canAttachPicture = false;
+		if (canAttachPicture) {
+			output.push({ title: _('Attach photo'), onPress: () => { this.attachImage_onPress(); } });
+			output.push({ title: _('Attach any file'), onPress: () => { this.attachFile_onPress(); } });
+			output.push({ isDivider: true });
+		}
 
-		// if (isTodo) {
-		// 	let text = note.todo_due ? _('Edit/Clear alarm') : _('Set an alarm');
-		// 	output.push({ title: text, onPress: () => { this.setAlarm_onPress(); } });
-		// }
+		if (isTodo) {
+			output.push({ title: _('Set alarm'), onPress: () => { this.setState({ alarmDialogShown: true }) }});;
+		}
 
-		output.push({ title: isTodo ? _('Convert to regular note') : _('Convert to todo'), onPress: () => { this.toggleIsTodo_onPress(); } });
+		output.push({ title: isTodo ? _('Convert to note') : _('Convert to todo'), onPress: () => { this.toggleIsTodo_onPress(); } });
+		output.push({ isDivider: true });
 		if (this.props.showAdvancedOptions) output.push({ title: this.state.showNoteMetadata ? _('Hide metadata') : _('Show metadata'), onPress: () => { this.showMetadata_onPress(); } });
-		output.push({ title: _('View location on map'), onPress: () => { this.showOnMap_onPress(); } });
+		output.push({ title: _('View on map'), onPress: () => { this.showOnMap_onPress(); } });
+		output.push({ isDivider: true });
+		output.push({ title: _('Delete'), onPress: () => { this.deleteNote_onPress(); } });
 
 		return output;
 	}
@@ -314,6 +411,8 @@ class NoteScreenComponent extends BaseScreenComponent {
 	}
 
 	titleTextInput_contentSizeChange(event) {
+		if (!this.enableMultilineTitle_) return;
+
 		let height = event.nativeEvent.contentSize.height;
 		this.setState({ titleTextInputHeight: height });
 	}
@@ -374,15 +473,6 @@ class NoteScreenComponent extends BaseScreenComponent {
 			return <ActionButton multiStates={true} buttons={buttons} buttonIndex={0} />
 		}
 
-		const titlePickerItems = () => {
-			let output = [];
-			for (let i = 0; i < this.props.folders.length; i++) {
-				let f = this.props.folders[i];
-				output.push({ label: f.title, value: f.id });
-			}
-			return output;
-		}
-
 		const actionButtonComp = renderActionButton();
 
 		let showSaveButton = this.state.mode == 'edit' || this.isModified() || this.saveButtonHasBeenShown_;
@@ -399,15 +489,21 @@ class NoteScreenComponent extends BaseScreenComponent {
 			backgroundColor: theme.backgroundColor,
 			fontWeight: 'bold',
 			fontSize: theme.fontSize,
+			paddingTop: 10, // Added for iOS (Not needed for Android??)
+			paddingBottom: 10, // Added for iOS (Not needed for Android??)
 		};
 
-		titleTextInputStyle.height = this.state.titleTextInputHeight;
+		if (this.enableMultilineTitle_) titleTextInputStyle.height = this.state.titleTextInputHeight;
 
 		let checkboxStyle = {
 			color: theme.color,
 			paddingRight: 10,
 			paddingLeft: theme.marginLeft,
+			paddingTop: 10, // Added for iOS (Not needed for Android??)
+			paddingBottom: 10, // Added for iOS (Not needed for Android??)
 		}
+
+		const dueDate = isTodo && note.todo_due ? new Date(note.todo_due) : null;
 
 		const titleComp = (
 			<View style={titleContainerStyle}>
@@ -415,7 +511,7 @@ class NoteScreenComponent extends BaseScreenComponent {
 				<TextInput
 					onContentSizeChange={(event) => this.titleTextInput_contentSizeChange(event)}
 					autoFocus={isNew}
-					multiline={true}
+					multiline={this.enableMultilineTitle_}
 					underlineColorAndroid="#ffffff00"
 					autoCapitalize="sentences"
 					style={titleTextInputStyle}
@@ -428,19 +524,10 @@ class NoteScreenComponent extends BaseScreenComponent {
 		return (
 			<View style={this.rootStyle(this.props.theme).root}>
 				<ScreenHeader
-					titlePicker={{
-						items: titlePickerItems(),
-						selectedValue: folder ? folder.id : null,
+					folderPickerOptions={{
+						enabled: true,
+						selectedFolderId: folder ? folder.id : null,
 						onValueChange: async (itemValue, itemIndex) => {
-							let note = Object.assign({}, this.state.note);
-
-							// RN bug: https://github.com/facebook/react-native/issues/9220
-							// The Picker fires the onValueChange when the component is initialized
-							// so we need to check that it has actually changed.
-							if (note.parent_id == itemValue) return;
-
-							reg.logger().info('Moving note: ' + note.parent_id + ' => ' + itemValue);
-
 							if (note.id) await Note.moveToFolder(note.id, itemValue);
 							note.parent_id = itemValue;
 
@@ -451,7 +538,7 @@ class NoteScreenComponent extends BaseScreenComponent {
 								note: note,
 								folder: folder,
 							});
-						}
+						},
 					}}
 					menuOptions={this.menuOptions()}
 					showSaveButton={showSaveButton}
@@ -462,6 +549,14 @@ class NoteScreenComponent extends BaseScreenComponent {
 				{ bodyComponent }
 				{ actionButtonComp }
 				{ this.state.showNoteMetadata && <Text style={this.styles().metadata}>{this.state.noteMetadata}</Text> }
+
+				<SelectDateTimeDialog
+					shown={this.state.alarmDialogShown}
+					date={dueDate}
+					onAccept={(date) => this.onAlarmDialogAccept(date) }
+					onReject={() => this.onAlarmDialogReject() }
+				/>
+
 				<DialogBox ref={dialogbox => { this.dialogbox = dialogbox }}/>
 			</View>
 		);
@@ -472,7 +567,7 @@ class NoteScreenComponent extends BaseScreenComponent {
 const NoteScreen = connect(
 	(state) => {
 		return {
-			noteId: state.selectedNoteId,
+			noteId: state.selectedNoteIds.length ? state.selectedNoteIds[0] : null,
 			folderId: state.selectedFolderId,
 			itemType: state.selectedItemType,
 			folders: state.folders,

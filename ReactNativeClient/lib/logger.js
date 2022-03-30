@@ -47,7 +47,7 @@ class Logger {
 				output = object.toString();
 				if (object.code) output += "\nCode: " + object.code;
 				if (object.headers) output += "\nHeader: " + JSON.stringify(object.headers);
-				if (object.request) output += "\nRequest: " + object.request;
+				if (object.request) output += "\nRequest: " + (object.request.substr ? object.request.substr(0, 1024) : '');
 				if (object.stack) output += "\n" + object.stack;
 			} else {
 				output = JSON.stringify(object);
@@ -85,7 +85,9 @@ class Logger {
 		for (let i = 0; i < this.targets_.length; i++) {
 			const target = this.targets_[i];
 			if (target.type == 'database') {
-				return await target.database.selectAll('SELECT * FROM logs ORDER BY timestamp DESC LIMIT ' + limit);
+				let sql = 'SELECT * FROM logs ORDER BY timestamp DESC';
+				if (limit !== null) sql += ' LIMIT ' + limit
+				return await target.database.selectAll(sql);
 			}
 		}
 		return [];

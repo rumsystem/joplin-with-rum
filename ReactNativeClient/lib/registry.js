@@ -1,20 +1,12 @@
 const { Logger } = require('lib/logger.js');
 const { Setting } = require('lib/models/setting.js');
-const { OneDriveApi } = require('lib/onedrive-api.js');
-const { parameters } = require('lib/parameters.js');
-const { FileApi } = require('lib/file-api.js');
-const { Database } = require('lib/database.js');
-const { Synchronizer } = require('lib/synchronizer.js');
-const { FileApiDriverOneDrive } = require('lib/file-api-driver-onedrive.js');
 const { shim } = require('lib/shim.js');
-const { time } = require('lib/time-utils.js');
-const { FileApiDriverMemory } = require('lib/file-api-driver-memory.js');
+const SyncTargetRegistry = require('lib/SyncTargetRegistry.js');
 const { _ } = require('lib/locale.js');
 
 const reg = {};
 
-reg.initSynchronizerStates_ = {};
-reg.synchronizers_ = {};
+reg.syncTargets_ = {};
 
 reg.logger = () => {
 	if (!reg.logger_) {
@@ -29,116 +21,35 @@ reg.setLogger = (l) => {
 	reg.logger_ = l;
 }
 
-reg.oneDriveApi = () => {
-	if (reg.oneDriveApi_) return reg.oneDriveApi_;
-
-	const isPublic = Setting.value('appType') != 'cli';
-
-	reg.oneDriveApi_ = new OneDriveApi(parameters().oneDrive.id, parameters().oneDrive.secret, isPublic);
-	reg.oneDriveApi_.setLogger(reg.logger());
-
-	reg.oneDriveApi_.on('authRefreshed', (a) => {
-		reg.logger().info('Saving updated OneDrive auth.');
-		Setting.setValue('sync.3.auth', a ? JSON.stringify(a) : null);
-	});
-
-	let auth = Setting.value('sync.3.auth');
-	if (auth) {
-		try {
-			auth = JSON.parse(auth);
-		} catch (error) {
-			reg.logger().warn('Could not parse OneDrive auth token');
-			reg.logger().warn(error);
-			auth = null;
-		}
-
-		reg.oneDriveApi_.setAuth(auth);
-	}
-	
-	return reg.oneDriveApi_;
+reg.setShowErrorMessageBoxHandler = (v) => {
+	reg.showErrorMessageBoxHandler_ = v;
 }
 
-reg.initSynchronizer_ = async (syncTargetId) => {
-	if (!reg.db()) throw new Error('Cannot initialize synchronizer: db not initialized');
-
-	let fileApi = null;
-
-	if (syncTargetId == Setting.SYNC_TARGET_ONEDRIVE) {
-
-		if (!reg.oneDriveApi().auth()) throw new Error('User is not authentified');
-		let appDir = await reg.oneDriveApi().appDirectory();
-		fileApi = new FileApi(appDir, new FileApiDriverOneDrive(reg.oneDriveApi()));
-
-	} else if (syncTargetId == Setting.SYNC_TARGET_MEMORY) {
-
-		fileApi = new FileApi('joplin', new FileApiDriverMemory());
-
-	} else if (syncTargetId == Setting.SYNC_TARGET_FILESYSTEM) {
-
-		let syncDir = Setting.value('sync.2.path');
-		if (!syncDir) throw new Error(_('Please set the "sync.2.path" config value to the desired synchronisation destination.'));
-		await shim.fs.mkdirp(syncDir, 0o755);
-		fileApi = new FileApi(syncDir, new shim.FileApiDriverLocal());
-
-	} else {
-
-		throw new Error('Unknown sync target: ' + syncTargetId);
-
-	}
-
-	fileApi.setSyncTargetId(syncTargetId);
-	fileApi.setLogger(reg.logger());
-
-	let sync = new Synchronizer(reg.db(), fileApi, Setting.value('appType'));
-	sync.setLogger(reg.logger());
-	sync.dispatch = reg.dispatch;
-
-	return sync;
+reg.showErrorMessageBox = (message) => {
+	if (!reg.showErrorMessageBoxHandler_) return;
+	reg.showErrorMessageBoxHandler_(message);
 }
 
-reg.synchronizer = async (syncTargetId) => {
-	if (reg.synchronizers_[syncTargetId]) return reg.synchronizers_[syncTargetId];
-	if (!reg.db()) throw new Error('Cannot initialize synchronizer: db not initialized');
+reg.syncTarget = (syncTargetId = null) => {
+	if (syncTargetId === null) syncTargetId = Setting.value('sync.target');
+	if (reg.syncTargets_[syncTargetId]) return reg.syncTargets_[syncTargetId];
 
-	if (reg.initSynchronizerStates_[syncTargetId] == 'started') {
-		// Synchronizer is already being initialized, so wait here till it's done.
-		return new Promise((resolve, reject) => {
-			const iid = setInterval(() => {
-				if (reg.initSynchronizerStates_[syncTargetId] == 'ready') {
-					clearInterval(iid);
-					resolve(reg.synchronizers_[syncTargetId]);
-				}
-				if (reg.initSynchronizerStates_[syncTargetId] == 'error') {
-					clearInterval(iid);
-					reject(new Error('Could not initialise synchroniser'));
-				}
-			}, 1000);
-		});
-	} else {
-		reg.initSynchronizerStates_[syncTargetId] = 'started';
+	const SyncTargetClass = SyncTargetRegistry.classById(syncTargetId);
+	if (!reg.db()) throw new Error('Cannot initialize sync without a db');
 
-		try {
-			const sync = await reg.initSynchronizer_(syncTargetId);
-			reg.synchronizers_[syncTargetId] = sync;
-			reg.initSynchronizerStates_[syncTargetId] = 'ready';
-			return sync;
-		} catch (error) {
-			reg.initSynchronizerStates_[syncTargetId] = 'error';
-			throw error;
-		}
-	}
-}
-
-reg.syncHasAuth = (syncTargetId) => {
-	if (syncTargetId == Setting.SYNC_TARGET_ONEDRIVE && !reg.oneDriveApi().auth()) {
-		return false;
-	}
-
-	return true;
+	const target = new SyncTargetClass(reg.db());
+	target.setLogger(reg.logger());
+	reg.syncTargets_[syncTargetId] = target;
+	return target;
 }
 
 reg.scheduleSync = async (delay = null) => {
 	if (delay === null) delay = 1000 * 3;
+
+	let promiseResolve = null;
+	const promise = new Promise((resolve, reject) => {
+		promiseResolve = resolve;
+	});
 
 	if (reg.scheduleSyncId_) {
 		clearTimeout(reg.scheduleSyncId_);
@@ -158,13 +69,14 @@ reg.scheduleSync = async (delay = null) => {
 
 		const syncTargetId = Setting.value('sync.target');
 
-		if (!reg.syncHasAuth(syncTargetId)) {
+		if (!reg.syncTarget(syncTargetId).isAuthenticated()) {
 			reg.logger().info('Synchroniser is missing credentials - manual sync required to authenticate.');
+			promiseResolve();
 			return;
 		}
 
 		try {
-			const sync = await reg.synchronizer(syncTargetId);
+			const sync = await reg.syncTarget(syncTargetId).synchronizer();
 
 			const contextKey = 'sync.' + syncTargetId + '.context';
 			let context = Setting.value(contextKey);
@@ -176,15 +88,32 @@ reg.scheduleSync = async (delay = null) => {
 				if (error.code == 'alreadyStarted') {
 					reg.logger().info(error.message);
 				} else {
+					promiseResolve();
 					throw error;
 				}
 			}
 		} catch (error) {
-			reg.logger().info('Could not run background sync: ');
+			reg.logger().info('Could not run background sync:');
 			reg.logger().info(error);
+
+			// Special case to display OneDrive Business error. This is the full error that's received when trying to use a OneDrive Business account:
+			//
+			// {"error":"invalid_client","error_description":"AADSTS50011: The reply address 'http://localhost:1917' does not match the reply addresses configured for
+			// the application: 'cbabb902-d276-4ea4-aa88-062a5889d6dc'. More details: not specified\r\nTrace ID: 6e63dac6-8b37-47e2-bd1b-4768f8713400\r\nCorrelation
+			// ID: acfd6503-8d97-4349-ae2e-e7a19dd7b6bc\r\nTimestamp: 2017-12-01 13:35:55Z","error_codes":[50011],"timestamp":"2017-12-01 13:35:55Z","trace_id":
+			// "6e63dac6-8b37-47e2-bd1b-4768f8713400","correlation_id":"acfd6503-8d97-4349-ae2e-e7a19dd7b6bc"}: TOKEN: null Error: {"error":"invalid_client",
+			// "error_description":"AADSTS50011: The reply address 'http://localhost:1917' does not match the reply addresses configured for the application:
+			// 'cbabb902-d276-4ea4-aa88-062a5889d6dc'. More details: not specified\r\nTrace ID: 6e63dac6-8b37-47e2-bd1b-4768f8713400\r\nCorrelation ID
+			//  acfd6503-8d97-4349-ae2e-e7a19dd7b6bc\r\nTimestamp: 2017-12-01 13:35:55Z","error_codes":[50011],"timestamp":"2017-12-01 13:35:55Z","trace_id":
+			// "6e63dac6-8b37-47e2-bd1b-4768f8713400","correlation_id":"acfd6503-8d97-4349-ae2e-e7a19dd7b6bc"}
+			if (error && error.message && error.message.indexOf('"invalid_client"') >= 0) {
+				reg.showErrorMessageBox(_('Could not synchronize with OneDrive.\n\nThis error often happens when using OneDrive for Business, which unfortunately cannot be supported.\n\nPlease consider using a regular OneDrive account.'));
+			}
 		}
 
 		reg.setupRecurrentSync();
+
+		promiseResolve();
 	};
 
 	if (delay === 0) {
@@ -192,14 +121,8 @@ reg.scheduleSync = async (delay = null) => {
 	} else {
 		reg.scheduleSyncId_ = setTimeout(timeoutCallback, delay);
 	}
-}
 
-reg.syncStarted = async () => {
-	const syncTarget = Setting.value('sync.target');
-	if (!reg.synchronizers_[syncTarget]) return false;
-	if (!reg.syncHasAuth(syncTarget)) return false;
-	const sync = await reg.synchronizer(syncTarget);
-	return sync.state() != 'idle';
+	return promise;
 }
 
 reg.setupRecurrentSync = () => {

@@ -177,36 +177,20 @@ class OneDriveApi {
 					response = await shim.fetchBlob(url, options);
 				}
 			} catch (error) {
-				// let canRetry = true;
-
-				// if (error.message == 'Network request failed') {
-				// 	// Unfortunately the error 'Network request failed' doesn't have a type
-				// 	// or error code, so hopefully that message won't change and is not localized
-				// } else if (error.code == 'ECONNRESET') {
-				// 	// request to https://public-ch3302....1fab24cb1bd5f.md failed, reason: socket hang up"
-				// } else if (error.code == 'ENOTFOUND') {
-				// 	// OneDrive (or Node?) sometimes sends back a "not found" error for resources
-				// 	// that definitely exist and in this case repeating the request works.
-				// 	// Error is:
-				// 	// request to https://graph.microsoft.com/v1.0/drive/special/approot failed, reason: getaddrinfo ENOTFOUND graph.microsoft.com graph.microsoft.com:443
-				// } else if (error.message.indexOf('network timeout') === 0) {
-				// 	// network timeout at: https://public-ch3302...859f9b0e3ab.md
-				// } else {
-				// 	canRetry = false;
-				// }
-
-				// if (canRetry) {
-				// 	this.logger().info('Got error code ' + error.code + ': ' + error.message + ' - retrying (' + i + ')...');
-				// 	await time.sleep((i + 1) * 3);
-				// 	continue;
-				// } else {
 				this.logger().error('Got unhandled error:', error ? error.code : '', error ? error.message : '', error);
 				throw error;
-				//}
 			}
 
 			if (!response.ok) {
-				let errorResponse = await response.json();
+				let errorResponseText = await response.text();
+				let errorResponse = null;
+				try {
+					errorResponse = JSON.parse(errorResponseText);//await response.json();
+				} catch (error) {
+					error.message = 'OneDriveApi::exec: Cannot parse JSON error: ' + errorResponseText + " " + error.message;
+					throw error;
+				}
+
 				let error = this.oneDriveErrorResponseToError(errorResponse);
 
 				if (error.code == 'InvalidAuthenticationToken' || error.code == 'unauthenticated') {
@@ -232,6 +216,18 @@ class OneDriveApi {
 					this.logger().info(error);
 					await time.sleep((i + 1) * 3);
 					continue;
+				} else if (error && error.error && error.error.code === 'resourceModified') {
+					// NOTE: not tested, very hard to reproduce and non-informative error message, but can be repeated
+
+					// Error: ETag does not match current item's value
+					// Code: resourceModified
+					// Header: {"_headers":{"cache-control":["private"],"transfer-encoding":["chunked"],"content-type":["application/json"],"request-id":["d...ea47"],"client-request-id":["d99...ea47"],"x-ms-ags-diagnostic":["{\"ServerInfo\":{\"DataCenter\":\"North Europe\",\"Slice\":\"SliceA\",\"Ring\":\"2\",\"ScaleUnit\":\"000\",\"Host\":\"AGSFE_IN_13\",\"ADSiteName\":\"DUB\"}}"],"duration":["96.9464"],"date":[],"connection":["close"]}}
+					// Request: PATCH https://graph.microsoft.com/v1.0/drive/root:/Apps/JoplinDev/f56c5601fee94b8085524513bf3e352f.md null "{\"fileSystemInfo\":{\"lastModifiedDateTime\":\"....\"}}" {"headers":{"Content-Type":"application/json","Authorization":"bearer ...
+
+					this.logger().info('Got error below - retrying (' + i + ')...');
+					this.logger().info(error);
+					await time.sleep((i + 1) * 3);
+					continue;
 				} else if (error.code == 'itemNotFound' && method == 'DELETE') {
 					// Deleting a non-existing item is ok - noop
 					return;
@@ -250,8 +246,15 @@ class OneDriveApi {
 
 	async execJson(method, path, query, data) {
 		let response = await this.exec(method, path, query, data);
-		let output = await response.json();
-		return output;
+		let errorResponseText = await response.text();
+		try {
+			let output = JSON.parse(errorResponseText); //await response.json();
+			return output;
+		} catch (error) {
+			error.message = 'OneDriveApi::execJson: Cannot parse JSON: ' + errorResponseText + " " + error.message;
+			throw error;
+			//throw new Error('Cannot parse JSON: ' + text);
+		}
 	}
 
 	async execText(method, path, query, data) {

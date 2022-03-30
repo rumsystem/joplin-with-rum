@@ -38,6 +38,10 @@ class ItemList extends React.Component {
 
 	render() {
 		const items = this.props.items;
+		const style = Object.assign({}, this.props.style, {
+			overflowX: 'hidden',
+			overflowY: 'auto',
+		});
 
 		if (!this.props.itemHeight) throw new Error('itemHeight is required');
 
@@ -48,7 +52,7 @@ class ItemList extends React.Component {
 		let itemComps = [blankItem('top', this.state.topItemIndex * this.props.itemHeight)];
 
 		for (let i = this.state.topItemIndex; i <= this.state.bottomItemIndex; i++) {
-			const itemComp = this.props.itemRenderer(i, items[i]);
+			const itemComp = this.props.itemRenderer(items[i]);
 			itemComps.push(itemComp);
 		}
 
@@ -60,7 +64,7 @@ class ItemList extends React.Component {
 		const that = this;
 
 		return (
-			<div className={classes.join(' ')} style={this.props.style} onScroll={ (event) => { this.onScroll(event.target.scrollTop) }}>
+			<div className={classes.join(' ')} style={style} onScroll={ (event) => { this.onScroll(event.target.scrollTop) }}>
 				{ itemComps }
 			</div>
 		);

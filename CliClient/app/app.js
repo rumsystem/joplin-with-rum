@@ -168,31 +168,42 @@ class Application extends BaseApplication {
 			await doExit();
 		}, 5000);
 
-		if (await reg.syncStarted()) {
+		if (await reg.syncTarget().syncStarted()) {
 			this.stdout(_('Cancelling background synchronisation... Please wait.'));
-			const sync = await reg.synchronizer(Setting.value('sync.target'));
+			const sync = await reg.syncTarget().synchronizer();
 			await sync.cancel();
 		}
 
 		await doExit();
 	}
 
-	commands() {
-		if (this.allCommandsLoaded_) return this.commands_;
+	commands(uiType = null) {
+		if (!this.allCommandsLoaded_) {
+			fs.readdirSync(__dirname).forEach((path) => {
+				if (path.indexOf('command-') !== 0) return;
+				const ext = fileExtension(path)
+				if (ext != 'js') return;
 
-		fs.readdirSync(__dirname).forEach((path) => {
-			if (path.indexOf('command-') !== 0) return;
-			const ext = fileExtension(path)
-			if (ext != 'js') return;
+				let CommandClass = require('./' + path);
+				let cmd = new CommandClass();
+				if (!cmd.enabled()) return;
+				cmd = this.setupCommand(cmd);
+				this.commands_[cmd.name()] = cmd;
+			});
 
-			let CommandClass = require('./' + path);
-			let cmd = new CommandClass();
-			if (!cmd.enabled()) return;
-			cmd = this.setupCommand(cmd);
-			this.commands_[cmd.name()] = cmd;
-		});
+			this.allCommandsLoaded_ = true;
+		}
 
-		this.allCommandsLoaded_ = true;
+		if (uiType !== null) {
+			let temp = [];
+			for (let n in this.commands_) {
+				if (!this.commands_.hasOwnProperty(n)) continue;
+				const c = this.commands_[n];
+				if (!c.supportsUi(uiType)) continue;
+				temp[n] = c;
+			}
+			return temp;
+		}
 
 		return this.commands_;
 	}
@@ -246,9 +257,13 @@ class Application extends BaseApplication {
 		try {
 			CommandClass = require(__dirname + '/command-' + name + '.js');
 		} catch (error) {
-			let e = new Error('No such command: ' + name);
-			e.type = 'notFound';
-			throw e;
+			if (error.message && error.message.indexOf('Cannot find module') >= 0) {
+				let e = new Error(_('No such command: %s', name));
+				e.type = 'notFound';
+				throw e;
+			} else {
+				throw error;
+			}
 		}
 
 		let cmd = new CommandClass();
@@ -306,6 +321,8 @@ class Application extends BaseApplication {
 		if (argv.length) {
 			this.gui_ = this.dummyGui();
 
+			this.currentFolder_ = await Folder.load(Setting.value('activeFolderId'));
+
 			try {
 				await this.execCommand(argv);
 			} catch (error) {
@@ -324,7 +341,7 @@ class Application extends BaseApplication {
 			await this.gui_.start();
 
 			// Since the settings need to be loaded before the store is created, it will never
-			// receive the SETTINGS_UPDATE_ALL even, which mean state.settings will not be
+			// receive the SETTING_UPDATE_ALL even, which mean state.settings will not be
 			// initialised. So we manually call dispatchUpdateAll() to force an update.
 			Setting.dispatchUpdateAll();
 
@@ -333,12 +350,12 @@ class Application extends BaseApplication {
 			const tags = await Tag.allWithNotes();
 
 			this.dispatch({
-				type: 'TAGS_UPDATE_ALL',
+				type: 'TAG_UPDATE_ALL',
 				tags: tags,
 			});
 
 			this.store().dispatch({
-				type: 'FOLDERS_SELECT',
+				type: 'FOLDER_SELECT',
 				id: Setting.value('activeFolderId'),
 			});
 		}

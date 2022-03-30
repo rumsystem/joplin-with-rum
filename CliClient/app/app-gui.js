@@ -6,6 +6,7 @@ const { Note } = require('lib/models/note.js');
 const { Resource } = require('lib/models/resource.js');
 const { cliUtils } = require('./cli-utils.js');
 const { reducer, defaultState } = require('lib/reducer.js');
+const { splitCommandString } = require('lib/string-utils.js');
 const { reg } = require('lib/registry.js');
 const { _ } = require('lib/locale.js');
 
@@ -112,8 +113,8 @@ class AppGui {
 
 				if (!nextItem) return; // Normally not possible
 
-				let actionType = 'FOLDERS_SELECT';
-				if (nextItem.type_ === BaseModel.TYPE_TAG) actionType = 'TAGS_SELECT';
+				let actionType = 'FOLDER_SELECT';
+				if (nextItem.type_ === BaseModel.TYPE_TAG) actionType = 'TAG_SELECT';
 				if (nextItem.type_ === BaseModel.TYPE_SEARCH) actionType = 'SEARCH_SELECT';
 
 				this.store_.dispatch({
@@ -122,12 +123,12 @@ class AppGui {
 				});
 			} else if (item.type_ === Folder.modelType()) {
 				this.store_.dispatch({
-					type: 'FOLDERS_SELECT',
+					type: 'FOLDER_SELECT',
 					id: item ? item.id : null,
 				});
 			} else if (item.type_ === Tag.modelType()) {
 				this.store_.dispatch({
-					type: 'TAGS_SELECT',
+					type: 'TAG_SELECT',
 					id: item ? item.id : null,
 				});
 			} else if (item.type_ === BaseModel.TYPE_SEARCH) {
@@ -160,13 +161,13 @@ class AppGui {
 		noteList.on('currentItemChange', async () => {
 			let note = noteList.currentItem;
 			this.store_.dispatch({
-				type: 'NOTES_SELECT',
-				noteId: note ? note.id : null,
+				type: 'NOTE_SELECT',
+				id: note ? note.id : null,
 			});
 		});
 		this.rootWidget_.connect(noteList, (state) => {
 			return {
-				selectedNoteId: state.selectedNoteId,
+				selectedNoteId: state.selectedNoteIds.length ? state.selectedNoteIds[0] : null,
 				items: state.notes,
 			};
 		});
@@ -180,7 +181,7 @@ class AppGui {
 		};
 		this.rootWidget_.connect(noteText, (state) => {
 			return {
-				noteId: state.selectedNoteId,
+				noteId: state.selectedNoteIds.length ? state.selectedNoteIds[0] : null,
 				notes: state.notes,
 			};
 		});
@@ -194,7 +195,7 @@ class AppGui {
 			borderRightWidth: 1,
 		};
 		this.rootWidget_.connect(noteMetadata, (state) => {
-			return { noteId: state.selectedNoteId };
+			return { noteId: state.selectedNoteIds.length ? state.selectedNoteIds[0] : null };
 		});
 		noteMetadata.hide();
 
@@ -320,13 +321,16 @@ class AppGui {
 			action: async () => {
 				if (this.widget('folderList').hasFocus) {
 					const item = this.widget('folderList').selectedJoplinItem;
+
+					if (!item) return;
+
 					if (item.type_ === BaseModel.TYPE_FOLDER) {
 						await this.processCommand('rmbook ' + item.id);
 					} else if (item.type_ === BaseModel.TYPE_TAG) {
 						this.stdout(_('To delete a tag, untag the associated notes.'));
 					} else if (item.type_ === BaseModel.TYPE_SEARCH) {
 						this.store().dispatch({
-							type: 'SEARCH_REMOVE',
+							type: 'SEARCH_DELETE',
 							id: item.id,
 						});
 					}
@@ -336,6 +340,10 @@ class AppGui {
 					this.stdout(_('Please select the note or notebook to be deleted first.'));
 				}
 			}
+		};
+
+		shortcuts['BACKSPACE'] = {
+			alias: 'DELETE',
 		};
 
 		shortcuts[' '] = {
@@ -518,22 +526,22 @@ class AppGui {
 			return;
 		}	
 
-		let note = this.widget('noteList').currentItem;
-		let folder = this.widget('folderList').currentItem;
-		let args = cliUtils.splitCommandString(cmd);
+		try {			
+			let note = this.widget('noteList').currentItem;
+			let folder = this.widget('folderList').currentItem;
+			let args = splitCommandString(cmd);
 
-		for (let i = 0; i < args.length; i++) {
-			if (args[i] == '$n') {
-				args[i] = note ? note.id : '';
-			} else if (args[i] == '$b') {
-				args[i] = folder ? folder.id : '';
-			} else  if (args[i] == '$c') {
-				const item = this.activeListItem();
-				args[i] = item ? item.id : '';
+			for (let i = 0; i < args.length; i++) {
+				if (args[i] == '$n') {
+					args[i] = note ? note.id : '';
+				} else if (args[i] == '$b') {
+					args[i] = folder ? folder.id : '';
+				} else  if (args[i] == '$c') {
+					const item = this.activeListItem();
+					args[i] = item ? item.id : '';
+				}
 			}
-		}
 
-		try {
 			await this.app().execCommand(args);
 		} catch (error) {
 			this.stdout(error.message);
@@ -764,7 +772,10 @@ class AppGui {
 				// -------------------------------------------------------------------------
 
 				const shortcutKey = this.currentShortcutKeys_.join('');
-				const cmd = shortcutKey in this.shortcuts_ ? this.shortcuts_[shortcutKey] : null;
+				let cmd = shortcutKey in this.shortcuts_ ? this.shortcuts_[shortcutKey] : null;
+
+				// If this command is an alias to another command, resolve to the actual command
+				if (cmd && cmd.alias) cmd = this.shortcuts_[cmd.alias];
 
 				let processShortcutKeys = !this.app().currentCommand() && cmd;
 				if (cmd && cmd.canRunAlongOtherCommands) processShortcutKeys = true;

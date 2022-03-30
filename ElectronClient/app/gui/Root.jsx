@@ -3,8 +3,14 @@ const { render } = require('react-dom');
 const { createStore } = require('redux');
 const { connect, Provider } = require('react-redux');
 
+const { _ } = require('lib/locale.js');
+const { Setting } = require('lib/models/setting.js');
+
 const { MainScreen } = require('./MainScreen.min.js');
 const { OneDriveLoginScreen } = require('./OneDriveLoginScreen.min.js');
+const { StatusScreen } = require('./StatusScreen.min.js');
+const { ImportScreen } = require('./ImportScreen.min.js');
+const { ConfigScreen } = require('./ConfigScreen.min.js');
 const { Navigator } = require('./Navigator.min.js');
 
 const { app } = require('../app');
@@ -12,16 +18,32 @@ const { app } = require('../app');
 const { bridge } = require('electron').remote.require('./bridge');
 
 async function initialize(dispatch) {
+	this.wcsTimeoutId_ = null;
+
 	bridge().window().on('resize', function() {
-		store.dispatch({
-			type: 'WINDOW_CONTENT_SIZE_SET',
-			size: bridge().windowContentSize(),
-		});
+		if (this.wcsTimeoutId_) clearTimeout(this.wcsTimeoutId_);
+
+		this.wcsTimeoutId_ = setTimeout(() => {
+			store.dispatch({
+				type: 'WINDOW_CONTENT_SIZE_SET',
+				size: bridge().windowContentSize(),
+			});
+			this.wcsTimeoutId_ = null;
+		}, 10);
 	});
 
+	// Need to dispatch this to make sure the components are
+	// displayed at the right size. The windowContentSize is
+	// also set in the store default state, but at that point
+	// the window might not be at its final size.
 	store.dispatch({
 		type: 'WINDOW_CONTENT_SIZE_SET',
 		size: bridge().windowContentSize(),
+	});
+
+	store.dispatch({
+		type: 'NOTE_VISIBLE_PANES_SET',
+		panes: Setting.value('noteVisiblePanes'),
 	});
 }
 
@@ -30,14 +52,14 @@ class RootComponent extends React.Component {
 	async componentDidMount() {
 		if (this.props.appState == 'starting') {
 			this.props.dispatch({
-				type: 'SET_APP_STATE',
+				type: 'APP_STATE_SET',
 				state: 'initializing',
 			});
 
 			await initialize(this.props.dispatch);
 
 			this.props.dispatch({
-				type: 'SET_APP_STATE',
+				type: 'APP_STATE_SET',
 				state: 'ready',
 			});
 		}
@@ -51,7 +73,10 @@ class RootComponent extends React.Component {
 
 		const screens = {
 			Main: { screen: MainScreen },
-			OneDriveLogin: { screen: OneDriveLoginScreen },
+			OneDriveLogin: { screen: OneDriveLoginScreen, title: () => _('OneDrive Login') },
+			Import: { screen: ImportScreen, title: () => _('Import') },
+			Config: { screen: ConfigScreen, title: () => _('Options') },
+			Status: { screen: StatusScreen, title: () => _('Synchronisation Status') },
 		};
 
 		return (

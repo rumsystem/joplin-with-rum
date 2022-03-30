@@ -18,7 +18,7 @@
     ],
     "owner": "Laurent Cozic"
   },
-  "version": "0.10.65",
+  "version": "0.10.82",
   "bin": {
     "joplin": "./main.js"
   },
@@ -37,6 +37,7 @@
     "md5": "^2.2.1",
     "mime": "^2.0.3",
     "moment": "^2.18.1",
+    "node-emoji": "^1.8.1",
     "node-fetch": "^1.7.1",
     "node-persist": "^2.1.0",
     "os-tmpdir": "^1.0.2",
@@ -53,13 +54,12 @@
     "string-to-stream": "^1.1.0",
     "strip-ansi": "^4.0.0",
     "tcp-port-used": "^0.1.2",
-    "tkwidgets": "^0.5.19",
+    "tkwidgets": "^0.5.20",
     "uuid": "^3.0.1",
     "word-wrap": "^1.2.3",
     "yargs-parser": "^7.0.0"
   },
   "devDependencies": {
-    "gettext-parser": "^1.2.2",
     "jasmine": "^2.6.0"
   },
   "scripts": {

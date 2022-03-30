@@ -1,5 +1,5 @@
 const React = require('react'); const Component = React.Component;
-const { View, Button, Picker } = require('react-native');
+const { View, Button } = require('react-native');
 const { connect } = require('react-redux');
 const { reg } = require('lib/registry.js');
 const { Log } = require('lib/log.js');
@@ -62,7 +62,7 @@ class NotesScreenComponent extends BaseScreenComponent {
 		}
 
 		this.props.dispatch({
-			type: 'NOTES_UPDATE_ALL',
+			type: 'NOTE_UPDATE_ALL',
 			notes: notes,
 			notesSource: source,
 		});
@@ -142,12 +142,22 @@ class NotesScreenComponent extends BaseScreenComponent {
 
 		let title = parent ? parent.title : null;
 		const addFolderNoteButtons = this.props.selectedFolderId && this.props.selectedFolderId != Folder.conflictFolderId();
+		const thisComp = this;
+		const actionButtonComp = this.props.noteSelectionEnabled ? null : <ActionButton addFolderNoteButtons={addFolderNoteButtons} parentFolderId={this.props.selectedFolderId}></ActionButton>
 
 		return (
 			<View style={rootStyle}>
-				<ScreenHeader title={title} menuOptions={this.menuOptions()} />
+				<ScreenHeader
+					title={title}
+					menuOptions={this.menuOptions()}
+					parentComponent={thisComp}
+					folderPickerOptions={{
+						enabled: this.props.noteSelectionEnabled,
+						mustSelect: true,
+					}}
+				/>
 				<NoteList style={{flex: 1}}/>
-				<ActionButton addFolderNoteButtons={addFolderNoteButtons} parentFolderId={this.props.selectedFolderId}></ActionButton>
+				{ actionButtonComp }
 				<DialogBox ref={dialogbox => { this.dialogbox = dialogbox }}/>
 			</View>
 		);
@@ -160,6 +170,7 @@ const NotesScreen = connect(
 			folders: state.folders,
 			tags: state.tags,
 			selectedFolderId: state.selectedFolderId,
+			selectedNoteIds: state.selectedNoteIds,
 			selectedTagId: state.selectedTagId,
 			notesParentType: state.notesParentType,
 			notes: state.notes,
@@ -167,6 +178,7 @@ const NotesScreen = connect(
 			notesSource: state.notesSource,
 			uncompletedTodosOnTop: state.settings.uncompletedTodosOnTop,
 			theme: state.settings.theme,
+			noteSelectionEnabled: state.noteSelectionEnabled,
 		};
 	}
 )(NotesScreenComponent)

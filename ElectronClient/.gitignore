@@ -1,5 +1,6 @@
-build/
-app/locales/
 app/node_modules/
+app/packageInfo.js
+dist/
 app/lib/
-*.min.js
+app/gui/*.min.js
+.DS_Store

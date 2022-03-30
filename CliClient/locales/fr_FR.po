@@ -28,7 +28,7 @@ msgid "Exit command line mode"
 msgstr "Sortir du mode de ligne de commande"
 
 msgid "Edit the selected note"
-msgstr "Editer la note sélectionnée"
+msgstr "Éditer la note sélectionnée"
 
 msgid "Cancel the current command."
 msgstr "Annuler la commande en cours."
@@ -100,6 +100,10 @@ msgstr "o"
 msgid "Cancelling background synchronisation... Please wait."
 msgstr "Annulation de la synchronisation... Veuillez patienter."
 
+#, fuzzy, javascript-format
+msgid "No such command: %s"
+msgstr "Commande invalide : \"%s\""
+
 #, javascript-format
 msgid "The command \"%s\" is only available in GUI mode"
 msgstr ""
@@ -114,7 +118,7 @@ msgid "%s: %s"
 msgstr "%s : %s"
 
 msgid "Your choice: "
-msgstr "Votre choix :"
+msgstr "Votre choix : "
 
 #, javascript-format
 msgid "Invalid answer: %s"
@@ -126,10 +130,6 @@ msgstr "Joindre le fichier fourni à la note."
 #, javascript-format
 msgid "Cannot find \"%s\"."
 msgstr "Impossible de trouver \"%s\"."
-
-#, javascript-format
-msgid "Cannot access %s"
-msgstr "Impossible d'accéder à %s"
 
 msgid "Displays the given note."
 msgstr "Affiche la note."
@@ -161,7 +161,7 @@ msgid ""
 "Duplicates the notes matching <note> to [notebook]. If no notebook is "
 "specified the note is duplicated in the current notebook."
 msgstr ""
-"Copie les notes correspondant à <nom> vers [carnet]. Si aucun carnet n'est "
+"Copier les notes correspondant à <nom> vers [carnet]. Si aucun carnet n'est "
 "spécifié, la note est dupliquée sur place."
 
 msgid "Marks a to-do as done."
@@ -172,7 +172,7 @@ msgid "Note is not a to-do: \"%s\""
 msgstr "La note n'est pas une tâche : \"%s\""
 
 msgid "Edit note."
-msgstr "Editer la note."
+msgstr "Éditer la note."
 
 msgid ""
 "No text editor is defined. Please set it using `config editor <editor-path>`"
@@ -189,7 +189,7 @@ msgstr "Cette note n'existe pas : \"%s\". La créer ?"
 
 msgid "Starting to edit note. Close the editor to get back to the prompt."
 msgstr ""
-"Edition de la note en cours. Fermez l'éditeur de texte pour retourner à "
+"Édition de la note en cours. Fermez l'éditeur de texte pour retourner à "
 "l'invite de commande."
 
 msgid "Note has been saved."
@@ -232,8 +232,8 @@ msgid ""
 "using the shortcuts `$n` or `$b` for, respectively, the currently selected "
 "note or notebook. `$c` can be used to refer to the currently selected item."
 msgstr ""
-"Dans n'importe quelle commande, une note ou carnet peut être référé par "
-"titre ou identifiant, ou en utilisant les raccourcis `$n` et `$b` pour, "
+"Dans une commande, une note ou carnet peut être référé par titre ou "
+"identifiant, ou en utilisant les raccourcis `$n` et `$b` pour, "
 "respectivement, la note sélectionnée et le carnet sélectionné. `$c` peut "
 "être utilisé pour faire référence à l'objet sélectionné en cours."
 
@@ -290,7 +290,7 @@ msgstr "Créés : %d."
 
 #, javascript-format
 msgid "Updated: %d."
-msgstr "Mise à jour : %d."
+msgstr "Mis à jour : %d."
 
 #, javascript-format
 msgid "Skipped: %d."
@@ -302,7 +302,7 @@ msgstr "Ressources : %d."
 
 #, javascript-format
 msgid "Tagged: %d."
-msgstr "Etiquettes : %d."
+msgstr "Étiquettes : %d."
 
 msgid "Importing notes..."
 msgstr "Importation des notes..."
@@ -514,11 +514,194 @@ msgid ""
 "any files outside this directory nor to any other personal data. No data "
 "will be shared with any third party."
 msgstr ""
-"Veuillez ouvrir le lien ci-dessous dans votre browser pour authentifier le "
-"logiciel. Joplin va créer un répertoire \"Apps/Joplin\" et lire/écrira des "
-"fichiers uniquement dans ce répertoire. Le logiciel n'aura pas d'accès à "
+"Veuillez ouvrir le lien ci-dessous dans votre navigateur pour authentifier "
+"le logiciel. Joplin va créer un répertoire \"Apps/Joplin\" et lire/écrira "
+"des fichiers uniquement dans ce répertoire. Le logiciel n'aura pas d'accès à "
 "aucun fichier en dehors de ce répertoire, ni à d'autres données "
 "personnelles. Aucune donnée ne sera partagé avec aucun tier."
+
+msgid "Search:"
+msgstr "Recherche :"
+
+msgid "File"
+msgstr "Fichier"
+
+msgid "New note"
+msgstr "Nouvelle note"
+
+msgid "New to-do"
+msgstr "Nouvelle tâche"
+
+msgid "New notebook"
+msgstr "Nouveau carnet"
+
+msgid "Import Evernote notes"
+msgstr "Importer notes d'Evernote"
+
+msgid "Evernote Export Files"
+msgstr "Fichiers d'export Evernote"
+
+msgid "Quit"
+msgstr "Quitter"
+
+msgid "Edit"
+msgstr "Édition"
+
+msgid "Copy"
+msgstr "Copier"
+
+msgid "Cut"
+msgstr "Couper"
+
+msgid "Paste"
+msgstr "Coller"
+
+msgid "Search in all the notes"
+msgstr "Chercher dans toutes les notes"
+
+msgid "Tools"
+msgstr "Outils"
+
+#, fuzzy
+msgid "Synchronisation status"
+msgstr "Cible de la synchronisation"
+
+msgid "Options"
+msgstr "Options"
+
+msgid "Help"
+msgstr "Aide"
+
+msgid "Website and documentation"
+msgstr "Documentation en ligne"
+
+msgid "About Joplin"
+msgstr "A propos de Joplin"
+
+#, javascript-format
+msgid "%s %s (%s, %s)"
+msgstr "%s %s (%s, %s)"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Cancel"
+msgstr "Annulation"
+
+msgid "Back"
+msgstr "Retour"
+
+#, javascript-format
+msgid ""
+"New notebook \"%s\" will be created and file \"%s\" will be imported into it"
+msgstr ""
+"Un nouveau carnet \"%s\" va être créé et le fichier \"%s\" va être importé "
+"dedans"
+
+msgid "Please create a notebook first."
+msgstr "Veuillez d'abord sélectionner un carnet."
+
+msgid "Note title:"
+msgstr "Titre de la note :"
+
+msgid "Please create a notebook first"
+msgstr "Veuillez d'abord créer un carnet d'abord"
+
+msgid "To-do title:"
+msgstr "Titre de la tâche :"
+
+msgid "Notebook title:"
+msgstr "Titre du carnet :"
+
+msgid "Add or remove tags:"
+msgstr "Modifier les étiquettes :"
+
+msgid "Separate each tag by a comma."
+msgstr "Séparez chaque étiquette par une virgule."
+
+msgid "Rename notebook:"
+msgstr "Renommer le carnet :"
+
+#, fuzzy
+msgid "Set alarm:"
+msgstr "Définir ou modifier alarme"
+
+msgid "Layout"
+msgstr "Disposition"
+
+#, fuzzy
+msgid "Some items cannot be synchronised."
+msgstr "Impossible d'initialiser la synchronisation."
+
+msgid "View them now"
+msgstr ""
+
+msgid "Add or remove tags"
+msgstr "Gérer les étiquettes"
+
+msgid "Switch between note and to-do type"
+msgstr "Alterner entre note et tâche"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+msgid "Delete notes?"
+msgstr "Supprimer les notes ?"
+
+msgid "No notes in here. Create one by clicking on \"New note\"."
+msgstr ""
+"Pas de notes ici. Créez-en une en pressant le bouton \"Nouvelle note\"."
+
+#, javascript-format
+msgid "Unsupported link or message: %s"
+msgstr "Lien ou message non géré : %s"
+
+msgid "Attach file"
+msgstr "Attacher un fichier"
+
+#, fuzzy
+msgid "Set alarm"
+msgstr "Définir ou modifier alarme"
+
+msgid "Refresh"
+msgstr "Rafraîchir"
+
+msgid "Clear"
+msgstr "Supprimer"
+
+msgid "OneDrive Login"
+msgstr "Connexion OneDrive"
+
+msgid "Import"
+msgstr "Importer"
+
+#, fuzzy
+msgid "Synchronisation Status"
+msgstr "Cible de la synchronisation"
+
+msgid "Delete notebook?"
+msgstr "Supprimer le carnet ?"
+
+msgid "Remove this tag from all the notes?"
+msgstr "Enlever cette étiquette de toutes les notes ?"
+
+msgid "Remove this search from the sidebar?"
+msgstr "Enlever cette recherche de la barre latérale ?"
+
+msgid "Rename"
+msgstr "Renommer"
+
+msgid "Synchronise"
+msgstr "Synchroniser"
+
+msgid "Notebooks"
+msgstr "Carnets"
+
+msgid "Tags"
+msgstr "Étiquettes"
+
+msgid "Searches"
+msgstr "Recherches"
 
 #, javascript-format
 msgid "Usage: %s"
@@ -527,6 +710,15 @@ msgstr "Utilisation : %s"
 #, javascript-format
 msgid "Unknown flag: %s"
 msgstr "Paramètre inconnu : %s"
+
+msgid "File system"
+msgstr "Système de fichier"
+
+msgid "OneDrive"
+msgstr "OneDrive"
+
+msgid "OneDrive Dev (For testing only)"
+msgstr "OneDrive Dév (Pour tester uniquement)"
 
 #, javascript-format
 msgid "Unknown log level: %s"
@@ -540,15 +732,21 @@ msgid ""
 "Cannot refresh token: authentication data is missing. Starting the "
 "synchronisation again may fix the problem."
 msgstr ""
-"Impossible de rafraîchir la connection à OneDrive. Démarrez la "
+"Impossible de rafraîchir la connexion à OneDrive. Démarrez la "
 "synchronisation à nouveau pour corriger le problème."
 
 msgid ""
-"Please set the \"sync.2.path\" config value to the desired synchronisation "
-"destination."
+"Could not synchronize with OneDrive.\n"
+"\n"
+"This error often happens when using OneDrive for Business, which "
+"unfortunately cannot be supported.\n"
+"\n"
+"Please consider using a regular OneDrive account."
 msgstr ""
-"Veuillez attribuer une valeur au paramètre de configuration \"sync.2.path\" "
-"pour indiquer le dossier où devra se faire la synchronisation."
+
+#, javascript-format
+msgid "Cannot access %s"
+msgstr "Impossible d'accéder à %s"
 
 #, javascript-format
 msgid "Created local items: %d."
@@ -576,7 +774,7 @@ msgstr "Objets distants supprimés : %d."
 
 #, javascript-format
 msgid "State: \"%s\"."
-msgstr "Etat : \"%s\"."
+msgstr "État : \"%s\"."
 
 msgid "Cancelling..."
 msgstr "Annulation..."
@@ -587,7 +785,7 @@ msgstr "Terminé : %s"
 
 #, javascript-format
 msgid "Synchronisation is already in progress. State: %s"
-msgstr "La synchronisation est déjà en cours. Etat : %s"
+msgstr "La synchronisation est déjà en cours. État : %s"
 
 msgid "Conflicts"
 msgstr "Conflits"
@@ -614,10 +812,6 @@ msgstr "Impossible de copier la note vers le carnet \"%s\""
 msgid "Cannot move note to \"%s\" notebook"
 msgstr "Impossible de déplacer la note vers le carnet \"%s\""
 
-#, javascript-format
-msgid "Invalid option value: \"%s\". Possible values are: %s."
-msgstr "Option invalide: \"%s\". Les valeurs possibles sont : %s."
-
 msgid "File system synchronisation target directory"
 msgstr "Cible de la synchronisation sur le disque dur"
 
@@ -628,24 +822,8 @@ msgstr ""
 "Le chemin du répertoire avec lequel synchroniser lorsque la synchronisation "
 "par système de fichier est activée. Voir `sync.target`."
 
-msgid "Synchronisation target"
-msgstr "Cible de la synchronisation"
-
-msgid ""
-"The target to synchonise to. If synchronising with the file system, set "
-"`sync.2.path` to specify the target directory."
-msgstr ""
-"La cible avec laquelle synchroniser. Pour synchroniser avec le système de "
-"fichier, veuillez spécifier le répertoire avec `sync.2.path`."
-
-msgid "File system"
-msgstr "Système de fichier"
-
-msgid "OneDrive"
-msgstr "OneDrive"
-
 msgid "Text editor"
-msgstr "Editeur de texte"
+msgstr "Éditeur de texte"
 
 msgid ""
 "The editor that will be used to open a note. If none is provided it will try "
@@ -657,17 +835,29 @@ msgstr ""
 msgid "Language"
 msgstr "Langue"
 
+msgid "Date format"
+msgstr "Format de la date"
+
+msgid "Time format"
+msgstr "Format de l'heure"
+
+msgid "Theme"
+msgstr "Apparence"
+
+msgid "Light"
+msgstr "Clair"
+
+msgid "Dark"
+msgstr "Sombre"
+
 msgid "Show uncompleted todos on top of the lists"
 msgstr "Tâches non-terminées en haut des listes"
-
-msgid "Show advanced options"
-msgstr "Montrer les options avancées"
 
 msgid "Save geo-location with notes"
 msgstr "Enregistrer l'emplacement avec les notes"
 
 msgid "Synchronisation interval"
-msgstr "Interval de synchronisation"
+msgstr "Intervalle de synchronisation"
 
 msgid "Disabled"
 msgstr "Désactivé"
@@ -684,14 +874,32 @@ msgstr "%d heure"
 msgid "%d hours"
 msgstr "%d heures"
 
-msgid "Theme"
-msgstr "Apparence"
+msgid "Automatically update the application"
+msgstr "Mettre à jour le logiciel automatiquement"
 
-msgid "Light"
-msgstr "Clair"
+msgid "Show advanced options"
+msgstr "Montrer les options avancées"
 
-msgid "Dark"
-msgstr "Sombre"
+msgid "Synchronisation target"
+msgstr "Cible de la synchronisation"
+
+msgid ""
+"The target to synchonise to. If synchronising with the file system, set "
+"`sync.2.path` to specify the target directory."
+msgstr ""
+"La cible avec laquelle synchroniser. Pour synchroniser avec le système de "
+"fichier, veuillez spécifier le répertoire avec `sync.2.path`."
+
+#, javascript-format
+msgid "Invalid option value: \"%s\". Possible values are: %s."
+msgstr "Option invalide: \"%s\". Les valeurs possibles sont : %s."
+
+msgid "Items that cannot be synchronised"
+msgstr ""
+
+#, javascript-format
+msgid "\"%s\": \"%s\""
+msgstr ""
 
 msgid "Sync status (synced items / total items)"
 msgstr "Status de la synchronisation (objets synchro. / total)"
@@ -719,31 +927,45 @@ msgstr "Carnets"
 msgid "%s: %d notes"
 msgstr "%s : %d notes"
 
-msgid "New to-do"
-msgstr "Nouvelle tâche"
+msgid "Coming alarms"
+msgstr "Alarmes à venir"
 
-msgid "New note"
-msgstr "Nouvelle note"
-
-msgid "New notebook"
-msgstr "Nouveau carnet"
+#, javascript-format
+msgid "On %s: %s"
+msgstr "Le %s  : %s"
 
 msgid "There are currently no notes. Create one by clicking on the (+) button."
 msgstr ""
 "Ce carnet ne contient aucune note. Créez-en une en appuyant sur le bouton "
 "(+)."
 
+msgid "Delete these notes?"
+msgstr "Supprimer ces notes ?"
+
 msgid "Log"
 msgstr "Journal"
 
 msgid "Status"
-msgstr "Etat"
+msgstr "État"
+
+msgid "Export Debug Report"
+msgstr "Exporter rapport de débogage"
 
 msgid "Configuration"
 msgstr "Configuration"
 
-msgid "Synchronise"
-msgstr "Synchroniser"
+msgid "Move to notebook..."
+msgstr "Déplacer la note vers carnet..."
+
+#, javascript-format
+msgid "Move %d notes to notebook \"%s\"?"
+msgstr "Déplacer %d notes vers carnet \"%s\" ?"
+
+msgid "Select date"
+msgstr "Sélectionner date"
+
+msgid "Confirm"
+msgstr "Confirmer"
 
 msgid "Cancel synchronisation"
 msgstr "Annuler synchronisation"
@@ -753,10 +975,7 @@ msgid "The notebook could not be saved: %s"
 msgstr "Ce carnet n'a pas pu être sauvegardé : %s"
 
 msgid "Edit notebook"
-msgstr "Editer le carnet"
-
-msgid "Refresh"
-msgstr "Rafraîchir"
+msgstr "Éditer le carnet"
 
 msgid "This note has been modified:"
 msgstr "Cette note a été modifiée :"
@@ -767,16 +986,17 @@ msgstr "Enregistrer les changements"
 msgid "Discard changes"
 msgstr "Ignorer les changements"
 
-msgid "Cancel"
-msgstr "Annulation"
+#, javascript-format
+msgid "Unsupported image type: %s"
+msgstr "Type d'image non géré : %s"
 
-msgid "Attach file"
+msgid "Attach photo"
+msgstr "Attacher une photo"
+
+msgid "Attach any file"
 msgstr "Attacher un fichier"
 
-msgid "Delete note"
-msgstr "Supprimer la note"
-
-msgid "Convert to regular note"
+msgid "Convert to note"
 msgstr "Convertir en note"
 
 msgid "Convert to todo"
@@ -788,20 +1008,14 @@ msgstr "Cacher les métadonnées"
 msgid "Show metadata"
 msgstr "Afficher les métadonnées"
 
-msgid "View location on map"
-msgstr "Voir l'emplacement sur la carte"
-
-msgid "Edit"
-msgstr "Editer"
-
-msgid "Delete notebook?"
-msgstr "Supprimer le carnet ?"
+msgid "View on map"
+msgstr "Voir emplacement sur carte"
 
 msgid "Delete notebook"
 msgstr "Supprimer le carnet"
 
 msgid "Login with OneDrive"
-msgstr "Se connecter avec OneDrive"
+msgstr "Se connecter à OneDrive"
 
 msgid ""
 "Click on the (+) button to create a new note or notebook. Click on the side "
@@ -817,6 +1031,37 @@ msgstr ""
 
 msgid "Welcome"
 msgstr "Bienvenue"
+
+#~ msgid "Set or clear alarm:"
+#~ msgstr "Définir ou modifier alarme :"
+
+#~ msgid "Set or clear alarm"
+#~ msgstr "Définir ou modifier alarme"
+
+#~ msgid "Attach image"
+#~ msgstr "Joindre une image ou photo"
+
+#~ msgid "Attach any other file"
+#~ msgstr "Joindre un fichier"
+
+#~ msgid "Delete note"
+#~ msgstr "Supprimer la note"
+
+#~ msgid "Convert to regular note"
+#~ msgstr "Convertir en note"
+
+#~ msgid ""
+#~ "Please set the \"sync.2.path\" config value to the desired "
+#~ "synchronisation destination."
+#~ msgstr ""
+#~ "Veuillez attribuer une valeur au paramètre de configuration \"sync.2.path"
+#~ "\" pour indiquer le dossier où devra se faire la synchronisation."
+
+#~ msgid "Seach:"
+#~ msgstr "Chercher :"
+
+#~ msgid "Seach"
+#~ msgstr "Chercher"
 
 #~ msgid ""
 #~ "Command line argument \"%s\" contains both quotes and double-quotes - "
@@ -859,16 +1104,8 @@ msgstr "Bienvenue"
 #~ msgid "Show/Hide the console"
 #~ msgstr "Quitter le logiciel."
 
-#, fuzzy
-#~ msgid "Last command: %s"
-#~ msgstr "Commande invalide : \"%s\""
-
 #~ msgid "Done editing."
 #~ msgstr "Edition terminée."
-
-#, fuzzy
-#~ msgid "Confirm"
-#~ msgstr "Conflits"
 
 #~ msgid "Last error: %s (stacktrace in log)."
 #~ msgstr "Dernière erreur : %s (Plus d'information dans le journal d'erreurs)"
@@ -924,9 +1161,6 @@ msgstr "Bienvenue"
 #~ msgid "Usage: --log-level <none|error|warn|info|debug>"
 #~ msgstr "Utilisation: --log-level <none|error|warn|info|debug>"
 
-#~ msgid "cat <title>"
-#~ msgstr "cat <titre>"
-
 #~ msgid "config [name] [value]"
 #~ msgstr "config [nom] [valeur]"
 
@@ -935,10 +1169,6 @@ msgstr "Bienvenue"
 
 #~ msgid "edit <title>"
 #~ msgstr "edit <titre>"
-
-#, fuzzy
-#~ msgid "geoloc <title>"
-#~ msgstr "cat <titre>"
 
 #~ msgid "import-enex <file> [notebook]"
 #~ msgstr "import-enex <fichier> [carnet]"
@@ -974,9 +1204,6 @@ msgstr "Bienvenue"
 #~ msgstr ""
 #~ "Tous les ports sont en cours d'utilisation. Veuillez signaler ce problème "
 #~ "sur %s"
-
-#~ msgid "Imported - %s"
-#~ msgstr "Importé - %s"
 
 #~ msgid ""
 #~ "There is currently no notebook. Create one by clicking on the (+) button."

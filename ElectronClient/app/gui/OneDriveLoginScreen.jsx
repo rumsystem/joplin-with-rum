@@ -41,19 +41,22 @@ class OneDriveLoginScreenComponent extends React.Component {
 			const url = event.url;
 
 			if (this.authCode_) return;
-			if (url.indexOf(this.redirectUrl() + '?code=') !== 0) return;
 
-			let code = url.split('?code=');
-			this.authCode_ = code[1];
+			const urlParse = require('url').parse;
+			const parsedUrl = urlParse(url.trim(), true);
+
+			if (!('code' in parsedUrl.query)) return;
+
+			this.authCode_ = parsedUrl.query.code;
 
 			try {
-				await reg.oneDriveApi().execTokenRequest(this.authCode_, this.redirectUrl(), true);
+				await reg.syncTarget().api().execTokenRequest(this.authCode_, this.redirectUrl(), true);
 				this.props.dispatch({ type: 'NAV_BACK' });
 				reg.scheduleSync(0);
 			} catch (error) {
 				bridge().showMessageBox({
 					type: 'error',
-					message: error.message,
+					message: 'Could not login to OneDrive. Please try again.\n\n' + error.message + "\n\n" + url.match(/.{1,64}/g).join('\n'),
 				});
 			}
 
@@ -62,11 +65,11 @@ class OneDriveLoginScreenComponent extends React.Component {
 	}
 
 	startUrl() {
-		return reg.oneDriveApi().authCodeUrl(this.redirectUrl());
+		return reg.syncTarget().api().authCodeUrl(this.redirectUrl());
 	}
 
 	redirectUrl() {
-		return reg.oneDriveApi().nativeClientRedirectUrl();
+		return reg.syncTarget().api().nativeClientRedirectUrl();
 	}
 
 	render() {
@@ -86,7 +89,8 @@ class OneDriveLoginScreenComponent extends React.Component {
 		const headerButtons = [
 			{
 				title: _('Refresh'),
-				onClick: () => this.refresh_click()
+				onClick: () => this.refresh_click(),
+				iconName: 'fa-refresh',
 			},
 		];
 
@@ -101,7 +105,9 @@ class OneDriveLoginScreenComponent extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-	return {};
+	return {
+		theme: state.settings.theme,
+	};
 };
 
 const OneDriveLoginScreen = connect(mapStateToProps)(OneDriveLoginScreenComponent);
