@@ -30,7 +30,6 @@ const { DocumentPicker, DocumentPickerUtil } = require('react-native-document-pi
 const ImageResizer = require('react-native-image-resizer').default;
 const shared = require('lib/components/shared/note-screen-shared.js');
 const ImagePicker = require('react-native-image-picker');
-const { SelectDateTimeDialog } = require('lib/components/select-date-time-dialog.js');
 
 class NoteScreenComponent extends BaseScreenComponent {
 	
@@ -49,7 +48,6 @@ class NoteScreenComponent extends BaseScreenComponent {
 			lastSavedNote: null,
 			isLoading: true,
 			titleTextInputHeight: 20,
-			alarmDialogShown: false,
 		};
 
 		// iOS doesn't support multiline text fields properly so disable it
@@ -339,26 +337,6 @@ class NoteScreenComponent extends BaseScreenComponent {
 		shared.toggleIsTodo_onPress(this);
 	}
 
-	setAlarm_onPress() {
-		this.setState({ alarmDialogShown: true });
-	}
-
-	async onAlarmDialogAccept(date) {
-		let newNote = Object.assign({}, this.state.note);
-		newNote.todo_due = date ? date.getTime() : 0;
-
-		this.setState({
-			alarmDialogShown: false,
-			note: newNote,
-		});
-		//await this.saveOneProperty('todo_due', date ? date.getTime() : 0);
-		//this.forceUpdate();
-	}
-
-	onAlarmDialogReject() {
-		this.setState({ alarmDialogShown: false });
-	}
-
 	showMetadata_onPress() {
 		shared.showMetadata_onPress(this);
 	}
@@ -390,7 +368,6 @@ class NoteScreenComponent extends BaseScreenComponent {
 			output.push({ title: _('Attach any other file'), onPress: () => { this.attachFile_onPress(); } });
 		}
 		output.push({ title: _('Delete note'), onPress: () => { this.deleteNote_onPress(); } });
-		output.push({ title: _('Alarm'), onPress: () => { this.setState({ alarmDialogShown: true }) }});;
 
 		// if (isTodo) {
 		// 	let text = note.todo_due ? _('Edit/Clear alarm') : _('Set an alarm');
@@ -501,8 +478,6 @@ class NoteScreenComponent extends BaseScreenComponent {
 			paddingBottom: 10, // Added for iOS (Not needed for Android??)
 		}
 
-		const dueDate = isTodo && note.todo_due ? new Date(note.todo_due) : null;
-
 		const titleComp = (
 			<View style={titleContainerStyle}>
 				{ isTodo && <Checkbox style={checkboxStyle} checked={!!Number(note.todo_completed)} onChange={(checked) => { this.todoCheckbox_change(checked) }} /> }
@@ -547,14 +522,6 @@ class NoteScreenComponent extends BaseScreenComponent {
 				{ bodyComponent }
 				{ actionButtonComp }
 				{ this.state.showNoteMetadata && <Text style={this.styles().metadata}>{this.state.noteMetadata}</Text> }
-
-				<SelectDateTimeDialog
-					shown={this.state.alarmDialogShown}
-					date={dueDate}
-					onAccept={(date) => this.onAlarmDialogAccept(date) }
-					onReject={() => this.onAlarmDialogReject() }
-				/>
-
 				<DialogBox ref={dialogbox => { this.dialogbox = dialogbox }}/>
 			</View>
 		);
