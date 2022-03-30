@@ -1,10 +1,10 @@
 const { BaseCommand } = require('./base-command.js');
 const { app } = require('./app.js');
 const { _ } = require('lib/locale.js');
-const { BaseItem } = require('lib/models/base-item.js');
-const { Folder } = require('lib/models/folder.js');
-const { Note } = require('lib/models/note.js');
-const { BaseModel } = require('lib/base-model.js');
+const BaseItem = require('lib/models/BaseItem.js');
+const Folder = require('lib/models/Folder.js');
+const Note = require('lib/models/Note.js');
+const BaseModel = require('lib/BaseModel.js');
 const { cliUtils } = require('./cli-utils.js');
 
 class Command extends BaseCommand {
@@ -29,7 +29,7 @@ class Command extends BaseCommand {
 
 		const folder = await app().loadItem(BaseModel.TYPE_FOLDER, pattern);
 		if (!folder) throw new Error(_('Cannot find "%s".', pattern));
-		const ok = force ? true : await this.prompt(_('Delete notebook "%s"?', folder.title), { booleanAnswerDefault: 'n' });
+		const ok = force ? true : await this.prompt(_('Delete notebook? All notes within this notebook will also be deleted.'), { booleanAnswerDefault: 'n' });
 		if (!ok) return;
 
 		await Folder.delete(folder.id);

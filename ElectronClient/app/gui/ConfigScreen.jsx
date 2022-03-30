@@ -1,7 +1,7 @@
 const React = require('react');
 const { connect } = require('react-redux');
 const { reg } = require('lib/registry.js');
-const { Setting } = require('lib/models/setting.js');
+const Setting = require('lib/models/Setting.js');
 const { bridge } = require('electron').remote.require('./bridge');
 const { Header } = require('./Header.min.js');
 const { themeStyle } = require('../theme.js');
@@ -59,7 +59,7 @@ class ConfigScreenComponent extends React.Component {
 			}
 
 			return (
-				<div key={key+value} style={rowStyle}>
+				<div key={key} style={rowStyle}>
 					<div style={labelStyle}><label>{md.label()}</label></div>
 					<select value={value} style={controlStyle} onChange={(event) => { updateSettingValue(key, event.target.value) }}>
 						{items}
@@ -72,9 +72,9 @@ class ConfigScreenComponent extends React.Component {
 			}
 
 			return (
-				<div key={key+value} style={rowStyle}>
+				<div key={key} style={rowStyle}>
 					<div style={controlStyle}>
-						<input id={'setting_checkbox_' + key} type="checkbox" defaultChecked={!!value} onChange={(event) => { onCheckboxClick(event) }}/><label onClick={(event) => { onCheckboxClick(event) }} style={labelStyle} htmlFor={'setting_checkbox_' + key}>{md.label()}</label>
+						<input id={'setting_checkbox_' + key} type="checkbox" checked={!!value} onChange={(event) => { onCheckboxClick(event) }}/><label onClick={(event) => { onCheckboxClick(event) }} style={labelStyle} htmlFor={'setting_checkbox_' + key}>{md.label()}</label>
 					</div>
 				</div>
 			);
@@ -86,7 +86,7 @@ class ConfigScreenComponent extends React.Component {
 			}
 
 			return (
-				<div key={key+value} style={rowStyle}>
+				<div key={key} style={rowStyle}>
 					<div style={labelStyle}><label>{md.label()}</label></div>
 					<input type="text" style={controlStyle} value={this.state.settings[key]} onChange={(event) => {onTextChange(event)}} />
 				</div>
