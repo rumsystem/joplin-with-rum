@@ -253,35 +253,22 @@ class Synchronizer {
 
 					this.logSyncOperation(action, local, remote, reason);
 
-					async function handleCannotSyncItem(syncTargetId, item, cannotSyncReason) {
-						await ItemClass.saveSyncDisabled(syncTargetId, item, cannotSyncReason);
-					}
-
 					if (local.type_ == BaseModel.TYPE_RESOURCE && (action == 'createRemote' || (action == 'itemConflict' && remote))) {
 						let remoteContentPath = this.resourceDirName_ + '/' + local.id;
-						try {
-							// TODO: handle node and mobile in the same way
-							if (shim.isNode()) {
-								let resourceContent = '';
-								try {
-									resourceContent = await Resource.content(local);
-								} catch (error) {
-									error.message = 'Cannot read resource content: ' + local.id + ': ' + error.message;
-									this.logger().error(error);
-									this.progressReport_.errors.push(error);
-								}
-								await this.api().put(remoteContentPath, resourceContent);
-							} else {
-								const localResourceContentPath = Resource.fullPath(local);
-								await this.api().put(remoteContentPath, null, { path: localResourceContentPath, source: 'file' });
+						// TODO: handle node and mobile in the same way
+						if (shim.isNode()) {
+							let resourceContent = '';
+							try {
+								resourceContent = await Resource.content(local);
+							} catch (error) {
+								error.message = 'Cannot read resource content: ' + local.id + ': ' + error.message;
+								this.logger().error(error);
+								this.progressReport_.errors.push(error);
 							}
-						} catch (error) {
-							if (error && error.code === 'cannotSync') {
-								await handleCannotSyncItem(syncTargetId, local, error.message);
-								action = null;
-							} else {
-								throw error;
-							}
+							await this.api().put(remoteContentPath, resourceContent);
+						} else {
+							const localResourceContentPath = Resource.fullPath(local);
+							await this.api().put(remoteContentPath, null, { path: localResourceContentPath, source: 'file' });
 						}
 					}
 
@@ -298,27 +285,9 @@ class Synchronizer {
 						// await this.api().setTimestamp(tempPath, local.updated_time);
 						// await this.api().move(tempPath, path);
 
-						let canSync = true;
-						try {
-							if (this.debugFlags_.indexOf('cannotSync') >= 0) {
-								const error = new Error('Testing cannotSync');
-								error.code = 'cannotSync';
-								throw error;
-							}
-							await this.api().put(path, content);
-						} catch (error) {
-							if (error && error.code === 'cannotSync') {
-								await handleCannotSyncItem(syncTargetId, local, error.message);
-								canSync = false;
-							} else {
-								throw error;
-							}
-						}
-
-						if (canSync) {
-							await this.api().setTimestamp(path, local.updated_time);
-							await ItemClass.saveSyncTime(syncTargetId, local, time.unixMs());
-						}
+						await this.api().put(path, content);
+						await this.api().setTimestamp(path, local.updated_time);
+						await ItemClass.saveSyncTime(syncTargetId, local, time.unixMs());
 
 					} else if (action == 'itemConflict') {
 
