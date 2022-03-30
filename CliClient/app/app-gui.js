@@ -1,9 +1,9 @@
 const { Logger } = require('lib/logger.js');
-const Folder = require('lib/models/Folder.js');
-const Tag = require('lib/models/Tag.js');
-const BaseModel = require('lib/BaseModel.js');
-const Note = require('lib/models/Note.js');
-const Resource = require('lib/models/Resource.js');
+const { Folder } = require('lib/models/folder.js');
+const { Tag } = require('lib/models/tag.js');
+const { BaseModel } = require('lib/base-model.js');
+const { Note } = require('lib/models/note.js');
+const { Resource } = require('lib/models/resource.js');
 const { cliUtils } = require('./cli-utils.js');
 const { reducer, defaultState } = require('lib/reducer.js');
 const { splitCommandString } = require('lib/string-utils.js');
@@ -80,8 +80,8 @@ class AppGui {
 		await this.renderer_.renderRoot();
 	}
 
-	prompt(initialText = '', promptString = ':', options = null) {
-		return this.widget('statusBar').prompt(initialText, promptString, options);
+	prompt(initialText = '', promptString = ':') {
+		return this.widget('statusBar').prompt(initialText, promptString);
 	}
 
 	stdoutMaxWidth() {

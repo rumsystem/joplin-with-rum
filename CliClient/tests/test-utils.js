@@ -1,36 +1,30 @@
 const fs = require('fs-extra');
 const { JoplinDatabase } = require('lib/joplin-database.js');
 const { DatabaseDriverNode } = require('lib/database-driver-node.js');
-const BaseModel = require('lib/BaseModel.js');
-const Folder = require('lib/models/Folder.js');
-const Note = require('lib/models/Note.js');
-const Resource = require('lib/models/Resource.js');
-const Tag = require('lib/models/Tag.js');
-const NoteTag = require('lib/models/NoteTag.js');
+const { BaseModel } = require('lib/base-model.js');
+const { Folder } = require('lib/models/folder.js');
+const { Note } = require('lib/models/note.js');
+const { Resource } = require('lib/models/resource.js');
+const { Tag } = require('lib/models/tag.js');
+const { NoteTag } = require('lib/models/note-tag.js');
 const { Logger } = require('lib/logger.js');
-const Setting = require('lib/models/Setting.js');
-const MasterKey = require('lib/models/MasterKey');
-const BaseItem = require('lib/models/BaseItem.js');
+const { Setting } = require('lib/models/setting.js');
+const { BaseItem } = require('lib/models/base-item.js');
 const { Synchronizer } = require('lib/synchronizer.js');
 const { FileApi } = require('lib/file-api.js');
 const { FileApiDriverMemory } = require('lib/file-api-driver-memory.js');
 const { FileApiDriverLocal } = require('lib/file-api-driver-local.js');
 const { FsDriverNode } = require('lib/fs-driver-node.js');
 const { time } = require('lib/time-utils.js');
-const { shimInit } = require('lib/shim-init-node.js');
 const SyncTargetRegistry = require('lib/SyncTargetRegistry.js');
 const SyncTargetMemory = require('lib/SyncTargetMemory.js');
 const SyncTargetFilesystem = require('lib/SyncTargetFilesystem.js');
 const SyncTargetOneDrive = require('lib/SyncTargetOneDrive.js');
-const EncryptionService = require('lib/services/EncryptionService.js');
 
 let databases_ = [];
 let synchronizers_ = [];
-let encryptionServices_ = [];
 let fileApi_ = null;
 let currentClient_ = 1;
-
-shimInit();
 
 const fsDriver = new FsDriverNode();
 Logger.fsDriver_ = fsDriver;
@@ -58,7 +52,6 @@ BaseItem.loadClass('Folder', Folder);
 BaseItem.loadClass('Resource', Resource);
 BaseItem.loadClass('Tag', Tag);
 BaseItem.loadClass('NoteTag', NoteTag);
-BaseItem.loadClass('MasterKey', MasterKey);
 
 Setting.setConstant('appId', 'net.cozic.joplin-cli');
 Setting.setConstant('appType', 'cli');
@@ -86,8 +79,6 @@ async function switchClient(id) {
 	BaseItem.db_ = databases_[id];
 	Setting.db_ = databases_[id];
 
-	BaseItem.encryptionService_ = encryptionServices_[id];
-
 	return Setting.load();
 }
 
@@ -100,8 +91,6 @@ function clearDatabase(id = null) {
 		'DELETE FROM resources',
 		'DELETE FROM tags',
 		'DELETE FROM note_tags',
-		'DELETE FROM master_keys',
-		'DELETE FROM settings',
 		
 		'DELETE FROM deleted_items',
 		'DELETE FROM sync_items',
@@ -146,10 +135,6 @@ async function setupDatabaseAndSynchronizer(id = null) {
 		synchronizers_[id] = await syncTarget.synchronizer();
 	}
 
-	//if (!encryptionServices_[id]) {
-		encryptionServices_[id] = new EncryptionService();
-	//}
-
 	if (syncTargetId_ == SyncTargetRegistry.nameToId('filesystem')) {
 		fs.removeSync(syncDir)
 		fs.mkdirpSync(syncDir, 0o755);
@@ -166,22 +151,6 @@ function db(id = null) {
 function synchronizer(id = null) {
 	if (id === null) id = currentClient_;
 	return synchronizers_[id];
-}
-
-function encryptionService(id = null) {
-	if (id === null) id = currentClient_;
-	return encryptionServices_[id];
-}
-
-async function loadEncryptionMasterKey(id = null) {
-	const service = encryptionService(id);
-
-	let masterKey = await service.generateMasterKey('123456');
-	masterKey = await MasterKey.save(masterKey);
-
-	await service.loadMasterKey(masterKey, '123456', true);
-
-	return masterKey;
 }
 
 function fileApi() {
@@ -216,23 +185,4 @@ function fileApi() {
 	return fileApi_;
 }
 
-function objectsEqual(o1, o2) {
-	if (Object.getOwnPropertyNames(o1).length !== Object.getOwnPropertyNames(o2).length) return false;
-	for (let n in o1) {
-		if (!o1.hasOwnProperty(n)) continue;
-		if (o1[n] !== o2[n]) return false;
-	}
-	return true;
-}
-
-async function checkThrowAsync(asyncFn) {
-	let hasThrown = false;
-	try {
-		await asyncFn();
-	} catch (error) {
-		hasThrown = true;
-	}
-	return hasThrown;
-}
-
-module.exports = { setupDatabase, setupDatabaseAndSynchronizer, db, synchronizer, fileApi, sleep, clearDatabase, switchClient, syncTargetId, objectsEqual, checkThrowAsync, encryptionService, loadEncryptionMasterKey };
+module.exports = { setupDatabase, setupDatabaseAndSynchronizer, db, synchronizer, fileApi, sleep, clearDatabase, switchClient, syncTargetId };

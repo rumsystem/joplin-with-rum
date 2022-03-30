@@ -191,14 +191,4 @@ function splitCommandString(command) {
 	return args;
 }
 
-function padLeft(string, length, padString) {
-	if (!string) return '';
-
-	while (string.length < length) {
-		string = padString + string;
-	}
-
-	return string;
-}
-
-module.exports = { removeDiacritics, escapeFilename, wrap, splitCommandString, padLeft };
+module.exports = { removeDiacritics, escapeFilename, wrap, splitCommandString };

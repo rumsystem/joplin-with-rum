@@ -12,7 +12,7 @@ The notes can be [synchronised](#synchronisation) with various targets including
 
 On macOS:
 
-	brew install joplin
+	brew install node joplin
 
 On Linux or Windows (via [WSL](https://msdn.microsoft.com/en-us/commandline/wsl/faq?f=255&MSPPError=-2147217396)):
 
@@ -79,7 +79,7 @@ Rename the currently selected notebook ($b) to "Something":
 
 Attach a local file to the currently selected note ($n):
 
-	attach $n /home/laurent/pictures/Vacation12.jpg
+	ren $n /home/laurent/pictures/Vacation12.jpg
 
 The configuration can also be changed from command-line mode. For example, to change the current editor to Sublime Text:
 

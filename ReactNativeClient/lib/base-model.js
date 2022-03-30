@@ -200,37 +200,18 @@ class BaseModel {
 
 	static diffObjects(oldModel, newModel) {
 		let output = {};
-		const fields = this.diffObjectsFields(oldModel, newModel);
-		for (let i = 0; i < fields.length; i++) {
-			output[fields[i]] = newModel[fields[i]];
-		}
-		if ('type_' in newModel) output.type_ = newModel.type_;
-		return output;
-		// let output = {};
-		// let type = null;
-		// for (let n in newModel) {
-		// 	if (!newModel.hasOwnProperty(n)) continue;
-		// 	if (n == 'type_') {
-		// 		type = newModel[n];
-		// 		continue;
-		// 	}
-		// 	if (!(n in oldModel) || newModel[n] !== oldModel[n]) {
-		// 		output[n] = newModel[n];
-		// 	}
-		// }
-		// if (type !== null) output.type_ = type;
-		// return output;
-	}
-
-	static diffObjectsFields(oldModel, newModel) {
-		let output = [];
+		let type = null;
 		for (let n in newModel) {
 			if (!newModel.hasOwnProperty(n)) continue;
-			if (n == 'type_') continue;
+			if (n == 'type_') {
+				type = newModel[n];
+				continue;
+			}
 			if (!(n in oldModel) || newModel[n] !== oldModel[n]) {
-				output.push(n);
+				output[n] = newModel[n];
 			}
 		}
+		if (type !== null) output.type_ = type;
 		return output;
 	}
 
@@ -288,16 +269,6 @@ class BaseModel {
 			let where = { id: o.id };
 			let temp = Object.assign({}, o);
 			delete temp.id;
-
-			if (options.fields) {
-				let filtered = {};
-				for (let i = 0; i < options.fields.length; i++) {
-					const f = options.fields[i];
-					filtered[f] = o[f];
-				}
-				temp = filtered;
-			}
-
 			query = Database.updateQuery(this.tableName(), temp, where);
 		}
 
@@ -430,9 +401,8 @@ BaseModel.TYPE_TAG = 5;
 BaseModel.TYPE_NOTE_TAG = 6;
 BaseModel.TYPE_SEARCH = 7;
 BaseModel.TYPE_ALARM = 8;
-BaseModel.TYPE_MASTER_KEY = 9;
 
 BaseModel.db_ = null;
 BaseModel.dispatch = function(o) {};
 
-module.exports = BaseModel;
+module.exports = { BaseModel };

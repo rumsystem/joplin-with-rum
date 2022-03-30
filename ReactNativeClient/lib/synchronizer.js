@@ -1,10 +1,8 @@
-const BaseItem = require('lib/models/BaseItem.js');
-const Folder = require('lib/models/Folder.js');
-const Note = require('lib/models/Note.js');
-const Resource = require('lib/models/Resource.js');
-const MasterKey = require('lib/models/MasterKey.js');
-const BaseModel = require('lib/BaseModel.js');
-const DecryptionWorker = require('lib/services/DecryptionWorker');
+const { BaseItem } = require('lib/models/base-item.js');
+const { Folder } = require('lib/models/folder.js');
+const { Note } = require('lib/models/note.js');
+const { Resource } = require('lib/models/resource.js');
+const { BaseModel } = require('lib/base-model.js');
 const { sprintf } = require('sprintf-js');
 const { time } = require('lib/time-utils.js');
 const { Logger } = require('lib/logger.js');
@@ -52,14 +50,6 @@ class Synchronizer {
 
 	logger() {
 		return this.logger_;
-	}
-
-	setEncryptionService(v) {
-		this.encryptionService_ = v;
-	}
-
-	encryptionService(v) {
-		return this.encryptionService_;
 	}
 
 	static reportToLines(report) {
@@ -179,8 +169,6 @@ class Synchronizer {
 
 		this.cancelling_ = false;
 
-		const masterKeysBefore = await MasterKey.count();
-
 		// ------------------------------------------------------------------------
 		// First, find all the items that have been changed since the
 		// last sync and apply the changes to remote.
@@ -216,7 +204,7 @@ class Synchronizer {
 					if (donePaths.indexOf(path) > 0) throw new Error(sprintf('Processing a path that has already been done: %s. sync_time was not updated?', path));
 
 					let remote = await this.api().stat(path);
-					let content = await ItemClass.serializeForSync(local);
+					let content = await ItemClass.serialize(local);
 					let action = null;
 					let updateSyncTimeOnly = true;
 					let reason = '';					
@@ -334,11 +322,6 @@ class Synchronizer {
 						}
 
 					} else if (action == 'itemConflict') {
-
-						// ------------------------------------------------------------------------------
-						// For non-note conflicts, we take the remote version (i.e. the version that was
-						// synced first) and overwrite the local content.
-						// ------------------------------------------------------------------------------
 
 						if (remote) {
 							local = remoteContent;
@@ -577,22 +560,6 @@ class Synchronizer {
 		if (this.cancelling()) {
 			this.logger().info('Synchronisation was cancelled.');
 			this.cancelling_ = false;
-		}
-
-		const masterKeysAfter = await MasterKey.count();
-
-		if (!masterKeysBefore && masterKeysAfter) {
-			this.logger().info('One master key was downloaded and none was previously available: automatically enabling encryption');
-			const mk = await MasterKey.latest();
-			if (mk) {
-				this.logger().info('Using master key: ', mk);
-				await this.encryptionService().initializeEncryption(mk);
-				await this.encryptionService().loadMasterKeysFromSettings();
-			}
-		}
-
-		if (masterKeysAfter) {
-			DecryptionWorker.instance().scheduleStart();
 		}
 
 		this.progressReport_.completedTime = time.unixMs();
