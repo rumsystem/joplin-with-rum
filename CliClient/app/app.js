@@ -5,12 +5,12 @@ const { JoplinDatabase } = require('lib/joplin-database.js');
 const { Database } = require('lib/database.js');
 const { FoldersScreenUtils } = require('lib/folders-screen-utils.js');
 const { DatabaseDriverNode } = require('lib/database-driver-node.js');
-const BaseModel = require('lib/BaseModel.js');
-const Folder = require('lib/models/Folder.js');
-const BaseItem = require('lib/models/BaseItem.js');
-const Note = require('lib/models/Note.js');
-const Tag = require('lib/models/Tag.js');
-const Setting = require('lib/models/Setting.js');
+const { BaseModel } = require('lib/base-model.js');
+const { Folder } = require('lib/models/folder.js');
+const { BaseItem } = require('lib/models/base-item.js');
+const { Note } = require('lib/models/note.js');
+const { Tag } = require('lib/models/tag.js');
+const { Setting } = require('lib/models/setting.js');
 const { Logger } = require('lib/logger.js');
 const { sprintf } = require('sprintf-js');
 const { reg } = require('lib/registry.js');
@@ -144,15 +144,13 @@ class Application extends BaseApplication {
 				message += ' (' + options.answers.join('/') + ')';
 			}
 
-			let answer = await this.gui().prompt('', message + ' ', options);
+			let answer = await this.gui().prompt('', message + ' ');
 
 			if (options.type === 'boolean') {
 				if (answer === null) return false; // Pressed ESCAPE
 				if (!answer) answer = options.answers[0];
 				let positiveIndex = options.booleanAnswerDefault == 'y' ? 0 : 1;
 				return answer.toLowerCase() === options.answers[positiveIndex].toLowerCase();
-			} else {
-				return answer;
 			}
 		});
 
@@ -179,33 +177,22 @@ class Application extends BaseApplication {
 		await doExit();
 	}
 
-	commands(uiType = null) {
-		if (!this.allCommandsLoaded_) {
-			fs.readdirSync(__dirname).forEach((path) => {
-				if (path.indexOf('command-') !== 0) return;
-				const ext = fileExtension(path)
-				if (ext != 'js') return;
+	commands() {
+		if (this.allCommandsLoaded_) return this.commands_;
 
-				let CommandClass = require('./' + path);
-				let cmd = new CommandClass();
-				if (!cmd.enabled()) return;
-				cmd = this.setupCommand(cmd);
-				this.commands_[cmd.name()] = cmd;
-			});
+		fs.readdirSync(__dirname).forEach((path) => {
+			if (path.indexOf('command-') !== 0) return;
+			const ext = fileExtension(path)
+			if (ext != 'js') return;
 
-			this.allCommandsLoaded_ = true;
-		}
+			let CommandClass = require('./' + path);
+			let cmd = new CommandClass();
+			if (!cmd.enabled()) return;
+			cmd = this.setupCommand(cmd);
+			this.commands_[cmd.name()] = cmd;
+		});
 
-		if (uiType !== null) {
-			let temp = [];
-			for (let n in this.commands_) {
-				if (!this.commands_.hasOwnProperty(n)) continue;
-				const c = this.commands_[n];
-				if (!c.supportsUi(uiType)) continue;
-				temp[n] = c;
-			}
-			return temp;
-		}
+		this.allCommandsLoaded_ = true;
 
 		return this.commands_;
 	}
@@ -259,13 +246,9 @@ class Application extends BaseApplication {
 		try {
 			CommandClass = require(__dirname + '/command-' + name + '.js');
 		} catch (error) {
-			if (error.message && error.message.indexOf('Cannot find module') >= 0) {
-				let e = new Error(_('No such command: %s', name));
-				e.type = 'notFound';
-				throw e;
-			} else {
-				throw error;
-			}
+			let e = new Error('No such command: ' + name);
+			e.type = 'notFound';
+			throw e;
 		}
 
 		let cmd = new CommandClass();
@@ -277,7 +260,7 @@ class Application extends BaseApplication {
 	dummyGui() {
 		return {
 			isDummy: () => { return true; },
-			prompt: (initialText = '', promptString = '', options = null) => { return cliUtils.prompt(initialText, promptString, options); },
+			prompt: (initialText = '', promptString = '') => { return cliUtils.prompt(initialText, promptString); },
 			showConsole: () => {},
 			maximizeConsole: () => {},
 			stdout: (text) => { console.info(text); },
@@ -285,10 +268,7 @@ class Application extends BaseApplication {
 			exit: () => {},
 			showModalOverlay: (text) => {},
 			hideModalOverlay: () => {},
-			stdoutMaxWidth: () => { return 78; },
-			forceRender: () => {},
-			termSaveState: () => {},
-			termRestoreState: (state) => {},
+			stdoutMaxWidth: () => { return 78; }
 		};
 	}
 
@@ -326,8 +306,6 @@ class Application extends BaseApplication {
 		if (argv.length) {
 			this.gui_ = this.dummyGui();
 
-			this.currentFolder_ = await Folder.load(Setting.value('activeFolderId'));
-
 			try {
 				await this.execCommand(argv);
 			} catch (error) {
@@ -356,7 +334,7 @@ class Application extends BaseApplication {
 
 			this.dispatch({
 				type: 'TAG_UPDATE_ALL',
-				items: tags,
+				tags: tags,
 			});
 
 			this.store().dispatch({

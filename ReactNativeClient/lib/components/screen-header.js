@@ -1,15 +1,15 @@
 const React = require('react'); const Component = React.Component;
 const { connect } = require('react-redux');
-const { Platform, View, Text, Button, StyleSheet, TouchableOpacity, Image, ScrollView, Dimensions } = require('react-native');
+const { Platform, View, Text, Button, StyleSheet, TouchableOpacity, Image } = require('react-native');
 const Icon = require('react-native-vector-icons/Ionicons').default;
 const { Log } = require('lib/log.js');
 const { BackButtonService } = require('lib/services/back-button.js');
 const { ReportService } = require('lib/services/report.js');
 const { Menu, MenuOptions, MenuOption, MenuTrigger } = require('react-native-popup-menu');
 const { _ } = require('lib/locale.js');
-const Setting = require('lib/models/Setting.js');
-const Note = require('lib/models/Note.js');
-const Folder = require('lib/models/Folder.js');
+const { Setting } = require('lib/models/setting.js');
+const { Note } = require('lib/models/note.js');
+const { Folder } = require('lib/models/folder.js');
 const { FileApi } = require('lib/file-api.js');
 const { FileApiDriverOneDrive } = require('lib/file-api-driver-onedrive.js');
 const { reg } = require('lib/registry.js');
@@ -43,7 +43,7 @@ class ScreenHeaderComponent extends Component {
 
 		let styleObject = {
 			container: {
-				flexDirection: 'column',
+				flexDirection: 'row',
 				backgroundColor: theme.raisedBackgroundColor,
 				alignItems: 'center',
 				shadowColor: '#000000',
@@ -123,17 +123,11 @@ class ScreenHeaderComponent extends Component {
 			},
 			titleText: {
 				flex: 1,
-				textAlignVertical: 'center',
 				marginLeft: 0,
 				color: theme.raisedHighlightedColor,
 				fontWeight: 'bold',
 				fontSize: theme.fontSize,
-			},
-			warningBox: {
-				backgroundColor: "#ff9900",
-				flexDirection: 'row',
-				padding: theme.marginLeft,
-			},
+			}
 		};
 
 		styleObject.topIcon = Object.assign({}, theme.icon);
@@ -204,20 +198,6 @@ class ScreenHeaderComponent extends Component {
 		});	
 	}
 
-	encryptionConfig_press() {
-		this.props.dispatch({
-			type: 'NAV_GO',
-			routeName: 'EncryptionConfig',
-		});
-	}
-
-	warningBox_press() {
-		this.props.dispatch({
-			type: 'NAV_GO',
-			routeName: 'EncryptionConfig',
-		});
-	}
-
 	async debugReport_press() {
 		const service = new ReportService();
 
@@ -238,7 +218,7 @@ class ScreenHeaderComponent extends Component {
 		const itemListCsv = await service.basicItemList({ format: 'csv' });
 		const filePath = RNFS.ExternalDirectoryPath + '/syncReport-' + (new Date()).getTime() + '.txt';
 
-		const finalText = [logItemCsv, itemListCsv].join("\n================================================================================\n");
+		const finalText = [logItemCsv, itemListCsv].join("\n--------------------------------------------------------------------------------");
 
 		await RNFS.writeFile(filePath, finalText);
 		alert('Debug report exported to ' + filePath);
@@ -345,11 +325,6 @@ class ScreenHeaderComponent extends Component {
 			}
 
 			menuOptionComponents.push(
-				<MenuOption value={() => this.encryptionConfig_press()} key={'menuOption_encryptionConfig'} style={this.styles().contextMenuItem}>
-					<Text style={this.styles().contextMenuItemText}>{_('Encryption Config')}</Text>
-				</MenuOption>);
-
-			menuOptionComponents.push(
 				<MenuOption value={() => this.config_press()} key={'menuOption_config'} style={this.styles().contextMenuItem}>
 					<Text style={this.styles().contextMenuItemText}>{_('Configuration')}</Text>
 				</MenuOption>);
@@ -430,18 +405,11 @@ class ScreenHeaderComponent extends Component {
 			}
 		}
 
-		const warningComp = this.props.showMissingMasterKeyMessage ? (
-			<TouchableOpacity style={this.styles().warningBox} onPress={() => this.warningBox_press()} activeOpacity={0.8}>
-				<Text style={{flex:1}}>{_('Press to set the decryption password.')}</Text>
-			</TouchableOpacity>
-		) : null;
-
 		const titleComp = createTitleComponent();
 		const sideMenuComp = this.props.noteSelectionEnabled ? null : sideMenuButton(this.styles(), () => this.sideMenuButton_press());
 		const backButtonComp = backButton(this.styles(), () => this.backButton_press(), !this.props.historyCanGoBack);
 		const searchButtonComp = this.props.noteSelectionEnabled ? null : searchButton(this.styles(), () => this.searchButton_press());
 		const deleteButtonComp = this.props.noteSelectionEnabled ? deleteButton(this.styles(), () => this.deleteButton_press()) : null;
-		const windowHeight = Dimensions.get('window').height - 50;
 
 		const menuComp = (
 			<Menu onSelect={(value) => this.menu_select(value)} style={this.styles().contextMenu}>
@@ -449,25 +417,20 @@ class ScreenHeaderComponent extends Component {
 					<Text style={this.styles().contextMenuTrigger}>  &#8942;</Text>
 				</MenuTrigger>
 				<MenuOptions>
-					<ScrollView style={{ maxHeight: windowHeight }}>
-						{ menuOptionComponents }
-					</ScrollView>
+					{ menuOptionComponents }
 				</MenuOptions>
 			</Menu>
 		);
 
 		return (
 			<View style={this.styles().container} >
-				<View style={{flexDirection:'row', alignItems: 'center'}}>
-					{ sideMenuComp }
-					{ backButtonComp }
-					{ saveButton(this.styles(), () => { if (this.props.onSaveButtonPress) this.props.onSaveButtonPress() }, this.props.saveButtonDisabled === true, this.props.showSaveButton === true) }
-					{ titleComp }
-					{ searchButtonComp }
-					{ deleteButtonComp }
-					{ menuComp }
-				</View>
-				{ warningComp }
+				{ sideMenuComp }
+				{ backButtonComp }
+				{ saveButton(this.styles(), () => { if (this.props.onSaveButtonPress) this.props.onSaveButtonPress() }, this.props.saveButtonDisabled === true, this.props.showSaveButton === true) }
+				{ titleComp }
+				{ searchButtonComp }
+				{ deleteButtonComp }
+				{ menuComp }
 				<DialogBox ref={dialogbox => { this.dialogbox = dialogbox }}/>
 			</View>
 		);
@@ -489,7 +452,6 @@ const ScreenHeader = connect(
 			showAdvancedOptions: state.settings.showAdvancedOptions,
 			noteSelectionEnabled: state.noteSelectionEnabled,
 			selectedNoteIds: state.selectedNoteIds,
-			showMissingMasterKeyMessage: state.notLoadedMasterKeys.length && state.masterKeys.length,
 		};
 	}
 )(ScreenHeaderComponent)

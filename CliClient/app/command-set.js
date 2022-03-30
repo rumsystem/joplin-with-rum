@@ -1,11 +1,10 @@
 const { BaseCommand } = require('./base-command.js');
 const { app } = require('./app.js');
 const { _ } = require('lib/locale.js');
-const BaseModel = require('lib/BaseModel.js');
-const { Database } = require('lib/database.js');
-const Folder = require('lib/models/Folder.js');
-const Note = require('lib/models/Note.js');
-const BaseItem = require('lib/models/BaseItem.js');
+const { BaseModel } = require('lib/base-model.js');
+const { Folder } = require('lib/models/folder.js');
+const { Note } = require('lib/models/note.js');
+const { BaseItem } = require('lib/models/base-item.js');
 
 class Command extends BaseCommand {
 
@@ -13,16 +12,16 @@ class Command extends BaseCommand {
 		return 'set <note> <name> [value]';
 	}
 
-	description() {
-		const fields = Note.fields();
-		const s = [];
-		for (let i = 0; i < fields.length; i++) {
-			const f = fields[i];
-			if (f.name === 'id') continue;
-			s.push(f.name + ' (' + Database.enumName('fieldType', f.type) + ')');
-		}
+	enabled() {
+		return false;
+	}
 
-		return _('Sets the property <name> of the given <note> to the given [value]. Possible properties are:\n\n%s', s.join(', '));
+	description() {
+		return _('Sets the property <name> of the given <note> to the given [value].');
+	}
+
+	hidden() {
+		return true;
 	}
 
 	async action(args) {
@@ -35,8 +34,6 @@ class Command extends BaseCommand {
 		if (!notes.length) throw new Error(_('Cannot find "%s".', title));
 
 		for (let i = 0; i < notes.length; i++) {
-			this.encryptionCheck(notes[i]);
-
 			let newNote = {
 				id: notes[i].id,
 				type_: notes[i].type_,

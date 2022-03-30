@@ -1,8 +1,8 @@
 const { time } = require('lib/time-utils');
-const BaseItem = require('lib/models/BaseItem.js');
+const { BaseItem } = require('lib/models/base-item.js');
 const Alarm = require('lib/models/Alarm');
-const Folder = require('lib/models/Folder.js');
-const Note = require('lib/models/Note.js');
+const { Folder } = require('lib/models/folder.js');
+const { Note } = require('lib/models/note.js');
 const { _ } = require('lib/locale.js');
 
 class ReportService {
@@ -109,21 +109,8 @@ class ReportService {
 	async status(syncTarget) {
 		let r = await this.syncStatus(syncTarget);
 		let sections = [];
-		let section = null;
 
-		const disabledItems = await BaseItem.syncDisabledItems(syncTarget);
-
-		if (disabledItems.length) {
-			section = { title: _('Items that cannot be synchronised'), body: [] };
-
-			for (let i = 0; i < disabledItems.length; i++) {
-				const row = disabledItems[i];
-				section.body.push(_('"%s": "%s"', row.item.title, row.syncInfo.sync_disabled_reason));
-			}
-			sections.push(section);
-		}
-
-		section = { title: _('Sync status (synced items / total items)'), body: [] };
+		let section = { title: _('Sync status (synced items / total items)'), body: [] };
 
 		for (let n in r.items) {
 			if (!r.items.hasOwnProperty(n)) continue;
@@ -151,19 +138,16 @@ class ReportService {
 
 		sections.push(section);
 
+		section = { title: _('Coming alarms'), body: [] };
+
 		const alarms = await Alarm.allDue();
-
-		if (alarms.length) {
-			section = { title: _('Coming alarms'), body: [] };
-
-			for (let i = 0; i < alarms.length; i++) {
-				const alarm = alarms[i];
-				const note = await Note.load(alarm.note_id);
-				section.body.push(_('On %s: %s', time.formatMsToLocal(alarm.trigger_time), note.title));
-			}
-
-			sections.push(section);
+		for (let i = 0; i < alarms.length; i++) {
+			const alarm = alarms[i];
+			const note = await Note.load(alarm.note_id);
+			section.body.push(_('On %s: %s', time.formatMsToLocal(alarm.trigger_time), note.title));
 		}
+
+		sections.push(section);
 
 		return sections;
 	}

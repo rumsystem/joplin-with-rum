@@ -12,10 +12,6 @@ class Command extends BaseCommand {
 		return _('Exits the application.');
 	}
 
-	compatibleUis() {
-		return ['gui'];
-	}
-
 	async action(args) {
 		await app().exit();
 	}
