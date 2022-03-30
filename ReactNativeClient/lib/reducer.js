@@ -25,8 +25,7 @@ const defaultState = {
 	searchQuery: '',
 	settings: {},
 	appState: 'starting',
-	//windowContentSize: { width: 0, height: 0 },
-	hasDisabledSyncItems: false,
+	windowContentSize: { width: 0, height: 0 },
 };
 
 // When deleting a note, tag or folder
@@ -394,12 +393,6 @@ const reducer = (state = defaultState, action) => {
 
 				newState = Object.assign({}, state);
 				newState.appState = action.state;
-				break;
-
-			case 'SYNC_HAS_DISABLED_SYNC_ITEMS':
-
-				newState = Object.assign({}, state);
-				newState.hasDisabledSyncItems = true;
 				break;
 
 		}

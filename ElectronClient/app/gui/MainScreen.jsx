@@ -229,8 +229,8 @@ class MainScreenComponent extends React.Component {
 		}
 	}
 
-	styles(themeId, width, height, messageBoxVisible) {
-		const styleKey = themeId + '_' + width + '_' + height + '_' + messageBoxVisible;
+	styles(themeId, width, height) {
+		const styleKey = themeId + '_' + width + '_' + height;
 		if (styleKey === this.styleKey_) return this.styles_;
 
 		const theme = themeStyle(themeId);
@@ -239,20 +239,11 @@ class MainScreenComponent extends React.Component {
 
 		this.styles_ = {};
 
+		const rowHeight = height - theme.headerHeight;
+
 		this.styles_.header = {
 			width: width,
 		};
-
-		this.styles_.messageBox = {
-			width: width,
-			height: 30,
-			display: 'flex',
-			alignItems: 'center',
-			paddingLeft: 10,
-			backgroundColor: theme.warningBackgroundColor,
-		}
-
-		const rowHeight = height - theme.headerHeight - (messageBoxVisible ? this.styles_.messageBox.height : 0);
 
 		this.styles_.sideBar = {
 			width: Math.floor(layoutUtils.size(width * .2, 150, 300)),
@@ -288,10 +279,8 @@ class MainScreenComponent extends React.Component {
 		const promptOptions = this.state.promptOptions;
 		const folders = this.props.folders;
 		const notes = this.props.notes;
-		const messageBoxVisible = this.props.hasDisabledSyncItems;
 
-		const styles = this.styles(this.props.theme, style.width, style.height, messageBoxVisible);
-		const theme = themeStyle(this.props.theme);
+		const styles = this.styles(this.props.theme, style.width, style.height);
 
 		const headerButtons = [];
 
@@ -336,21 +325,6 @@ class MainScreenComponent extends React.Component {
 			}
 		}
 
-		const onViewDisabledItemsClick = () => {
-			this.props.dispatch({
-				type: 'NAV_GO',
-				routeName: 'Status',
-			});
-		}
-
-		const messageComp = messageBoxVisible ? (
-			<div style={styles.messageBox}>
-				<span style={theme.textStyle}>
-					{_('Some items cannot be synchronised.')} <a href="#" onClick={() => { onViewDisabledItemsClick() }}>{_('View them now')}</a>
-				</span>
-			</div>
-		) : null;
-
 		return (
 			<div style={style}>
 				<PromptDialog
@@ -365,7 +339,6 @@ class MainScreenComponent extends React.Component {
 					buttons={promptOptions && ('buttons' in promptOptions) ? promptOptions.buttons : null}
 					inputType={promptOptions && ('inputType' in promptOptions) ? promptOptions.inputType : null} />
 				<Header style={styles.header} showBackButton={false} buttons={headerButtons} />
-				{messageComp}
 				<SideBar style={styles.sideBar} />
 				<NoteList style={styles.noteList} />
 				<NoteText style={styles.noteText} visiblePanes={this.props.noteVisiblePanes} />
@@ -382,7 +355,6 @@ const mapStateToProps = (state) => {
 		noteVisiblePanes: state.noteVisiblePanes,
 		folders: state.folders,
 		notes: state.notes,
-		hasDisabledSyncItems: state.hasDisabledSyncItems,
 	};
 };
 

@@ -106,10 +106,6 @@ msgstr ""
 msgid "Cancelling background synchronisation... Please wait."
 msgstr "Cancelando sincronización en segundo plano... Por favor espere."
 
-#, fuzzy, javascript-format
-msgid "No such command: %s"
-msgstr "Comando inválido: \"%s\""
-
 #, javascript-format
 msgid "The command \"%s\" is only available in GUI mode"
 msgstr "El comando \"%s\" solo está disponible en el modo gráfico (GUI)"
@@ -557,10 +553,6 @@ msgstr "Buscar en todas la notas"
 msgid "Tools"
 msgstr "Herramientas"
 
-#, fuzzy
-msgid "Synchronisation status"
-msgstr "Objetivo de sincronización"
-
 msgid "Options"
 msgstr "Opciones"
 
@@ -624,13 +616,6 @@ msgstr "Establecer alarma"
 msgid "Layout"
 msgstr "Plantilla"
 
-#, fuzzy
-msgid "Some items cannot be synchronised."
-msgstr "No se puede iniciar la sincronización."
-
-msgid "View them now"
-msgstr ""
-
 msgid "Add or remove tags"
 msgstr "Añadir o eliminar etiquetas"
 
@@ -668,10 +653,6 @@ msgstr "Inicio de sesión de OneDrive"
 
 msgid "Import"
 msgstr "Importar"
-
-#, fuzzy
-msgid "Synchronisation Status"
-msgstr "Objetivo de sincronización"
 
 msgid "Delete notebook?"
 msgstr "¿Eliminar cuaderno?"
@@ -887,13 +868,6 @@ msgstr ""
 #, javascript-format
 msgid "Invalid option value: \"%s\". Possible values are: %s."
 msgstr "Valor inválido: \"%s\". Posibles valores: %s."
-
-msgid "Items that cannot be synchronised"
-msgstr ""
-
-#, javascript-format
-msgid "\"%s\": \"%s\""
-msgstr ""
 
 msgid "Sync status (synced items / total items)"
 msgstr ""
