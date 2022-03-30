@@ -235,12 +235,12 @@ class Application extends BaseApplication {
 				}, {
 					label: _('Cut'),
 					screens: ['Main'],
-					role: 'cut',
+					role: 'copy',
 					accelerator: 'CommandOrControl+X',
 				}, {
 					label: _('Paste'),
 					screens: ['Main'],
-					role: 'paste',
+					role: 'copy',
 					accelerator: 'CommandOrControl+V',
 				}, {
 					type: 'separator',
@@ -360,11 +360,15 @@ class Application extends BaseApplication {
 			AlarmService.garbageCollect();
 		}, 1000 * 60 * 60);
 
-		reg.scheduleSync().then(() => {
-			// Wait for the first sync before updating the notifications, since synchronisation
-			// might change the notifications.
+		if (Setting.value('env') === 'dev') {
 			AlarmService.updateAllNotifications();
-		});
+		} else {
+			reg.scheduleSync().then(() => {
+				// Wait for the first sync before updating the notifications, since synchronisation
+				// might change the notifications.
+				AlarmService.updateAllNotifications();
+			});
+		}
 	}
 
 }
