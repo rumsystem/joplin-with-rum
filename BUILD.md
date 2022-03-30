@@ -5,8 +5,7 @@
 
 ## macOS dependencies
 
-     brew install yarn node xgettext
-     npm install -g node-gyp
+    brew install yarn node xgettext
     echo 'export PATH="/usr/local/opt/gettext/bin:$PATH"' >> ~/.bash_profile
     source ~/.bash_profile
 
