@@ -12,10 +12,6 @@
 #include "constants.h"
 #include "filters.h"
 
-
-
-#include "qmlutils.h"
-
 using namespace jop;
 
 Application::Application(int &argc, char **argv) :
@@ -60,33 +56,13 @@ Application::Application(int &argc, char **argv) :
 
 	QObject* rootObject = (QObject*)view_.rootObject();
 
-	QObject* itemList = qmlUtils::childFromProperty(rootObject, "itemList");
-
-	itemListController_.setItemList(itemList);
-	itemListController_.setParentId(QString(""));
-
-
-	//qmlUtils::callQml(itemList, "testing");
-
-
-
-	//qDebug() << itemList;
-
-
-//	QObject* itemList = rootObject->findChild<QObject*>("itemList");
-//	qDebug() << "WWWWWWWWWW" << itemList;
-
-	//view_.callQml("testing");
-
-
-
-//	connect(rootObject, SIGNAL(currentFolderChanged()), this, SLOT(view_currentFolderChanged()));
-//	connect(rootObject, SIGNAL(currentNoteChanged()), this, SLOT(view_currentNoteChanged()));
-//	connect(rootObject, SIGNAL(addFolderButtonClicked()), this, SLOT(view_addFolderButtonClicked()));
-//	connect(rootObject, SIGNAL(addNoteButtonClicked()), this, SLOT(view_addNoteButtonClicked()));
-//	connect(rootObject, SIGNAL(syncButtonClicked()), this, SLOT(view_syncButtonClicked()));
-//	connect(rootObject, SIGNAL(loginClicked(QString,QString,QString)), this, SLOT(dispatcher_loginClicked(QString,QString,QString)));
-//	connect(rootObject, SIGNAL(logoutClicked()), this, SLOT(dispatcher_logoutClicked()));
+	connect(rootObject, SIGNAL(currentFolderChanged()), this, SLOT(view_currentFolderChanged()));
+	connect(rootObject, SIGNAL(currentNoteChanged()), this, SLOT(view_currentNoteChanged()));
+	connect(rootObject, SIGNAL(addFolderButtonClicked()), this, SLOT(view_addFolderButtonClicked()));
+	connect(rootObject, SIGNAL(addNoteButtonClicked()), this, SLOT(view_addNoteButtonClicked()));
+	connect(rootObject, SIGNAL(syncButtonClicked()), this, SLOT(view_syncButtonClicked()));
+	connect(rootObject, SIGNAL(loginClicked(QString,QString,QString)), this, SLOT(dispatcher_loginClicked(QString,QString,QString)));
+	connect(rootObject, SIGNAL(logoutClicked()), this, SLOT(dispatcher_logoutClicked()));
 
 	view_.show();
 

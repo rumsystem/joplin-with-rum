@@ -4,6 +4,7 @@
 #if defined __cplusplus
 
 #include <memory>
+#include <limits>
 
 #include <QAbstractListModel>
 #include <QCoreApplication>
@@ -35,7 +36,6 @@
 #include <QDir>
 #include <QCommandLineParser>
 #include <QProcess>
-#include <QQmlProperty>
 
 #endif // __cplusplus
 

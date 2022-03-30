@@ -9,8 +9,6 @@ namespace jop {
 
 class Item : public BaseModel {
 
-	Q_OBJECT
-
 public:
 
 	Item();

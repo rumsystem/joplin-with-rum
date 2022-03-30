@@ -10,7 +10,6 @@
 #include "webapi.h"
 #include "synchronizer.h"
 #include "window.h"
-#include "folderlistcontroller.h"
 
 namespace jop {
 
@@ -35,7 +34,6 @@ private:
 	WebApi api_;
 	Synchronizer synchronizer_;
 	QTimer synchronizerTimer_;
-	FolderListController itemListController_;
 
 	void afterSessionInitialization();
 

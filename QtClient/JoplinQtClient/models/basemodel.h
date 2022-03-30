@@ -7,12 +7,7 @@
 
 namespace jop {
 
-class BaseModel : public QObject {
-
-	Q_OBJECT
-
-	Q_PROPERTY(QString title READ title)
-	Q_PROPERTY(QString id READ idString)
+class BaseModel {
 
 public:
 
@@ -46,7 +41,7 @@ public:
 
 	BaseModel();
 	QStringList changedFields() const;
-	static int count(jop::Table table, const QString &parentId);
+	static int count(jop::Table table);
 	bool load(const QString& id);
 	bool loadByField(const QString& parentId, const QString& field, const QString& fieldValue);
 	virtual bool save(bool trackChanges = true);
@@ -56,6 +51,7 @@ public:
 	virtual QString primaryKey() const;
 	virtual bool primaryKeyIsUuid() const;
 	virtual bool trackChanges() const;
+	virtual QString displayTitle() const;
 
 	bool isNew() const;
 
@@ -79,6 +75,7 @@ public:
 	void setValue(const QString& name, const QJsonValue& value, QMetaType::Type type);
 	//void setValues(const QHash<QString, Value> values);
 	Value id() const;
+	QString idString() const;
 	QString valuesToString() const;
 	void clone(const BaseModel& baseModel);
 
@@ -96,12 +93,6 @@ protected:
 	static void cacheDelete(const QString& key);
 	static QMap<int, QVector<BaseModel::Field>> tableFields_;
 	static QHash<QString, QVariant> cache_;
-
-
-public slots:
-
-	QString title() const;
-	QString idString() const;
 
 };
 

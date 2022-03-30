@@ -26,15 +26,15 @@ const Note *NoteModel::atIndex(int index) const {
 	int from = indexes[0];
 	int to = indexes[indexes.size() - 1];
 
-//	Folder folder = this->folder();
+	Folder folder = this->folder();
 
-//	qDebug() << "NoteModel: cache recreated";
-//	std::vector<std::unique_ptr<Note>> notes = folder.notes(orderBy_, to - from + 1, from);
-//	int noteIndex = from;
-//	for (int i = 0; i < notes.size(); i++) {
-//		cache_.set(noteIndex, notes[i].release());
-//		noteIndex++;
-//	}
+	qDebug() << "NoteModel: cache recreated";
+	std::vector<std::unique_ptr<Note>> notes = folder.notes(orderBy_, to - from + 1, from);
+	int noteIndex = from;
+	for (int i = 0; i < notes.size(); i++) {
+		cache_.set(noteIndex, notes[i].release());
+		noteIndex++;
+	}
 
 	return cache_.get(index);
 }
@@ -47,12 +47,12 @@ void NoteModel::setFolderId(const QString &v) {
 	endResetModel();
 }
 
-//Folder NoteModel::folder() const {
-//	Folder folder;
-//	//if (folderId_ == "") return folder;
-//	folder.load(folderId_);
-//	return folder;
-//}
+Folder NoteModel::folder() const {
+	Folder folder;
+	if (folderId_ == "") return folder;
+	folder.load(folderId_);
+	return folder;
+}
 
 int NoteModel::idToIndex(const QString &id) const {
 	std::vector<int> indexes = cache_.indexes();
@@ -61,10 +61,8 @@ int NoteModel::idToIndex(const QString &id) const {
 		if (note->idString() == id) return indexes[i];
 	}
 
-	return 0;
-
-	//Folder f = this->folder();
-	//return f.noteIndexById(orderBy_, id);
+	Folder f = this->folder();
+	return f.noteIndexById(orderBy_, id);
 }
 
 void NoteModel::addData(const QString &title) {
@@ -83,8 +81,7 @@ void NoteModel::deleteData(int index) {
 }
 
 int NoteModel::baseModelCount() const {
-	return 0;
-	//return folder().noteCount();
+	return folder().noteCount();
 }
 
 const BaseModel *NoteModel::cacheGet(int index) const {
