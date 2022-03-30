@@ -33,7 +33,7 @@ iOS              | <a href='https://itunes.apple.com/us/app/joplin/id1315599797'
 
 On macOS:
 
-	brew install joplin
+	brew install node joplin
 
 On Linux or Windows (via [WSL](https://msdn.microsoft.com/en-us/commandline/wsl/faq?f=255&MSPPError=-2147217396)):
 
@@ -108,7 +108,7 @@ If for any reason the notifications do not work, please [open an issue](https://
 
 # Localisation
 
-Joplin is currently available in English, French and Spanish. If you would like to contribute a translation, it is quite straightforward, please follow these steps:
+Joplin is currently available in English, French, Spanish, German, Portuguese and Italian. If you would like to contribute a translation, it is quite straightforward, please follow these steps:
 
 - [Download Poedit](https://poedit.net/), the translation editor, and install it.
 - [Download the file to be translated](https://raw.githubusercontent.com/laurent22/joplin/master/CliClient/locales/joplin.pot).
