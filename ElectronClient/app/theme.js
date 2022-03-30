@@ -28,8 +28,6 @@ const globalStyle = {
 	headerHeight: 35,
 	headerButtonHPadding: 6,
 
-	toolbarHeight: 35,
-
 	raisedBackgroundColor: "#0080EF",
 	raisedColor: "#003363",
 	raisedHighlightedColor: "#ffffff",

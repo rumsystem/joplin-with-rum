@@ -2,7 +2,6 @@ const MarkdownIt = require('markdown-it');
 const Entities = require('html-entities').AllHtmlEntities;
 const htmlentities = (new Entities()).encode;
 const { Resource } = require('lib/models/resource.js');
-const ModelCache = require('lib/ModelCache');
 const { shim } = require('lib/shim.js');
 const md5 = require('md5');
 
@@ -15,7 +14,6 @@ class MdToHtml {
 		this.loadedResources_ = {};
 		this.cachedContent_ = null;
 		this.cachedContentKey_ = null;
-		this.modelCache_ = new ModelCache();
 
 		// Must include last "/"
 		this.resourceBaseUrl_ = ('resourceBaseUrl' in options) ? options.resourceBaseUrl : null;
@@ -82,11 +80,10 @@ class MdToHtml {
 			this.loadedResources_[id] = {};
 
 			const resource = await Resource.load(id);
-			//const resource = await this.modelCache_.load(Resource, id);
 
 			if (!resource) {
 				// Can happen for example if an image is attached to a note, but the resource hasn't
-				// been downloaded from the sync target yet.
+				// been download from the sync target yet.
 				console.warn('Cannot load resource: ' + id);
 				return;
 			}
