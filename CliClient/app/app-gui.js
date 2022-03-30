@@ -6,7 +6,6 @@ const { Note } = require('lib/models/note.js');
 const { Resource } = require('lib/models/resource.js');
 const { cliUtils } = require('./cli-utils.js');
 const { reducer, defaultState } = require('lib/reducer.js');
-const { splitCommandString } = require('lib/string-utils.js');
 const { reg } = require('lib/registry.js');
 const { _ } = require('lib/locale.js');
 
@@ -521,7 +520,7 @@ class AppGui {
 
 		let note = this.widget('noteList').currentItem;
 		let folder = this.widget('folderList').currentItem;
-		let args = splitCommandString(cmd);
+		let args = cliUtils.splitCommandString(cmd);
 
 		for (let i = 0; i < args.length; i++) {
 			if (args[i] == '$n') {
