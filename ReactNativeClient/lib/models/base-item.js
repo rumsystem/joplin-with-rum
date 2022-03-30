@@ -11,10 +11,6 @@ class BaseItem extends BaseModel {
 		return true;
 	}
 
-	static encryptionSupported() {
-		return true;
-	}
-
 	static loadClass(className, classRef) {
 		for (let i = 0; i < BaseItem.syncItemDefinitions_.length; i++) {
 			if (BaseItem.syncItemDefinitions_[i].className == className) {
@@ -249,53 +245,6 @@ class BaseItem extends BaseModel {
 		return temp.join("\n\n");
 	}
 
-	static async serializeForSync(item) {
-		const ItemClass = this.itemClass(item);
-		let serialized = await ItemClass.serialize(item);
-		if (!Setting.value('encryption.enabled') || !ItemClass.encryptionSupported()) return serialized;
-
-		if (!BaseItem.encryptionService_) throw new Error('BaseItem.encryptionService_ is not set!!');
-
-		const cipherText = await BaseItem.encryptionService_.encryptString(serialized);
-
-		const reducedItem = Object.assign({}, item);
-
-		// List of keys that won't be encrypted - mostly foreign keys required to link items
-		// with each others and timestamp required for synchronisation.
-		const keepKeys = ['id', 'note_id', 'tag_id', 'parent_id', 'updated_time', 'type_'];
-		
-		// const keepKeys = ['id', 'title', 'note_id', 'tag_id', 'parent_id', 'body', 'updated_time', 'type_'];
-		// if ('title' in reducedItem) reducedItem.title = '';
-		// if ('body' in reducedItem) reducedItem.body = '';
-
-		for (let n in reducedItem) {
-			if (!reducedItem.hasOwnProperty(n)) continue;
-
-			if (keepKeys.indexOf(n) >= 0) {
-				continue;
-			} else {
-				delete reducedItem[n];
-			}
-		}
-
-		reducedItem.encryption_cipher_text = cipherText;
-
-		return ItemClass.serialize(reducedItem)
-	}
-
-	static async decrypt(item) {
-		if (!item.encryption_cipher_text) throw new Error('Item is not encrypted: ' + item.id);
-
-		const ItemClass = this.itemClass(item);
-		const plainText = await BaseItem.encryptionService_.decryptString(item.encryption_cipher_text);
-
-		// Note: decryption does not count has a change, so don't update any timestamp
-		const plainItem = await ItemClass.unserialize(plainText);
-		plainItem.updated_time = item.updated_time;
-		plainItem.encryption_cipher_text = '';
-		return ItemClass.save(plainItem, { autoTimestamp: false });
-	}
-
 	static async unserialize(content) {
 		let lines = content.split("\n");
 		let output = {};
@@ -498,8 +447,6 @@ class BaseItem extends BaseModel {
 
 }
 
-BaseItem.encryptionService_ = null;
-
 // Also update:
 // - itemsThatNeedSync()
 // - syncedItems()
@@ -510,7 +457,6 @@ BaseItem.syncItemDefinitions_ = [
 	{ type: BaseModel.TYPE_RESOURCE, className: 'Resource' },
 	{ type: BaseModel.TYPE_TAG, className: 'Tag' },
 	{ type: BaseModel.TYPE_NOTE_TAG, className: 'NoteTag' },
-	{ type: BaseModel.TYPE_MASTER_KEY, className: 'MasterKey' },
 ];
 
 module.exports = { BaseItem };

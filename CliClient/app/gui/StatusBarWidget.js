@@ -2,6 +2,8 @@ const BaseWidget = require('tkwidgets/BaseWidget.js');
 const chalk = require('chalk');
 const termutils = require('tkwidgets/framework/termutils.js');
 const stripAnsi = require('strip-ansi');
+const { app } = require('../app.js');
+const { handleAutocompletion } = require('../autocompletion.js');
 
 class StatusBarWidget extends BaseWidget {
 
@@ -12,6 +14,10 @@ class StatusBarWidget extends BaseWidget {
 		this.inputEventEmitter_ = null;
 		this.history_ = [];
 		this.items_ = [];
+        this.autocomplete_ = null;
+        app().commandNames().then(function(names){
+            this.autocomplete_ = names;
+        }.bind(this));
 	}
 
 	get name() {
@@ -22,7 +28,7 @@ class StatusBarWidget extends BaseWidget {
 		return false;
 	}
 
-	setItemAt(index, text) {
+    setItemAt(index, text) {
 		this.items_[index] = stripAnsi(text).trim();
 		this.invalidate();
 	}
@@ -41,7 +47,6 @@ class StatusBarWidget extends BaseWidget {
 		};
 
 		if ('cursorPosition' in options) this.promptState_.cursorPosition = options.cursorPosition;
-		if ('secure' in options) this.promptState_.secure = options.secure;
 
 		this.promptState_.promise = new Promise((resolve, reject) => {
 			this.promptState_.resolve = resolve;
@@ -109,10 +114,12 @@ class StatusBarWidget extends BaseWidget {
 				cancelable: true,
 				history: this.history,
 				default: this.promptState_.initialText,
+                autoComplete: handleAutocompletion,
+                autoCompleteMenu: true,
+                autoCompleteHint : true,
 			};
 
 			if ('cursorPosition' in this.promptState_) options.cursorPosition = this.promptState_.cursorPosition;
-			if (this.promptState_.secure) options.echoChar = true;
 
 			this.inputEventEmitter_ = this.term.inputField(options, (error, input) => {
 				let resolveResult = null;

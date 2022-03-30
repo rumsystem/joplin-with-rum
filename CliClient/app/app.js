@@ -144,15 +144,13 @@ class Application extends BaseApplication {
 				message += ' (' + options.answers.join('/') + ')';
 			}
 
-			let answer = await this.gui().prompt('', message + ' ', options);
+			let answer = await this.gui().prompt('', message + ' ');
 
 			if (options.type === 'boolean') {
 				if (answer === null) return false; // Pressed ESCAPE
 				if (!answer) answer = options.answers[0];
 				let positiveIndex = options.booleanAnswerDefault == 'y' ? 0 : 1;
 				return answer.toLowerCase() === options.answers[positiveIndex].toLowerCase();
-			} else {
-				return answer;
 			}
 		});
 
@@ -277,7 +275,7 @@ class Application extends BaseApplication {
 	dummyGui() {
 		return {
 			isDummy: () => { return true; },
-			prompt: (initialText = '', promptString = '', options = null) => { return cliUtils.prompt(initialText, promptString, options); },
+			prompt: (initialText = '', promptString = '') => { return cliUtils.prompt(initialText, promptString); },
 			showConsole: () => {},
 			maximizeConsole: () => {},
 			stdout: (text) => { console.info(text); },

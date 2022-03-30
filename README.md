@@ -33,7 +33,7 @@ iOS              | <a href='https://itunes.apple.com/us/app/joplin/id1315599797'
 
 On macOS:
 
-	brew install joplin
+	brew install node joplin
 
 On Linux or Windows (via [WSL](https://msdn.microsoft.com/en-us/commandline/wsl/faq?f=255&MSPPError=-2147217396)):
 

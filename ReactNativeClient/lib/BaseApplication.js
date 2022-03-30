@@ -26,7 +26,6 @@ const SyncTargetRegistry = require('lib/SyncTargetRegistry.js');
 const SyncTargetFilesystem = require('lib/SyncTargetFilesystem.js');
 const SyncTargetOneDrive = require('lib/SyncTargetOneDrive.js');
 const SyncTargetOneDriveDev = require('lib/SyncTargetOneDriveDev.js');
-const EncryptionService = require('lib/services/EncryptionService');
 
 SyncTargetRegistry.addClass(SyncTargetFilesystem);
 SyncTargetRegistry.addClass(SyncTargetOneDrive);
@@ -392,9 +391,6 @@ class BaseApplication {
 		} else {
 			setLocale(Setting.value('locale'));
 		}
-
-		BaseItem.encryptionService_ = EncryptionService.instance();
-		await EncryptionService.instance().loadMasterKeysFromSettings();
 
 		let currentFolderId = Setting.value('activeFolderId');
 		let currentFolder = null;

@@ -10,12 +10,6 @@ function shimInit() {
 	shim.FileApiDriverLocal = FileApiDriverLocal;
 	shim.Geolocation = GeolocationNode;
 	shim.FormData = require('form-data');
-	shim.sjclModule = require('lib/vendor/sjcl.js');
-
-	shim.randomBytes = async (count) => {
-		const buffer = require('crypto').randomBytes(count);
-		return Array.from(buffer);
-	}
 
 	shim.detectAndSetLocale = function (Setting) {
 		let locale = process.env.LANG;
