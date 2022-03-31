@@ -51,10 +51,6 @@
         {
           "from": "build-win/Joplin.VisualElementsManifest.xml",
           "to": "."
-        },
-        {
-          "from": "lib/sql-extensions/spellfix.dll",
-          "to": "usr/lib/spellfix.dll"
         }
       ],
       "extraResources": [
@@ -69,13 +65,7 @@
       "artifactName": "${productName}Portable.${ext}"
     },
     "mac": {
-      "icon": "../../Assets/macOs.icns",
-      "extraFiles": [
-        {
-          "from": "lib/sql-extensions/spellfix.dylib",
-          "to": "usr/lib/spellfix.dylib"
-        }
-      ]
+      "icon": "../../Assets/macOs.icns"
     },
     "linux": {
       "icon": "../Assets/LinuxIcons/256x256.png",
@@ -83,13 +73,7 @@
       "desktop": {
         "Icon": "joplin"
       },
-      "target": "AppImage",
-      "extraFiles": [
-        {
-          "from": "lib/sql-extensions/spellfix.so",
-          "to": "usr/lib/spellfix.so"
-        }
-      ]
+      "target": "AppImage"
     }
   },
   "homepage": "https://github.com/laurent22/joplin#readme",
@@ -178,6 +162,7 @@
     "promise": "^8.0.1",
     "query-string": "^5.1.1",
     "react": "^16.9.0",
+    "react-ace": "^6.1.4",
     "react-datetime": "^2.14.0",
     "react-dom": "^16.9.0",
     "react-redux": "^5.0.7",

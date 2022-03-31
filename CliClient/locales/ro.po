@@ -7,25 +7,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Joplin-CLI 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Cristi Duluta <cristi.duluta@gmail.com>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.1.1\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n==0 || (n!=1 && n%100>=1 && n"
 "%100<=19) ? 1 : 2);\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
 
 #: CliClient/app/command-cp.js:13
 msgid ""
 "Duplicates the notes matching <note> to [notebook]. If no notebook is "
 "specified the note is duplicated in the current notebook."
 msgstr ""
-"Dublează notele care se potrivesc <note> in [agendă]. Dacă nu este "
-"specificat nici o agendă, nota este dublată în agenda curentă."
 
 #: CliClient/app/command-cp.js:24 CliClient/app/command-cp.js:27
 #: CliClient/app/command-import.js:34 CliClient/app/command-mv.js:22
@@ -51,18 +47,14 @@ msgid ""
 "Displays the notes in the current notebook. Use `ls /` to display the list "
 "of notebooks."
 msgstr ""
-"Afișează notele în agenda curentă. Utilizați 'ls /' pentru a afișa lista de "
-"notițe."
 
 #: CliClient/app/command-ls.js:27
 msgid "Displays only the first top <num> notes."
-msgstr "Afișează numai primele notițe."
+msgstr ""
 
 #: CliClient/app/command-ls.js:28
 msgid "Sorts the item by <field> (eg. title, updated_time, created_time)."
 msgstr ""
-"Sortează elementul după <field> (de exemplu, titlu, data_actualizării, "
-"data_creării)."
 
 #: CliClient/app/command-ls.js:29
 msgid "Reverses the sorting order."
@@ -74,22 +66,16 @@ msgid ""
 "for to-dos, or `nt` for notes and to-dos (eg. `-tt` would display only the "
 "to-dos, while `-ttd` would display notes and to-dos."
 msgstr ""
-"Afișează numai elementele de tipul (tipurile) specific(e). Tipuri acceptate: "
-"\"n\" pentru notițe, \"t\" pentru to-dos, sau \"nt\" pentru notițe și to-dos "
-"(de exemplu, `-tt` afișează numai to-dos, în timp ce `-ttd` afișează notițe "
-"și to-dos."
 
 #: CliClient/app/command-ls.js:31
 msgid "Either \"text\" or \"json\""
-msgstr "Sau \"text\", sau \"json\""
+msgstr "Fie \"text\", fie \"json\""
 
 #: CliClient/app/command-ls.js:32 CliClient/app/command-tag.js:18
 msgid ""
 "Use long list format. Format is ID, NOTE_COUNT (for notebook), DATE, "
 "TODO_CHECKED (for to-dos), TITLE"
 msgstr ""
-"Utilizați formatul listei lungi. Formatul este ID, NOTE_COUNT (pentru "
-"agendă), DATE, TODO_CHECKED (pentru todos), TITLE"
 
 #: CliClient/app/command-ls.js:63
 msgid "Please select a notebook first."
@@ -106,10 +92,10 @@ msgstr "Formatul sursei: %s"
 
 #: CliClient/app/command-import.js:26
 msgid "Do not ask for confirmation."
-msgstr "Nu cere confirmarea."
+msgstr ""
 
 #: CliClient/app/command-import.js:27
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Output format: %s"
 msgstr "Formatul sursei: %s"
 
@@ -131,7 +117,7 @@ msgstr "Actualizat: %d."
 #: CliClient/app/command-import.js:50 ElectronClient/gui/ImportScreen.min.js:72
 #, javascript-format
 msgid "Skipped: %d."
-msgstr "Omise: %d."
+msgstr "Sărite: %d."
 
 #: CliClient/app/command-import.js:51 ElectronClient/gui/ImportScreen.min.js:73
 #, javascript-format
@@ -181,35 +167,30 @@ msgid ""
 "Start, stop or check the API server. To specify on which port it should run, "
 "set the api.port config variable. Commands are (%s)."
 msgstr ""
-"Porniți, opriți sau verificați serverul API. Pentru a specifica pe ce port "
-"trebuie să ruleze, setați variabila de configurare api.port. Comenzile sunt "
-"(% s)."
 
 #: CliClient/app/command-server.js:37
 #, javascript-format
 msgid "Server is already running on port %d"
-msgstr "Serverul rulează deja pe portul% d"
+msgstr ""
 
 #: CliClient/app/command-server.js:43
 #, javascript-format
 msgid "Server is running on port %d"
-msgstr "Serverul rulează pe portul %d"
+msgstr ""
 
 #: CliClient/app/command-server.js:43 CliClient/app/command-server.js:46
 msgid "Server is not running."
-msgstr "Serverul nu rulează."
+msgstr ""
 
 #: CliClient/app/command-e2ee.js:18
 msgid ""
 "Manages E2EE configuration. Commands are `enable`, `disable`, `decrypt`, "
 "`status`, `decrypt-file` and `target-status`."
 msgstr ""
-"Gestionarea configurația E2EE. Comenzile sunt „enable\", „disable\", „decrypt"
-"\", „status\", „decrypt-file\" și „target-status\"."
 
 #: CliClient/app/command-e2ee.js:36 CliClient/app/command-e2ee.js:72
 msgid "Enter master password:"
-msgstr "Introduceți parola master:"
+msgstr ""
 
 #: CliClient/app/command-e2ee.js:38 CliClient/app/command-e2ee.js:74
 #: CliClient/app/command-e2ee.js:79
@@ -221,20 +202,16 @@ msgid ""
 "Starting decryption... Please wait as it may take several minutes depending "
 "on how much there is to decrypt."
 msgstr ""
-"Se începe decriptarea... Vă rugăm să așteptați, deoarece poate dura câteva "
-"minute, în funcție de cât este de decriptat."
 
 #: CliClient/app/command-e2ee.js:53
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Decrypted items: %d"
-msgstr "Elemente decriptate: %d"
+msgstr "Se decriptează itemi: %d/%d"
 
 #: CliClient/app/command-e2ee.js:54
 #, javascript-format
 msgid "Skipped items: %d (use --retry-failed-items to retry decrypting them)"
 msgstr ""
-"Elemente omise:% d (utilizați --retry-failed-items pentru a încerca din nou "
-"decriptarea acestora)"
 
 #: CliClient/app/command-e2ee.js:68
 msgid "Completed decryption."
@@ -242,13 +219,15 @@ msgstr "Decriptare completă."
 
 #: CliClient/app/command-e2ee.js:77
 #: ReactNativeClient/lib/components/screens/encryption-config.js:163
+#, fuzzy
 msgid "Confirm password:"
-msgstr "Confirmare parolă:"
+msgstr "Parolă:"
 
 #: CliClient/app/command-e2ee.js:83
 #: ReactNativeClient/lib/components/screens/encryption-config.js:140
+#, fuzzy
 msgid "Passwords do not match!"
-msgstr "Parolele nu se potrivesc!"
+msgstr "Parolă nu poate fi un câmp gol"
 
 #: CliClient/app/command-e2ee.js:108
 #: ElectronClient/gui/EncryptionConfigScreen.min.js:442
@@ -275,7 +254,7 @@ msgstr "Creați caiet de notițe."
 
 #: CliClient/app/command-mv.js:14
 msgid "Moves the notes matching <note> to [notebook]."
-msgstr "Mutați notițele care se potrivesc cu <notă> la [agendă]."
+msgstr ""
 
 #: CliClient/app/command-config.js:13
 msgid ""
@@ -283,13 +262,10 @@ msgid ""
 "value of [name]. If neither [name] nor [value] is provided, it will list the "
 "current configuration."
 msgstr ""
-"Obține sau setează o valoare de configurare. Dacă [valoare] nu este "
-"furnizată, va afișa valoarea [nume]. Dacă nu este furnizat nici [nume], nici "
-"[valoare], va afișa configurația curentă."
 
 #: CliClient/app/command-config.js:18
 msgid "Also displays unset and hidden config variables."
-msgstr "Afișează, de asemenea, variabile de configurare nesetate și ascunse."
+msgstr ""
 
 #: CliClient/app/command-config.js:79
 #, javascript-format
@@ -306,25 +282,20 @@ msgid ""
 "Switches to [notebook] - all further operations will happen within this "
 "notebook."
 msgstr ""
-"Trece la [agendă] - toate operațiunile ulterioare vor avea loc în această "
-"agendă."
 
 #: CliClient/app/command-sync.js:28
 msgid "Synchronises with remote storage."
-msgstr "Sincronizarea cu stocarea de la distanță."
+msgstr ""
 
 #: CliClient/app/command-sync.js:32
 msgid "Sync to provided target (defaults to sync.target config value)"
 msgstr ""
-"Sincronizarea cu o ținta specificată (presetat la valoare de configurare "
-"sync.target)"
 
 #: CliClient/app/command-sync.js:77 CliClient/app/command-sync.js:91
 #: ElectronClient/gui/OneDriveLoginScreen.min.js:40
 msgid ""
 "Authentication was not completed (did not receive an authentication token)."
 msgstr ""
-"Autentificarea nu a fost finalizată (nu a primit un token de autentificare)."
 
 #: CliClient/app/command-sync.js:86
 #: ElectronClient/gui/DropboxLoginScreen.min.js:42
@@ -332,8 +303,6 @@ msgstr ""
 msgid ""
 "To allow Joplin to synchronise with Dropbox, please follow the steps below:"
 msgstr ""
-"Pentru a permite Joplin să se sincronizeze cu Dropbox, urmați pașii de mai "
-"jos:"
 
 #: CliClient/app/command-sync.js:87
 #: ElectronClient/gui/DropboxLoginScreen.min.js:47
@@ -353,7 +322,6 @@ msgstr "Pasul 2: Introduceți codul oferit de Dropbox:"
 #, javascript-format
 msgid "Not authentified with %s. Please provide any missing credentials."
 msgstr ""
-"Nu este autentificat cu% s. Vă rugăm să furnizați toate credențialele omise."
 
 #: CliClient/app/command-sync.js:124
 msgid "Synchronisation is already in progress."
@@ -366,16 +334,14 @@ msgid ""
 "taking place, you may delete the lock file at \"%s\" and resume the "
 "operation."
 msgstr ""
-"Fișierul de blocare este deja în așteptare. Dacă știți că nu are loc nici o "
-"sincronizare, puteți șterge fișierul de blocare la „% s\" și puteți relua "
-"operația."
 
 #: CliClient/app/command-sync.js:175
 #, javascript-format
 msgid "Synchronisation target: %s (%s)"
-msgstr "Țintă de sincronizare:% s (% s)"
+msgstr ""
 
 #: CliClient/app/command-sync.js:177
+#, fuzzy
 msgid "Cannot initialise synchroniser."
 msgstr "Nu se poate inițializa sincronizatorul."
 
@@ -385,7 +351,7 @@ msgstr "Se începe sincronizarea..."
 
 #: CliClient/app/command-sync.js:202
 msgid "Downloading resources..."
-msgstr "Se descarcă resursele..."
+msgstr ""
 
 #: CliClient/app/command-sync.js:226
 msgid "Cancelling... Please wait."
@@ -393,11 +359,11 @@ msgstr "Se anulează... Vă rugăm să așteptați."
 
 #: CliClient/app/command-ren.js:14
 msgid "Renames the given <item> (note or notebook) to <name>."
-msgstr "Redenumește <item>dat (notiță sau agendă) în <name>."
+msgstr ""
 
 #: CliClient/app/command-rmbook.js:13
 msgid "Deletes the given notebook."
-msgstr "Șterge agenda."
+msgstr ""
 
 #: CliClient/app/command-rmbook.js:17
 msgid "Deletes the notebook without asking for confirmation."
@@ -409,12 +375,10 @@ msgid ""
 "Delete notebook? All notes and sub-notebooks within this notebook will also "
 "be deleted."
 msgstr ""
-"Ștergeți agenda? Toate notițele și sub-notițele din această agendă vor fi "
-"șterse."
 
 #: CliClient/app/command-mktodo.js:12
 msgid "Creates a new to-do."
-msgstr "Creează un nou to-do."
+msgstr "Creează o nouă sarcină."
 
 #: CliClient/app/command-mktodo.js:16 CliClient/app/command-mknote.js:16
 msgid "Notes can only be created within a notebook."
@@ -422,7 +386,7 @@ msgstr "Notițele pot fi create numai în cadrul unui caiet de notițe."
 
 #: CliClient/app/command-cat.js:14
 msgid "Displays the given note."
-msgstr "Afișează notițele specificate."
+msgstr ""
 
 #: CliClient/app/command-cat.js:18
 msgid "Displays the complete information about note."
@@ -436,8 +400,6 @@ msgstr "Editează notiță."
 msgid ""
 "No text editor is defined. Please set it using `config editor <editor-path>`"
 msgstr ""
-"Nu este specificat niciun editor de text. Vă rugăm să setați folosind "
-"`editorul de configurare <editor-path>`"
 
 #: CliClient/app/command-edit.js:40
 msgid "No active notebook."
@@ -455,8 +417,9 @@ msgstr ""
 "notițelor aferente."
 
 #: CliClient/app/app-gui.js:456
+#, fuzzy
 msgid "Please select the note or notebook to be deleted first."
-msgstr "Selectați mai întâi notița sau agenda care trebuie șters."
+msgstr "Selectați prima dată un caiet de notițe."
 
 #: CliClient/app/app-gui.js:720
 msgid "Press Ctrl+D or type \"exit\" to exit the application"
@@ -464,16 +427,16 @@ msgstr "Apăsați Ctrl+D ori scrieți \"exit\" pentru a ieși din aplicație"
 
 #: CliClient/app/command-rmnote.js:13
 msgid "Deletes the notes matching <note-pattern>."
-msgstr "Ștergeți notițele care se potrivesc cu <note-pattern>."
+msgstr ""
 
 #: CliClient/app/command-rmnote.js:17
 msgid "Deletes the notes without asking for confirmation."
-msgstr "Ștergeți notițele fără a cere confirmare."
+msgstr ""
 
 #: CliClient/app/command-rmnote.js:27
 #, javascript-format
 msgid "%d notes match this pattern. Delete them?"
-msgstr "Notițile: %d se potrivesc acestui model. Doriți sa le ștergeți?"
+msgstr ""
 
 #: CliClient/app/command-rmnote.js:27
 #: ReactNativeClient/lib/components/screens/note.js:461
@@ -502,8 +465,6 @@ msgid ""
 "Exports Joplin data to the given path. By default, it will export the "
 "complete database including notebooks, notes, tags and resources."
 msgstr ""
-"Exportă date Joplin pe calea dată. În mod implicit, va exporta baza de date "
-"completă, inclusiv agendele, notițele, etichete și resurse."
 
 #: CliClient/app/command-export.js:23
 #, javascript-format
@@ -512,11 +473,12 @@ msgstr "Format la destinație: %s"
 
 #: CliClient/app/command-export.js:23
 msgid "Exports only the given note."
-msgstr "Exportă numai notița specificată."
+msgstr ""
 
 #: CliClient/app/command-export.js:23
+#, fuzzy
 msgid "Exports only the given notebook."
-msgstr "Exportă doar agenda specificată."
+msgstr "Notițele pot fi create numai în cadrul unui caiet de notițe."
 
 #: CliClient/app/command-mknote.js:12
 msgid "Creates a new note."
@@ -532,7 +494,7 @@ msgstr "Eroare fatală:"
 
 #: CliClient/app/command-geoloc.js:13
 msgid "Displays a geolocation URL for the note."
-msgstr "Afișează o adresă URL de geolocație pentru notiță."
+msgstr ""
 
 #: CliClient/app/gui/NoteWidget.js:36
 msgid ""
@@ -558,14 +520,10 @@ msgid ""
 "supplied the password, the encrypted items are being decrypted in the "
 "background and will be available soon."
 msgstr ""
-"Unul sau mai multe elemente sunt criptate în prezent și este posibil să fie "
-"necesar să furnizați o parolă master. Pentru a face acest lucru, vă rugăm să "
-"tastați `e2ee decriptare`. Dacă ați furnizat deja parola, elementele "
-"criptate sunt decriptate în fundal și vor fi disponibile în curând."
 
 #: CliClient/app/gui/NoteWidget.js:50
 msgid "You may also type `status` for more information."
-msgstr "De asemenea, puteți introduce `status` pentru mai multe informații."
+msgstr ""
 
 #: CliClient/app/gui/FolderListWidget.js:31
 msgid "Search:"
@@ -573,7 +531,7 @@ msgstr "Căutați:"
 
 #: CliClient/app/command-search.js:13
 msgid "Searches for the given <pattern> in all the notes."
-msgstr "Caută <pattern> dat în toate notițele."
+msgstr ""
 
 #: CliClient/app/command-set.js:22
 #, javascript-format
@@ -583,8 +541,6 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Setează proprietatea <name>a <note> date la [valoarea] dată. Proprietățile "
-"posibile sunt: % s"
 
 #: CliClient/app/cli-utils.js:108
 #, javascript-format
@@ -625,7 +581,6 @@ msgstr "Afișați informațiile de utilizare."
 #, javascript-format
 msgid "For information on how to customise the shortcuts please visit %s"
 msgstr ""
-"Pentru informații despre cum să personalizați comenzile rapide, vizitați %s"
 
 #: CliClient/app/command-help.js:44
 msgid "Shortcuts are not available in CLI mode."
@@ -636,8 +591,6 @@ msgid ""
 "Type `help [command]` for more information about a command; or type `help "
 "all` for the complete usage information."
 msgstr ""
-"Tastați `help [command]` pentru mai multe informații despre o comandă; sau "
-"tastați „help all\" pentru informații complete de utilizare."
 
 #: CliClient/app/command-help.js:73
 msgid "The possible commands are:"
@@ -659,8 +612,6 @@ msgid ""
 "Use the arrows and page up/down to scroll the lists and text areas "
 "(including this console)."
 msgstr ""
-"Utilizați săgețile și pagina sus / jos pentru a derula listele și zonele de "
-"text (inclusiv această consolă)."
 
 #: CliClient/app/command-help.js:81
 msgid "To maximise/minimise the console, press \"tc\"."
@@ -672,14 +623,12 @@ msgstr "Pentru a intra în linia de comandă, apăsați \":\""
 
 #: CliClient/app/command-help.js:83
 msgid "To exit command line mode, press ESCAPE"
-msgstr "Pentru a ieși din modul linie de comandă, apăsați ESCAPE"
+msgstr ""
 
 #: CliClient/app/command-help.js:84
 msgid ""
 "For the list of keyboard shortcuts and config options, type `help keymap`"
 msgstr ""
-"Pentru lista de comenzi rapide de la tastatură și opțiuni de configurare, "
-"tastați `help keymap`"
 
 #: CliClient/app/command-todo.js:14
 msgid ""
@@ -688,21 +637,15 @@ msgid ""
 "target is a regular note it will be converted to a to-do). Use \"clear\" to "
 "convert the to-do back to a regular note."
 msgstr ""
-"<todo-command> poate fi \"toggle\" sau \"clear\". Utilizați \"toggle\" "
-"pentru a comuta între starea finalizată și cea nefinalizată (dacă ținta este "
-"o notă obișnuită, aceasta va fi transformată în to-do). Utilizați „clear\" "
-"pentru a converti to-do înapoi la o notă obișnuită."
 
 #: CliClient/app/command-exit.js:11
 msgid "Exits the application."
-msgstr "Ieșire din aplicație."
+msgstr ""
 
 #: CliClient/app/app.js:61
 #, javascript-format
 msgid "More than one item match \"%s\". Please narrow down your query."
 msgstr ""
-"Mai multe elemente se potrivesc cu „%s\". Vă rugăm să restrângeți "
-"interogarea."
 
 #: CliClient/app/app.js:91
 msgid "No notebook selected."
@@ -721,8 +664,9 @@ msgid "y"
 msgstr "y"
 
 #: CliClient/app/app.js:169
+#, fuzzy
 msgid "Cancelling background synchronisation... Please wait."
-msgstr "Se anulează sincronizarea... Vă rugăm să așteptați."
+msgstr "Se anulează... Vă rugăm să așteptați."
 
 #: CliClient/app/app.js:254
 #, javascript-format
@@ -736,14 +680,12 @@ msgstr "Comanda \"%s\" este disponibilă doar în modul GUI"
 
 #: CliClient/app/command-status.js:13
 msgid "Displays summary about the notes and notebooks."
-msgstr "Afișează rezumatul despre notițe și agende."
+msgstr ""
 
 #: CliClient/app/command-status.js:44
 msgid ""
 "To retry decryption of these items. Run `e2ee decrypt --retry-failed-items`"
 msgstr ""
-"Pentru a reîncerca decriptarea acestor elemente. Rulați `e2ee decrypt --"
-"retry-failed-items`"
 
 #: CliClient/app/command-tag.js:14
 msgid ""
@@ -752,11 +694,6 @@ msgid ""
 "to list tags associated with [note]. The command `tag list` can be used to "
 "list all the tags (use -l for long option)."
 msgstr ""
-"<tag-command> poate fi be \"add\", \"remove\", \"list\", sau \"notetags\" "
-"pentru a aloca sau a elimina [tag] dela [note], pentru a afișa lista de "
-"notițe asociate cu [tag], sau pentru a afișa lista de etichete asociate cu "
-"[note]. Comanda `tag list` poate fi utilizată pentru a afișa toată lista de "
-"etichete (utilizați -l pentru opțiunea long)."
 
 #: CliClient/app/command-tag.js:90
 #, javascript-format
@@ -815,23 +752,20 @@ msgid ""
 "Type a note title or part of its content to jump to it. Or type # followed "
 "by a tag name, or @ followed by a notebook name."
 msgstr ""
-"Tastați un titlu de notă sau o parte din conținutul acesteia pentru a trece "
-"la ea. Sau tastați # urmat de un nume de etichetă sau @ urmat de un nume de "
-"agendă."
 
 #: ElectronClient/plugins/GotoAnything.min.js:493
 msgid "Goto Anything..."
-msgstr "Mergeți la..."
+msgstr ""
 
 #: ElectronClient/InteropServiceHelper.js:147
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Exporting to \"%s\" as \"%s\" format. Please wait..."
-msgstr "Se exportă către \"%s\" în format \"%s\". Vă rugăm să așteptați..."
+msgstr "Se exportă către \"%s\" în format \"%s\". Vă rugăm să așteotați..."
 
 #: ElectronClient/InteropServiceHelper.js:164
 #, javascript-format
 msgid "Could not export notes: %s"
-msgstr "Nu s-au putut exporta notițele:% s"
+msgstr ""
 
 #: ElectronClient/checkForUpdates.js:138
 msgid "Current version is up-to-date."
@@ -840,21 +774,21 @@ msgstr "Versiunea curentă este actualizată."
 #: ElectronClient/checkForUpdates.js:148
 #, javascript-format
 msgid "%s (pre-release)"
-msgstr "%s (pre-lansare)"
+msgstr ""
 
 #: ElectronClient/checkForUpdates.js:152
 msgid "An update is available, do you want to download it now?"
-msgstr "Este disponibilă o nouă actualizare, doriți să o descărcați acum?"
+msgstr ""
 
 #: ElectronClient/checkForUpdates.js:152
 #, javascript-format
 msgid "Your version: %s"
-msgstr "Versiunea dvs.:% s"
+msgstr ""
 
 #: ElectronClient/checkForUpdates.js:152
 #, javascript-format
 msgid "New version: %s"
-msgstr "Versiune nouă:% s"
+msgstr ""
 
 #: ElectronClient/checkForUpdates.js:153 ElectronClient/app.js:608
 #: ReactNativeClient/lib/shim-init-node.js:91
@@ -870,27 +804,28 @@ msgstr "Nu"
 
 #: ElectronClient/checkForUpdates.js:153
 msgid "Full Release Notes"
-msgstr "Descrierea versiunii instalate"
+msgstr ""
 
 #: ElectronClient/gui/NoteRevisionViewer.min.js:75
 #, javascript-format
 msgid "The note \"%s\" has been successfully restored to the notebook \"%s\"."
-msgstr "Nota \"%s\" a fost restabilită cu succes în agenda \"%s\"."
+msgstr ""
 
 #: ElectronClient/gui/NoteRevisionViewer.min.js:100
+#, fuzzy
 msgid "This note has no history"
-msgstr "Această notă nu are istoric"
+msgstr "Această notiță a fost modificată:"
 
 #: ElectronClient/gui/NoteRevisionViewer.min.js:142
 #: ElectronClient/gui/NoteEditor/utils/useMessageHandler.js:110
 #: ElectronClient/gui/NoteText.min.js:865
 #, javascript-format
 msgid "Unsupported link or message: %s"
-msgstr "Link sau mesaj neacceptat:% s"
+msgstr ""
 
 #: ElectronClient/gui/NoteRevisionViewer.min.js:177
 msgid "Restore"
-msgstr "Restabilire"
+msgstr ""
 
 #: ElectronClient/gui/NoteRevisionViewer.min.js:178
 #, javascript-format
@@ -898,8 +833,6 @@ msgid ""
 "Click \"%s\" to restore the note. It will be copied in the notebook named "
 "\"%s\". The current version of the note will not be replaced or modified."
 msgstr ""
-"Faceți clic pe \"%s\" pentru a restabili nota. Va fi copiat în agenda numită "
-"\"% s\". Versiunea actuală a notei nu va fi înlocuită sau modificată."
 
 #: ElectronClient/gui/NoteRevisionViewer.min.js:187
 #: ElectronClient/gui/NoteText.min.js:1671
@@ -913,7 +846,7 @@ msgstr "Înapoi"
 #: ElectronClient/gui/SideBar/SideBar.min.js:269
 #: ElectronClient/gui/SideBar.min.js:283
 msgid "Remove"
-msgstr "Ștergeți"
+msgstr ""
 
 #: ElectronClient/gui/SideBar/SideBar.min.js:272
 #: ElectronClient/gui/SideBar.min.js:286
@@ -924,9 +857,6 @@ msgid ""
 "\n"
 "All notes and sub-notebooks within this notebook will also be deleted."
 msgstr ""
-"Ștergeți agenda \"%s\"?\n"
-"\n"
-"Toate notițele și sub-notițele în această agendă vor fi șterse."
 
 #: ElectronClient/gui/SideBar/SideBar.min.js:273
 #: ElectronClient/gui/SideBar.min.js:287
@@ -944,12 +874,11 @@ msgstr "Ștergeți"
 #, javascript-format
 msgid "Remove tag \"%s\" and its descendant tags from all notes?"
 msgstr ""
-"Eliminați eticheta \"% s\" și etichetele descendente din toate notițele?"
 
 #: ElectronClient/gui/SideBar/SideBar.min.js:278
 #: ElectronClient/gui/SideBar.min.js:292
 msgid "Remove this search from the sidebar?"
-msgstr "Eliminați această căutare din bara laterală?"
+msgstr ""
 
 #: ElectronClient/gui/SideBar/SideBar.min.js:337
 #: ElectronClient/gui/SideBar.min.js:382
@@ -968,8 +897,9 @@ msgstr "Sincronizați"
 #: ElectronClient/gui/SideBar.min.js:757
 #: ReactNativeClient/lib/components/side-menu-content.js:360
 #: ReactNativeClient/lib/components/screens/notes.js:189
+#, fuzzy
 msgid "All notes"
-msgstr "Toate notițele"
+msgstr "notiță"
 
 #: ElectronClient/gui/SideBar/SideBar.min.js:699
 #: ElectronClient/gui/SideBar.min.js:762
@@ -998,24 +928,24 @@ msgstr "Se decriptează itemi: %d/%d"
 #: ElectronClient/gui/SideBar/SideBar.min.js:740
 #: ElectronClient/gui/SideBar.min.js:802
 #: ReactNativeClient/lib/components/side-menu-content.js:330
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Fetching resources: %d/%d"
-msgstr "Încărcarea resurselor: %d/%d"
+msgstr "Resurse: %d/%d"
 
 #: ElectronClient/gui/SideBar/commands/focusElementSideBar.js:15
 msgid "Sidebar"
-msgstr "Bara laterală"
+msgstr ""
 
 #: ElectronClient/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.js:144
 #: ElectronClient/gui/NoteEditor/NoteBody/AceEditor/AceEditor.js:260
 #: ElectronClient/gui/NoteText.min.js:1547
 msgid "strong text"
-msgstr "text strong"
+msgstr ""
 
 #: ElectronClient/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.js:145
 #: ElectronClient/gui/NoteEditor/NoteBody/AceEditor/AceEditor.js:261
 msgid "emphasised text"
-msgstr "text accentuat"
+msgstr ""
 
 #: ElectronClient/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.js:147
 #: ElectronClient/gui/NoteEditor/NoteBody/AceEditor/AceEditor.js:263
@@ -1059,7 +989,7 @@ msgstr "Lipește"
 #: ElectronClient/gui/NoteEditor/NoteBody/AceEditor/AceEditor.js:457
 #: ElectronClient/gui/NoteText.min.js:1085
 msgid "Layout"
-msgstr "Layout"
+msgstr ""
 
 #: ElectronClient/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.js:291
 #: ElectronClient/gui/NoteEditor/NoteBody/AceEditor/AceEditor.js:457
@@ -1069,12 +999,11 @@ msgid ""
 "This note has no content. Click on \"%s\" to toggle the editor and edit the "
 "note."
 msgstr ""
-"Această notiță nu are conținut. Faceți clic pe \"% s\" pentru a comuta "
-"editorul și a edita nota."
 
 #: ElectronClient/gui/NoteEditor/NoteBody/TinyMCE/plugins/lists.js:2151
+#, fuzzy
 msgid "Checkbox list"
-msgstr "Lista casetelor de selectare"
+msgstr "Căsuță"
 
 #: ElectronClient/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:470
 #: ElectronClient/gui/ConfigScreen.min.js:642
@@ -1091,26 +1020,27 @@ msgstr "Atașați fișier"
 
 #: ElectronClient/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:535
 msgid "Code Block"
-msgstr "Bloc de cod"
+msgstr ""
 
 #: ElectronClient/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:544
 msgid "Inline Code"
-msgstr "Inline Cod"
+msgstr ""
 
 #: ElectronClient/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:559
 #: ElectronClient/gui/NoteEditor/commands/editorCommandDeclarations.js:80
 #: ElectronClient/gui/NoteText.min.js:1778
 msgid "Insert Date Time"
-msgstr "Introduceți data și ora"
+msgstr ""
 
 #: ElectronClient/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:903
 msgid "Drop notes or files here"
-msgstr "Plasați notițe sau fișiere aici"
+msgstr ""
 
 #: ElectronClient/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:903
 #: ElectronClient/gui/MainScreen/MainScreen.min.js:401
+#, fuzzy
 msgid "Code View"
-msgstr "Vizualizare code"
+msgstr "Cod"
 
 #: ElectronClient/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:903
 #, javascript-format
@@ -1118,19 +1048,17 @@ msgid ""
 "Please wait for all attachments to be downloaded and decrypted. You may also "
 "switch to %s to edit the note."
 msgstr ""
-"Vă rugăm să așteptați descărcarea și decriptarea tuturor atașamentelor. De "
-"asemenea, puteți comuta la %s pentru a edita notița."
 
 #: ElectronClient/gui/NoteEditor/utils/useMessageHandler.js:70
 #: ElectronClient/gui/NoteText.min.js:833
 msgid "There was an error downloading this attachment:"
-msgstr "A apărut o eroare la descărcarea acestui atașament:"
+msgstr ""
 
 #: ElectronClient/gui/NoteEditor/utils/useMessageHandler.js:73
 #: ElectronClient/gui/NoteText.min.js:835
 #: ReactNativeClient/lib/services/ResourceEditWatcher.js:146
 msgid "This attachment is not downloaded or not decrypted yet"
-msgstr "Acest atașament nu este descărcat sau nu este încă decriptat"
+msgstr ""
 
 #: ElectronClient/gui/NoteEditor/utils/contextMenu.js:39
 #: ElectronClient/gui/NoteText.min.js:778
@@ -1144,7 +1072,7 @@ msgstr "Salvați ca..."
 
 #: ElectronClient/gui/NoteEditor/utils/contextMenu.js:65
 msgid "Reveal file in folder"
-msgstr "Afișează fișierul în folder"
+msgstr ""
 
 #: ElectronClient/gui/NoteEditor/utils/contextMenu.js:73
 #: ElectronClient/gui/NoteText.min.js:797
@@ -1159,7 +1087,7 @@ msgstr "Copați adresa link-ului"
 #: ElectronClient/gui/NoteEditor/NoteEditor.js:283
 #: ElectronClient/gui/NoteText.min.js:2121
 msgid "to-do"
-msgstr "to-do"
+msgstr "sarcină"
 
 #: ElectronClient/gui/NoteEditor/NoteEditor.js:283
 #: ElectronClient/gui/NoteText.min.js:2121
@@ -1173,18 +1101,19 @@ msgid "Creating new %s..."
 msgstr "Se crează un %s..."
 
 #: ElectronClient/gui/NoteEditor/commands/editorCommandDeclarations.js:25
+#, fuzzy
 msgid "Select all"
-msgstr "Selectează tot"
+msgstr "Selectați data"
 
 #: ElectronClient/gui/NoteEditor/commands/editorCommandDeclarations.js:30
 #: ElectronClient/gui/NoteText.min.js:1690
 msgid "Bold"
-msgstr "Bold"
+msgstr ""
 
 #: ElectronClient/gui/NoteEditor/commands/editorCommandDeclarations.js:35
 #: ElectronClient/gui/NoteText.min.js:1698
 msgid "Italic"
-msgstr "Italic"
+msgstr ""
 
 #: ElectronClient/gui/NoteEditor/commands/editorCommandDeclarations.js:40
 #: ElectronClient/gui/NoteText.min.js:1710
@@ -1214,7 +1143,7 @@ msgstr "Căsuță"
 #: ElectronClient/gui/NoteEditor/commands/editorCommandDeclarations.js:70
 #: ElectronClient/gui/NoteText.min.js:1762
 msgid "Heading"
-msgstr "Titlu"
+msgstr ""
 
 #: ElectronClient/gui/NoteEditor/commands/editorCommandDeclarations.js:75
 #: ElectronClient/gui/NoteText.min.js:1770
@@ -1222,16 +1151,19 @@ msgid "Horizontal Rule"
 msgstr "Linie orizontală"
 
 #: ElectronClient/gui/NoteEditor/commands/focusElementNoteTitle.js:15
+#, fuzzy
 msgid "Note title"
-msgstr "Titlul caietului de notițe"
+msgstr "Titlul caietului de notițe:"
 
 #: ElectronClient/gui/NoteEditor/commands/showLocalSearch.js:15
+#, fuzzy
 msgid "Search in current note"
-msgstr "Căutați în notița curentă"
+msgstr "Căutați în toate notițele"
 
 #: ElectronClient/gui/NoteEditor/commands/focusElementNoteBody.js:15
+#, fuzzy
 msgid "Note body"
-msgstr ""
+msgstr "Caiete de notițe"
 
 #: ElectronClient/gui/NotePropertiesDialog.min.js:26
 #: ElectronClient/gui/FolderPropertiesDialog.min.js:21
@@ -1249,35 +1181,38 @@ msgid "Updated"
 msgstr "Actualizat"
 
 #: ElectronClient/gui/NotePropertiesDialog.min.js:29
+#, fuzzy
 msgid "Completed"
-msgstr "Completat"
+msgstr "Completat: %s"
 
 #: ElectronClient/gui/NotePropertiesDialog.min.js:30
 msgid "Location"
-msgstr "Locație"
+msgstr ""
 
 #: ElectronClient/gui/NotePropertiesDialog.min.js:31
 msgid "URL"
-msgstr "URL"
+msgstr ""
 
 #: ElectronClient/gui/NotePropertiesDialog.min.js:32
 #: ReactNativeClient/lib/models/Setting.js:1253
+#, fuzzy
 msgid "Note History"
-msgstr "Istoric notiță"
+msgstr "Caiete de notițe"
 
 #: ElectronClient/gui/NotePropertiesDialog.min.js:33
 msgid "Markup"
-msgstr "Markup"
+msgstr ""
 
 #: ElectronClient/gui/NotePropertiesDialog.min.js:305
 msgid "Previous versions of this note"
-msgstr "Versiunile anterioare ale acestei notițe"
+msgstr ""
 
 #: ElectronClient/gui/NotePropertiesDialog.min.js:382
 #: ElectronClient/gui/MainScreen/commands/showNoteProperties.js:16
 #: ElectronClient/gui/NoteText.min.js:1834
+#, fuzzy
 msgid "Note properties"
-msgstr "Titlul caietului de notițe"
+msgstr "Titlul caietului de notițe:"
 
 #: ElectronClient/gui/MainScreen/MainScreen.min.js:295
 msgid "Some items cannot be synchronised."
@@ -1295,7 +1230,7 @@ msgstr "Câțiva itemi nu pot fi descriptați."
 
 #: ElectronClient/gui/MainScreen/MainScreen.min.js:319
 msgid "One or more master keys need a password."
-msgstr "Una sau mai multe chei master au nevoie de o parolă."
+msgstr ""
 
 #: ElectronClient/gui/MainScreen/MainScreen.min.js:324
 msgid "Set the password"
@@ -1304,19 +1239,17 @@ msgstr "Setați parola"
 #: ElectronClient/gui/MainScreen/MainScreen.min.js:331
 msgid "One of your master keys use an obsolete encryption method."
 msgstr ""
-"Una dintre cheile dvs. master utilizează o metodă de criptare învechită."
 
 #: ElectronClient/gui/MainScreen/MainScreen.min.js:343
 msgid ""
 "The default encryption method has been changed, you should re-encrypt your "
 "data."
 msgstr ""
-"Metoda implicită de criptare a fost modificată, ar trebui să vă criptați din "
-"nou datele."
 
 #: ElectronClient/gui/MainScreen/MainScreen.min.js:348
+#, fuzzy
 msgid "More info"
-msgstr "Informații suplimentare"
+msgstr "Configurare"
 
 #: ElectronClient/gui/MainScreen/MainScreen.min.js:419
 msgid "Search..."
@@ -1324,7 +1257,7 @@ msgstr "Caută..."
 
 #: ElectronClient/gui/MainScreen/commands/showNoteContentProperties.js:16
 msgid "Statistics..."
-msgstr "Statistică..."
+msgstr ""
 
 #: ElectronClient/gui/MainScreen/commands/renameFolder.js:17
 #: ElectronClient/gui/MainScreen/commands/renameTag.js:17
@@ -1347,13 +1280,14 @@ msgstr "Adăugați o nouă sarcină"
 
 #: ElectronClient/gui/MainScreen/commands/toggleNoteList.js:15
 #: ElectronClient/gui/MainScreen/commands/toggleNoteList.js:26
+#, fuzzy
 msgid "Toggle note list"
-msgstr "Comutați lista de notă"
+msgstr "Activați criptarea"
 
 #: ElectronClient/gui/MainScreen/commands/toggleSidebar.js:15
 #: ElectronClient/gui/MainScreen/commands/toggleSidebar.js:26
 msgid "Toggle sidebar"
-msgstr "Comutați bara laterală"
+msgstr ""
 
 #: ElectronClient/gui/MainScreen/commands/editAlarm.js:19
 #: ElectronClient/gui/NoteText.min.js:1642
@@ -1381,17 +1315,20 @@ msgid "New note"
 msgstr "Adăugați o nouă notiță"
 
 #: ElectronClient/gui/MainScreen/commands/moveToFolder.js:17
+#, fuzzy
 msgid "Move to notebook"
-msgstr "Mutați în agendă"
+msgstr "Mutați în caietul de notițe..."
 
 #: ElectronClient/gui/MainScreen/commands/moveToFolder.js:36
 #: ElectronClient/gui/MainScreen.min.js:272
+#, fuzzy
 msgid "Move to notebook:"
-msgstr "Mutați în agendă:"
+msgstr "Mutați în caietul de notițe..."
 
 #: ElectronClient/gui/MainScreen/commands/toggleVisiblePanes.js:15
+#, fuzzy
 msgid "Toggle editor layout"
-msgstr "Comutați editorul"
+msgstr "Activați criptarea"
 
 #: ElectronClient/gui/MainScreen/commands/renameTag.js:26
 #: ElectronClient/gui/MainScreen.min.js:313
@@ -1401,21 +1338,22 @@ msgstr "Redenumiți eticheta:"
 #: ElectronClient/gui/MainScreen/commands/newNotebook.js:17
 #: ElectronClient/gui/MainScreen/commands/newNotebook.js:57
 msgid "New notebook"
-msgstr "Adăugați o agendă nouă"
+msgstr "Adăugați un nou caiet de notițe"
 
 #: ElectronClient/gui/MainScreen/commands/newNotebook.js:25
 #: ElectronClient/gui/MainScreen.min.js:178
 msgid "Notebook title:"
-msgstr "Titlul agendei:"
+msgstr "Titlul caietului de notițe:"
 
 #: ElectronClient/gui/MainScreen/commands/showShareNoteDialog.js:15
+#, fuzzy
 msgid "Share note..."
-msgstr "Distribuie notiță.."
+msgstr "Distribuie"
 
 #: ElectronClient/gui/MainScreen/commands/selectTemplate.js:23
 #: ElectronClient/gui/MainScreen.min.js:448
 msgid "Template file:"
-msgstr "Fișier template:"
+msgstr ""
 
 #: ElectronClient/gui/MainScreen/commands/setTags.js:44
 #: ElectronClient/gui/MainScreen.min.js:221
@@ -1429,7 +1367,7 @@ msgstr "Printați"
 #: ElectronClient/gui/MainScreen/commands/print.js:25
 #: ElectronClient/gui/NoteText.min.js:1321
 msgid "Only one note can be printed at a time."
-msgstr "Doar o singură notiță se poate imprima."
+msgstr ""
 
 #: ElectronClient/gui/NoteToolbar/NoteToolbar.js:32
 #: ElectronClient/gui/NoteText.min.js:1656
@@ -1440,24 +1378,25 @@ msgstr "În: %s"
 #: ElectronClient/gui/SideBar.min.js:290
 #, javascript-format
 msgid "Remove tag \"%s\" from all notes?"
-msgstr "Eliminați eticheta \"% s\" din toate notițele?"
+msgstr ""
 
 #: ElectronClient/gui/SideBar.min.js:304
+#, fuzzy
 msgid "New sub-notebook"
-msgstr "Nou sub-notiță"
+msgstr "Adăugați un nou caiet de notițe"
 
 #: ElectronClient/gui/ClipperConfigScreen.min.js:39
 msgid "Token has been copied to the clipboard!"
-msgstr "Token-ul a fost copiat în clipboard!"
+msgstr ""
 
 #: ElectronClient/gui/ClipperConfigScreen.min.js:69
 msgid "The web clipper service is enabled and set to auto-start."
-msgstr "Serviciul web clipper este activat și setat la pornire automată."
+msgstr ""
 
 #: ElectronClient/gui/ClipperConfigScreen.min.js:76
 #, javascript-format
 msgid "Status: Started on port %d"
-msgstr "Stare: Portul %d"
+msgstr ""
 
 #: ElectronClient/gui/ClipperConfigScreen.min.js:82
 #, javascript-format
@@ -1470,7 +1409,7 @@ msgstr "Dezactivați Web Clipper Service"
 
 #: ElectronClient/gui/ClipperConfigScreen.min.js:94
 msgid "The web clipper service is not enabled."
-msgstr "Serviciul web clipper nu este activat."
+msgstr ""
 
 #: ElectronClient/gui/ClipperConfigScreen.min.js:99
 msgid "Enable Web Clipper Service"
@@ -1481,16 +1420,14 @@ msgid ""
 "Joplin Web Clipper allows saving web pages and screenshots from your browser "
 "to Joplin."
 msgstr ""
-"Joplin Web Clipper permite salvarea paginilor web și a capturilor de ecran "
-"din browser-ul dumnevoastră în Joplin."
 
 #: ElectronClient/gui/ClipperConfigScreen.min.js:127
 msgid "In order to use the web clipper, you need to do the following:"
-msgstr "Pentru a utiliza web clipper, trebuie să faceți următoarele:"
+msgstr ""
 
 #: ElectronClient/gui/ClipperConfigScreen.min.js:135
 msgid "Step 1: Enable the clipper service"
-msgstr "Pasul 1: Activați clipper service"
+msgstr ""
 
 #: ElectronClient/gui/ClipperConfigScreen.min.js:140
 msgid ""
@@ -1498,9 +1435,6 @@ msgid ""
 "enabling it your firewall may ask you to give permission to Joplin to listen "
 "to a particular port."
 msgstr ""
-"Acest serviciu permite extensia browserul-ui pentru a comunica cu Joplin. "
-"Atunci când se permite firewall poate cere să dea permisiunea Joplin pentru "
-"a asculta un anumit port."
 
 #: ElectronClient/gui/ClipperConfigScreen.min.js:154
 msgid "Step 2: Install the extension"
@@ -1509,27 +1443,25 @@ msgstr "Pasul 2: Instalați extensia"
 #: ElectronClient/gui/ClipperConfigScreen.min.js:159
 msgid "Download and install the relevant extension for your browser:"
 msgstr ""
-"Descărcați și instalați extensia relevantă pentru browser-ul dumnevoastră.:"
 
 #: ElectronClient/gui/ClipperConfigScreen.min.js:174
+#, fuzzy
 msgid "Advanced options"
 msgstr "Afișați opțiunile avansate"
 
 #: ElectronClient/gui/ClipperConfigScreen.min.js:179
 msgid "Authorisation token:"
-msgstr "Token autorizare:"
+msgstr ""
 
 #: ElectronClient/gui/ClipperConfigScreen.min.js:189
 msgid "Copy token"
-msgstr "Copie token"
+msgstr ""
 
 #: ElectronClient/gui/ClipperConfigScreen.min.js:195
 msgid ""
 "This authorisation token is only needed to allow third-party applications to "
 "access Joplin."
 msgstr ""
-"Acest token de autorizare este necesar doar pentru a permite aplicațiilor "
-"terțe părți să acceseze Joplin."
 
 #: ElectronClient/gui/Root.min.js:89
 msgid "OneDrive Login"
@@ -1549,8 +1481,9 @@ msgid "Options"
 msgstr "Opțiuni"
 
 #: ElectronClient/gui/Root.min.js:93
+#, fuzzy
 msgid "Note attachments"
-msgstr "Atașați fișierele"
+msgstr "Atașați fișier"
 
 #: ElectronClient/gui/Root.min.js:94 ElectronClient/app.js:500
 msgid "Synchronisation Status"
@@ -1558,35 +1491,35 @@ msgstr "Statutul sincronizării"
 
 #: ElectronClient/gui/ExtensionBadge.min.js:10
 msgid "Firefox Extension"
-msgstr "Extensie Firefox"
+msgstr ""
 
 #: ElectronClient/gui/ExtensionBadge.min.js:17
 msgid "Chrome Web Store"
-msgstr "Chrome Web Store"
+msgstr ""
 
 #: ElectronClient/gui/ExtensionBadge.min.js:44
 msgid "Get it now:"
-msgstr "Obține acum:"
+msgstr ""
 
 #: ElectronClient/gui/ImportScreen.min.js:62
 #, javascript-format
 msgid ""
 "New notebook \"%s\" will be created and file \"%s\" will be imported into it"
 msgstr ""
-"Noua agendă \"%s\" va fi creată și fișierul \"%s\" va fi importat in ea"
 
 #: ElectronClient/gui/DropboxLoginScreen.min.js:67
 #: ReactNativeClient/lib/components/screens/dropbox-login.js:68
 msgid "Submit"
-msgstr "Trimite"
+msgstr ""
 
 #: ElectronClient/gui/NoteList.min.js:147
 #: ElectronClient/gui/NoteList/NoteList.min.js:152
 msgid "Custom order"
-msgstr "Comandă personalizată"
+msgstr ""
 
 #: ElectronClient/gui/NoteList.min.js:147
 #: ElectronClient/gui/NoteList/NoteList.min.js:152
+#, fuzzy
 msgid "View"
 msgstr "Vizualizați"
 
@@ -1603,8 +1536,6 @@ msgid ""
 "To manually sort the notes, the sort order must be changed to \"%s\" in the "
 "menu \"%s\" > \"%s\""
 msgstr ""
-"Pentru a sorta notițele manual, ordinea trebuie sa fie schimbată în \"%s\" "
-"în meniu \"%s\" > \"%s\""
 
 #: ElectronClient/gui/NoteList.min.js:148
 #: ElectronClient/gui/NoteList/NoteList.min.js:153
@@ -1630,6 +1561,7 @@ msgstr ""
 
 #: ElectronClient/gui/utils/NoteListUtils.js:37
 #: ReactNativeClient/lib/components/screen-header.js:362
+#, fuzzy
 msgid "Duplicate"
 msgstr "Duplicați"
 
@@ -1658,26 +1590,27 @@ msgid "Copy Markdown link"
 msgstr "Copiați link-ul Markdown"
 
 #: ElectronClient/gui/utils/NoteListUtils.js:178
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Delete note \"%s\"?"
-msgstr "Ștergeți notițele \"%s\"?"
+msgstr "Ștergeți notițele?"
 
 #: ElectronClient/gui/utils/NoteListUtils.js:180
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Delete these %d notes?"
-msgstr "Ștergeți aceste %d notițe?"
+msgstr "Ștergeți aceste notițe?"
 
 #: ElectronClient/gui/FolderPropertiesDialog.min.js:22
 msgid "Name"
-msgstr "Nume"
+msgstr ""
 
 #: ElectronClient/gui/FolderPropertiesDialog.min.js:23
 msgid "Icon"
-msgstr "Icon"
+msgstr ""
 
 #: ElectronClient/gui/FolderPropertiesDialog.min.js:272
+#, fuzzy
 msgid "Notebook properties"
-msgstr "Proprietățile agendei"
+msgstr "Titlul caietului de notițe:"
 
 #: ElectronClient/gui/NoteText.min.js:781
 #, javascript-format
@@ -1693,8 +1626,9 @@ msgid "Click to stop external editing"
 msgstr "Faceți click pentru a opri editarea în aplicația externă"
 
 #: ElectronClient/gui/NoteText.min.js:1793
+#, fuzzy
 msgid "Watching..."
-msgstr "Se urmărește..."
+msgstr "Se amână..."
 
 #: ElectronClient/gui/NoteText.min.js:1801
 #: ElectronClient/commands/startExternalEditing.js:18
@@ -1713,7 +1647,7 @@ msgstr "Salvați"
 
 #: ElectronClient/gui/EncryptionConfigScreen.min.js:144
 msgid "Master keys that need upgrading"
-msgstr "Chei master care necesită actualizare"
+msgstr ""
 
 #: ElectronClient/gui/EncryptionConfigScreen.min.js:149
 msgid ""
@@ -1721,34 +1655,27 @@ msgid ""
 "recommended to upgrade them. The upgraded master key will still be able to "
 "decrypt and encrypt your data as usual."
 msgstr ""
-"Următoarele chei master utilizează un algoritm de criptare învechit și se "
-"recomandă actualizarea acestora. Cheia principală actualizată va putea în "
-"continuare să decripteze și să cripteze datele dumnevoastră ca de obicei."
 
 #: ElectronClient/gui/EncryptionConfigScreen.min.js:168
 msgid "Upgrade"
-msgstr "Actualizare"
+msgstr ""
 
 #: ElectronClient/gui/EncryptionConfigScreen.min.js:181
+#, fuzzy
 msgid "Re-encrypt data"
-msgstr "Re-criptați datele"
+msgstr "Selectați data"
 
 #: ElectronClient/gui/EncryptionConfigScreen.min.js:183
 msgid ""
 "The default encryption method has been changed to a more secure one and it "
 "is recommended that you apply it to your data."
 msgstr ""
-"Metoda implicită de criptare a fost schimbată într-una mai sigură și se "
-"recomandă să o aplicați datelor dumnevoastră."
 
 #: ElectronClient/gui/EncryptionConfigScreen.min.js:183
 msgid ""
 "You may use the tool below to re-encrypt your data, for example if you know "
 "that some of your notes are encrypted with an obsolete encryption method."
 msgstr ""
-"Puteți utiliza instrumentul de mai jos pentru a vă cripta din nou datele, de "
-"exemplu, dacă știți că unele note sunt criptate cu o metodă de criptare "
-"învechită."
 
 #: ElectronClient/gui/EncryptionConfigScreen.min.js:185
 #, javascript-format
@@ -1780,17 +1707,17 @@ msgstr "Criptarea este:"
 
 #: ElectronClient/gui/StatusScreen.min.js:33
 msgid "Please select where the sync status should be exported to"
-msgstr "Vă rugăm să selectați unde trebuie exportată starea de sincronizare"
+msgstr ""
 
 #: ElectronClient/gui/StatusScreen.min.js:71
 #: ReactNativeClient/lib/components/screens/status.js:112
 msgid "Retry All"
-msgstr "Încercați din nou toate"
+msgstr ""
 
 #: ElectronClient/gui/StatusScreen.min.js:96
 #: ReactNativeClient/lib/components/screens/status.js:118
 msgid "Retry"
-msgstr "Încercați din nou"
+msgstr ""
 
 #: ElectronClient/gui/MainScreen.min.js:165
 msgid "Please create a notebook first."
@@ -1801,108 +1728,114 @@ msgid "Please create a notebook first"
 msgstr "Creați un caiet de sarcini prima dată"
 
 #: ElectronClient/gui/PromptDialog.min.js:249
+#, fuzzy
 msgid "Clear"
-msgstr "Golire"
+msgstr "Setați alarma"
 
 #: ElectronClient/gui/NoteContentPropertiesDialog.js:76
 msgid "Words"
-msgstr "Cuvinte"
+msgstr ""
 
 #: ElectronClient/gui/NoteContentPropertiesDialog.js:77
 msgid "Characters"
-msgstr "Caractere"
+msgstr ""
 
 #: ElectronClient/gui/NoteContentPropertiesDialog.js:78
 msgid "Characters excluding spaces"
-msgstr "Caractere cu excepția spațiilor libere"
+msgstr ""
 
 #: ElectronClient/gui/NoteContentPropertiesDialog.js:79
 msgid "Lines"
-msgstr "Linii"
+msgstr ""
 
 #: ElectronClient/gui/NoteContentPropertiesDialog.js:98
 #: ReactNativeClient/lib/models/Setting.js:355
 #: ReactNativeClient/lib/models/Setting.js:356
 #: ReactNativeClient/lib/models/Setting.js:357
+#, fuzzy
 msgid "Editor"
-msgstr "Editor"
+msgstr "Editați"
 
 #: ElectronClient/gui/NoteContentPropertiesDialog.js:99
 #: ReactNativeClient/lib/models/Setting.js:355
 #: ReactNativeClient/lib/models/Setting.js:356
 #: ReactNativeClient/lib/models/Setting.js:358
+#, fuzzy
 msgid "Viewer"
-msgstr "Vizualizator"
+msgstr "Vizualizați"
 
 #: ElectronClient/gui/NoteContentPropertiesDialog.js:107
+#, fuzzy
 msgid "Statistics"
-msgstr "Statistică"
+msgstr "Status"
 
 #: ElectronClient/gui/NoteContentPropertiesDialog.js:111
 #, javascript-format
 msgid "Read time: %s min"
-msgstr "Durata lecturii: %s min"
+msgstr ""
 
 #: ElectronClient/gui/NoteContentPropertiesDialog.js:112
 #: ElectronClient/gui/ShareNoteDialog.js:175
 msgid "Close"
-msgstr "Închide"
+msgstr ""
 
 #: ElectronClient/gui/ConfigScreen.min.js:82
 msgid "This will open a new screen. Save your current changes?"
 msgstr ""
-"Se va deschide un nou ecran. Doriți să salvați modificările dumnevoastră "
-"actuale?"
 
 #: ElectronClient/gui/ConfigScreen.min.js:170
 #: ReactNativeClient/lib/components/screens/config.js:307
 msgid "Check synchronisation configuration"
-msgstr "Verificați configurația de sincronizare"
+msgstr ""
 
 #: ElectronClient/gui/ConfigScreen.min.js:179
 msgid "Unknown"
-msgstr "Necunoscut"
+msgstr ""
 
 #: ElectronClient/gui/ConfigScreen.min.js:183
+#, fuzzy
 msgid "Checking..."
-msgstr "Verificare..."
+msgstr "Se amână..."
 
 #: ElectronClient/gui/ConfigScreen.min.js:187
 #: ReactNativeClient/lib/models/Resource.js:320
+#, fuzzy
 msgid "Error"
-msgstr "Eroare"
+msgstr "Doar erori"
 
 #: ElectronClient/gui/ConfigScreen.min.js:198
 msgid ""
 "The Joplin Nextcloud App is either not installed or misconfigured. Please "
 "see the full error message below:"
 msgstr ""
-"Aplicația Joplin Nextcloud nu este instalată sau configurată greșit. "
-"Consultați mesajul de eroare complet de mai jos:"
 
 #: ElectronClient/gui/ConfigScreen.min.js:211
+#, fuzzy
 msgid "Show Log"
-msgstr "Afișați log"
+msgstr "Afișați tot"
 
 #: ElectronClient/gui/ConfigScreen.min.js:224
 msgid "Joplin Nextcloud App status:"
-msgstr "Joplin Nextcloud App status:"
+msgstr ""
 
 #: ElectronClient/gui/ConfigScreen.min.js:238
+#, fuzzy
 msgid "Check Status"
-msgstr "Verificare Status"
+msgstr "Status"
 
 #: ElectronClient/gui/ConfigScreen.min.js:245
+#, fuzzy
 msgid "Help"
 msgstr "Ajutor"
 
 #: ElectronClient/gui/ConfigScreen.min.js:264
+#, fuzzy
 msgid "Show Advanced Settings"
 msgstr "Afișați opțiunile avansate"
 
 #: ElectronClient/gui/ConfigScreen.min.js:521
 msgid "Browse..."
-msgstr "Căutare..."
+msgstr ""
 
 #: ElectronClient/gui/ConfigScreen.min.js:761
 msgid "Apply"
@@ -1910,28 +1843,32 @@ msgstr "Aplicați"
 
 #: ElectronClient/gui/Header.min.js:267
 #: ElectronClient/gui/Header/Header.min.js:253
+#, fuzzy
 msgid "Usage"
-msgstr "Utilizare"
+msgstr "Utilizare: %s"
 
 #: ElectronClient/gui/NoteList/commands/focusElementNoteList.js:15
+#, fuzzy
 msgid "Note list"
-msgstr "Lista de notițe"
+msgstr "Caiete de notițe"
 
 #: ElectronClient/gui/Header/commands/focusSearch.js:15
 msgid "Search in all the notes"
 msgstr "Căutați în toate notițele"
 
 #: ElectronClient/gui/ResourceScreen.js:31
+#, fuzzy
 msgid "Title"
-msgstr "Titlu"
+msgstr "titlu"
 
 #: ElectronClient/gui/ResourceScreen.js:35
 msgid "Size"
-msgstr "Mărime"
+msgstr ""
 
 #: ElectronClient/gui/ResourceScreen.js:39
+#, fuzzy
 msgid "Action"
-msgstr "Acțiune"
+msgstr "Duplicați"
 
 #: ElectronClient/gui/ResourceScreen.js:42
 #: ReactNativeClient/lib/path-utils.js:65
@@ -1941,9 +1878,9 @@ msgid "Untitled"
 msgstr "Fără denumire"
 
 #: ElectronClient/gui/ResourceScreen.js:93
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Delete attachment \"%s\"?"
-msgstr "Ștergeți notițele \"%s\"?"
+msgstr "Ștergeți notițele?"
 
 #: ElectronClient/gui/ResourceScreen.js:139
 msgid ""
@@ -1951,41 +1888,38 @@ msgid ""
 "notes. Please be careful when deleting one of them as they cannot be "
 "restored afterwards."
 msgstr ""
-"Acesta este un instrument avansat pentru a afișa atașamentele care sunt "
-"legate de notele dumnevoastră. Vă rugăm să fiți atenți la ștergerea uneia "
-"dintre ele, deoarece acestea nu pot fi restaurate ulterior."
 
 #: ElectronClient/gui/ResourceScreen.js:140
+#, fuzzy
 msgid "Please wait..."
-msgstr "Vă rugăm să așteptați..."
+msgstr "Se anulează... Vă rugăm să așteptați."
 
 #: ElectronClient/gui/ResourceScreen.js:142
 msgid "No resources!"
-msgstr "Fără resurse!"
+msgstr ""
 
 #: ElectronClient/gui/ResourceScreen.js:144
 #, javascript-format
 msgid "Warning: not all resources shown for performance reasons (limit: %s)."
 msgstr ""
-"Avertizare: nu toate resursele sunt afișate din motive de performanță "
-"(limită:% s)."
 
 #: ElectronClient/gui/ShareNoteDialog.js:158
+#, fuzzy
 msgid "Synchronising..."
-msgstr "Sincronizează...."
+msgstr "Statusul sincronizării"
 
 #: ElectronClient/gui/ShareNoteDialog.js:160
+#, fuzzy
 msgid "Generating link..."
 msgid_plural "Generating links..."
-msgstr[0] "Se creează link..."
+msgstr[0] "Se crează un %s..."
 msgstr[1] "Se crează un %s..."
 msgstr[2] "Se crează un %s..."
 
 #: ElectronClient/gui/ShareNoteDialog.js:162
-#, fuzzy
 msgid "Link has been copied to clipboard!"
 msgid_plural "Links have been copied to clipboard!"
-msgstr[0] "Linkul a fost copiat în clipboard!"
+msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
@@ -1993,20 +1927,22 @@ msgstr[2] ""
 msgid ""
 "Note: When a note is shared, it will no longer be encrypted on the server."
 msgstr ""
-"Notă: Când o notă este partajată, aceasta nu va mai fi criptată pe server."
 
 #: ElectronClient/gui/ShareNoteDialog.js:170
+#, fuzzy
 msgid "Share Notes"
-msgstr "Distribuie notițe"
+msgstr "Distribuie"
 
 #: ElectronClient/gui/ShareNoteDialog.js:172
+#, fuzzy
 msgid "Copy Shareable Link"
 msgid_plural "Copy Shareable Links"
-msgstr[0] "Copiați linkul care se poate partaja"
+msgstr[0] "Distribuie"
 msgstr[1] "Distribuie"
 msgstr[2] "Distribuie"
 
 #: ElectronClient/commands/stopExternalEditing.js:16
+#, fuzzy
 msgid "Stop external editing"
 msgstr "Faceți click pentru a opri editarea în aplicația externă"
 
@@ -2016,38 +1952,39 @@ msgid "Error opening note in editor: %s"
 msgstr "Eroare deschidere notiță în editor: %s"
 
 #: ElectronClient/app.js:460
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Importing from \"%s\" as \"%s\" format. Please wait..."
-msgstr "Se exportă către \"%s\" în format \"%s\". Vă rugăm să așteptați..."
+msgstr "Se exportă către \"%s\" în format \"%s\". Vă rugăm să așteotați..."
 
 #: ElectronClient/app.js:522
 msgid "Create note from template"
-msgstr "Creați o notă din șablon"
+msgstr ""
 
 #: ElectronClient/app.js:528
 msgid "Create to-do from template"
-msgstr "Creați to-do din șablon"
+msgstr ""
 
 #: ElectronClient/app.js:534
 msgid "Insert template"
-msgstr "Inserați șablonul"
+msgstr ""
 
 #: ElectronClient/app.js:541
 msgid "Open template directory"
-msgstr "Deschideți directorul șablonului"
+msgstr ""
 
 #: ElectronClient/app.js:548
 msgid "Refresh templates"
-msgstr "Actualizați șabloanele"
+msgstr ""
 
 #: ElectronClient/app.js:574
+#, fuzzy
 msgid "Note attachments..."
-msgstr "Atașați fișier..."
+msgstr "Atașați fișier"
 
 #: ElectronClient/app.js:596
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Revision: %s (%s)"
-msgstr "Revizuire:% s (% s)"
+msgstr "%s %s (%s)"
 
 #: ElectronClient/app.js:603
 #, javascript-format
@@ -2055,19 +1992,19 @@ msgid "%s %s (%s, %s)"
 msgstr "%s %s (%s, %s)"
 
 #: ElectronClient/app.js:605
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Client ID: %s"
-msgstr "Client ID: %s"
+msgstr "Completat: %s"
 
 #: ElectronClient/app.js:606
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Sync Version: %s"
-msgstr "Versiunea de sincronizare: %s"
+msgstr "Criptarea este: %s"
 
 #: ElectronClient/app.js:607
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Profile Version: %s"
-msgstr "Versiunea profil: %s"
+msgstr "Valori posibile: %s."
 
 #: ElectronClient/app.js:608
 #, javascript-format
@@ -2085,7 +2022,7 @@ msgstr "Despre Joplin"
 
 #: ElectronClient/app.js:643
 msgid "Preferences..."
-msgstr "Preferințe..."
+msgstr ""
 
 #: ElectronClient/app.js:653 ElectronClient/app.js:887
 msgid "Check for updates..."
@@ -2093,7 +2030,7 @@ msgstr "Verificați actualizările..."
 
 #: ElectronClient/app.js:666 ElectronClient/app.js:719
 msgid "Templates"
-msgstr "Șabloane"
+msgstr ""
 
 #: ElectronClient/app.js:692
 #, javascript-format
@@ -2106,55 +2043,61 @@ msgstr "Ieșiți"
 
 #: ElectronClient/app.js:712
 msgid "Close Window"
-msgstr "Închide fereastra"
+msgstr ""
 
 #: ElectronClient/app.js:757
+#, fuzzy
 msgid "&Edit"
 msgstr "Editați"
 
 #: ElectronClient/app.js:776
+#, fuzzy
 msgid "&View"
 msgstr "Vizualizați"
 
 #: ElectronClient/app.js:782
 msgid "Layout button sequence"
-msgstr "Secvența butoanelor de aspect"
+msgstr ""
 
 #: ElectronClient/app.js:822
 msgid "Focus"
-msgstr "Focus"
+msgstr ""
 
 #: ElectronClient/app.js:828
 msgid "Actual Size"
-msgstr "Dimensiunea actuală"
+msgstr ""
 
 #: ElectronClient/app.js:839 ElectronClient/app.js:845
 msgid "Zoom In"
-msgstr "Măriți"
+msgstr ""
 
 #: ElectronClient/app.js:852
 msgid "Zoom Out"
-msgstr "Micșorați"
+msgstr ""
 
 #: ElectronClient/app.js:860
+#, fuzzy
 msgid "&Note"
-msgstr "&Caiete de notițe"
+msgstr "Caiete de notițe"
 
 #: ElectronClient/app.js:870
+#, fuzzy
 msgid "&Tools"
-msgstr "&Unelte"
+msgstr "Unelte"
 
 #: ElectronClient/app.js:874
+#, fuzzy
 msgid "&Help"
-msgstr "&Ajutor"
+msgstr "Ajutor"
 
 #: ElectronClient/app.js:877
 msgid "Website and documentation"
 msgstr "Website și documentație"
 
 #: ElectronClient/app.js:881
+#, fuzzy
 msgid "Joplin Forum"
-msgstr "Joplin Forum"
+msgstr "Website Joplin"
 
 #: ElectronClient/app.js:884
 #: ReactNativeClient/lib/components/screens/config.js:495
@@ -2162,8 +2105,9 @@ msgid "Make a donation"
 msgstr "Faceți o donație"
 
 #: ElectronClient/app.js:894
+#, fuzzy
 msgid "Toggle development tools"
-msgstr "Comutați instrumentele de dezvoltare"
+msgstr "Activați criptarea"
 
 #: ElectronClient/app.js:1037
 #, javascript-format
@@ -2178,12 +2122,10 @@ msgstr "Ieșiți"
 msgid ""
 "The application has been authorised - you may now close this browser tab."
 msgstr ""
-"Aplicația a fost autorizată - acum puteți închide această fereastră "
-"browserului."
 
 #: ReactNativeClient/lib/onedrive-api-node-utils.js:87
 msgid "The application has been successfully authorised."
-msgstr "Aplicația a fost autorizată cu succes."
+msgstr ""
 
 #: ReactNativeClient/lib/onedrive-api-node-utils.js:115
 msgid ""
@@ -2193,11 +2135,6 @@ msgid ""
 "any files outside this directory nor to any other personal data. No data "
 "will be shared with any third party."
 msgstr ""
-"Deschideți următoarea adresă URL în browser pentru a autentifica aplicația. "
-"Aplicația va crea un director în \"Apps/Joplin\" și va citi și scrie doar "
-"fișiere în acest director. Nu va avea acces la nici un fișier din afara "
-"acestui director și nici la alte date personale. Nu se vor partaja date cu "
-"nicio terță parte."
 
 #: ReactNativeClient/lib/registry.js:156
 msgid ""
@@ -2208,26 +2145,20 @@ msgid ""
 "\n"
 "Please consider using a regular OneDrive account."
 msgstr ""
-"Nu s-a putut sincroniza cu OneDrive.\n"
-"\n"
-"Această eroare se întâmplă adesea atunci când se utilizează OneDrive pentru "
-"Business, care, din păcate, nu poate fi suportată. \n"
-"\n"
-"Vă rugăm să luați în considerare utilizarea unui cont OneDrive obișnuit."
 
 #: ReactNativeClient/lib/logger.js:178
 #, javascript-format
 msgid "Unknown log level: %s"
-msgstr "Nivel de log necunoscut: %s"
+msgstr ""
 
 #: ReactNativeClient/lib/logger.js:187
 #, javascript-format
 msgid "Unknown level ID: %s"
-msgstr "ID nivel necunoscut: %s"
+msgstr ""
 
 #: ReactNativeClient/lib/SyncTargetAmazonS3.js:28
 msgid "AWS S3"
-msgstr "AWS S3"
+msgstr ""
 
 #: ReactNativeClient/lib/SyncTargetDropbox.js:25
 msgid "Dropbox"
@@ -2240,8 +2171,6 @@ msgid ""
 "You are about to attach a large image (%dx%d pixels). Would you like to "
 "resize it down to %d pixels before attaching it?"
 msgstr ""
-"Ești pe cale să atașezi o imagine mare (%dx%d pixeli). Doriți să îl "
-"redimensionați până la %d pixeli înainte de a-l atașa?"
 
 #: ReactNativeClient/lib/shim-init-node.js:156
 #, javascript-format
@@ -2269,11 +2198,12 @@ msgstr "Nu se poate muta caietul de notițe în această locație"
 #: ReactNativeClient/lib/models/Folder.js:426
 #, javascript-format
 msgid "Notebooks cannot be named \"%s\", which is a reserved title."
-msgstr "Agendele nu pot fi denumite \"%s\", care au un titlu rezervat."
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:39
+#, fuzzy
 msgid "yes"
-msgstr "da"
+msgstr "Da"
 
 #: ReactNativeClient/lib/models/Setting.js:39
 #: ReactNativeClient/lib/models/Setting.js:40
@@ -2282,8 +2212,9 @@ msgid "(wysiwyg: %s)"
 msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:40
+#, fuzzy
 msgid "no"
-msgstr "nu"
+msgstr "n"
 
 #: ReactNativeClient/lib/models/Setting.js:43
 #, javascript-format
@@ -2292,41 +2223,39 @@ msgid ""
 "to it before syncing, otherwise all files will be removed! See the FAQ for "
 "more details: %s"
 msgstr ""
-"Atenție: dacă modificați această locație, asigurați-vă că copiați tot "
-"conținutul pe ea înainte de sincronizare, altfel toate fișierele vor fi "
-"eliminate! Consultați FAQ pentru mai multe detalii: %s"
 
 #: ReactNativeClient/lib/models/Setting.js:51
 msgid "Light"
-msgstr "Light"
+msgstr "Deschisă"
 
 #: ReactNativeClient/lib/models/Setting.js:52
 msgid "Dark"
-msgstr "Dark"
+msgstr "Închisă"
 
 #: ReactNativeClient/lib/models/Setting.js:53
 msgid "Dracula"
-msgstr "Dracula"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:54
 msgid "Solarised Light"
-msgstr "Solarised Light"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:55
 msgid "Solarised Dark"
-msgstr "Solarised Dark"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:56
 msgid "Nord"
-msgstr "Nord"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:57
 msgid "Aritim Dark"
-msgstr "Aritim Dark"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:58
+#, fuzzy
 msgid "OLED Dark"
-msgstr "OLED Dark"
+msgstr "Închisă"
 
 #: ReactNativeClient/lib/models/Setting.js:80
 msgid "Synchronisation target"
@@ -2368,15 +2297,15 @@ msgstr "Parolă WebDAV"
 
 #: ReactNativeClient/lib/models/Setting.js:189
 msgid "AWS S3 bucket"
-msgstr "AWS S3 bucket"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:200
 msgid "AWS key"
-msgstr "AWS key"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:210
 msgid "AWS secret"
-msgstr "AWS secret"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:224
 msgid "Attachment download behaviour"
@@ -2388,26 +2317,22 @@ msgid ""
 "In \"Auto\", they are downloaded when you open the note. In \"Always\", all "
 "the attachments are downloaded whether you open the note or not."
 msgstr ""
-"În modul \"Manual\", atașamentele sunt descărcate numai atunci când faceți "
-"clic pe ele. În modul \"Auto\", acestea sunt descărcate când deschideți "
-"nota. În modul „Mereu”, toate atașamentele sunt descărcate indiferent dacă "
-"deschideți nota sau nu."
 
 #: ReactNativeClient/lib/models/Setting.js:228
 msgid "Always"
-msgstr "Mereu"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:229
 msgid "Manual"
-msgstr "Manual"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:230
 msgid "Auto"
-msgstr "Auto"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:247
 msgid "Max concurrent connections"
-msgstr "Conexiuni maxime simultane"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:256
 msgid "Language"
@@ -2427,25 +2352,26 @@ msgstr "Temă"
 
 #: ReactNativeClient/lib/models/Setting.js:315
 msgid "Automatically switch theme to match system theme"
-msgstr "Comutați automat tema pentru a se potrivi cu tema sistemului"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:327
 msgid "Preferred light theme"
-msgstr "Tema light preferată"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:341
 msgid "Preferred dark theme"
-msgstr "Tema dark preferată"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:346
+#, fuzzy
 msgid "Show note counts"
-msgstr "Afișează numărul de notițe"
+msgstr "Afișați iconița coșul de gunoi"
 
 #: ReactNativeClient/lib/models/Setting.js:355
 #: ReactNativeClient/lib/models/Setting.js:357
 #: ReactNativeClient/lib/models/Setting.js:358
 msgid "Split View"
-msgstr "Divizare vizualizare"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:355
 #, fuzzy, javascript-format
@@ -2457,7 +2383,7 @@ msgstr "%s = %s (%s)"
 #: ReactNativeClient/lib/models/Setting.js:358
 #, javascript-format
 msgid "%s / %s"
-msgstr "%s / %s"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:361
 msgid "Uncompleted to-dos on top"
@@ -2663,43 +2589,43 @@ msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:625
 msgid "A4"
-msgstr "A4"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:626
 msgid "Letter"
-msgstr "Letter"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:627
 msgid "A3"
-msgstr "A3"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:628
 msgid "A5"
-msgstr "A5"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:629
 msgid "Tabloid"
-msgstr "Tabloid"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:630
 msgid "Legal"
-msgstr "Legal"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:633
 msgid "Page orientation for PDF export"
-msgstr "Page orientation for PDF export"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:635
 msgid "Portrait"
-msgstr "Portrait"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:636
 msgid "Landscape"
-msgstr "Landscape"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:647
 msgid "Keyboard Mode"
-msgstr "Keyboard Mode"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:650
 #, fuzzy
@@ -2708,11 +2634,11 @@ msgstr "Modul implicit: %s"
 
 #: ReactNativeClient/lib/models/Setting.js:651
 msgid "Emacs"
-msgstr "Emacs"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:652
 msgid "Vim"
-msgstr "Vim"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:667
 msgid "Custom TLS certificates"
@@ -2753,16 +2679,16 @@ msgstr "Activați criptarea"
 
 #: ReactNativeClient/lib/models/Setting.js:712
 msgid "days"
-msgstr "zile"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:712
 #, javascript-format
 msgid "%d days"
-msgstr "%d zile"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:714
 msgid "Keep note history for"
-msgstr "Păstrați istoricul notițelor pentru"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:741
 msgid "Notebook list growth factor"
@@ -2792,8 +2718,9 @@ msgid "Invalid option value: \"%s\". Possible values are: %s."
 msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:1247
+#, fuzzy
 msgid "General"
-msgstr "General"
+msgstr "Opțiuni Generale"
 
 #: ReactNativeClient/lib/models/Setting.js:1248
 #, fuzzy
@@ -2802,7 +2729,7 @@ msgstr "Statusul sincronizării"
 
 #: ReactNativeClient/lib/models/Setting.js:1249
 msgid "Appearance"
-msgstr "Aspect"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:1250
 #, fuzzy
@@ -2811,19 +2738,21 @@ msgstr "Caiete de notițe"
 
 #: ReactNativeClient/lib/models/Setting.js:1251
 msgid "Plugins"
-msgstr "Plugin"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:1252
+#, fuzzy
 msgid "Application"
-msgstr "Aplicație"
+msgstr "Duplicați"
 
 #: ReactNativeClient/lib/models/Setting.js:1254
+#, fuzzy
 msgid "Encryption"
-msgstr "Criptare"
+msgstr "Criptarea este:"
 
 #: ReactNativeClient/lib/models/Setting.js:1255
 msgid "Web Clipper"
-msgstr "Web Clipper"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:1260
 msgid ""
@@ -2894,7 +2823,7 @@ msgstr ""
 
 #: ReactNativeClient/lib/models/Note.js:92
 msgid "This note does not have geolocation information."
-msgstr "Această notă nu conține informații despre geolocalizare."
+msgstr ""
 
 #: ReactNativeClient/lib/models/Note.js:466
 #, javascript-format
@@ -2935,8 +2864,9 @@ msgid "OneDrive"
 msgstr "OneDrive"
 
 #: ReactNativeClient/lib/components/select-date-time-dialog.js:65
+#, fuzzy
 msgid "Clear alarm"
-msgstr "Ștergeți alarma"
+msgstr "Setați alarma"
 
 #: ReactNativeClient/lib/components/select-date-time-dialog.js:68
 msgid "Save alarm"
@@ -2952,11 +2882,11 @@ msgstr "Confirmați"
 
 #: ReactNativeClient/lib/components/CameraView.js:180
 msgid "Permission to use camera"
-msgstr "Permisiunea de a utliza camera"
+msgstr ""
 
 #: ReactNativeClient/lib/components/CameraView.js:181
 msgid "Your permission to use your camera is required."
-msgstr "Este necesară permisiunea dumnevoastră de a utiliza camera."
+msgstr ""
 
 #: ReactNativeClient/lib/components/screen-header.js:185
 msgid "Delete these notes?"
@@ -2973,7 +2903,7 @@ msgstr "Mutați %d notițe în caietul de notițe \"%s\"?"
 
 #: ReactNativeClient/lib/components/screen-header.js:451
 msgid "Press to set the decryption password."
-msgstr "Apăsați pentru a seta parola de decriptare."
+msgstr ""
 
 #: ReactNativeClient/lib/components/screen-header.js:452
 #, fuzzy
@@ -2986,10 +2916,12 @@ msgid "Notebook: %s"
 msgstr "Caiete de notițe"
 
 #: ReactNativeClient/lib/components/side-menu-content.js:132
+#, fuzzy
 msgid "Encrypted notebooks cannot be renamed"
 msgstr "Itemii criptați nu pot fi editați"
 
 #: ReactNativeClient/lib/components/side-menu-content.js:312
+#, fuzzy
 msgid "New Notebook"
 msgstr "Adăugați un nou caiet de notițe"
 
@@ -3004,33 +2936,32 @@ msgid "You currently have no notebooks."
 msgstr "Niciun caiet de notițe activ."
 
 #: ReactNativeClient/lib/components/note-list.js:101
+#, fuzzy
 msgid "Create a notebook"
-msgstr "Creați agendă"
+msgstr "Creați caiet de notițe."
 
 #: ReactNativeClient/lib/components/note-list.js:105
 msgid "There are currently no notes. Create one by clicking on the (+) button."
-msgstr "Momentan nu există notițe. Creați făcând clic pe butonul (+)."
+msgstr ""
 
 #: ReactNativeClient/lib/components/shared/config-shared.js:46
+#, fuzzy
 msgid "Checking... Please wait."
-msgstr "Se verifică... Vă rugăm să așteptați."
+msgstr "Se anulează... Vă rugăm să așteptați."
 
 #: ReactNativeClient/lib/components/shared/config-shared.js:48
 msgid "Success! Synchronisation configuration appears to be correct."
-msgstr "Succes! Configurația de sincronizare pare a fi corectă."
+msgstr ""
 
 #: ReactNativeClient/lib/components/shared/config-shared.js:50
 msgid ""
 "Error. Please check that URL, username, password, etc. are correct and that "
 "the sync target is accessible. The reported error was:"
 msgstr ""
-"Eroare. Vă rugăm să verificați dacă adresa URL, numele de utilizator, parola "
-"etc. sunt corecte și că ținta de sincronizare este accesibilă. Eroarea "
-"raportată a fost:"
 
 #: ReactNativeClient/lib/components/shared/dropbox-login-shared.js:39
 msgid "The application has been authorised!"
-msgstr "Aplicația a fost autorizată!"
+msgstr ""
 
 #: ReactNativeClient/lib/components/shared/dropbox-login-shared.js:43
 #, javascript-format
@@ -3041,38 +2972,30 @@ msgid ""
 "\n"
 "Please try again."
 msgstr ""
-"Nu s-a putut autoriza aplicația:\n"
-"\n"
-"% s\n"
-"\n"
-"Vă rugăm să încercați din nou."
 
 #: ReactNativeClient/lib/components/shared/encryption-config-shared.js:31
 msgid ""
 "Please confirm that you would like to re-encrypt your complete database."
 msgstr ""
-"Vă rugăm să confirmați că doriți să criptați din nou baza de date completă."
 
 #: ReactNativeClient/lib/components/shared/encryption-config-shared.js:37
 msgid "Your data is going to be re-encrypted and synced again."
-msgstr "Datele dumneavoastre vor fi re-criptate și sincronizate din nou."
+msgstr ""
 
 #: ReactNativeClient/lib/components/shared/encryption-config-shared.js:47
 msgid ""
 "Please enter your password in the master key list below before upgrading the "
 "key."
 msgstr ""
-"Vă rugăm să introduceți parola în lista de chei master de mai jos înainte de "
-"a actualiza cheia."
 
 #: ReactNativeClient/lib/components/shared/encryption-config-shared.js:56
 msgid "The master key has been upgraded successfully!"
-msgstr "Cheia master a fost actualizată cu succes!"
+msgstr ""
 
 #: ReactNativeClient/lib/components/shared/encryption-config-shared.js:58
 #, javascript-format
 msgid "Could not upgrade master key: %s"
-msgstr "Nu s-a putut actualiza cheia master:% s"
+msgstr ""
 
 #: ReactNativeClient/lib/components/shared/encryption-config-shared.js:110
 #, fuzzy, javascript-format
@@ -3118,12 +3041,12 @@ msgstr "Autentificați-vă cu Dropbox"
 
 #: ReactNativeClient/lib/components/screens/dropbox-login.js:66
 msgid "Enter code here"
-msgstr "Introdu codul aici"
+msgstr ""
 
 #: ReactNativeClient/lib/components/screens/encryption-config.js:119
 #, javascript-format
 msgid "Master Key %s"
-msgstr "Cheia master %s"
+msgstr ""
 
 #: ReactNativeClient/lib/components/screens/encryption-config.js:120
 #: ReactNativeClient/lib/components/screens/note.js:773
@@ -3141,8 +3064,9 @@ msgid "Password cannot be empty"
 msgstr "Parolă nu poate fi un câmp gol"
 
 #: ReactNativeClient/lib/components/screens/encryption-config.js:139
+#, fuzzy
 msgid "Confirm password cannot be empty"
-msgstr "Parola confirmată nu poate fi un câmp gol"
+msgstr "Parolă nu poate fi un câmp gol"
 
 #: ReactNativeClient/lib/components/screens/encryption-config.js:150
 msgid ""
@@ -3158,7 +3082,7 @@ msgstr "Activați"
 
 #: ReactNativeClient/lib/components/screens/encryption-config.js:248
 msgid "Missing Master Keys"
-msgstr "Cheile master lipsă"
+msgstr ""
 
 #: ReactNativeClient/lib/components/screens/encryption-config.js:249
 msgid ""
@@ -3189,7 +3113,7 @@ msgstr ""
 #: ReactNativeClient/lib/components/screens/log.js:100
 #: ReactNativeClient/lib/components/screens/config.js:439
 msgid "Log"
-msgstr "Log"
+msgstr ""
 
 #: ReactNativeClient/lib/components/screens/log.js:117
 msgid "Show all"
@@ -3201,15 +3125,13 @@ msgstr "Doar erori"
 
 #: ReactNativeClient/lib/components/screens/config.js:50
 msgid "Warning"
-msgstr "Avertizare"
+msgstr ""
 
 #: ReactNativeClient/lib/components/screens/config.js:50
 msgid ""
 "In order to use file system synchronisation your permission to write to "
 "external storage is required."
 msgstr ""
-"Pentru a utiliza sincronizarea sistemului de fișiere este necesară "
-"permisiunea dumneavoastră de a scrie pe un spațiu de stocare extern."
 
 #: ReactNativeClient/lib/components/screens/config.js:436
 #, fuzzy
@@ -3222,8 +3144,9 @@ msgid "Sync Status"
 msgstr "Status"
 
 #: ReactNativeClient/lib/components/screens/config.js:441
+#, fuzzy
 msgid "Creating report..."
-msgstr "Se creează raport..."
+msgstr "Se crează un %s..."
 
 #: ReactNativeClient/lib/components/screens/config.js:441
 msgid "Export Debug Report"
@@ -3244,20 +3167,23 @@ msgid ""
 msgstr ""
 
 #: ReactNativeClient/lib/components/screens/config.js:446
+#, fuzzy
 msgid "Exporting profile..."
-msgstr "Se exportă profilul..."
+msgstr "Se importă notițe..."
 
 #: ReactNativeClient/lib/components/screens/config.js:446
+#, fuzzy
 msgid "Export profile"
-msgstr "Exportați profilul"
+msgstr "Exportați"
 
 #: ReactNativeClient/lib/components/screens/config.js:446
 msgid "For debugging purpose only: export your profile to an external SD card."
 msgstr ""
 
 #: ReactNativeClient/lib/components/screens/config.js:461
+#, fuzzy
 msgid "More information"
-msgstr "Informații suplimentare"
+msgstr "Configurare"
 
 #: ReactNativeClient/lib/components/screens/config.js:471
 msgid ""
@@ -3286,7 +3212,7 @@ msgstr "Website Joplin"
 #: ReactNativeClient/lib/components/screens/config.js:537
 #, javascript-format
 msgid "Database v%s"
-msgstr "Baza de date v%s"
+msgstr ""
 
 #: ReactNativeClient/lib/components/screens/config.js:543
 #, fuzzy, javascript-format
@@ -3330,9 +3256,9 @@ msgid "Unsupported image type: %s"
 msgstr ""
 
 #: ReactNativeClient/lib/components/screens/note.js:774
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Updated: %s"
-msgstr "Actualizat: %s"
+msgstr "Actualizat: %d."
 
 #: ReactNativeClient/lib/components/screens/note.js:778
 msgid "View on map"
@@ -3343,8 +3269,9 @@ msgid "Go to source URL"
 msgstr ""
 
 #: ReactNativeClient/lib/components/screens/note.js:813
+#, fuzzy
 msgid "Attach..."
-msgstr "Atașati..."
+msgstr "Caută..."
 
 #: ReactNativeClient/lib/components/screens/note.js:815
 #, fuzzy
@@ -3352,8 +3279,9 @@ msgid "Choose an option"
 msgstr "Afișați opțiunile avansate"
 
 #: ReactNativeClient/lib/components/screens/note.js:815
+#, fuzzy
 msgid "Take photo"
-msgstr ""
+msgstr "Atașează imagine"
 
 #: ReactNativeClient/lib/components/screens/note.js:815
 msgid "Attach photo"
@@ -3539,7 +3467,7 @@ msgstr "Atașați fișier"
 
 #: ReactNativeClient/lib/services/report.js:190
 msgid "Downloaded and decrypted"
-msgstr "Descărcat și decriptat"
+msgstr ""
 
 #: ReactNativeClient/lib/services/report.js:190
 #: ReactNativeClient/lib/services/report.js:191
@@ -3550,7 +3478,7 @@ msgstr "%s: %s"
 
 #: ReactNativeClient/lib/services/report.js:191
 msgid "Downloaded and encrypted"
-msgstr "Descărcat și criptat"
+msgstr ""
 
 #: ReactNativeClient/lib/services/report.js:204
 #, fuzzy
@@ -3588,7 +3516,7 @@ msgstr "De șters: %d"
 
 #: ReactNativeClient/lib/services/report.js:236
 msgid "Folders"
-msgstr "Fișiere"
+msgstr ""
 
 #: ReactNativeClient/lib/services/report.js:244
 #, javascript-format
@@ -3632,12 +3560,13 @@ msgid "Json Export Directory"
 msgstr ""
 
 #: ReactNativeClient/lib/services/InteropService.js:90
+#, fuzzy
 msgid "HTML File"
-msgstr "Fișier HTML"
+msgstr "Fișier"
 
 #: ReactNativeClient/lib/services/InteropService.js:95
 msgid "HTML Directory"
-msgstr "Directoriu HTML"
+msgstr ""
 
 #: ReactNativeClient/lib/services/InteropService.js:128
 msgid "File"
@@ -3645,7 +3574,7 @@ msgstr "Fișier"
 
 #: ReactNativeClient/lib/services/InteropService.js:128
 msgid "Directory"
-msgstr "Directoriu"
+msgstr ""
 
 #: ReactNativeClient/lib/services/InteropService.js:174
 #, javascript-format
@@ -3655,7 +3584,7 @@ msgstr ""
 #: ReactNativeClient/lib/services/InteropService.js:232
 #, javascript-format
 msgid "Please specify import format for %s"
-msgstr "Specificați formatul de import pentru% s"
+msgstr ""
 
 #: ReactNativeClient/lib/services/InteropService.js:361
 #, javascript-format
@@ -3663,8 +3592,6 @@ msgid ""
 "This item is currently encrypted: %s \"%s\". Please wait for all items to be "
 "decrypted and try again."
 msgstr ""
-"Acest element este criptat în prezent:% s \"% s\". Vă rugăm să așteptați ca "
-"toate elementele să fie decriptate și să încercați din nou."
 
 #~ msgid "Add or remove tags"
 #~ msgstr "Adăugați ori eliminați etichete"

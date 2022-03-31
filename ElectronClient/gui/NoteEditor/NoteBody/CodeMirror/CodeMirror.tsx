@@ -113,7 +113,7 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 			},
 			supportsCommand: (/* name:string*/) => {
 				// TODO: not implemented, currently only used for "search" command
-				// which is not directly supported by this Editor.
+				// which is not directly supported by Ace Editor.
 				return false;
 			},
 			execCommand: async (cmd: EditorCommand) => {
@@ -309,6 +309,11 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 		async function loadScripts() {
 			const scriptsToLoad:{src: string, id:string, loaded: boolean}[] = [
 				{
+					src: 'node_modules/codemirror/lib/codemirror.css',
+					id: 'codemirrorBaseStyle',
+					loaded: false,
+				},
+				{
 					src: 'node_modules/codemirror/addon/dialog/dialog.css',
 					id: 'codemirrorDialogStyle',
 					loaded: false,
@@ -479,12 +484,36 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 
 	useEffect(() => {
 		if (props.searchMarkers !== previousSearchMarkers || renderedBody !== previousRenderedBody) {
-			webviewRef.current.wrappedInstance.send('setMarkers', props.searchMarkers.keywords, props.searchMarkers.options);
-
+			// SEARCHHACK
+			// TODO: remove this options hack when aceeditor is removed
+			// Currently the webviewRef will send out an ipcMessage to set the results count
+			// Also setting it here will start an infinite loop of repeating the search
+			// Unfortunately we can't remove the function in the webview setMarkers
+			// until the aceeditor is remove.
+			// The below search is more accurate than the webview based one as it searches
+			// the text and not rendered html (rendered html fails if there is a match
+			// in a katex block)
+			// Once AceEditor is removed the options definition below can be removed and
+			// props.searchMarkers.options can be directly passed to as the 3rd argument below
+			// (replacing options)
+			let options = { notFromAce: true };
+			if (props.searchMarkers.options) {
+				options = Object.assign({}, props.searchMarkers.options, options);
+			}
+			webviewRef.current.wrappedInstance.send('setMarkers', props.searchMarkers.keywords, options);
+			//  SEARCHHACK
 			if (editorRef.current) {
 				const matches = editorRef.current.setMarkers(props.searchMarkers.keywords, props.searchMarkers.options);
 
-				props.setLocalSearchResultCount(matches);
+				// SEARCHHACK
+				// TODO: when aceeditor is removed then this check will be performed in the NoteSearchbar
+				// End the if statement can be removed in favor of simply returning matches
+				if (props.visiblePanes.includes('editor')) {
+					props.setLocalSearchResultCount(matches);
+				} else {
+					props.setLocalSearchResultCount(-1);
+				}
+				// end SEARCHHACK
 			}
 		}
 	}, [props.searchMarkers, props.setLocalSearchResultCount, renderedBody]);

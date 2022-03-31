@@ -177,8 +177,9 @@ class Dialog extends React.PureComponent {
 		return output.join(' ');
 	}
 
-	keywords() {
-		return this.props.highlightedWords;
+	keywords(searchQuery) {
+		const parsedQuery = SearchEngine.instance().parseQuery(searchQuery);
+		return SearchEngine.instance().allParsedQueryTerms(parsedQuery);
 	}
 
 	markupToHtml() {
@@ -226,7 +227,7 @@ class Dialog extends React.PureComponent {
 					}
 				} else {
 					const limit = 20;
-					const searchKeywords = this.keywords();
+					const searchKeywords = this.keywords(searchQuery);
 					const notes = await Note.byIds(results.map(result => result.id).slice(0, limit), { fields: ['id', 'body', 'markup_language', 'is_todo', 'todo_completed'] });
 					const notesById = notes.reduce((obj, { id, body, markup_language }) => ((obj[[id]] = { id, body, markup_language }), obj), {});
 
@@ -282,7 +283,7 @@ class Dialog extends React.PureComponent {
 			this.setState({
 				listType: listType,
 				results: results,
-				keywords: this.keywords(),
+				keywords: this.keywords(searchQuery),
 				selectedItemId: results.length === 0 ? null : results[0].id,
 				resultsInBody: resultsInBody,
 			});
@@ -454,7 +455,6 @@ const mapStateToProps = (state) => {
 		folders: state.folders,
 		theme: state.settings.theme,
 		showCompletedTodos: state.settings.showCompletedTodos,
-		highlightedWords: state.highlightedWords,
 	};
 };
 
