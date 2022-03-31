@@ -372,7 +372,7 @@ class Setting extends BaseModel {
 			},
 
 			'sync.target': {
-				value: 0,
+				value: 11,
 				type: SettingItemType.Int,
 				isEnum: true,
 				public: true,
@@ -1218,7 +1218,6 @@ class Setting extends BaseModel {
 			autoUpdateEnabled: { value: false, type: SettingItemType.Bool, storage: SettingStorage.File, section: 'application', public: platform !== 'linux', appTypes: [AppType.Desktop], label: () => _('Automatically check for updates') },
 			'autoUpdate.includePreReleases': { value: false, type: SettingItemType.Bool, section: 'application', storage: SettingStorage.File, public: true, appTypes: [AppType.Desktop], label: () => _('Get pre-releases when checking for updates'), description: () => _('See the pre-release page for more details: %s', 'https://joplinapp.org/prereleases') },
 			'clipperServer.autoStart': { value: false, type: SettingItemType.Bool, storage: SettingStorage.File, public: false },
-			'quorumServer.autoStart': { value: false, type: SettingItemType.Bool, storage: SettingStorage.File, public: false },
 			'sync.interval': {
 				value: 300,
 				type: SettingItemType.Int,

@@ -85,11 +85,9 @@ shared.saveSettings = function(comp) {
 		if (comp.state.changedSettingKeys.indexOf(key) < 0) continue;
 		if (key === 'sync.target') {
 			if (Setting.value(key) !== 11 && comp.state.settings[key] === 11) {
-				Setting.setValue('quorumServer.autoStart', true);
 				void QuorumServer.instance().start();
 			}
 			if (Setting.value(key) === 11 && comp.state.settings[key] !== 11) {
-				Setting.setValue('quorumServer.autoStart', false);
 				void QuorumServer.instance().stop();
 			}
 		}

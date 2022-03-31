@@ -501,7 +501,7 @@ class Application extends BaseApplication {
 		QuorumServer.instance().setLogger(quorumLogger);
 		QuorumServer.instance().setDispatch(this.store().dispatch);
 
-		if (Setting.value('quorumServer.autoStart')) {
+		if (Setting.value('sync.target') === 11) {
 			void QuorumServer.instance().start();
 		}
 
