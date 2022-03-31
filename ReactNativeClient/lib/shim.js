@@ -129,6 +129,5 @@ shim.clearInterval = function(id) {
 shim.stringByteLength = function(string) { throw new Error('Not implemented'); }
 shim.detectAndSetLocale = null;
 shim.attachFileToNote = async (note, filePath) => {}
-shim.Buffer = null;
 
 module.exports = { shim };

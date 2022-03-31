@@ -19,4 +19,3 @@ tests/sync
 out.txt
 linkToLocal.sh
 yarn-error.log
-tests/support/dropbox-auth.txt
