@@ -4,16 +4,14 @@
 	<table class="table is-hoverable">
 		<tbody>
 			{{#userProps}}
-				{{#show}}
-					<tr>
-						<td class="{{#classes}}{{.}}{{/classes}}">
-							<strong>{{label}}</strong>
-						</td>
-						<td class="{{#classes}}{{.}}{{/classes}}">
-							{{value}}
-						</td>
-					</tr>
-				{{/show}}
+				<tr>
+					<td>
+						<strong>{{label}}</strong>
+					</td>
+					<td>
+						{{value}}
+					</td>
+				</tr>
 			{{/userProps}}
 		</tbody>
 	</table>
