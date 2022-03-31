@@ -1,6 +1,6 @@
 <h1 class="title">Your profile</h1>
 
-<form id="user_form" action="{{{postUrl}}}" method="POST" class="block">
+<form id="user_form" action="{{{postUrl}}}" method="POST">
 
 	<div class="block">
 		{{> errorBanner}}
@@ -140,23 +140,18 @@
 		</div>
 	{{/subscription}}
 
-</form>
-
-{{#hasFlags}}
-	<div class="content user-flags block">
+	{{#userFlags}}
 		<h1 class="title">Flags</h1>
-		<form action="{{{postUrl}}}" method="POST">
-			{{{csrfTag}}}
-			{{#userFlagViews}}
-				<ul>
-					<li><label class="checkbox"><input type="checkbox" name="user_flag_{{type}}"> {{message}}</label></li>
-				</ul>
-			{{/userFlagViews}}
-			<input type="submit" name="delete_user_flags" class="button is-warning" value="Delete selected flags" />
-			<p class="help">Note: normally it should not be needed to manually delete a flag because that's automatically handled by the system. So if it's necessary it means there's a bug that should be fixed.</p>
-		</form>
-	</div>
-{{/hasFlags}}
+	{{/userFlags}}
+	
+	{{#userFlags}}
+		<ul>
+			<li>{{.}}</li>
+		</ul>
+	{{/userFlags}}
+	
+
+</form>
 
 <script>
 	$(() => {

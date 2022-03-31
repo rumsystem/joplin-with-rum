@@ -1,9 +1,7 @@
 {{#global.hasNotifications}}
 	{{#global.notifications}}
-	<div class="notification {{levelClassName}} content" id="notification-{{id}}">
-		{{#closeUrl}}
-			<button data-close-url="{{closeUrl}}" data-id="{{id}}" class="delete close-notification-button"></button>
-		{{/closeUrl}}
+	<div class="notification {{levelClassName}}" id="notification-{{id}}">
+		<button data-close-url="{{closeUrl}}" data-id="{{id}}" class="delete close-notification-button"></button>
 		{{{messageHtml}}}
 	</div>
 	{{/global.notifications}}

@@ -1,6 +1,5 @@
 import { isUniqueConstraintError } from '../db';
-import { User, UserFlag, UserFlagType, userFlagTypeToLabel, Uuid } from '../services/database/types';
-import { formatDateTime } from '../utils/time';
+import { User, UserFlag, UserFlagType, Uuid } from '../services/database/types';
 import BaseModel from './BaseModel';
 
 interface AddRemoveOptions {
@@ -11,10 +10,6 @@ function defaultAddRemoveOptions(): AddRemoveOptions {
 	return {
 		updateUser: true,
 	};
-}
-
-export function userFlagToString(flag: UserFlag): string {
-	return `${userFlagTypeToLabel(flag.type)} on ${formatDateTime(flag.created_time)}`;
 }
 
 export default class UserFlagModels extends BaseModel<UserFlag> {
@@ -79,8 +74,6 @@ export default class UserFlagModels extends BaseModel<UserFlag> {
 	}
 
 	public async removeMulti(userId: Uuid, flagTypes: UserFlagType[]) {
-		if (!flagTypes.length) return;
-
 		await this.withTransaction(async () => {
 			for (const flagType of flagTypes) {
 				await this.remove(userId, flagType, { updateUser: false });
@@ -93,7 +86,7 @@ export default class UserFlagModels extends BaseModel<UserFlag> {
 	// be set directly (except maybe in tests) - instead the appropriate user
 	// flags should be set, and this function will derive the enabled/can_upload
 	// properties from them.
-	public async updateUserFromFlags(userId: Uuid) {
+	private async updateUserFromFlags(userId: Uuid) {
 		const flags = await this.allByUserId(userId);
 		const user = await this.models().user().load(userId, { fields: ['id', 'can_upload', 'enabled'] });
 
