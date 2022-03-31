@@ -1,4 +1,5 @@
 const Resource = require('lib/models/Resource');
+const ResourceLocalState = require('lib/models/ResourceLocalState');
 const BaseService = require('lib/services/BaseService');
 const BaseSyncTarget = require('lib/BaseSyncTarget');
 const { Logger } = require('lib/logger.js');
@@ -175,7 +176,7 @@ class ResourceFetcher extends BaseService {
 	}
 
 	async start() {
-		await Resource.resetStartedFetchStatus();
+		await ResourceLocalState.resetStartedFetchStatus();
 		this.autoAddResources(10);
 	}
 
@@ -192,7 +193,7 @@ class ResourceFetcher extends BaseService {
 	}
 
 	async fetchAll() {
-		await Resource.resetStartedFetchStatus();
+		await ResourceLocalState.resetStartedFetchStatus();
 		this.autoAddResources(null);
 	}
 
