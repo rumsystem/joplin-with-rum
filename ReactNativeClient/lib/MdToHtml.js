@@ -395,6 +395,8 @@ class MdToHtml {
 			previousToken = t;
 		}
 
+		output.unshift('<!-- START_OF_DOCUMENT -->');
+
 		// Insert the extra CSS at the top of the HTML
 
 		if (!ObjectUtils.isEmpty(extraCssBlocks)) {
