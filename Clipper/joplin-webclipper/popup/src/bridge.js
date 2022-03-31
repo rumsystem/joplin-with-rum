@@ -2,7 +2,7 @@ const randomClipperPort = require('./randomClipperPort');
 
 class Bridge {
 
-	async init(browser, browserSupportsPromises, dispatch) {
+	init(browser, browserSupportsPromises, dispatch) {
 		console.info('Popup: Init bridge');
 
 		this.browser_ = browser;
@@ -36,7 +36,7 @@ class Bridge {
 
 		this.browser_.runtime.onMessage.addListener(this.browser_notify);
 
-		const backgroundPage = await this.backgroundPage(this.browser_);
+		const backgroundPage = this.browser_.extension.getBackgroundPage();
 
 		// Not sure why the getBackgroundPage() sometimes returns null, so
 		// in that case default to "prod" environment, which means the live
@@ -51,17 +51,6 @@ class Bridge {
 		});
 
 		this.findClipperServerPort();
-	}
-
-	async backgroundPage(browser) {
-		const bgp = browser.extension.getBackgroundPage();
-		if (bgp) return bgp;
-
-		return new Promise((resolve, reject) => {
-			browser.runtime.getBackgroundPage((bgp) => {
-				resolve(bgp);
-			})
-		});
 	}
 
 	env() {
