@@ -1,13 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 class JoplinError extends Error {
-    constructor(message, code = null, details = null) {
-        super(message);
-        this.code = null;
-        this.details = '';
-        this.code = code;
-        this.details = details;
-    }
+	constructor(message, code = null) {
+		super(message);
+		this.code = code;
+	}
 }
-exports.default = JoplinError;
-//# sourceMappingURL=JoplinError.js.map
+
+module.exports = JoplinError;

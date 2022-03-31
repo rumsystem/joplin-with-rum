@@ -4,12 +4,12 @@
 // one.
 
 import { AppState } from '../../app';
-import libStateToWhenClauseContext, { WhenClauseContextOptions } from '@joplin/lib/services/commands/stateToWhenClauseContext';
+import libStateToWhenClauseContext from '@joplin/lib/services/commands/stateToWhenClauseContext';
 import layoutItemProp from '../../gui/ResizableLayout/utils/layoutItemProp';
 
-export default function stateToWhenClauseContext(state: AppState, options: WhenClauseContextOptions = null) {
+export default function stateToWhenClauseContext(state: AppState) {
 	return {
-		...libStateToWhenClauseContext(state, options),
+		...libStateToWhenClauseContext(state),
 
 		// UI elements
 		markdownEditorVisible: !!state.settings['editor.codeView'],

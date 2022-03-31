@@ -1,7 +1,7 @@
 import { Dirnames } from './utils/types';
 import shim from '../../shim';
 
-import JoplinError from '../../JoplinError';
+const JoplinError = require('../../JoplinError');
 import time from '../../time';
 const { fileExtension, filename } = require('../../path-utils');
 

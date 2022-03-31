@@ -17,9 +17,9 @@ describe('notificationHandler', function() {
 	});
 
 	test('should check admin password', async function() {
-		const { session } = await createUserAndSession(1, true);
+		const { user, session } = await createUserAndSession(1, true);
 
-		const admin = await models().user().save({
+		const admin = await models().user({ userId: user.id }).save({
 			email: defaultAdminEmail,
 			password: defaultAdminPassword,
 			is_admin: 1,
@@ -38,7 +38,7 @@ describe('notificationHandler', function() {
 		}
 
 		{
-			await models().user().save({
+			await models().user({ userId: admin.id }).save({
 				id: admin.id,
 				password: 'changed!',
 			});

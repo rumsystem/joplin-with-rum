@@ -1,9 +1,13 @@
 import { useCallback } from 'react';
 import { FormNote } from './types';
-import contextMenu, { openItemById } from './contextMenu';
+import contextMenu from './contextMenu';
+import ResourceEditWatcher from '@joplin/lib/services/ResourceEditWatcher/index';
 import { _ } from '@joplin/lib/locale';
 import CommandService from '@joplin/lib/services/CommandService';
 import PostMessageService from '@joplin/lib/services/PostMessageService';
+import BaseItem from '@joplin/lib/models/BaseItem';
+import BaseModel from '@joplin/lib/BaseModel';
+import Resource from '@joplin/lib/models/Resource';
 const bridge = require('electron').remote.require('./bridge').default;
 const { urlDecode } = require('@joplin/lib/string-utils');
 const urlUtils = require('@joplin/lib/urlUtils');
@@ -42,13 +46,43 @@ export default function useMessageHandler(scrollWhenReady: any, setScrollWhenRea
 				linkToCopy: arg0.linkToCopy || null,
 				htmlToCopy: '',
 				insertContent: () => { console.warn('insertContent() not implemented'); },
-			}, dispatch);
+			});
 
 			menu.popup(bridge().window());
 		} else if (msg.indexOf('joplin://') === 0) {
-			const { itemId, hash } = urlUtils.parseResourceUrl(msg);
-			await openItemById(itemId, dispatch, hash);
+			const resourceUrlInfo = urlUtils.parseResourceUrl(msg);
+			const itemId = resourceUrlInfo.itemId;
+			const item = await BaseItem.loadItemById(itemId);
 
+			if (!item) throw new Error(`No item with ID ${itemId}`);
+
+			if (item.type_ === BaseModel.TYPE_RESOURCE) {
+				const localState = await Resource.localState(item);
+				if (localState.fetch_status !== Resource.FETCH_STATUS_DONE || !!item.encryption_blob_encrypted) {
+					if (localState.fetch_status === Resource.FETCH_STATUS_ERROR) {
+						bridge().showErrorMessageBox(`${_('There was an error downloading this attachment:')}\n\n${localState.fetch_error}`);
+					} else {
+						bridge().showErrorMessageBox(_('This attachment is not downloaded or not decrypted yet'));
+					}
+					return;
+				}
+
+				try {
+					await ResourceEditWatcher.instance().openAndWatch(item.id);
+				} catch (error) {
+					console.error(error);
+					bridge().showErrorMessageBox(error.message);
+				}
+			} else if (item.type_ === BaseModel.TYPE_NOTE) {
+				dispatch({
+					type: 'FOLDER_AND_NOTE_SELECT',
+					folderId: item.parent_id,
+					noteId: item.id,
+					hash: resourceUrlInfo.hash,
+				});
+			} else {
+				throw new Error(`Unsupported item type: ${item.type_}`);
+			}
 		} else if (urlUtils.urlProtocol(msg)) {
 			if (msg.indexOf('file://') === 0) {
 				// When using the file:// protocol, openPath doesn't work (does nothing) with URL-encoded paths

@@ -6,7 +6,7 @@ import MasterKey from '../models/MasterKey';
 import BaseItem from '../models/BaseItem';
 
 const { padLeft } = require('../string-utils.js');
-import JoplinError from '../JoplinError';
+const JoplinError = require('../JoplinError');
 
 function hexPad(s: string, length: number) {
 	return padLeft(s, length, '0');

@@ -10,6 +10,7 @@ interface FileApiOptions {
 	path(): string;
 	username(): string;
 	password(): string;
+	directory(): string;
 }
 
 export default class SyncTargetJoplinServer extends BaseSyncTarget {
@@ -27,7 +28,7 @@ export default class SyncTargetJoplinServer extends BaseSyncTarget {
 	}
 
 	public static label() {
-		return `${_('Joplin Server')} (Beta)`;
+		return _('Joplin Server');
 	}
 
 	public async isAuthenticated() {
@@ -43,12 +44,11 @@ export default class SyncTargetJoplinServer extends BaseSyncTarget {
 			baseUrl: () => options.path(),
 			username: () => options.username(),
 			password: () => options.password(),
-			env: Setting.value('env'),
 		};
 
 		const api = new JoplinServerApi(apiOptions);
 		const driver = new FileApiDriverJoplinServer(api);
-		const fileApi = new FileApi('', driver);
+		const fileApi = new FileApi(options.directory, driver);
 		fileApi.setSyncTargetId(this.id());
 		await fileApi.initialize();
 		return fileApi;
@@ -64,10 +64,8 @@ export default class SyncTargetJoplinServer extends BaseSyncTarget {
 			const fileApi = await SyncTargetJoplinServer.newFileApi_(options);
 			fileApi.requestRepeatCount_ = 0;
 
-			await fileApi.put('testing.txt', 'testing');
-			const result = await fileApi.get('testing.txt');
-			if (result !== 'testing') throw new Error(`Could not access data on server "${options.path()}"`);
-			await fileApi.delete('testing.txt');
+			const result = await fileApi.stat('');
+			if (!result) throw new Error(`Sync directory not found: "${options.directory()}" on server "${options.path()}"`);
 			output.ok = true;
 		} catch (error) {
 			output.errorMessage = error.message;
@@ -82,6 +80,7 @@ export default class SyncTargetJoplinServer extends BaseSyncTarget {
 			path: () => Setting.value('sync.9.path'),
 			username: () => Setting.value('sync.9.username'),
 			password: () => Setting.value('sync.9.password'),
+			directory: () => Setting.value('sync.9.directory'),
 		});
 
 		fileApi.setLogger(this.logger());

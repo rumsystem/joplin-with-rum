@@ -2,14 +2,14 @@ import Setting from './models/Setting';
 import Logger, { TargetType, LoggerWrapper } from './Logger';
 import shim from './shim';
 import BaseService from './services/BaseService';
-import reducer, { setStore } from './reducer';
+import reducer from './reducer';
 import KeychainServiceDriver from './services/keychain/KeychainServiceDriver.node';
 import { _, setLocale } from './locale';
 import KvStore from './services/KvStore';
 import SyncTargetJoplinServer from './SyncTargetJoplinServer';
 import SyncTargetOneDrive from './SyncTargetOneDrive';
 
-import { createStore, applyMiddleware, Store } from 'redux';
+const { createStore, applyMiddleware } = require('redux');
 const { defaultState, stateUtils } = require('./reducer');
 import JoplinDatabase from './JoplinDatabase';
 const { FoldersScreenUtils } = require('./folders-screen-utils.js');
@@ -26,7 +26,7 @@ import BaseSyncTarget from './BaseSyncTarget';
 const reduxSharedMiddleware = require('./components/shared/reduxSharedMiddleware');
 const os = require('os');
 const fs = require('fs-extra');
-import JoplinError from './JoplinError';
+const JoplinError = require('./JoplinError');
 const EventEmitter = require('events');
 const syswidecas = require('./vendor/syswide-cas');
 const SyncTargetRegistry = require('./SyncTargetRegistry.js');
@@ -44,7 +44,6 @@ import ResourceService from './services/ResourceService';
 import DecryptionWorker from './services/DecryptionWorker';
 const { loadKeychainServiceAndSettings } = require('./services/SettingUtils');
 import MigrationService from './services/MigrationService';
-import ShareService from './services/share/ShareService';
 import handleSyncStartupOperation from './services/synchronizer/utils/handleSyncStartupOperation';
 const { toSystemSlashes } = require('./path-utils');
 const { setAutoFreeze } = require('immer');
@@ -68,7 +67,7 @@ export default class BaseApplication {
 	// state and UI out of sync.
 	private currentFolder_: any = null;
 
-	protected store_: Store<any> = null;
+	protected store_: any = null;
 
 	constructor() {
 		this.eventEmitter_ = new EventEmitter();
@@ -603,15 +602,13 @@ export default class BaseApplication {
 	}
 
 	initRedux() {
-		this.store_ = createStore(this.reducer, applyMiddleware(this.generalMiddlewareFn() as any));
-		setStore(this.store_);
+		this.store_ = createStore(this.reducer, applyMiddleware(this.generalMiddlewareFn()));
 		BaseModel.dispatch = this.store().dispatch;
 		FoldersScreenUtils.dispatch = this.store().dispatch;
 		// reg.dispatch = this.store().dispatch;
 		BaseSyncTarget.dispatch = this.store().dispatch;
 		DecryptionWorker.instance().dispatch = this.store().dispatch;
 		ResourceFetcher.instance().dispatch = this.store().dispatch;
-		ShareService.instance().initialize(this.store());
 	}
 
 	deinitRedux() {
@@ -796,7 +793,6 @@ export default class BaseApplication {
 
 		EncryptionService.instance().setLogger(globalLogger);
 		BaseItem.encryptionService_ = EncryptionService.instance();
-		BaseItem.shareService_ = ShareService.instance();
 		DecryptionWorker.instance().setLogger(globalLogger);
 		DecryptionWorker.instance().setEncryptionService(EncryptionService.instance());
 		DecryptionWorker.instance().setKvStore(KvStore.instance());

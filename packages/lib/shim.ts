@@ -169,7 +169,7 @@ const shim = {
 		}
 	},
 
-	fetch: (_url: string, _options: any = null): any => {
+	fetch: (_url: string, _options: any): any => {
 		throw new Error('Not implemented');
 	},
 

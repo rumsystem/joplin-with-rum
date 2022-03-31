@@ -67,7 +67,7 @@ function baseUrlFromEnv(env: any, appPort: number): string {
 
 let config_: Config = null;
 
-export function initConfig(env: EnvVariables, overrides: any = null) {
+export function initConfig(env: EnvVariables) {
 	runningInDocker_ = !!env.RUNNING_IN_DOCKER;
 
 	const rootDir = pathUtils.dirname(__dirname);
@@ -83,7 +83,6 @@ export function initConfig(env: EnvVariables, overrides: any = null) {
 		database: databaseConfigFromEnv(runningInDocker_, env),
 		port: appPort,
 		baseUrl: baseUrlFromEnv(env, appPort),
-		...overrides,
 	};
 }
 

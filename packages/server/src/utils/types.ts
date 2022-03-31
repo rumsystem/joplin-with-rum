@@ -2,8 +2,7 @@ import { LoggerWrapper } from '@joplin/lib/Logger';
 import * as Koa from 'koa';
 import { DbConnection, User, Uuid } from '../db';
 import { Models } from '../models/factory';
-import { Services } from '../services/types';
-import { Routers } from './routeUtils';
+import Applications from '../services/Applications';
 
 export enum Env {
 	Dev = 'dev',
@@ -25,8 +24,7 @@ export interface AppContext extends Koa.Context {
 	appLogger(): LoggerWrapper;
 	notifications: NotificationView[];
 	owner: User;
-	routes: Routers;
-	services: Services;
+	apps: Applications;
 }
 
 export enum DatabaseConfigClient {

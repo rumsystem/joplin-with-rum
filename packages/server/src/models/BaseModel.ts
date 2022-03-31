@@ -1,25 +1,22 @@
-import { WithDates, WithUuid, databaseSchema, DbConnection, ItemType, Uuid, User } from '../db';
+import { WithDates, WithUuid, databaseSchema, DbConnection, ItemType, ChangeType } from '../db';
 import TransactionHandler from '../utils/TransactionHandler';
 import uuidgen from '../utils/uuidgen';
 import { ErrorUnprocessableEntity, ErrorBadRequest } from '../utils/errors';
 import { Models } from './factory';
-import * as EventEmitter from 'events';
+
+export interface ModelOptions {
+	userId?: string;
+}
 
 export interface SaveOptions {
 	isNew?: boolean;
 	skipValidation?: boolean;
 	validationRules?: any;
-	previousItem?: any;
-}
-
-export interface LoadOptions {
-	fields?: string[];
+	trackChanges?: boolean;
 }
 
 export interface DeleteOptions {
 	validationRules?: any;
-	allowNoOp?: boolean;
-	deletedItemUserIds?: Record<Uuid, Uuid[]>;
 }
 
 export interface ValidateOptions {
@@ -27,29 +24,24 @@ export interface ValidateOptions {
 	rules?: any;
 }
 
-export enum AclAction {
-	Create = 1,
-	Read = 2,
-	Update = 3,
-	Delete = 4,
-	List = 5,
-}
-
 export default abstract class BaseModel<T> {
 
+	private options_: ModelOptions = null;
 	private defaultFields_: string[] = [];
 	private db_: DbConnection;
 	private transactionHandler_: TransactionHandler;
 	private modelFactory_: Function;
 	private baseUrl_: string;
-	private static eventEmitter_: EventEmitter = null;
 
-	public constructor(db: DbConnection, modelFactory: Function, baseUrl: string) {
+	public constructor(db: DbConnection, modelFactory: Function, baseUrl: string, options: ModelOptions = null) {
 		this.db_ = db;
 		this.modelFactory_ = modelFactory;
 		this.baseUrl_ = baseUrl;
+		this.options_ = Object.assign({}, options);
 
 		this.transactionHandler_ = new TransactionHandler(db);
+
+		if ('userId' in this.options && !this.options.userId) throw new Error('If userId is set, it cannot be null');
 	}
 
 	// When a model create an instance of another model, the active
@@ -61,6 +53,14 @@ export default abstract class BaseModel<T> {
 
 	protected get baseUrl(): string {
 		return this.baseUrl_;
+	}
+
+	protected get options(): ModelOptions {
+		return this.options_;
+	}
+
+	protected get userId(): string {
+		return this.options.userId;
 	}
 
 	protected get db(): DbConnection {
@@ -75,34 +75,6 @@ export default abstract class BaseModel<T> {
 		return this.defaultFields_.slice();
 	}
 
-	public static get eventEmitter(): EventEmitter {
-		if (!this.eventEmitter_) {
-			this.eventEmitter_ = new EventEmitter();
-		}
-		return this.eventEmitter_;
-	}
-
-	public async checkIfAllowed(_user: User, _action: AclAction, _resource: T = null): Promise<void> {
-		throw new Error('Must be overriden');
-	}
-
-	protected selectFields(options: LoadOptions, defaultFields: string[] = null, mainTable: string = ''): string[] {
-		let output: string[] = [];
-		if (options && options.fields) {
-			output = options.fields;
-		} else if (defaultFields) {
-			output = defaultFields;
-		} else {
-			output = this.defaultFields;
-		}
-
-		if (mainTable) {
-			output = output.map(f => `${mainTable}.${f}`);
-		}
-
-		return output;
-	}
-
 	protected get tableName(): string {
 		throw new Error('Not implemented');
 	}
@@ -111,11 +83,15 @@ export default abstract class BaseModel<T> {
 		throw new Error('Not implemented');
 	}
 
+	protected get trackChanges(): boolean {
+		return false;
+	}
+
 	protected hasUuid(): boolean {
 		return true;
 	}
 
-	protected autoTimestampEnabled(): boolean {
+	protected hasDateProperties(): boolean {
 		return true;
 	}
 
@@ -145,7 +121,7 @@ export default abstract class BaseModel<T> {
 	//
 	// The `name` argument is only for debugging, so that any stuck transaction
 	// can be more easily identified.
-	protected async withTransaction<T>(fn: Function, name: string = null): Promise<T> {
+	protected async withTransaction(fn: Function, name: string = null): Promise<void> {
 		const debugTransaction = false;
 
 		const debugTimerId = debugTransaction ? setTimeout(() => {
@@ -156,10 +132,8 @@ export default abstract class BaseModel<T> {
 
 		if (debugTransaction) console.info('START', name, txIndex);
 
-		let output: T = null;
-
 		try {
-			output = await fn();
+			await fn();
 		} catch (error) {
 			await this.transactionHandler_.rollback(txIndex);
 
@@ -177,12 +151,10 @@ export default abstract class BaseModel<T> {
 		}
 
 		await this.transactionHandler_.commit(txIndex);
-		return output;
 	}
 
-	public async all(options: LoadOptions = {}): Promise<T[]> {
-		const rows: any[] = await this.db(this.tableName).select(this.selectFields(options));
-		return rows as T[];
+	public async all(): Promise<T[]> {
+		return this.db(this.tableName).select(...this.defaultFields);
 	}
 
 	public fromApiInput(object: T): T {
@@ -198,16 +170,8 @@ export default abstract class BaseModel<T> {
 		return output;
 	}
 
-	protected objectToApiOutput(object: T): T {
+	public toApiOutput(object: any): any {
 		return { ...object };
-	}
-
-	public toApiOutput(object: T | T[]): T | T[] {
-		if (Array.isArray(object)) {
-			return object.map(f => this.objectToApiOutput(f));
-		} else {
-			return this.objectToApiOutput(object);
-		}
 	}
 
 	protected async validate(object: T, options: ValidateOptions = {}): Promise<T> {
@@ -218,8 +182,29 @@ export default abstract class BaseModel<T> {
 	protected async isNew(object: T, options: SaveOptions): Promise<boolean> {
 		if (options.isNew === false) return false;
 		if (options.isNew === true) return true;
-		if ('id' in object && !(object as WithUuid).id) throw new Error('ID cannot be undefined or null');
 		return !(object as WithUuid).id;
+	}
+
+	private async handleChangeTracking(options: SaveOptions, item: T, changeType: ChangeType): Promise<void> {
+		const trackChanges = this.trackChanges && options.trackChanges !== false;
+		if (!trackChanges) return;
+
+		let parentId = null;
+		if (this.hasParentId) {
+			if (!('parent_id' in item)) {
+				const temp: any = await this.db(this.tableName).select(['parent_id']).where('id', '=', (item as WithUuid).id).first();
+				parentId = temp.parent_id;
+			} else {
+				parentId = (item as any).parent_id;
+			}
+		}
+
+		// Sanity check - shouldn't happen
+		// Parent ID can be an empty string for root folders, but it shouldn't be null or undefined
+		if (this.hasParentId && !parentId && parentId !== '') throw new Error(`Could not find parent ID for item: ${(item as WithUuid).id}`);
+
+		const changeModel = this.models().change({ userId: this.userId });
+		await changeModel.add(this.itemType, parentId, (item as WithUuid).id, (item as any).name || '', changeType);
 	}
 
 	public async save(object: T, options: SaveOptions = {}): Promise<T> {
@@ -229,11 +214,11 @@ export default abstract class BaseModel<T> {
 
 		const isNew = await this.isNew(object, options);
 
-		if (this.hasUuid() && isNew && !(toSave as WithUuid).id) {
+		if (isNew && !(toSave as WithUuid).id) {
 			(toSave as WithUuid).id = uuidgen();
 		}
 
-		if (this.autoTimestampEnabled()) {
+		if (this.hasDateProperties()) {
 			const timestamp = Date.now();
 			if (isNew) {
 				(toSave as WithDates).created_time = timestamp;
@@ -246,12 +231,15 @@ export default abstract class BaseModel<T> {
 		await this.withTransaction(async () => {
 			if (isNew) {
 				await this.db(this.tableName).insert(toSave);
+				await this.handleChangeTracking(options, toSave, ChangeType.Create);
 			} else {
 				const objectId: string = (toSave as WithUuid).id;
 				if (!objectId) throw new Error('Missing "id" property');
 				delete (toSave as WithUuid).id;
 				const updatedCount: number = await this.db(this.tableName).update(toSave).where({ id: objectId });
 				(toSave as WithUuid).id = objectId;
+
+				await this.handleChangeTracking(options, toSave, ChangeType.Update);
 
 				// Sanity check:
 				if (updatedCount !== 1) throw new ErrorBadRequest(`one row should have been updated, but ${updatedCount} row(s) were updated`);
@@ -261,23 +249,30 @@ export default abstract class BaseModel<T> {
 		return toSave;
 	}
 
-	public async loadByIds(ids: string[], options: LoadOptions = {}): Promise<T[]> {
+	public async loadByIds(ids: string[]): Promise<T[]> {
 		if (!ids.length) return [];
-		return this.db(this.tableName).select(options.fields || this.defaultFields).whereIn('id', ids);
+		return this.db(this.tableName).select(this.defaultFields).whereIn('id', ids);
 	}
 
-	public async load(id: string, options: LoadOptions = {}): Promise<T> {
+	public async load(id: string): Promise<T> {
 		if (!id) throw new Error('id cannot be empty');
 
-		return this.db(this.tableName).select(options.fields || this.defaultFields).where({ id: id }).first();
+		return this.db(this.tableName).select(this.defaultFields).where({ id: id }).first();
 	}
 
-	public async delete(id: string | string[], options: DeleteOptions = {}): Promise<void> {
+	public async delete(id: string | string[]): Promise<void> {
 		if (!id) throw new Error('id cannot be empty');
 
 		const ids = typeof id === 'string' ? [id] : id;
 
 		if (!ids.length) throw new Error('no id provided');
+
+		const trackChanges = this.trackChanges;
+
+		let itemsWithParentIds: T[] = null;
+		if (trackChanges) {
+			itemsWithParentIds = await this.db(this.tableName).select(['id', 'parent_id', 'name']).whereIn('id', ids);
+		}
 
 		await this.withTransaction(async () => {
 			const query = this.db(this.tableName).where({ id: ids[0] });
@@ -286,7 +281,11 @@ export default abstract class BaseModel<T> {
 			}
 
 			const deletedCount = await query.del();
-			if (!options.allowNoOp && deletedCount !== ids.length) throw new Error(`${ids.length} row(s) should have been deleted but ${deletedCount} row(s) were deleted`);
+			if (deletedCount !== ids.length) throw new Error(`${ids.length} row(s) should have been deleted by ${deletedCount} row(s) were deleted`);
+
+			if (trackChanges) {
+				for (const item of itemsWithParentIds) await this.handleChangeTracking({}, item, ChangeType.Delete);
+			}
 		}, 'BaseModel::delete');
 	}
 

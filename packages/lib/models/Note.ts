@@ -111,7 +111,7 @@ export default class Note extends BaseItem {
 		return BaseModel.TYPE_NOTE;
 	}
 
-	public static linkedItemIds(body: string): string[] {
+	static linkedItemIds(body: string): string[] {
 		if (!body || body.length <= 32) return [];
 
 		const links = urlUtils.extractResourceUrls(body);

@@ -29,16 +29,12 @@ import { themeStyle } from '@joplin/lib/theme';
 import validateLayout from '../ResizableLayout/utils/validateLayout';
 import iterateItems from '../ResizableLayout/utils/iterateItems';
 import removeItem from '../ResizableLayout/utils/removeItem';
-import EncryptionService from '@joplin/lib/services/EncryptionService';
-import ShareFolderDialog from '../ShareFolderDialog/ShareFolderDialog';
-import { ShareInvitation } from '@joplin/lib/services/share/reducer';
-import ShareService from '@joplin/lib/services/share/ShareService';
-import { reg } from '@joplin/lib/registry';
 
 const { connect } = require('react-redux');
 const { PromptDialog } = require('../PromptDialog.min.js');
 const NotePropertiesDialog = require('../NotePropertiesDialog.min.js');
 const PluginManager = require('@joplin/lib/services/PluginManager');
+import EncryptionService from '@joplin/lib/services/EncryptionService';
 const ipcRenderer = require('electron').ipcRenderer;
 
 interface LayerModalState {
@@ -67,13 +63,7 @@ interface Props {
 	settingEditorCodeView: boolean;
 	pluginsLegacy: any;
 	startupPluginsLoaded: boolean;
-	shareInvitations: ShareInvitation[];
 	isSafeMode: boolean;
-}
-
-interface ShareFolderDialogOptions {
-	folderId: string;
-	visible: boolean;
 }
 
 interface State {
@@ -82,7 +72,6 @@ interface State {
 	notePropertiesDialogOptions: any;
 	noteContentPropertiesDialogOptions: any;
 	shareNoteDialogOptions: any;
-	shareFolderDialogOptions: ShareFolderDialogOptions;
 }
 
 const StyledUserWebviewDialogContainer = styled.div`
@@ -116,7 +105,6 @@ const commands = [
 	require('./commands/newTodo'),
 	require('./commands/print'),
 	require('./commands/renameFolder'),
-	require('./commands/showShareFolderDialog'),
 	require('./commands/renameTag'),
 	require('./commands/search'),
 	require('./commands/selectTemplate'),
@@ -156,10 +144,6 @@ class MainScreenComponent extends React.Component<Props, State> {
 			notePropertiesDialogOptions: {},
 			noteContentPropertiesDialogOptions: {},
 			shareNoteDialogOptions: {},
-			shareFolderDialogOptions: {
-				visible: false,
-				folderId: '',
-			},
 		};
 
 		this.updateMainLayout(this.buildLayout(props.plugins));
@@ -171,7 +155,6 @@ class MainScreenComponent extends React.Component<Props, State> {
 		this.notePropertiesDialog_close = this.notePropertiesDialog_close.bind(this);
 		this.noteContentPropertiesDialog_close = this.noteContentPropertiesDialog_close.bind(this);
 		this.shareNoteDialog_close = this.shareNoteDialog_close.bind(this);
-		this.shareFolderDialog_close = this.shareFolderDialog_close.bind(this);
 		this.resizableLayout_resize = this.resizableLayout_resize.bind(this);
 		this.resizableLayout_renderItem = this.resizableLayout_renderItem.bind(this);
 		this.resizableLayout_moveButtonClick = this.resizableLayout_moveButtonClick.bind(this);
@@ -219,10 +202,6 @@ class MainScreenComponent extends React.Component<Props, State> {
 		}
 
 		return newLayout !== layout ? validateLayout(newLayout) : layout;
-	}
-
-	private showShareInvitationNotification(props: Props): boolean {
-		return !!props.shareInvitations.find(i => i.status === 0);
 	}
 
 	private buildLayout(plugins: PluginStates): LayoutItem {
@@ -289,12 +268,8 @@ class MainScreenComponent extends React.Component<Props, State> {
 		this.setState({ noteContentPropertiesDialogOptions: {} });
 	}
 
-	private shareNoteDialog_close() {
+	shareNoteDialog_close() {
 		this.setState({ shareNoteDialogOptions: {} });
-	}
-
-	private shareFolderDialog_close() {
-		this.setState({ shareFolderDialogOptions: { visible: false, folderId: '' } });
 	}
 
 	updateMainLayout(layout: LayoutItem) {
@@ -343,13 +318,6 @@ class MainScreenComponent extends React.Component<Props, State> {
 			this.props.dispatch({
 				type: this.state.shareNoteDialogOptions && this.state.shareNoteDialogOptions.visible ? 'VISIBLE_DIALOGS_ADD' : 'VISIBLE_DIALOGS_REMOVE',
 				name: 'shareNote',
-			});
-		}
-
-		if (this.state.shareFolderDialogOptions !== prevState.shareFolderDialogOptions) {
-			this.props.dispatch({
-				type: this.state.shareFolderDialogOptions && this.state.shareFolderDialogOptions.visible ? 'VISIBLE_DIALOGS_ADD' : 'VISIBLE_DIALOGS_REMOVE',
-				name: 'shareFolder',
 			});
 		}
 
@@ -528,12 +496,6 @@ class MainScreenComponent extends React.Component<Props, State> {
 			bridge().restart();
 		};
 
-		const onInvitationRespond = async (shareUserId: string, accept: boolean) => {
-			await ShareService.instance().respondInvitation(shareUserId, accept);
-			await ShareService.instance().refreshShareInvitations();
-			void reg.scheduleSync(1000);
-		};
-
 		let msg = null;
 
 		if (this.props.isSafeMode) {
@@ -554,12 +516,30 @@ class MainScreenComponent extends React.Component<Props, State> {
 					</a>
 				</span>
 			);
+		} else if (this.props.hasDisabledSyncItems) {
+			msg = (
+				<span>
+					{_('Some items cannot be synchronised.')}{' '}
+					<a href="#" onClick={() => onViewStatusScreen()}>
+						{_('View them now')}
+					</a>
+				</span>
+			);
 		} else if (this.props.hasDisabledEncryptionItems) {
 			msg = (
 				<span>
 					{_('Some items cannot be decrypted.')}{' '}
 					<a href="#" onClick={() => onViewStatusScreen()}>
 						{_('View them now')}
+					</a>
+				</span>
+			);
+		} else if (this.props.showMissingMasterKeyMessage) {
+			msg = (
+				<span>
+					{_('One or more master keys need a password.')}{' '}
+					<a href="#" onClick={() => onViewEncryptionConfigScreen()}>
+						{_('Set the password')}
 					</a>
 				</span>
 			);
@@ -581,40 +561,6 @@ class MainScreenComponent extends React.Component<Props, State> {
 					</a>
 				</span>
 			);
-		} else if (this.showShareInvitationNotification(this.props)) {
-			const invitation = this.props.shareInvitations[0];
-			const sharer = invitation.share.user;
-
-			msg = (
-				<span>
-					{_('%s (%s) would like to share a notebook with you.', sharer.full_name, sharer.email)}{' '}
-					<a href="#" onClick={() => onInvitationRespond(invitation.id, true)}>
-						{_('Accept')}
-					</a>
-					{' / '}
-					<a href="#" onClick={() => onInvitationRespond(invitation.id,true)}>
-						{_('Reject')}
-					</a>
-				</span>
-			);
-		} else if (this.props.hasDisabledSyncItems) {
-			msg = (
-				<span>
-					{_('Some items cannot be synchronised.')}{' '}
-					<a href="#" onClick={() => onViewStatusScreen()}>
-						{_('View them now')}
-					</a>
-				</span>
-			);
-		} else if (this.props.showMissingMasterKeyMessage) {
-			msg = (
-				<span>
-					{_('One or more master keys need a password.')}{' '}
-					<a href="#" onClick={() => onViewEncryptionConfigScreen()}>
-						{_('Set the password')}
-					</a>
-				</span>
-			);
 		}
 
 		return (
@@ -626,7 +572,7 @@ class MainScreenComponent extends React.Component<Props, State> {
 
 	messageBoxVisible(props: Props = null) {
 		if (!props) props = this.props;
-		return props.hasDisabledSyncItems || props.showMissingMasterKeyMessage || props.showNeedUpgradingMasterKeyMessage || props.showShouldReencryptMessage || props.hasDisabledEncryptionItems || this.props.shouldUpgradeSyncTarget || props.isSafeMode || this.showShareInvitationNotification(props);
+		return props.hasDisabledSyncItems || props.showMissingMasterKeyMessage || props.showNeedUpgradingMasterKeyMessage || props.showShouldReencryptMessage || props.hasDisabledEncryptionItems || this.props.shouldUpgradeSyncTarget || props.isSafeMode;
 	}
 
 	registerCommands() {
@@ -793,7 +739,6 @@ class MainScreenComponent extends React.Component<Props, State> {
 		const notePropertiesDialogOptions = this.state.notePropertiesDialogOptions;
 		const noteContentPropertiesDialogOptions = this.state.noteContentPropertiesDialogOptions;
 		const shareNoteDialogOptions = this.state.shareNoteDialogOptions;
-		const shareFolderDialogOptions = this.state.shareFolderDialogOptions;
 
 		const layoutComp = this.props.mainLayout ? (
 			<ResizableLayout
@@ -814,7 +759,6 @@ class MainScreenComponent extends React.Component<Props, State> {
 				{noteContentPropertiesDialogOptions.visible && <NoteContentPropertiesDialog markupLanguage={noteContentPropertiesDialogOptions.markupLanguage} themeId={this.props.themeId} onClose={this.noteContentPropertiesDialog_close} text={noteContentPropertiesDialogOptions.text}/>}
 				{notePropertiesDialogOptions.visible && <NotePropertiesDialog themeId={this.props.themeId} noteId={notePropertiesDialogOptions.noteId} onClose={this.notePropertiesDialog_close} onRevisionLinkClick={notePropertiesDialogOptions.onRevisionLinkClick} />}
 				{shareNoteDialogOptions.visible && <ShareNoteDialog themeId={this.props.themeId} noteIds={shareNoteDialogOptions.noteIds} onClose={this.shareNoteDialog_close} />}
-				{shareFolderDialogOptions.visible && <ShareFolderDialog themeId={this.props.themeId} folderId={shareFolderDialogOptions.folderId} onClose={this.shareFolderDialog_close} />}
 
 				<PromptDialog autocomplete={promptOptions && 'autocomplete' in promptOptions ? promptOptions.autocomplete : null} defaultValue={promptOptions && promptOptions.value ? promptOptions.value : ''} themeId={this.props.themeId} style={styles.prompt} onClose={this.promptOnClose_} label={promptOptions ? promptOptions.label : ''} description={promptOptions ? promptOptions.description : null} visible={!!this.state.promptOptions} buttons={promptOptions && 'buttons' in promptOptions ? promptOptions.buttons : null} inputType={promptOptions && 'inputType' in promptOptions ? promptOptions.inputType : null} />
 
@@ -850,7 +794,6 @@ const mapStateToProps = (state: AppState) => {
 		layoutMoveMode: state.layoutMoveMode,
 		mainLayout: state.mainLayout,
 		startupPluginsLoaded: state.startupPluginsLoaded,
-		shareInvitations: state.shareService.shareInvitations,
 		isSafeMode: state.settings.isSafeMode,
 	};
 };

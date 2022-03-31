@@ -33,9 +33,6 @@ describe('utils', () => {
 		const testCases = [
 			['line1\nline2\n', 'newline\n', 'line1\nline2\nnewline\n'],
 			['line1\nline2\n', 'line1\nnewline\n', 'line1\nline2\nnewline\n'],
-			['line1\r\nline2\r\n', 'line1\nnewline\n', 'line1\nline2\nnewline\n'],
-			['line1\nline2\n', 'line1\r\nnewline\r\n', 'line1\nline2\nnewline\n'],
-			['line1\r\nline2\r\n', 'line1\r\nnewline\r\n', 'line1\nline2\nnewline\n'],
 		];
 
 		for (const t of testCases) {

@@ -1,5 +1,7 @@
-import { routeResponseFormat, Response, RouteResponseFormat, execRequest } from '../utils/routeUtils';
-import { AppContext, Env } from '../utils/types';
+import routes from '../routes/routes';
+import { ErrorForbidden, ErrorNotFound } from '../utils/errors';
+import { routeResponseFormat, findMatchingRoute, Response, RouteResponseFormat, MatchedRoute } from '../utils/routeUtils';
+import { AppContext, Env, HttpMethod } from '../utils/types';
 import MustacheService, { isView, View } from '../services/MustacheService';
 import config from '../config';
 
@@ -14,21 +16,38 @@ function mustache(): MustacheService {
 export default async function(ctx: AppContext) {
 	ctx.appLogger().info(`${ctx.request.method} ${ctx.path}`);
 
-	try {
-		const responseObject = await execRequest(ctx.routes, ctx);
+	const match: MatchedRoute = null;
 
-		if (responseObject instanceof Response) {
-			ctx.response = responseObject.response;
-		} else if (isView(responseObject)) {
-			ctx.response.status = 200;
-			ctx.response.body = await mustache().renderView(responseObject, {
-				notifications: ctx.notifications || [],
-				hasNotifications: !!ctx.notifications && !!ctx.notifications.length,
-				owner: ctx.owner,
-			});
+	try {
+		const match = findMatchingRoute(ctx.path, routes);
+
+		if (match) {
+			let responseObject = null;
+
+			const routeHandler = match.route.findEndPoint(ctx.request.method as HttpMethod, match.subPath.schema);
+
+			// This is a generic catch-all for all private end points - if we
+			// couldn't get a valid session, we exit now. Individual end points
+			// might have additional permission checks depending on the action.
+			if (!match.route.public && !ctx.owner) throw new ErrorForbidden();
+
+			responseObject = await routeHandler(match.subPath, ctx);
+
+			if (responseObject instanceof Response) {
+				ctx.response = responseObject.response;
+			} else if (isView(responseObject)) {
+				ctx.response.status = 200;
+				ctx.response.body = await mustache().renderView(responseObject, {
+					notifications: ctx.notifications || [],
+					hasNotifications: !!ctx.notifications && !!ctx.notifications.length,
+					owner: ctx.owner,
+				});
+			} else {
+				ctx.response.status = 200;
+				ctx.response.body = [undefined, null].includes(responseObject) ? '' : responseObject;
+			}
 		} else {
-			ctx.response.status = 200;
-			ctx.response.body = [undefined, null].includes(responseObject) ? '' : responseObject;
+			throw new ErrorNotFound();
 		}
 	} catch (error) {
 		if (error.httpCode >= 400 && error.httpCode < 500) {
@@ -37,12 +56,9 @@ export default async function(ctx: AppContext) {
 			ctx.appLogger().error(error);
 		}
 
-		// Uncomment this when getting HTML blobs as errors while running tests.
-		// console.error(error);
-
 		ctx.response.status = error.httpCode ? error.httpCode : 500;
 
-		const responseFormat = routeResponseFormat(ctx);
+		const responseFormat = routeResponseFormat(match, ctx);
 
 		if (responseFormat === RouteResponseFormat.Html) {
 			ctx.response.set('Content-Type', 'text/html');

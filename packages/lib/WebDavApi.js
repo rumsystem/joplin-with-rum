@@ -1,7 +1,7 @@
 const Logger = require('./Logger').default;
 const shim = require('./shim').default;
 const parseXmlString = require('xml2js').parseString;
-const JoplinError = require('./JoplinError').default;
+const JoplinError = require('./JoplinError');
 const URL = require('url-parse');
 const { rtrimSlashes } = require('./path-utils');
 const base64 = require('base-64');

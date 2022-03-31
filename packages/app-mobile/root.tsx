@@ -36,7 +36,7 @@ const SafeAreaView = require('./components/SafeAreaView');
 const { connect, Provider } = require('react-redux');
 const { BackButtonService } = require('./services/back-button.js');
 import NavService from '@joplin/lib/services/NavService';
-import { createStore, applyMiddleware } from 'redux';
+const { createStore, applyMiddleware } = require('redux');
 const reduxSharedMiddleware = require('@joplin/lib/components/shared/reduxSharedMiddleware');
 const { shimInit } = require('./utils/shim-init-react.js');
 const { AppNav } = require('./components/app-nav.js');
@@ -97,7 +97,6 @@ import EncryptionService from '@joplin/lib/services/EncryptionService';
 import MigrationService from '@joplin/lib/services/MigrationService';
 import { clearSharedFilesCache } from './utils/ShareUtils';
 import setIgnoreTlsErrors from './utils/TlsUtils';
-import ShareService from '@joplin/lib/services/share/ShareService';
 
 let storeDispatch = function(_action: any) {};
 
@@ -526,7 +525,6 @@ async function initialize(dispatch: Function) {
 		EncryptionService.instance().setLogger(mainLogger);
 		// eslint-disable-next-line require-atomic-updates
 		BaseItem.encryptionService_ = EncryptionService.instance();
-		BaseItem.shareService_ = ShareService.instance();
 		DecryptionWorker.instance().dispatch = dispatch;
 		DecryptionWorker.instance().setLogger(mainLogger);
 		DecryptionWorker.instance().setKvStore(KvStore.instance());
@@ -537,8 +535,6 @@ async function initialize(dispatch: Function) {
 		// ----------------------------------------------------------------
 		// / E2EE SETUP
 		// ----------------------------------------------------------------
-
-		await ShareService.instance().initialize(store);
 
 		reg.logger().info('Loading folders...');
 

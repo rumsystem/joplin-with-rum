@@ -18,7 +18,7 @@ msgstr ""
 
 #: packages/app-desktop/bridge.js:106 packages/app-desktop/bridge.js:110
 #: packages/app-desktop/bridge.js:126 packages/app-desktop/bridge.js:134
-#: packages/app-desktop/checkForUpdates.js:175
+#: packages/app-desktop/checkForUpdates.js:139
 #: packages/app-desktop/gui/DialogButtonRow.min.js:30
 #: packages/app-desktop/gui/MenuBar.js:373
 #: packages/app-desktop/gui/ConfigScreen/ButtonBar.js:22
@@ -32,13 +32,13 @@ msgid "OK"
 msgstr "Oké"
 
 #: packages/app-desktop/bridge.js:110 packages/app-desktop/bridge.js:126
-#: packages/app-desktop/checkForUpdates.js:190
+#: packages/app-desktop/checkForUpdates.js:154
 #: packages/app-desktop/gui/DialogButtonRow.min.js:38
 #: packages/app-desktop/gui/Sidebar/Sidebar.js:201
 #: packages/app-desktop/gui/Sidebar/Sidebar.js:430
 #: packages/app-desktop/gui/KeymapConfig/ShortcutRecorder.js:52
 #: packages/app-desktop/gui/utils/NoteListUtils.js:169
-#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:521
+#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:535
 #: packages/app-desktop/gui/PromptDialog.min.js:242
 #: packages/app-desktop/gui/NoteList/NoteList.js:163
 #: packages/app-desktop/gui/ResourceScreen.js:96
@@ -93,36 +93,36 @@ msgstr "Bezig met exporteren van \"%s\" in het formaat \"%s\". Even geduld..."
 msgid "Could not export notes: %s"
 msgstr "Kon geen notities exporteren: %s"
 
-#: packages/app-desktop/checkForUpdates.js:174
+#: packages/app-desktop/checkForUpdates.js:138
 msgid "Current version is up-to-date."
 msgstr "De huidige versie is up-to-date."
 
-#: packages/app-desktop/checkForUpdates.js:184
+#: packages/app-desktop/checkForUpdates.js:148
 #, javascript-format
 msgid "%s (pre-release)"
 msgstr "%s (pre-release)"
 
-#: packages/app-desktop/checkForUpdates.js:188
+#: packages/app-desktop/checkForUpdates.js:152
 msgid "An update is available, do you want to download it now?"
 msgstr "Er is een update beschikbaar. Wilt u deze nu downloaden?"
 
-#: packages/app-desktop/checkForUpdates.js:189
+#: packages/app-desktop/checkForUpdates.js:153
 #, javascript-format
 msgid "Your version: %s"
 msgstr "Uw versie: %s"
 
-#: packages/app-desktop/checkForUpdates.js:189
+#: packages/app-desktop/checkForUpdates.js:153
 #, javascript-format
 msgid "New version: %s"
 msgstr "Nieuwe versie: %s"
 
-#: packages/app-desktop/checkForUpdates.js:190
+#: packages/app-desktop/checkForUpdates.js:154
 msgid "Download"
 msgstr "Downloaden"
 
-#: packages/app-desktop/checkForUpdates.js:190
-msgid "Full changelog"
-msgstr ""
+#: packages/app-desktop/checkForUpdates.js:154
+msgid "Full Release Notes"
+msgstr "Volledige Release Notes"
 
 #: packages/app-desktop/gui/NoteRevisionViewer.min.js:75
 #, javascript-format
@@ -134,7 +134,7 @@ msgid "This note has no history"
 msgstr "Deze notitie heeft geen geschiedenis"
 
 #: packages/app-desktop/gui/NoteRevisionViewer.min.js:142
-#: packages/app-desktop/gui/NoteEditor/utils/useMessageHandler.js:85
+#: packages/app-desktop/gui/NoteEditor/utils/useMessageHandler.js:122
 #, javascript-format
 msgid "Unsupported link or message: %s"
 msgstr "Niet-ondersteunde link of bericht: %s"
@@ -155,7 +155,7 @@ msgstr ""
 "vervangen of aangepast."
 
 #: packages/app-desktop/gui/NoteRevisionViewer.min.js:187
-#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:521
+#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:535
 #: packages/app-desktop/gui/ConfigScreen/ButtonBar.js:30
 #: packages/lib/commands/historyBackward.js:17
 msgid "Back"
@@ -253,29 +253,19 @@ msgstr "Zijbalk"
 msgid "Focus"
 msgstr "Focus"
 
-#: packages/app-desktop/gui/StatusScreen/StatusScreen.js:31
+#: packages/app-desktop/gui/StatusScreen/StatusScreen.js:26
 msgid "Please select where the sync status should be exported to"
 msgstr "Kies waar de synchronisatiestatus naar moet worden geëxporteerd"
 
-#: packages/app-desktop/gui/StatusScreen/StatusScreen.js:66
+#: packages/app-desktop/gui/StatusScreen/StatusScreen.js:61
 #: packages/app-mobile/components/screens/status.js:112
 msgid "Retry All"
 msgstr "Alles opnieuw proberen"
 
-#: packages/app-desktop/gui/StatusScreen/StatusScreen.js:83
+#: packages/app-desktop/gui/StatusScreen/StatusScreen.js:78
 #: packages/app-mobile/components/screens/status.js:118
 msgid "Retry"
 msgstr "Opnieuw proberen"
-
-#: packages/app-desktop/gui/StatusScreen/StatusScreen.js:113
-#, fuzzy
-msgid "Advanced tools"
-msgstr "Geavanceerde opties"
-
-#: packages/app-desktop/gui/StatusScreen/StatusScreen.js:115
-#, fuzzy
-msgid "Export debug report"
-msgstr "Foutopsporingsrapportage exporteren"
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.js:183
 msgid "strong text"
@@ -309,20 +299,20 @@ msgstr ""
 "notitie te bewerken."
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.js:619
-#: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:128
+#: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:91
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:18
 msgid "Cut"
 msgstr "Knippen"
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.js:626
-#: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:136
+#: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:99
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:13
 #: packages/app-desktop/gui/MenuBar.js:373
 msgid "Copy"
 msgstr "Kopiëren"
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.js:633
-#: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:143
+#: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:106
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:23
 msgid "Paste"
 msgstr "Plakken"
@@ -352,6 +342,7 @@ msgid "Subscript"
 msgstr "Onderschrift"
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:544
+#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:452
 #: packages/app-mobile/components/screens/Note.js:1016
 msgid "Edit"
 msgstr "Bewerken"
@@ -375,15 +366,15 @@ msgstr "Inline-code"
 msgid "Insert Date Time"
 msgstr "Datum en tijd invoegen"
 
-#: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:1052
+#: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:1046
 msgid "Drop notes or files here"
 msgstr "Notities bestanden hier neerzetten"
 
-#: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:1052
+#: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:1046
 msgid "Code View"
 msgstr "Codeweergave"
 
-#: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:1052
+#: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:1046
 #, javascript-format
 msgid ""
 "Please wait for all attachments to be downloaded and decrypted. You may also "
@@ -392,32 +383,32 @@ msgstr ""
 "Wacht tot alle bijlagen zijn gedownload en versleuteld. Je mag ook "
 "overschakelen naar %s om de notitie te wijzigen."
 
-#: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:59
+#: packages/app-desktop/gui/NoteEditor/utils/useMessageHandler.js:74
 msgid "There was an error downloading this attachment:"
 msgstr "Er is iets misgegaan tijdens het downloaden van deze bijlage:"
 
-#: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:62
+#: packages/app-desktop/gui/NoteEditor/utils/useMessageHandler.js:77
 #: packages/lib/services/ResourceEditWatcher/index.js:196
 msgid "This attachment is not downloaded or not decrypted yet"
 msgstr "Deze bijlage is niet gedownload of nog niet ontsleuteld"
 
-#: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:92
+#: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:49
 msgid "Open..."
 msgstr "Openen..."
 
-#: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:99
+#: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:62
 msgid "Save as..."
 msgstr "Opslaan als..."
 
-#: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:112
+#: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:75
 msgid "Reveal file in folder"
 msgstr "Bestand in map onthullen"
 
-#: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:120
+#: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:83
 msgid "Copy path to clipboard"
 msgstr "Pad kopiëren naar klembord"
 
-#: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:155
+#: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:114
 msgid "Copy Link Address"
 msgstr "Linkadres kopiëren"
 
@@ -597,7 +588,7 @@ msgid "URL"
 msgstr "URL"
 
 #: packages/app-desktop/gui/NotePropertiesDialog.min.js:34
-#: packages/lib/models/Setting.js:1593
+#: packages/lib/models/Setting.js:1556
 msgid "Note History"
 msgstr "Notitiegeschiedenis"
 
@@ -623,7 +614,7 @@ msgstr "Fout: %s"
 #: packages/app-desktop/gui/KeymapConfig/KeymapConfigScreen.js:110
 #: packages/app-desktop/gui/EncryptionConfigScreen.min.js:443
 #: packages/app-mobile/components/screens/encryption-config.js:280
-#: packages/lib/models/Setting.js:791 packages/app-cli/app/command-e2ee.js:110
+#: packages/lib/models/Setting.js:759 packages/app-cli/app/command-e2ee.js:110
 msgid "Disabled"
 msgstr "Uitgeschakeld"
 
@@ -1418,51 +1409,51 @@ msgstr "Inloggen op Dropbox"
 msgid "Note attachments"
 msgstr "Notitiebijlagen"
 
-#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:127
+#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:105
 msgid "This will open a new screen. Save your current changes?"
 msgstr "Dit opent een nieuw scherm. Wijzigingen opslaan?"
 
-#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:193
+#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:171
 #: packages/app-mobile/components/screens/config.js:322
 msgid "Check synchronisation configuration"
 msgstr "Synchronisatieconfiguratie controleren"
 
-#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:203
+#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:217
 msgid "Show Advanced Settings"
 msgstr "Geavanceerde opties"
 
-#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:392
+#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:406
 msgid "Path:"
 msgstr "Pad:"
 
-#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:397
+#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:411
 msgid "Browse..."
 msgstr "Bladeren..."
 
-#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:399
+#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:413
 msgid "Arguments:"
 msgstr "Argumenten:"
 
-#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:447
+#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:461
 msgid "The application must be restarted for these changes to take effect."
 msgstr ""
 "De applicatie moet opnieuw worden gestart om deze wijzigingen door te voeren."
 
-#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:459
+#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:473
 #: packages/app-desktop/gui/NoteList/NoteList.js:163
 msgid "Do it now"
 msgstr "Doe het nu"
 
-#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:459
+#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:473
 msgid "Later"
 msgstr "Later"
 
-#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:512
+#: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:526
 msgid "Restart now"
 msgstr "Nu opnieuw opstarten"
 
 #: packages/app-desktop/gui/ConfigScreen/Sidebar.js:89
-#: packages/lib/models/Setting.js:1589
+#: packages/lib/models/Setting.js:1552
 msgid "Plugins"
 msgstr "Plugins"
 
@@ -1559,14 +1550,14 @@ msgid "Lines"
 msgstr "Regels"
 
 #: packages/app-desktop/gui/NoteContentPropertiesDialog.js:98
-#: packages/lib/models/Setting.js:496 packages/lib/models/Setting.js:497
-#: packages/lib/models/Setting.js:498
+#: packages/lib/models/Setting.js:484 packages/lib/models/Setting.js:485
+#: packages/lib/models/Setting.js:486
 msgid "Editor"
 msgstr "Editor"
 
 #: packages/app-desktop/gui/NoteContentPropertiesDialog.js:99
-#: packages/lib/models/Setting.js:496 packages/lib/models/Setting.js:497
-#: packages/lib/models/Setting.js:499
+#: packages/lib/models/Setting.js:484 packages/lib/models/Setting.js:485
+#: packages/lib/models/Setting.js:487
 msgid "Viewer"
 msgstr "Viewer"
 
@@ -1594,7 +1585,7 @@ msgid "View"
 msgstr "Beeld"
 
 #: packages/app-desktop/gui/NoteList/NoteList.js:162
-#: packages/lib/models/Setting.js:512
+#: packages/lib/models/Setting.js:500
 msgid "Sort notes by"
 msgstr "Notities sorteren op"
 
@@ -1624,6 +1615,12 @@ msgstr ""
 msgid "Note list"
 msgstr "Notitielijst"
 
+#: packages/app-desktop/gui/getWindowTitle.js:19
+#: packages/app-desktop/gui/ResourceScreen.js:43 packages/lib/path-utils.js:83
+#: packages/lib/path-utils.js:118 packages/lib/models/BaseItem.js:708
+msgid "Untitled"
+msgstr "Naamloos"
+
 #: packages/app-desktop/gui/NoteListControls/commands/focusSearch.js:16
 msgid "Search in all the notes"
 msgstr "Alle notities doorzoeken"
@@ -1639,11 +1636,6 @@ msgstr "Grootte"
 #: packages/app-desktop/gui/ResourceScreen.js:40
 msgid "Action"
 msgstr "Actie"
-
-#: packages/app-desktop/gui/ResourceScreen.js:43 packages/lib/path-utils.js:83
-#: packages/lib/path-utils.js:118 packages/lib/models/BaseItem.js:708
-msgid "Untitled"
-msgstr "Naamloos"
 
 #: packages/app-desktop/gui/ResourceScreen.js:95
 #, javascript-format
@@ -2222,20 +2214,20 @@ msgstr "Kan notitieboek niet verplaatsen naar deze locatie"
 msgid "Notebooks cannot be named \"%s\", which is a reserved title."
 msgstr "Notitieboeken mogen niet \"%s\" heten; dit is een gereserveerde titel."
 
-#: packages/lib/models/Setting.js:98
+#: packages/lib/models/Setting.js:92
 msgid "yes"
 msgstr "ja"
 
-#: packages/lib/models/Setting.js:98 packages/lib/models/Setting.js:99
+#: packages/lib/models/Setting.js:92 packages/lib/models/Setting.js:93
 #, javascript-format
 msgid "(wysiwyg: %s)"
 msgstr "(wuziwuk: %s)"
 
-#: packages/lib/models/Setting.js:99
+#: packages/lib/models/Setting.js:93
 msgid "no"
 msgstr "nee"
 
-#: packages/lib/models/Setting.js:101
+#: packages/lib/models/Setting.js:95
 #, javascript-format
 msgid ""
 "Attention: If you change this location, make sure you copy all your content "
@@ -2246,43 +2238,43 @@ msgstr ""
 "naartoe kopieert voor synchronisatie. Anders worden alle bestanden "
 "verwijderd! Zie de FAQ voor meer details: %s"
 
-#: packages/lib/models/Setting.js:107
+#: packages/lib/models/Setting.js:101
 msgid "Light"
 msgstr "Licht"
 
-#: packages/lib/models/Setting.js:108
+#: packages/lib/models/Setting.js:102
 msgid "Dark"
 msgstr "Donker"
 
-#: packages/lib/models/Setting.js:109
+#: packages/lib/models/Setting.js:103
 msgid "Dracula"
 msgstr "Dracula"
 
-#: packages/lib/models/Setting.js:110
+#: packages/lib/models/Setting.js:104
 msgid "Solarised Light"
 msgstr "Solarised Light"
 
-#: packages/lib/models/Setting.js:111
+#: packages/lib/models/Setting.js:105
 msgid "Solarised Dark"
 msgstr "Solarised Dark"
 
-#: packages/lib/models/Setting.js:112
+#: packages/lib/models/Setting.js:106
 msgid "Nord"
 msgstr "Nord"
 
-#: packages/lib/models/Setting.js:113
+#: packages/lib/models/Setting.js:107
 msgid "Aritim Dark"
 msgstr "Aritim Dark"
 
-#: packages/lib/models/Setting.js:114
+#: packages/lib/models/Setting.js:108
 msgid "OLED Dark"
 msgstr "OLED Donker"
 
-#: packages/lib/models/Setting.js:136
+#: packages/lib/models/Setting.js:130
 msgid "Synchronisation target"
 msgstr "Synchronisatiedoel"
 
-#: packages/lib/models/Setting.js:138
+#: packages/lib/models/Setting.js:132
 msgid ""
 "The target to synchronise to. Each sync target may have additional "
 "parameters which are named as `sync.NUM.NAME` (all documented below)."
@@ -2291,71 +2283,71 @@ msgstr ""
 "argumenten bevatten, welke `sync.NUM.NAME` worden genoemd (wordt hieronder "
 "uitgelegd)."
 
-#: packages/lib/models/Setting.js:171
+#: packages/lib/models/Setting.js:160
 msgid "Directory to synchronise with (absolute path)"
 msgstr "Map waarnaar gesynchroniseerd moet worden (absoluut pad)"
 
-#: packages/lib/models/Setting.js:183
+#: packages/lib/models/Setting.js:172
 msgid "Nextcloud WebDAV URL"
 msgstr "Nextcloud WebDAV-URL"
 
-#: packages/lib/models/Setting.js:195
+#: packages/lib/models/Setting.js:184
 msgid "Nextcloud username"
 msgstr "Nextcloud-gebruikersnaam"
 
-#: packages/lib/models/Setting.js:206
+#: packages/lib/models/Setting.js:195
 msgid "Nextcloud password"
 msgstr "Nextcloud-wachtwoord"
 
-#: packages/lib/models/Setting.js:217
+#: packages/lib/models/Setting.js:206
 msgid "WebDAV URL"
 msgstr "WebDAV-URL"
 
-#: packages/lib/models/Setting.js:229
+#: packages/lib/models/Setting.js:218
 msgid "WebDAV username"
 msgstr "WebDAV-gebruikersnaam"
 
-#: packages/lib/models/Setting.js:240
+#: packages/lib/models/Setting.js:229
 msgid "WebDAV password"
 msgstr "WebDAV-wachtwoord"
 
-#: packages/lib/models/Setting.js:259
+#: packages/lib/models/Setting.js:248
 msgid "AWS S3 bucket"
 msgstr "AWS S3 bucket"
 
-#: packages/lib/models/Setting.js:271
+#: packages/lib/models/Setting.js:260
 msgid "AWS S3 URL"
 msgstr "AWS S3 URL"
 
-#: packages/lib/models/Setting.js:282
+#: packages/lib/models/Setting.js:271
 msgid "AWS key"
 msgstr "AWS key"
 
-#: packages/lib/models/Setting.js:293
+#: packages/lib/models/Setting.js:282
 msgid "AWS secret"
 msgstr "AWS secret"
 
-#: packages/lib/models/Setting.js:304
+#: packages/lib/models/Setting.js:293
 msgid "Joplin Server URL"
 msgstr "Joplin Server URL"
 
-#: packages/lib/models/Setting.js:319
+#: packages/lib/models/Setting.js:308
 msgid "Joplin Server Directory"
 msgstr "Jopling Server Map"
 
-#: packages/lib/models/Setting.js:330
+#: packages/lib/models/Setting.js:319
 msgid "Joplin Server username"
 msgstr "Joplin Server Gebruikersnaam"
 
-#: packages/lib/models/Setting.js:341
+#: packages/lib/models/Setting.js:330
 msgid "Joplin Server password"
 msgstr "Joplin Server Wachtwoord"
 
-#: packages/lib/models/Setting.js:353
+#: packages/lib/models/Setting.js:342
 msgid "Attachment download behaviour"
 msgstr "Bijlage downloadgedrag"
 
-#: packages/lib/models/Setting.js:354
+#: packages/lib/models/Setting.js:343
 msgid ""
 "In \"Manual\" mode, attachments are downloaded only when you click on them. "
 "In \"Auto\", they are downloaded when you open the note. In \"Always\", all "
@@ -2365,195 +2357,195 @@ msgstr ""
 "In “Auto” worden ze gedownload zodra u de notitie opent. In “Altijd” worden "
 "bijlagen altijd gedownload, of u de notitie nu opent of niet."
 
-#: packages/lib/models/Setting.js:357
+#: packages/lib/models/Setting.js:346
 msgid "Always"
 msgstr "Altijd"
 
-#: packages/lib/models/Setting.js:358
+#: packages/lib/models/Setting.js:347
 msgid "Manual"
 msgstr "Handmatig"
 
-#: packages/lib/models/Setting.js:359
+#: packages/lib/models/Setting.js:348
 msgid "Auto"
 msgstr "Auto"
 
-#: packages/lib/models/Setting.js:377
+#: packages/lib/models/Setting.js:366
 msgid "Max concurrent connections"
 msgstr "Max gelijktijdige verbindingen"
 
-#: packages/lib/models/Setting.js:390
+#: packages/lib/models/Setting.js:379
 msgid "Language"
 msgstr "Taal"
 
-#: packages/lib/models/Setting.js:401
+#: packages/lib/models/Setting.js:390
 msgid "Date format"
 msgstr "Datumopmaak"
 
-#: packages/lib/models/Setting.js:422
+#: packages/lib/models/Setting.js:410
 msgid "Time format"
 msgstr "Tijdopmaak"
 
-#: packages/lib/models/Setting.js:441
+#: packages/lib/models/Setting.js:429
 msgid "Theme"
 msgstr "Thema"
 
-#: packages/lib/models/Setting.js:452
+#: packages/lib/models/Setting.js:440
 msgid "Automatically switch theme to match system theme"
 msgstr "Automatisch omschakelen thema op basis van systeemthema"
 
-#: packages/lib/models/Setting.js:464
+#: packages/lib/models/Setting.js:452
 msgid "Preferred light theme"
 msgstr "Voorkeur licht thema"
 
-#: packages/lib/models/Setting.js:478
+#: packages/lib/models/Setting.js:466
 msgid "Preferred dark theme"
 msgstr "Voorkeur donker thema"
 
-#: packages/lib/models/Setting.js:488
+#: packages/lib/models/Setting.js:476
 msgid "Show note counts"
 msgstr "Toon notitietellingen"
 
-#: packages/lib/models/Setting.js:496 packages/lib/models/Setting.js:498
-#: packages/lib/models/Setting.js:499
+#: packages/lib/models/Setting.js:484 packages/lib/models/Setting.js:486
+#: packages/lib/models/Setting.js:487
 msgid "Split View"
 msgstr "Gesplitste Weergave"
 
-#: packages/lib/models/Setting.js:496
+#: packages/lib/models/Setting.js:484
 #, javascript-format
 msgid "%s / %s / %s"
 msgstr "%s / %s / %s"
 
-#: packages/lib/models/Setting.js:497 packages/lib/models/Setting.js:498
-#: packages/lib/models/Setting.js:499
+#: packages/lib/models/Setting.js:485 packages/lib/models/Setting.js:486
+#: packages/lib/models/Setting.js:487
 #, javascript-format
 msgid "%s / %s"
 msgstr "%s / %s"
 
-#: packages/lib/models/Setting.js:503
+#: packages/lib/models/Setting.js:491
 msgid "Uncompleted to-dos on top"
 msgstr "Niet-afgeronde taken bovenaan"
 
-#: packages/lib/models/Setting.js:504
+#: packages/lib/models/Setting.js:492
 msgid "Show completed to-dos"
 msgstr "Afgeronde taken tonen"
 
-#: packages/lib/models/Setting.js:530
+#: packages/lib/models/Setting.js:518
 msgid "Auto-pair braces, parenthesis, quotations, etc."
 msgstr "Auto-paar accolades, haakjes, citaten, enz."
 
-#: packages/lib/models/Setting.js:533 packages/lib/models/Setting.js:552
+#: packages/lib/models/Setting.js:521 packages/lib/models/Setting.js:540
 msgid "Reverse sort order"
 msgstr "Sorteervolgorde omdraaien"
 
-#: packages/lib/models/Setting.js:540
+#: packages/lib/models/Setting.js:528
 msgid "Sort notebooks by"
 msgstr "Notitieboeken sorteren op"
 
-#: packages/lib/models/Setting.js:553
+#: packages/lib/models/Setting.js:541
 msgid "Save geo-location with notes"
 msgstr "Locatie opslaan in notities"
 
-#: packages/lib/models/Setting.js:575
+#: packages/lib/models/Setting.js:563
 msgid "When creating a new to-do:"
 msgstr "Bij het creëren van een nieuwe taak:"
 
-#: packages/lib/models/Setting.js:578 packages/lib/models/Setting.js:594
+#: packages/lib/models/Setting.js:566 packages/lib/models/Setting.js:582
 msgid "Focus title"
 msgstr "Titel focussen"
 
-#: packages/lib/models/Setting.js:579 packages/lib/models/Setting.js:595
+#: packages/lib/models/Setting.js:567 packages/lib/models/Setting.js:583
 msgid "Focus body"
 msgstr "Inhoud focussen"
 
-#: packages/lib/models/Setting.js:591
+#: packages/lib/models/Setting.js:579
 msgid "When creating a new note:"
 msgstr "Bij het creëren van een nieuwe notitie:"
 
-#: packages/lib/models/Setting.js:624
+#: packages/lib/models/Setting.js:612
 msgid "Enable soft breaks"
 msgstr "Inschakelen zacht afbreken"
 
-#: packages/lib/models/Setting.js:625
+#: packages/lib/models/Setting.js:613
 msgid "Enable typographer support"
 msgstr "Ondersteuning voor typografie inschakelen"
 
-#: packages/lib/models/Setting.js:626
+#: packages/lib/models/Setting.js:614
 msgid "Enable Linkify"
 msgstr "Ondersteuning voor Linkify inschakelen"
 
-#: packages/lib/models/Setting.js:627
+#: packages/lib/models/Setting.js:615
 msgid "Enable math expressions"
 msgstr "Ondersteuning voor wiskundige expressies inschakelen"
 
-#: packages/lib/models/Setting.js:628
+#: packages/lib/models/Setting.js:616
 msgid "Enable Fountain syntax support"
 msgstr "Ondersteuning voor Fountain syntaxis inschakelen"
 
-#: packages/lib/models/Setting.js:629
+#: packages/lib/models/Setting.js:617
 msgid "Enable Mermaid diagrams support"
 msgstr "Ondersteuning voor Mermaid diagrammen Inschakelen"
 
-#: packages/lib/models/Setting.js:630
+#: packages/lib/models/Setting.js:618
 msgid "Enable audio player"
 msgstr "Ondersteuning voor muziekspeler inschakelen"
 
-#: packages/lib/models/Setting.js:631
+#: packages/lib/models/Setting.js:619
 msgid "Enable video player"
 msgstr "Ondersteuning voor videospeler inschakelen"
 
-#: packages/lib/models/Setting.js:632
+#: packages/lib/models/Setting.js:620
 msgid "Enable PDF viewer"
 msgstr "Ondersteuning voor PDF weergave inschakelen"
 
-#: packages/lib/models/Setting.js:633
+#: packages/lib/models/Setting.js:621
 msgid "Enable ==mark== syntax"
 msgstr "==mark== syntaxis inschakelen"
 
-#: packages/lib/models/Setting.js:634
+#: packages/lib/models/Setting.js:622
 msgid "Enable footnotes"
 msgstr "Voetnoten inschakelen"
 
-#: packages/lib/models/Setting.js:635
+#: packages/lib/models/Setting.js:623
 msgid "Enable table of contents extension"
 msgstr "Inhoudsopgave inschakelen"
 
-#: packages/lib/models/Setting.js:636
+#: packages/lib/models/Setting.js:624
 msgid "Enable ~sub~ syntax"
 msgstr "~sub~ syntaxis inschakelen"
 
-#: packages/lib/models/Setting.js:637
+#: packages/lib/models/Setting.js:625
 msgid "Enable ^sup^ syntax"
 msgstr "^sup^ syntaxis inschakelen"
 
-#: packages/lib/models/Setting.js:638
+#: packages/lib/models/Setting.js:626
 msgid "Enable deflist syntax"
 msgstr "Deflist syntaxis inschakelen"
 
-#: packages/lib/models/Setting.js:639
+#: packages/lib/models/Setting.js:627
 msgid "Enable abbreviation syntax"
 msgstr "Afkortingen syntaxis inschakelen"
 
-#: packages/lib/models/Setting.js:640
+#: packages/lib/models/Setting.js:628
 msgid "Enable markdown emoji"
 msgstr "Markdown emoji inschakelen"
 
-#: packages/lib/models/Setting.js:641
+#: packages/lib/models/Setting.js:629
 msgid "Enable ++insert++ syntax"
 msgstr "++insert++ syntaxis inschakelen"
 
-#: packages/lib/models/Setting.js:642
+#: packages/lib/models/Setting.js:630
 msgid "Enable multimarkdown table extension"
 msgstr "Multimarkdown tabel extensie inschakelen"
 
-#: packages/lib/models/Setting.js:653
+#: packages/lib/models/Setting.js:641
 msgid "Show tray icon"
 msgstr "Systeemvakpictogram tonen"
 
-#: packages/lib/models/Setting.js:655
+#: packages/lib/models/Setting.js:643
 msgid "Note: Does not work in all desktop environments."
 msgstr "Let op: dit werkt niet in alle desktop-omgevingen."
 
-#: packages/lib/models/Setting.js:655
+#: packages/lib/models/Setting.js:643
 msgid ""
 "This will allow Joplin to run in the background. It is recommended to enable "
 "this setting so that your notes are constantly being synchronised, thus "
@@ -2563,104 +2555,96 @@ msgstr ""
 "instelling in te schakelen, zodat uw notities constant worden "
 "gesynchroniseerd, waardoor het aantal conflicten wordt beperkt."
 
-#: packages/lib/models/Setting.js:659
+#: packages/lib/models/Setting.js:647
 msgid "Start application minimised in the tray icon"
 msgstr "Start applicatie geminimaliseerd in het systeemvak"
 
-#: packages/lib/models/Setting.js:674
+#: packages/lib/models/Setting.js:662
 msgid "Editor font size"
 msgstr "Lettergrootte van editor"
 
-#: packages/lib/models/Setting.js:681
+#: packages/lib/models/Setting.js:669
 msgid "Editor font"
 msgstr "Lettertype van editor"
 
-#: packages/lib/models/Setting.js:688 packages/lib/models/Setting.js:695
-#: packages/lib/models/Setting.js:841
+#: packages/lib/models/Setting.js:676 packages/lib/models/Setting.js:683
+#: packages/lib/models/Setting.js:809
 msgid "Default"
 msgstr "Standaard"
 
-#: packages/lib/models/Setting.js:706
+#: packages/lib/models/Setting.js:694
 msgid "Editor font family"
 msgstr "Lettertype van editor"
 
-#: packages/lib/models/Setting.js:707
+#: packages/lib/models/Setting.js:695
 msgid ""
 "Used for most text in the markdown editor. If not found, a generic "
 "proportional (variable width) font is used."
 msgstr ""
 
-#: packages/lib/models/Setting.js:716
+#: packages/lib/models/Setting.js:704
 #, fuzzy
 msgid "Editor monospace font family"
 msgstr "Editor monospace lettertypefamilie"
 
-#: packages/lib/models/Setting.js:717
+#: packages/lib/models/Setting.js:705
 msgid ""
 "Used where a fixed width font is needed to lay out text legibly (e.g. "
 "tables, checkboxes, code). If not found, a generic monospace (fixed width) "
 "font is used."
 msgstr ""
 
-#: packages/lib/models/Setting.js:738
+#: packages/lib/models/Setting.js:726
 #, fuzzy
 msgid "Custom stylesheet for rendered Markdown"
 msgstr "Aangepaste stylesheet voor Joplin-brede app-stijlen"
 
-#: packages/lib/models/Setting.js:754
+#: packages/lib/models/Setting.js:742
 msgid "Custom stylesheet for Joplin-wide app styles"
 msgstr "Aangepaste stylesheet voor Joplin-brede app-stijlen"
 
-#: packages/lib/models/Setting.js:764
-msgid "Re-upload local data to sync target"
-msgstr ""
-
-#: packages/lib/models/Setting.js:774
-msgid "Delete local data and re-download from sync target"
-msgstr ""
-
-#: packages/lib/models/Setting.js:779
+#: packages/lib/models/Setting.js:747
 msgid "Automatically update the application"
 msgstr "Applicatie automatisch bijwerken"
 
-#: packages/lib/models/Setting.js:780
+#: packages/lib/models/Setting.js:748
 msgid "Get pre-releases when checking for updates"
 msgstr "Verkrijg pre-releases bij controleren op updates"
 
-#: packages/lib/models/Setting.js:780
+#: packages/lib/models/Setting.js:748
 #, javascript-format
 msgid "See the pre-release page for more details: %s"
 msgstr "Zie de pre-release pagina voor meer details: %s"
 
-#: packages/lib/models/Setting.js:788
+#: packages/lib/models/Setting.js:756
 msgid "Synchronisation interval"
 msgstr "Synchronisatie-interval"
 
-#: packages/lib/models/Setting.js:792 packages/lib/models/Setting.js:793
-#: packages/lib/models/Setting.js:794
+#: packages/lib/models/Setting.js:760 packages/lib/models/Setting.js:761
+#: packages/lib/models/Setting.js:762
 #, javascript-format
 msgid "%d minutes"
 msgstr "%d minuten"
 
-#: packages/lib/models/Setting.js:795
+#: packages/lib/models/Setting.js:763
 #, javascript-format
 msgid "%d hour"
 msgstr "%d uur"
 
-#: packages/lib/models/Setting.js:796 packages/lib/models/Setting.js:797
+#: packages/lib/models/Setting.js:764 packages/lib/models/Setting.js:765
 #, javascript-format
 msgid "%d hours"
 msgstr "%d uur"
 
-#: packages/lib/models/Setting.js:807
+#: packages/lib/models/Setting.js:775
 msgid "Synchronise only over WiFi connection"
 msgstr "Synchroniseer alleen via wifi-verbinding"
 
-#: packages/lib/models/Setting.js:814
+#: packages/lib/models/Setting.js:782
 msgid "Text editor command"
 msgstr "Tekst editor commando"
 
-#: packages/lib/models/Setting.js:814
+#: packages/lib/models/Setting.js:782
 msgid ""
 "The editor command (may include arguments) that will be used to open a note. "
 "If none is provided it will try to auto-detect the default editor."
@@ -2669,63 +2653,63 @@ msgstr ""
 "het openen van notities. Als er geen wordt opgegeven, dan wordt getracht de "
 "standaard editor te achterhalen."
 
-#: packages/lib/models/Setting.js:815
+#: packages/lib/models/Setting.js:783
 msgid "Page size for PDF export"
 msgstr "Paginaformaat voor PDF-export"
 
-#: packages/lib/models/Setting.js:817
+#: packages/lib/models/Setting.js:785
 msgid "A4"
 msgstr "A4"
 
-#: packages/lib/models/Setting.js:818
+#: packages/lib/models/Setting.js:786
 msgid "Letter"
 msgstr "Brief"
 
-#: packages/lib/models/Setting.js:819
+#: packages/lib/models/Setting.js:787
 msgid "A3"
 msgstr "A3"
 
-#: packages/lib/models/Setting.js:820
+#: packages/lib/models/Setting.js:788
 msgid "A5"
 msgstr "A5"
 
-#: packages/lib/models/Setting.js:821
+#: packages/lib/models/Setting.js:789
 msgid "Tabloid"
 msgstr "Tabloid"
 
-#: packages/lib/models/Setting.js:822
+#: packages/lib/models/Setting.js:790
 msgid "Legal"
 msgstr "Wettelijk"
 
-#: packages/lib/models/Setting.js:825
+#: packages/lib/models/Setting.js:793
 msgid "Page orientation for PDF export"
 msgstr "Pagina-oriëntatie voor PDF-export"
 
-#: packages/lib/models/Setting.js:827
+#: packages/lib/models/Setting.js:795
 msgid "Portrait"
 msgstr "Portret"
 
-#: packages/lib/models/Setting.js:828
+#: packages/lib/models/Setting.js:796
 msgid "Landscape"
 msgstr "Landschap"
 
-#: packages/lib/models/Setting.js:838
+#: packages/lib/models/Setting.js:806
 msgid "Keyboard Mode"
 msgstr "Toetsenbordmodus"
 
-#: packages/lib/models/Setting.js:842
+#: packages/lib/models/Setting.js:810
 msgid "Emacs"
 msgstr "Emacs"
 
-#: packages/lib/models/Setting.js:843
+#: packages/lib/models/Setting.js:811
 msgid "Vim"
 msgstr "Vim"
 
-#: packages/lib/models/Setting.js:866
+#: packages/lib/models/Setting.js:834
 msgid "Custom TLS certificates"
 msgstr "Aangepaste TLS-certificaten"
 
-#: packages/lib/models/Setting.js:867
+#: packages/lib/models/Setting.js:835
 msgid ""
 "Comma-separated list of paths to directories to load the certificates from, "
 "or path to individual cert files. For example: /my/cert_dir, /other/custom."
@@ -2738,15 +2722,15 @@ msgstr ""
 "moet u ze opslaan voordat u klik op \"Synchronisatie-configuratie "
 "controleren."
 
-#: packages/lib/models/Setting.js:881
+#: packages/lib/models/Setting.js:849
 msgid "Ignore TLS certificate errors"
 msgstr "TLS-certificaatfouten negeren"
 
-#: packages/lib/models/Setting.js:890
+#: packages/lib/models/Setting.js:858
 msgid "Fail-safe"
 msgstr "Faalveilig"
 
-#: packages/lib/models/Setting.js:891
+#: packages/lib/models/Setting.js:859
 msgid ""
 "Fail-safe: Do not wipe out local data when sync target is empty (often the "
 "result of a misconfiguration or bug)"
@@ -2754,7 +2738,7 @@ msgstr ""
 "Fail-safe: Wis lokale gegevens niet wanneer synchronisatiedoel leeg is (vaak "
 "het gevolg van een misconfiguratie of softwarefout)"
 
-#: packages/lib/models/Setting.js:895
+#: packages/lib/models/Setting.js:863
 msgid ""
 "Specify the port that should be used by the API server. If not set, a "
 "default will be used."
@@ -2762,29 +2746,29 @@ msgstr ""
 "Specificeer de door de API-server te gebruiken poort. Indien niet ingesteld, "
 "wordt een standaardwaarde gebruikt."
 
-#: packages/lib/models/Setting.js:900
+#: packages/lib/models/Setting.js:868
 msgid "Enable note history"
 msgstr "Inschakelen geschiedenis van notities"
 
-#: packages/lib/models/Setting.js:910
+#: packages/lib/models/Setting.js:878
 msgid "days"
 msgstr "dagen"
 
-#: packages/lib/models/Setting.js:910
+#: packages/lib/models/Setting.js:878
 #, javascript-format
 msgid "%d days"
 msgstr "%d dagen"
 
-#: packages/lib/models/Setting.js:912
+#: packages/lib/models/Setting.js:880
 msgid "Keep note history for"
 msgstr "Bewaar geschiedenis van notities voor"
 
-#: packages/lib/models/Setting.js:939
+#: packages/lib/models/Setting.js:907
 msgid "Notebook list growth factor"
 msgstr "Notitieboeklijst groeifactor"
 
-#: packages/lib/models/Setting.js:940 packages/lib/models/Setting.js:953
-#: packages/lib/models/Setting.js:966
+#: packages/lib/models/Setting.js:908 packages/lib/models/Setting.js:921
+#: packages/lib/models/Setting.js:934
 msgid ""
 "The factor property sets how the item will grow or shrink to fit the "
 "available space in its container with respect to the other items. Thus an "
@@ -2796,58 +2780,58 @@ msgstr ""
 "items. Zo zal een item met een factor 2 dus twee maal zoveel ruimte innemen "
 "als een item met een factor 1. Herstart de applicatie om wijzigingen te zien."
 
-#: packages/lib/models/Setting.js:952
+#: packages/lib/models/Setting.js:920
 msgid "Note list growth factor"
 msgstr "Notitielijst groeifactor"
 
-#: packages/lib/models/Setting.js:965
+#: packages/lib/models/Setting.js:933
 msgid "Note area growth factor"
 msgstr "Notitiegebied groeifactor"
 
-#: packages/lib/models/Setting.js:1180
+#: packages/lib/models/Setting.js:1143
 #, javascript-format
 msgid "Invalid option value: \"%s\". Possible values are: %s."
 msgstr "Ongeldige optie: \"%s\". Geldige waarden zijn: %s."
 
-#: packages/lib/models/Setting.js:1579
+#: packages/lib/models/Setting.js:1542
 msgid "General"
 msgstr "Algemeen"
 
-#: packages/lib/models/Setting.js:1581
+#: packages/lib/models/Setting.js:1544
 msgid "Synchronisation"
 msgstr "Synchronisatie"
 
-#: packages/lib/models/Setting.js:1583
+#: packages/lib/models/Setting.js:1546
 msgid "Appearance"
 msgstr "Weergave"
 
-#: packages/lib/models/Setting.js:1585
+#: packages/lib/models/Setting.js:1548
 msgid "Note"
 msgstr "Notitie"
 
-#: packages/lib/models/Setting.js:1587
+#: packages/lib/models/Setting.js:1550
 #: packages/lib/services/interop/InteropService.js:49
 #: packages/lib/services/interop/InteropService.js:59
 msgid "Markdown"
 msgstr "Markdown"
 
-#: packages/lib/models/Setting.js:1591
+#: packages/lib/models/Setting.js:1554
 msgid "Application"
 msgstr "Applicatie"
 
-#: packages/lib/models/Setting.js:1595
+#: packages/lib/models/Setting.js:1558
 msgid "Encryption"
 msgstr "Encryptie"
 
-#: packages/lib/models/Setting.js:1597
+#: packages/lib/models/Setting.js:1560
 msgid "Web Clipper"
 msgstr "Webclipper"
 
-#: packages/lib/models/Setting.js:1599
+#: packages/lib/models/Setting.js:1562
 msgid "Keyboard Shortcuts"
 msgstr "Sneltoetsen"
 
-#: packages/lib/models/Setting.js:1606
+#: packages/lib/models/Setting.js:1569
 msgid ""
 "These plugins enhance the Markdown renderer with additional features. Please "
 "note that, while these features might be useful, they are not standard "
@@ -2865,7 +2849,7 @@ msgstr ""
 "van de plugin. Hieronder wordt aangegeven welke plugins als dan niet "
 "compatibel zijn met de WUZIWUK editor."
 
-#: packages/lib/models/Setting.js:1608
+#: packages/lib/models/Setting.js:1571
 #, javascript-format
 msgid "Notes and settings are stored in: %s"
 msgstr "Notities en instellingen worden opgeslagen in: %s"
@@ -2937,13 +2921,13 @@ msgstr "Versleuteld"
 msgid "Encrypted items cannot be modified"
 msgstr "Versleutelde items kunnen niet worden bewerkt"
 
-#: packages/lib/BaseApplication.js:150 packages/lib/BaseApplication.js:162
-#: packages/lib/BaseApplication.js:194
+#: packages/lib/BaseApplication.js:149 packages/lib/BaseApplication.js:161
+#: packages/lib/BaseApplication.js:193
 #, javascript-format
 msgid "Usage: %s"
 msgstr "Gebruik: %s"
 
-#: packages/lib/BaseApplication.js:229
+#: packages/lib/BaseApplication.js:228
 #, javascript-format
 msgid "Unknown flag: %s"
 msgstr "Onbekend argument: %s"
@@ -3767,12 +3751,6 @@ msgstr "Er komen %d notities overeen met dit patroon. Wilt u ze verwijderen?"
 msgid "Attaches the given file to the note."
 msgstr "Voegt het opgegeven bestand bij de notitie."
 
-#: packages/app-cli/app/command-batch.js:10
-msgid ""
-"Runs the commands contained in the text file. There should be one command "
-"per line."
-msgstr ""
-
 #: packages/app-cli/app/command-version.js:11
 msgid "Displays version information"
 msgstr "Toont versie-informatie"
@@ -3891,11 +3869,11 @@ msgstr "Jouw keuze: "
 msgid "Invalid answer: %s"
 msgstr "Ongeldig antwoord: %s"
 
-#: packages/app-cli/app/cli-utils.js:161 packages/app-cli/app/app.js:138
+#: packages/app-cli/app/cli-utils.js:161 packages/app-cli/app/app.js:137
 msgid "Y"
 msgstr "J"
 
-#: packages/app-cli/app/cli-utils.js:161 packages/app-cli/app/app.js:138
+#: packages/app-cli/app/cli-utils.js:161 packages/app-cli/app/app.js:137
 msgid "n"
 msgstr "n"
 
@@ -3988,37 +3966,37 @@ msgstr ""
 msgid "Exits the application."
 msgstr "Sluit de applicatie af."
 
-#: packages/app-cli/app/app.js:63
+#: packages/app-cli/app/app.js:62
 #, javascript-format
 msgid "More than one item match \"%s\". Please narrow down your query."
 msgstr "Meer dan één overeenkomst voor \"%s\". Verfijn uw zoekopdracht."
 
-#: packages/app-cli/app/app.js:93
+#: packages/app-cli/app/app.js:92
 msgid "No notebook selected."
 msgstr "Geen notitieboek geselecteerd."
 
-#: packages/app-cli/app/app.js:99
+#: packages/app-cli/app/app.js:98
 msgid "No notebook has been specified."
 msgstr "Geen notitieboek opgegeven."
 
-#: packages/app-cli/app/app.js:138
+#: packages/app-cli/app/app.js:137
 msgid "N"
 msgstr "N"
 
-#: packages/app-cli/app/app.js:138
+#: packages/app-cli/app/app.js:137
 msgid "y"
 msgstr "j"
 
-#: packages/app-cli/app/app.js:171
+#: packages/app-cli/app/app.js:170
 msgid "Cancelling background synchronisation... Please wait."
 msgstr "Bezig met annuleren van achtergrondsynchronisatie... even geduld."
 
-#: packages/app-cli/app/app.js:256
+#: packages/app-cli/app/app.js:255
 #, javascript-format
 msgid "No such command: %s"
 msgstr "Opdracht bestaat niet: %s"
 
-#: packages/app-cli/app/app.js:304
+#: packages/app-cli/app/app.js:303
 #, javascript-format
 msgid "The command \"%s\" is only available in GUI mode"
 msgstr "De opdracht \"%s\" is alleen beschikbaar in GUI-modus"
@@ -4059,17 +4037,6 @@ msgstr "Markeert een taak als afgerond."
 #, javascript-format
 msgid "Note is not a to-do: \"%s\""
 msgstr "Notitie is geen taak: \"%s\""
-
-#, fuzzy
-#~ msgid "marked text"
-#~ msgstr "nadrukkelijke tekst"
-
-#, fuzzy
-#~ msgid "Mark"
-#~ msgstr "Opmaak"
-
-#~ msgid "Full Release Notes"
-#~ msgstr "Volledige Release Notes"
 
 #~ msgid ""
 #~ "If the font is incorrect or empty, it will default to a generic monospace "
@@ -4261,6 +4228,10 @@ msgstr "Notitie is geen taak: \"%s\""
 #, fuzzy
 #~ msgid "Resources"
 #~ msgstr "Bronnen: %d."
+
+#, fuzzy
+#~ msgid "marked text"
+#~ msgstr "nadrukkelijke tekst"
 
 #~ msgid "Global zoom percentage"
 #~ msgstr "Globaal zoompercentage"

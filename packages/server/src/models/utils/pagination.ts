@@ -1,7 +1,7 @@
 import { ErrorBadRequest } from '../../utils/errors';
 import { decodeBase64, encodeBase64 } from '../../utils/base64';
 import { ChangePagination, defaultChangePagination } from '../ChangeModel';
-import { Knex } from 'knex';
+import Knex = require('knex');
 
 export enum PaginationOrderDir {
 	ASC = 'asc',
@@ -209,25 +209,12 @@ export function createPaginationLinks(page: number, pageCount: number, urlTempla
 	return output;
 }
 
-// function applyMainTablePrefix(pagination:Pagination, mainTable:string):Pagination {
-// 	if (!mainTable) return pagination;
-
-// 	const output:Pagination = JSON.parse(JSON.stringify(pagination));
-
-// 	output.order = output.order.map(o => {
-// 		o.by = mainTable + '.' + o.by;
-// 		return o;
-// 	});
-
-// 	return output;
-// }
-
-export async function paginateDbQuery(query: Knex.QueryBuilder, pagination: Pagination, mainTable: string = ''): Promise<PaginatedResults> {
+export async function paginateDbQuery(query: Knex.QueryBuilder, pagination: Pagination): Promise<PaginatedResults> {
 	pagination = processCursor(pagination);
 
 	const orderSql: any[] = pagination.order.map(o => {
 		return {
-			column: (mainTable ? `${mainTable}.` : '') + o.by,
+			column: o.by,
 			order: o.dir,
 		};
 	});
