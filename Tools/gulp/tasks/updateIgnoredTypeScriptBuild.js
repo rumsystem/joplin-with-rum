@@ -17,8 +17,6 @@ module.exports = {
 				'**/Modules/TinyMCE/IconPack/**',
 				'**/CliClient/tests/support/plugins/**',
 				'**/plugin_types/**',
-				'**/ReactNativeClient/android/**',
-				'**/ReactNativeClient/ios/**',
 			],
 		}).map(f => f.substr(rootDir.length + 1));
 

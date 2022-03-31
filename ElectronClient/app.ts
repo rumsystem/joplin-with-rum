@@ -58,7 +58,7 @@ const commands = [
 	require('./gui/MainScreen/commands/showNoteProperties'),
 	require('./gui/MainScreen/commands/showShareNoteDialog'),
 	require('./gui/MainScreen/commands/toggleNoteList'),
-	require('./gui/MainScreen/commands/toggleSideBar'),
+	require('./gui/MainScreen/commands/toggleSidebar'),
 	require('./gui/MainScreen/commands/toggleVisiblePanes'),
 	require('./gui/MainScreen/commands/toggleEditors'),
 	require('./gui/NoteEditor/commands/focusElementNoteBody'),
@@ -85,7 +85,7 @@ const globalCommands = [
 const editorCommandDeclarations = require('./gui/NoteEditor/commands/editorCommandDeclarations').default;
 
 const pluginClasses = [
-	require('./plugins/GotoAnything').default,
+	require('./plugins/GotoAnything.min'),
 ];
 
 interface AppStateRoute {
@@ -425,7 +425,7 @@ class Application extends BaseApplication {
 			const contextMenu = Menu.buildFromTemplate([
 				{ label: _('Open %s', app.electronApp().name), click: () => { app.window().show(); } },
 				{ type: 'separator' },
-				{ label: _('Exit'), click: () => { app.quit(); } },
+				{ label: _('Quit'), click: () => { app.quit(); } },
 			]);
 			app.createTray(contextMenu);
 		}
@@ -513,7 +513,7 @@ class Application extends BaseApplication {
 
 		this.initRedux();
 
-		CommandService.instance().initialize(this.store(), Setting.value('env') == 'dev');
+		CommandService.instance().initialize(this.store());
 
 		for (const command of commands) {
 			CommandService.instance().registerDeclaration(command.declaration);

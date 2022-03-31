@@ -1,4 +1,4 @@
-import { CommandRuntime, CommandDeclaration, CommandContext } from 'lib/services/CommandService';
+import { CommandRuntime, CommandDeclaration } from '../../../lib/services/CommandService';
 import shim from 'lib/shim';
 import InteropServiceHelper from '../../../InteropServiceHelper';
 import { _ } from 'lib/locale';
@@ -12,10 +12,8 @@ export const declaration:CommandDeclaration = {
 
 export const runtime = (comp:any):CommandRuntime => {
 	return {
-		execute: async (context:CommandContext, noteIds:string[] = null) => {
+		execute: async ({ noteIds }:any) => {
 			try {
-				noteIds = noteIds || context.state.selectedNoteIds;
-
 				if (!noteIds.length) throw new Error('No notes selected for pdf export');
 
 				let path = null;
@@ -24,6 +22,7 @@ export const runtime = (comp:any):CommandRuntime => {
 						filters: [{ name: _('PDF File'), extensions: ['pdf'] }],
 						defaultPath: await InteropServiceHelper.defaultFilename(noteIds[0], 'pdf'),
 					});
+
 				} else {
 					path = bridge().showOpenDialog({
 						properties: ['openDirectory', 'createDirectory'],
@@ -51,7 +50,13 @@ export const runtime = (comp:any):CommandRuntime => {
 				bridge().showErrorMessageBox(error.message);
 			}
 		},
-
-		enabledCondition: 'someNotesSelected',
+		isEnabled: (props:any):boolean => {
+			return !!props.noteIds.length;
+		},
+		mapStateToProps: (state:any):any => {
+			return {
+				noteIds: state.selectedNoteIds,
+			};
+		},
 	};
 };

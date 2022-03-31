@@ -1,4 +1,4 @@
-import CommandService, { CommandContext, CommandDeclaration, CommandRuntime } from 'lib/services/CommandService';
+import CommandService, { CommandDeclaration, CommandRuntime } from '../../../lib/services/CommandService';
 import { _ } from 'lib/locale';
 
 export const declaration:CommandDeclaration = {
@@ -9,9 +9,14 @@ export const declaration:CommandDeclaration = {
 
 export const runtime = ():CommandRuntime => {
 	return {
-		execute: async (_context:CommandContext, template:string = null) => {
-			return CommandService.instance().execute('newNote', template, true);
+		execute: async ({ template }:any) => {
+			return CommandService.instance().execute('newNote', { template: template, isTodo: true });
 		},
-		enabledCondition: 'oneFolderSelected && !inConflictFolder',
+		isEnabled: () => {
+			return CommandService.instance().isEnabled('newNote', {});
+		},
+		title: () => {
+			return _('New to-do');
+		},
 	};
 };

@@ -87,9 +87,9 @@ export default class MenuUtils {
 		return item;
 	}
 
-	public commandToStatefulMenuItem(commandName:string, ...args:any[]):MenuItem {
+	public commandToStatefulMenuItem(commandName:string, props:any = null):MenuItem {
 		return this.commandToMenuItem(commandName, () => {
-			return this.service.execute(commandName, ...args);
+			return this.service.execute(commandName, props ? props : {});
 		});
 	}
 
@@ -108,14 +108,11 @@ export default class MenuUtils {
 		return output;
 	}
 
-	public commandsToMenuItemProps(commandNames:string[], whenClauseContext:any):MenuItemProps {
+	public commandsToMenuItemProps(state:any, commandNames:string[]):MenuItemProps {
 		const output:MenuItemProps = {};
 
 		for (const commandName of commandNames) {
-			const newProps = {
-				enabled: this.service.isEnabled(commandName, whenClauseContext),
-			};
-
+			const newProps = this.service.commandMapStateToProps(commandName, state);
 			if (newProps === null || propsHaveChanged(this.menuItemPropsCache_[commandName], newProps)) {
 				output[commandName] = newProps;
 				this.menuItemPropsCache_[commandName] = newProps;

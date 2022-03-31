@@ -1,6 +1,5 @@
-import CommandService, { CommandRuntime, CommandDeclaration, CommandContext } from 'lib/services/CommandService';
+import CommandService, { CommandRuntime, CommandDeclaration } from '../../../lib/services/CommandService';
 import { _ } from 'lib/locale';
-import { stateUtils } from 'lib/reducer';
 
 export const declaration:CommandDeclaration = {
 	name: 'showNoteProperties',
@@ -10,9 +9,7 @@ export const declaration:CommandDeclaration = {
 
 export const runtime = (comp:any):CommandRuntime => {
 	return {
-		execute: async (context:CommandContext, noteId:string = null) => {
-			noteId = noteId || stateUtils.selectedNoteId(context.state);
-
+		execute: async ({ noteId }:any) => {
 			comp.setState({
 				notePropertiesDialogOptions: {
 					noteId: noteId,
@@ -23,6 +20,11 @@ export const runtime = (comp:any):CommandRuntime => {
 				},
 			});
 		},
-		enabledCondition: 'oneNoteSelected',
+		isEnabled: (props:any) => {
+			return !!props.noteId;
+		},
+		mapStateToProps: (state:any) => {
+			return { noteId: state.selectedNoteIds.length === 1 ? state.selectedNoteIds[0] : null };
+		},
 	};
 };
