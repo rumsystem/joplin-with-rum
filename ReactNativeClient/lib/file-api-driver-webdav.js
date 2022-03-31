@@ -15,14 +15,6 @@ class FileApiDriverWebDav {
 		return 3;
 	}
 
-	lastRequests() {
-		return this.api().lastRequests();
-	}
-
-	clearLastRequests() {
-		return this.api().clearLastRequests();
-	}
-
 	async stat(path) {
 		try {
 			const result = await this.api().execPropFind(path, 0, ['d:getlastmodified', 'd:resourcetype']);
