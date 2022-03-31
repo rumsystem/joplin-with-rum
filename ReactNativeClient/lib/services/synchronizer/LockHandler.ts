@@ -1,5 +1,4 @@
 import { Dirnames } from './utils/types';
-
 const JoplinError = require('lib/JoplinError');
 const { time } = require('lib/time-utils');
 const { fileExtension, filename } = require('lib/path-utils.js');
@@ -99,8 +98,8 @@ export default class LockHandler {
 		return output;
 	}
 
-	private lockIsActive(lock:Lock, currentDate:Date):boolean {
-		return currentDate.getTime() - lock.updatedTime < this.lockTtl;
+	private lockIsActive(lock:Lock):boolean {
+		return Date.now() - lock.updatedTime < this.lockTtl;
 	}
 
 	async hasActiveLock(lockType:LockType, clientType:string = null, clientId:string = null) {
@@ -113,12 +112,11 @@ export default class LockHandler {
 	// of that type instead.
 	async activeLock(lockType:LockType, clientType:string = null, clientId:string = null) {
 		const locks = await this.locks(lockType);
-		const currentDate = await this.api_.remoteDate();
 
 		if (lockType === LockType.Exclusive) {
 			const activeLocks = locks
 				.slice()
-				.filter((lock:Lock) => this.lockIsActive(lock, currentDate))
+				.filter((lock:Lock) => this.lockIsActive(lock))
 				.sort((a:Lock, b:Lock) => {
 					if (a.updatedTime === b.updatedTime) {
 						return a.clientId < b.clientId ? -1 : +1;
@@ -136,7 +134,7 @@ export default class LockHandler {
 			for (const lock of locks) {
 				if (clientType && lock.clientType !== clientType) continue;
 				if (clientId && lock.clientId !== clientId) continue;
-				if (this.lockIsActive(lock, currentDate)) return lock;
+				if (this.lockIsActive(lock)) return lock;
 			}
 			return null;
 		}
