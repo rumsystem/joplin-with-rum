@@ -1,5 +1,5 @@
 import BaseModel, { ValidateOptions, SaveOptions, DeleteOptions } from './BaseModel';
-import { File, ItemType, databaseSchema, Uuid } from '../db';
+import { File, ItemType, databaseSchema } from '../db';
 import { ErrorForbidden, ErrorUnprocessableEntity, ErrorNotFound, ErrorBadRequest, ErrorConflict } from '../utils/errors';
 import uuidgen from '../utils/uuidgen';
 import { splitItemPath, filePathInfo } from '../utils/routeUtils';
@@ -10,13 +10,11 @@ const mimeUtils = require('@joplin/lib/mime-utils.js').mime;
 
 const nodeEnv = process.env.NODE_ENV || 'development';
 
-const removeTrailingColonsRegex = /^(:|)(.*?)(:|)$/;
-
 export interface PaginatedFiles extends PaginatedResults {
 	items: File[];
 }
 
-export interface PathToFileOptions {
+export interface EntityFromItemIdOptions {
 	mustExist?: boolean;
 	returnFullEntity?: boolean;
 }
@@ -25,7 +23,7 @@ export interface LoadOptions {
 	skipPermissionCheck?: boolean;
 }
 
-export default class FileModel extends BaseModel<File> {
+export default class FileModel extends BaseModel {
 
 	private readonly reservedCharacters = ['/', '\\', '*', '<', '>', '?', ':', '|', '#', '%'];
 
@@ -57,10 +55,6 @@ export default class FileModel extends BaseModel<File> {
 	public async userRootFileId(): Promise<string> {
 		const r = await this.userRootFile();
 		return r ? r.id : '';
-	}
-
-	private isSpecialDir(dirname: string): boolean {
-		return dirname === 'root';
 	}
 
 	private async specialDirId(dirname: string): Promise<string> {
@@ -98,75 +92,28 @@ export default class FileModel extends BaseModel<File> {
 		return output;
 	}
 
-	public async itemFullPath(item: File, loadOptions: LoadOptions = {}): Promise<string> {
+	public async itemFullPath(item: File): Promise<string> {
 		const segments: string[] = [];
 		while (item) {
 			if (item.is_root) break;
 			segments.splice(0, 0, item.name);
-			item = item.parent_id ? await this.load(item.parent_id, loadOptions) : null;
+			item = item.parent_id ? await this.load(item.parent_id) : null;
 		}
 
 		return segments.length ? (`root:/${segments.join('/')}:`) : 'root';
 	}
 
-	// Remove first and last colon from a path element
-	private removeTrailingColons(path: string): string {
-		return path.replace(removeTrailingColonsRegex, '$2');
-	}
-
-	public resolve(...paths: string[]): string {
-		if (!paths.length) throw new Error('Path is empty');
-
-		let pathElements: string[] = [];
-
-		for (const p of paths) {
-			pathElements = pathElements.concat(p.split('/').map(s => this.removeTrailingColons(s)));
-		}
-
-		pathElements = pathElements.filter(p => !!p);
-
-		if (!this.isSpecialDir(pathElements[0])) throw new Error(`Path must start with a special dir: ${pathElements.join('/')}`);
-
-		if (pathElements.length === 1) return pathElements[0];
-
-		// If the output is just "root", we return that only. Otherwise we build the path, eg. `root:/.resource/file:'`
-		const specialDir = pathElements.splice(0, 1)[0];
-
-		return `${specialDir}:/${pathElements.join('/')}:`;
-	}
-
-	// Same as `pathToFile` but returns the ID only.
-	public async pathToFileId(idOrPath: string, options: PathToFileOptions = {}): Promise<Uuid> {
-		const file = await this.pathToFile(idOrPath, {
-			...options,
-			returnFullEntity: false,
-		});
-		return file ? file.id : null;
-	}
-
-	// Converts an ID such as "Ps2YtQ8Udi4eCYm1A5bLFDGhHCWWCR43" or a path such
-	// as "root:/path/to/file.txt:" to the actual file.
-	public async pathToFile(idOrPath: string, options: PathToFileOptions = {}): Promise<File> {
+	public async entityFromItemId(idOrPath: string, options: EntityFromItemIdOptions = {}): Promise<File> {
 		if (!idOrPath) throw new Error('ID cannot be null');
 
-		options = {
-			mustExist: true,
-			returnFullEntity: true,
-			...options,
-		};
+		options = { mustExist: true, ...options };
 
 		const specialDirId = await this.specialDirId(idOrPath);
 
 		if (specialDirId) {
 			return options.returnFullEntity ? this.load(specialDirId) : { id: specialDirId };
 		} else if (idOrPath.indexOf(':') < 0) {
-			if (options.mustExist) {
-				const file = await this.load(idOrPath);
-				if (!file) throw new ErrorNotFound(`file not found: ${idOrPath}`);
-				return options.returnFullEntity ? file : { id: file.id };
-			} else {
-				return options.returnFullEntity ? this.load(idOrPath) : { id: idOrPath };
-			}
+			return options.returnFullEntity ? this.load(idOrPath) : { id: idOrPath };
 		} else {
 			// When this input is a path, there can be two cases:
 			// - A path to an existing file - in which case we return the file
@@ -206,17 +153,11 @@ export default class FileModel extends BaseModel<File> {
 		return Object.keys(databaseSchema[this.tableName]).filter(f => f !== 'content');
 	}
 
-	public async fileByName(parentId: string, name: string, options: LoadOptions = {}): Promise<File> {
-		const file = await this.db<File>(this.tableName).select(...this.defaultFields).where({
+	private async fileByName(parentId: string, name: string): Promise<File> {
+		return this.db<File>(this.tableName).select(...this.defaultFields).where({
 			parent_id: parentId,
 			name: name,
 		}).first();
-
-		if (!file) return null;
-
-		if (!options.skipPermissionCheck) await this.checkCanReadPermissions(file);
-
-		return file;
 	}
 
 	protected async validate(object: File, options: ValidateOptions = {}): Promise<File> {
@@ -269,7 +210,7 @@ export default class FileModel extends BaseModel<File> {
 		}
 
 		if ('name' in file) {
-			if (this.includesReservedCharacter(file.name)) throw new ErrorUnprocessableEntity(`File name may not contain any of these characters: ${this.reservedCharacters.join('')}: ${file.name}`);
+			if (this.includesReservedCharacter(file.name)) throw new ErrorUnprocessableEntity(`File name may not contain any of these characters: ${this.reservedCharacters.join('')}`);
 		}
 
 		return file;
@@ -346,7 +287,7 @@ export default class FileModel extends BaseModel<File> {
 	}
 
 	public async fileUrl(idOrPath: string, query: any = null): Promise<string> {
-		const file: File = await this.pathToFile(idOrPath);
+		const file: File = await this.entityFromItemId(idOrPath, { returnFullEntity: true });
 		return setQueryParameters(`${this.baseUrl}/files/${await this.itemFullPath(file)}`, query);
 	}
 

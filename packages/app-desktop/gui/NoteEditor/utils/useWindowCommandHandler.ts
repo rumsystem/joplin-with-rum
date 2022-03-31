@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { FormNote, ScrollOptionTypes } from './types';
 import CommandService, { CommandDeclaration, CommandRuntime, CommandContext } from '@joplin/lib/services/CommandService';
 import time from '@joplin/lib/time';
-import { reg } from '@joplin/lib/registry';
+const { reg } = require('@joplin/lib/registry.js');
 
 const commandsWithDependencies = [
 	require('../commands/showLocalSearch'),

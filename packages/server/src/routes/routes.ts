@@ -3,31 +3,25 @@ import { Routers } from '../utils/routeUtils';
 import apiSessions from './api/sessions';
 import apiPing from './api/ping';
 import apiFiles from './api/files';
-import apiShares from './api/shares';
-
-import indexLogin from './index/login';
-import indexLogout from './index/logout';
-import indexHome from './index/home';
-import indexUsers from './index/users';
-import indexFiles from './index/files';
-import indexNotifications from './index/notifications';
-import indexShares from './index/shares';
-
+import indexLoginRoute from './index/login';
+import indexLogoutRoute from './index/logout';
+import indexHomeRoute from './index/home';
+import indexUsersRoute from './index/users';
+import indexFilesRoute from './index/files';
+import indexNotificationsRoute from './index/notifications';
 import defaultRoute from './default';
 
 const routes: Routers = {
 	'api/ping': apiPing,
 	'api/sessions': apiSessions,
 	'api/files': apiFiles,
-	'api/shares': apiShares,
 
-	'login': indexLogin,
-	'logout': indexLogout,
-	'home': indexHome,
-	'users': indexUsers,
-	'files': indexFiles,
-	'notifications': indexNotifications,
-	'shares': indexShares,
+	'login': indexLoginRoute,
+	'logout': indexLogoutRoute,
+	'home': indexHomeRoute,
+	'users': indexUsersRoute,
+	'files': indexFilesRoute,
+	'notifications': indexNotificationsRoute,
 
 	'': defaultRoute,
 };

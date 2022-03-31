@@ -1,6 +1,6 @@
 import { utils, CommandRuntime, CommandDeclaration, CommandContext } from '../services/CommandService';
 import { _ } from '../locale';
-import { reg } from '../registry';
+const { reg } = require('../registry.js');
 
 export const declaration: CommandDeclaration = {
 	name: 'synchronize',
@@ -43,7 +43,7 @@ export const runtime = (): CommandRuntime => {
 				sync.cancel();
 				return 'cancel';
 			} else {
-				void reg.scheduleSync(0);
+				reg.scheduleSync(0);
 				return 'sync';
 			}
 		},

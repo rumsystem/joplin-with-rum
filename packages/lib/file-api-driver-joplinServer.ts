@@ -1,8 +1,16 @@
-import JoplinServerApi from './JoplinServerApi';
-import { trimSlashes, dirname, basename } from './path-utils';
+import JoplinServerApi from './JoplinServerApi2';
+const { dirname, basename } = require('./path-utils');
 
-// All input paths should be in the format: "path/to/file". This is converted to
-// "root:/path/to/file:" when doing the API call.
+function removeTrailingColon(path: string) {
+	if (!path || !path.length) return '';
+	if (path[path.length - 1] === ':') return path.substr(0, path.length - 1);
+	return path;
+}
+
+// All input paths should be in the format: "SPECIAL_DIR:/path/to/file"
+// The trailing colon must not be included as it's automatically added
+// when doing the API call.
+// Only supported special dir at the moment is "root"
 
 export default class FileApiDriverJoplinServer {
 
@@ -13,16 +21,19 @@ export default class FileApiDriverJoplinServer {
 	}
 
 	public async initialize(basePath: string) {
-		const pieces = trimSlashes(basePath).split('/');
+		const pieces = removeTrailingColon(basePath).split('/');
 		if (!pieces.length) return;
 
-		const parent: string[] = [];
+		let parent = pieces.splice(0, 1)[0];
 
-		for (let i = 0; i < pieces.length; i++) {
-			const p = pieces[i];
-			const subPath = parent.concat(p).join('/');
-			parent.push(p);
+		for (const p of pieces) {
+			// Syncing with the root, which is ok, and in that
+			// case there's no sub-dir to create.
+			if (!p && pieces.length === 1) return;
+
+			const subPath = `${parent}/${p}`;
 			await this.mkdir(subPath);
+			parent = subPath;
 		}
 	}
 
@@ -56,10 +67,9 @@ export default class FileApiDriverJoplinServer {
 		return output;
 	}
 
-	// Transforms a path such as "Apps/Joplin/file.txt" to a complete a complete
-	// API URL path: "api/files/root:/Apps/Joplin/file.txt:"
 	private apiFilePath_(p: string) {
-		return `api/files/root:/${trimSlashes(p)}:`;
+		if (p !== 'root') p += ':';
+		return `api/files/${p}`;
 	}
 
 	public async stat(path: string) {
@@ -135,7 +145,14 @@ export default class FileApiDriverJoplinServer {
 	}
 
 	private parentPath_(path: string) {
-		return dirname(path);
+		let output = dirname(path);
+
+		// This is the root or a special folder
+		if (output.split('/').length === 1) {
+			output = output.substr(0, output.length - 1);
+		}
+
+		return output;
 	}
 
 	private basename_(path: string) {
