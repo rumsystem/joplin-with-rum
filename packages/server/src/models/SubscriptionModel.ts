@@ -1,28 +1,9 @@
-import { EmailSender, Subscription, User, Uuid } from '../db';
+import { EmailSender, Subscription, Uuid } from '../db';
 import { ErrorNotFound } from '../utils/errors';
-import { Day } from '../utils/time';
 import uuidgen from '../utils/uuidgen';
 import paymentFailedTemplate from '../views/emails/paymentFailedTemplate';
 import BaseModel from './BaseModel';
 import { AccountType } from './UserModel';
-
-export const failedPaymentDisableUploadInterval = 7 * Day;
-export const failedPaymentDisableAccount = 14 * Day;
-
-interface UserAndSubscription {
-	user: User;
-	subscription: Subscription;
-}
-
-enum PaymentAttemptStatus {
-	Success = 'Success',
-	Failed = 'Failed',
-}
-
-interface PaymentAttempt {
-	status: PaymentAttemptStatus;
-	time: number;
-}
 
 export default class SubscriptionModel extends BaseModel<Subscription> {
 
@@ -34,43 +15,9 @@ export default class SubscriptionModel extends BaseModel<Subscription> {
 		return false;
 	}
 
-	public lastPaymentAttempt(sub: Subscription): PaymentAttempt {
-		if (sub.last_payment_failed_time > sub.last_payment_time) {
-			return {
-				status: PaymentAttemptStatus.Failed,
-				time: sub.last_payment_failed_time,
-			};
-		}
-
-		return {
-			status: PaymentAttemptStatus.Success,
-			time: sub.last_payment_time,
-		};
-	}
-
-	public async shouldDisableUploadSubscriptions(): Promise<Subscription[]> {
-		const cutOffTime = Date.now() - failedPaymentDisableUploadInterval;
-
-		return this.db('users')
-			.leftJoin('subscriptions', 'users.id', 'subscriptions.user_id')
-			.select('subscriptions.id', 'subscriptions.user_id', 'last_payment_failed_time')
-			.where('users.can_upload', '=', 1)
-			.andWhere('last_payment_failed_time', '>', this.db.ref('last_payment_time'))
-			.andWhere('subscriptions.is_deleted', '=', 0)
-			.andWhere('last_payment_failed_time', '<', cutOffTime);
-	}
-
-	public async shouldDisableAccountSubscriptions(): Promise<Subscription[]> {
-		const cutOffTime = Date.now() - failedPaymentDisableAccount;
-
-		return this.db(this.tableName)
-			.where('last_payment_failed_time', '>', 'last_payment_time')
-			.andWhere('last_payment_failed_time', '<', cutOffTime);
-	}
-
-	public async handlePayment(stripeSubscriptionId: string, success: boolean) {
-		const sub = await this.byStripeSubscriptionId(stripeSubscriptionId);
-		if (!sub) throw new ErrorNotFound(`No such subscription: ${stripeSubscriptionId}`);
+	public async handlePayment(subscriptionId: string, success: boolean) {
+		const sub = await this.byStripeSubscriptionId(subscriptionId);
+		if (!sub) throw new ErrorNotFound(`No such subscription: ${subscriptionId}`);
 
 		const now = Date.now();
 
@@ -78,28 +25,21 @@ export default class SubscriptionModel extends BaseModel<Subscription> {
 
 		if (success) {
 			toSave.last_payment_time = now;
-			toSave.last_payment_failed_time = 0;
-			await this.save(toSave);
 		} else {
-			// We only update the payment failed time if it's not already set
-			// since the only thing that matter is the first time the payment
-			// failed.
-			if (!sub.last_payment_failed_time) {
-				toSave.last_payment_failed_time = now;
+			toSave.last_payment_failed_time = now;
 
-				const user = await this.models().user().load(sub.user_id, { fields: ['email', 'id', 'full_name'] });
+			const user = await this.models().user().load(sub.user_id, { fields: ['email', 'id', 'full_name'] });
 
-				await this.models().email().push({
-					...paymentFailedTemplate(),
-					recipient_email: user.email,
-					recipient_id: user.id,
-					recipient_name: user.full_name || '',
-					sender_id: EmailSender.Support,
-				});
-
-				await this.save(toSave);
-			}
+			await this.models().email().push({
+				...paymentFailedTemplate(),
+				recipient_email: user.email,
+				recipient_id: user.id,
+				recipient_name: user.full_name || '',
+				sender_id: EmailSender.Support,
+			});
 		}
+
+		await this.save(toSave);
 	}
 
 	public async byStripeSubscriptionId(id: string): Promise<Subscription> {
@@ -111,7 +51,7 @@ export default class SubscriptionModel extends BaseModel<Subscription> {
 	}
 
 	public async saveUserAndSubscription(email: string, fullName: string, accountType: AccountType, stripeUserId: string, stripeSubscriptionId: string) {
-		return this.withTransaction<UserAndSubscription>(async () => {
+		return this.withTransaction(async () => {
 			const user = await this.models().user().save({
 				account_type: accountType,
 				email,
