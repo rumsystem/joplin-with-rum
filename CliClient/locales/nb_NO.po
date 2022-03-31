@@ -678,9 +678,6 @@ msgstr "&Vis"
 msgid "Toggle sidebar"
 msgstr "Vis/skjul sidepanel"
 
-msgid "Layout button sequence"
-msgstr ""
-
 #, fuzzy
 msgid "Toggle note list"
 msgstr "Notatliste"
@@ -1485,25 +1482,6 @@ msgid "Solarised Dark"
 msgstr "Solarisert mørk"
 
 msgid "Nord"
-msgstr ""
-
-#, fuzzy
-msgid "Editor"
-msgstr "Rediger"
-
-#, fuzzy
-msgid "Viewer"
-msgstr "&Vis"
-
-msgid "Split View"
-msgstr ""
-
-#, fuzzy, javascript-format
-msgid "%s / %s / %s"
-msgstr "%s = %s (%s)"
-
-#, javascript-format
-msgid "%s / %s"
 msgstr ""
 
 msgid "Uncompleted to-dos on top"
