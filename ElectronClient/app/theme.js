@@ -158,6 +158,7 @@ const solarizedLightStyle = {
 	urlColor: "#268bd2",
 
 	backgroundColor2: "#002b36",
+	depthColor: 'rgb(100, 182, 253, OPACITY)',
 	color2: "#eee8d5",
 	selectedColor2: "#6c71c4",
 	colorError2: "#cb4b16",
@@ -194,6 +195,7 @@ const solarizedDarkStyle = {
 	urlColor: "#268bd2",
 
 	backgroundColor2: "#073642",
+	depthColor: 'rgb(200, 200, 200, OPACITY)',
 	color2: "#eee8d5",
 	selectedColor2: "#6c71c4",
 	colorError2: "#cb4b16",
@@ -345,17 +347,17 @@ function themeStyle(theme) {
 	let output = {};
 	output.zoomRatio = zoomRatio;
 	output.editorFontSize = editorFontSize;
-
-	// All theme are based on the light style, and just override the
-	// relevant properties
-	output = Object.assign({}, globalStyle, fontSizes, lightStyle);
-
-	if (theme == Setting.THEME_DARK) {
-		output = Object.assign({}, output, darkStyle);
-	} else if (theme == Setting.THEME_SOLARIZED_LIGHT) {
-		output = Object.assign({}, output, solarizedLightStyle);
-	} else if (theme == Setting.THEME_SOLARIZED_DARK) {
-		output = Object.assign({}, output, solarizedDarkStyle);
+	if (theme == Setting.THEME_LIGHT) {
+		output = Object.assign({}, globalStyle, fontSizes, lightStyle);
+	}
+	else if (theme == Setting.THEME_DARK) {
+		output = Object.assign({}, globalStyle, fontSizes, darkStyle);
+	}
+	else if (theme == Setting.THEME_SOLARIZED_LIGHT) {
+		output = Object.assign({}, globalStyle, fontSizes, solarizedLightStyle);
+	}
+	else if (theme == Setting.THEME_SOLARIZED_DARK) {
+		output = Object.assign({}, globalStyle, fontSizes, solarizedDarkStyle);
 	}
 
 	// Note: All the theme specific things should go in addExtraStyles
