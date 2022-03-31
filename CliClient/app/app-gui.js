@@ -1,3 +1,25 @@
+// NOTE: Notes for myself:
+// # tkWidgets methods and getters
+// innerheight: how much height the widget takes up
+// height: how much height the parent widget takes up
+// scrollTop_: index of scrolled lines from the top of the note
+// maxScrollTop_: Number of lines I can scroll from the top
+// scrollableHeight_: total height of the widget including what is not visible
+// scrollUp and scrollDown change the scrollTop_ variable by 1 (up -1, down +1) however, their values can be changed for however much you want to scroll
+// x/y will give you relative x/y to widget. absoluteX/absoluteY will give it to the terminal window
+// .renderedText includes line breaks but also regex of the links. .text is just plain text with non-wrapped line breaks (\n).
+
+// Blueprint:
+// I can get the lines with \n but that doesn't account for line wrap.
+// the rendered text link is wrapped: '\x1B[34m\x1B[4m' on either side. except 34m is 24m on the right
+
+// term():
+// you can use term.eraseArea() to erase the rectangle you need, then term('<string>') for whatever you want to write
+// term('string') writes the string wherever the cursor is.
+
+// Other:
+// Use stdout.(_(<command>)) as your console.log. It will show in the app console.
+
 const { Logger } = require('lib/logger.js');
 const Folder = require('lib/models/Folder.js');
 const BaseItem = require('lib/models/BaseItem.js');
@@ -33,6 +55,8 @@ const FolderListWidget = require('./gui/FolderListWidget.js');
 const NoteListWidget = require('./gui/NoteListWidget.js');
 const StatusBarWidget = require('./gui/StatusBarWidget.js');
 const ConsoleWidget = require('./gui/ConsoleWidget.js');
+const LinkSelector = require('./LinkSelector.js');
+
 
 class AppGui {
 	constructor(app, store, keymap) {
@@ -73,6 +97,8 @@ class AppGui {
 
 			this.currentShortcutKeys_ = [];
 			this.lastShortcutKeyTime_ = 0;
+
+			this.linkSelector_ = new LinkSelector();
 
 			// Recurrent sync is setup only when the GUI is started. In
 			// a regular command it's not necessary since the process
@@ -455,6 +481,37 @@ class AppGui {
 			} else {
 				this.stdout(_('Please select the note or notebook to be deleted first.'));
 			}
+
+		// NOTE: MY SHORTCUTS
+		} else if (cmd === 'next_link' || cmd === 'previous_link') {
+			const noteText = this.widget('noteText');
+			if (noteText.hasFocus) {
+
+				noteText.render();
+
+				if (cmd === 'next_link') {
+					this.linkSelector_.changeLink(noteText, 1);
+				} else {
+					this.linkSelector_.changeLink(noteText, -1);
+				}
+
+				this.linkSelector_.scrollWidget(noteText);
+
+				const cursorOffsetX = this.widget('mainWindow').width - noteText.innerWidth - 8;
+				const cursorOffsetY = 1 - noteText.scrollTop_;
+
+				if (this.linkSelector_.link) {
+					this.term_.moveTo(
+						this.linkSelector_.noteX + cursorOffsetX,
+						this.linkSelector_.noteY + cursorOffsetY
+					);
+					this.term_.term().inverse(this.linkSelector_.link);
+				}
+			}
+		} else if (cmd === 'open_link') {
+			if (this.widget('noteText').hasFocus) {
+				this.linkSelector_.openLink(this.widget('noteText'));
+			}
 		} else if (cmd === 'toggle_console') {
 			if (!this.consoleIsShown()) {
 				this.showConsole();
@@ -749,7 +806,6 @@ class AppGui {
 				// -------------------------------------------------------------------------
 				// Process shortcut and execute associated command
 				// -------------------------------------------------------------------------
-
 				const shortcutKey = this.currentShortcutKeys_.join('');
 				const keymapItem = this.keymapItemByKey(shortcutKey);
 
@@ -763,7 +819,6 @@ class AppGui {
 					this.logger().debug('Shortcut:', shortcutKey, keymapItem);
 
 					this.currentShortcutKeys_ = [];
-
 					if (keymapItem.type === 'function') {
 						this.processFunctionCommand(keymapItem.command);
 					} else if (keymapItem.type === 'prompt') {
