@@ -15,6 +15,10 @@ class ConfigScreenComponent extends React.Component {
 	constructor() {
 		super();
 
+		this.state = {
+			settings: {},
+		};
+
 		shared.init(this);
 
 		this.checkSyncConfig_ = async () => {
@@ -64,7 +68,9 @@ class ConfigScreenComponent extends React.Component {
 		};
 
 		const updateSettingValue = (key, value) => {
-			return shared.updateSettingValue(this, key, value);
+			const settings = Object.assign({}, this.state.settings);
+			settings[key] = Setting.formatValue(key, value);
+			this.setState({ settings: settings });
 		}
 
 		// Component key needs to be key+value otherwise it doesn't update when the settings change.
@@ -136,7 +142,10 @@ class ConfigScreenComponent extends React.Component {
 	}
 
 	onSaveClick() {
-		shared.saveSettings(this);
+		for (let n in this.state.settings) {
+			if (!this.state.settings.hasOwnProperty(n)) continue;
+			Setting.setValue(n, this.state.settings[n]);
+		}
 		this.props.dispatch({ type: 'NAV_BACK' });
 	}
 
@@ -158,11 +167,24 @@ class ConfigScreenComponent extends React.Component {
 		};
 
 		const buttonStyle = {
-			display: this.state.changedSettingKeys.length ? 'inline-block' : 'none',
+			display: this.state.settings === this.props.settings ? 'none' : 'inline-block',
 			marginRight: 10,
 		}
 
-		const settingComps = shared.settingsToComponents(this, 'desktop', settings);
+		let settingComps = [];
+		let keys = Setting.keys(true, 'desktop');
+		for (let i = 0; i < keys.length; i++) {
+			const key = keys[i];
+			if (!(key in settings)) {
+				console.warn('Missing setting: ' + key);
+				continue;
+			}
+			const md = Setting.settingMetadata(key);
+			if (md.show && !md.show(settings)) continue;
+			const comp = this.settingToComponent(key, settings[key]);
+			if (!comp) continue;
+			settingComps.push(comp);
+		}
 
 		const syncTargetMd = SyncTargetRegistry.idToMetadata(settings['sync.target']);
 

@@ -20,6 +20,11 @@ class ConfigScreenComponent extends BaseScreenComponent {
 		super();
 		this.styles_ = {};
 
+		this.state = {
+			settings: {},
+			settingsChanged: false,
+		};
+
 		shared.init(this);
 
 		this.checkSyncConfig_ = async () => {
@@ -27,7 +32,11 @@ class ConfigScreenComponent extends BaseScreenComponent {
 		}
 
 		this.saveButton_press = () => {
-			return shared.saveSettings(this);
+			for (let n in this.state.settings) {
+				if (!this.state.settings.hasOwnProperty(n)) continue;
+				Setting.setValue(n, this.state.settings[n]);
+			}
+			this.setState({settingsChanged:false});
 		};
 	}
 
@@ -104,7 +113,12 @@ class ConfigScreenComponent extends BaseScreenComponent {
 		let output = null;
 
 		const updateSettingValue = (key, value) => {
-			return shared.updateSettingValue(this, key, value);
+			const settings = Object.assign({}, this.state.settings);
+			settings[key] = Setting.formatValue(key, value);
+			this.setState({
+				settings: settings,
+				settingsChanged: true,
+			});
 		}
 
 		const md = Setting.settingMetadata(key);
@@ -173,7 +187,20 @@ class ConfigScreenComponent extends BaseScreenComponent {
 	render() {
 		const settings = this.state.settings;
 
-		const settingComps = shared.settingsToComponents(this, 'mobile', settings);
+		const keys = Setting.keys(true, 'mobile');
+		let settingComps = [];
+		for (let i = 0; i < keys.length; i++) {
+			const key = keys[i];
+			//if (key == 'sync.target' && !settings.showAdvancedOptions) continue;
+			if (!Setting.isPublic(key)) continue;
+
+			const md = Setting.settingMetadata(key);
+			if (md.show && !md.show(settings)) continue;
+
+			const comp = this.settingToComponent(key, settings[key]);
+			if (!comp) continue;
+			settingComps.push(comp);
+		}
 
 		const syncTargetMd = SyncTargetRegistry.idToMetadata(settings['sync.target']);
 
@@ -217,7 +244,7 @@ class ConfigScreenComponent extends BaseScreenComponent {
 				<ScreenHeader
 					title={_('Configuration')}
 					showSaveButton={true}
-					saveButtonDisabled={!this.state.changedSettingKeys.length}
+					saveButtonDisabled={!this.state.settingsChanged}
 					onSaveButtonPress={this.saveButton_press}
 				/>
 				<ScrollView >
