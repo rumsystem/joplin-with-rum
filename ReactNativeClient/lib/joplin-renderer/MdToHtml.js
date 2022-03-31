@@ -21,7 +21,7 @@ const rules = {
 
 const setupLinkify = require('./MdToHtml/setupLinkify');
 const hljs = require('highlight.js');
-const nodeSlug = require('slug');
+const uslug = require('uslug');
 const markdownItAnchor = require('markdown-it-anchor');
 // The keys must match the corresponding entry in Setting.js
 const plugins = {
@@ -34,13 +34,13 @@ const plugins = {
 	emoji: { module: require('markdown-it-emoji') },
 	insert: { module: require('markdown-it-ins') },
 	multitable: { module: require('markdown-it-multimd-table'), options: { multiline: true, rowspan: true, headerless: true } },
-	toc: { module: require('markdown-it-toc-done-right'), options: { listType: 'ul', slugify: slugify } },
+	toc: { module: require('markdown-it-toc-done-right'), options: { listType: 'ul', slugify: uslugify } },
 	expand_tabs: { module: require('markdown-it-expand-tabs'), options: { tabWidth: 4 } },
 };
 const defaultNoteStyle = require('./defaultNoteStyle');
 
-function slugify(s) {
-	return nodeSlug(s);
+function uslugify(s) {
+	return uslug(s);
 }
 
 class MdToHtml {
@@ -295,7 +295,7 @@ class MdToHtml {
 			markdownIt.use(ruleInstall(context, { ...ruleOptions }));
 		}
 
-		markdownIt.use(markdownItAnchor, { slugify: slugify });
+		markdownIt.use(markdownItAnchor, { slugify: uslugify });
 
 		for (const key in plugins) {
 			if (this.pluginEnabled(key)) markdownIt.use(plugins[key].module, plugins[key].options);

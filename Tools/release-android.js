@@ -151,9 +151,7 @@ async function createRelease(name, tagName, version) {
 async function main() {
 	const argv = require('yargs').argv;
 
-	if (!['release', 'prerelease'].includes(argv.type)) throw new Error('Must specify release type. Either --type=release or --type=prerelease');
-
-	const isPreRelease = argv.type === 'prerelease';
+	const isPreRelease = !!argv.prerelease;
 
 	if (isPreRelease) console.info('Creating pre-release');
 	console.info('Updating version numbers in build.gradle...');
