@@ -164,7 +164,7 @@ const TinyMCE = (props:TinyMCEProps, ref:any) => {
 		if (dispatchDidUpdateIID_) clearTimeout(dispatchDidUpdateIID_);
 		dispatchDidUpdateIID_ = setTimeout(() => {
 			dispatchDidUpdateIID_ = null;
-			editor.getDoc().dispatchEvent(new Event('joplin-noteDidUpdate'));
+			if (editor && editor.getDoc()) editor.getDoc().dispatchEvent(new Event('joplin-noteDidUpdate'));
 		}, 10);
 	};
 
@@ -421,6 +421,7 @@ const TinyMCE = (props:TinyMCEProps, ref:any) => {
 				valid_elements: '*[*]', // We already filter in sanitize_html
 				menubar: false,
 				branding: false,
+				target_list: false,
 				toolbar: 'bold italic | link joplinInlineCode joplinCodeBlock joplinAttach | numlist bullist joplinChecklist | h1 h2 h3 hr blockquote',
 				setup: (editor:any) => {
 
