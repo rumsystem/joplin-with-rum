@@ -15,8 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
 
 #: packages/app-desktop/bridge.js:106 packages/app-desktop/bridge.js:110
 #: packages/app-desktop/bridge.js:126 packages/app-desktop/bridge.js:134
@@ -598,8 +596,9 @@ msgid "Options"
 msgstr "Opzioni"
 
 #: packages/app-desktop/gui/KeymapConfig/utils/getLabel.js:37
+#, fuzzy
 msgid "Invalid"
-msgstr "Non valido"
+msgstr "%s non valido: %s."
 
 #: packages/app-desktop/gui/KeymapConfig/ShortcutRecorder.js:49
 msgid "Press the shortcut"
@@ -674,8 +673,6 @@ msgstr "Maggiori informazioni"
 #: packages/app-desktop/gui/MainScreen/MainScreen.js:527
 msgid "Use the arrows to move the layout items. Press \"Escape\" to exit."
 msgstr ""
-"Utilizza le frecce per muovere gli elementi del layout. Premi \"Esc\" per "
-"uscire"
 
 #: packages/app-desktop/gui/MainScreen/commands/showNoteContentProperties.js:18
 msgid "Statistics..."
@@ -744,7 +741,7 @@ msgstr "Attiva / disattiva editor"
 
 #: packages/app-desktop/gui/MainScreen/commands/toggleLayoutMoveMode.js:16
 msgid "Change application layout"
-msgstr "Modifica il layout dell'applicazione"
+msgstr ""
 
 #: packages/app-desktop/gui/MainScreen/commands/renameTag.js:30
 msgid "Rename tag:"
@@ -761,7 +758,7 @@ msgstr "Titolo del Taccuino:"
 #: packages/app-desktop/gui/MainScreen/commands/showSpellCheckerMenu.js:19
 #: packages/lib/services/spellChecker/SpellCheckerService.js:180
 msgid "Spell checker"
-msgstr "Controllo ortografico"
+msgstr ""
 
 #: packages/app-desktop/gui/MainScreen/commands/showShareNoteDialog.js:16
 msgid "Share note..."
@@ -986,7 +983,7 @@ msgstr "Diminuisci zoom"
 
 #: packages/app-desktop/gui/MenuBar.js:533
 msgid "&Go"
-msgstr "&Vai"
+msgstr ""
 
 #: packages/app-desktop/gui/MenuBar.js:545
 msgid "&Note"
@@ -1188,12 +1185,13 @@ msgstr ""
 "Importante: questa operazione va eseguita SOLO UNA VOLTA in UN dispositivo."
 
 #: packages/app-desktop/gui/EncryptionConfigScreen.min.js:198
+#, fuzzy
 msgid "Re-encryption"
-msgstr "Cripta nuovamente"
+msgstr "Crittografia"
 
 #: packages/app-desktop/gui/EncryptionConfigScreen.min.js:213
 msgid "Ignore"
-msgstr "Ignora"
+msgstr ""
 
 #: packages/app-desktop/gui/EncryptionConfigScreen.min.js:244
 #: packages/app-mobile/components/screens/encryption-config.js:215
@@ -1371,7 +1369,6 @@ msgstr "Naviga..."
 #: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:456
 msgid "The application must be restarted for these changes to take effect."
 msgstr ""
-"L'applicazione deve essere riavviata perché le modificano siano attive."
 
 #: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:468
 #: packages/app-desktop/gui/NoteList/NoteList.js:163
@@ -1380,24 +1377,25 @@ msgstr "Fallo subito"
 
 #: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:468
 msgid "Later"
-msgstr "Dopo"
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:521
+#, fuzzy
 msgid "Restart now"
-msgstr "Riavvia ora"
+msgstr "Scaricalo subito:"
 
 #: packages/app-desktop/gui/ConfigScreen/ButtonBar.js:27
 msgid "Apply"
 msgstr "Applica"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/PluginsStates.js:137
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Delete plugin \"%s\"?"
-msgstr "Eliminare il plugin \"%s\"?"
+msgstr "Eliminare la nota \"%s\"?"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/PluginsStates.js:181
 msgid "Install plugin"
-msgstr "Installa plugin"
+msgstr ""
 
 #: packages/app-desktop/gui/PromptDialog.min.js:249
 msgid "Clear"
@@ -2397,8 +2395,9 @@ msgstr ""
 "carattere generico monospace."
 
 #: packages/lib/models/Setting.js:609
+#, fuzzy
 msgid "Custom stylesheet for rendered Markdown"
-msgstr "Foglio di stile personalizzato per visualizzare il markdown"
+msgstr "CSS per gli stili Joplin-wide app"
 
 #: packages/lib/models/Setting.js:625
 msgid "Custom stylesheet for Joplin-wide app styles"
@@ -2584,11 +2583,12 @@ msgstr ""
 
 #: packages/lib/models/Setting.js:786
 msgid "Note list growth factor"
-msgstr "Fattore di crescita della lista note"
+msgstr "Fattore di crescita delle note"
 
 #: packages/lib/models/Setting.js:798
+#, fuzzy
 msgid "Note area growth factor"
-msgstr "Fattore di crescita dell'area note"
+msgstr "Fattore di crescita dell'area delle note"
 
 #: packages/lib/models/Setting.js:969
 #, javascript-format
@@ -3027,7 +3027,7 @@ msgstr ""
 #: packages/app-cli/app/command-done.js:20
 #, javascript-format
 msgid "Cannot find \"%s\"."
-msgstr "Impossibile trovare \"%s\"."
+msgstr "Non posso trovare \"%s\"."
 
 #: packages/lib/services/interop/InteropService.js:199
 #, javascript-format
@@ -3120,7 +3120,7 @@ msgstr "Allegati"
 
 #: packages/lib/services/report.js:190
 msgid "Downloaded and decrypted"
-msgstr "Scaricato e decrittato"
+msgstr "Scaricato e decriptato"
 
 #: packages/lib/services/report.js:190 packages/lib/services/report.js:191
 #: packages/lib/services/report.js:194
@@ -3143,7 +3143,7 @@ msgstr "%s (%s): %s"
 
 #: packages/lib/services/report.js:222
 msgid "Sync status (synced items / total items)"
-msgstr "Stato di sincronizzazione (elementi sincronizzati / elementi totali)"
+msgstr "Stato di sincronizzazione (Elementi sincronizzati / Elementi totali)"
 
 #: packages/lib/services/report.js:226
 #, javascript-format
@@ -3158,7 +3158,7 @@ msgstr "Totale: %d %d"
 #: packages/lib/services/report.js:231
 #, javascript-format
 msgid "Conflicted: %d"
-msgstr "Conflitti: %d"
+msgstr "In conflitto: %d"
 
 #: packages/lib/services/report.js:232
 #, javascript-format
@@ -3185,19 +3185,20 @@ msgstr "Su %s: %s"
 
 #: packages/lib/services/spellChecker/SpellCheckerService.js:107
 msgid "No suggestions"
-msgstr "Nessun suggerimento"
+msgstr ""
 
 #: packages/lib/services/spellChecker/SpellCheckerService.js:114
 msgid "Add to dictionary"
-msgstr "Aggiungi al dizionario"
+msgstr ""
 
 #: packages/lib/services/spellChecker/SpellCheckerService.js:153
 msgid "Use spell checker"
-msgstr "Usa controllo ortografico"
+msgstr ""
 
 #: packages/lib/services/spellChecker/SpellCheckerService.js:173
+#, fuzzy
 msgid "Change language"
-msgstr "Cambia lingua"
+msgstr "Linguaggio"
 
 #: packages/app-cli/app/command-cp.js:13
 msgid ""
@@ -3458,11 +3459,11 @@ msgid "Downloading resources..."
 msgstr "Scaricamento risorse..."
 
 #: packages/app-cli/app/command-sync.js:242
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Sync target must be upgraded! Run `%s` to proceed."
 msgstr ""
-"La destinazione di sincronizzazione deve essere aggiornata! Avvia `%s` per "
-"procedere."
+"La destinazione di sincronizzazione deve essere aggiornata. Premi questo "
+"banner per procedere."
 
 #: packages/app-cli/app/command-sync.js:260
 msgid "Cancelling... Please wait."
