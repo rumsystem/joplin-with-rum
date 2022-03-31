@@ -1363,18 +1363,10 @@ class Setting extends BaseModel {
 	}
 
 	// Low-level method to load a setting directly from the database. Should not be used in most cases.
-	public static async loadOne(key: string): Promise<CacheItem> {
+	public static async loadOne(key: string) {
 		if (this.keyStorage(key) === SettingStorage.File) {
 			const fromFile = await this.fileHandler.load();
-			return {
-				key,
-				value: fromFile[key],
-			};
-		} else if (this.settingMetadata(key).secure) {
-			return {
-				key,
-				value: await this.keychainService().password(`setting.${key}`),
-			};
+			return fromFile[key];
 		} else {
 			return this.modelSelectOne('SELECT * FROM settings WHERE key = ?', [key]);
 		}

@@ -65,7 +65,6 @@ export default class JoplinSettings {
 			if ('minimum' in setting) internalSettingItem.minimum = setting.minimum;
 			if ('maximum' in setting) internalSettingItem.maximum = setting.maximum;
 			if ('step' in setting) internalSettingItem.step = setting.step;
-			if ('storage' in setting) internalSettingItem.storage = setting.storage;
 
 			await Setting.registerSetting(this.namespacedKey(key), internalSettingItem);
 		}
