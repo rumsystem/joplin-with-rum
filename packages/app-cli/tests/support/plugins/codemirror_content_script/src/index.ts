@@ -12,16 +12,13 @@ joplin.plugins.register({
 		);
 
 		await joplin.commands.register({
-			name: 'printSomething',
+			name: 'editor.printSomething',
 			label: 'Print some random string',
 			execute: async () => {
-				await joplin.commands.execute('editor.execCommand', {
-					name: 'printSomething',
-					args: ['Anything']
-				});
+				alert('mathMode.printSomething not implemented by Editor yet');
 			},
 		});
 
-		await joplin.views.menuItems.create('printSomethingButton', 'printSomething', MenuItemLocation.Tools, { accelerator: 'Ctrl+Alt+Shift+U' });
+		await joplin.views.menuItems.create('printSomethingButton', 'editor.printSomething', MenuItemLocation.Tools, { accelerator: 'Ctrl+Alt+Shift+U' });
 	},
 });

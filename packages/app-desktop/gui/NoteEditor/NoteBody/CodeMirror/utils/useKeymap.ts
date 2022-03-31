@@ -25,9 +25,6 @@ export default function useKeymap(CodeMirror: any) {
 		CodeMirror.Vim.defineAction('insertListElement', CodeMirror.commands.vimInsertListElement);
 		CodeMirror.Vim.mapCommand('o', 'action', 'insertListElement', { after: true }, { context: 'normal', isEdit: true, interlaceInsertRepeat: true });
 	}
-	function isEditorCommand(command: string) {
-		return command.startsWith('editor.');
-	}
 
 	// Converts a command of the form editor.command to just command
 	function editorCommandToCodeMirror(command: String) {
@@ -94,7 +91,7 @@ export default function useKeymap(CodeMirror: any) {
 
 
 	CodeMirror.defineExtension('supportsCommand', function(cmd: EditorCommand) {
-		return isEditorCommand(cmd.name) && editorCommandToCodeMirror(cmd.name) in CodeMirror.commands;
+		return CommandService.isEditorCommand(cmd.name) && editorCommandToCodeMirror(cmd.name) in CodeMirror.commands;
 	});
 
 	// Used when an editor command is executed using the CommandService.instance().execute
