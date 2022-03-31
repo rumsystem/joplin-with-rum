@@ -9,6 +9,7 @@ const FsDriverNode = require('@joplin/lib/fs-driver-node').default;
 const envFromArgs = require('@joplin/lib/envFromArgs');
 const packageInfo = require('./packageInfo.js');
 const { isCallbackUrl } = require('@joplin/lib/callbackUrlUtils');
+const Quorum = require('quorum-sdk-electron-main');
 
 // Electron takes the application name from package.json `name` and
 // displays this in the tray icon toolip and message box titles, however in
@@ -45,6 +46,8 @@ const initialCallbackUrl = process.argv.find((arg) => isCallbackUrl(arg));
 const wrapper = new ElectronAppWrapper(electronApp, env, profilePath, isDebugMode, initialCallbackUrl);
 
 initBridge(wrapper);
+
+Quorum.init();
 
 wrapper.start().catch((error) => {
 	console.error('Electron App fatal error:');

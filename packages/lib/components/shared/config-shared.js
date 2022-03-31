@@ -153,7 +153,11 @@ shared.settingsSections = createSelector(
 
 shared.settingsToComponents2 = function(comp, device, settings, selectedSectionName = '') {
 	const sectionComps = [];
+	console.log('settings');
+	console.log(settings);
 	const sections = shared.settingsSections({ device, settings });
+	console.log('sections');
+	console.log(sections);
 
 	for (let i = 0; i < sections.length; i++) {
 		const section = sections[i];
