@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import KeymapService, { KeymapItem } from 'lib/services/KeymapService';
+import KeymapService, { KeymapItem } from '../../../lib/services/KeymapService';
 
 const keymapService = KeymapService.instance();
 
@@ -70,8 +70,7 @@ const useKeymap = (): [
 				await keymapService.saveCustomKeymap();
 				setKeymapError(null);
 			} catch (err) {
-				const error = new Error(`Could not save file: ${err.message}`);
-				setKeymapError(error);
+				setKeymapError(err);
 			}
 		}
 
