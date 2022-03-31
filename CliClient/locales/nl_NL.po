@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Joplin-CLI 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: nb\n"
+"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
+"Language-Team: Dutch <vistausss@outlook.com>\n"
+"Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,23 +17,26 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "To delete a tag, untag the associated notes."
-msgstr "Hvis du vil slette en kode, fjerne du de tilknyttede notatene."
+msgstr ""
+"Om een label te verwijderen, verwijder je het label van de bijbehorende "
+"notities."
 
 msgid "Please select the note or notebook to be deleted first."
-msgstr "Vennligst velg notatet eller notatboken som skal slettes først."
+msgstr "Kies eerst een te verwijderen notitie of notitieboek."
 
 msgid "Press Ctrl+D or type \"exit\" to exit the application"
-msgstr "Trykk Ctrl+D eller skriv \"exit\" for å forlate programmet"
+msgstr "Druk op Ctrl+D of typ \"exit\" om de applicatie af te sluiten"
 
 #, javascript-format
 msgid "More than one item match \"%s\". Please narrow down your query."
-msgstr "Mer en ett valg matcher\"%s\". Vennligst gjør søket mer spesifikt."
+msgstr ""
+"Meer dan één overeenkomst voor \"%s\". Maak je zoekopdracht specifieker."
 
 msgid "No notebook selected."
-msgstr "Ingen notisblokk valgt."
+msgstr "Geen notitieboek geselecteerd."
 
 msgid "No notebook has been specified."
-msgstr "Ingen Notisblokk har blitt spesifisert."
+msgstr "Geen notitieboek opgegeven."
 
 msgid "Y"
 msgstr "J"
@@ -48,58 +51,58 @@ msgid "y"
 msgstr "j"
 
 msgid "Cancelling background synchronisation... Please wait."
-msgstr "Stopper bakgrunns-synkronisering… Vennligst vent."
+msgstr "Bezig met annuleren van achtergrondsynchronisatie... even geduld."
 
 #, javascript-format
 msgid "No such command: %s"
-msgstr "Ingen slik kommando: %s"
+msgstr "Opdracht bestaat niet: %s"
 
 #, javascript-format
 msgid "The command \"%s\" is only available in GUI mode"
-msgstr "Kommandoen \"%s\" er bare tilgjengelig i GUI modus"
+msgstr "De opdracht \"%s\" is alleen beschikbaar in GUI-modus"
 
 msgid "Cannot change encrypted item"
-msgstr "Kan ikke endre kryptert element"
+msgstr "Kan versleuteld item niet wijzigen"
 
 #, javascript-format
 msgid "Missing required argument: %s"
-msgstr "Mangler nødvendig argument: %s"
+msgstr "Vereist argument ontbreekt: %s"
 
 #, javascript-format
 msgid "%s: %s"
 msgstr "%s: %s"
 
 msgid "Your choice: "
-msgstr "Ditt valg: "
+msgstr "Jouw keuze: "
 
 #, javascript-format
 msgid "Invalid answer: %s"
-msgstr "Ugyldig Svar: %s"
+msgstr "Ongeldig antwoord: %s"
 
 msgid "Attaches the given file to the note."
-msgstr "Koble den valgte filen til notatet."
+msgstr "Voegt het opgegeven bestand bij de notitie."
 
 #, javascript-format
 msgid "Cannot find \"%s\"."
-msgstr "Finner ikke \"%s\"."
+msgstr "Kan \"%s\" niet vinden."
 
 msgid "Displays the given note."
-msgstr "Viser det valgte notat."
+msgstr "Toont de opgegeven notitie."
 
 msgid "Displays the complete information about note."
-msgstr "Viser den komplette informasjonen om notatet."
+msgstr "Toont volledige informatie over de notitie."
 
 msgid ""
 "Gets or sets a config value. If [value] is not provided, it will show the "
 "value of [name]. If neither [name] nor [value] is provided, it will list the "
 "current configuration."
 msgstr ""
-"Skaffer eller setter en konfig verdi. hvis [value] ikke er tilgjengelig, vil "
-"den vise verdien av [name]. hvis ikke noen [name] eller [value] er gitt, vil "
-"den vise den gjeldene konfigurasjonen."
+"Verkrijgt of stelt een configuratiewaarde in. Als [value] niet is opgegeven, "
+"dan wordt de waarde van [name] getoond. Als zowel [name] als [value] niet "
+"zijn opgegeven, dan wordt de huidige configuratie getoond."
 
 msgid "Also displays unset and hidden config variables."
-msgstr "Viser også ikke satte og skjulte konfigurasjonsvariabler."
+msgstr "Toont ook niet-ingestelde en verborgen configuratiewaarden."
 
 #, javascript-format
 msgid "%s = %s (%s)"
@@ -113,283 +116,284 @@ msgid ""
 "Duplicates the notes matching <note> to [notebook]. If no notebook is "
 "specified the note is duplicated in the current notebook."
 msgstr ""
-"Dupliserer notatene som matcher <note> til [notisbok]. Hvis ingen notisbok "
-"er spesifisert så blir notatet duplisert til gjeldene notisbok."
+"Dupliceert de notities die overeenkomen met <note> tot [notebook]. Als geen "
+"notitieboek wordt opgegeven, dan wordt de notitie gedupliceerd in het "
+"huidige notitieboek."
 
 msgid "Marks a to-do as done."
-msgstr "Marker ett gjøremål som ferdig."
+msgstr "Markeert een taak als afgerond."
 
 #, javascript-format
 msgid "Note is not a to-do: \"%s\""
-msgstr "Notat er ikke ett gjøremål: \"%s\""
+msgstr "Notitie is geen taak: \"%s\""
 
 msgid ""
 "Manages E2EE configuration. Commands are `enable`, `disable`, `decrypt`, "
 "`status` and `target-status`."
 msgstr ""
-"Udfører E2EE konfiguration. Kommandoer er `enable`(aktiver), \"\n"
-"`disable`(lukk), `decrypt`(dekrypter), `status` og `target-status` (mottager-"
-"\"\n"
-"\"status)."
+"Beheert de E2EE-configuratie. Opdrachten zijn: `enable`, `disable`, "
+"`decrypt`, `status` en `target-status`."
 
 msgid "Enter master password:"
-msgstr "Skriv inn master passordet:"
+msgstr "Voer het hoofdwachtwoord in:"
 
 msgid "Operation cancelled"
-msgstr "Operasjon Stoppet"
+msgstr "Handeling geannuleerd"
 
 msgid ""
 "Starting decryption... Please wait as it may take several minutes depending "
 "on how much there is to decrypt."
 msgstr ""
-"Dekryptering startet... Vennligst vent da det kan ta mange  minutter\n"
-"avhengig av mengden som skal dekrypteres."
+"Bezig met starten van ontsleuteling... Het kan, afhankelijk van de "
+"hoeveelheid, enkele minuten duren; even geduld dus."
 
 msgid "Completed decryption."
-msgstr "Dekryptering Ferdig."
+msgstr "Ontsleuteling voltooid."
 
 msgid "Enabled"
-msgstr "Aktivert"
+msgstr "Ingeschakeld"
 
 msgid "Disabled"
-msgstr "Deaktivitert"
+msgstr "Uitgeschakeld"
 
 #, javascript-format
 msgid "Encryption is: %s"
-msgstr "Kryptering er: %s"
+msgstr "Versleuteld met: %s"
 
 msgid "Edit note."
-msgstr "Rediger notat."
+msgstr "Notitie bewerken."
 
 msgid ""
 "No text editor is defined. Please set it using `config editor <editor-path>`"
 msgstr ""
-"Inger teksteditor er valgt.Velg en ved å bruke `config editor <editor-path>`"
+"Geen tekstbewerker opgegeven. Stel deze in via `config editor <pad-naar-"
+"bewerker>`"
 
 msgid "No active notebook."
-msgstr "Ingen aktiv notisblokk."
+msgstr "Geen actief notitieboek."
 
 #, javascript-format
 msgid "Note does not exist: \"%s\". Create it?"
-msgstr "Notat eksisterer ikke: \"%s\". Lage det?"
+msgstr "Notitie bestaat niet: \"%s\". Wil je deze creëren?"
 
 msgid "Starting to edit note. Close the editor to get back to the prompt."
 msgstr ""
-"Notatredigering startet. Lukk redigering for å komme tilbake til "
-"kommandopromten."
+"Bezig met starten van notitiebewerking. Sluit de bewerker om terug te keren."
 
 #, javascript-format
 msgid "Error opening note in editor: %s"
-msgstr "Feil ved åpning av notat i editor: %s"
+msgstr "Fout bij openen van notitie in bewerker: %s"
 
 msgid "Note has been saved."
-msgstr "Notat har blitt lagret."
+msgstr "Notitie is opgeslagen."
 
 msgid "Exits the application."
-msgstr "Forlat programmet."
+msgstr "Sluit de applicatie af."
 
 msgid ""
 "Exports Joplin data to the given path. By default, it will export the "
 "complete database including notebooks, notes, tags and resources."
 msgstr ""
-"Eksporterer Joplin data til den valgte sti. Standard er eksport av den "
-"komplette database inkludert notisbøker notater, merker og ressurser."
+"Exporteert Joplin-gegevens naar het opgegeven pad. Standaard exporteert het "
+"de volledige databank, inclusief notitieboeken, notities, labels en bronnen."
 
 #, javascript-format
 msgid "Destination format: %s"
-msgstr "Målformat: %s"
+msgstr "Bestemmingsformaat: %s"
 
 msgid "Exports only the given note."
-msgstr "Eksporter bare det valgte notat."
+msgstr "Exporteert alleen de opgegeven notitie."
 
 msgid "Exports only the given notebook."
-msgstr "Eksporter bare den valgte notisbok."
+msgstr "Exporteert alleen het opgegeven notitieboek."
 
 msgid "Displays a geolocation URL for the note."
-msgstr "Viser den komplettestedsinformasjonen om notatet."
+msgstr "Toont een locatie-URL voor de notitie."
 
 msgid "Displays usage information."
-msgstr "Vis bruksinformasjon."
+msgstr "Toont gebruiksinformatie."
 
 #, javascript-format
 msgid "For information on how to customise the shortcuts please visit %s"
-msgstr "For informasjon om tilpassing av snarveier, vennligst besøk %s"
+msgstr "Ga, voor meer informatie over het aanpassen van sneltoetsen, naar %s"
 
 msgid "Shortcuts are not available in CLI mode."
-msgstr "Snarveier er ikke tilgjengelig i CLI modus."
+msgstr "Sneltoetsen zijn niet beschikbaar in CLI-modus."
 
 msgid ""
 "Type `help [command]` for more information about a command; or type `help "
 "all` for the complete usage information."
 msgstr ""
-"Skriv inn hjelp [kommando] for å få mer informasjon om en kommando. eller "
-"skriv inn \"Help all\" for fullstendig bruksinformasjon."
+"Typ `help [opdracht]` voor meer informatie over een opdracht of typ `help "
+"all` voor volledige gebruiksinformatie."
 
 msgid "The possible commands are:"
-msgstr "De mulige kommandoene er:"
+msgstr "De beschikbare opdrachten zijn:"
 
 msgid ""
 "In any command, a note or notebook can be referred to by title or ID, or "
 "using the shortcuts `$n` or `$b` for, respectively, the currently selected "
 "note or notebook. `$c` can be used to refer to the currently selected item."
 msgstr ""
-"I alle kommandoer kan et notat eller en notatblokk refereres til etter "
-"tittel eller ID, eller ved hjelp av snarveiene \"$n\" eller \"$b\" for "
-"gjeldende valgte notat eller notatblokk. \"$c\" kan brukes til å referere "
-"til elementet som er merket."
+"In elke opdracht kan middels een titel of ID worden verwezen naar een "
+"notitie of notitieboek. Dit kan ook met de sneltoetsen `$n` of `$b` voor "
+"respectievelijk de huidige geselecteerde notitie of het notitieboek. `$c` "
+"kan worden gebruikt om te verwijzen naar het huidige geselecteerde item."
 
 msgid "To move from one pane to another, press Tab or Shift+Tab."
 msgstr ""
-"Hvis du vil flytte fra én rute til en annen, trykker du TAB eller SKIFT + "
-"TAB."
+"Gebruik Tab of Shift+Tab om over te schakelen van het ene naar het andere "
+"paneel."
 
 msgid ""
 "Use the arrows and page up/down to scroll the lists and text areas "
 "(including this console)."
 msgstr ""
-"Bruk pilene og siden opp/ned for å rulle lister og tekstområder (inkludert "
-"denne konsollen)."
+"Gebruik de pijltjestoetsen en page up/down of door lijsten en tekstvelden te "
+"scrollen (inclusief deze console)."
 
 msgid "To maximise/minimise the console, press \"tc\"."
-msgstr "For å maksimere/minimere konsollen, trykk \"TC\"."
+msgstr "Gebruik \"tc\" om de console te maximaliseren/minimaliseren."
 
 msgid "To enter command line mode, press \":\""
-msgstr "Hvis du vil åpne Kommandolinjemodus, trykker du på \":\""
+msgstr "Druk op \":\" om de opdrachtregelmodus te starten."
 
 msgid "To exit command line mode, press ESCAPE"
-msgstr "Hvis du vil avslutte Kommandolinjemodus, trykker du ESC"
+msgstr "Druk op Esc om de opdrachtregelmodus af te sluiten."
 
 msgid ""
 "For the list of keyboard shortcuts and config options, type `help keymap`"
 msgstr ""
-"For listen over hurtigtaster og konfigurasjonsalternativer skriver du Help "
-"keymap"
+"Typ `help keymap` om de lijst met sneltoetsen en configuratie-opties te "
+"bekijken."
 
 msgid "Imports data into Joplin."
-msgstr "Importer data til Joplin."
+msgstr "Importeert gegeven naar Joplin."
 
 #, javascript-format
 msgid "Source format: %s"
-msgstr "Kilde Format: %s"
+msgstr "Bronformaat: %s"
 
 msgid "Do not ask for confirmation."
-msgstr "Ikke spør om bekreftelse."
+msgstr "Niet vragen om bevestiging."
 
 #, javascript-format
 msgid "Found: %d."
-msgstr "Funnet: %d."
+msgstr "Gevonden: %d."
 
 #, javascript-format
 msgid "Created: %d."
-msgstr "Laget: %d."
+msgstr "Gecreëerd: %d."
 
 #, javascript-format
 msgid "Updated: %d."
-msgstr "Oppdatert: %d."
+msgstr "Bijgewerkt: %d."
 
 #, javascript-format
 msgid "Skipped: %d."
-msgstr "Hoppet over: %d."
+msgstr "Overgeslagen: %d."
 
 #, javascript-format
 msgid "Resources: %d."
-msgstr "Ressurser: %d."
+msgstr "Bronnen: %d."
 
 #, javascript-format
 msgid "Tagged: %d."
-msgstr "Merket: %d."
+msgstr "Gelabeld: %d."
 
 msgid "Importing notes..."
-msgstr "Importer notater..."
+msgstr "Bezig met importeren van notities..."
 
 #, javascript-format
 msgid "The notes have been imported: %s"
-msgstr "Notatene har blitt importert: %s"
+msgstr "De notities zijn geïmporteerd: %s"
 
 msgid ""
 "Displays the notes in the current notebook. Use `ls /` to display the list "
 "of notebooks."
 msgstr ""
-"Viser notatene i gjeldende notatblokk. Bruk \"ls/\" for å vise listen over "
-"notatblokker."
+"Toont de notities van het huidige notitieboek. Gebruik `ls /` om de lijst "
+"met notitieboeken te tonen."
 
 msgid "Displays only the first top <num> notes."
-msgstr "Viser bare de første <num> notatene."
+msgstr "Toont alleen de eerste <num> notities."
 
 msgid "Sorts the item by <field> (eg. title, updated_time, created_time)."
-msgstr "Sorter etter <field> (eg. title, updated_time, created_time)."
+msgstr ""
+"Sorteert de items op <field> (bijv. title, updated_time, created_time)."
 
 msgid "Reverses the sorting order."
-msgstr "Snu sorteringen."
+msgstr "Keert de sorteervolgorde om."
 
 msgid ""
 "Displays only the items of the specific type(s). Can be `n` for notes, `t` "
 "for to-dos, or `nt` for notes and to-dos (eg. `-tt` would display only the "
 "to-dos, while `-ttd` would display notes and to-dos."
 msgstr ""
-"Viser bare elementene til den spesifikke typen (e). Kan være `n` for notater,"
-"` t` for gjøremål eller `nt` for notater og to-dos (f.eks.` -t` ville bare "
-"vise , mens `-ttd` ville vise notater og gjøremål."
+"Toont alleen items van specifieke type(s). Dit kan zijn: `n` voor notities, "
+"`t` voor taken of `nt` voor notities en taken (`-tt` toont alleen de taken, "
+"`-ttd` toont notities en taken)."
 
 msgid "Either \"text\" or \"json\""
-msgstr "Entenr \"text\" eller \"json\""
+msgstr "\"text\" of \"json\""
 
 msgid ""
 "Use long list format. Format is ID, NOTE_COUNT (for notebook), DATE, "
 "TODO_CHECKED (for to-dos), TITLE"
 msgstr ""
-"Bruk langt listeformat. Formatter er ID, NOTE_COUNT (for notisbok), dato, "
-"TODO_CHECKED (for å-DOS), tittel"
+"Gebruik de langelijstopmaak. De opmaak is ID, NOTE_COUNT (voor het "
+"notitieboek), DATA, TODO_CHECKED (voor taken), TITLE"
 
 msgid "Please select a notebook first."
-msgstr "Vennligst velg en notisblokk først."
+msgstr "Kies eerst een notitieboek."
 
 msgid "Creates a new notebook."
-msgstr "Lager en ny notisblokk."
+msgstr "Creëert een nieuw notitieboek."
 
 msgid "Creates a new note."
-msgstr "Lager ett nytt notat."
+msgstr "Creëert een nieuwe notitie."
 
 msgid "Notes can only be created within a notebook."
-msgstr "Notater kan bare lages inne i en notisblokk."
+msgstr "Notities kunnen alleen worden gecreëerd in een notitieboek."
 
 msgid "Creates a new to-do."
-msgstr "Lage ett nytt gjøremål."
+msgstr "Creëert een nieuwe taak."
 
 msgid "Moves the notes matching <note> to [notebook]."
-msgstr "Flytter notatene som matcher <note> til [notebook]."
+msgstr "Verplaatst de notities die overeenkomen met <note> naar [notebook]."
 
 msgid "Renames the given <item> (note or notebook) to <name>."
-msgstr "Gir nytt navn til <item> (note or notebook) til <name>."
+msgstr ""
+"Wijzigt de naam van het opgegeven <item> (notitie of notitieboek) in <name>."
 
 msgid "Deletes the given notebook."
-msgstr "Sletter den valgte notisblokk."
+msgstr "Verwijdert het opgegeven notitieboek."
 
 msgid "Deletes the notebook without asking for confirmation."
-msgstr "Sletter den valgte notisblokk direkte."
+msgstr "Verwijdert het notitieboek zonder te vragen om bevestiging."
 
 msgid ""
 "Delete notebook? All notes and sub-notebooks within this notebook will also "
 "be deleted."
 msgstr ""
-"Slette notisbok? Alle notater og underliggende notisbøker ved denne "
-"notisboken vil også bli slettet."
+"Notitieboek verwijderen? Alle notities en sub-notitieboeken worden eveneens "
+"verwijderd."
 
 msgid "Deletes the notes matching <note-pattern>."
-msgstr "Sletter notatene som passer <note-pattern>."
+msgstr "Verwijdert de notities die overeenkomen met <note-pattern>."
 
 msgid "Deletes the notes without asking for confirmation."
-msgstr "Sletter notatene uten bekreftelse."
+msgstr "Verwijdert de notities zonder te vragen om bevestiging."
 
 #, javascript-format
 msgid "%d notes match this pattern. Delete them?"
-msgstr "%d notater passer dette målet. Slette dem?"
+msgstr "Er komen %d notities overeen met dit patroon. Wil je ze verwijderen?"
 
 msgid "Delete note?"
-msgstr "Slett notat?"
+msgstr "Notitie verwijderen?"
 
 msgid "Searches for the given <pattern> in all the notes."
-msgstr "Søker etter angitt <pattern> i alle notatene."
+msgstr "Doorzoekt alle notities op het opgegeven <pattern>."
 
 #, javascript-format
 msgid ""
@@ -398,41 +402,40 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Angir egenskapen <name> for angitt <note> til angitt [verdi]. Mulige "
-"egenskaper er: %s"
+"Stelt de <name> in van de opgegeven notitie op de opgegeven [value]. "
+"Mogelijkheden zijn:\n"
+"\n"
+"%s"
 
 msgid "Displays summary about the notes and notebooks."
-msgstr "Viser Sammendrag om notatene og notatblokkene."
+msgstr "Toont een samenvatting over de notities en notitieboeken."
 
 msgid "Synchronises with remote storage."
-msgstr "Synkroniser med fjernlagring."
+msgstr "Synchroniseert met cloudopslag."
 
 msgid "Sync to provided target (defaults to sync.target config value)"
-msgstr "Sync å forsynt mål (uteblivelsene å sync. target config-verdi)"
+msgstr "Synchroniseren naar opgegeven doel (standaard is dit sync.target)"
 
 msgid ""
 "Authentication was not completed (did not receive an authentication token)."
-msgstr "Godkjenning ble ikke fullført (mottok ikke et godkjennings tegn)."
+msgstr "Authenticatie is niet voltooid (geen authenticatiesleutel ontvangen)."
 
 msgid ""
 "To allow Joplin to synchronise with Dropbox, please follow the steps below:"
-msgstr ""
-"For å få Joplin til å synkronisere med Dropbox, vennligst følg trinnene "
-"under her:"
+msgstr "Volg de onderstaande stappen om Joplin te synchroniseren met Dropbox:"
 
 msgid "Step 1: Open this URL in your browser to authorise the application:"
-msgstr ""
-"Trinn 1: Åpne denne URL i din nettleser for å autorisere applikasjonen:"
+msgstr "Stap 1: Open deze URL in je browser om de applicatie te autoriseren:"
 
 msgid "Step 2: Enter the code provided by Dropbox:"
-msgstr "Trinn 2: Sett inn koden du fikk av Dropbox:"
+msgstr "Stap 2: Voer de door Dropbox aangeleverde code in:"
 
 #, javascript-format
 msgid "Not authentified with %s. Please provide any missing credentials."
-msgstr "Ikke autorisert med %s. Vennligst fyll inn manglende detaljer."
+msgstr "Niet geauthenticeerd met %s. Voer ontbrekende inloggegevens in."
 
 msgid "Synchronisation is already in progress."
-msgstr "Synkronisering er allerede i gang."
+msgstr "De synchronisatie loopt al."
 
 #, javascript-format
 msgid ""
@@ -440,34 +443,37 @@ msgid ""
 "taking place, you may delete the lock file at \"%s\" and resume the "
 "operation."
 msgstr ""
-"Låse filen er allerede sperret. Hvis du vet at det ikke pågår noen "
-"synkronisering, kan du slette låse filen på %s og fortsette operasjonen."
+"Het vergrendelbestand wordt al vastgehouden. Als je zeker weet dat er geen "
+"synchronisatie plaatsvindt, dan kun je bestand verwijderen in \"%s\" en de "
+"handeling hervatten."
 
 #, javascript-format
 msgid "Synchronisation target: %s (%s)"
-msgstr "Synkroniseringsmål: %s (%s)"
+msgstr "Synchronisatiedoel: %s (%s)"
 
 msgid "Cannot initialize synchroniser."
-msgstr "Kan ikke starte synkronisering."
+msgstr "De synchronisatie kan niet worden geïnitaliseerd."
 
 msgid "Starting synchronisation..."
-msgstr "Starter synkronisering..."
+msgstr "Bezig met starten van synchronisatie..."
 
 msgid "Cancelling... Please wait."
-msgstr "Stopper… Vennligst vent."
+msgstr "Bezig met annuleren... Even geduld."
 
+#, fuzzy
 msgid ""
 "<tag-command> can be \"add\", \"remove\" or \"list\" to assign or remove "
 "[tag] from [note], or to list the notes associated with [tag]. The command "
-"`tag list` can be used to list all the tags."
+"`tag list` can be used to list all the tags (use -l for long option)."
 msgstr ""
-"<tag-command> kan \"sammenlegge\", \"fjerne\" eller \"liste\" å anvise eller "
-"fjerne [tag] fra [Note], eller å liste det notater forbundet med [tag]. "
-"Kommandoen \"tag List\" kan brukes til å vise alle kodene."
+"<tag-command> kan zijn \"add\", \"remove\" of \"list\" om [tag] toe te "
+"wijzen aan of te verwijderen uit [note] of om de met [tag] geassocieerde "
+"notities op te sommen. De opdracht `tag list` kan worden gebruikt om alle "
+"labels op te sommen."
 
 #, javascript-format
 msgid "Invalid command: \"%s\""
-msgstr "Ugyldig kommando: \"%s\""
+msgstr "Ongeldige opdracht: \"%s\""
 
 msgid ""
 "<todo-command> can either be \"toggle\" or \"clear\". Use \"toggle\" to "
@@ -475,23 +481,23 @@ msgid ""
 "target is a regular note it will be converted to a to-do). Use \"clear\" to "
 "convert the to-do back to a regular note."
 msgstr ""
-"<todo-command> kan enten være \"Toggle\" eller \"Clear\". Bruk \"Toggle\" "
-"for å veksle gitt gjøremål mellom fullført og ikke fullført status (hvis "
-"målet er et vanlig notat det vil bli konvertert til et gjøremål). Bruk "
-"\"Clear\" for å konvertere gjøremålet tilbake til et vanlig notat."
+"<todo-command> kan \"toggle\" of \"clear\" zijn. Gebruik \"toggle\" om de "
+"status van de opgegeven taak te wijzigen in afgerond of niet-afgerond (als "
+"het doel een reguliere notitie is, dan wordt deze omgezet in een taak). "
+"Gebruik \"clear\" om de taak weer om te zetten naar een reguliere notitie."
 
 msgid "Marks a to-do as non-completed."
-msgstr "Merker et gjøremål som ikke fullført."
+msgstr "Markeert een taak als niet-afgerond."
 
 msgid ""
 "Switches to [notebook] - all further operations will happen within this "
 "notebook."
 msgstr ""
-"Bytter til [notatblokk]-alle ytterligere operasjoner vil skje innen denne "
-"notatblokken."
+"Schakelt over naar [notebook] - alle toekomstige handelingen worden gedaan "
+"in dit notitieboek."
 
 msgid "Displays version information"
-msgstr "Vis versjonsinformaasjon"
+msgstr "Toont versie-informatie"
 
 #, javascript-format
 msgid "%s %s (%s)"
@@ -506,27 +512,28 @@ msgstr "Type: %s."
 
 #, javascript-format
 msgid "Possible values: %s."
-msgstr "Mulige verdier: %s."
+msgstr "Mogelijk waarden: %s."
 
 #, javascript-format
 msgid "Default: %s"
-msgstr "Standard: %s"
+msgstr "Standaard: %s"
 
 msgid "Possible keys/values:"
-msgstr "Mulige nøkler/verdier:"
+msgstr "Mogelijke sleutels/waarden:"
 
 msgid "Type `joplin help` for usage information."
-msgstr "Skriv `joplin help` for bruksinformasjon."
+msgstr "Typ `joplin help` voor meer informatie over het gebruik."
 
 msgid "Fatal error:"
-msgstr "Fatal feil:"
+msgstr "Fatale fout:"
 
 msgid ""
 "The application has been authorised - you may now close this browser tab."
-msgstr "Søknaden er autorisert-du kan nå lukke denne nettleseren kategorien."
+msgstr ""
+"De applicatie is geautoriseerd - je kunt dit browsertabblad nu sluiten."
 
 msgid "The application has been successfully authorised."
-msgstr "Applikasjonen har blitt godkjent."
+msgstr "De applicatie is geautoriseerd."
 
 msgid ""
 "Please open the following URL in your browser to authenticate the "
@@ -535,14 +542,14 @@ msgid ""
 "any files outside this directory nor to any other personal data. No data "
 "will be shared with any third party."
 msgstr ""
-"Vennligst åpne URL-en i din nettleser for autoratisjon. Programmet vil "
-"opprette en katalog i \"apps/Joplin\" og vil bare lese og skrive filer i "
-"denne katalogen. Den ville mangle adgang å filer utenfor denne katalogen "
-"heller ikke å alle annet personlig data. Ingen data vil bli delt med noen "
-"tredjepart."
+"Open de volgende URL in je browser om de applicatie te authenticeren. De "
+"applicatie creëert een map in \"Apps/Joplin\" en zal alleen bestanden lezen "
+"uit en wegschrijven naar deze map. Er is geen toegang tot bestanden buiten "
+"deze map, noch tot persoonlijke gegevens. Er worden geen gegevens gedeeld "
+"met een derde partij."
 
 msgid "Search:"
-msgstr "Søk:"
+msgstr "Zoeken:"
 
 msgid ""
 "Welcome to Joplin!\n"
@@ -552,13 +559,13 @@ msgid ""
 "\n"
 "For example, to create a notebook press `mb`; to create a note press `mn`."
 msgstr ""
-"Velkommen til Joplin!\n"
+"Welkom bij Joplin!\n"
 "\n"
-"Type ': hjelp-snarveier for listen over hurtigtaster, eller bare: Hjelp for "
-"bruksinformasjon.\n"
+"Typ `:help shortcuts` voor een lijst met sneltoetsen of `:help` voor "
+"informatie omtrent het gebruik.\n"
 "\n"
-"Hvis du for eksempel vil opprette en notatblokk, trykker du ' MB '. Trykk "
-"\"MN\" for å opprette et notat."
+"Voorbeeld: om een notitieboek te creëren, druk je op `mb`; om een notitie te "
+"creëren, druk je op `mn`."
 
 msgid ""
 "One or more items are currently encrypted and you may need to supply a "
@@ -566,115 +573,115 @@ msgid ""
 "supplied the password, the encrypted items are being decrypted in the "
 "background and will be available soon."
 msgstr ""
-"Ett eller flere elementer er kryptert, og du må kanskje oppgi et "
-"hovedpassord. Å gjøre så vennligst skriv ' e2ee dekryptere '. Hvis du "
-"allerede har oppgitt passordet, dekrypteres de krypterte elementene i "
-"bakgrunnen og vil snart være tilgjengelige."
+"Eén of meerdere items zijn momenteel versleuteld. Hiervoor moet je mogelijk "
+"een hoofdwachtwoord opgeven. Dit kun je doen door `e2ee decrypt` te typen. "
+"Als je het wachtwoord al hebt opgegeven, dan worden de versleutelde items op "
+"de achtergrond ontsleuteld en komen spoedig beschikbaar."
 
 #, javascript-format
 msgid "Exporting to \"%s\" as \"%s\" format. Please wait..."
-msgstr "Eksporterer til \"%s\" i \"%s\" format. Vennligst vent..."
+msgstr "Bezig met exporteren van \"%s\" in het formaat \"%s\". Even geduld..."
 
 #, javascript-format
 msgid "Importing from \"%s\" as \"%s\" format. Please wait..."
-msgstr "Importerer fra \"%s\" i \"%s\" format. Vennligst vent..."
+msgstr "Bezig met importeren van \"%s\" in het formaat \"%s\". Even geduld..."
 
 msgid "PDF File"
-msgstr "PDF Fil"
+msgstr "PDF-bestand"
 
 msgid "File"
-msgstr "Fil"
+msgstr "Bestand"
 
 msgid "New note"
-msgstr "Nytt Notat"
+msgstr "Nieuwe notitie"
 
 msgid "New to-do"
-msgstr "Ny Gjøremål"
+msgstr "Nieuwe taak"
 
 msgid "New notebook"
-msgstr "Ny notisbok"
+msgstr "Nieuw notitieboek"
 
 msgid "Import"
-msgstr "Importer"
+msgstr "Importeren"
 
 msgid "Export"
-msgstr "Eksport"
+msgstr "Exporteren"
 
 msgid "Print"
-msgstr "Skriv Ut"
+msgstr "Afdrukken"
 
 #, javascript-format
 msgid "Hide %s"
-msgstr "Skjul %s"
+msgstr "%s verbergen"
 
 msgid "Quit"
-msgstr "Gå ut"
+msgstr "Afsluiten"
 
 msgid "Edit"
-msgstr "Rediger"
+msgstr "Bewerken"
 
 msgid "Copy"
-msgstr "Kopier"
+msgstr "Kopiëren"
 
 msgid "Cut"
-msgstr "Klipp ut"
+msgstr "Knippen"
 
 msgid "Paste"
-msgstr "Lim inn"
+msgstr "Plakken"
 
 msgid "Bold"
-msgstr ""
+msgstr "Vetgedrukt"
 
 msgid "Italic"
-msgstr ""
+msgstr "Cursief"
 
 msgid "Insert Date Time"
-msgstr ""
+msgstr "Datum en tijd invoegen"
 
 msgid "Edit in external editor"
-msgstr ""
+msgstr "Bewerken in externe bewerker"
 
 msgid "Search in all the notes"
-msgstr "Søk i alle notater"
+msgstr "Alle notities doorzoeken"
 
 msgid "View"
-msgstr "Se på"
+msgstr "Beeld"
 
 msgid "Toggle sidebar"
-msgstr "Vis/Skjul Sidepanel"
+msgstr "Zijbalk tonen/verbergen"
 
 msgid "Toggle editor layout"
-msgstr "Vis/Skjul editor"
+msgstr "Bewerkindeling tonen/verbergen"
 
 msgid "Tools"
-msgstr "Verktøy"
+msgstr "Hulpmiddelen"
 
 msgid "Synchronisation status"
-msgstr "Synkroniserings-status"
+msgstr "Synchronisatiestatus"
 
 msgid "Web clipper options"
-msgstr ""
+msgstr "Webclipper-opties"
 
 msgid "Encryption options"
-msgstr "Krypteringsvalg"
+msgstr "Versleutelingsopties"
 
 msgid "General Options"
-msgstr "Generelle valg"
+msgstr "Algemene opties"
 
 msgid "Help"
-msgstr "Hjelp"
+msgstr "Hulp"
 
 msgid "Website and documentation"
-msgstr "Nettsted og Dokumentasjon"
+msgstr "Website en documentatie"
 
 msgid "Make a donation"
-msgstr "Gi et bidrag"
+msgstr "Doneren"
 
 msgid "Check for updates..."
-msgstr "Se etter oppdatering..."
+msgstr "Controleren op updates..."
 
 msgid "About Joplin"
-msgstr "Om Joplin"
+msgstr "Over Joplin"
 
 #, javascript-format
 msgid "%s %s (%s, %s)"
@@ -682,96 +689,101 @@ msgstr "%s %s (%s, %s)"
 
 #, javascript-format
 msgid "Open %s"
-msgstr "Åpne %s"
+msgstr "%s openen"
 
 msgid "Exit"
-msgstr "Ut"
+msgstr "Afsluiten"
 
 msgid "OK"
-msgstr "OK"
+msgstr "Oké"
 
 msgid "Cancel"
-msgstr "Avbryt"
+msgstr "Annuleren"
 
 msgid "Current version is up-to-date."
-msgstr "Nåværende versjon er den siste."
+msgstr "De huidige versie is up-to-date."
 
 msgid "An update is available, do you want to download it now?"
-msgstr "En oppdatering er tilgjengelig, vil du laste den ned nå?"
+msgstr "Er is een update beschikbaar. Wil je deze nu downloaden?"
 
 msgid "Yes"
 msgstr "Ja"
 
 msgid "No"
-msgstr "Nei"
+msgstr "Nee"
 
 msgid "The web clipper service is enabled and set to auto-start."
-msgstr ""
+msgstr "De webclipper-dienst is ingeschakeld en wordt automatisch opgestart."
 
 #, javascript-format
 msgid "Status: Started on port %d"
-msgstr ""
+msgstr "Status: gestart op poort %d"
 
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Status: %s"
-msgstr "Status: %s."
+msgstr "Status: %s"
 
 msgid "Disable Web Clipper Service"
-msgstr ""
+msgstr "Webclipper-dienst uitschakelen"
 
 msgid "The web clipper service is not enabled."
-msgstr ""
+msgstr "De webclipper-dienst is niet ingeschakeld."
 
 msgid "Enable Web Clipper Service"
-msgstr ""
+msgstr "Webclipper-dienst inschakelen"
 
 msgid ""
 "Joplin Web Clipper allows saving web pages and screenshots from your browser "
 "to Joplin."
 msgstr ""
+"Joplin Webclipper stelt je in staat om webpagina's en schermafbeeldingen van "
+"je browser op te slaan in Joplin."
 
 msgid "In order to use the web clipper, you need to do the following:"
 msgstr ""
+"Als je de webclipper wilt gebruiken, dan moet je de volgende stappen volgen:"
 
 msgid "Step 1: Enable the clipper service"
-msgstr ""
+msgstr "Stap 1: Schakel de webclipper-dienst in"
 
 msgid ""
 "This service allows the browser extension to communicate with Joplin. When "
 "enabling it your firewall may ask you to give permission to Joplin to listen "
 "to a particular port."
 msgstr ""
+"Deze dienst stelt de browserextensie in staat om te communiceren met Joplin. "
+"Na het inschakelen kan je firewall om toestemming vragen voor het uitvoeren "
+"van Joplin op een specifieke poort."
 
 msgid "Step 2: Install the extension"
-msgstr ""
+msgstr "Stap 2: Installeer de extensie"
 
 msgid "Download and install the relevant extension for your browser:"
-msgstr ""
+msgstr "Download en installeer de bijbehorende extensie in je browser:"
 
 msgid "Check synchronisation configuration"
-msgstr "Sjekk synkroniseringskonfigurasjonen"
+msgstr "Synchronisatieconfiguratie controleren"
 
 #, javascript-format
 msgid "Notes and settings are stored in: %s"
-msgstr "Notater og innstillinger er lagret i: %s"
+msgstr "Notities en instellingen worden opgeslagen in: %s"
 
 msgid "Apply"
-msgstr ""
+msgstr "Toepassen"
 
 msgid "Submit"
-msgstr "Send"
+msgstr "Versturen"
 
 msgid "Save"
-msgstr "Lagre"
+msgstr "Opslaan"
 
 msgid ""
 "Disabling encryption means *all* your notes and attachments are going to be "
 "re-synchronised and sent unencrypted to the sync target. Do you wish to "
 "continue?"
 msgstr ""
-"Deaktivering av kryptering betyr at alle * notatene og vedleggene skal "
-"synkroniseres på nytt og sendes ukryptert til synkroniserings målet. Vil du "
-"fortsette?"
+"Door versleuteling uit te schakelen worden *alle* notities en bijlagen "
+"opnieuw gesynchroniseerd, maar dan onversleuteld. Wil je doorgaan?"
 
 msgid ""
 "Enabling encryption means *all* your notes and attachments are going to be "
@@ -779,305 +791,307 @@ msgid ""
 "password as, for security purposes, this will be the *only* way to decrypt "
 "the data! To enable encryption, please enter your password below."
 msgstr ""
-"Aktivering av kryptering betyr at alle * notatene og vedleggene skal "
-"synkroniseres på nytt og sendes kryptert til synkroniserings målet. Ikke "
-"miste passordet som, av sikkerhetsmessige grunner, vil dette være * bare * "
-"måten å dekryptere data! Hvis du vil aktivere kryptering, må du skrive inn "
-"passordet nedenfor."
+"Door versleuteling in te schakelen worden *alle* notities en bijlagen "
+"opnieuw gesynchroniseerd, maar dan versleuteld. Wil je doorgaan? Raak het "
+"wachtwoord niet kwijt; i.v.m. veiligheidsdoeleinden is dit de *enige* manier "
+"om gegevens te ontsleutelen! Voer je wachtwoord hieronder in om "
+"versleuteling in te schakelen."
 
 msgid "Disable encryption"
-msgstr "Fjern Kryptering"
+msgstr "Versleuteling uitschakelen"
 
 msgid "Enable encryption"
-msgstr "Tillat Kryptering"
+msgstr "Versleuteling inschakelen"
 
 msgid "Master Keys"
-msgstr "Master Nøkkel"
+msgstr "Hoofdsleutels"
 
 msgid "Active"
-msgstr "Aktiv"
+msgstr "Actief"
 
 msgid "ID"
 msgstr "ID"
 
 msgid "Source"
-msgstr "Kilde"
+msgstr "Bron"
 
 msgid "Created"
-msgstr "Laget"
+msgstr "Gecreëerd"
 
 msgid "Updated"
-msgstr "Oppdatert"
+msgstr "Bijgewerkt"
 
 msgid "Password"
-msgstr "Passord"
+msgstr "Wachtwoord"
 
 msgid "Password OK"
-msgstr "Passord OK"
+msgstr "Wachtwoord is juist"
 
 msgid ""
 "Note: Only one master key is going to be used for encryption (the one marked "
 "as \"active\"). Any of the keys might be used for decryption, depending on "
 "how the notes or notebooks were originally encrypted."
 msgstr ""
-"Merk: bare én Master Key skal brukes til kryptering (den som er merket som "
-"\"aktiv\"). Noen av nøklene kan brukes til dekryptering, avhengig av hvordan "
-"notatene eller notatblokkene opprinnelig ble kryptert."
+"Let op: er wordt slechts één hoofdsleutel gebruikt voor versleuteling (de "
+"als \"actief\" gemarkeerde). De anderen kunnen worden gebruikt voor "
+"ontsleuteling, afhankelijk van hoe de notities en notitieboeken "
+"oorspronkelijk versleuteld waren."
 
 msgid "Missing Master Keys"
-msgstr "Manglende Master Nøkkel"
+msgstr "Ontbrekende hoofdsleutels"
 
 msgid ""
 "The master keys with these IDs are used to encrypt some of your items, "
 "however the application does not currently have access to them. It is likely "
 "they will eventually be downloaded via synchronisation."
 msgstr ""
-"Hoved nøklene med disse IDene brukes til å kryptere noen av elementene, men "
-"programmet har for øyeblikket ikke tilgang til dem. Det er sannsynlig at de "
-"vil bli lastet ned via synkronisering."
+"De hoofdsleutels met deze ID's worden gebruikt om sommige items te "
+"versleutelen, maar de applicatie heeft momenteel geen toegang tot deze "
+"items. Waarschijnlijk worden ze uiteindelijk gedownload via synchronisatie."
 
 msgid ""
 "For more information about End-To-End Encryption (E2EE) and advices on how "
 "to enable it please check the documentation:"
 msgstr ""
-"For mer informasjon om ende-til-ende-kryptering (E2EE) og råd om hvordan du "
-"aktiverer den kan du sjekke dokumentasjonen:"
+"Bekijk, voor meer informatie over End-To-End-versleuteling (E2EE) en hulp "
+"bij het inschakelen hiervan, onze documentatie:"
 
 msgid "Status"
 msgstr "Status"
 
 msgid "Encryption is:"
-msgstr "Kryptering er:"
+msgstr "Gebruikte versleuteling:"
 
 msgid "Back"
-msgstr "Tilbake"
+msgstr "Terug"
 
 #, javascript-format
 msgid ""
 "New notebook \"%s\" will be created and file \"%s\" will be imported into it"
 msgstr ""
-"Ny notatblokk \" %s\" vil bli opprettet og filen \" %s\" vil bli importert "
-"til den"
+"Het nieuwe notitieboek \"%s\" wordt gecreëerd en het bestand \"%s\" wordt "
+"ernaar geïmporteerd"
 
 msgid "Please create a notebook first."
-msgstr "Vennligst lag en notisbok først."
+msgstr "Kies eerst een notitieboek."
 
 msgid "Please create a notebook first"
-msgstr "Vennligst lag en notisbok først"
+msgstr "Creëer eerst een notitieboek"
 
 msgid "Notebook title:"
-msgstr "Tittel på notisbok:"
+msgstr "Titel van notitieboek:"
 
 msgid "Add or remove tags:"
-msgstr "Legge til eller fjern Tagg:"
+msgstr "Labels toevoegen of verwijderen:"
 
 msgid "Separate each tag by a comma."
-msgstr "Separer hver tagg med komma."
+msgstr "Scheidt elk label met een komma."
 
 msgid "Rename notebook:"
-msgstr "Gi nytt navn til notisbok:"
+msgstr "Notitieboeknaam wijzigen:"
 
 msgid "Rename tag:"
-msgstr "Gi nytt navn til tagg:"
+msgstr "Labelnaam wijzigen:"
 
 msgid "Set alarm:"
-msgstr "Angi Alarm:"
+msgstr "Alarm instellen:"
 
 msgid "Layout"
-msgstr "Utseende"
+msgstr "Indeling"
 
 msgid "Search..."
-msgstr "Søk..."
+msgstr "Zoeken..."
 
 msgid "Some items cannot be synchronised."
-msgstr "Noen elementer kan ikke synkroniseres."
+msgstr "Sommige items kunnen niet worden gesynchroniseerd."
 
 msgid "View them now"
-msgstr "Vis de nå"
+msgstr "Items tonen"
 
 msgid "Some items cannot be decrypted."
-msgstr "Noen elementer kan ikke dekrypteres."
+msgstr "Sommige items kunnen niet worden ontsleuteled."
 
 msgid "Set the password"
-msgstr "Sett passordet"
+msgstr "Wachtwoord instellen"
 
 msgid "Add or remove tags"
-msgstr "Legg til eller fjern tag"
+msgstr "Labels toevoegen of verwijderen"
 
 msgid "Duplicate"
-msgstr ""
+msgstr "Dupliceren"
 
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "%s - Copy"
-msgstr "Kopier"
+msgstr "%s - kopiëren"
 
 msgid "Switch between note and to-do type"
-msgstr "Bytt mellom notat og gjøremål"
+msgstr "Schakelen tussen notitie en taak"
 
 msgid "Copy Markdown link"
-msgstr "Kopier Link"
+msgstr "Markdownlink kopiëren"
 
 msgid "Delete"
-msgstr "Slett"
+msgstr "Verwijderen"
 
 msgid "Delete notes?"
-msgstr "Slett notat?"
+msgstr "Notities verwijderen?"
 
 msgid "No notes in here. Create one by clicking on \"New note\"."
-msgstr "Ingen notater her inne. Opprett en ved å klikke på \"Nytt notat\"."
+msgstr ""
+"Er zijn hier geen notities. Creëer een notitie door de klikken op \"Nieuwe "
+"notitie\"."
 
 msgid ""
 "There is currently no notebook. Create one by clicking on \"New notebook\"."
 msgstr ""
-"Det er dor tiden ingen notisbok. Lag en ved å klikke på \"Ny Notisbok\"."
+"Er is momenteel geen notitieboek. Creëer een notitieboek door de klikken op "
+"\"Nieuw notitieboek\"."
 
 msgid "Open..."
-msgstr "Åpne..."
+msgstr "Openen..."
 
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "This file could not be opened: %s"
-msgstr "Denne notisblokken kunne ikke lagres: %s"
+msgstr "Dit bestand kan niet worden geopend: %s"
 
 msgid "Save as..."
-msgstr "Lagre som..."
+msgstr "Opslaan als..."
 
 msgid "Copy path to clipboard"
-msgstr "Kopier sti til utklippshanteren"
+msgstr "Pad kopiëren naar klembord"
 
 msgid "Copy Link Address"
-msgstr ""
+msgstr "Linkadres kopiëren"
 
 #, javascript-format
 msgid "Unsupported link or message: %s"
-msgstr "Kobling eller melding som ikke støttes: %s"
+msgstr "Niet-ondersteunde link of bericht: %s"
 
 #, javascript-format
 msgid ""
 "This note has no content. Click on \"%s\" to toggle the editor and edit the "
 "note."
 msgstr ""
-"Dette notatet har ikke noe innhold. Klikk på \" %s\" for å veksle redaktøren "
-"og redigere notatet."
+"Deze notitie bevat geen inhoud. Klik op \"%s\" om de bewerker te openen en "
+"de notitie te bewerken."
 
 msgid "strong text"
-msgstr ""
+msgstr "vetgedrukte tekst"
 
 msgid "emphasized text"
-msgstr ""
+msgstr "nadrukkelijke tekst"
 
 msgid "List item"
-msgstr ""
+msgstr "Lijstitem"
 
 msgid "Insert Hyperlink"
-msgstr ""
+msgstr "Hyperlink invoegen"
 
 msgid "Attach file"
-msgstr "Koble til fil"
+msgstr "Bestand bijvoegen"
 
 msgid "Tags"
-msgstr "Merkelapp"
+msgstr "Labels"
 
 msgid "Set alarm"
-msgstr "Angi Alarm"
+msgstr "Alarm instellen"
 
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "In: %s"
-msgstr "%s: %s"
+msgstr "In: %s"
 
 msgid "Hyperlink"
-msgstr ""
+msgstr "Hyperlink"
 
 msgid "Code"
-msgstr ""
+msgstr "Code"
 
 msgid "Numbered List"
-msgstr ""
+msgstr "Genummerde lijst"
 
 msgid "Bulleted List"
-msgstr ""
+msgstr "Opsommingslijst"
 
 msgid "Checkbox"
-msgstr ""
+msgstr "Keuzevakje"
 
 msgid "Heading"
-msgstr ""
+msgstr "Kop"
 
 msgid "Horizontal Rule"
-msgstr ""
+msgstr "Horizontale regel"
 
 msgid "Click to stop external editing"
-msgstr ""
+msgstr "Klik om extern bewerken te stoppen"
 
-#, fuzzy
 msgid "Watching..."
-msgstr "Stopper… Vennligst vent."
+msgstr "Bezig met in de gaten houden..."
 
 msgid "to-do"
-msgstr "gjøremål"
+msgstr "taak"
 
 msgid "note"
-msgstr "notat"
+msgstr "notitie"
 
 #, javascript-format
 msgid "Creating new %s..."
-msgstr "Lag ny %s..."
+msgstr "Bezig met creëren van nieuw(e) %s..."
 
 msgid "Refresh"
-msgstr "Oppdater"
+msgstr "Verversen"
 
 msgid "Clear"
-msgstr "Nullstill"
+msgstr "Wissen"
 
 msgid "OneDrive Login"
-msgstr "Innlogging med OneDrive"
+msgstr "Inloggen op OneDrive"
 
 msgid "Dropbox Login"
-msgstr "Innlogging med Dropbox"
+msgstr "Inloggen op Dropbox"
 
 msgid "Options"
-msgstr "Generelle valg"
+msgstr "Opties"
 
 msgid "Synchronisation Status"
-msgstr "Synkroniserings-status"
+msgstr "Synchronisatiestatus"
 
 msgid "Encryption Options"
-msgstr "Krypteringsvalg"
+msgstr "Versleutelopties"
 
-#, fuzzy
 msgid "Clipper Options"
-msgstr "Generelle valg"
+msgstr "Webclipperopties"
 
 msgid "Remove this tag from all the notes?"
-msgstr "Fjern denne merkelappen fra alle notater?"
+msgstr "Wil je dit label verwijderen van alle notities?"
 
 msgid "Remove this search from the sidebar?"
-msgstr "Fjerne dette søket fra sidepanelet?"
+msgstr "Wil je deze zoekopdracht verwijderen uit de zijbalk?"
 
 msgid "Rename"
-msgstr "Gi nytt navn"
+msgstr "Naam wijzigen"
 
 msgid "Synchronise"
-msgstr "Synkroniser"
+msgstr "Synchroniseren"
 
 msgid "Notebooks"
-msgstr "Notisbøker"
+msgstr "Notitieboeken"
 
 msgid "Please select where the sync status should be exported to"
-msgstr "Velg hvor synkroniseringsstatusen skal eksporteres til"
+msgstr "Kies waar de synchronisatiestatus naar moet worden geëxporteerd"
 
 #, javascript-format
 msgid "Usage: %s"
-msgstr "Bruk: %s"
+msgstr "Gebruik: %s"
 
 #, javascript-format
 msgid "Unknown flag: %s"
-msgstr "Ukjent flagg: %s"
+msgstr "Onbekend argument: %s"
 
 msgid "Dropbox"
 msgstr "Dropbox"
 
 msgid "File system"
-msgstr "Fil system"
+msgstr "Bestandssysteem"
 
 msgid "Nextcloud"
 msgstr "Nextcloud"
@@ -1086,25 +1100,25 @@ msgid "OneDrive"
 msgstr "OneDrive"
 
 msgid "OneDrive Dev (For testing only)"
-msgstr "OneDrive Dev (Bare for testing)"
+msgstr "OneDrive Dev (alleen voor testdoeleinden)"
 
 msgid "WebDAV"
 msgstr "WebDAV"
 
 #, javascript-format
 msgid "Unknown log level: %s"
-msgstr "Ukjent Logg nivå: %s"
+msgstr "Onbekend logniveau: %s"
 
 #, javascript-format
 msgid "Unknown level ID: %s"
-msgstr "Ukjent nivå-ID: %s"
+msgstr "Onbekende niveau-ID: %s"
 
 msgid ""
 "Cannot refresh token: authentication data is missing. Starting the "
 "synchronisation again may fix the problem."
 msgstr ""
-"Kan ikke oppdatere token: godkjenningsdata mangler. Hvis du starter "
-"synkroniseringen på nytt, kan dette løse problemet."
+"Kan toegangssleutel niet verversen: de authenticatiegegevens ontbreken. "
+"Probeer om de synchronisatie opnieuw te starten."
 
 msgid ""
 "Could not synchronize with OneDrive.\n"
@@ -1114,255 +1128,261 @@ msgid ""
 "\n"
 "Please consider using a regular OneDrive account."
 msgstr ""
-"Kan ikke synkronisere med OneDrive.\n"
+"Kan niet synchroniseren met OneDrive.\n"
 "\n"
-"Denne feil ofte hender når benytter OneDrive for firmaet, som beklageligvis "
-"ikke er understøttet.\n"
+"Deze fout komt vaak voor bij gebruik van OneDrive for Business, wat we "
+"helaas niet kunnen ondersteunen.\n"
 "\n"
-"Vennligst Vurder å bruke en vanlig OneDrive konto."
+"Overweeg een regulier OneDrive-account te gebruiken."
 
 #, javascript-format
 msgid "Cannot access %s"
-msgstr "Ikke tilgang til %s"
+msgstr "Geen toegang tot %s"
 
 #, javascript-format
 msgid "Created local items: %d."
-msgstr "Opprettet lokale elementer:% d."
+msgstr "Lokale items gecreëerd: %d."
 
 #, javascript-format
 msgid "Updated local items: %d."
-msgstr "Oppdaterte lokale elementer:% d."
+msgstr "Lokale items bijgewerkt: %d."
 
 #, javascript-format
 msgid "Created remote items: %d."
-msgstr "Opprettede eksterne elementer:% d."
+msgstr "Externe items gecreëerd: %d."
 
 #, javascript-format
 msgid "Updated remote items: %d."
-msgstr "Oppdaterte eksterne elementer:% d."
+msgstr "Externe items bijgewerkt: %d."
 
 #, javascript-format
 msgid "Deleted local items: %d."
-msgstr "Slett lokale elementer: %d."
+msgstr "Lokale items verwijderd: %d."
 
 #, javascript-format
 msgid "Deleted remote items: %d."
-msgstr "Slett eksterne elementer: %d."
+msgstr "Externe items verwijderd: %d."
 
 #, javascript-format
 msgid "Fetched items: %d/%d."
-msgstr "Hentede elementer: %d/%d."
+msgstr "Items opgehaald: %d/%d."
 
 #, javascript-format
 msgid "State: %s."
 msgstr "Status: %s."
 
 msgid "Cancelling..."
-msgstr "Stopper… Vennligst vent."
+msgstr "Bezig met annuleren..."
 
 #, javascript-format
 msgid "Completed: %s"
-msgstr "Ferdig: %s"
+msgstr "Voltooid: %s"
 
 #, javascript-format
 msgid "Last error: %s"
-msgstr "Siste Feil: %s"
+msgstr "Laatst gemelde fout: %s"
 
 msgid "Idle"
-msgstr "Ledig"
+msgstr "Inactief"
 
 msgid "In progress"
-msgstr "Under arbeid"
+msgstr "Bezig"
 
 #, javascript-format
 msgid "Synchronisation is already in progress. State: %s"
-msgstr "Synkronisering pågår allerede. Tilstand: %s"
+msgstr "De synchronisatie loopt al. Status: %s"
 
 msgid "Encrypted"
-msgstr "Kryptert"
+msgstr "Versleuteld"
 
 msgid "Encrypted items cannot be modified"
-msgstr "Krypterte elementer kan ikke modifiseres"
+msgstr "Versleutelde items kunnen niet worden bewerkt"
 
 msgid "Conflicts"
-msgstr "Konflikter"
+msgstr "Conflicten"
 
 msgid "Cannot move notebook to this location"
-msgstr "Kan ikke flytte notatblokken til denne plasseringen"
+msgstr "Kan notitieboek niet verplaatsen naar deze locatie"
 
 #, javascript-format
 msgid "A notebook with this title already exists: \"%s\""
-msgstr "En notisblokk med denne tittelen eksisterer allerede: \"%s\""
+msgstr "Er bestaat al een notitieboek met deze titel: \"%s\""
 
 #, javascript-format
 msgid "Notebooks cannot be named \"%s\", which is a reserved title."
-msgstr "Notatblokker kan ikke hete %s, som er en reservert tittel."
+msgstr "Notitieboeken mogen niet \"%s\" heten; dit is een gereserveerde titel."
 
-#, fuzzy
 msgid "title"
-msgstr "Uten navn"
+msgstr "titel"
 
-#, fuzzy
 msgid "updated date"
-msgstr "Oppdatert: %d."
+msgstr "bijgewerkt op"
 
-#, fuzzy
 msgid "created date"
-msgstr "Laget: %d."
+msgstr "gecreëerd op"
 
 msgid "Untitled"
-msgstr "Uten navn"
+msgstr "Naamloos"
 
 msgid "This note does not have geolocation information."
-msgstr "Dette notatet har ikke geografisk informasjon."
+msgstr "Deze notitie bevat geen locatie-informatie."
 
 #, javascript-format
 msgid "Cannot copy note to \"%s\" notebook"
-msgstr "Kan ikke kopiere notat til \" %s\" notatblokk"
+msgstr "Kan notitie niet kopiëren naar notitieboek \"%s\""
 
 #, javascript-format
 msgid "Cannot move note to \"%s\" notebook"
-msgstr "Kan ikke flytte notatet til notatblokken %s"
+msgstr "Kan notitie niet verplaatsen naar notitieboek \"%s\""
 
 msgid "Language"
-msgstr "Språk"
+msgstr "Taal"
 
 msgid "Date format"
-msgstr "Dato Format"
+msgstr "Datumopmaak"
 
 msgid "Time format"
-msgstr "Tids Format"
+msgstr "Tijdopmaak"
 
 msgid "Theme"
-msgstr "Tema"
+msgstr "Thema"
 
 msgid "Light"
-msgstr "Lys"
+msgstr "Licht"
 
 msgid "Dark"
-msgstr "Mørk"
+msgstr "Donker"
 
 msgid "Uncompleted to-dos on top"
-msgstr "Uferdige gjøremål på topp"
+msgstr "Niet-afgeronde taken bovenaan"
 
 msgid "Show completed to-dos"
-msgstr "Vis fullførte gjøremål"
+msgstr "Afgeronde taken tonen"
 
 msgid "Sort notes by"
-msgstr "Sorter notater etter"
+msgstr "Notities sorteren op"
 
 msgid "Reverse sort order"
-msgstr "Snu sorteringsrekkefølge"
+msgstr "Sorteervolgorde omdraaien"
 
 msgid "Save geo-location with notes"
-msgstr "Lagre geografisk informasjon med notatet"
+msgstr "Locatie opslaan in notities"
 
 msgid "When creating a new to-do:"
-msgstr "Når du oppretter et nytt gjøremål:"
+msgstr "Bij het creëren van een nieuwe taak:"
 
 msgid "Focus title"
-msgstr "Fokus tittel"
+msgstr "Titel focussen"
 
 msgid "Focus body"
-msgstr "Fokus kropp"
+msgstr "Inhoud focussen"
 
 msgid "When creating a new note:"
-msgstr "Når du lager et nytt notat:"
+msgstr "Bij het creëren van een nieuwe notitie:"
 
 msgid "Show tray icon"
-msgstr "Vis ikon i systemkurven"
+msgstr "Systeemvakpictogram tonen"
 
 msgid "Note: Does not work in all desktop environments."
-msgstr "Merk: fungerer ikke i alle skrivebordsmiljøer."
+msgstr "Let op: dit werkt niet in alle werkomgevingen."
+
+msgid "Start application minimised in the tray icon"
+msgstr ""
 
 msgid "Global zoom percentage"
-msgstr "Global Zoom Prosent"
+msgstr "Globaal zoompercentage"
 
 msgid "Editor font family"
-msgstr "Redigeringsprogrammets font familie"
+msgstr "Lettertype van bewerker"
 
 msgid ""
 "This must be *monospace* font or it will not work properly. If the font is "
 "incorrect or empty, it will default to a generic monospace font."
 msgstr ""
-"Denne må være * monospace * skrifttype eller den ville ikke arbeide riktig. "
-"Hvis skriften er feil eller tom, vil den som standard ha en generell "
-"monospace-skrift."
+"Dit moet een *monospace*-lettertype zijn, anders werkt het niet goed. Als "
+"het lettertype onjuist of leeg is, dan wordt er teruggevallen op een "
+"algemeen monospace-lettertype."
 
 msgid "Automatically update the application"
-msgstr "Oppdater applikasjonen automatisk"
+msgstr "Applicatie automatisch bijwerken"
 
 msgid "Synchronisation interval"
-msgstr "Synkroniserinsintervall"
+msgstr "Synchronisatietussenpoos"
 
 #, javascript-format
 msgid "%d minutes"
-msgstr "%d minutter"
+msgstr "%d minuten"
 
 #, javascript-format
 msgid "%d hour"
-msgstr "%d time"
+msgstr "%d uur"
 
 #, javascript-format
 msgid "%d hours"
-msgstr "%d timer"
+msgstr "%d uur"
 
-#, fuzzy
 msgid "Text editor command"
-msgstr "Teksteditor"
+msgstr "Opdracht van tekstbwerker"
 
-#, fuzzy
 msgid ""
 "The editor command (may include arguments) that will be used to open a note. "
 "If none is provided it will try to auto-detect the default editor."
 msgstr ""
-"Redigeringsprogrammet som skal brukes til å åpne et notat. Hvis ikke noen "
-"tilgjengelig vil den prøve å automatisk finne redigeringsprogram."
+"De opdracht van de tekstbewerker (mag argumenten bevatten) die wordt "
+"gebruikt bij het openen van notities. Als er geen wordt opgegeven, dan wordt "
+"getracht de standaard bewerker te achterhalen."
 
 msgid "Show advanced options"
-msgstr "Vis avanserte valg"
+msgstr "Geavanceerde opties tonen"
 
 msgid "Synchronisation target"
-msgstr "Synkroniseringsmål"
+msgstr "Synchronisatiedoel"
 
 msgid ""
 "The target to synchonise to. Each sync target may have additional parameters "
 "which are named as `sync.NUM.NAME` (all documented below)."
 msgstr ""
-"Målet å synkronisere til. Hvert synkroniserings mål kan ha "
-"tilleggsparametere som er navngitt som synkronisering. NUM.name ' (alle "
-"dokumentert nedenfor)."
+"Het doel waarnaar gesynchroniseerd moet worden. Elk doel mag extra "
+"argumenten bevatten, welke `sync.NUM.NAME` worden genoemd (wordt hieronder "
+"uitgelegd)."
 
 msgid "Directory to synchronise with (absolute path)"
-msgstr "Katalog å synkronisere med (absolutt Sti)"
+msgstr "Map waarnaar gesynchroniseerd moet worden (absoluut pad)"
 
 msgid ""
 "The path to synchronise with when file system synchronisation is enabled. "
 "See `sync.target`."
 msgstr ""
-"Banen som skal synkroniseres når filsystem synkronisering er aktivert. Se ' "
-"Sync. target '."
+"Het pad waarnaar gesynchroniseerd moet worden als bestandssysteem-"
+"synchronisatie is ingeschakeld. Zie `sync.target`."
 
 msgid "Nextcloud WebDAV URL"
-msgstr "Nextcloud WebDAV URL"
+msgstr "Nextcloud WebDAV-URL"
+
+#, javascript-format
+msgid ""
+"Attention: If you change this location, make sure you copy all your content "
+"to it before syncing, otherwise all files will be removed! See the FAQ for "
+"more details: %s"
+msgstr ""
 
 msgid "Nextcloud username"
-msgstr "Nextcloud brukernavn"
+msgstr "Nextcloud-gebruikersnaam"
 
 msgid "Nextcloud password"
-msgstr "Nextcloud passord"
+msgstr "Nextcloud-wachtwoord"
 
 msgid "WebDAV URL"
-msgstr "WebDAV URL"
+msgstr "WebDAV-URL"
 
 msgid "WebDAV username"
-msgstr "WebDAV brukernavn"
+msgstr "WebDAV-gebruikersnaam"
 
 msgid "WebDAV password"
-msgstr "WebDAV passord"
+msgstr "WebDAV-wachtwoord"
 
 msgid "Custom TLS certificates"
-msgstr ""
+msgstr "Aangepaste TLS-certificaten"
 
 msgid ""
 "Comma-separated list of paths to directories to load the certificates from, "
@@ -1370,53 +1390,63 @@ msgid ""
 "pem. Note that if you make changes to the TLS settings, you must save your "
 "changes before clicking on \"Check synchronisation configuration\"."
 msgstr ""
+"Kommagescheiden lijst van paden naar mappen vwaaruit de certificaten moeten "
+"worden geladen, of paden naar individuele bestanden. Bijvoorbeeld: /mijn/"
+"cert_map, /overig/aangepast.pem. Let op: als je wijzigingen aanbrengt, dan "
+"moet je ze opslaan voordat je klik op \"Synchronisatie-configuratie "
+"controleren ."
 
 msgid "Ignore TLS certificate errors"
-msgstr ""
+msgstr "TLS-certificaatfouten negeren"
 
 #, javascript-format
 msgid "Invalid option value: \"%s\". Possible values are: %s."
-msgstr "Ugyldig alternativ verdi: %s. Mulige verdier er: %s."
+msgstr "Ongeldige optie: \"%s\". Geldige waarden zijn: %s."
+
+#, javascript-format
+msgid "The tag \"%s\" already exists. Please choose a different name."
+msgstr ""
 
 msgid "Joplin Export File"
-msgstr "Joplin Eksport Fil"
+msgstr "Joplin-exportbestand"
 
 msgid "Markdown"
-msgstr "Notere"
+msgstr "Markdown"
 
 msgid "Joplin Export Directory"
-msgstr "Joplin Export Katalog"
+msgstr "Joplin-exportmap"
 
 msgid "Evernote Export File"
-msgstr "Evernote Export Fil"
+msgstr "Evernote-exportbestand"
 
 msgid "Directory"
-msgstr "Katalog"
+msgstr "Map"
 
 #, javascript-format
 msgid "Cannot load \"%s\" module for format \"%s\""
-msgstr "Kan ikke laste modulen %s for formatet %s"
+msgstr "Kan de module \"%s\" niet laden voor het formaat \"%s\""
 
 #, javascript-format
 msgid "Please specify import format for %s"
-msgstr "Vennligst velg import format for %s"
+msgstr "Geef een importformaat op voor %s"
 
 #, javascript-format
 msgid ""
 "This item is currently encrypted: %s \"%s\". Please wait for all items to be "
 "decrypted and try again."
 msgstr ""
-"Dette elementet er for øyeblikket kryptert: %s \" %s\". Vent til alle "
-"elementer dekrypteres, og prøv på nytt."
+"Dit item is momenteel versleuteld: %s \"%s\". Wacht tot alle items "
+"ontsleuteld zijn en probeer het opnieuw."
 
 msgid "There is no data to export."
-msgstr "Det er ingen data for eksportering."
+msgstr "Er zijn geen te exporteren gegevens."
 
 msgid "Please specify the notebook where the notes should be imported to."
-msgstr "Velg notisblokk som notatene bør importeres til."
+msgstr ""
+"Geef het notitieboek op waar de notities naar moeten worden geïmporteerd."
 
 msgid "Items that cannot be synchronised"
-msgstr "Notater som ikke vil synkronisere"
+msgstr "Items die niet kunnen worden gesynchroniseerd"
 
 #, javascript-format
 msgid "%s (%s): %s"
@@ -1427,12 +1457,13 @@ msgid ""
 "target. In order to find these items, either search for the title or the ID "
 "(which is displayed in brackets above)."
 msgstr ""
-"Disse elementene blir værende på enheten, men vil ikke bli lastet opp til "
-"synkroniserings målet. For å finne disse elementene, enten søke etter tittel "
-"eller ID (som vises i parentes over)."
+"Deze items blijven op het apparaat, maar worden niet geüpload naar het "
+"synchronisatiedoel. Als je deze items wilt vinden, moet je zoeken naar de "
+"titel of ID ervan (welke hierboven tussen haakjes wordt getoond)."
 
 msgid "Sync status (synced items / total items)"
-msgstr "Synkroniseringsstatus (Synkede lementer / Totale elementer)"
+msgstr ""
+"Synchronisatiestatus (aantal gesynchroniseerde items / totaal aantal items)"
 
 #, javascript-format
 msgid "%s: %d/%d"
@@ -1440,200 +1471,204 @@ msgstr "%s: %d/%d"
 
 #, javascript-format
 msgid "Total: %d/%d"
-msgstr "Totalt: %d/%d"
+msgstr "Totaal: %d/%d"
 
 #, javascript-format
 msgid "Conflicted: %d"
-msgstr "Konflikter: %d"
+msgstr "Conflicten: %d"
 
 #, javascript-format
 msgid "To delete: %d"
-msgstr "For sletting: %d"
+msgstr "Te verwijderen: %d"
 
 msgid "Folders"
-msgstr "Kataloger"
+msgstr "Mappen"
 
 #, javascript-format
 msgid "%s: %d notes"
-msgstr "%s: %d notat"
+msgstr "%s: %d notities"
 
 msgid "Coming alarms"
-msgstr "Kommende alarmer"
+msgstr "Aankomende alarmen"
 
 #, javascript-format
 msgid "On %s: %s"
-msgstr "Pa %s: %s"
+msgstr "Op %s: %s"
 
 msgid "There are currently no notes. Create one by clicking on the (+) button."
-msgstr "Du har ennå ingen notater. Lag en ved å klikke på (+) knappen."
+msgstr ""
+"Er zijn momenteel geen notities. Creëer een notitie door te drukken op de "
+"knop (+)."
 
 msgid "Delete these notes?"
-msgstr "Slett disse notatene?"
+msgstr "Deze notities verwijderen?"
 
 msgid "Log"
-msgstr "Logg"
+msgstr "Log"
 
 msgid "Export Debug Report"
-msgstr "Eksporter feilsøkings rapport"
+msgstr "Foutopsporingsrapportage exporteren"
 
 msgid "Encryption Config"
-msgstr "Krypteringsvalg"
+msgstr "Versleutelconfiguratie"
 
 msgid "Configuration"
-msgstr "Konfigurasjon"
+msgstr "Configuratie"
 
 msgid "Move to notebook..."
-msgstr "Flytt til notisblokk..."
+msgstr "Verplaatsen naar notitieboek..."
 
 #, javascript-format
 msgid "Move %d notes to notebook \"%s\"?"
-msgstr "Flytt %d notater til notisblokk \"%s\"?"
+msgstr "%d notities verplaatsen naar notitieboek \"%s\"?"
 
 msgid "Press to set the decryption password."
-msgstr "Trykk for å sette krypteringspassordet"
+msgstr "Druk om het ontsleutelwachtwoord in te stellen."
 
-#, fuzzy
 msgid "Save alarm"
-msgstr "Angi Alarm"
+msgstr "Alarm opslaam"
 
 msgid "Select date"
-msgstr "Velg dato"
+msgstr "Datum kiezen"
 
 msgid "Confirm"
-msgstr "Bekreft"
+msgstr "Bevestigen"
 
 msgid "Cancel synchronisation"
-msgstr "Stopp Synkronisering"
+msgstr "Synchronisatie annuleren"
 
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Decrypting items: %d/%d"
-msgstr "Hentede elementer: %d/%d."
+msgstr "Bezig met ontsleutelen van items: %d/%d"
 
 msgid "New tags:"
-msgstr "Nye merkelapper:"
+msgstr "Nieuwe labels:"
 
 msgid "Type new tags or select from list"
-msgstr "Skriv inn nye koder eller velg fra listen"
+msgstr "Typ nieuwe labels of kies ze uit de lijst"
 
 msgid ""
 "To work correctly, the app needs the following permissions. Please enable "
 "them in your phone settings, in Apps > Joplin > Permissions"
 msgstr ""
-"Å arbeide korrekt, det app nødvendig det fulgte tillatelse. Vennligst "
-"aktivere dem i telefonen innstillingene, i Apps > Joplin > tillatelser"
+"De app heeft de volgende machtigingen nodig om goed te kunnen werken. "
+"Schakel ze in in je telefooninstellingen via Apps > Joplin > Machtigingen"
 
 msgid ""
 "- Storage: to allow attaching files to notes and to enable filesystem "
 "synchronisation."
 msgstr ""
-"-Lagring: for å tillate legge filer til notater og aktivere "
-"filsynkronisering."
+"- Opslag: om bestanden bij notities te mogen voegen en synchronisatie in te "
+"schakelen."
 
 msgid "- Camera: to allow taking a picture and attaching it to a note."
-msgstr "- Kamera: for å ta bilde og koble det til et notat."
+msgstr ""
+"- Camera: zodat je een foto kunt maken en deze bij een notitie kunt voegen."
 
 msgid "- Location: to allow attaching geo-location information to a note."
-msgstr "- Sted: for å koble geodata til notatet."
+msgstr "- Locatie: zodat je locatie-informatie kunt toevoegen aan een notitie."
 
 msgid "Joplin website"
-msgstr "Joplin nettsted"
+msgstr "Joplin-website"
 
 msgid "Login with Dropbox"
-msgstr "Innlogging med Dropbox"
+msgstr "Inloggen met Dropbox"
 
 #, javascript-format
 msgid "Master Key %s"
-msgstr "Hovednøkkel: %s"
+msgstr "Hoofdsleutel %s"
 
 #, javascript-format
 msgid "Created: %s"
-msgstr "Laget: %s"
+msgstr "Gecreëerd op: %s"
 
 msgid "Password:"
-msgstr "Passord:"
+msgstr "Wachtwoord:"
 
 msgid "Password cannot be empty"
-msgstr "Passordet kan ikke være tomt"
+msgstr "Wachtwoord mag niet blanco zijn"
 
 msgid "Enable"
-msgstr "Tillat"
+msgstr "Inschakelen"
 
 #, javascript-format
 msgid "The notebook could not be saved: %s"
-msgstr "Denne notisblokken kunne ikke lagres: %s"
+msgstr "Het notitieboek kan niet worden opgeslagen: %s"
 
 msgid "Edit notebook"
-msgstr "Rediger notisbok"
+msgstr "Notitieboek bewerken"
 
 msgid "Show all"
-msgstr "Vis alle"
+msgstr "Alles tonen"
 
 msgid "Errors only"
-msgstr "Bare Feil"
+msgstr "Alleen fouten"
 
 msgid "This note has been modified:"
-msgstr "Denne Notisblokken har blitt modifisert:"
+msgstr "Deze notitie is bewerkt:"
 
 msgid "Save changes"
-msgstr "Lagre forandringer"
+msgstr "Wijzigingen opslaan"
 
 msgid "Discard changes"
-msgstr "Angre forandringer"
+msgstr "Wijzigingen verwerpen"
 
 #, javascript-format
 msgid "No item with ID %s"
-msgstr "Ikke noe med slik ID %s"
+msgstr "Geen item met ID %s"
 
 #, javascript-format
 msgid "The Joplin mobile app does not currently support this type of link: %s"
-msgstr "Joplins mobile app støtter for tiden ikke denne type linker: %s"
+msgstr "De mobiele Joplin-app ondersteunt momenteel niet dit soort links: %s"
 
 #, javascript-format
 msgid "Unsupported image type: %s"
-msgstr "Bildetypen er ikke støttet: %s"
+msgstr "Niet-ondersteunde afbeeldingssoort: %s"
 
 msgid "Attach photo"
-msgstr "Koble til foto"
+msgstr "Foto bijvoegen"
 
 msgid "Attach any file"
-msgstr "Koble til enhver fil"
+msgstr "Ander bestand bijvoegen"
 
 msgid "Share"
-msgstr "Del"
+msgstr "Delen"
 
 msgid "Convert to note"
-msgstr "Konverter til notis"
+msgstr "Omzetten naar notitie"
 
 msgid "Convert to todo"
-msgstr "Konverter til Gjøremål"
+msgstr "Omzetten naar taak"
 
 msgid "Hide metadata"
-msgstr "Skjul Metadata"
+msgstr "Metagegevens verbergen"
 
 msgid "Show metadata"
-msgstr "Vis Metadata"
+msgstr "Metagegevens tonen"
 
 msgid "View on map"
-msgstr "Se på kart"
+msgstr "Tonen op kaart"
 
 msgid "Delete notebook"
-msgstr "Slett notisbok"
+msgstr "Notitieboek verwijderen"
 
 msgid "Login with OneDrive"
-msgstr "Innlogging med OneDrive"
+msgstr "Inloggen met OneDrive"
 
 msgid "Search"
-msgstr "Søk"
+msgstr "Zoeken"
 
 msgid ""
 "Click on the (+) button to create a new note or notebook. Click on the side "
 "menu to access your existing notebooks."
 msgstr ""
-"Klikk på (+) knakken for å lage en ny notis eller notisbok. Klikk på "
-"sidemenyen for tilgang til dine eksisterende notisbøker."
+"Druk op de knop (+) om een nieuwe notitie of notitieboek te creëren. Klik op "
+"het zijmenu om bestaande notitieboeken te openen."
 
 msgid "You currently have no notebook. Create one by clicking on (+) button."
-msgstr "Du har ennå ingen notisbok. Lag en ved å klikke på  (+) knappen."
+msgstr ""
+"Je hebt momenteel geen notitieboek. Creëer een notitieboek door de drukken "
+"op de knop (+)."
 
 msgid "Welcome"
-msgstr "Velkommen"
+msgstr "Welkom"
