@@ -348,7 +348,7 @@ GotoAnything.manifest = {
 			name: 'main',
 			parent: 'tools',
 			label: _('Goto Anything...'),
-			accelerator: 'CommandOrControl+G',
+			accelerator: 'CommandOrControl+P',
 			screens: ['Main'],
 		},
 	],
