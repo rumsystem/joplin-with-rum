@@ -15,7 +15,6 @@ const rules = {
 };
 const setupLinkify = require('./MdToHtml/setupLinkify');
 const hljs = require('highlight.js');
-const uslug = require('uslug');
 const markdownItAnchor = require('markdown-it-anchor');
 // The keys must match the corresponding entry in Setting.js
 const plugins = {
@@ -143,9 +142,7 @@ class MdToHtml {
 		if (Setting.value('markdown.plugin.fountain')) markdownIt.use(rules.fountain(context, ruleOptions));
 		markdownIt.use(rules.highlight_keywords(context, ruleOptions));
 		markdownIt.use(rules.code_inline(context, ruleOptions));
-		markdownIt.use(markdownItAnchor, {
-			slugify: s => uslug(s),
-		});
+		markdownIt.use(markdownItAnchor);
 
 		for (let key in plugins) {
 			if (Setting.value('markdown.plugin.' + key)) markdownIt.use(plugins[key].module, plugins[key].options);
