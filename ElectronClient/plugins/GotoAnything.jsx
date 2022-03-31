@@ -262,14 +262,19 @@ class Dialog extends React.PureComponent {
 				}
 			}
 
-			// make list scroll to top in every search
-			this.itemListRef.current.makeItemIndexVisible(0);
+			let selectedItemId = null;
+			const itemIndex = this.selectedItemIndex(results, this.state.selectedItemId);
+			if (itemIndex > 0) {
+				selectedItemId = this.state.selectedItemId;
+			} else if (results.length > 0) {
+				selectedItemId = results[0].id;
+			}
 
 			this.setState({
 				listType: listType,
 				results: results,
 				keywords: this.keywords(searchQuery),
-				selectedItemId: results.length === 0 ? null : results[0].id,
+				selectedItemId: selectedItemId,
 				resultsInBody: resultsInBody,
 			});
 		}
