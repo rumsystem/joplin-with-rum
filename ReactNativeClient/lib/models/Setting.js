@@ -86,12 +86,6 @@ class Setting extends BaseModel {
 				},
 			},
 
-			'sync.upgradeState': {
-				value: Setting.SYNC_UPGRADE_STATE_IDLE,
-				type: Setting.TYPE_INT,
-				public: false,
-			},
-
 			'sync.2.path': {
 				value: '',
 				type: Setting.TYPE_STRING,
@@ -1329,10 +1323,6 @@ Setting.SHOULD_REENCRYPT_NO = 0; // Data doesn't need to be re-encrypted
 Setting.SHOULD_REENCRYPT_YES = 1; // Data should be re-encrypted
 Setting.SHOULD_REENCRYPT_NOTIFIED = 2; // Data should be re-encrypted, and user has been notified
 
-Setting.SYNC_UPGRADE_STATE_IDLE = 0; // Doesn't need to be upgraded
-Setting.SYNC_UPGRADE_STATE_SHOULD_DO = 1; // Should be upgraded, but waiting for user to confirm
-Setting.SYNC_UPGRADE_STATE_MUST_DO = 2; // Must be upgraded - on next restart, the upgrade will start
-
 Setting.custom_css_files = {
 	JOPLIN_APP: 'userchrome.css',
 	RENDERED_MARKDOWN: 'userstyle.css',
@@ -1353,7 +1343,7 @@ Setting.constants_ = {
 	templateDir: '',
 	tempDir: '',
 	flagOpenDevTools: false,
-	syncVersion: 2,
+	syncVersion: 1,
 };
 
 Setting.autoSaveEnabled = true;

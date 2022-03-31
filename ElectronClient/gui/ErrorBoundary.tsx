@@ -1,7 +1,4 @@
 import * as React from 'react';
-import versionInfo from 'lib/versionInfo';
-const packageInfo = require('../packageInfo.js');
-const ipcRenderer = require('electron').ipcRenderer;
 
 export default class ErrorBoundary extends React.Component {
 
@@ -11,52 +8,22 @@ export default class ErrorBoundary extends React.Component {
 		this.setState({ error: error, errorInfo: errorInfo });
 	}
 
-	componentDidMount() {
-		const onAppClose = () => {
-			ipcRenderer.send('asynchronous-message', 'appCloseReply', {
-				canClose: true,
-			});
-		};
-
-		ipcRenderer.on('appClose', onAppClose);
-	}
-
 	render() {
 		if (this.state.error) {
 			try {
 				const output = [];
-
-				output.push(
-					<section key="message">
-						<h2>Message</h2>
-						<p>{this.state.error.message}</p>
-					</section>
-				);
-
-				output.push(
-					<section key="versionInfo">
-						<h2>Version info</h2>
-						<pre>{versionInfo(packageInfo).message}</pre>
-					</section>
-				);
+				output.push(<h2>Message</h2>);
+				output.push(<p>{this.state.error.message}</p>);
 
 				if (this.state.error.stack) {
-					output.push(
-						<section key="stacktrace">
-							<h2>Stack trace</h2>
-							<pre>{this.state.error.stack}</pre>
-						</section>
-					);
+					output.push(<h2>Stack trace</h2>);
+					output.push(<pre>{this.state.error.stack}</pre>);
 				}
 
 				if (this.state.errorInfo) {
 					if (this.state.errorInfo.componentStack) {
-						output.push(
-							<section key="componentStack">
-								<h2>Component stack</h2>
-								<pre>{this.state.errorInfo.componentStack}</pre>
-							</section>
-						);
+						output.push(<h2>Component stack</h2>);
+						output.push(<pre>{this.state.errorInfo.componentStack}</pre>);
 					}
 				}
 

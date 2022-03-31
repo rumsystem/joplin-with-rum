@@ -145,11 +145,10 @@ class FileApiDriverAmazonS3 {
 
 	metadataToStat_(md, path) {
 		const relativePath = basename(path);
-		const lastModifiedDate = md['LastModified'] ? new Date(md['LastModified']) : new Date();
 
 		const output = {
 			path: relativePath,
-			updated_time: lastModifiedDate.getTime(),
+			updated_time: md['LastModified'] ? new Date(md['LastModified']) : new Date(),
 			isDeleted: !!md['DeleteMarker'],
 			isDir: false,
 		};

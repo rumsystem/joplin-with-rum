@@ -61,10 +61,6 @@ Modules/TinyMCE/IconPack/postinstall.js
 Modules/TinyMCE/langs/
 
 # AUTO-GENERATED - EXCLUDED TYPESCRIPT BUILD
-CliClient/app/LinkSelector.js
-CliClient/build/LinkSelector.js
-CliClient/tests/synchronizer_LockHandler.js
-CliClient/tests/synchronizer_MigrationHandler.js
 ElectronClient/commands/focusElement.js
 ElectronClient/commands/startExternalEditing.js
 ElectronClient/commands/stopExternalEditing.js
@@ -135,7 +131,6 @@ ElectronClient/gui/NoteList/commands/focusElementNoteList.js
 ElectronClient/gui/NoteListItem.js
 ElectronClient/gui/NoteToolbar/NoteToolbar.js
 ElectronClient/gui/ResourceScreen.js
-ElectronClient/gui/Root_UpgradeSyncTarget.js
 ElectronClient/gui/ShareNoteDialog.js
 ElectronClient/gui/SideBar/commands/focusElementSideBar.js
 ReactNativeClient/lib/AsyncActionQueue.js
@@ -143,7 +138,6 @@ ReactNativeClient/lib/checkPermissions.js
 ReactNativeClient/lib/commands/historyBackward.js
 ReactNativeClient/lib/commands/historyForward.js
 ReactNativeClient/lib/commands/synchronize.js
-ReactNativeClient/lib/components/screens/UpgradeSyncTargetScreen.js
 ReactNativeClient/lib/hooks/useEffectDebugger.js
 ReactNativeClient/lib/hooks/useImperativeHandlerDebugger.js
 ReactNativeClient/lib/hooks/usePrevious.js
@@ -158,24 +152,14 @@ ReactNativeClient/lib/services/keychain/KeychainServiceDriver.dummy.js
 ReactNativeClient/lib/services/keychain/KeychainServiceDriver.mobile.js
 ReactNativeClient/lib/services/keychain/KeychainServiceDriver.node.js
 ReactNativeClient/lib/services/keychain/KeychainServiceDriverBase.js
-ReactNativeClient/lib/services/KeymapService.js
 ReactNativeClient/lib/services/ResourceEditWatcher/index.js
 ReactNativeClient/lib/services/ResourceEditWatcher/reducer.js
 ReactNativeClient/lib/services/rest/actionApi.desktop.js
 ReactNativeClient/lib/services/rest/errors.js
-ReactNativeClient/lib/services/searchengine/filterParser.js
-ReactNativeClient/lib/services/searchengine/queryBuilder.js
 ReactNativeClient/lib/services/SettingUtils.js
-ReactNativeClient/lib/services/synchronizer/gui/useSyncTargetUpgrade.js
-ReactNativeClient/lib/services/synchronizer/LockHandler.js
-ReactNativeClient/lib/services/synchronizer/MigrationHandler.js
-ReactNativeClient/lib/services/synchronizer/migrations/1.js
-ReactNativeClient/lib/services/synchronizer/migrations/2.js
-ReactNativeClient/lib/services/synchronizer/utils/types.js
 ReactNativeClient/lib/services/UndoRedoService.js
 ReactNativeClient/lib/ShareExtension.js
 ReactNativeClient/lib/shareHandler.js
-ReactNativeClient/lib/versionInfo.js
 ReactNativeClient/PluginAssetsLoader.js
 ReactNativeClient/setUpQuickActions.js
 # AUTO-GENERATED - EXCLUDED TYPESCRIPT BUILD

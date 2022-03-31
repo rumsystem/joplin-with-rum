@@ -14,6 +14,8 @@ const MdToHtml = require('lib/joplin-renderer/MdToHtml');
 const { enexXmlToMd } = require('lib/import-enex-md-gen.js');
 const { themeStyle } = require('lib/theme');
 
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 60 * 60 * 1000; // Can run for a while since everything is in the same test unit
+
 process.on('unhandledRejection', (reason, p) => {
 	console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
 });

@@ -21,9 +21,6 @@ export interface ContextMenuOptions {
 	itemType: ContextMenuItemType,
 	resourceId: string,
 	textToCopy: string,
-	htmlToCopy: string,
-	insertContent: Function,
-	isReadOnly?: boolean,
 }
 
 interface ContextMenuItem {
@@ -84,32 +81,12 @@ export function menuItems():ContextMenuItems {
 			},
 			isActive: (itemType:ContextMenuItemType) => itemType === ContextMenuItemType.Image || itemType === ContextMenuItemType.Resource,
 		},
-		cut: {
-			label: _('Cut'),
-			onAction: async (options:ContextMenuOptions) => {
-				clipboard.writeText(options.textToCopy);
-				options.insertContent('');
-			},
-			isActive: (_itemType:ContextMenuItemType, options:ContextMenuOptions) => !options.isReadOnly && (!!options.textToCopy || !!options.htmlToCopy),
-		},
 		copy: {
 			label: _('Copy'),
 			onAction: async (options:ContextMenuOptions) => {
-				if (options.textToCopy) {
-					clipboard.writeText(options.textToCopy);
-				} else if (options.htmlToCopy) {
-					clipboard.writeHTML(options.htmlToCopy);
-				}
+				clipboard.writeText(options.textToCopy);
 			},
-			isActive: (_itemType:ContextMenuItemType, options:ContextMenuOptions) => !!options.textToCopy || !!options.htmlToCopy,
-		},
-		paste: {
-			label: _('Paste'),
-			onAction: async (options:ContextMenuOptions) => {
-				const content = clipboard.readHTML() ? clipboard.readHTML() : clipboard.readText();
-				options.insertContent(content);
-			},
-			isActive: (_itemType:ContextMenuItemType, options:ContextMenuOptions) => !options.isReadOnly && (!!clipboard.readText() || !!clipboard.readHTML()),
+			isActive: (itemType:ContextMenuItemType) => itemType === ContextMenuItemType.Text,
 		},
 		copyLinkUrl: {
 			label: _('Copy Link Address'),
@@ -126,12 +103,10 @@ export default async function contextMenu(options:ContextMenuOptions) {
 
 	const items = menuItems();
 
-	if (!('readyOnly' in options)) options.isReadOnly = true;
-
 	for (const itemKey in items) {
 		const item = items[itemKey];
 
-		if (!item.isActive(options.itemType, options)) continue;
+		if (!item.isActive(options.itemType)) continue;
 
 		menu.append(new MenuItem({
 			label: item.label,
