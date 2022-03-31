@@ -1,6 +1,6 @@
 import Logger from './Logger';
 import Synchronizer from './Synchronizer';
-import EncryptionService from './services/e2ee/EncryptionService';
+import EncryptionService from './services/EncryptionService';
 import shim from './shim';
 import ResourceService from './services/ResourceService';
 import ShareService from './services/share/ShareService';

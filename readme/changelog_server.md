@@ -1,20 +1,5 @@
 # Joplin Server Changelog
 
-## [server-v2.4.1-beta](https://github.com/laurent22/joplin/releases/tag/server-v2.4.1-beta) (Pre-release) - 2021-08-23T08:52:28Z
-
-- New: Add request rate limter on session and login end points (543413d)
-- New: Add support for user flags (82b157b)
-- New: Added commands to control db migrations - list, down, up (2c79ce2)
-- Improved: Handle flags for accounts over limit (6e087bc)
-- Improved: Increase cookies security - set HttpOnly, Secure and SameSite flags (bcadb36)
-- Improved: No longer install vim into the image (#5337 by [@piotrb](https://github.com/piotrb))
-- Improved: Re-enable account when new subscription is associated with it (ac82e4b)
-- Improved: Switch to node:16-bullseye base image (#5202 by [@piotrb](https://github.com/piotrb))
-- Fixed: Prevent crash when returning too many rows using SQLite (1efe3d3)
-- Fixed: Filenames with non-ascii characters could not be downloaded from published note (#5328)
-- Fixed: Fix missing CSS file error (#5309 by [@whalehub](https://github.com/whalehub))
-- Fixed: Fixed second duration (c7421df)
-
 ## [server-v2.3.7-beta](https://github.com/laurent22/joplin/releases/tag/server-v2.3.7-beta) (Pre-release) - 2021-08-13T21:20:17Z
 
 - Fixed: Fix migrations (a9961ae)
@@ -59,7 +44,7 @@
 
 ## [server-v2.2.8-beta](https://github.com/laurent22/joplin/releases/tag/server-v2.2.8-beta) (Pre-release) - 2021-07-24T16:55:58Z
 
-- New: Added form tokens to prevent CSRF attacks (CVE-2021-23431) (19b45de)
+- New: Added form tokens to prevent CSRF attacks (19b45de)
 - Improved: Allow admin to change Stripe subscription (75a421e)
 - Improved: Allow enabling or disabling a user. Handle cancelling subscription. (27c3cbd)
 - Improved: Allow user to upgrade account (e83ab93)

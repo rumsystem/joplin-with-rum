@@ -45,37 +45,16 @@ class HtmlUtils {
 	}
 
 	// Returns the **encoded** URLs, so to be useful they should be decoded again before use.
-	private extractUrls(regex: RegExp, html: string) {
+	public extractImageUrls(html: string) {
 		if (!html) return [];
 
 		const output = [];
 		let matches;
-		while ((matches = regex.exec(html))) {
+		while ((matches = imageRegex.exec(html))) {
 			output.push(matches[2]);
 		}
 
 		return output.filter(url => !!url);
-	}
-
-	// Returns the **encoded** URLs, so to be useful they should be decoded again before use.
-	public extractImageUrls(html: string) {
-		return this.extractUrls(imageRegex, html);
-	}
-
-	// Returns the **encoded** URLs, so to be useful they should be decoded again before use.
-	public extractAnchorUrls(html: string) {
-		return this.extractUrls(anchorRegex, html);
-	}
-
-	// Returns the **encoded** URLs, so to be useful they should be decoded again before use.
-	public extractFileUrls(html: string) {
-		return this.extractImageUrls(html).concat(this.extractAnchorUrls(html));
-	}
-
-	public replaceResourceUrl(html: string, urlToReplace: string, id: string) {
-		const htmlLinkRegex = `(?<=(?:src|href)=["'])${urlToReplace}(?=["'])`;
-		const htmlReg = new RegExp(htmlLinkRegex, 'g');
-		return html.replace(htmlReg, `:/${id}`);
 	}
 
 	public replaceImageUrls(html: string, callback: Function) {

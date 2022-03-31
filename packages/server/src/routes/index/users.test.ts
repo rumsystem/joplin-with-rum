@@ -1,4 +1,4 @@
-import { User } from '../../services/database/types';
+import { User } from '../../db';
 import routeHandler from '../../middleware/routeHandler';
 import { NotificationKey } from '../../models/NotificationModel';
 import { cookieGet } from '../../utils/cookies';

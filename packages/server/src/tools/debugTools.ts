@@ -1,7 +1,6 @@
 import { DbConnection, dropTables, migrateLatest } from '../db';
 import newModelFactory from '../models/factory';
 import { AccountType } from '../models/UserModel';
-import { UserFlagType } from '../services/database/types';
 import { Config } from '../utils/types';
 
 export async function handleDebugCommands(argv: any, db: DbConnection, config: Config): Promise<boolean> {
@@ -52,13 +51,4 @@ export async function createTestUsers(db: DbConnection, config: Config) {
 		await models.subscription().handlePayment(subscription.stripe_subscription_id, false);
 	}
 
-	{
-		const user = await models.user().save({
-			email: 'userwithflags@example.com',
-			password,
-			full_name: 'User Withflags',
-		});
-
-		await models.userFlag().add(user.id, UserFlagType.AccountOverLimit);
-	}
 }

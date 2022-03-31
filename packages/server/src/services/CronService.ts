@@ -33,10 +33,6 @@ export default class CronService extends BaseService {
 		cron.schedule('0 13 * * *', async () => {
 			await runCronTask('handleFailedPaymentSubscriptions', async () => this.models.user().handleFailedPaymentSubscriptions());
 		});
-
-		cron.schedule('0 14 * * *', async () => {
-			await runCronTask('handleOversizedAccounts', async () => this.models.user().handleOversizedAccounts());
-		});
 	}
 
 }

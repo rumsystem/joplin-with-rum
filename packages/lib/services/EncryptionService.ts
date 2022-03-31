@@ -1,12 +1,12 @@
-import { MasterKeyEntity } from './types';
-import Logger from '../../Logger';
-import shim from '../../shim';
-import Setting from '../../models/Setting';
-import MasterKey from '../../models/MasterKey';
-import BaseItem from '../../models/BaseItem';
-import JoplinError from '../../JoplinError';
-import { getActiveMasterKeyId, setActiveMasterKeyId } from '../synchronizer/syncInfoUtils';
-const { padLeft } = require('../../string-utils.js');
+import { MasterKeyEntity } from './e2ee/types';
+import Logger from '../Logger';
+import shim from '../shim';
+import Setting from '../models/Setting';
+import MasterKey from '../models/MasterKey';
+import BaseItem from '../models/BaseItem';
+import JoplinError from '../JoplinError';
+import { getActiveMasterKeyId, setActiveMasterKeyId } from './synchronizer/syncInfoUtils';
+const { padLeft } = require('../string-utils.js');
 
 function hexPad(s: string, length: number) {
 	return padLeft(s, length, '0');
@@ -189,9 +189,7 @@ export default class EncryptionService {
 	}
 
 	masterKeysThatNeedUpgrading(masterKeys: MasterKeyEntity[]) {
-		const output = MasterKey.allWithoutEncryptionMethod(masterKeys, this.defaultMasterKeyEncryptionMethod_);
-		// Anything below 5 is a new encryption method and doesn't need an upgrade
-		return output.filter(mk => mk.encryption_method <= 5);
+		return MasterKey.allWithoutEncryptionMethod(masterKeys, this.defaultMasterKeyEncryptionMethod_);
 	}
 
 	async upgradeMasterKey(model: MasterKeyEntity, decryptionPassword: string) {
