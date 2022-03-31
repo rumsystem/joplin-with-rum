@@ -25,6 +25,5 @@
 		"packages/app-cli/tests-build/**/*",
 		"packages/app-cli/build/**/*",
 		"Modules/**/*",
-		"packages/server/dist",
 	],
 }

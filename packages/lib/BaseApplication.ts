@@ -6,7 +6,6 @@ import reducer from './reducer';
 import KeychainServiceDriver from './services/keychain/KeychainServiceDriver.node';
 import { _, setLocale } from './locale';
 import KvStore from './services/KvStore';
-import SyncTargetJoplinServer from './SyncTargetJoplinServer';
 
 const { createStore, applyMiddleware } = require('redux');
 const { defaultState, stateUtils } = require('./reducer');
@@ -682,7 +681,6 @@ export default class BaseApplication {
 		SyncTargetRegistry.addClass(SyncTargetWebDAV);
 		SyncTargetRegistry.addClass(SyncTargetDropbox);
 		SyncTargetRegistry.addClass(SyncTargetAmazonS3);
-		SyncTargetRegistry.addClass(SyncTargetJoplinServer);
 
 		try {
 			await shim.fsDriver().remove(tempDir);
