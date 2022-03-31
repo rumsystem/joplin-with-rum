@@ -1299,7 +1299,7 @@ class NoteTextComponent extends React.Component {
 
 			if (!path) return;
 
-			await this.printTo_('pdf', { path: path, noteId: note.id });
+			await this.printTo_('pdf', { path: path, noteId: args.noteId });
 		} catch (error) {
 			bridge().showErrorMessageBox(error.message);
 		}
