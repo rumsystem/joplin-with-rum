@@ -99,7 +99,7 @@ class Bridge {
 			return;
 		}
 
-		const restoredState = await this.restoreState();
+		await this.restoreState();
 
 		await this.checkAuth();
 		if (!this.token_) return; // Didn't get a token
@@ -117,7 +117,6 @@ class Bridge {
 		}
 
 		this.dispatch({ type: 'TAGS_SET', tags: tags });
-		if (restoredState.selectedFolderId) this.dispatch({ type: 'SELECTED_FOLDER_SET', id: restoredState.selectedFolderId });
 	}
 
 	async checkAuth() {
@@ -240,7 +239,9 @@ class Bridge {
 	async restoreState() {
 		const s = await this.storageGet(null);
 		console.info('Popup: Restoring saved state:', s);
-		return s;
+		if (!s) return;
+
+		if (s.selectedFolderId) this.dispatch({ type: 'SELECTED_FOLDER_SET', id: s.selectedFolderId });
 	}
 
 	async findClipperServerPort() {
