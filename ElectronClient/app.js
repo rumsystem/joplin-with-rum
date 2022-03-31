@@ -30,7 +30,6 @@ const PluginManager = require('lib/services/PluginManager');
 const RevisionService = require('lib/services/RevisionService');
 const MigrationService = require('lib/services/MigrationService');
 const CommandService = require('lib/services/CommandService').default;
-const KeymapService = require('lib/services/KeymapService.js').default;
 const TemplateUtils = require('lib/TemplateUtils');
 const CssUtils = require('lib/CssUtils');
 const resourceEditWatcherReducer = require('lib/services/ResourceEditWatcher/reducer').default;
@@ -376,7 +375,6 @@ class Application extends BaseApplication {
 		if (this.lastMenuScreen_ === screen) return;
 
 		const cmdService = CommandService.instance();
-		const keymapService = KeymapService.instance();
 
 		const sortNoteFolderItems = (type) => {
 			const sortItems = [];
@@ -415,10 +413,10 @@ class Application extends BaseApplication {
 		const sortFolderItems = sortNoteFolderItems('folders');
 
 		const focusItems = [
-			cmdService.commandToMenuItem('focusElementSideBar'),
-			cmdService.commandToMenuItem('focusElementNoteList'),
-			cmdService.commandToMenuItem('focusElementNoteTitle'),
-			cmdService.commandToMenuItem('focusElementNoteBody'),
+			cmdService.commandToMenuItem('focusElementSideBar', 'CommandOrControl+Shift+S'),
+			cmdService.commandToMenuItem('focusElementNoteList', 'CommandOrControl+Shift+L'),
+			cmdService.commandToMenuItem('focusElementNoteTitle', 'CommandOrControl+Shift+N'),
+			cmdService.commandToMenuItem('focusElementNoteBody', 'CommandOrControl+Shift+B'),
 		];
 
 		let toolsItems = [];
@@ -473,9 +471,9 @@ class Application extends BaseApplication {
 								modulePath: module.path,
 								onError: console.warn,
 								destinationFolderId:
-									!module.isNoteArchive && moduleSource === 'file'
-										? selectedFolderId
-										: null,
+								!module.isNoteArchive && moduleSource === 'file'
+									? selectedFolderId
+									: null,
 							};
 
 							const service = new InteropService();
@@ -514,8 +512,8 @@ class Application extends BaseApplication {
 			},
 		};
 
-		const newNoteItem = cmdService.commandToMenuItem('newNote');
-		const newTodoItem = cmdService.commandToMenuItem('newTodo');
+		const newNoteItem = cmdService.commandToMenuItem('newNote', 'CommandOrControl+N');
+		const newTodoItem = cmdService.commandToMenuItem('newTodo', 'CommandOrControl+T');
 		const newNotebookItem = cmdService.commandToMenuItem('newNotebook');
 		const printItem = cmdService.commandToMenuItem('print');
 
@@ -541,7 +539,7 @@ class Application extends BaseApplication {
 		}, {
 			label: _('Insert template'),
 			visible: templateDirExists,
-			accelerator: keymapService.getAccelerator('insertTemplate'),
+			accelerator: 'CommandOrControl+Alt+I',
 			click: () => {
 				cmdService.execute('selectTemplate');
 			},
@@ -568,7 +566,7 @@ class Application extends BaseApplication {
 		const toolsItemsWindowsLinux = toolsItemsFirst.concat([{
 			label: _('Options'),
 			visible: !shim.isMac(),
-			accelerator: shim.isMac() ? null : keymapService.getAccelerator('config'),
+			accelerator: 'CommandOrControl+,',
 			click: () => {
 				this.dispatch({
 					type: 'NAV_GO',
@@ -650,7 +648,7 @@ class Application extends BaseApplication {
 			}, {
 				label: _('Preferences...'),
 				visible: shim.isMac() ? true : false,
-				accelerator: shim.isMac() ? keymapService.getAccelerator('config') : null,
+				accelerator: 'CommandOrControl+,',
 				click: () => {
 					this.dispatch({
 						type: 'NAV_GO',
@@ -689,7 +687,7 @@ class Application extends BaseApplication {
 				type: 'separator',
 			},
 
-			cmdService.commandToMenuItem('synchronize'),
+			cmdService.commandToMenuItem('synchronize', 'CommandOrControl+S'),
 
 			shim.isMac() ? syncStatusItem : noItem, {
 				type: 'separator',
@@ -699,13 +697,13 @@ class Application extends BaseApplication {
 			}, {
 				label: _('Hide %s', 'Joplin'),
 				platforms: ['darwin'],
-				accelerator: shim.isMac() ? keymapService.getAccelerator('hideApp') : null,
+				accelerator: 'CommandOrControl+H',
 				click: () => { bridge().electronApp().hide(); },
 			}, {
 				type: 'separator',
 			}, {
 				label: _('Quit'),
-				accelerator: keymapService.getAccelerator('quit'),
+				accelerator: 'CommandOrControl+Q',
 				click: () => { bridge().electronApp().quit(); },
 			}],
 		};
@@ -719,9 +717,9 @@ class Application extends BaseApplication {
 				newNotebookItem, {
 					label: _('Close Window'),
 					platforms: ['darwin'],
-					accelerator: shim.isMac() ? keymapService.getAccelerator('closeWindow') : null,
+					accelerator: 'Command+W',
 					selector: 'performClose:',
-				}, {
+				},  {
 					type: 'separator',
 				}, {
 					label: _('Templates'),
@@ -764,28 +762,28 @@ class Application extends BaseApplication {
 				id: 'edit',
 				label: _('&Edit'),
 				submenu: [
-					cmdService.commandToMenuItem('textCopy'),
-					cmdService.commandToMenuItem('textCut'),
-					cmdService.commandToMenuItem('textPaste'),
-					cmdService.commandToMenuItem('textSelectAll'),
+					cmdService.commandToMenuItem('textCopy', 'CommandOrControl+C'),
+					cmdService.commandToMenuItem('textCut', 'CommandOrControl+X'),
+					cmdService.commandToMenuItem('textPaste', 'CommandOrControl+V'),
+					cmdService.commandToMenuItem('textSelectAll', 'CommandOrControl+A'),
 					separator(),
-					cmdService.commandToMenuItem('textBold'),
-					cmdService.commandToMenuItem('textItalic'),
-					cmdService.commandToMenuItem('textLink'),
-					cmdService.commandToMenuItem('textCode'),
+					cmdService.commandToMenuItem('textBold', 'CommandOrControl+B'),
+					cmdService.commandToMenuItem('textItalic', 'CommandOrControl+I'),
+					cmdService.commandToMenuItem('textLink', 'CommandOrControl+K'),
+					cmdService.commandToMenuItem('textCode', 'CommandOrControl+`'),
 					separator(),
-					cmdService.commandToMenuItem('insertDateTime'),
+					cmdService.commandToMenuItem('insertDateTime', 'CommandOrControl+Shift+T'),
 					separator(),
-					cmdService.commandToMenuItem('focusSearch'),
-					cmdService.commandToMenuItem('showLocalSearch'),
+					cmdService.commandToMenuItem('focusSearch', shim.isMac() ? 'Shift+Command+F' : 'F6'),
+					cmdService.commandToMenuItem('showLocalSearch', 'CommandOrControl+F'),
 				],
 			},
 			view: {
 				label: _('&View'),
 				submenu: [
-					CommandService.instance().commandToMenuItem('toggleSidebar'),
+					CommandService.instance().commandToMenuItem('toggleSidebar', shim.isMac() ? 'Option+Command+S' : 'F10'),
 					CommandService.instance().commandToMenuItem('toggleNoteList'),
-					CommandService.instance().commandToMenuItem('toggleVisiblePanes'),
+					CommandService.instance().commandToMenuItem('toggleVisiblePanes', 'CommandOrControl+L'),
 					{
 						label: _('Layout button sequence'),
 						screens: ['Main'],
@@ -867,8 +865,9 @@ class Application extends BaseApplication {
 			note: {
 				label: _('&Note'),
 				submenu: [
-					CommandService.instance().commandToMenuItem('startExternalEditing'),
-					CommandService.instance().commandToMenuItem('setTags'),
+
+					CommandService.instance().commandToMenuItem('startExternalEditing', 'CommandOrControl+E'),
+					CommandService.instance().commandToMenuItem('setTags', 'CommandOrControl+Alt+T'),
 					separator(),
 					CommandService.instance().commandToMenuItem('showNoteContentProperties'),
 				],
@@ -882,7 +881,7 @@ class Application extends BaseApplication {
 				role: 'help', // Makes it add the "Search" field on macOS
 				submenu: [{
 					label: _('Website and documentation'),
-					accelerator: keymapService.getAccelerator('help'),
+					accelerator: 'F1',
 					click() { bridge().openExternal('https://joplinapp.org'); },
 				}, {
 					label: _('Joplin Forum'),
@@ -1022,7 +1021,7 @@ class Application extends BaseApplication {
 		}
 
 		const sortNoteReverseItem = menu.getMenuItemById('sort:notes:reverse');
-		if (sortNoteReverseItem) sortNoteReverseItem.enabled = state.settings['notes.sortOrder.field'] !== 'order';
+		sortNoteReverseItem.enabled = state.settings['notes.sortOrder.field'] !== 'order';
 
 		// const devToolsMenuItem = menu.getMenuItemById('help:toggleDevTools');
 		// devToolsMenuItem.checked = state.devToolsVisible;
@@ -1083,6 +1082,39 @@ class Application extends BaseApplication {
 		return cssString;
 	}
 
+	// async createManyNotes() {
+	// 	return;
+	// 	const folderIds = [];
+
+	// 	const randomFolderId = (folderIds) => {
+	// 		if (!folderIds.length) return '';
+	// 		const idx = Math.floor(Math.random() * folderIds.length);
+	// 		if (idx > folderIds.length - 1) throw new Error('Invalid index ' + idx + ' / ' + folderIds.length);
+	// 		return folderIds[idx];
+	// 	}
+
+	// 	let rootFolderCount = 0;
+	// 	let folderCount = 100;
+
+	// 	for (let i = 0; i < folderCount; i++) {
+	// 		let parentId = '';
+
+	// 		if (Math.random() >= 0.9 || rootFolderCount >= folderCount / 10) {
+	// 			parentId = randomFolderId(folderIds);
+	// 		} else {
+	// 			rootFolderCount++;
+	// 		}
+
+	// 		const folder = await Folder.save({ title: 'folder' + i, parent_id: parentId });
+	// 		folderIds.push(folder.id);
+	// 	}
+
+	// 	for (let i = 0; i < 10000; i++) {
+	// 		const parentId = randomFolderId(folderIds);
+	// 		Note.save({ title: 'note' + i, parent_id: parentId });
+	// 	}
+	// }
+
 	async start(argv) {
 		const electronIsDev = require('electron-is-dev');
 
@@ -1092,23 +1124,10 @@ class Application extends BaseApplication {
 
 		argv = await super.start(argv);
 
-		if (Setting.value('sync.upgradeState') === Setting.SYNC_UPGRADE_STATE_MUST_DO) {
-			return { action: 'upgradeSyncTarget' };
-		}
-
-    const dir = Setting.value('profileDir');
-
 		// Loads app-wide styles. (Markdown preview-specific styles loaded in app.js)
+		const dir = Setting.value('profileDir');
 		const filename = Setting.custom_css_files.JOPLIN_APP;
 		await CssUtils.injectCustomStyles(`${dir}/${filename}`);
-
-		const keymapService = KeymapService.instance();
-
-		try {
-			await KeymapService.instance().loadKeymap(`${dir}/keymap-desktop.json`);
-		} catch (err) {
-			bridge().showErrorMessageBox(err.message);
-		}
 
 		AlarmService.setDriver(new AlarmServiceDriverNode({ appName: packageInfo.build.appId }));
 		AlarmService.setLogger(reg.logger());
@@ -1125,7 +1144,7 @@ class Application extends BaseApplication {
 
 		this.initRedux();
 
-		CommandService.instance().initialize(this.store(), keymapService);
+		CommandService.instance().initialize(this.store());
 
 		for (const command of commands) {
 			CommandService.instance().registerDeclaration(command.declaration);

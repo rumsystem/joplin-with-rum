@@ -626,6 +626,7 @@ const TinyMCE = (props:NoteBodyEditorProps, ref:any) => {
 							update: function(element:any) {
 								let itemType:ContextMenuItemType = ContextMenuItemType.None;
 								let resourceId = '';
+								let textToCopy = '';
 
 								if (element.nodeName === 'IMG') {
 									itemType = ContextMenuItemType.Image;
@@ -635,20 +636,13 @@ const TinyMCE = (props:NoteBodyEditorProps, ref:any) => {
 									itemType = resourceId ? ContextMenuItemType.Resource : ContextMenuItemType.Link;
 								} else {
 									itemType = ContextMenuItemType.Text;
+									textToCopy = editor.selection.getContent({ format: 'text' });
 								}
 
-								contextMenuActionOptions.current = {
-									itemType,
-									resourceId,
-									textToCopy: null,
-									htmlToCopy: editor.selection ? editor.selection.getContent() : '',
-									insertContent: (content:string) => {
-										editor.insertContent(content);
-									},
-									isReadOnly: false,
-								};
+								contextMenuActionOptions.current = { itemType, resourceId, textToCopy };
 
-								return item.isActive(itemType, contextMenuActionOptions.current) ? itemNameNS : '';
+
+								return item.isActive(itemType) ? itemNameNS : '';
 							},
 						});
 					}

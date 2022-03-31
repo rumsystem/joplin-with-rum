@@ -15,6 +15,8 @@ const ArrayUtils = require('lib/ArrayUtils');
 const ObjectUtils = require('lib/ObjectUtils');
 const { shim } = require('lib/shim.js');
 
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+
 process.on('unhandledRejection', (reason, p) => {
 	console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
 });
