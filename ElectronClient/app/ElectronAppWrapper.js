@@ -1,5 +1,5 @@
 const { _ } = require('lib/locale.js');
-const { BrowserWindow, Menu, Tray } = require('electron');
+const { BrowserWindow } = require('electron');
 const { shim } = require('lib/shim');
 const url = require('url')
 const path = require('path')
@@ -12,7 +12,6 @@ class ElectronAppWrapper {
 		this.env_ = env;
 		this.win_ = null;
 		this.willQuitApp_ = false;
-		this.tray_ = null;
 	}
 
 	electronApp() {
@@ -63,27 +62,11 @@ class ElectronAppWrapper {
 		if (this.env_ === 'dev') this.win_.webContents.openDevTools();
 
 		this.win_.on('close', (event) => {
-			// If it's on macOS, the app is completely closed only if the user chooses to close the app (willQuitApp_ will be true)
-			// otherwise the window is simply hidden, and will be re-open once the app is "activated" (which happens when the
-			// user clicks on the icon in the task bar).
-
-			// On Windows and Linux, the app is closed when the window is closed *except* if the tray icon is used. In which
-			// case the app must be explicitely closed with Ctrl+Q or by right-clicking on the tray icon and selecting "Exit".
-
-			if (process.platform === 'darwin') {
-				if (this.willQuitApp_) {
-					this.win_ = null;
-				} else {
-					event.preventDefault();
-					this.win_.hide();
-				}
+			if (this.willQuitApp_ || process.platform !== 'darwin') {
+				this.win_ = null;
 			} else {
-				if (this.trayShown() && !this.willQuitApp_) {
-					event.preventDefault();
-					this.win_.hide();
-				} else {
-					this.win_ = null;
-				}
+				event.preventDefault();
+				this.win_.hide();
 			}
 		})
 
@@ -108,27 +91,6 @@ class ElectronAppWrapper {
 
 	async exit() {
 		this.electronApp_.quit();
-	}
-
-	trayShown() {
-		return !!this.tray_;
-	}
-
-	// Note: this must be called only after the "ready" event of the app has been dispatched
-	createTray(contextMenu) {
-		this.tray_ = new Tray(__dirname + '/build/icons/16x16.png')
-		this.tray_.setToolTip(this.electronApp_.getName())
-		this.tray_.setContextMenu(contextMenu)
-
-		this.tray_.on('click', () => {
-			this.window().show();
-		});
-	}
-
-	destroyTray() {
-		if (!this.tray_) return;
-		this.tray_.destroy();
-		this.tray_ = null;
 	}
 
 	async start() {
