@@ -1,4 +1,5 @@
 const Resource = require('lib/models/Resource');
+const ResourceLocalState = require('lib/models/ResourceLocalState');
 const BaseService = require('lib/services/BaseService');
 const BaseSyncTarget = require('lib/BaseSyncTarget');
 const { Logger } = require('lib/logger.js');
@@ -8,7 +9,9 @@ class ResourceFetcher extends BaseService {
 
 	constructor(fileApi = null) {
 		super();
-		
+
+		this.dispatch = (action) => {};
+
 		this.setFileApi(fileApi);
 		this.logger_ = new Logger();
 		this.queue_ = [];
@@ -58,6 +61,19 @@ class ResourceFetcher extends BaseService {
 		return -1;
 	}
 
+	updateReport() {
+		if (this.updateReportIID_) return;
+
+		this.updateReportIID_ = setTimeout(async () => {
+			const toFetchCount = await Resource.needToBeFetchedCount();
+			this.dispatch({
+				type: 'RESOURCE_FETCHER_SET',
+				toFetchCount: toFetchCount,
+			});
+			this.updateReportIID_ = null;
+		}, 2000);
+	}
+
 	queueDownload(resourceId, priority = null) {
 		if (priority === null) priority = 'normal';
 
@@ -72,6 +88,8 @@ class ResourceFetcher extends BaseService {
 			this.queue_.push(item);
 		}
 
+		this.updateReport();
+
 		this.scheduleQueueProcess();
 		return true;
 	}
@@ -84,13 +102,15 @@ class ResourceFetcher extends BaseService {
 			delete this.fetchingItems_[resource.id];
 			this.scheduleQueueProcess();
 			if (emitDownloadComplete) this.eventEmitter_.emit('downloadComplete', { id: resource.id });
+			this.updateReport();
 		}
 
 		const resource = await Resource.load(resourceId);
+		const localState = await Resource.localState(resource);
 
 		// Shouldn't happen, but just to be safe don't re-download the
 		// resource if it's already been downloaded.
-		if (resource.fetch_status === Resource.FETCH_STATUS_DONE) {
+		if (localState.fetch_status === Resource.FETCH_STATUS_DONE) {
 			completeDownload(false);
 			return;
 		}
@@ -100,19 +120,19 @@ class ResourceFetcher extends BaseService {
 		const localResourceContentPath = Resource.fullPath(resource);
 		const remoteResourceContentPath = this.resourceDirName_ + "/" + resource.id;
 
-		await Resource.saveFetchStatus(resource.id, Resource.FETCH_STATUS_STARTED);
+		await Resource.setLocalState(resource, { fetch_status: Resource.FETCH_STATUS_STARTED });
 
 		const fileApi = await this.fileApi();
 
 		this.logger().debug('ResourceFetcher: Downloading resource: ' + resource.id);
 
 		fileApi.get(remoteResourceContentPath, { path: localResourceContentPath, target: "file" }).then(async () => {
-			await Resource.saveFetchStatus(resource.id, Resource.FETCH_STATUS_DONE);
+			await Resource.setLocalState(resource, { fetch_status: Resource.FETCH_STATUS_DONE });
 			this.logger().debug('ResourceFetcher: Resource downloaded: ' + resource.id);
 			completeDownload();
 		}).catch(async (error) => {
 			this.logger().error('ResourceFetcher: Could not download resource: ' + resource.id, error);
-			await Resource.saveFetchStatus(resource.id, Resource.FETCH_STATUS_ERROR, error.message);
+			await Resource.setLocalState(resource, { fetch_status: Resource.FETCH_STATUS_ERROR, fetch_error: error.message });
 			completeDownload();
 		});
 	}
@@ -156,7 +176,7 @@ class ResourceFetcher extends BaseService {
 	}
 
 	async start() {
-		await Resource.resetStartedFetchStatus();
+		await ResourceLocalState.resetStartedFetchStatus();
 		this.autoAddResources(10);
 	}
 
@@ -173,7 +193,7 @@ class ResourceFetcher extends BaseService {
 	}
 
 	async fetchAll() {
-		await Resource.resetStartedFetchStatus();
+		await ResourceLocalState.resetStartedFetchStatus();
 		this.autoAddResources(null);
 	}
 
