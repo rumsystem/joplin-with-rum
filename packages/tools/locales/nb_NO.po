@@ -7,16 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Joplin-CLI 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Alexander Dawson\n"
+"Last-Translator: Mats Estensen <code@mxe.no>\n"
 "Language-Team: \n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 2.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
 
 #: packages/app-cli/app/app-gui.js:452
 msgid "To delete a tag, untag the associated notes."
@@ -134,7 +132,7 @@ msgstr "Finner ikke \"%s\"."
 msgid ""
 "Runs the commands contained in the text file. There should be one command "
 "per line."
-msgstr "Kjør kommandoene som finnes i denne tekstfilen. En kommando per linje."
+msgstr ""
 
 #: packages/app-cli/app/command-cat.js:14
 msgid "Displays the given note."
@@ -214,16 +212,14 @@ msgstr ""
 "av mengden som skal dekrypteres."
 
 #: packages/app-cli/app/command-e2ee.js:55
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Decrypted items: %d"
-msgstr "Dekrypterte elementer: %d"
+msgstr "Dekrypterte elementer: %s / %s"
 
 #: packages/app-cli/app/command-e2ee.js:56
 #, javascript-format
 msgid "Skipped items: %d (use --retry-failed-items to retry decrypting them)"
 msgstr ""
-"Hoppet over elementer: %d (bruk --retry-failed-items for å forsøke å "
-"dekryptere på nytt)"
 
 #: packages/app-cli/app/command-e2ee.js:70
 msgid "Completed decryption."
@@ -404,9 +400,9 @@ msgid "Do not ask for confirmation."
 msgstr "Ikke spør om bekreftelse."
 
 #: packages/app-cli/app/command-import.js:27
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Output format: %s"
-msgstr "Utformat: %s"
+msgstr "Kildeformat: %s"
 
 #: packages/app-cli/app/command-import.js:47
 #: packages/app-desktop/gui/ImportScreen.min.js:68
@@ -586,7 +582,7 @@ msgstr "Serveren kjører på port %d"
 #: packages/app-cli/app/command-server.js:44
 #: packages/app-cli/app/command-server.js:47
 msgid "Server is not running."
-msgstr "Serveren kjører ikke."
+msgstr "Serveren kjører ikke"
 
 #: packages/app-cli/app/command-set.js:22
 #, javascript-format
@@ -609,8 +605,6 @@ msgstr "Viser sammendrag om notatene og notatbøkene."
 msgid ""
 "To retry decryption of these items. Run `e2ee decrypt --retry-failed-items`"
 msgstr ""
-"For å prøve dekryptering på nytt på disse elementene. Kjør 'e2ee decrypt --"
-"retry-failed-items'"
 
 #: packages/app-cli/app/command-sync.js:29
 msgid "Synchronises with remote storage."
@@ -622,7 +616,7 @@ msgstr "Sync å forsynt mål (uteblivelsene å sync. target config-verdi)"
 
 #: packages/app-cli/app/command-sync.js:35
 msgid "Upgrade the sync target to the latest version."
-msgstr "Oppgrader synkroniseringsmålet til siste versjon."
+msgstr ""
 
 #: packages/app-cli/app/command-sync.js:82
 #: packages/app-cli/app/command-sync.js:96
@@ -678,6 +672,7 @@ msgid "Synchronisation target: %s (%s)"
 msgstr "Synkroniseringsmål: %s (%s)"
 
 #: packages/app-cli/app/command-sync.js:182
+#, fuzzy
 msgid "Cannot initialise synchroniser."
 msgstr "Kan ikke starte synkronisering."
 
@@ -692,7 +687,7 @@ msgstr "Laster ned ressurser..."
 #: packages/app-cli/app/command-sync.js:247
 #, javascript-format
 msgid "Sync target must be upgraded! Run `%s` to proceed."
-msgstr "Synkroniseringsmålet må oppgraderes! Kjør '%s' for å fortsette."
+msgstr ""
 
 #: packages/app-cli/app/command-sync.js:265
 msgid "Cancelling... Please wait."
@@ -781,8 +776,9 @@ msgstr ""
 "snart være tilgjengelige."
 
 #: packages/app-cli/app/gui/NoteWidget.js:50
+#, fuzzy
 msgid "You may also type `status` for more information."
-msgstr "Du kan også skrive 'status' for mer informasjon."
+msgstr "Ikke spør om bekreftelse."
 
 #: packages/app-cli/app/help-utils.js:56
 msgid "Enum"
@@ -821,9 +817,9 @@ msgid "Exporting to \"%s\" as \"%s\" format. Please wait..."
 msgstr "Eksporterer til \"%s\" i \"%s\" format. Vennligst vent..."
 
 #: packages/app-desktop/InteropServiceHelper.js:175
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Could not export notes: %s"
-msgstr "Kunne ikke eksponere notater: %s"
+msgstr "Kunne ikke oppgradere mesternøkler: %s"
 
 #: packages/app-desktop/app.js:370
 #, javascript-format
@@ -881,7 +877,6 @@ msgstr "Avbryt"
 msgid ""
 "The app is now going to close. Please relaunch it to complete the process."
 msgstr ""
-"Programmet vil lukkes nå. Vennligst restarte det for å fullføre prosessen."
 
 #: packages/app-desktop/checkForUpdates.js:171
 msgid "Current version is up-to-date."
@@ -907,24 +902,27 @@ msgid "New version: %s"
 msgstr "Ny versjon: %s"
 
 #: packages/app-desktop/checkForUpdates.js:189
+#, fuzzy
 msgid "Download"
-msgstr "Nedlasting"
+msgstr "Nedlastet"
 
 #: packages/app-desktop/checkForUpdates.js:189
 msgid "Skip this version"
-msgstr "Hopp over denne versjonen"
+msgstr ""
 
 #: packages/app-desktop/checkForUpdates.js:189
 msgid "Full changelog"
-msgstr "Komplett endringslogg"
+msgstr ""
 
 #: packages/app-desktop/commands/copyDevCommand.js:18
+#, fuzzy
 msgid "Copy dev mode command to clipboard"
-msgstr "Kopier utvikler modus kommando til utklippstavlen"
+msgstr "Kopier sti til utklippstavlen"
 
 #: packages/app-desktop/commands/openProfileDirectory.js:18
+#, fuzzy
 msgid "Open profile directory"
-msgstr "Åpne profil mappen"
+msgstr "Åpne maler"
 
 #: packages/app-desktop/commands/startExternalEditing.js:20
 msgid "Edit in external editor"
@@ -935,16 +933,18 @@ msgid "Stop external editing"
 msgstr "Stopp ekstern redigering"
 
 #: packages/app-desktop/commands/toggleExternalEditing.js:18
+#, fuzzy
 msgid "Toggle external editing"
-msgstr "Vis/skjul ekstern redigering"
+msgstr "Stopp ekstern redigering"
 
 #: packages/app-desktop/commands/toggleExternalEditing.js:37
 msgid "Stop"
-msgstr "Stopp"
+msgstr ""
 
 #: packages/app-desktop/commands/toggleSafeMode.js:18
+#, fuzzy
 msgid "Toggle safe mode"
-msgstr "Vis/skjul sikker modus"
+msgstr "Vis/skjul sidepanel"
 
 #: packages/app-desktop/gui/ClipperConfigScreen.min.js:40
 msgid "Token has been copied to the clipboard!"
@@ -952,7 +952,7 @@ msgstr "Bevis har blitt kopiert til utklippstavlen!"
 
 #: packages/app-desktop/gui/ClipperConfigScreen.min.js:44
 msgid "Are you sure you want to renew the authorisation token?"
-msgstr "Er du sikker på at du vil fornye autorisasjons tokenet?"
+msgstr ""
 
 #: packages/app-desktop/gui/ClipperConfigScreen.min.js:84
 msgid "The web clipper service is enabled and set to auto-start."
@@ -1036,7 +1036,7 @@ msgstr ""
 
 #: packages/app-desktop/gui/ClipperConfigScreen.min.js:222
 msgid "Renew token"
-msgstr "Forny tokenet"
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/ButtonBar.js:27
 msgid "Apply"
@@ -1064,7 +1064,7 @@ msgstr "Vis avanserte innstillinger"
 
 #: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:392
 msgid "Path:"
-msgstr "Sti:"
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:397
 msgid "Browse..."
@@ -1072,24 +1072,26 @@ msgstr "Utforsk..."
 
 #: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:399
 msgid "Arguments:"
-msgstr "Argumenter:"
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:447
 msgid "The application must be restarted for these changes to take effect."
-msgstr "Applikasjonen må restarte for at endringer skal tre i kraft."
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:459
 #: packages/app-desktop/gui/NoteList/NoteList.js:164
+#, fuzzy
 msgid "Do it now"
-msgstr "Gjør det nå"
+msgstr "Få den nå:"
 
 #: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:459
 msgid "Later"
-msgstr "Senere"
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:512
+#, fuzzy
 msgid "Restart now"
-msgstr "Omstart nå"
+msgstr "Få den nå:"
 
 #: packages/app-desktop/gui/ConfigScreen/Sidebar.js:89
 #: packages/lib/models/Setting.js:1662
@@ -1109,23 +1111,26 @@ msgstr "Slett"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginBox.js:130
 msgid "Install"
-msgstr "Installer"
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginBox.js:132
+#, fuzzy
 msgid "Installing..."
-msgstr "Installerer..."
+msgstr "Avbryter…"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginBox.js:134
 msgid "Installed"
-msgstr "Installert"
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginBox.js:140
+#, fuzzy
 msgid "Update"
-msgstr "Oppdater"
+msgstr "Oppdatert"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginBox.js:142
+#, fuzzy
 msgid "Updating..."
-msgstr "Oppdaterer..."
+msgstr "Observerer..."
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginBox.js:144
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginBox.js:146
@@ -1136,49 +1141,52 @@ msgstr "Oppdatert"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginBox.js:154
 msgid "Please upgrade Joplin to use this plugin"
-msgstr "Vennligst oppgrader Joplin for å bruke denne utvidelsen"
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginBox.js:168
 #, javascript-format
 msgid "(%s)"
-msgstr "(%s)"
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginsStates.js:138
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Delete plugin \"%s\"?"
-msgstr "Slett utvidelse \"%s\"?"
+msgstr "Slette notat \"%s\"?"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginsStates.js:180
 msgid "Browse all plugins"
-msgstr "Bla igjennom alle utvidelser"
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginsStates.js:184
 msgid "Install from file"
-msgstr "Installer fra fil"
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginsStates.js:218
 msgid "You do not have any installed plugin."
-msgstr "Du har ikke installert noen utvidelser."
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginsStates.js:232
+#, fuzzy
 msgid "Could not connect to plugin repository"
-msgstr "Kan ikke koble til utvidelsesbiblioteket"
+msgstr "Kunne ikke oppgradere mesternøkler: %s"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginsStates.js:234
 msgid "Try again"
-msgstr "Forsøk igjen"
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginsStates.js:242
+#, fuzzy
 msgid "Plugin tools"
-msgstr "Utvidelsesverktøy"
+msgstr "Utvidelser"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginsStates.js:243
 msgid "Manage your plugins"
-msgstr "Administrer dine utvidelser"
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/SearchPlugins.js:68
+#, fuzzy
 msgid "No results"
-msgstr "Ingen resultater"
+msgstr "Ingen ressurser!"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/SearchPlugins.js:80
 #: packages/app-desktop/gui/ResourceScreen.js:142
@@ -1186,13 +1194,14 @@ msgid "Please wait..."
 msgstr "Vennligst vent..."
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/SearchPlugins.js:80
+#, fuzzy
 msgid "Search for plugins..."
-msgstr "Søk etter utvidelser...."
+msgstr "Søk..."
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/useOnInstallHandler.js:53
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Could not install plugin: %s"
-msgstr "Kunne ikke installere utvidelse: %s"
+msgstr "Kunne ikke oppgradere mesternøkler: %s"
 
 #: packages/app-desktop/gui/DropboxLoginScreen.js:35
 #: packages/app-mobile/components/screens/dropbox-login.js:68
@@ -1269,27 +1278,15 @@ msgid ""
 "\n"
 "Important: you only need to run this ONCE on one device."
 msgstr ""
-"For å gjøre dette, må hele ditt datasett krypteres og synkroniseres, derfor "
-"er det best å gjøre dette over natten.\n"
-"\n"
-"For å starte, vennligst følg instruksjonene:\n"
-"\n"
-"1. Synkroniser alle dine enheter.\n"
-"2. Klikk \"%s\".\n"
-"3. La prosessen fullføre. Mens den kjører, unngå endringer på notatene dine "
-"på andre enheter, for å unngå konflikt.\n"
-"4. Når synkroniseringen er fullført på denne enheten, synkroniser dine andre "
-"enheter og la dem fullføre prosessen.\n"
-"\n"
-"Viktig: Du trenger kun å gjøre dette EN gang per enhet."
 
 #: packages/app-desktop/gui/EncryptionConfigScreen.min.js:198
+#, fuzzy
 msgid "Re-encryption"
-msgstr "Omkryptering"
+msgstr "Kryptering"
 
 #: packages/app-desktop/gui/EncryptionConfigScreen.min.js:213
 msgid "Ignore"
-msgstr "Ignorer"
+msgstr ""
 
 #: packages/app-desktop/gui/EncryptionConfigScreen.min.js:244
 #: packages/app-mobile/components/screens/encryption-config.js:215
@@ -1418,9 +1415,9 @@ msgstr ""
 
 #: packages/app-desktop/gui/KeymapConfig/KeymapConfigScreen.js:63
 #: packages/lib/services/KeymapService.js:178
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Error: %s"
-msgstr "Feil: %s"
+msgstr "Feil"
 
 #: packages/app-desktop/gui/KeymapConfig/KeymapConfigScreen.js:120
 #: packages/app-desktop/gui/NoteSearchBar.min.js:168
@@ -1442,23 +1439,22 @@ msgstr "Eksporter"
 
 #: packages/app-desktop/gui/KeymapConfig/KeymapConfigScreen.js:126
 msgid "Command"
-msgstr "Kommando"
+msgstr ""
 
 #: packages/app-desktop/gui/KeymapConfig/KeymapConfigScreen.js:127
+#, fuzzy
 msgid "Keyboard Shortcut"
-msgstr "Hurtigtaster"
+msgstr "Tastaturmodus"
 
 #: packages/app-desktop/gui/KeymapConfig/ShortcutRecorder.js:49
 msgid "Press the shortcut"
-msgstr "Trykk for hurtigtast"
+msgstr ""
 
 #: packages/app-desktop/gui/KeymapConfig/ShortcutRecorder.js:49
 msgid ""
 "Press the shortcut and then press ENTER. Or, press BACKSPACE to clear the "
 "shortcut."
 msgstr ""
-"Trykk for hurtigtast og trykk så ENTER. Eller, trykk BACKSPACE for å slette "
-"hurtigtasten."
 
 #: packages/app-desktop/gui/KeymapConfig/ShortcutRecorder.js:51
 #: packages/app-desktop/gui/NoteRevisionViewer.min.js:177
@@ -1486,8 +1482,9 @@ msgid "Website and documentation"
 msgstr "Nettsted og dokumentasjon"
 
 #: packages/app-desktop/gui/KeymapConfig/utils/getLabel.js:24
+#, fuzzy
 msgid "Hide Joplin"
-msgstr "Skjul Joplin"
+msgstr "Om Joplin"
 
 #: packages/app-desktop/gui/KeymapConfig/utils/getLabel.js:26
 #: packages/app-desktop/gui/MenuBar.js:474
@@ -1497,11 +1494,12 @@ msgstr "Lukk vindu"
 #: packages/app-desktop/gui/KeymapConfig/utils/getLabel.js:28
 #: packages/app-desktop/plugins/GotoAnything.js:487
 msgid "Command palette"
-msgstr "Kommandomeny"
+msgstr ""
 
 #: packages/app-desktop/gui/KeymapConfig/utils/getLabel.js:30
+#, fuzzy
 msgid "Preferences"
-msgstr "Innstillinger"
+msgstr "Innstillinger..."
 
 #: packages/app-desktop/gui/KeymapConfig/utils/getLabel.js:30
 #: packages/app-desktop/gui/MenuBar.js:344 packages/app-desktop/gui/Root.js:139
@@ -1509,20 +1507,19 @@ msgid "Options"
 msgstr "Generelle innstillinger"
 
 #: packages/app-desktop/gui/KeymapConfig/utils/getLabel.js:37
+#, fuzzy
 msgid "Invalid"
-msgstr "Ugyldig"
+msgstr "Ugyldig svar: %s"
 
 #: packages/app-desktop/gui/MainScreen/MainScreen.js:459
 msgid ""
 "Safe mode is currently active. Note rendering and all plugins are "
 "temporarily disabled."
 msgstr ""
-"Sikker mode er aktiv. Notatrendring og alle utvidelser er midlertidig "
-"deaktivert."
 
 #: packages/app-desktop/gui/MainScreen/MainScreen.js:459
 msgid "Disable safe mode and restart"
-msgstr "Deaktiver sikker modus og restart"
+msgstr ""
 
 #: packages/app-desktop/gui/MainScreen/MainScreen.js:462
 msgid ""
@@ -1530,13 +1527,11 @@ msgid ""
 "may take a few minutes to complete and the app needs to be restarted. To "
 "proceed please click on the link."
 msgstr ""
-"Synkroniseringsmålet må være oppgradert før Joplin kan synkronisere. Denne "
-"operasjonen kan ta noen minutter for å fullføre og applikasjonen trenger å "
-"restarte. For å fortsette trykk på linken."
 
 #: packages/app-desktop/gui/MainScreen/MainScreen.js:462
+#, fuzzy
 msgid "Restart and upgrade"
-msgstr "Omstart og oppgrader"
+msgstr "Mesternøkler som må oppgraderes"
 
 #: packages/app-desktop/gui/MainScreen/MainScreen.js:465
 msgid "Some items cannot be decrypted."
@@ -1566,16 +1561,16 @@ msgstr "Mer informasjon"
 #: packages/app-desktop/gui/MainScreen/MainScreen.js:476
 #, javascript-format
 msgid "%s (%s) would like to share a notebook with you."
-msgstr "%s (%s) ønsker å dele en notatbok med deg."
+msgstr ""
 
 #: packages/app-desktop/gui/MainScreen/MainScreen.js:476
 msgid "Accept"
-msgstr "Aksepter"
+msgstr ""
 
 #: packages/app-desktop/gui/MainScreen/MainScreen.js:476
 #: packages/app-desktop/gui/Root.js:113
 msgid "Reject"
-msgstr "Avvis"
+msgstr ""
 
 #: packages/app-desktop/gui/MainScreen/MainScreen.js:479
 msgid "Some items cannot be synchronised."
@@ -1592,8 +1587,6 @@ msgstr "Sett passord"
 #: packages/app-desktop/gui/MainScreen/MainScreen.js:605
 msgid "Use the arrows to move the layout items. Press \"Escape\" to exit."
 msgstr ""
-"Bruk piltastene for å flytte oppsettselementene. Trykk \"Escape\" for å "
-"lukke."
 
 #: packages/app-desktop/gui/MainScreen/commands/editAlarm.js:20
 #: packages/app-mobile/components/SelectDateTimeDialog.js:84
@@ -1611,12 +1604,14 @@ msgid "PDF File"
 msgstr "PDF-fil"
 
 #: packages/app-desktop/gui/MainScreen/commands/moveToFolder.js:18
+#, fuzzy
 msgid "Move to notebook"
-msgstr "Flytt til notatbok"
+msgstr "Flytt til notatbok..."
 
 #: packages/app-desktop/gui/MainScreen/commands/moveToFolder.js:38
+#, fuzzy
 msgid "Move to notebook:"
-msgstr "Flytt til notatbok:"
+msgstr "Flytt til notatbok..."
 
 #: packages/app-desktop/gui/MainScreen/commands/newFolder.js:18
 msgid "New notebook"
@@ -1666,7 +1661,7 @@ msgstr "Gi nytt navn til merkelapp:"
 
 #: packages/app-desktop/gui/MainScreen/commands/selectTemplate.js:24
 msgid "Template file:"
-msgstr "Malfil:"
+msgstr "Malfiler"
 
 #: packages/app-desktop/gui/MainScreen/commands/setTags.js:17
 #: packages/app-desktop/gui/Sidebar/Sidebar.js:492
@@ -1682,7 +1677,7 @@ msgstr "Legge til eller fjern merkelapper:"
 
 #: packages/app-desktop/gui/MainScreen/commands/showNoteContentProperties.js:18
 msgid "Statistics..."
-msgstr "Statistikk..."
+msgstr ""
 
 #: packages/app-desktop/gui/MainScreen/commands/showNoteProperties.js:18
 #: packages/app-desktop/gui/NotePropertiesDialog.min.js:390
@@ -1690,25 +1685,28 @@ msgid "Note properties"
 msgstr "Notategenskaper"
 
 #: packages/app-desktop/gui/MainScreen/commands/showShareFolderDialog.js:16
+#, fuzzy
 msgid "Share notebook..."
-msgstr "Del notatbok..."
+msgstr "Del notat..."
 
 #: packages/app-desktop/gui/MainScreen/commands/showShareNoteDialog.js:16
+#, fuzzy
 msgid "Publish note..."
-msgstr "Publiser notat..."
+msgstr "Del notat..."
 
 #: packages/app-desktop/gui/MainScreen/commands/showSpellCheckerMenu.js:19
 #: packages/lib/services/spellChecker/SpellCheckerService.js:180
 msgid "Spell checker"
-msgstr "Stavekontroll"
+msgstr ""
 
 #: packages/app-desktop/gui/MainScreen/commands/toggleEditors.js:18
+#, fuzzy
 msgid "Toggle editors"
-msgstr "Bytt editorer"
+msgstr "Bytt editorvisning"
 
 #: packages/app-desktop/gui/MainScreen/commands/toggleLayoutMoveMode.js:16
 msgid "Change application layout"
-msgstr "Endre applikasjonsoppsett"
+msgstr ""
 
 #: packages/app-desktop/gui/MainScreen/commands/toggleNoteList.js:18
 msgid "Toggle note list"
@@ -1748,8 +1746,9 @@ msgid "Refresh templates"
 msgstr "Oppdater maler"
 
 #: packages/app-desktop/gui/MenuBar.js:357
+#, fuzzy
 msgid "Note attachments..."
-msgstr "Notatvedlegg..."
+msgstr "Vedlegg"
 
 #: packages/app-desktop/gui/MenuBar.js:377
 #: packages/app-desktop/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.js:668
@@ -1785,8 +1784,9 @@ msgstr "Maler"
 
 #: packages/app-desktop/gui/MenuBar.js:437
 #: packages/app-desktop/gui/MenuBar.js:489
+#, fuzzy
 msgid "Export all"
-msgstr "Eksporter alt"
+msgstr "Eksporter"
 
 #: packages/app-desktop/gui/MenuBar.js:449
 #, javascript-format
@@ -1817,7 +1817,7 @@ msgstr "Zoom ut"
 
 #: packages/app-desktop/gui/MenuBar.js:619
 msgid "&Go"
-msgstr "&Gå"
+msgstr ""
 
 #: packages/app-desktop/gui/MenuBar.js:625
 #: packages/app-desktop/gui/NoteEditor/commands/focusElementNoteBody.js:17
@@ -1828,12 +1828,14 @@ msgid "Focus"
 msgstr "Fokuser"
 
 #: packages/app-desktop/gui/MenuBar.js:631
+#, fuzzy
 msgid "Note&book"
-msgstr "Notat&bok"
+msgstr "Notatbøker"
 
 #: packages/app-desktop/gui/MenuBar.js:637
+#, fuzzy
 msgid "&Note"
-msgstr "&Notat"
+msgstr "Notat"
 
 #: packages/app-desktop/gui/MenuBar.js:647
 msgid "&Tools"
@@ -1887,11 +1889,12 @@ msgstr "Visning"
 #: packages/app-desktop/gui/NoteContentPropertiesDialog.js:105
 #, javascript-format
 msgid "Read time: %s min"
-msgstr "Lesetid: %s min"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteContentPropertiesDialog.js:108
+#, fuzzy
 msgid "Statistics"
-msgstr "Statistikk"
+msgstr "Status"
 
 #: packages/app-desktop/gui/NoteContentPropertiesDialog.js:113
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:260
@@ -1905,8 +1908,9 @@ msgid "strong text"
 msgstr "fet tekst"
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.js:184
+#, fuzzy
 msgid "emphasised text"
-msgstr "framhevet tekst"
+msgstr "kursiv tekst"
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.js:186
 msgid "Insert Hyperlink"
@@ -1950,11 +1954,11 @@ msgstr "Legg ved fil"
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:530
 msgid "Code Block"
-msgstr "Kodeblokk"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:539
 msgid "Inline Code"
-msgstr "Innebygd kode"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:554
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:83
@@ -1963,11 +1967,12 @@ msgstr "Sett inn dato/tid"
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:1004
 msgid "Drop notes or files here"
-msgstr "Slipp notater eller filer her"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:1004
+#, fuzzy
 msgid "Code View"
-msgstr "Kode visning"
+msgstr "Kode"
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:1004
 #, javascript-format
@@ -1975,12 +1980,11 @@ msgid ""
 "Please wait for all attachments to be downloaded and decrypted. You may also "
 "switch to %s to edit the note."
 msgstr ""
-"Vennligst vent til at alle vedleggene er lastet ned og dekryptert. Du kan "
-"også bytte til %s for å redigere notatet."
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/plugins/lists.js:2151
+#, fuzzy
 msgid "Checkbox list"
-msgstr "Avmerkingsliste"
+msgstr "Avmerkingsboks"
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/utils/openEditDialog.js:78
 #: packages/app-mobile/components/screens/Note.js:998
@@ -1989,54 +1993,52 @@ msgstr "Rediger"
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/utils/setupToolbarButtons.js:17
 msgid "Highlight"
-msgstr "Fremheve"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/utils/setupToolbarButtons.js:22
 msgid "Strikethrough"
-msgstr "Gjennomstreket"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/utils/setupToolbarButtons.js:27
 msgid "Insert"
-msgstr "Sett inn"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/utils/setupToolbarButtons.js:33
 msgid "Superscript"
-msgstr "Overskrift"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/utils/setupToolbarButtons.js:39
 msgid "Subscript"
-msgstr "Underskrift"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteEditor.js:285
+#, fuzzy
 msgid "Click to add tags..."
-msgstr "Klikk for å legge til merkelapper..."
+msgstr "Se etter oppdatering..."
 
 #: packages/app-desktop/gui/NoteEditor/NoteEditor.js:338
 msgid ""
 "This Rich Text editor has a number of limitations and it is recommended to "
 "be aware of them before using it."
 msgstr ""
-"Denne riktekst editoren har en rekke begrensinger og det er anbefalt at man "
-"er oppmerksom på dette før man benytter den."
 
 #: packages/app-desktop/gui/NoteEditor/NoteEditor.js:342
 msgid "Read more about it"
-msgstr "Les mer om det"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteEditor.js:347
 msgid "Dismiss"
-msgstr "Ignorer"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteEditor.js:383
 msgid "The following attachments are being watched for changes:"
-msgstr "Følgende vedlegg overvåkes for endringer:"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteEditor.js:386
 msgid ""
 "The attachments will no longer be watched when you switch to a different "
 "note."
 msgstr ""
-"Følgende vedlegg vil ikke lenger overvåkes når du bytter til et annet notat."
 
 #: packages/app-desktop/gui/NoteEditor/NoteEditor.js:392
 #, javascript-format
@@ -2099,44 +2101,47 @@ msgid "Horizontal Rule"
 msgstr "Horisontal strek"
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:88
+#, fuzzy
 msgid "Delete line"
-msgstr "Slett linje"
+msgstr "Slett notat?"
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:92
+#, fuzzy
 msgid "Duplicate line"
-msgstr "Dupliser linje"
+msgstr "Dupliser"
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:96
 msgid "Undo"
-msgstr "Angre"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:100
 msgid "Redo"
-msgstr "Omgjør"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:104
 msgid "Indent less"
-msgstr "Innrykk mindre"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:108
 msgid "Indent more"
-msgstr "Innrykk mer"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:112
+#, fuzzy
 msgid "Toggle comment"
-msgstr "Vis/skjul kommentar"
+msgstr "Skru på/av notatliste"
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:116
 msgid "Sort selected lines"
-msgstr "Sorter valgte linjer"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:120
 msgid "Swap line up"
-msgstr "Bytt linje opp"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:124
 msgid "Swap line down"
-msgstr "Bytt linje ned"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/commands/focusElementNoteBody.js:16
 msgid "Note body"
@@ -2144,7 +2149,7 @@ msgstr "Notatbrødtekst"
 
 #: packages/app-desktop/gui/NoteEditor/commands/focusElementNoteTitle.js:16
 msgid "Note title"
-msgstr "Tittel på notat"
+msgstr "Tittel på notat:"
 
 #: packages/app-desktop/gui/NoteEditor/commands/showLocalSearch.js:16
 msgid "Search in current note"
@@ -2157,7 +2162,7 @@ msgstr "Det oppstod en feil ved nedlastingen av dette vedlegget:"
 #: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:62
 #: packages/lib/services/ResourceEditWatcher/index.js:196
 msgid "This attachment is not downloaded or not decrypted yet"
-msgstr "Dette vedlegget er ikke lastet ned eller dekryptert enda"
+msgstr "Dette vedlegget er ikke lastet ned eller dekryptert enda."
 
 #: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:92
 msgid "Open..."
@@ -2169,7 +2174,7 @@ msgstr "Lagre som..."
 
 #: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:112
 msgid "Reveal file in folder"
-msgstr "Vis fil i mappe"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:120
 msgid "Copy path to clipboard"
@@ -2187,11 +2192,12 @@ msgstr "Usupportert lenke eller melding: %s"
 
 #: packages/app-desktop/gui/NoteList/NoteList.js:163
 msgid "Custom order"
-msgstr "Tilpasset rekkefølge"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteList/NoteList.js:163
+#, fuzzy
 msgid "View"
-msgstr "Visning"
+msgstr "&Vis"
 
 #: packages/app-desktop/gui/NoteList/NoteList.js:163
 #: packages/lib/models/Setting.js:555
@@ -2204,8 +2210,6 @@ msgid ""
 "To manually sort the notes, the sort order must be changed to \"%s\" in the "
 "menu \"%s\" > \"%s\""
 msgstr ""
-"For manuelt å sortere notatene, må sorteringsrekkefølgen endres til \"%s\" i "
-"meny \"%s\" > \"%s\""
 
 #: packages/app-desktop/gui/NoteList/NoteList.js:415
 msgid "No notes in here. Create one by clicking on \"New note\"."
@@ -2287,9 +2291,9 @@ msgid "Untitled"
 msgstr "Uten navn"
 
 #: packages/app-desktop/gui/ResourceScreen.js:95
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Delete attachment \"%s\"?"
-msgstr "Slett vedlegg \"%s\"?"
+msgstr "Slette notat \"%s\"?"
 
 #: packages/app-desktop/gui/ResourceScreen.js:141
 msgid ""
@@ -2297,9 +2301,6 @@ msgid ""
 "notes. Please be careful when deleting one of them as they cannot be "
 "restored afterwards."
 msgstr ""
-"Dette er et avansert verktøy for å vise vedlegg som er linket til dine "
-"notater. Vennligst vær forsiktig når du sletter et av dem da de ikke kan "
-"gjenopprettes etterpå."
 
 #: packages/app-desktop/gui/ResourceScreen.js:144
 msgid "No resources!"
@@ -2311,16 +2312,18 @@ msgid "Warning: not all resources shown for performance reasons (limit: %s)."
 msgstr "Advarsel: ikke alle ressurser vist av ytelseshensyn (grense: %s)."
 
 #: packages/app-desktop/gui/Root.js:98
+#, fuzzy
 msgid "Confirmation"
-msgstr "Bekreftelse"
+msgstr "Konfigurasjon"
 
 #: packages/app-desktop/gui/Root.js:111
 msgid "The Web Clipper needs your authorisation to access your data."
-msgstr "Webklipperen trenger din autorisasjon for å få tilgang til dine data."
+msgstr ""
 
 #: packages/app-desktop/gui/Root.js:112
+#, fuzzy
 msgid "Grant authorisation"
-msgstr "Tillat autorisasjon"
+msgstr "Autoriseringsbevis:"
 
 #: packages/app-desktop/gui/Root.js:136
 msgid "OneDrive Login"
@@ -2331,24 +2334,24 @@ msgid "Dropbox Login"
 msgstr "Innlogging med Dropbox"
 
 #: packages/app-desktop/gui/Root.js:140
+#, fuzzy
 msgid "Note attachments"
-msgstr "Notatvedlegg"
+msgstr "Vedlegg"
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:141
+#, fuzzy
 msgid "Unshare"
-msgstr "Opphev deling"
+msgstr "Del"
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:183
 msgid ""
 "Delete this invitation? The recipient will no longer have access to this "
 "shared notebook."
 msgstr ""
-"Slett invitasjonen? Mottaker vil ikke lenger ha tilgang til denne delte "
-"notatboken."
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:197
 msgid "Add recipient:"
-msgstr "Legg til mottaker:"
+msgstr ""
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:200
 #: packages/app-mobile/components/NoteBodyViewer/hooks/useOnResourceLongPress.js:28
@@ -2358,42 +2361,45 @@ msgstr "Del"
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:209
 msgid "Recipient has not yet accepted the invitation"
-msgstr "Mottaker har ikke akseptert invitasjonen enda"
+msgstr ""
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:210
 msgid "Recipient has rejected the invitation"
-msgstr "Mottaker har avvist invitasjonen"
+msgstr ""
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:211
 msgid "Recipient has accepted the invitation"
-msgstr "Mottaker har akseptert invitasjonen"
+msgstr ""
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:221
 msgid "Recipients:"
-msgstr "Mottakere:"
+msgstr ""
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:233
+#, fuzzy
 msgid "Synchronizing..."
 msgstr "Synkroniserer..."
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:234
+#, fuzzy
 msgid "Sharing notebook..."
-msgstr "Deler notatbok..."
+msgstr "Del notat..."
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:244
 msgid ""
 "Unshare this notebook? The recipients will no longer have access to its "
 "content."
 msgstr ""
-"Slutt å dele notatbok? Mottakerne vil ikke lenger har tilgang til innholdet."
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:254
+#, fuzzy
 msgid "Share Notebook"
-msgstr "Del Notatbok"
+msgstr "Del notater"
 
 #: packages/app-desktop/gui/ShareNoteDialog.js:144
+#, fuzzy
 msgid "Unpublish note"
-msgstr "Opphev delt notat"
+msgstr "Del"
 
 #: packages/app-desktop/gui/ShareNoteDialog.js:171
 msgid "Synchronising..."
@@ -2419,7 +2425,7 @@ msgstr ""
 
 #: packages/app-desktop/gui/ShareNoteDialog.js:187
 msgid "Publish Notes"
-msgstr "Publiser notat"
+msgstr ""
 
 #: packages/app-desktop/gui/ShareNoteDialog.js:189
 msgid "Copy Shareable Link"
@@ -2439,7 +2445,7 @@ msgid ""
 "\n"
 "All notes and sub-notebooks within this notebook will also be deleted."
 msgstr ""
-"Slette notatbok \"%s\"?\n"
+"Slette notatbok \"&s\"?\n"
 "\n"
 "Alle notater og underliggende notatbøker i denne notatboken vil også bli "
 "slettet."
@@ -2480,7 +2486,7 @@ msgstr "Dekrypterer elementer: %d/%d"
 #: packages/app-mobile/components/side-menu-content.js:330
 #, javascript-format
 msgid "Fetching resources: %d/%d"
-msgstr "Henter ressurser: %d/%d"
+msgstr "Henter ressurser: %d"
 
 #: packages/app-desktop/gui/Sidebar/commands/focusElementSideBar.js:17
 msgid "Sidebar"
@@ -2492,8 +2498,9 @@ msgstr "Velg hvor synkroniseringsstatusen skal eksporteres til"
 
 #: packages/app-desktop/gui/StatusScreen/StatusScreen.js:66
 #: packages/app-mobile/components/screens/status.js:112
+#, fuzzy
 msgid "Retry All"
-msgstr "Forsøk alle igjen"
+msgstr "Prøv igjen"
 
 #: packages/app-desktop/gui/StatusScreen/StatusScreen.js:86
 #: packages/app-mobile/components/screens/status.js:118
@@ -2501,10 +2508,12 @@ msgid "Retry"
 msgstr "Prøv igjen"
 
 #: packages/app-desktop/gui/StatusScreen/StatusScreen.js:137
+#, fuzzy
 msgid "Advanced tools"
-msgstr "Avanserte verktøy"
+msgstr "Avanserte innstillinger"
 
 #: packages/app-desktop/gui/StatusScreen/StatusScreen.js:139
+#, fuzzy
 msgid "Export debug report"
 msgstr "Eksporter feilsøkingsrapport"
 
@@ -2545,14 +2554,15 @@ msgid "Delete these %d notes?"
 msgstr "Slett disse %d notatene?"
 
 #: packages/app-desktop/plugins/GotoAnything.js:455
+#, fuzzy
 msgid ""
 "Type a note title or part of its content to jump to it. Or type # followed "
 "by a tag name, or @ followed by a notebook name. Or type : to search for "
 "commands."
 msgstr ""
-"Skriv en notattittel eller deler av innholdet for å hoppe til det. Eller "
-"skriv # etterfulgt av et merkelappnavn. Eller skriv : for å søke i "
-"kommandoer."
+"Skriv inn tittelen på et notat for å hoppe til det. Eller skriv # etterfulgt "
+"av en merkelapp, eller @ etterfulgt av tittelen på en notatbok, eller / "
+"etterfulgt .av notatinnhold."
 
 #: packages/app-desktop/services/plugins/UserWebviewDialogButtonBar.js:22
 #: packages/app-mobile/components/screens/Note.js:530
@@ -2575,8 +2585,9 @@ msgid "Your permission to use your camera is required."
 msgstr "Tillatelse til å bruke kamera er nødvendig."
 
 #: packages/app-mobile/components/NoteBodyViewer/hooks/useOnResourceLongPress.js:27
+#, fuzzy
 msgid "Open"
-msgstr "Åpne"
+msgstr "Åpne..."
 
 #: packages/app-mobile/components/SelectDateTimeDialog.js:78
 msgid "Clear alarm"
@@ -2670,11 +2681,11 @@ msgstr "Eksporter profil"
 
 #: packages/app-mobile/components/screens/ConfigScreen.js:396
 msgid "For debugging purpose only: export your profile to an external SD card."
-msgstr "For debugginghensyn: eksporter din profil til et eksternt SD-kort."
+msgstr "For debugginghensyn: eksporter din profil til et eksternt SD-kort"
 
 #: packages/app-mobile/components/screens/ConfigScreen.js:407
 msgid "Feature flags"
-msgstr "Funksjonsflagg"
+msgstr ""
 
 #: packages/app-mobile/components/screens/ConfigScreen.js:410
 msgid "More information"
@@ -2710,7 +2721,7 @@ msgstr "Joplins nettsted"
 
 #: packages/app-mobile/components/screens/ConfigScreen.js:435
 msgid "Privacy Policy"
-msgstr "Personvernerklæring"
+msgstr ""
 
 #: packages/app-mobile/components/screens/ConfigScreen.js:439
 #, javascript-format
@@ -2765,14 +2776,11 @@ msgid ""
 "\n"
 "You may turn off this option at any time in the Configuration screen."
 msgstr ""
-"For å knytte geolokasjon til dette notatet, trenger applikasjonen din "
-"tillatelse for å få tilgang til din lokasjon.\n"
-"\n"
-"Du kan slå av dette valget når som hels i Konfigurasjonsskjermen."
 
 #: packages/app-mobile/components/screens/Note.js:369
+#, fuzzy
 msgid "Permission needed"
-msgstr "Tillatelse kreves"
+msgstr "Tillatelse til å bruke kamera"
 
 #: packages/app-mobile/components/screens/Note.js:529
 #: packages/lib/shim-init-node.js:147
@@ -2781,8 +2789,6 @@ msgid ""
 "You are about to attach a large image (%dx%d pixels). Would you like to "
 "resize it down to %d pixels before attaching it?"
 msgstr ""
-"Du er i ferd med å knytte et stort bilde (%dx%d piksler). Ønsker du å "
-"skalere dette ned til %d piksler før til knytter det til?"
 
 #: packages/app-mobile/components/screens/Note.js:611
 #, javascript-format
@@ -2854,7 +2860,7 @@ msgstr "Skriv inn nye merkelapper eller velg fra listen"
 
 #: packages/app-mobile/components/screens/UpgradeSyncTargetScreen.js:42
 msgid "Sync Target Upgrade"
-msgstr "Oppgrader synkroniseringsmål"
+msgstr ""
 
 #: packages/app-mobile/components/screens/dropbox-login.js:55
 msgid "Login with Dropbox"
@@ -2927,7 +2933,7 @@ msgstr "Ny notatbok"
 
 #: packages/app-mobile/components/side-menu-content.js:351
 msgid "Mobile data - auto-sync disabled"
-msgstr "Mobildata -  autosynkronisering deaktivert"
+msgstr ""
 
 #: packages/lib/BaseApplication.js:152 packages/lib/BaseApplication.js:164
 #: packages/lib/BaseApplication.js:196
@@ -2941,21 +2947,21 @@ msgid "Unknown flag: %s"
 msgstr "Ukjent flagg: %s"
 
 #: packages/lib/JoplinServerApi.js:73
-#, javascript-format
+#, fuzzy, javascript-format
 msgid ""
 "Could not connect to Joplin Server. Please check the Synchronisation options "
 "in the config screen. Full error was:\n"
 "\n"
 "%s"
 msgstr ""
-"Kunne ikke koble til Joplin Server. Vennligst sjekk Synkroniseringsvalget i "
-"konfigurasjonssknermen. Hele feilmeldingen var:\n"
+"Kunne ikke koble til Joplins Nextcloud-app. Vennligst sjekk at "
+"konfigurasjonen i synkroniseringsinnstillingene. Full feilmelding var:\n"
 "\n"
 "%s"
 
 #: packages/lib/SyncTargetAmazonS3.js:28
 msgid "AWS S3"
-msgstr "AWS S3"
+msgstr ""
 
 #: packages/lib/SyncTargetDropbox.js:25
 msgid "Dropbox"
@@ -2966,12 +2972,14 @@ msgid "File system"
 msgstr "Filsystem"
 
 #: packages/lib/SyncTargetJoplinCloud.js:28
+#, fuzzy
 msgid "Joplin Cloud"
-msgstr "Joplin Sky"
+msgstr "Joplin Forum"
 
 #: packages/lib/SyncTargetJoplinServer.js:57
+#, fuzzy
 msgid "Joplin Server"
-msgstr "Joplins Server"
+msgstr "Joplins nettsted"
 
 #: packages/lib/SyncTargetNextcloud.js:25
 msgid "Nextcloud"
@@ -3025,9 +3033,9 @@ msgid "Cancelling..."
 msgstr "Avbryter…"
 
 #: packages/lib/Synchronizer.js:156
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Completed: %s (%s)"
-msgstr "Fullført: %s (%s)"
+msgstr "Ferdig: %s"
 
 #: packages/lib/Synchronizer.js:158
 #, javascript-format
@@ -3046,11 +3054,10 @@ msgstr "Pågår"
 msgid ""
 "Unknown item type downloaded - please upgrade Joplin to the latest version"
 msgstr ""
-"Ukjent elementtype lastet ned - vennligst oppgrader Joplin til siste versjon"
 
 #: packages/lib/commands/historyForward.js:17
 msgid "Forward"
-msgstr "Fremover"
+msgstr ""
 
 #: packages/lib/components/shared/config-shared.js:50
 msgid "Checking... Please wait."
@@ -3153,7 +3160,7 @@ msgstr "dato opprettet"
 
 #: packages/lib/models/Note.js:39
 msgid "custom order"
-msgstr "tilpasset rekkefølgee"
+msgstr ""
 
 #: packages/lib/models/Note.js:117
 msgid "This note does not have geolocation information."
@@ -3171,7 +3178,7 @@ msgstr "Kan ikke flytte notatet til notatboken \"%s\""
 
 #: packages/lib/models/Resource.js:353
 msgid "Not downloaded"
-msgstr "Ikke nedlastet"
+msgstr ""
 
 #: packages/lib/models/Resource.js:355
 msgid "Downloading"
@@ -3186,33 +3193,32 @@ msgid "Error"
 msgstr "Feil"
 
 #: packages/lib/models/Resource.js:404
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Attachment conflict: \"%s\""
-msgstr "Konflikt mellom vedlegg: \"%s\""
+msgstr "Vedlegg"
 
 #: packages/lib/models/Resource.js:405
-#, javascript-format
+#, fuzzy, javascript-format
 msgid ""
 "There was a [conflict](%s) on the attachment below.\n"
 "\n"
 "%s"
-msgstr ""
-"Det var en [konflikt](%s) i vedlegget under.\n"
-"\n"
-"%s"
+msgstr "Det oppstod en feil ved nedlastingen av dette vedlegget:"
 
 #: packages/lib/models/Setting.js:109
+#, fuzzy
 msgid "yes"
-msgstr "ja"
+msgstr "Ja"
 
 #: packages/lib/models/Setting.js:109 packages/lib/models/Setting.js:110
 #, javascript-format
 msgid "(wysiwyg: %s)"
-msgstr "(wysiwyg: %s)"
+msgstr ""
 
 #: packages/lib/models/Setting.js:110
+#, fuzzy
 msgid "no"
-msgstr "nei"
+msgstr "n"
 
 #: packages/lib/models/Setting.js:112
 #, javascript-format
@@ -3251,7 +3257,7 @@ msgstr "Nord"
 
 #: packages/lib/models/Setting.js:124
 msgid "Aritim Dark"
-msgstr "Aritim mørk"
+msgstr ""
 
 #: packages/lib/models/Setting.js:125
 msgid "OLED Dark"
@@ -3299,39 +3305,43 @@ msgstr "WebDAV-passord"
 
 #: packages/lib/models/Setting.js:270
 msgid "AWS S3 bucket"
-msgstr "AWS S3 bucket"
+msgstr ""
 
 #: packages/lib/models/Setting.js:282
 msgid "AWS S3 URL"
-msgstr "AWS S3 URL"
+msgstr ""
 
 #: packages/lib/models/Setting.js:293
 msgid "AWS key"
-msgstr "AWS key"
+msgstr ""
 
 #: packages/lib/models/Setting.js:304
 msgid "AWS secret"
-msgstr "AWS secret"
+msgstr ""
 
 #: packages/lib/models/Setting.js:315
 msgid "Joplin Server URL"
-msgstr "Joplin Server URL"
+msgstr ""
 
 #: packages/lib/models/Setting.js:333
+#, fuzzy
 msgid "Joplin Server email"
-msgstr "Joplin Server e-post"
+msgstr "Joplins nettsted"
 
 #: packages/lib/models/Setting.js:344
+#, fuzzy
 msgid "Joplin Server password"
-msgstr "Joplin Server passord"
+msgstr "Skriv inn masterpassordet:"
 
 #: packages/lib/models/Setting.js:371
+#, fuzzy
 msgid "Joplin Cloud email"
-msgstr "Joplins Sky e-post"
+msgstr "Joplins nettsted"
 
 #: packages/lib/models/Setting.js:382
+#, fuzzy
 msgid "Joplin Cloud password"
-msgstr "Joplin Sky passord"
+msgstr "Skriv inn masterpassordet:"
 
 #: packages/lib/models/Setting.js:394
 msgid "Attachment download behaviour"
@@ -3381,15 +3391,15 @@ msgstr "Tema"
 
 #: packages/lib/models/Setting.js:495
 msgid "Automatically switch theme to match system theme"
-msgstr "Bytt tema automatisk for å matche systemtema"
+msgstr ""
 
 #: packages/lib/models/Setting.js:507
 msgid "Preferred light theme"
-msgstr "Foretrukket lyst tema"
+msgstr ""
 
 #: packages/lib/models/Setting.js:521
 msgid "Preferred dark theme"
-msgstr "Foretrukket mørkt tema"
+msgstr ""
 
 #: packages/lib/models/Setting.js:531
 msgid "Show note counts"
@@ -3460,8 +3470,9 @@ msgid "Enable typographer support"
 msgstr "Aktiver typografsupport"
 
 #: packages/lib/models/Setting.js:669
+#, fuzzy
 msgid "Enable Linkify"
-msgstr "Aktiver Linkify"
+msgstr "Aktiver notathistorikk"
 
 #: packages/lib/models/Setting.js:670
 msgid "Enable math expressions"
@@ -3476,16 +3487,17 @@ msgid "Enable Mermaid diagrams support"
 msgstr "Aktiver Mermaid-diagramsupport"
 
 #: packages/lib/models/Setting.js:673
+#, fuzzy
 msgid "Enable audio player"
-msgstr "Aktiver lydavspiller"
+msgstr "Aktiver markdown-emoji"
 
 #: packages/lib/models/Setting.js:674
 msgid "Enable video player"
-msgstr "Aktiver videoavspiller"
+msgstr ""
 
 #: packages/lib/models/Setting.js:675
 msgid "Enable PDF viewer"
-msgstr "Aktiver PDF visning"
+msgstr ""
 
 #: packages/lib/models/Setting.js:676
 msgid "Enable ==mark== syntax"
@@ -3571,12 +3583,11 @@ msgid ""
 "Used for most text in the markdown editor. If not found, a generic "
 "proportional (variable width) font is used."
 msgstr ""
-"Brukt for mesteparten av tekst i markdown editoren. Hvis ikke funnet, vil en "
-"generell proposjonal (variabel bredde) font benyttes."
 
 #: packages/lib/models/Setting.js:764
+#, fuzzy
 msgid "Editor monospace font family"
-msgstr "Editor monospace font famile"
+msgstr "Editorskriftfamilie"
 
 #: packages/lib/models/Setting.js:765
 msgid ""
@@ -3584,13 +3595,11 @@ msgid ""
 "tables, checkboxes, code). If not found, a generic monospace (fixed width) "
 "font is used."
 msgstr ""
-"Brukt hvor en fastbredde font er behøvd for å ordne tekst(i.e tabeller, "
-"sjekkbokser, kode). Hvis ikke funnet, vil en generell monospace (fast "
-"bredde) font benyttes."
 
 #: packages/lib/models/Setting.js:786
+#, fuzzy
 msgid "Custom stylesheet for rendered Markdown"
-msgstr "Eget stilark for rendret Markdown"
+msgstr "Eget stilark for Joplin sin appstil"
 
 #: packages/lib/models/Setting.js:802
 msgid "Custom stylesheet for Joplin-wide app styles"
@@ -3598,11 +3607,11 @@ msgstr "Eget stilark for Joplin sin appstil"
 
 #: packages/lib/models/Setting.js:812
 msgid "Re-upload local data to sync target"
-msgstr "Last opp på nytt lokale data til synkroniseringsmål"
+msgstr ""
 
 #: packages/lib/models/Setting.js:822
 msgid "Delete local data and re-download from sync target"
-msgstr "Slett lokale date og last ned på nytt fra synkroniseringsmålet"
+msgstr ""
 
 #: packages/lib/models/Setting.js:827
 msgid "Automatically update the application"
@@ -3639,7 +3648,7 @@ msgstr "%d timer"
 
 #: packages/lib/models/Setting.js:855
 msgid "Synchronise only over WiFi connection"
-msgstr "Synkroniser kun over WIFI tilkobling"
+msgstr ""
 
 #: packages/lib/models/Setting.js:862
 msgid "Text editor command"
@@ -3764,7 +3773,7 @@ msgstr "Behold notathistorikk i"
 
 #: packages/lib/models/Setting.js:999
 msgid "Notebook list growth factor"
-msgstr "Notatbok liste vekst verdi"
+msgstr ""
 
 #: packages/lib/models/Setting.js:1000 packages/lib/models/Setting.js:1013
 #: packages/lib/models/Setting.js:1026
@@ -3774,18 +3783,14 @@ msgid ""
 "item with a factor of 2 will take twice as much space as an item with a "
 "factor of 1.Restart app to see changes."
 msgstr ""
-"Verdi egenskapen setter hvordan et element vil vokse eller krympe for å "
-"passe inn i det tilgjengelige rommet i sin kontainer med tanke på andre "
-"elementer. Derfor vil et element med verdien 2 oppta dobbelt så mye plass "
-"enn et element med verdien 1. Omstart applikasjonen for å se endringer."
 
 #: packages/lib/models/Setting.js:1012
 msgid "Note list growth factor"
-msgstr "Notatliste vekstverdi"
+msgstr ""
 
 #: packages/lib/models/Setting.js:1025
 msgid "Note area growth factor"
-msgstr "Notatområde vekstverdi"
+msgstr ""
 
 #: packages/lib/models/Setting.js:1253
 #, javascript-format
@@ -3827,8 +3832,9 @@ msgid "Web Clipper"
 msgstr "Web Clipper"
 
 #: packages/lib/models/Setting.js:1672
+#, fuzzy
 msgid "Keyboard Shortcuts"
-msgstr "Hurtigtaster"
+msgstr "Tastaturmodus"
 
 #: packages/lib/models/Setting.js:1679
 msgid ""
@@ -3840,12 +3846,6 @@ msgid ""
 "formatting. It is indicated below which plugins are compatible or not with "
 "the WYSIWYG editor."
 msgstr ""
-"Disse utvidelsene forbedrer Markdown senderen med utvidet funksjonalitet. "
-"Vær oppmerksom på at, selv om funksjonaliteten kan være nyttig, så er det "
-"ikke standard Markdown og vil dermed kun virke i Joplin. Videre, noen av dem "
-"er *inkompatible* med WYIWYG editoren. Hvis du åpner et notat og benytter et "
-"av disse utvidelsene, vil du miste utvidelsesformatering. Det er angitt "
-"under hvilke utvidelser som er kompatible eller ikke med WYSIWYG editoren."
 
 #: packages/lib/models/Setting.js:1681
 #, javascript-format
@@ -3860,7 +3860,7 @@ msgstr "Merkelappen \"%s\" eksiterer allerede. Vennligst velg et annet navn."
 #: packages/lib/onedrive-api-node-utils.js:46
 #, javascript-format
 msgid "All potential ports are in use - please report the issue at %s"
-msgstr "Alle potensielle porter er i bruk - vennligst rapporter saken ved %s"
+msgstr ""
 
 #: packages/lib/onedrive-api-node-utils.js:86
 msgid ""
@@ -3894,23 +3894,23 @@ msgstr ""
 
 #: packages/lib/services/KeymapService.js:275
 msgid "command"
-msgstr "kommando"
+msgstr ""
 
 #: packages/lib/services/KeymapService.js:275
 #: packages/lib/services/KeymapService.js:280
 #, javascript-format
 msgid "\"%s\" is missing the required \"%s\" property."
-msgstr "\"%s\" mangler den nødvendige \"%s\" verdien."
+msgstr ""
 
 #: packages/lib/services/KeymapService.js:280
 #: packages/lib/services/KeymapService.js:287
 msgid "accelerator"
-msgstr "akselerator"
+msgstr ""
 
 #: packages/lib/services/KeymapService.js:287
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Invalid %s: %s."
-msgstr "Ugyldig %s: %s."
+msgstr "Ugyldig svar: %s"
 
 #: packages/lib/services/KeymapService.js:305
 #, javascript-format
@@ -3918,13 +3918,11 @@ msgid ""
 "Accelerator \"%s\" is used for \"%s\" and \"%s\" commands. This may lead to "
 "unexpected behaviour."
 msgstr ""
-"Akselerator \"%s\" er i bruk for \"%s\" og \"%s\" kommandoer. Dette kan føre "
-"til uforutsett oppførsel."
 
 #: packages/lib/services/KeymapService.js:330
 #, javascript-format
 msgid "Accelerator \"%s\" is not valid."
-msgstr "Akselerator \" %s\" er ikke gyldig."
+msgstr ""
 
 #: packages/lib/services/ReportService.js:152
 msgid "Items that cannot be synchronised"
@@ -3985,8 +3983,9 @@ msgid "Downloaded and encrypted"
 msgstr "Nedlastet og kryptert"
 
 #: packages/lib/services/ReportService.js:207
+#, fuzzy
 msgid "Created locally"
-msgstr "Opprettet lokalt"
+msgstr "Opprettet lokale elementer: %d."
 
 #: packages/lib/services/ReportService.js:218
 msgid "Attachments that could not be downloaded"
@@ -4075,14 +4074,14 @@ msgid "HTML Directory"
 msgstr "HTML-katalog"
 
 #: packages/lib/services/interop/InteropService.js:127
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Cannot load \"%s\" module for format \"%s\" and output \"%s\""
-msgstr "Kan ikke laste modulen \"%s\" for formatet \"%s\" og utgang \"%s\""
+msgstr "Kan ikke laste modulen \"%s\" for formatet \"%s\""
 
 #: packages/lib/services/interop/InteropService.js:150
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Cannot load \"%s\" module for format \"%s\" and target \"%s\""
-msgstr "Kan ikke laste modulen \"%s\" for formatet \"%s\" og målet \"%s\""
+msgstr "Kan ikke laste modulen \"%s\" for formatet \"%s\""
 
 #: packages/lib/services/interop/InteropService.js:199
 #, javascript-format
@@ -4107,19 +4106,20 @@ msgstr "Katalog"
 
 #: packages/lib/services/spellChecker/SpellCheckerService.js:107
 msgid "No suggestions"
-msgstr "Ingen forslag"
+msgstr ""
 
 #: packages/lib/services/spellChecker/SpellCheckerService.js:114
 msgid "Add to dictionary"
-msgstr "Legg til ordbok"
+msgstr ""
 
 #: packages/lib/services/spellChecker/SpellCheckerService.js:153
 msgid "Use spell checker"
-msgstr "Bruk stavekontroll"
+msgstr ""
 
 #: packages/lib/services/spellChecker/SpellCheckerService.js:173
+#, fuzzy
 msgid "Change language"
-msgstr "Endre språk"
+msgstr "Språk"
 
 #: packages/lib/shim-init-node.js:212
 #, javascript-format
@@ -4154,7 +4154,7 @@ msgstr "Profilversjon: %s"
 #: packages/lib/versionInfo.js:27
 #, javascript-format
 msgid "Keychain Supported: %s"
-msgstr "Nøkkelkjede støttet: %s"
+msgstr ""
 
 #: packages/server/dist/middleware/notificationHandler.js:28
 #, javascript-format
@@ -4162,19 +4162,18 @@ msgid ""
 "The default admin password is insecure and has not been changed! [Change it "
 "now](%s)"
 msgstr ""
-"Standard admin passord er usikkert og har ikke blitt endret! [Bytt det nå]"
-"(%s)"
 
 #: packages/server/dist/models/UserModel.js:189
 #: packages/server/dist/models/UserModel.js:194
+#, fuzzy
 msgid "attachment"
-msgstr "vedlegg"
+msgstr "Vedlegg"
 
 #: packages/server/dist/models/UserModel.js:189
 #, javascript-format
 msgid ""
 "Cannot save %s \"%s\" because it is larger than than the allowed limit (%s)"
-msgstr "Kan ikke lagre %s \"%s\" fordi det er større en tillat grense (%s)"
+msgstr ""
 
 #: packages/server/dist/models/UserModel.js:194
 #, javascript-format
@@ -4182,8 +4181,6 @@ msgid ""
 "Cannot save %s \"%s\" because it would go over the total allowed size (%s) "
 "for this account"
 msgstr ""
-"Kan ikke lagre %s \"%s\" fordi det vil gå over total tillat grense (%s) for "
-"denne kontoen"
 
 #~ msgid "Share Notes"
 #~ msgstr "Del notater"
