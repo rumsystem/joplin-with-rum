@@ -10,7 +10,7 @@ const { cliUtils } = require('./cli-utils.js');
 const md5 = require('md5');
 const locker = require('proper-lockfile');
 const fs = require('fs-extra');
-const SyncTargetRegistry = require('@joplin/lib/SyncTargetRegistry').default;
+const SyncTargetRegistry = require('@joplin/lib/SyncTargetRegistry');
 const MigrationHandler = require('@joplin/lib/services/synchronizer/MigrationHandler').default;
 
 class Command extends BaseCommand {

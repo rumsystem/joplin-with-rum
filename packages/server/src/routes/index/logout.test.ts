@@ -1,5 +1,4 @@
 import routeHandler from '../../middleware/routeHandler';
-import { cookieGet } from '../../utils/cookies';
 import { beforeAllDb, afterAllTests, beforeEachDb, koaAppContext, models, createUserAndSession } from '../../utils/testing/testUtils';
 
 describe('index_logout', function() {
@@ -27,11 +26,11 @@ describe('index_logout', function() {
 			},
 		});
 
-		expect(cookieGet(context, 'sessionId')).toBe(session.id);
+		expect(context.cookies.get('sessionId')).toBe(session.id);
 		expect(!!(await models().session().load(session.id))).toBe(true);
 		await routeHandler(context);
 
-		expect(!cookieGet(context, 'sessionId')).toBe(true);
+		expect(!context.cookies.get('sessionId')).toBe(true);
 		expect(!!(await models().session().load(session.id))).toBe(false);
 	});
 

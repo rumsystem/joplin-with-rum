@@ -35,7 +35,7 @@ const { FileApiDriverWebDav } = require('../file-api-driver-webdav.js');
 const { FileApiDriverDropbox } = require('../file-api-driver-dropbox.js');
 const { FileApiDriverOneDrive } = require('../file-api-driver-onedrive.js');
 const { FileApiDriverAmazonS3 } = require('../file-api-driver-amazon-s3.js');
-import SyncTargetRegistry from '../SyncTargetRegistry';
+const SyncTargetRegistry = require('../SyncTargetRegistry.js');
 const SyncTargetMemory = require('../SyncTargetMemory.js');
 const SyncTargetFilesystem = require('../SyncTargetFilesystem.js');
 const SyncTargetNextcloud = require('../SyncTargetNextcloud.js');
@@ -56,7 +56,6 @@ import KeychainService from '../services/keychain/KeychainService';
 import { loadKeychainServiceAndSettings } from '../services/SettingUtils';
 import { setActiveMasterKeyId, setEncryptionEnabled } from '../services/synchronizer/syncInfoUtils';
 import Synchronizer from '../Synchronizer';
-import SyncTargetNone from '../SyncTargetNone';
 const md5 = require('md5');
 const S3 = require('aws-sdk/clients/s3');
 const { Dirnames } = require('../services/synchronizer/utils/types');
@@ -110,7 +109,6 @@ fs.mkdirpSync(baseTempDir);
 fs.mkdirpSync(dataDir);
 fs.mkdirpSync(profileDir);
 
-SyncTargetRegistry.addClass(SyncTargetNone);
 SyncTargetRegistry.addClass(SyncTargetMemory);
 SyncTargetRegistry.addClass(SyncTargetFilesystem);
 SyncTargetRegistry.addClass(SyncTargetOneDrive);
@@ -275,7 +273,6 @@ async function switchClient(id: number, options: any = null) {
 
 	await loadKeychainServiceAndSettings(options.keychainEnabled ? KeychainServiceDriver : KeychainServiceDriverDummy);
 
-	Setting.setValue('sync.target', syncTargetId());
 	Setting.setValue('sync.wipeOutFailSafe', false); // To keep things simple, always disable fail-safe unless explicitely set in the test itself
 
 	// More generally, this function should clear all data, and so that should
@@ -332,7 +329,6 @@ async function setupDatabase(id: number = null, options: any = null) {
 		BaseModel.setDb(databases_[id]);
 		await clearDatabase(id);
 		await loadKeychainServiceAndSettings(options.keychainEnabled ? KeychainServiceDriver : KeychainServiceDriverDummy);
-		Setting.setValue('sync.target', syncTargetId());
 		return;
 	}
 
@@ -351,8 +347,6 @@ async function setupDatabase(id: number = null, options: any = null) {
 	BaseModel.setDb(databases_[id]);
 	await clearSettingFile(id);
 	await loadKeychainServiceAndSettings(options.keychainEnabled ? KeychainServiceDriver : KeychainServiceDriverDummy);
-
-	Setting.setValue('sync.target', syncTargetId());
 }
 
 async function clearSettingFile(id: number) {

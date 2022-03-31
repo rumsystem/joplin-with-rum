@@ -1,7 +1,6 @@
 import { utils, CommandRuntime, CommandDeclaration, CommandContext } from '../services/CommandService';
 import { _ } from '../locale';
 import { reg } from '../registry';
-import Setting from '../models/Setting';
 
 export const declaration: CommandDeclaration = {
 	name: 'synchronize',
@@ -17,14 +16,6 @@ export const runtime = (): CommandRuntime => {
 			syncStarted = syncStarted === null ? context.state.syncStarted : syncStarted;
 
 			const action = syncStarted ? 'cancel' : 'start';
-
-			if (!Setting.value('sync.target')) {
-				context.dispatch({
-					type: 'DIALOG_OPEN',
-					name: 'syncWizard',
-				});
-				return 'init';
-			}
 
 			if (!(await reg.syncTarget().isAuthenticated())) {
 				if (reg.syncTarget().authRouteName()) {

@@ -1,4 +1,3 @@
-import { cookieGet } from './cookies';
 import { ErrorForbidden } from './errors';
 import { AppContext } from './types';
 
@@ -62,7 +61,7 @@ export function headerSessionId(headers: any): string {
 export function contextSessionId(ctx: AppContext, throwIfNotFound = true): string {
 	if (ctx.headers['x-api-auth']) return ctx.headers['x-api-auth'];
 
-	const id = cookieGet(ctx, 'sessionId');
+	const id = ctx.cookies.get('sessionId');
 	if (!id && throwIfNotFound) throw new ErrorForbidden('Invalid or missing session');
 	return id;
 }

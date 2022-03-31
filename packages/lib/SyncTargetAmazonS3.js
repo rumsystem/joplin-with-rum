@@ -28,10 +28,6 @@ class SyncTargetAmazonS3 extends BaseSyncTarget {
 		return `${_('AWS S3')} (Beta)`;
 	}
 
-	static description() {
-		return 'A service offered by Amazon Web Services (AWS) that provides object storage through a web service interface.';
-	}
-
 	async isAuthenticated() {
 		return true;
 	}
