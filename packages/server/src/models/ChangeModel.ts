@@ -1,11 +1,10 @@
 import { Change, ChangeType, File, ItemType, Uuid } from '../db';
 import { ErrorResyncRequired, ErrorUnprocessableEntity } from '../utils/errors';
 import BaseModel from './BaseModel';
-import { paginateDbQuery, PaginatedResults, Pagination } from './utils/pagination';
+import { PaginatedResults } from './utils/pagination';
 
 export interface ChangeWithItem {
 	item: File;
-	updated_time: number;
 	type: ChangeType;
 }
 
@@ -46,25 +45,6 @@ export default class ChangeModel extends BaseModel<Change> {
 		};
 
 		return this.save(change) as Change;
-	}
-
-	private async countByUser(userId: string): Promise<number> {
-		const r: any = await this.db(this.tableName).where('owner_id', userId).count('id', { as: 'total' }).first();
-		return r.total;
-	}
-
-	public changeUrl(): string {
-		return `${this.baseUrl}/changes`;
-	}
-
-	public async allWithPagination(pagination: Pagination): Promise<PaginatedChanges> {
-		const results = await paginateDbQuery(this.db(this.tableName).select(...this.defaultFields).where('owner_id', '=', this.userId), pagination);
-		const changeWithItems = await this.loadChangeItems(results.items);
-		return {
-			...results,
-			items: changeWithItems,
-			page_count: Math.ceil(await this.countByUser(this.userId) / pagination.limit),
-		};
 	}
 
 	// Note: doesn't currently support checking for changes recursively but this
@@ -149,7 +129,6 @@ export default class ChangeModel extends BaseModel<Change> {
 
 			output.push({
 				type: change.type,
-				updated_time: change.updated_time,
 				item: item,
 			});
 		}

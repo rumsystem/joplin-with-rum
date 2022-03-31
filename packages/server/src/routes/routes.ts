@@ -12,7 +12,6 @@ import indexUsers from './index/users';
 import indexFiles from './index/files';
 import indexNotifications from './index/notifications';
 import indexShares from './index/shares';
-import indexChanges from './index/changes';
 
 import defaultRoute from './default';
 
@@ -29,7 +28,6 @@ const routes: Routers = {
 	'files': indexFiles,
 	'notifications': indexNotifications,
 	'shares': indexShares,
-	'changes': indexChanges,
 
 	'': defaultRoute,
 };

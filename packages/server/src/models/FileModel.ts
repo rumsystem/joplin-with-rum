@@ -98,11 +98,6 @@ export default class FileModel extends BaseModel<File> {
 		return output;
 	}
 
-	public async itemDisplayPath(item: File, loadOptions: LoadOptions = {}): Promise<string> {
-		const path = await this.itemFullPath(item, loadOptions);
-		return this.removeTrailingColons(path.replace(/root:\//, ''));
-	}
-
 	public async itemFullPath(item: File, loadOptions: LoadOptions = {}): Promise<string> {
 		const segments: string[] = [];
 		while (item) {
@@ -352,8 +347,7 @@ export default class FileModel extends BaseModel<File> {
 
 	public async fileUrl(idOrPath: string, query: any = null): Promise<string> {
 		const file: File = await this.pathToFile(idOrPath);
-		const contentSuffix = !file.is_directory ? '/content' : '';
-		return setQueryParameters(`${this.baseUrl}/files/${await this.itemFullPath(file)}${contentSuffix}`, query);
+		return setQueryParameters(`${this.baseUrl}/files/${await this.itemFullPath(file)}`, query);
 	}
 
 	private async pathToFiles(path: string, mustExist: boolean = true): Promise<File[]> {
