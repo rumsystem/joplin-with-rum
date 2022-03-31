@@ -33,7 +33,6 @@ class NotePropertiesDialog extends React.Component {
 			location: _('Location'),
 			source_url: _('URL'),
 			revisionsLink: _('Note History'),
-			markup_language: _('Markup'),
 		};
 	}
 
@@ -83,7 +82,6 @@ class NotePropertiesDialog extends React.Component {
 		}
 
 		formNote.revisionsLink = note.id;
-		formNote.markup_language = Note.markupLanguageToLabel(note.markup_language);
 		formNote.id = note.id;
 
 		return formNote;
@@ -294,7 +292,7 @@ class NotePropertiesDialog extends React.Component {
 				controlComp = <div style={Object.assign({}, theme.textStyle, {display: 'inline-block'})}>{displayedValue}</div>
 			}
 
-			if (['id', 'revisionsLink', 'markup_language'].indexOf(key) < 0) {
+			if (key !== 'id' && key !== 'revisionsLink') {
 				editCompHandler = () => {this.editPropertyButtonClick(key, value)};
 				editCompIcon = 'fa-edit';
 			}
