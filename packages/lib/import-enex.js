@@ -138,36 +138,28 @@ async function fuzzyMatch(note) {
 // At this point we have the resource has it's been parsed from the XML, but additional
 // processing needs to be done to get the final resource file, its size, MD5, etc.
 async function processNoteResource(resource) {
-	if (!resource.hasData) {
-		// Some resources have no data, go figure, so we need a special case for this.
-		resource.id = md5(Date.now() + Math.random());
-		resource.size = 0;
-		resource.dataFilePath = `${Setting.value('tempDir')}/${resource.id}.empty`;
-		await fs.writeFile(resource.dataFilePath, '');
-	} else {
-		if (resource.dataEncoding == 'base64') {
-			const decodedFilePath = `${resource.dataFilePath}.decoded`;
-			await decodeBase64File(resource.dataFilePath, decodedFilePath);
-			resource.dataFilePath = decodedFilePath;
-		} else if (resource.dataEncoding) {
-			throw new Error(`Cannot decode resource with encoding: ${resource.dataEncoding}`);
-		}
+	if (resource.dataEncoding == 'base64') {
+		const decodedFilePath = `${resource.dataFilePath}.decoded`;
+		await decodeBase64File(resource.dataFilePath, decodedFilePath);
+		resource.dataFilePath = decodedFilePath;
+	} else if (resource.dataEncoding) {
+		throw new Error(`Cannot decode resource with encoding: ${resource.dataEncoding}`);
+	}
 
-		const stats = fs.statSync(resource.dataFilePath);
-		resource.size = stats.size;
+	const stats = fs.statSync(resource.dataFilePath);
+	resource.size = stats.size;
 
-		if (!resource.id) {
-			// If no resource ID is present, the resource ID is actually the MD5 of the data.
-			// This ID will match the "hash" attribute of the corresponding <en-media> tag.
-			// resourceId = md5(decodedData);
-			resource.id = await md5FileAsync(resource.dataFilePath);
-		}
+	if (!resource.id) {
+		// If no resource ID is present, the resource ID is actually the MD5 of the data.
+		// This ID will match the "hash" attribute of the corresponding <en-media> tag.
+		// resourceId = md5(decodedData);
+		resource.id = await md5FileAsync(resource.dataFilePath);
+	}
 
-		if (!resource.id || !resource.size) {
-			const debugTemp = Object.assign({}, resource);
-			debugTemp.data = debugTemp.data ? `${debugTemp.data.substr(0, 32)}...` : debugTemp.data;
-			throw new Error(`This resource was not added because it has no ID or no content: ${JSON.stringify(debugTemp)}`);
-		}
+	if (!resource.id || !resource.size) {
+		const debugTemp = Object.assign({}, resource);
+		debugTemp.data = debugTemp.data ? `${debugTemp.data.substr(0, 32)}...` : debugTemp.data;
+		throw new Error(`This resource was not added because it has no ID or no content: ${JSON.stringify(debugTemp)}`);
 	}
 
 	return resource;
@@ -181,7 +173,6 @@ async function saveNoteResources(note) {
 		const toSave = Object.assign({}, resource);
 		delete toSave.dataFilePath;
 		delete toSave.dataEncoding;
-		delete toSave.hasData;
 
 		// The same resource sometimes appear twice in the same enex (exact same ID and file).
 		// In that case, just skip it - it means two different notes might be linked to the
@@ -415,8 +406,6 @@ function importEnex(parentFolderId, filePath, importOptions = null) {
 						noteResource.dataFilePath = `${Setting.value('tempDir')}/${md5(Date.now() + Math.random())}.base64`;
 					}
 
-					noteResource.hasData = true;
-
 					fs.appendFileSync(noteResource.dataFilePath, text);
 				} else {
 					if (!(n in noteResource)) noteResource[n] = '';
@@ -449,7 +438,6 @@ function importEnex(parentFolderId, filePath, importOptions = null) {
 				note = {
 					resources: [],
 					tags: [],
-					bodyXml: '',
 				};
 			} else if (n == 'resource-attributes') {
 				noteResourceAttributes = {};
@@ -458,9 +446,7 @@ function importEnex(parentFolderId, filePath, importOptions = null) {
 			} else if (n == 'note-attributes') {
 				noteAttributes = {};
 			} else if (n == 'resource') {
-				noteResource = {
-					hasData: false,
-				};
+				noteResource = {};
 			}
 		}));
 
@@ -471,7 +457,11 @@ function importEnex(parentFolderId, filePath, importOptions = null) {
 				noteResourceRecognition.objID = extractRecognitionObjId(data);
 			} else if (note) {
 				if (n == 'content') {
-					note.bodyXml += data;
+					if ('bodyXml' in note) {
+						note.bodyXml += data;
+					} else {
+						note.bodyXml = data;
+					}
 				}
 			}
 		}));
@@ -521,7 +511,6 @@ function importEnex(parentFolderId, filePath, importOptions = null) {
 					mime: noteResource.mime ? noteResource.mime.trim() : '',
 					title: noteResource.filename ? noteResource.filename.trim() : '',
 					filename: noteResource.filename ? noteResource.filename.trim() : '',
-					hasData: noteResource.hasData,
 				});
 
 				noteResource = null;

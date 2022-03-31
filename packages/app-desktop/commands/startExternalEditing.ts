@@ -18,7 +18,7 @@ export const runtime = (): CommandRuntime => {
 
 			try {
 				const note = await Note.load(noteId);
-				void ExternalEditWatcher.instance().openAndWatch(note);
+				ExternalEditWatcher.instance().openAndWatch(note);
 			} catch (error) {
 				bridge().showErrorMessageBox(_('Error opening note in editor: %s', error.message));
 			}

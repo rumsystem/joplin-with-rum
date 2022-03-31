@@ -2,7 +2,6 @@ const { basicDelta } = require('./file-api');
 const { basename } = require('./path-utils');
 const shim = require('./shim').default;
 const JoplinError = require('./JoplinError');
-const { Buffer } = require('buffer');
 
 const S3_MAX_DELETES = 1000;
 
@@ -84,14 +83,12 @@ class FileApiDriverAmazonS3 {
 
 	async s3UploadFileFrom(path, key) {
 		if (!shim.fsDriver().exists(path)) throw new Error('s3UploadFileFrom: file does not exist');
-		const body = await shim.fsDriver().readFile(path, 'base64');
-		const fileStat = await shim.fsDriver().stat(path);
+		const body = await shim.fsDriver().readFile(path, 'Buffer');
 		return new Promise((resolve, reject) => {
-			this.api().putObject({
+			this.api().upload({
 				Bucket: this.s3_bucket_,
 				Key: key,
-				Body: Buffer.from(body, 'base64'),
-				ContentLength: `${fileStat.size}`,
+				Body: body,
 			}, (err, response) => {
 				if (err) reject(err);
 				else resolve(response);

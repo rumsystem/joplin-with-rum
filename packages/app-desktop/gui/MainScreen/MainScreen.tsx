@@ -333,7 +333,7 @@ class MainScreenComponent extends React.Component<Props, State> {
 	layoutModeListenerKeyDown(event: any) {
 		if (event.key !== 'Escape') return;
 		if (!this.props.layoutMoveMode) return;
-		void CommandService.instance().execute('toggleLayoutMoveMode');
+		CommandService.instance().execute('toggleLayoutMoveMode');
 	}
 
 	componentDidMount() {

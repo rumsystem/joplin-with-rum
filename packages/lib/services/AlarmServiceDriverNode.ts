@@ -38,7 +38,7 @@ export default class AlarmServiceDriverNode {
 		return id in this.notifications_;
 	}
 
-	clearNotification(id: number) {
+	async clearNotification(id: number) {
 		if (!this.notificationIsSet(id)) return;
 		shim.clearTimeout(this.notifications_[id].timeoutId);
 		delete this.notifications_[id];
@@ -163,7 +163,7 @@ export default class AlarmServiceDriverNode {
 					this.logger().info(`AlarmServiceDriverNode::scheduleNotification: Notification ${notification.id} has been deleted - not rescheduling it`);
 					return;
 				}
-				void this.scheduleNotification(this.notifications_[notification.id]);
+				this.scheduleNotification(this.notifications_[notification.id]);
 			}, maxInterval);
 		} else {
 			timeoutId = shim.setTimeout(() => {
