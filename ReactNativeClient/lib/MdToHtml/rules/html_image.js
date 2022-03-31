@@ -33,7 +33,7 @@ function installRule(markdownIt, mdOptions, ruleOptions) {
 		return self.renderToken(tokens, idx, options);
 	};
 
-	const imageRegex = /<img(.*?)src=["'](.*?)["'](.*?)>/gi
+	const imageRegex = /<img(.*?)src=["'](.*?)["'](.*?)\/>/
 
 	const handleImageTags = function(defaultRender) {
 		return function(tokens, idx, options, env, self) {
