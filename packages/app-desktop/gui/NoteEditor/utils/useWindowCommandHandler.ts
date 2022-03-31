@@ -56,15 +56,7 @@ function editorCommandRuntime(declaration: CommandDeclaration, editorRef: any, s
 				});
 			}
 		},
-
-		// We disable the editor commands whenever a modal dialog is visible,
-		// otherwise the user might type something in a dialog and accidentally
-		// change something in the editor. However, we still enable them for
-		// GotoAnything so that it's possible to type eg `textBold` and bold the
-		// currently selected text.
-		//
-		// https://github.com/laurent22/joplin/issues/5707
-		enabledCondition: '(!modalDialogVisible || gotoAnythingVisible) && markdownEditorPaneVisible && oneNoteSelected && noteIsMarkdown',
+		enabledCondition: '!modalDialogVisible && markdownEditorPaneVisible && oneNoteSelected && noteIsMarkdown',
 	};
 }
 

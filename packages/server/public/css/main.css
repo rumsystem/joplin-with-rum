@@ -61,8 +61,7 @@ ul li {
 	list-style-type: disc;
 }
 
-ul.pagination-list li,
-ul.menu-list li {
+ul.pagination-list li {
 	list-style-type: none;
 }
 

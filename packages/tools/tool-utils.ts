@@ -147,7 +147,7 @@ export function execCommand(command: string, options: any = null): Promise<strin
 	});
 }
 
-export function resolveRelativePathWithinDir(baseDir: string, ...relativePath: string[]): string {
+export function resolveRelativePathWithinDir(baseDir: string, ...relativePath: string[]) {
 	const path = require('path');
 	const resolvedBaseDir = path.resolve(baseDir);
 	const resolvedPath = path.resolve(baseDir, ...relativePath);

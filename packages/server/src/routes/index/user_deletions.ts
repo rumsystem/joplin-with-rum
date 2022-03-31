@@ -8,13 +8,13 @@ import { yesOrNo } from '../../utils/strings';
 import { makeTablePagination, makeTableView, Row, Table } from '../../utils/views/table';
 import { PaginationOrderDir } from '../../models/utils/pagination';
 import { formatDateTime } from '../../utils/time';
-import { adminUserDeletionsUrl, userUrl } from '../../utils/urlUtils';
+import { userDeletionsUrl, userUrl } from '../../utils/urlUtils';
 import { createCsrfTag } from '../../utils/csrf';
 import { bodyFields } from '../../utils/requestUtils';
 
 const router: Router = new Router(RouteType.Web);
 
-router.get('admin/user_deletions', async (_path: SubPath, ctx: AppContext) => {
+router.get('user_deletions', async (_path: SubPath, ctx: AppContext) => {
 	const user = ctx.joplin.owner;
 	if (!user.is_admin) throw new ErrorForbidden();
 
@@ -26,7 +26,7 @@ router.get('admin/user_deletions', async (_path: SubPath, ctx: AppContext) => {
 		console.info(page);
 
 		const table: Table = {
-			baseUrl: adminUserDeletionsUrl(),
+			baseUrl: userDeletionsUrl(),
 			requestQuery: ctx.query,
 			pageCount: page.page_count,
 			pagination,
@@ -110,7 +110,7 @@ router.get('admin/user_deletions', async (_path: SubPath, ctx: AppContext) => {
 			}),
 		};
 
-		const view = defaultView('admin/user_deletions', 'User deletions');
+		const view = defaultView('user_deletions', 'User deletions');
 		view.content = {
 			userDeletionTable: makeTableView(table),
 			postUrl: makeUrl(UrlType.UserDeletions),
@@ -124,7 +124,7 @@ router.get('admin/user_deletions', async (_path: SubPath, ctx: AppContext) => {
 	throw new ErrorMethodNotAllowed();
 });
 
-router.post('admin/user_deletions', async (_path: SubPath, ctx: AppContext) => {
+router.post('user_deletions', async (_path: SubPath, ctx: AppContext) => {
 	const user = ctx.joplin.owner;
 	if (!user.is_admin) throw new ErrorForbidden();
 

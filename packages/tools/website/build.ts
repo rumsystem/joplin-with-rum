@@ -167,10 +167,6 @@ function makeHomePageMd() {
 	// while MarkdownIt doesn't and will in fact display the \. So we remove it here.
 	md = md.replace(/\\\| bash/g, '| bash');
 
-	// We strip-off the donate links because they are added back (with proper
-	// classes and CSS).
-	md = md.replace(donateLinksRegex_, '');
-
 	return md;
 }
 
@@ -216,19 +212,14 @@ async function main() {
 	const assetUrls = await getAssetUrls();
 
 	const readmeMd = makeHomePageMd();
-	const donateLinksMd = await getDonateLinks();
+
+	// await updateDownloadPage(readmeMd);
 
 	// =============================================================
 	// HELP PAGE
 	// =============================================================
 
-	renderPageToHtml(readmeMd, `${docDir}/help/index.html`, {
-		sourceMarkdownFile: 'README.md',
-		donateLinksMd,
-		partials,
-		sponsors,
-		assetUrls,
-	});
+	renderPageToHtml(readmeMd, `${docDir}/help/index.html`, { sourceMarkdownFile: 'README.md', partials, sponsors, assetUrls });
 
 	// =============================================================
 	// FRONT PAGE
@@ -288,6 +279,7 @@ async function main() {
 
 	const mdFiles = glob.sync(`${readmeDir}/**/*.md`).map((f: string) => f.substr(rootDir.length + 1));
 	const sources = [];
+	const donateLinksMd = await getDonateLinks();
 
 	const makeTargetFilePath = (input: string): string => {
 		if (isNewsFile(input)) {
