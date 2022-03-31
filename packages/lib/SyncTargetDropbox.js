@@ -25,14 +25,6 @@ class SyncTargetDropbox extends BaseSyncTarget {
 		return _('Dropbox');
 	}
 
-	static description() {
-		return 'A file hosting service that offers cloud storage and file synchronization';
-	}
-
-	static supportsSelfHosted() {
-		return false;
-	}
-
 	authRouteName() {
 		return 'DropboxLogin';
 	}

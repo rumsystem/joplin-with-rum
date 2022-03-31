@@ -10,7 +10,6 @@ import { checkRepeatPassword } from './users';
 import { NotificationKey } from '../../models/NotificationModel';
 import { AccountType } from '../../models/UserModel';
 import { ErrorForbidden } from '../../utils/errors';
-import { cookieSet } from '../../utils/cookies';
 
 function makeView(error: Error = null): View {
 	const view = defaultView('signup', 'Sign Up');
@@ -52,7 +51,7 @@ router.post('signup', async (_path: SubPath, ctx: AppContext) => {
 		});
 
 		const session = await ctx.joplin.models.session().createUserSession(user.id);
-		cookieSet(ctx, 'sessionId', session.id);
+		ctx.cookies.set('sessionId', session.id);
 
 		await ctx.joplin.models.notification().add(user.id, NotificationKey.ConfirmEmail);
 

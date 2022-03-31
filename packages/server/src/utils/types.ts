@@ -108,7 +108,6 @@ export interface Config {
 	supportName: string;
 	businessEmail: string;
 	isJoplinCloud: boolean;
-	cookieSecure: boolean;
 }
 
 export enum HttpMethod {

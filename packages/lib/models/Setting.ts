@@ -3,7 +3,7 @@ import { _, supportedLocalesToLanguages, defaultLocale } from '../locale';
 import eventManager from '../eventManager';
 import BaseModel from '../BaseModel';
 import Database from '../database';
-import SyncTargetRegistry from '../SyncTargetRegistry';
+const SyncTargetRegistry = require('../SyncTargetRegistry.js');
 import time from '../time';
 import FileHandler, { SettingValues } from './settings/FileHandler';
 const { sprintf } = require('sprintf-js');
@@ -55,7 +55,6 @@ export interface SettingItem {
 	needRestart?: boolean;
 	autoSave?: boolean;
 	storage?: SettingStorage;
-	hideLabel?: boolean;
 }
 
 interface SettingItems {
@@ -307,19 +306,8 @@ class Setting extends BaseModel {
 				appTypes: [AppType.Desktop],
 				storage: SettingStorage.File,
 			},
-
-			'sync.openSyncWizard': {
-				value: null,
-				type: SettingItemType.Button,
-				public: true,
-				appTypes: [AppType.Desktop],
-				label: () => _('Open Sync Wizard...'),
-				hideLabel: true,
-				section: 'sync',
-			},
-
 			'sync.target': {
-				value: 0,
+				value: SyncTargetRegistry.nameToId('dropbox'),
 				type: SettingItemType.Int,
 				isEnum: true,
 				public: true,
