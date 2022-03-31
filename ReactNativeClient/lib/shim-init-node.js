@@ -87,10 +87,9 @@ function shimInit() {
 
 			return new Promise((resolve, reject) => {
 				sharp(filePath)
-				.resize(Resource.IMAGE_MAX_DIMENSION, Resource.IMAGE_MAX_DIMENSION, {
-					fit: 'inside',
-					withoutEnlargement: true,
-				})
+				.resize(Resource.IMAGE_MAX_DIMENSION, Resource.IMAGE_MAX_DIMENSION)
+				.max()
+				.withoutEnlargement()
 				.toFile(targetPath, (err, info) => {
 					if (err) {
 						reject(err);

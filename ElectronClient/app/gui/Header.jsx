@@ -102,14 +102,11 @@ class HeaderComponent extends React.Component {
 		let icon = null;
 		if (options.iconName) {
 			const iconStyle = {
-				fontSize: Math.round(style.fontSize * 1.1),
+				fontSize: Math.round(style.fontSize * 1.4),
 				color: style.color,
 			};
 			if (options.title) iconStyle.marginRight = 5;
-			if("undefined" != typeof(options.iconRotation)) {
-				iconStyle.transition = "transform 0.15s ease-in-out";
-				iconStyle.transform = 'rotate(' + options.iconRotation + 'deg)';
-			}
+			if (options.iconRotation) iconStyle.transform = 'rotate(' + options.iconRotation + 'deg)';
 			icon = <i style={iconStyle} className={"fa " + options.iconName}></i>
 		}
 

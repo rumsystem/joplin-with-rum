@@ -6,7 +6,6 @@ const SearchEngine = require('lib/services/SearchEngine');
 const BaseModel = require('lib/BaseModel');
 const Tag = require('lib/models/Tag');
 const { ItemList } = require('../gui/ItemList.min');
-const HelpButton = require('../gui/HelpButton.min');
 const { substrWithEllipsis, surroundKeywords } = require('lib/string-utils.js');
 
 const PLUGIN_NAME = 'gotoAnything';
@@ -62,6 +61,8 @@ class Dialog extends React.PureComponent {
 			row: {overflow: 'hidden', height:itemHeight, display: 'flex', justifyContent: 'center', flexDirection: 'column', paddingLeft: 10, paddingRight: 10},
 			help: Object.assign({}, theme.textStyle, { marginBottom: 10 }),
 			inputHelpWrapper: {display: 'flex', flexDirection: 'row', alignItems: 'center'},
+			helpIcon: {flex:0, width: 16, height: 16, marginLeft: 10},
+			helpButton: {color: theme.color, textDecoration: 'none'},
 		};
 
 		const rowTextStyle = {
@@ -320,7 +321,7 @@ class Dialog extends React.PureComponent {
 					{helpComp}
 					<div style={style.inputHelpWrapper}>
 						<input autoFocus type="text" style={style.input} ref={this.inputRef} value={this.state.query} onChange={this.input_onChange} onKeyDown={this.input_onKeyDown}/>
-						<HelpButton onClick={this.helpButton_onClick}/>
+						<a href="#" style={style.helpButton} onClick={this.helpButton_onClick}><i style={style.helpIcon} className={"fa fa-question-circle"}></i></a>
 					</div>
 					{this.renderList()}
 				</div>

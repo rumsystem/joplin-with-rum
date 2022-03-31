@@ -8,7 +8,6 @@ const ItemChange = require('lib/models/ItemChange.js');
 const Resource = require('lib/models/Resource.js');
 const Tag = require('lib/models/Tag.js');
 const NoteTag = require('lib/models/NoteTag.js');
-const Revision = require('lib/models/Revision.js');
 const { Logger } = require('lib/logger.js');
 const Setting = require('lib/models/Setting.js');
 const MasterKey = require('lib/models/MasterKey');
@@ -32,14 +31,12 @@ const SyncTargetDropbox = require('lib/SyncTargetDropbox.js');
 const EncryptionService = require('lib/services/EncryptionService.js');
 const DecryptionWorker = require('lib/services/DecryptionWorker.js');
 const ResourceService = require('lib/services/ResourceService.js');
-const RevisionService = require('lib/services/RevisionService.js');
 const WebDavApi = require('lib/WebDavApi');
 const DropboxApi = require('lib/DropboxApi');
 
 let databases_ = [];
 let synchronizers_ = [];
 let encryptionServices_ = [];
-let revisionServices_ = [];
 let decryptionWorkers_ = [];
 let resourceServices_ = [];
 let fileApi_ = null;
@@ -85,7 +82,6 @@ BaseItem.loadClass('Resource', Resource);
 BaseItem.loadClass('Tag', Tag);
 BaseItem.loadClass('NoteTag', NoteTag);
 BaseItem.loadClass('MasterKey', MasterKey);
-BaseItem.loadClass('Revision', Revision);
 
 Setting.setConstant('appId', 'net.cozic.joplin-cli');
 Setting.setConstant('appType', 'cli');
@@ -122,7 +118,6 @@ async function switchClient(id) {
 
 	BaseItem.encryptionService_ = encryptionServices_[id];
 	Resource.encryptionService_ = encryptionServices_[id];
-	BaseItem.revisionService_ = revisionServices_[id];
 
 	Setting.setConstant('resourceDir', resourceDir(id));
 
@@ -134,27 +129,20 @@ async function clearDatabase(id = null) {
 
 	await ItemChange.waitForAllSaved();
 
-	const tableNames = [
-		'notes',
-		'folders',
-		'resources',
-		'tags',
-		'note_tags',
-		'master_keys',
-		'item_changes',
-		'note_resources',
-		'settings',		
-		'deleted_items',
-		'sync_items',
-		'notes_normalized',
-		'revisions',
+	let queries = [
+		'DELETE FROM notes',
+		'DELETE FROM folders',
+		'DELETE FROM resources',
+		'DELETE FROM tags',
+		'DELETE FROM note_tags',
+		'DELETE FROM master_keys',
+		'DELETE FROM item_changes',
+		'DELETE FROM note_resources',
+		'DELETE FROM settings',		
+		'DELETE FROM deleted_items',
+		'DELETE FROM sync_items',
+		'DELETE FROM notes_normalized',
 	];
-
-	const queries = [];
-	for (const n of tableNames) {
-		queries.push('DELETE FROM ' + n);
-		queries.push('DELETE FROM sqlite_sequence WHERE name="' + n + '"'); // Reset autoincremented IDs
-	}
 
 	await databases_[id].transactionExecBatch(queries);
 }
@@ -180,7 +168,6 @@ async function setupDatabase(id = null) {
 	};
 
 	databases_[id] = new JoplinDatabase(new DatabaseDriverNode());
-	databases_[id].setLogger(logger);
 	await databases_[id].open({ name: filePath });
 
 	BaseModel.db_ = databases_[id];
@@ -213,7 +200,6 @@ async function setupDatabaseAndSynchronizer(id = null) {
 	}
 
 	encryptionServices_[id] = new EncryptionService();
-	revisionServices_[id] = new RevisionService();
 	decryptionWorkers_[id] = new DecryptionWorker();
 	decryptionWorkers_[id].setEncryptionService(encryptionServices_[id]);
 	resourceServices_[id] = new ResourceService();
@@ -234,11 +220,6 @@ function synchronizer(id = null) {
 function encryptionService(id = null) {
 	if (id === null) id = currentClient_;
 	return encryptionServices_[id];
-}
-
-function revisionService(id = null) {
-	if (id === null) id = currentClient_;
-	return revisionServices_[id];
 }
 
 function decryptionWorker(id = null) {
@@ -373,4 +354,4 @@ async function allSyncTargetItemsEncrypted() {
 	return totalCount === encryptedCount;
 }
 
-module.exports = { resourceService, allSyncTargetItemsEncrypted, setupDatabase, revisionService, setupDatabaseAndSynchronizer, db, synchronizer, fileApi, sleep, clearDatabase, switchClient, syncTargetId, objectsEqual, checkThrowAsync, encryptionService, loadEncryptionMasterKey, fileContentEqual, decryptionWorker, asyncTest };
+module.exports = { resourceService, allSyncTargetItemsEncrypted, setupDatabase, setupDatabaseAndSynchronizer, db, synchronizer, fileApi, sleep, clearDatabase, switchClient, syncTargetId, objectsEqual, checkThrowAsync, encryptionService, loadEncryptionMasterKey, fileContentEqual, decryptionWorker, asyncTest };

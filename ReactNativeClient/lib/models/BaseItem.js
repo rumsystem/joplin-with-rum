@@ -106,7 +106,7 @@ class BaseItem extends BaseModel {
 				let d = BaseItem.syncItemDefinitions_[i];
 				if (Number(item) == d.type) return this.getClass(d.className);
 			}
-			throw new JoplinError('Unknown type: ' + item, 'unknownItemType');
+			throw new Error('Unknown type: ' + item);
 		}
 	}
 
@@ -160,7 +160,6 @@ class BaseItem extends BaseModel {
 	}
 
 	static async batchDelete(ids, options = null) {
-		if (!options) options = {};
 		let trackDeleted = true;
 		if (options && options.trackDeleted !== null && options.trackDeleted !== undefined) trackDeleted = options.trackDeleted;
 
@@ -220,9 +219,6 @@ class BaseItem extends BaseModel {
 		if (['created_time', 'updated_time', 'sync_time', 'user_updated_time', 'user_created_time'].indexOf(propName) >= 0) {
 			if (!propValue) return '';
 			propValue = moment.unix(propValue / 1000).utc().format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z';
-		} else if (['title_diff', 'body_diff'].indexOf(propName) >= 0) {
-			if (!propValue) return '';
-			propValue = JSON.stringify(propValue);
 		} else if (propValue === null || propValue === undefined) {
 			propValue = '';
 		}
@@ -238,9 +234,6 @@ class BaseItem extends BaseModel {
 		if (['created_time', 'updated_time', 'user_created_time', 'user_updated_time'].indexOf(propName) >= 0) {
 			if (!propValue) return 0;
 			propValue = moment(propValue, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('x');
-		} else if (['title_diff', 'body_diff'].indexOf(propName) >= 0) {
-			if (!propValue) return '';
-			propValue = JSON.parse(propValue);
 		} else {
 			propValue = Database.formatValue(ItemClass.fieldType(propName), propValue);
 		}
@@ -286,7 +279,7 @@ class BaseItem extends BaseModel {
 
 		let temp = [];
 
-		if (typeof output.title === "string") temp.push(output.title);
+		if (output.title) temp.push(output.title);
 		if (output.body) temp.push(output.body);
 		if (output.props.length) temp.push(output.props.join("\n"));
 
@@ -298,15 +291,18 @@ class BaseItem extends BaseModel {
 		return this.encryptionService_;
 	}
 
-	static revisionService() {
-		if (!this.revisionService_) throw new Error('BaseItem.revisionService_ is not set!!');
-		return this.revisionService_;
-	}
-
 	static async serializeForSync(item) {
 		const ItemClass = this.itemClass(item);
 		let shownKeys = ItemClass.fieldNames();
 		shownKeys.push('type_');
+
+		// if (ItemClass.syncExcludedKeys) {
+		// 	const keys = ItemClass.syncExcludedKeys();
+		// 	for (let i = 0; i < keys.length; i++) {
+		// 		const idx = shownKeys.indexOf(keys[i]);
+		// 		shownKeys.splice(idx, 1);
+		// 	}
+		// }
 
 		const serialized = await ItemClass.serialize(item, shownKeys);
 
@@ -376,7 +372,7 @@ class BaseItem extends BaseModel {
 				body.splice(0, 0, line);
 			}
 		}
-		
+
 		if (!output.type_) throw new Error('Missing required property: type_: ' + content);
 		output.type_ = Number(output.type_);
 
@@ -601,7 +597,7 @@ class BaseItem extends BaseModel {
 	static updateSyncTimeQueries(syncTarget, item, syncTime, syncDisabled = false, syncDisabledReason = '') {
 		const itemType = item.type_;
 		const itemId = item.id;
-		if (!itemType || !itemId || syncTime === undefined) throw new Error(sprintf('Invalid parameters in updateSyncTimeQueries(): %d, %s, %d', syncTarget, JSON.stringify(item), syncTime));
+		if (!itemType || !itemId || syncTime === undefined) throw new Error('Invalid parameters in updateSyncTimeQueries()');
 
 		return [
 			{
@@ -648,7 +644,7 @@ class BaseItem extends BaseModel {
 
 	static displayTitle(item) {
 		if (!item) return '';
-		return !!item.encryption_applied ? '🔑 ' + _('Encrypted') : (!!item.title)? item.title + '' : Note.defaultTitle(item);
+		return !!item.encryption_applied ? '🔑 ' + _('Encrypted') : item.title + '';
 	}
 
 	static async markAllNonEncryptedForSync() {
@@ -708,7 +704,6 @@ class BaseItem extends BaseModel {
 }
 
 BaseItem.encryptionService_ = null;
-BaseItem.revisionService_ = null;
 
 // Also update:
 // - itemsThatNeedSync()
@@ -721,7 +716,6 @@ BaseItem.syncItemDefinitions_ = [
 	{ type: BaseModel.TYPE_TAG, className: 'Tag' },
 	{ type: BaseModel.TYPE_NOTE_TAG, className: 'NoteTag' },
 	{ type: BaseModel.TYPE_MASTER_KEY, className: 'MasterKey' },
-	{ type: BaseModel.TYPE_REVISION, className: 'Revision' },
 ];
 
 module.exports = BaseItem;
