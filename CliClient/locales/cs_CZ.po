@@ -13,10 +13,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.2.4\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
 
 #: ElectronClient/services/plugins/UserWebviewDialogButtonBar.js:20
 #: ElectronClient/checkForUpdates.js:139
@@ -119,18 +117,18 @@ msgid "Exporting to \"%s\" as \"%s\" format. Please wait..."
 msgstr "Exportuji do \"%s\" jako formát \"%s\". Chvíli strpení..."
 
 #: ElectronClient/InteropServiceHelper.js:170
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Could not export notes: %s"
-msgstr "Nelze exportovat poznámky: %s"
+msgstr "Nebylo možné exportovat poznámky: %s"
 
 #: ElectronClient/plugins/GotoAnything.min.js:459
+#, fuzzy
 msgid ""
 "Type a note title or part of its content to jump to it. Or type # followed "
 "by a tag name, or @ followed by a notebook name."
 msgstr ""
-"Zadejte název poznámky (případně část jejího obsahu), na kterou chcete "
-"přeskočit. Nebo zadejte # následovaný názvem značky/tagu nebo @ následovaným "
-"názvem poznámkového bloku."
+"Zadejte název poznámky, na kterou chcete přeskočit. Nebo zadejte # "
+"následovaný názvem značky/tagu nebo @ následovaným názvem poznámkového bloku."
 
 #: ElectronClient/plugins/GotoAnything.min.js:499
 #: ElectronClient/gui/KeymapConfig/utils/getLabel.js:20
@@ -142,12 +140,13 @@ msgid "Search in all the notes"
 msgstr "Hledat ve všech poznámkách"
 
 #: ElectronClient/gui/ResourceScreen.js:32
+#, fuzzy
 msgid "Title"
-msgstr "Název"
+msgstr "název"
 
 #: ElectronClient/gui/ResourceScreen.js:36
 msgid "Size"
-msgstr "Velikost"
+msgstr ""
 
 #: ElectronClient/gui/ResourceScreen.js:39
 #: ElectronClient/gui/EncryptionConfigScreen.min.js:164
@@ -156,8 +155,9 @@ msgid "ID"
 msgstr "ID"
 
 #: ElectronClient/gui/ResourceScreen.js:40
+#, fuzzy
 msgid "Action"
-msgstr "Akce"
+msgstr "Lokace"
 
 #: ElectronClient/gui/ResourceScreen.js:43
 #: ReactNativeClient/lib/path-utils.js:73
@@ -176,12 +176,12 @@ msgstr "Bez názvu"
 #: ReactNativeClient/lib/components/screen-header.js:356
 #: ReactNativeClient/lib/components/side-menu-content.js:146
 msgid "Delete"
-msgstr "Odstranit"
+msgstr "Smazat"
 
 #: ElectronClient/gui/ResourceScreen.js:94
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Delete attachment \"%s\"?"
-msgstr "Odstranit přílohu \"%s\"?"
+msgstr "Smazat poznámku \"%s\"?"
 
 #: ElectronClient/gui/ResourceScreen.js:140
 msgid ""
@@ -189,23 +189,20 @@ msgid ""
 "notes. Please be careful when deleting one of them as they cannot be "
 "restored afterwards."
 msgstr ""
-"Toto je pokročilý nástroj pro zobrazení příloh, které jsou připojeny k vašim "
-"poznámkám. Při odstraňování přílohy buďte opatrní, protože odstraněnou "
-"přílohu nelze obnovit."
 
 #: ElectronClient/gui/ResourceScreen.js:141
+#, fuzzy
 msgid "Please wait..."
-msgstr "Počkejte prosím..."
+msgstr "Kontroluji... chvíli strpení."
 
 #: ElectronClient/gui/ResourceScreen.js:143
 msgid "No resources!"
-msgstr "Žádné zdroje!"
+msgstr ""
 
 #: ElectronClient/gui/ResourceScreen.js:145
 #, javascript-format
 msgid "Warning: not all resources shown for performance reasons (limit: %s)."
 msgstr ""
-"Upozornění: nejsou zobrazeny všechny prostředky z důvodů výkonu (limit: %s)."
 
 #: ElectronClient/gui/PromptDialog.min.js:249
 msgid "Clear"
@@ -347,8 +344,9 @@ msgstr "Prosím vyberte, kam má být stav synchronizace exportován"
 #: ElectronClient/gui/StatusScreen.min.js:71
 #: ElectronClient/gui/StatusScreen/StatusScreen.js:61
 #: ReactNativeClient/lib/components/screens/status.js:112
+#, fuzzy
 msgid "Retry All"
-msgstr "Opakovat vše"
+msgstr "Znovu"
 
 #: ElectronClient/gui/StatusScreen.min.js:96
 #: ElectronClient/gui/StatusScreen/StatusScreen.js:78
@@ -429,11 +427,11 @@ msgstr "Přiložit soubor"
 
 #: ElectronClient/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:584
 msgid "Code Block"
-msgstr "Blok kódu"
+msgstr ""
 
 #: ElectronClient/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:593
 msgid "Inline Code"
-msgstr "Vložený kód"
+msgstr ""
 
 #: ElectronClient/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:608
 #: ElectronClient/gui/NoteEditor/commands/editorCommandDeclarations.js:83
@@ -442,12 +440,13 @@ msgstr "Vložit datum a čas"
 
 #: ElectronClient/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:1030
 msgid "Drop notes or files here"
-msgstr "Sem přetáhněte poznámky nebo soubory"
+msgstr ""
 
 #: ElectronClient/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:1030
 #: ElectronClient/gui/MainScreen/MainScreen.min.js:419
+#, fuzzy
 msgid "Code View"
-msgstr "Zobrazit kód"
+msgstr "Kód"
 
 #: ElectronClient/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:1030
 #, javascript-format
@@ -455,10 +454,9 @@ msgid ""
 "Please wait for all attachments to be downloaded and decrypted. You may also "
 "switch to %s to edit the note."
 msgstr ""
-"Počkejte prosím na stažení a dešifrování všech příloh. Můžete také přepnout "
-"na %s a poznámku upravit."
 
 #: ElectronClient/gui/NoteEditor/NoteBody/TinyMCE/plugins/lists.js:2151
+#, fuzzy
 msgid "Checkbox list"
 msgstr "Zaškrtávací pole"
 
@@ -467,6 +465,7 @@ msgid "strong text"
 msgstr "tučný text"
 
 #: ElectronClient/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.js:166
+#, fuzzy
 msgid "emphasised text"
 msgstr "zvýrazněný text"
 
@@ -512,7 +511,7 @@ msgstr "Tato poznámka je prázdný. Klikněte na  \"%s\" pro otevření editoru
 
 #: ElectronClient/gui/NoteEditor/NoteEditor.js:292
 msgid "to-do"
-msgstr "úkol"
+msgstr "to-do"
 
 #: ElectronClient/gui/NoteEditor/NoteEditor.js:292
 msgid "note"
@@ -525,13 +524,13 @@ msgstr "Vytvářím %s..."
 
 #: ElectronClient/gui/NoteEditor/NoteEditor.js:373
 msgid "The following attachments are being watched for changes:"
-msgstr "Následující přílohy jsou sledovány, zda došlo k jejich změně:"
+msgstr ""
 
 #: ElectronClient/gui/NoteEditor/NoteEditor.js:376
 msgid ""
 "The attachments will no longer be watched when you switch to a different "
 "note."
-msgstr "Když přepnete na jinou poznámku, přílohy již nebudou sledovány."
+msgstr ""
 
 #: ElectronClient/gui/NoteEditor/NoteEditor.js:381
 #, javascript-format
@@ -548,7 +547,7 @@ msgstr "Uložit jako..."
 
 #: ElectronClient/gui/NoteEditor/utils/contextMenu.js:65
 msgid "Reveal file in folder"
-msgstr "Ukázat soubor ve složce"
+msgstr ""
 
 #: ElectronClient/gui/NoteEditor/utils/contextMenu.js:73
 msgid "Copy path to clipboard"
@@ -626,8 +625,9 @@ msgid "Horizontal Rule"
 msgstr "Horizontální čára"
 
 #: ElectronClient/gui/NoteEditor/commands/focusElementNoteBody.js:15
+#, fuzzy
 msgid "Note body"
-msgstr "Tělo poznámky"
+msgstr "Zápisník"
 
 #: ElectronClient/gui/NoteEditor/commands/showLocalSearch.js:15
 msgid "Search in current note"
@@ -647,14 +647,11 @@ msgid ""
 "may take a few minutes to complete and the app needs to be restarted. To "
 "proceed please click on the link."
 msgstr ""
-"Před synchronizací Joplin je třeba upgradovat cíl synchronizace. Dokončení "
-"operace může trvat několik minut a je třeba aplikaci restartovat. Chcete-li "
-"pokračovat, klikněte na odkaz."
 
 #: ElectronClient/gui/MainScreen/MainScreen.js:416
 #: ElectronClient/gui/MainScreen/MainScreen.min.js:306
 msgid "Restart and upgrade"
-msgstr "Restartovat a upgradovat"
+msgstr ""
 
 #: ElectronClient/gui/MainScreen/MainScreen.js:420
 #: ElectronClient/gui/MainScreen/MainScreen.min.js:313
@@ -687,8 +684,9 @@ msgstr "Nastavit heslo"
 
 #: ElectronClient/gui/MainScreen/MainScreen.js:438
 #: ElectronClient/gui/MainScreen/MainScreen.min.js:349
+#, fuzzy
 msgid "One of your master keys use an obsolete encryption method."
-msgstr "Jeden z vašich hlavních klíčů používá zastaralou metodu šifrování."
+msgstr "Jeden nebo více master klíčů potřebují heslo."
 
 #: ElectronClient/gui/MainScreen/MainScreen.js:444
 #: ElectronClient/gui/MainScreen/MainScreen.min.js:361
@@ -696,10 +694,10 @@ msgid ""
 "The default encryption method has been changed, you should re-encrypt your "
 "data."
 msgstr ""
-"Výchozí metoda šifrování byla změněna, měli byste data znovu zašifrovat."
 
 #: ElectronClient/gui/MainScreen/MainScreen.js:446
 #: ElectronClient/gui/MainScreen/MainScreen.min.js:366
+#, fuzzy
 msgid "More info"
 msgstr "Více informací"
 
@@ -710,12 +708,14 @@ msgid "Search..."
 msgstr "Hledat..."
 
 #: ElectronClient/gui/MainScreen/commands/moveToFolder.js:17
+#, fuzzy
 msgid "Move to notebook"
-msgstr "Přesunout do zápisníku"
+msgstr "Přesunout do zápisníku..."
 
 #: ElectronClient/gui/MainScreen/commands/moveToFolder.js:36
+#, fuzzy
 msgid "Move to notebook:"
-msgstr "Přesunout do zápisníku:"
+msgstr "Přesunout do zápisníku..."
 
 #: ElectronClient/gui/MainScreen/commands/setTags.js:16
 #: ElectronClient/gui/SideBar/SideBar.js:426
@@ -781,7 +781,7 @@ msgstr "Nastavit alarm:"
 #: ReactNativeClient/lib/components/action-button.js:64
 #: ReactNativeClient/setUpQuickActions.js:15
 msgid "New to-do"
-msgstr "Nový úkol"
+msgstr "Nové to-do"
 
 #: ElectronClient/gui/MainScreen/commands/exportPdf.js:19
 #: ElectronClient/gui/MainScreen/commands/exportPdf.js:30
@@ -797,8 +797,10 @@ msgid "Print"
 msgstr "Tisk"
 
 #: ElectronClient/gui/MainScreen/commands/print.js:25
+#, fuzzy
 msgid "Only one note can be printed at a time."
-msgstr "Naráz lze vytisknout pouze jednu poznámku."
+msgstr ""
+"Pouze jedna poznámka může být zároveň vytištěna nebo exportována do PDF."
 
 #: ElectronClient/gui/MainScreen/commands/newNote.js:20
 #: ElectronClient/gui/MainScreen/commands/newNote.js:47
@@ -813,8 +815,9 @@ msgid "Toggle sidebar"
 msgstr "Přepnout postranní lištu"
 
 #: ElectronClient/gui/MainScreen/commands/toggleEditors.js:17
+#, fuzzy
 msgid "Toggle editors"
-msgstr "Přepnout editory"
+msgstr "Změňit layout editoru"
 
 #: ElectronClient/gui/MainScreen/commands/selectTemplate.js:23
 msgid "Template file:"
@@ -822,7 +825,7 @@ msgstr "Soubor šablony:"
 
 #: ElectronClient/gui/MainScreen/commands/showNoteContentProperties.js:16
 msgid "Statistics..."
-msgstr "Statistika..."
+msgstr ""
 
 #: ElectronClient/gui/EncryptionConfigScreen.min.js:96
 #: ElectronClient/gui/KeymapConfig/ShortcutRecorder.js:49
@@ -832,7 +835,7 @@ msgstr "Uložit"
 
 #: ElectronClient/gui/EncryptionConfigScreen.min.js:145
 msgid "Master keys that need upgrading"
-msgstr "Hlavní klíče, které je třeba upgradovat"
+msgstr ""
 
 #: ElectronClient/gui/EncryptionConfigScreen.min.js:150
 msgid ""
@@ -840,34 +843,27 @@ msgid ""
 "recommended to upgrade them. The upgraded master key will still be able to "
 "decrypt and encrypt your data as usual."
 msgstr ""
-"Následující hlavní klíče používají zastaralý šifrovací algoritmus a je "
-"doporučeno je upgradovat. Upgradovaný hlavní klíč bude i nadále schopen "
-"dešifrovat a zašifrovat vaše data jako obvykle."
 
 #: ElectronClient/gui/EncryptionConfigScreen.min.js:169
 msgid "Upgrade"
-msgstr "Upgrade"
+msgstr ""
 
 #: ElectronClient/gui/EncryptionConfigScreen.min.js:182
+#, fuzzy
 msgid "Re-encrypt data"
-msgstr "Znovu zašifrovat data"
+msgstr "Vybrat datum"
 
 #: ElectronClient/gui/EncryptionConfigScreen.min.js:184
 msgid ""
 "The default encryption method has been changed to a more secure one and it "
 "is recommended that you apply it to your data."
 msgstr ""
-"Výchozí metoda šifrování byla změněna na bezpečnější variantu a doporučuje "
-"se použít ji na vaše data."
 
 #: ElectronClient/gui/EncryptionConfigScreen.min.js:184
 msgid ""
 "You may use the tool below to re-encrypt your data, for example if you know "
 "that some of your notes are encrypted with an obsolete encryption method."
 msgstr ""
-"Níže uvedený nástroj můžete použít k opětovnému zašifrování dat, například "
-"pokud víte, že některé vaše poznámky jsou šifrovány zastaralou metodou "
-"šifrování."
 
 #: ElectronClient/gui/EncryptionConfigScreen.min.js:186
 #, javascript-format
@@ -886,19 +882,6 @@ msgid ""
 "\n"
 "Important: you only need to run this ONCE on one device."
 msgstr ""
-"Aby to bylo možné, bude nutné zašifrovat a synchronizovat celou vaši datovou "
-"sadu, takže je nejlepší spustit to přes noc.\n"
-"\n"
-"Nejprve postupujte podle těchto pokynů:\n"
-"\n"
-"1. Synchronizujte všechna svá zařízení.\n"
-"2. Klikněte na \"%s\".\n"
-"3. Nechte to běžet do konce. Zatímco operace běží, vyhněte se změnám "
-"jakékoli poznámky na ostatních zařízeních, aby nedocházelo ke konfliktům.\n"
-"4. Jakmile je synchronizace na tomto zařízení provedena, synchronizujte "
-"všechna ostatní zařízení a nechejte synchronizaci běžet až do konce.\n"
-"\n"
-"Důležité: toto stačí spustit pouze JEDNOU a na jednom zařízení."
 
 #: ElectronClient/gui/EncryptionConfigScreen.min.js:433
 #: ReactNativeClient/lib/components/screens/status.js:142
@@ -1144,12 +1127,13 @@ msgstr ""
 #: ElectronClient/gui/NoteList/NoteList.min.js:151
 #: ElectronClient/gui/NoteList/NoteList.js:160
 msgid "Custom order"
-msgstr "Vlastní řazení"
+msgstr ""
 
 #: ElectronClient/gui/NoteList/NoteList.min.js:151
 #: ElectronClient/gui/NoteList/NoteList.js:160
+#, fuzzy
 msgid "View"
-msgstr "Zobrazit"
+msgstr "&Zobrazit"
 
 #: ElectronClient/gui/NoteList/NoteList.min.js:151
 #: ElectronClient/gui/NoteList/NoteList.js:160
@@ -1164,13 +1148,12 @@ msgid ""
 "To manually sort the notes, the sort order must be changed to \"%s\" in the "
 "menu \"%s\" > \"%s\""
 msgstr ""
-"Chcete-li poznámky seřadit ručně, je třeba změnit pořadí řazení na \"%s\" v "
-"nabídce \"%s\"> \"%s\""
 
 #: ElectronClient/gui/NoteList/NoteList.min.js:152
 #: ElectronClient/gui/NoteList/NoteList.js:161
+#, fuzzy
 msgid "Do it now"
-msgstr "Provést ihned"
+msgstr "Získat hned:"
 
 #: ElectronClient/gui/NoteList/NoteList.min.js:423
 #: ElectronClient/gui/NoteList/NoteList.js:412
@@ -1184,8 +1167,9 @@ msgid ""
 msgstr "Nemáte žádný zápisník. Vytvořte jeden kliknutím na \"Nový zápisník\"."
 
 #: ElectronClient/gui/NoteList/commands/focusElementNoteList.js:15
+#, fuzzy
 msgid "Note list"
-msgstr "Seznam poznámek"
+msgstr "Historie poznámky"
 
 #: ElectronClient/gui/utils/NoteListUtils.js:42
 #: ReactNativeClient/lib/components/screen-header.js:362
@@ -1199,7 +1183,7 @@ msgstr "%s - Kopírovat"
 
 #: ElectronClient/gui/utils/NoteListUtils.js:58
 msgid "Switch between note and to-do type"
-msgstr "Přepnout mezi poznámkou a úkolem"
+msgstr "Přepnout mezi poznámkou a to-do"
 
 #: ElectronClient/gui/utils/NoteListUtils.js:86
 msgid "Switch to note type"
@@ -1207,7 +1191,7 @@ msgstr "Přepnout na poznámku"
 
 #: ElectronClient/gui/utils/NoteListUtils.js:92
 msgid "Switch to to-do type"
-msgstr "Přepnout na úkol"
+msgstr "Přepnout na to-do"
 
 #: ElectronClient/gui/utils/NoteListUtils.js:99
 #: ReactNativeClient/lib/components/screens/note.js:860
@@ -1256,25 +1240,29 @@ msgid "Synchronisation Status"
 msgstr "Stav synchronizace"
 
 #: ElectronClient/gui/MenuBar.js:222
+#, fuzzy
 msgid "Create note from template"
-msgstr "Vytvořit poznámku ze šablony"
+msgstr "Vložit datum a čas"
 
 #: ElectronClient/gui/MenuBar.js:227
 msgid "Create to-do from template"
-msgstr "Vytvořit úkol ze šablony"
+msgstr ""
 
 #: ElectronClient/gui/MenuBar.js:232
 #: ElectronClient/gui/KeymapConfig/utils/getLabel.js:16
+#, fuzzy
 msgid "Insert template"
-msgstr "Vložit šablonu"
+msgstr "Vložit datum a čas"
 
 #: ElectronClient/gui/MenuBar.js:238
+#, fuzzy
 msgid "Open template directory"
-msgstr "Otevřít složku se šablonami"
+msgstr "Složka pro export"
 
 #: ElectronClient/gui/MenuBar.js:243
+#, fuzzy
 msgid "Refresh templates"
-msgstr "Obnovit šablony"
+msgstr "Vložit datum a čas"
 
 #: ElectronClient/gui/MenuBar.js:254 ElectronClient/gui/Root.js:104
 #: ElectronClient/gui/KeymapConfig/utils/getLabel.js:28
@@ -1283,8 +1271,9 @@ msgid "Options"
 msgstr "Nastavení"
 
 #: ElectronClient/gui/MenuBar.js:266
+#, fuzzy
 msgid "Note attachments..."
-msgstr "Přílohy poznámky..."
+msgstr "Přílohy"
 
 #: ElectronClient/gui/MenuBar.js:296 ElectronClient/gui/MenuBar.js:366
 #: ElectronClient/gui/MenuBar.js:659
@@ -1315,8 +1304,9 @@ msgid "Import"
 msgstr "Import"
 
 #: ElectronClient/gui/MenuBar.js:343
+#, fuzzy
 msgid "Export all"
-msgstr "Exportovat vše"
+msgstr "Export"
 
 #: ElectronClient/gui/MenuBar.js:356
 #, javascript-format
@@ -1330,7 +1320,7 @@ msgstr "Zavřít akno"
 
 #: ElectronClient/gui/MenuBar.js:415
 msgid "&Edit"
-msgstr "Úp&ravy"
+msgstr "Ú&pravy"
 
 #: ElectronClient/gui/MenuBar.js:435
 msgid "&View"
@@ -1343,19 +1333,20 @@ msgstr "Posloupnost pro tlačítko Rozvržení"
 #: ElectronClient/gui/MenuBar.js:483
 #: ElectronClient/gui/KeymapConfig/utils/getLabel.js:18
 msgid "Actual Size"
-msgstr "Skutečná velikost"
+msgstr ""
 
 #: ElectronClient/gui/MenuBar.js:494 ElectronClient/gui/MenuBar.js:500
 msgid "Zoom In"
-msgstr "Přiblížit"
+msgstr ""
 
 #: ElectronClient/gui/MenuBar.js:507
 msgid "Zoom Out"
-msgstr "Oddálit"
+msgstr ""
 
 #: ElectronClient/gui/MenuBar.js:516
+#, fuzzy
 msgid "&Note"
-msgstr "&Poznámka"
+msgstr "Zápisníky"
 
 #: ElectronClient/gui/MenuBar.js:525
 msgid "&Tools"
@@ -1392,58 +1383,60 @@ msgid "Dropbox Login"
 msgstr "Dropbox přihlášení"
 
 #: ElectronClient/gui/Root.js:105 ElectronClient/gui/Root.min.js:105
+#, fuzzy
 msgid "Note attachments"
-msgstr "Přílohy poznámky"
+msgstr "Přílohy"
 
 #: ElectronClient/gui/KeymapConfig/ShortcutRecorder.js:48
 msgid "Press the shortcut"
-msgstr "Stiskněte klávesovou zkratku"
+msgstr ""
 
 #: ElectronClient/gui/KeymapConfig/ShortcutRecorder.js:48
 msgid ""
 "Press the shortcut and then press ENTER. Or, press BACKSPACE to clear the "
 "shortcut."
 msgstr ""
-"Stiskněte klávesovou zkratku a poté stiskněte ENTER. Nebo klávesovou zkratku "
-"vymažte stisknutím BACKSPACE."
 
 #: ElectronClient/gui/KeymapConfig/KeymapConfigScreen.js:62
 #: ReactNativeClient/lib/services/KeymapService.js:142
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Error: %s"
-msgstr "Chyba: %s"
+msgstr "Chyba"
 
 #: ElectronClient/gui/KeymapConfig/KeymapConfigScreen.js:125
 msgid "Command"
-msgstr "Příkaz"
+msgstr ""
 
 #: ElectronClient/gui/KeymapConfig/KeymapConfigScreen.js:126
+#, fuzzy
 msgid "Keyboard Shortcut"
-msgstr "Klávesová zkratka"
+msgstr "Mód klávesnice"
 
 #: ElectronClient/gui/KeymapConfig/utils/getLabel.js:24
+#, fuzzy
 msgid "Hide Joplin"
-msgstr "Skrýt Joplin"
+msgstr "O aplikaci Joplin"
 
 #: ElectronClient/gui/KeymapConfig/utils/getLabel.js:28
+#, fuzzy
 msgid "Preferences"
-msgstr "Nastavení"
+msgstr "Nastavení..."
 
 #: ElectronClient/gui/NoteContentPropertiesDialog.js:77
 msgid "Words"
-msgstr "Slova"
+msgstr ""
 
 #: ElectronClient/gui/NoteContentPropertiesDialog.js:78
 msgid "Characters"
-msgstr "Znaky"
+msgstr ""
 
 #: ElectronClient/gui/NoteContentPropertiesDialog.js:79
 msgid "Characters excluding spaces"
-msgstr "Znaky bez mezer"
+msgstr ""
 
 #: ElectronClient/gui/NoteContentPropertiesDialog.js:80
 msgid "Lines"
-msgstr "Řádky"
+msgstr ""
 
 #: ElectronClient/gui/NoteContentPropertiesDialog.js:99
 #: ReactNativeClient/lib/models/Setting.js:373
@@ -1462,16 +1455,17 @@ msgstr "Prohlížeč"
 #: ElectronClient/gui/NoteContentPropertiesDialog.js:106
 #, javascript-format
 msgid "Read time: %s min"
-msgstr "Doba čtení: %s min"
+msgstr ""
 
 #: ElectronClient/gui/NoteContentPropertiesDialog.js:109
+#, fuzzy
 msgid "Statistics"
-msgstr "Statistiky"
+msgstr "Status"
 
 #: ElectronClient/bridge.js:177
 msgid ""
 "The app is now going to close. Please relaunch it to complete the process."
-msgstr "Aplikace se nyní vypne. Pro dokončení procesu ji znovu spusťte."
+msgstr ""
 
 #: ElectronClient/app.js:340
 #, javascript-format
@@ -1483,8 +1477,9 @@ msgid "Exit"
 msgstr "Ukončit"
 
 #: ElectronClient/commands/copyDevCommand.js:17
+#, fuzzy
 msgid "Copy dev mode command to clipboard"
-msgstr "Zkopírovat příkaz pro vývojářský režim do schránky"
+msgstr "Kopírovat cestu do schránky"
 
 #: ElectronClient/commands/startExternalEditing.js:18
 msgid "Edit in external editor"
@@ -1496,12 +1491,13 @@ msgid "Error opening note in editor: %s"
 msgstr "Chyba při otevírání poznámky v editoru: %s"
 
 #: ElectronClient/commands/toggleExternalEditing.js:16
+#, fuzzy
 msgid "Toggle external editing"
-msgstr "Přepnout externí editaci"
+msgstr "Ukončit externí úpravy"
 
 #: ElectronClient/commands/toggleExternalEditing.js:42
 msgid "Stop"
-msgstr "Zastavit"
+msgstr ""
 
 #: ElectronClient/commands/stopExternalEditing.js:16
 msgid "Stop external editing"
@@ -1526,7 +1522,7 @@ msgid ""
 "TODO_CHECKED (for to-dos), TITLE"
 msgstr ""
 "Použít formát dlouhého seznamu. Formát je ID, NOTE_COUNT (u zápisníků), "
-"DATE, TODO_CHECKED (pro úkoly), TITLE"
+"DATE, TODO_CHECKED (pro to-do), TITLE"
 
 #: CliClient/app/command-tag.js:33 CliClient/app/command-tag.js:36
 #: CliClient/app/command-tag.js:42 CliClient/app/command-tag.js:43
@@ -1596,7 +1592,7 @@ msgstr "Přiloží soubor k poznámce."
 
 #: CliClient/app/command-mktodo.js:12
 msgid "Creates a new to-do."
-msgstr "Vytvoří nový úkol."
+msgstr "Vytvoří nové to-do."
 
 #: CliClient/app/command-mktodo.js:16 CliClient/app/command-mknote.js:16
 msgid "Notes can only be created within a notebook."
@@ -1725,7 +1721,7 @@ msgstr ""
 
 #: CliClient/app/command-sync.js:35
 msgid "Upgrade the sync target to the latest version."
-msgstr "Upgradovat cíl synchronizace na nejnovější verzi."
+msgstr ""
 
 #: CliClient/app/command-sync.js:105
 #, javascript-format
@@ -1752,8 +1748,9 @@ msgid "Synchronisation target: %s (%s)"
 msgstr "Cíl synchronizace:  %s (%s)"
 
 #: CliClient/app/command-sync.js:177
+#, fuzzy
 msgid "Cannot initialise synchroniser."
-msgstr "Nelze inicializovat synchronizátor."
+msgstr "Nelze zavézt synchronizátor."
 
 #: CliClient/app/command-sync.js:207
 msgid "Starting synchronisation..."
@@ -1787,9 +1784,9 @@ msgid ""
 "convert the to-do back to a regular note."
 msgstr ""
 "<todo-command> může být buď \"toggle\" (přepnout) nebo \"clear"
-"\" (odstranit). Použijte \"toggle\" pro přepnutí daného úkolu na dokončený "
-"resp. nedokončený (pokud je cílem normální poznámka, bude konvertována na "
-"úkol). Použijte \"clear\" pro konverzi úkolu na normální poznámku."
+"\" (odstranit). Použijte \"toggle\" pro označení daného to-do jako dokončené "
+"či nedokončené  (pokud je cílem normální poznámka, bude konvertována na to-"
+"do). Použijte \"clear\" pro konverzi to-do na normální poznámku."
 
 #: CliClient/app/command-cat.js:14
 msgid "Displays the given note."
@@ -1801,12 +1798,12 @@ msgstr "Zobrazí veškeré informace o poznámce."
 
 #: CliClient/app/command-done.js:14
 msgid "Marks a to-do as done."
-msgstr "Označí úkol jako hotový."
+msgstr "Označí to-do jako hotové."
 
 #: CliClient/app/command-done.js:21
 #, javascript-format
 msgid "Note is not a to-do: \"%s\""
-msgstr "Poznámka není úkol: \"%s\""
+msgstr "Poznámka není to-do: \"%s\""
 
 #: CliClient/app/command-ls.js:18
 msgid ""
@@ -1833,9 +1830,9 @@ msgid ""
 "for to-dos, or `nt` for notes and to-dos (eg. `-tt` would display only the "
 "to-dos, while `-ttd` would display notes and to-dos."
 msgstr ""
-"Zobrazit pouze položky vybraného typu. Možnosti jsou `n` pro poznámky, `t` "
-"pro úkoly, a `nt` pro poznámky a úkoly (tedy `-tt` zobrazí pouze úkoly, "
-"zatímco `-ttd` zobrazí poznámky a úkoly)."
+"Zobrazit pouze položky vybraného typu. Možnosti jsou  `n` pro poznámky "
+"(notes), `t` pro to-do, a `nt` pro poznámky a to-do  (tedy `-tt` zobrazí "
+"pouze to-do, zatímco `-ttd` zobrazí poznámky a to-do)."
 
 #: CliClient/app/command-ls.js:31
 msgid "Either \"text\" or \"json\""
@@ -1891,8 +1888,9 @@ msgstr ""
 "položky se nyní dešifrují na pozadí a budou brzy k dispozici."
 
 #: CliClient/app/gui/NoteWidget.js:50
+#, fuzzy
 msgid "You may also type `status` for more information."
-msgstr "Můžete také zadat `status` pro více informací."
+msgstr "Neptat se na potvrzení."
 
 #: CliClient/app/gui/FolderListWidget.js:31
 msgid "Search:"
@@ -1937,16 +1935,14 @@ msgstr ""
 "i několik minut."
 
 #: CliClient/app/command-e2ee.js:53
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Decrypted items: %d"
-msgstr "Dešifrované položky: %d"
+msgstr "Rozšifrované položky: %s/%s"
 
 #: CliClient/app/command-e2ee.js:54
 #, javascript-format
 msgid "Skipped items: %d (use --retry-failed-items to retry decrypting them)"
 msgstr ""
-"Přeskočené položky: %d (použijte --retry-failed-items pro nový pokus o "
-"dešifrování)"
 
 #: CliClient/app/command-e2ee.js:68
 msgid "Completed decryption."
@@ -1995,9 +1991,9 @@ msgid "Do not ask for confirmation."
 msgstr "Neptat se na potvrzení."
 
 #: CliClient/app/command-import.js:27
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Output format: %s"
-msgstr "Výstupní formát: %s"
+msgstr "Zdrojový formát: %s"
 
 #: CliClient/app/command-import.js:65
 msgid "Importing notes..."
@@ -2028,12 +2024,10 @@ msgstr "Zobrazí souhrnné informace o poznámkách a zápisnících."
 msgid ""
 "To retry decryption of these items. Run `e2ee decrypt --retry-failed-items`"
 msgstr ""
-"Pro nový pokus o dešifrování těchto položek spusťte ʻe2ee decrypt --retry-"
-"failed-items`"
 
 #: CliClient/app/command-undone.js:12
 msgid "Marks a to-do as non-completed."
-msgstr "Označí úkol jako nedokončený."
+msgstr "Označí to-do jako nedodělané."
 
 #: CliClient/app/help-utils.js:56
 msgid "Enum"
@@ -2222,14 +2216,14 @@ msgid "HTML Directory"
 msgstr "HTML adresář"
 
 #: ReactNativeClient/lib/services/interop/InteropService.js:127
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Cannot load \"%s\" module for format \"%s\" and output \"%s\""
-msgstr "Nelze načíst modul \"%s\" pro formát \"%s\" a výstup \"%s\""
+msgstr "Nemohu nahrát \"%s\" modul pro formát \"%s\""
 
 #: ReactNativeClient/lib/services/interop/InteropService.js:152
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Cannot load \"%s\" module for format \"%s\" and target \"%s\""
-msgstr "Nelze načíst modul \"%s\" pro formát \"%s\" a cíl \"%s\""
+msgstr "Nemohu nahrát \"%s\" modul pro formát \"%s\""
 
 #: ReactNativeClient/lib/services/interop/InteropService.js:187
 #, javascript-format
@@ -2246,23 +2240,23 @@ msgstr "Obnovené Poznámky"
 
 #: ReactNativeClient/lib/services/KeymapService.js:236
 msgid "command"
-msgstr "příkaz"
+msgstr ""
 
 #: ReactNativeClient/lib/services/KeymapService.js:236
 #: ReactNativeClient/lib/services/KeymapService.js:241
 #, javascript-format
 msgid "\"%s\" is missing the required \"%s\" property."
-msgstr "\"%s\" chybí požadovaná vlastnost \"%s\"."
+msgstr ""
 
 #: ReactNativeClient/lib/services/KeymapService.js:241
 #: ReactNativeClient/lib/services/KeymapService.js:248
 msgid "accelerator"
-msgstr "akcelerátor"
+msgstr ""
 
 #: ReactNativeClient/lib/services/KeymapService.js:248
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Invalid %s: %s."
-msgstr "Neplatné %s: %s."
+msgstr "Neplatná odpověď: %s"
 
 #: ReactNativeClient/lib/services/KeymapService.js:266
 #, javascript-format
@@ -2270,13 +2264,11 @@ msgid ""
 "Accelerator \"%s\" is used for \"%s\" and \"%s\" commands. This may lead to "
 "unexpected behaviour."
 msgstr ""
-"Akcelerátor \"%s\" se používá pro příkazy \"%s\" a \"%s\". Toto může vést k "
-"neočekávanému chování."
 
 #: ReactNativeClient/lib/services/KeymapService.js:291
 #, javascript-format
 msgid "Accelerator \"%s\" is not valid."
-msgstr "Akcelerátor \"%s\" není platný."
+msgstr ""
 
 #: ReactNativeClient/lib/services/report.js:121
 msgid "Items that cannot be synchronised"
@@ -2399,9 +2391,9 @@ msgid "Nextcloud"
 msgstr "Nextcloud"
 
 #: ReactNativeClient/lib/versionInfo.js:10
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Revision: %s (%s)"
-msgstr "Revize: %s (%s)"
+msgstr "%s %s (%s)"
 
 #: ReactNativeClient/lib/versionInfo.js:18
 #, javascript-format
@@ -2409,24 +2401,24 @@ msgid "%s %s (%s, %s)"
 msgstr "%s %s (%s, %s)"
 
 #: ReactNativeClient/lib/versionInfo.js:20
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Client ID: %s"
-msgstr "ID klienta: %s"
+msgstr "Dokončeno: %s"
 
 #: ReactNativeClient/lib/versionInfo.js:21
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Sync Version: %s"
-msgstr "Verze synchronizace: %s"
+msgstr "Nová verze: %s"
 
 #: ReactNativeClient/lib/versionInfo.js:22
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Profile Version: %s"
-msgstr "Verze profilu: %s"
+msgstr "Nová verze: %s"
 
 #: ReactNativeClient/lib/versionInfo.js:23
 #, javascript-format
 msgid "Keychain Supported: %s"
-msgstr "Podpora klíčenky: %s"
+msgstr ""
 
 #: ReactNativeClient/lib/JoplinServerApi.js:71
 #, javascript-format
@@ -2748,8 +2740,6 @@ msgid ""
 "You are about to attach a large image (%dx%d pixels). Would you like to "
 "resize it down to %d pixels before attaching it?"
 msgstr ""
-"Chystáte se připojit velký obrázek (%dx%d pixelů). Chcete jej před "
-"připojením zmenšit na %d pixelů?"
 
 #: ReactNativeClient/lib/components/screens/note.js:623
 #, javascript-format
@@ -2822,7 +2812,7 @@ msgstr "Přidejte nadpis"
 
 #: ReactNativeClient/lib/components/screens/UpgradeSyncTargetScreen.js:42
 msgid "Sync Target Upgrade"
-msgstr "Upgrade cíle synchronizace"
+msgstr ""
 
 #: ReactNativeClient/lib/components/screens/encryption-config.js:119
 #, javascript-format
@@ -2912,8 +2902,6 @@ msgstr "Některé položky nelze synchronizovat. Zmáčkněte pro více informac
 #: ReactNativeClient/lib/components/screen-header.js:453
 msgid "The sync target needs to be upgraded. Press this banner to proceed."
 msgstr ""
-"Je třeba upgradovat cíl synchronizace. Chcete-li pokračovat, stiskněte tento "
-"baner."
 
 #: ReactNativeClient/lib/components/side-menu-content.js:126
 #, javascript-format
@@ -2931,28 +2919,26 @@ msgstr "Nový zápisník"
 #: ReactNativeClient/lib/components/shared/encryption-config-shared.js:33
 msgid ""
 "Please confirm that you would like to re-encrypt your complete database."
-msgstr "Potvrďte prosím, že chcete znovu zašifrovat celou databázi."
+msgstr ""
 
 #: ReactNativeClient/lib/components/shared/encryption-config-shared.js:39
 msgid "Your data is going to be re-encrypted and synced again."
-msgstr "Vaše data budou znovu zašifrována a znovu synchronizována."
+msgstr ""
 
 #: ReactNativeClient/lib/components/shared/encryption-config-shared.js:49
 msgid ""
 "Please enter your password in the master key list below before upgrading the "
 "key."
 msgstr ""
-"Před upgradem klíče zadejte své heslo do níže uvedeného seznamu hlavních "
-"klíčů."
 
 #: ReactNativeClient/lib/components/shared/encryption-config-shared.js:58
 msgid "The master key has been upgraded successfully!"
-msgstr "Hlavní klíč byl úspěšně upgradován!"
+msgstr ""
 
 #: ReactNativeClient/lib/components/shared/encryption-config-shared.js:60
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Could not upgrade master key: %s"
-msgstr "Hlavní klíč nelze upgradovat: %s"
+msgstr "Nebylo možné exportovat poznámky: %s"
 
 #: ReactNativeClient/lib/components/shared/encryption-config-shared.js:116
 #, javascript-format
@@ -3055,20 +3041,17 @@ msgid "Downloaded"
 msgstr "Staženo"
 
 #: ReactNativeClient/lib/models/Resource.js:371
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Attachment conflict: \"%s\""
-msgstr "Konflikt přílohy: \"%s\""
+msgstr "Přílohy"
 
 #: ReactNativeClient/lib/models/Resource.js:372
-#, javascript-format
+#, fuzzy, javascript-format
 msgid ""
 "There was a [conflict](%s) on the attachment below.\n"
 "\n"
 "%s"
-msgstr ""
-"V příloze níže došlo ke [konfliktu] (%s).\n"
-"\n"
-"%s"
+msgstr "Při stahování této přílohy došlo k chybě:"
 
 #: ReactNativeClient/lib/models/BaseItem.js:721
 msgid "Encrypted"
@@ -3084,7 +3067,7 @@ msgstr "datum vytvoření"
 
 #: ReactNativeClient/lib/models/Note.js:28
 msgid "custom order"
-msgstr "vlastní řazení"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Note.js:92
 msgid "This note does not have geolocation information."
@@ -3101,18 +3084,20 @@ msgid "Cannot move note to \"%s\" notebook"
 msgstr "Poznámku nelze přesunout do \"%s\" zápisníku"
 
 #: ReactNativeClient/lib/models/Setting.js:65
+#, fuzzy
 msgid "yes"
-msgstr "ano"
+msgstr "Ano"
 
 #: ReactNativeClient/lib/models/Setting.js:65
 #: ReactNativeClient/lib/models/Setting.js:66
 #, javascript-format
 msgid "(wysiwyg: %s)"
-msgstr "(wysiwyg: %s)"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:66
+#, fuzzy
 msgid "no"
-msgstr "ne"
+msgstr "n"
 
 #: ReactNativeClient/lib/models/Setting.js:68
 #, javascript-format
@@ -3151,11 +3136,12 @@ msgstr "Nord"
 
 #: ReactNativeClient/lib/models/Setting.js:80
 msgid "Aritim Dark"
-msgstr "Aritim Dark"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:81
+#, fuzzy
 msgid "OLED Dark"
-msgstr "OLED Dark"
+msgstr "Tmavý"
 
 #: ReactNativeClient/lib/models/Setting.js:102
 msgid "Synchronisation target"
@@ -3199,15 +3185,15 @@ msgstr "WebDAV heslo"
 
 #: ReactNativeClient/lib/models/Setting.js:214
 msgid "AWS S3 bucket"
-msgstr "AWS S3 bucket"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:225
 msgid "AWS key"
-msgstr "AWS key"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:235
 msgid "AWS secret"
-msgstr "AWS secret"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:247
 msgid "Attachment download behaviour"
@@ -3220,8 +3206,8 @@ msgid ""
 "the attachments are downloaded whether you open the note or not."
 msgstr ""
 "V režimu \"Manuální\" se přílohy stahují pouze po kliknutí na ně. V režimu "
-"\"Automaticky\" se stáhnou při otevření poznámky. V režimu \"Vždy\" se "
-"stáhnou všechny přílohy, ať už poznámku otevřete nebo ne."
+"„Automaticky“ se stáhnou při otevření poznámky. V režimu „Vždy“ se stáhnou "
+"všechny přílohy, ať už poznámku otevřete nebo ne."
 
 #: ReactNativeClient/lib/models/Setting.js:251
 msgid "Always"
@@ -3257,15 +3243,15 @@ msgstr "Vzhled"
 
 #: ReactNativeClient/lib/models/Setting.js:337
 msgid "Automatically switch theme to match system theme"
-msgstr "Automaticky přepnout téma tak, aby odpovídalo tématu systému"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:348
 msgid "Preferred light theme"
-msgstr "Preferované světelné téma"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:361
 msgid "Preferred dark theme"
-msgstr "Preferované tmavé téma"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:365
 msgid "Show note counts"
@@ -3291,11 +3277,11 @@ msgstr "%s / %s"
 
 #: ReactNativeClient/lib/models/Setting.js:379
 msgid "Uncompleted to-dos on top"
-msgstr "Nedokončené úkoly nahoře"
+msgstr "Nedokončené to-do listy nahoře"
 
 #: ReactNativeClient/lib/models/Setting.js:380
 msgid "Show completed to-dos"
-msgstr "Zobrazit dokončené úkoly"
+msgstr "Zobrazit dokončené to-do listy"
 
 #: ReactNativeClient/lib/models/Setting.js:405
 msgid "Auto-pair braces, parenthesis, quotations, etc."
@@ -3316,7 +3302,7 @@ msgstr "Ukládat k poznámkám informace o poloze (geolokaci)"
 
 #: ReactNativeClient/lib/models/Setting.js:443
 msgid "When creating a new to-do:"
-msgstr "Při vytváření nového úkolu:"
+msgstr "Při vytváření nového to-do:"
 
 #: ReactNativeClient/lib/models/Setting.js:446
 #: ReactNativeClient/lib/models/Setting.js:461
@@ -3349,8 +3335,9 @@ msgid "Enable Fountain syntax support"
 msgstr "Povolit podporu Fountain syntaxe"
 
 #: ReactNativeClient/lib/models/Setting.js:483
+#, fuzzy
 msgid "Enable Mermaid diagrams support"
-msgstr "Povolit podporu pro Mermaid diagramy"
+msgstr "Povolit podporu pro typographer"
 
 #: ReactNativeClient/lib/models/Setting.js:484
 msgid "Enable ==mark== syntax"
@@ -3426,14 +3413,14 @@ msgid "Editor font family"
 msgstr "Rodina písma v editoru"
 
 #: ReactNativeClient/lib/models/Setting.js:556
+#, fuzzy
 msgid ""
 "This should be a *monospace* font or some elements will render incorrectly. "
 "If the font is incorrect or empty, it will default to a generic monospace "
 "font."
 msgstr ""
-"Toto by mělo být *neproporcionální* písmo (*monospace*), jinak se některé "
-"prvky vykreslí nesprávně. Pokud je písmo nesprávné nebo prázdné, použije se "
-"výchozí obecné neproporcionální písmo."
+"Jméno fontu není kontrolováno. Pokud je neplatné či chybí, bude použit "
+"výchozí monospace font."
 
 #: ReactNativeClient/lib/models/Setting.js:595
 msgid "Custom stylesheet for Joplin-wide app styles"
@@ -3565,7 +3552,7 @@ msgstr "Ignorovat chyby TLS certifikátu"
 
 #: ReactNativeClient/lib/models/Setting.js:691
 msgid "Fail-safe"
-msgstr "Zabezpečení proti selhání"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:692
 msgid ""
@@ -3602,7 +3589,7 @@ msgstr "Uchovat historii poznámky"
 
 #: ReactNativeClient/lib/models/Setting.js:735
 msgid "Notebook list growth factor"
-msgstr "Růstový faktor seznamu notebooků"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:736
 #: ReactNativeClient/lib/models/Setting.js:748
@@ -3613,18 +3600,14 @@ msgid ""
 "item with a factor of 2 will take twice as much space as an item with a "
 "factor of 1.Restart app to see changes."
 msgstr ""
-"Vlastnost faktor určuje, jak se má položka zvětšit nebo zmenšit, aby se "
-"vešla na volné místo v kontejneru vzhledem k ostatním položkám. Položka s "
-"faktorem 2 tedy zabere dvakrát tolik místa než položka s faktorem 1. Chcete-"
-"li zobrazit změny, restartujte aplikaci."
 
 #: ReactNativeClient/lib/models/Setting.js:747
 msgid "Note list growth factor"
-msgstr "Růstový faktor seznamu poznámek"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:759
 msgid "Note area growth factor"
-msgstr "Růstový faktor oblasti s poznámkami"
+msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:1272
 msgid "General"
@@ -3659,8 +3642,9 @@ msgid "Web Clipper"
 msgstr "Web Clipper"
 
 #: ReactNativeClient/lib/models/Setting.js:1292
+#, fuzzy
 msgid "Keyboard Shortcuts"
-msgstr "Klávesové zkratky"
+msgstr "Mód klávesnice"
 
 #: ReactNativeClient/lib/models/Setting.js:1299
 msgid ""
@@ -3672,13 +3656,6 @@ msgid ""
 "formatting. It is indicated below which plugins are compatible or not with "
 "the WYSIWYG editor."
 msgstr ""
-"Tyto doplňky vylepšují vykreslovací modul Markdown o další funkce. "
-"Upozorňujeme, že i když tyto funkce mohou být užitečné, nejedná se o "
-"standardní Markdown, a proto většina z nich bude fungovat pouze v Joplinu. "
-"Některé z nich jsou navíc *nekompatibilní* s editorem WYSIWYG. Pokud v tomto "
-"editoru otevřete poznámku, která používá jeden z těchto pluginů, ztratíte "
-"formátování pluginu. Níže je uvedeno, které doplňky jsou nebo nejsou "
-"kompatibilní s editorem WYSIWYG."
 
 #: ReactNativeClient/lib/models/Setting.js:1301
 #, javascript-format
@@ -3707,11 +3684,11 @@ msgstr "OneDrive"
 
 #: ReactNativeClient/lib/SyncTargetAmazonS3.js:28
 msgid "AWS S3"
-msgstr "AWS S3"
+msgstr ""
 
 #: ReactNativeClient/lib/commands/historyForward.js:16
 msgid "Forward"
-msgstr "Vpřed"
+msgstr ""
 
 #: ReactNativeClient/lib/shim-init-node.js:158
 #, javascript-format
