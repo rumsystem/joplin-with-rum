@@ -36,6 +36,8 @@ import ShareService from '@joplin/lib/services/share/ShareService';
 import { reg } from '@joplin/lib/registry';
 import removeKeylessItems from '../ResizableLayout/utils/removeKeylessItems';
 import { localSyncInfoFromState } from '@joplin/lib/services/synchronizer/syncInfoUtils';
+import { parseUrl } from '@joplin/lib/ProtocolUtils';
+import ElectronAppWrapper from '../../ElectronAppWrapper';
 
 const { connect } = require('react-redux');
 const { PromptDialog } = require('../PromptDialog.min.js');
@@ -185,6 +187,23 @@ class MainScreenComponent extends React.Component<Props, State> {
 		this.layoutModeListenerKeyDown = this.layoutModeListenerKeyDown.bind(this);
 
 		window.addEventListener('resize', this.window_resize);
+
+		ipcRenderer.on('asynchronous-message', (_event: any, message: string, args: any) => {
+			if (message === 'openUrl') {
+				this.openUrl(args.url);
+			}
+		});
+
+		const initialUrl = (bridge().electronApp() as ElectronAppWrapper).initialUrl();
+		if (initialUrl) {
+			this.openUrl(initialUrl);
+		}
+	}
+
+	private openUrl(url: string) {
+		console.log(`openUrl ${url}`);
+		const { command, params } = parseUrl(url);
+		void CommandService.instance().execute(command, params.id);
 	}
 
 	private updateLayoutPluginViews(layout: LayoutItem, plugins: PluginStates) {

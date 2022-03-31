@@ -7,7 +7,7 @@ import { argv } from 'yargs';
 import Logger, { LoggerWrapper, TargetType } from '@joplin/lib/Logger';
 import config, { initConfig, runningInDocker, EnvVariables } from './config';
 import { createDb, dropDb } from './tools/dbTools';
-import { dropTables, connectDb, disconnectDb, migrateLatest, waitForConnection, sqliteDefaultDir, migrateList, migrateUp, migrateDown } from './db';
+import { dropTables, connectDb, disconnectDb, migrateDb, waitForConnection, sqliteDefaultDir } from './db';
 import { AppContext, Env, KoaNext } from './utils/types';
 import FsDriverNode from '@joplin/lib/fs-driver-node';
 import routeHandler from './middleware/routeHandler';
@@ -205,23 +205,10 @@ async function main() {
 		fs.writeFileSync(pidFile, `${process.pid}`);
 	}
 
-	let runCommandAndExitApp = true;
-
-	if (argv.migrateLatest) {
+	if (argv.migrateDb) {
 		const db = await connectDb(config().database);
-		await migrateLatest(db);
+		await migrateDb(db);
 		await disconnectDb(db);
-	} else if (argv.migrateUp) {
-		const db = await connectDb(config().database);
-		await migrateUp(db);
-		await disconnectDb(db);
-	} else if (argv.migrateDown) {
-		const db = await connectDb(config().database);
-		await migrateDown(db);
-		await disconnectDb(db);
-	} else if (argv.migrateList) {
-		const db = await connectDb(config().database);
-		console.info(await migrateList(db));
 	} else if (argv.dropDb) {
 		await dropDb(config().database, { ignoreIfNotExists: true });
 	} else if (argv.dropTables) {
@@ -231,8 +218,6 @@ async function main() {
 	} else if (argv.createDb) {
 		await createDb(config().database);
 	} else {
-		runCommandAndExitApp = false;
-
 		appLogger().info(`Starting server v${config().appVersion} (${env}) on port ${config().port} and PID ${process.pid}...`);
 		appLogger().info('Running in Docker:', runningInDocker());
 		appLogger().info('Public base URL:', config().baseUrl);
@@ -254,7 +239,7 @@ async function main() {
 		await initializeJoplinUtils(config(), ctx.joplinBase.models, ctx.joplinBase.services.mustache);
 
 		appLogger().info('Migrating database...');
-		await migrateLatest(ctx.joplinBase.db);
+		await migrateDb(ctx.joplinBase.db);
 
 		appLogger().info('Starting services...');
 		await startServices(ctx.joplinBase.services);
@@ -263,8 +248,6 @@ async function main() {
 
 		app.listen(config().port);
 	}
-
-	if (runCommandAndExitApp) process.exit(0);
 }
 
 main().catch((error: any) => {

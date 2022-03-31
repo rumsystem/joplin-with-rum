@@ -16,7 +16,6 @@ async function main() {
 	const argv = require('yargs').argv;
 	if (!argv.tagName) throw new Error('--tag-name not provided');
 
-	const pushImages = !!argv.pushImages;
 	const tagName = argv.tagName;
 	const isPreRelease = getIsPreRelease(tagName);
 	const imageVersion = getVersionFromTag(tagName, isPreRelease);
@@ -39,7 +38,6 @@ async function main() {
 	console.info(`Running from: ${process.cwd()}`);
 
 	console.info('tagName:', tagName);
-	console.info('pushImages:', pushImages);
 	console.info('imageVersion:', imageVersion);
 	console.info('isPreRelease:', isPreRelease);
 	console.info('Docker tags:', dockerTags.join(', '));
@@ -47,7 +45,7 @@ async function main() {
 	await execCommand2(`docker build -t "joplin/server:${imageVersion}" ${buildArgs} -f Dockerfile.server .`);
 	for (const tag of dockerTags) {
 		await execCommand2(`docker tag "joplin/server:${imageVersion}" "joplin/server:${tag}"`);
-		if (pushImages) await execCommand2(`docker push joplin/server:${tag}`);
+		await execCommand2(`docker push joplin/server:${tag}`);
 	}
 }
 
