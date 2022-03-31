@@ -13,8 +13,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.8\n"
+"X-Generator: Poedit 2.1.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
 
 msgid "To delete a tag, untag the associated notes."
 msgstr ""
@@ -727,9 +729,6 @@ msgstr "Ja"
 msgid "No"
 msgstr "Nein"
 
-msgid "Token has been copied to the clipboard!"
-msgstr ""
-
 msgid "The web clipper service is enabled and set to auto-start."
 msgstr ""
 "Der Webclipperservice ist bereits aktiviert und auf Autostart eingestellt."
@@ -780,21 +779,6 @@ msgid "Download and install the relevant extension for your browser:"
 msgstr ""
 "Lade die entsprechende Erweiterung für deinen Browser herunter und "
 "installiere sie:"
-
-#, fuzzy
-msgid "Advanced options"
-msgstr "Erweiterte Optionen anzeigen"
-
-msgid "Authorisation token:"
-msgstr ""
-
-msgid "Copy token"
-msgstr ""
-
-msgid ""
-"This authorisation token is only needed to allow third-party applications to "
-"access Joplin."
-msgstr ""
 
 msgid "Check synchronisation configuration"
 msgstr "Überprüfen der Synchronisationseinstellungen"
@@ -981,7 +965,7 @@ msgstr ""
 "\"Neues Notizbuch\" drückst."
 
 msgid "Location"
-msgstr ""
+msgstr "Ablageort"
 
 msgid "URL"
 msgstr ""
@@ -1040,7 +1024,7 @@ msgid "In: %s"
 msgstr "In: %s"
 
 msgid "Note properties"
-msgstr ""
+msgstr "Notiz-Eigenschaften"
 
 msgid "Hyperlink"
 msgstr "Weblink"
@@ -1328,7 +1312,7 @@ msgid "Note: Does not work in all desktop environments."
 msgstr "Hinweis: Funktioniert nicht in allen Desktopumgebungen."
 
 msgid "Start application minimised in the tray icon"
-msgstr ""
+msgstr "Starte die Anwendung minimiert im Tray"
 
 msgid "Global zoom percentage"
 msgstr "Zoomstufe der Benutzeroberfläche"
@@ -1405,6 +1389,9 @@ msgid ""
 "to it before syncing, otherwise all files will be removed! See the FAQ for "
 "more details: %s"
 msgstr ""
+"Achtung: Stelle sicher, dass Du vor der Synchronisation alle Inhalte an den "
+"neuen Ablageort kopiert hast, sonst werden alle Dateien gelöscht! Lies auch "
+"die FAQs hierzu: %s"
 
 msgid "Nextcloud username"
 msgstr "Nextcloud Benutzername"
@@ -1446,6 +1433,7 @@ msgstr "Ungültiger Optionswert: \"%s\". Mögliche Werte sind: %s."
 #, javascript-format
 msgid "The tag \"%s\" already exists. Please choose a different name."
 msgstr ""
+"Das Schlagwort \"%s\" existiert bereits. Bitte wähle einen anderen Namen."
 
 msgid "Joplin Export File"
 msgstr "Joplin Export Datei"
