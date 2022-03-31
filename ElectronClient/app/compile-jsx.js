@@ -2,7 +2,6 @@ const fs = require('fs-extra');
 const spawnSync	= require('child_process').spawnSync;
 
 const babelPath = __dirname + '/node_modules/.bin/babel' + (process.platform === 'win32' ? '.cmd' : '');
-const basePath = __dirname + '/../..';
 const guiPath = __dirname + '/gui';
 
 function fileIsNewerThan(path1, path2) {
@@ -28,7 +27,7 @@ fs.readdirSync(guiPath).forEach((filename) => {
 
 	if (fileIsNewerThan(jsxPath, jsPath)) {
 		console.info('Compiling ' + jsxPath + '...');
-		const result = spawnSync(babelPath, ['--presets', 'react', '--out-file', jsPath, jsxPath]);
+		const result = spawnSync(babelPath, ['--presets', 'react', '--out-file',jsPath, jsxPath]);
 		if (result.status !== 0) {
 			const msg = [];
 			if (result.stdout) msg.push(result.stdout.toString());
@@ -39,5 +38,3 @@ fs.readdirSync(guiPath).forEach((filename) => {
 		}
 	}
 });
-
-fs.copySync(basePath + '/ReactNativeClient/lib/string-utils-common.js', __dirname + '/gui/note-viewer/lib.js');
