@@ -77,7 +77,7 @@ export default class Database {
 		throw new Error(`Invalid field format: ${field}`);
 	}
 
-	public escapeFields(fields: string[] | string): string[] | string {
+	escapeFields(fields: string[] | string): string[] | string {
 		if (fields == '*') return '*';
 
 		const output = [];
@@ -85,16 +85,6 @@ export default class Database {
 			output.push(this.escapeField(fields[i]));
 		}
 		return output;
-	}
-
-	public escapeFieldsToString(fields: string[] | string): string {
-		if (fields === '*') return '*';
-
-		const output = [];
-		for (let i = 0; i < fields.length; i++) {
-			output.push(this.escapeField(fields[i]));
-		}
-		return output.join(',');
 	}
 
 	async tryCall(callName: string, inputSql: StringOrSqlQuery, inputParams: SqlParams) {

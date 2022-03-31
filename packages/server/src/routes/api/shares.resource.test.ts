@@ -49,7 +49,7 @@ describe('shares.resource', function() {
 
 });
 
-// import { ShareType } from '../../services/database/types';
+// import { ShareType } from '../../db';
 // import { beforeAllDb, afterAllTests, beforeEachDb, createUserAndSession, models, createResource, createItemTree2, updateNote, createNote } from '../../utils/testing/testUtils';
 // import { getApi } from '../../utils/testing/apiUtils';
 // import { shareWithUserAndAccept } from '../../utils/testing/shareApiUtils';

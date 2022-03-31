@@ -1,51 +1,25 @@
+'use strict';
+
 // Supported commit formats:
 
 // (Desktop|Mobile|Android|iOS[CLI): (New|Improved|Fixed): Some message..... (#ISSUE)
 
-import { execCommand, githubUsername } from './tool-utils';
-
-interface LogEntry {
-	message: string;
-	commit: string;
-	author: Author;
-}
-
-enum Platform {
-	Android = 'android',
-	Ios = 'ios',
-	Desktop = 'desktop',
-	Clipper = 'clipper',
-	Server = 'server',
-	Cli = 'cli',
-	PluginGenerator = 'plugin-generator',
-}
-
-enum PublishFormat {
-	Full = 'full',
-	Simple = 'simple',
-}
-
-interface Options {
-	publishFormat: PublishFormat;
-}
-
-interface Author {
-	email: string;
-	name: string;
-	login: string;
-}
+const { execCommand, githubUsername } = require('./tool-utils.js');
 
 // From https://stackoverflow.com/a/6234804/561309
-function escapeHtml(unsafe: string) {
+function escapeHtml(unsafe) {
 	// We only escape <> as this is enough for Markdown
 	return unsafe
+		// .replace(/&/g, '&amp;')
 		.replace(/</g, '&lt;')
 		.replace(/>/g, '&gt;');
+	// .replace(/"/g, '&quot;')
+	// .replace(/'/g, '&#039;');
 }
 
-async function gitLog(sinceTag: string) {
-	const commandResult = await execCommand(`git log --pretty=format:"%H::::DIV::::%ae::::DIV::::%an::::DIV::::%s" ${sinceTag}..HEAD`);
-	const lines = commandResult.split('\n');
+async function gitLog(sinceTag) {
+	let lines = await execCommand(`git log --pretty=format:"%H::::DIV::::%ae::::DIV::::%an::::DIV::::%s" ${sinceTag}..HEAD`);
+	lines = lines.split('\n');
 
 	const output = [];
 	for (const line of lines) {
@@ -72,22 +46,31 @@ async function gitLog(sinceTag: string) {
 }
 
 async function gitTags() {
-	const lines: string = await execCommand('git tag --sort=committerdate');
+	const lines = await execCommand('git tag --sort=committerdate');
 	return lines.split('\n').map(l => l.trim()).filter(l => !!l);
 }
 
-function platformFromTag(tagName: string): Platform {
-	if (tagName.indexOf('v') === 0) return Platform.Desktop;
-	if (tagName.indexOf('android') >= 0) return Platform.Android;
-	if (tagName.indexOf('ios') >= 0) return Platform.Ios;
-	if (tagName.indexOf('clipper') === 0) return Platform.Clipper;
-	if (tagName.indexOf('cli') === 0) return Platform.Cli;
-	if (tagName.indexOf('server') === 0) return Platform.Server;
-	if (tagName.indexOf('plugin-generator') === 0) return Platform.PluginGenerator;
+function platformFromTag(tagName) {
+	if (tagName.indexOf('v') === 0) return 'desktop';
+	if (tagName.indexOf('android') >= 0) return 'android';
+	if (tagName.indexOf('ios') >= 0) return 'ios';
+	if (tagName.indexOf('clipper') === 0) return 'clipper';
+	if (tagName.indexOf('cli') === 0) return 'cli';
+	if (tagName.indexOf('server') === 0) return 'server';
+	if (tagName.indexOf('plugin-generator') === 0) return 'plugin-generator';
 	throw new Error(`Could not determine platform from tag: "${tagName}"`);
 }
 
-function filterLogs(logs: LogEntry[], platform: Platform) {
+// function tagPrefixFromPlatform(platform) {
+// 	if (platform === 'desktop') return '';
+// 	if (platform === 'android') return 'android-';
+// 	if (platform === 'ios') return 'ios-';
+// 	if (platform === 'clipper') return 'clipper-';
+// 	if (platform === 'cli') return 'cli-';
+// 	throw new Error(`Could not determine tag prefix from platform: ${platform}`);
+// }
+
+function filterLogs(logs, platform) {
 	const output = [];
 	const revertedLogs = [];
 
@@ -141,7 +124,7 @@ function filterLogs(logs: LogEntry[], platform: Platform) {
 	return output;
 }
 
-function formatCommitMessage(commit: string, msg: string, author: Author, options: Options): string {
+function formatCommitMessage(commit, msg, author, options) {
 	options = Object.assign({}, { publishFormat: 'full' }, options);
 
 	let output = '';
@@ -150,8 +133,8 @@ function formatCommitMessage(commit: string, msg: string, author: Author, option
 
 	let subModule = '';
 
-	const isPlatformPrefix = (prefixString: string) => {
-		const prefix = prefixString.split(',').map(p => p.trim().toLowerCase());
+	const isPlatformPrefix = prefix => {
+		prefix = prefix.split(',').map(p => p.trim().toLowerCase());
 		for (const p of prefix) {
 			if (['android', 'mobile', 'ios', 'desktop', 'cli', 'clipper', 'all', 'api', 'plugins', 'server'].indexOf(p) >= 0) return true;
 		}
@@ -171,7 +154,7 @@ function formatCommitMessage(commit: string, msg: string, author: Author, option
 
 	output = output.split('\n')[0].trim();
 
-	const detectType = (msg: string) => {
+	const detectType = msg => {
 		msg = msg.trim().toLowerCase();
 
 		if (msg.indexOf('fix') === 0) return 'fixed';
@@ -183,7 +166,7 @@ function formatCommitMessage(commit: string, msg: string, author: Author, option
 		return 'improved';
 	};
 
-	const parseCommitMessage = (msg: string, subModule: string) => {
+	const parseCommitMessage = (msg, subModule) => {
 		const parts = msg.split(':');
 
 		if (parts.length === 1) {
@@ -219,14 +202,20 @@ function formatCommitMessage(commit: string, msg: string, author: Author, option
 		if (t.indexOf('improved') === 0) type = 'improved';
 		if (t.indexOf('security') === 0) type = 'security';
 
+		// if (t.indexOf('security') === 0) {
+		// 	type = 'security';
+		// 	parts.splice(0, 1);
+		// 	message = parts.join(':').trim();
+		// }
+
 		if (!type) {
 			type = detectType(message);
 			if (originalType.toLowerCase() === 'tinymce') originalType = 'WYSIWYG';
 			message = `${originalType}: ${message}`;
 		}
 
-		const issueNumberMatch = output.match(/#(\d+)/);
-		const issueNumber = issueNumberMatch && issueNumberMatch.length >= 2 ? issueNumberMatch[1] : null;
+		let issueNumber = output.match(/#(\d+)/);
+		issueNumber = issueNumber && issueNumber.length >= 2 ? issueNumber[1] : null;
 
 		return {
 			type: type,
@@ -282,7 +271,7 @@ function formatCommitMessage(commit: string, msg: string, author: Author, option
 	return escapeHtml(output);
 }
 
-function createChangeLog(logs: LogEntry[], options: Options) {
+function createChangeLog(logs, options) {
 	const output = [];
 
 	for (const log of logs) {
@@ -292,13 +281,35 @@ function createChangeLog(logs: LogEntry[], options: Options) {
 	return output;
 }
 
-function capitalizeFirstLetter(string: string) {
+function capitalizeFirstLetter(string) {
 	return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+// function decreaseTagVersion(tag) {
+// 	const s = tag.split('.');
+
+// 	let updated = false;
+
+// 	for (let tokenIndex = s.length - 1; tokenIndex >= 0; tokenIndex--) {
+// 		const token = s[tokenIndex];
+// 		const s2 = token.split('-');
+// 		let num = Number(s2[0]);
+// 		num--;
+// 		if (num >= 0) {
+// 			updated = true;
+// 			s[tokenIndex] = num;
+// 			break;
+// 		}
+// 	}
+
+// 	if (!updated) throw new Error(`Cannot decrease tag version: ${tag}`);
+
+// 	return s.join('.');
+// }
+
 // This function finds the first relevant tag starting from the given tag.
 // The first "relevant tag" is the one that exists, and from which there are changes.
-async function findFirstRelevantTag(baseTag: string, platform: Platform, allTags: string[]) {
+async function findFirstRelevantTag(baseTag, platform, allTags) {
 	let baseTagIndex = allTags.indexOf(baseTag);
 	if (baseTagIndex < 0) baseTagIndex = allTags.length;
 
@@ -338,8 +349,8 @@ async function main() {
 
 	const filteredLogs = filterLogs(logsSinceTags, platform);
 
-	let publishFormat: PublishFormat = PublishFormat.Full;
-	if (['android', 'ios'].indexOf(platform) >= 0) publishFormat = PublishFormat.Simple;
+	let publishFormat = 'full';
+	if (['android', 'ios'].indexOf(platform) >= 0) publishFormat = 'simple';
 	if (argv.publishFormat) publishFormat = argv.publishFormat;
 	let changelog = createChangeLog(filteredLogs, { publishFormat: publishFormat });
 

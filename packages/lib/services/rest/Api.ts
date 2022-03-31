@@ -9,7 +9,6 @@ import route_master_keys from './routes/master_keys';
 import route_search from './routes/search';
 import route_ping from './routes/ping';
 import route_auth from './routes/auth';
-import route_events from './routes/events';
 
 const { ltrimSlashes } = require('../../path-utils');
 const md5 = require('md5');
@@ -44,9 +43,6 @@ interface RequestQuery {
 
 	// Auth token
 	auth_token?: string;
-
-	// Event cursor
-	cursor?: string;
 }
 
 export interface Request {
@@ -108,7 +104,6 @@ export default class Api {
 			search: route_search,
 			services: this.action_services.bind(this),
 			auth: route_auth,
-			events: route_events,
 		};
 
 		this.dispatch = this.dispatch.bind(this);

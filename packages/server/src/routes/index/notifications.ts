@@ -4,7 +4,7 @@ import { RouteType } from '../../utils/types';
 import { AppContext } from '../../utils/types';
 import { bodyFields } from '../../utils/requestUtils';
 import { ErrorNotFound } from '../../utils/errors';
-import { Notification } from '../../services/database/types';
+import { Notification } from '../../db';
 
 const router = new Router(RouteType.Web);
 

@@ -20,6 +20,4 @@ export interface PluginManifest {
 	_publish_hash?: string;
 	_publish_commit?: string;
 	_npm_package_name?: string;
-	_obsolete?: boolean;
-	_recommended?: boolean;
 }

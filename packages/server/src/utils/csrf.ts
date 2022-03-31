@@ -1,4 +1,4 @@
-import { User } from '../services/database/types';
+import { User } from '../db';
 import { Models } from '../models/factory';
 import { ErrorForbidden } from './errors';
 import { escapeHtml } from './htmlUtils';

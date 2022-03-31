@@ -4,7 +4,7 @@ import { RouteType } from '../../utils/types';
 import { AppContext, HttpMethod } from '../../utils/types';
 import { bodyFields, contextSessionId, formParse } from '../../utils/requestUtils';
 import { ErrorForbidden, ErrorUnprocessableEntity } from '../../utils/errors';
-import { User, UserFlagType, userFlagTypeToLabel, Uuid } from '../../services/database/types';
+import { User, Uuid } from '../../db';
 import config from '../../config';
 import { View } from '../../services/MustacheService';
 import defaultView from '../../utils/defaultView';
@@ -141,12 +141,6 @@ router.get('users/:id', async (path: SubPath, ctx: AppContext, user: User = null
 		postUrl = `${config().baseUrl}/users/${user.id}`;
 	}
 
-	let userFlags: string[] = isNew ? null : (await models.userFlag().allByUserId(user.id)).map(f => {
-		return `${formatDateTime(f.created_time)}: ${userFlagTypeToLabel(f.type)}`;
-	});
-
-	if (!userFlags || !userFlags.length || !owner.is_admin) userFlags = null;
-
 	const subscription = !isNew ? await ctx.joplin.models.subscription().byUserId(userId) : null;
 
 	const view: View = defaultView('user', 'Profile');
@@ -174,8 +168,6 @@ router.get('users/:id', async (path: SubPath, ctx: AppContext, user: User = null
 	view.content.canSetEmail = isNew || owner.is_admin;
 	view.content.canShareFolderOptions = yesNoDefaultOptions(user, 'can_share_folder');
 	view.content.canUploadOptions = yesNoOptions(user, 'can_upload');
-	view.content.userFlags = userFlags;
-
 	view.jsFiles.push('zxcvbn');
 	view.cssFiles.push('index/user');
 
@@ -281,40 +273,40 @@ router.post('users', async (path: SubPath, ctx: AppContext) => {
 		if (userIsMe(path)) fields.id = userId;
 		user = makeUser(isNew, fields);
 
-		const models = ctx.joplin.models;
+		const userModel = ctx.joplin.models.user();
 
 		if (fields.post_button) {
-			const userToSave: User = models.user().fromApiInput(user);
-			await models.user().checkIfAllowed(ctx.joplin.owner, isNew ? AclAction.Create : AclAction.Update, userToSave);
+			const userToSave: User = userModel.fromApiInput(user);
+			await userModel.checkIfAllowed(ctx.joplin.owner, isNew ? AclAction.Create : AclAction.Update, userToSave);
 
 			if (isNew) {
-				await models.user().save(userToSave);
+				await userModel.save(userToSave);
 			} else {
-				await models.user().save(userToSave, { isNew: false });
+				await userModel.save(userToSave, { isNew: false });
 			}
 		} else if (fields.user_cancel_subscription_button) {
-			await cancelSubscriptionByUserId(models, userId);
+			await cancelSubscriptionByUserId(ctx.joplin.models, userId);
 			const sessionId = contextSessionId(ctx, false);
 			if (sessionId) {
-				await models.session().logout(sessionId);
+				await ctx.joplin.models.session().logout(sessionId);
 				return redirect(ctx, config().baseUrl);
 			}
 		} else {
 			if (ctx.joplin.owner.is_admin) {
 				if (fields.disable_button || fields.restore_button) {
-					const user = await models.user().load(path.id);
-					await models.user().checkIfAllowed(ctx.joplin.owner, AclAction.Delete, user);
-					await models.userFlag().toggle(user.id, UserFlagType.ManuallyDisabled, !fields.restore_button);
+					const user = await userModel.load(path.id);
+					await userModel.checkIfAllowed(ctx.joplin.owner, AclAction.Delete, user);
+					await userModel.enable(path.id, !!fields.restore_button);
 				} else if (fields.send_reset_password_email) {
-					const user = await models.user().load(path.id);
-					await models.user().save({ id: user.id, must_set_password: 1 });
-					await models.user().sendAccountConfirmationEmail(user);
+					const user = await userModel.load(path.id);
+					await userModel.save({ id: user.id, must_set_password: 1 });
+					await userModel.sendAccountConfirmationEmail(user);
 				} else if (fields.cancel_subscription_button) {
-					await cancelSubscriptionByUserId(models, userId);
+					await cancelSubscriptionByUserId(ctx.joplin.models, userId);
 				} else if (fields.update_subscription_basic_button) {
-					await updateSubscriptionType(models, userId, AccountType.Basic);
+					await updateSubscriptionType(ctx.joplin.models, userId, AccountType.Basic);
 				} else if (fields.update_subscription_pro_button) {
-					await updateSubscriptionType(models, userId, AccountType.Pro);
+					await updateSubscriptionType(ctx.joplin.models, userId, AccountType.Pro);
 				} else {
 					throw new Error('Invalid form button');
 				}

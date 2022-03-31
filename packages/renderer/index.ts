@@ -4,7 +4,6 @@ import HtmlToHtml from './HtmlToHtml';
 import utils from './utils';
 import setupLinkify from './MdToHtml/setupLinkify';
 import validateLinks from './MdToHtml/validateLinks';
-import headerAnchor from './headerAnchor';
 const assetsToHeaders = require('./assetsToHeaders');
 
 export {
@@ -14,7 +13,6 @@ export {
 	HtmlToHtml,
 	setupLinkify,
 	validateLinks,
-	headerAnchor,
 	assetsToHeaders,
 	utils,
 };

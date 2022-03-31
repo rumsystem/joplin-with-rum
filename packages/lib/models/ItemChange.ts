@@ -1,13 +1,7 @@
 import BaseModel, { ModelType } from '../BaseModel';
 import shim from '../shim';
 import eventManager from '../eventManager';
-import { ItemChangeEntity } from '../services/database/types';
 const Mutex = require('async-mutex').Mutex;
-
-export interface ChangeSinceIdOptions {
-	limit?: number;
-	fields?: string[];
-}
 
 export default class ItemChange extends BaseModel {
 
@@ -30,7 +24,7 @@ export default class ItemChange extends BaseModel {
 		return BaseModel.TYPE_ITEM_CHANGE;
 	}
 
-	public static async add(itemType: ModelType, itemId: string, type: number, changeSource: any = null, beforeChangeItemJson: string = null) {
+	static async add(itemType: ModelType, itemId: string, type: number, changeSource: any = null, beforeChangeItemJson: string = null) {
 		if (changeSource === null) changeSource = ItemChange.SOURCE_UNSPECIFIED;
 		if (!beforeChangeItemJson) beforeChangeItemJson = '';
 
@@ -63,14 +57,14 @@ export default class ItemChange extends BaseModel {
 		}
 	}
 
-	public static async lastChangeId() {
+	static async lastChangeId() {
 		const row = await this.db().selectOne('SELECT max(id) as max_id FROM item_changes');
 		return row && row.max_id ? row.max_id : 0;
 	}
 
 	// Because item changes are recorded in the background, this function
 	// can be used for synchronous code, in particular when unit testing.
-	public static async waitForAllSaved() {
+	static async waitForAllSaved() {
 		return new Promise((resolve) => {
 			const iid = shim.setInterval(() => {
 				if (!ItemChange.saveCalls_.length) {
@@ -81,32 +75,8 @@ export default class ItemChange extends BaseModel {
 		});
 	}
 
-	public static async deleteOldChanges(lowestChangeId: number, itemMinTtl: number) {
+	static async deleteOldChanges(lowestChangeId: number) {
 		if (!lowestChangeId) return;
-
-		const cutOffDate = Date.now() - itemMinTtl;
-
-		return this.db().exec(`
-			DELETE FROM item_changes
-			WHERE id <= ?
-			AND created_time <= ?
-		`, [lowestChangeId, cutOffDate]);
+		return this.db().exec('DELETE FROM item_changes WHERE id <= ?', [lowestChangeId]);
 	}
-
-	public static async changesSinceId(changeId: number, options: ChangeSinceIdOptions = null): Promise<ItemChangeEntity[]> {
-		options = {
-			limit: 100,
-			fields: ['id', 'item_type', 'item_id', 'type', 'created_time'],
-			...options,
-		};
-
-		return this.db().selectAll(`
-			SELECT ${this.db().escapeFieldsToString(options.fields)}
-			FROM item_changes
-			WHERE id > ?
-			ORDER BY id
-			LIMIT ?
-		`, [changeId, options.limit]);
-	}
-
 }

@@ -1,10 +1,8 @@
 import Setting from '../models/Setting';
 import ItemChange from '../models/ItemChange';
 
-const dayMs = 86400000;
-
 export default class ItemChangeUtils {
-	static async deleteProcessedChanges(itemMinTtl: number = dayMs * 90) {
+	static async deleteProcessedChanges() {
 		const lastProcessedChangeIds = [
 			Setting.value('resourceService.lastProcessedChangeId'),
 			Setting.value('searchEngine.lastProcessedChangeId'),
@@ -12,6 +10,6 @@ export default class ItemChangeUtils {
 		];
 
 		const lowestChangeId = Math.min(...lastProcessedChangeIds);
-		await ItemChange.deleteOldChanges(lowestChangeId, itemMinTtl);
+		await ItemChange.deleteOldChanges(lowestChangeId);
 	}
 }

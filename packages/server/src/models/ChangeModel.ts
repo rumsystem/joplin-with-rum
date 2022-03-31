@@ -1,6 +1,5 @@
 import { Knex } from 'knex';
-import { SqliteMaxVariableNum } from '../db';
-import { Change, ChangeType, Item, Uuid } from '../services/database/types';
+import { Change, ChangeType, Item, SqliteMaxVariableNum, Uuid } from '../db';
 import { md5 } from '../utils/crypto';
 import { ErrorResyncRequired } from '../utils/errors';
 import BaseModel, { SaveOptions } from './BaseModel';

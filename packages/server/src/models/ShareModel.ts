@@ -1,13 +1,12 @@
 import { ModelType } from '@joplin/lib/BaseModel';
 import { resourceBlobPath } from '../utils/joplinUtils';
-import { Change, ChangeType, Item, Share, ShareType, ShareUserStatus, User, Uuid } from '../services/database/types';
+import { Change, ChangeType, isUniqueConstraintError, Item, Share, ShareType, ShareUserStatus, User, Uuid } from '../db';
 import { unique } from '../utils/array';
 import { ErrorBadRequest, ErrorForbidden, ErrorNotFound } from '../utils/errors';
 import { setQueryParameters } from '../utils/urlUtils';
 import BaseModel, { AclAction, DeleteOptions, ValidateOptions } from './BaseModel';
 import { userIdFromUserContentUrl } from '../utils/routeUtils';
 import { getCanShareFolder } from './utils/user';
-import { isUniqueConstraintError } from '../db';
 
 export default class ShareModel extends BaseModel<Share> {
 

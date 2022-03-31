@@ -1,6 +1,5 @@
-import { DbConnection, connectDb, disconnectDb, truncateTables } from '../../db';
-import { User, Session, Item, Uuid } from '../../services/database/types';
-import { createDb, CreateDbOptions } from '../../tools/dbTools';
+import { User, Session, DbConnection, connectDb, disconnectDb, truncateTables, Item, Uuid } from '../../db';
+import { createDb } from '../../tools/dbTools';
 import modelFactory from '../../models/factory';
 import { AppContext, Env } from '../types';
 import config, { initConfig } from '../../config';
@@ -61,7 +60,7 @@ function initGlobalLogger() {
 }
 
 let createdDbPath_: string = null;
-export async function beforeAllDb(unitName: string, createDbOptions: CreateDbOptions = null) {
+export async function beforeAllDb(unitName: string) {
 	unitName = unitName.replace(/\//g, '_');
 
 	createdDbPath_ = `${packageRootDir}/db-test-${unitName}.sqlite`;
@@ -69,16 +68,14 @@ export async function beforeAllDb(unitName: string, createDbOptions: CreateDbOpt
 	const tempDir = `${packageRootDir}/temp/test-${unitName}`;
 	await fs.mkdirp(tempDir);
 
-	// Uncomment the code below to run the test units with Postgres. Run this:
-	//
-	// sudo docker compose -f docker-compose.db-dev.yml up
+	// Uncomment the code below to run the test units with Postgres. Run first
+	// `docker-compose -f docker-compose.db-dev.yml` to get a dev db.
 
 	// await initConfig(Env.Dev, {
 	// 	DB_CLIENT: 'pg',
 	// 	POSTGRES_DATABASE: unitName,
 	// 	POSTGRES_USER: 'joplin',
 	// 	POSTGRES_PASSWORD: 'joplin',
-	// 	SUPPORT_EMAIL: 'testing@localhost',
 	// }, {
 	// 	tempDir: tempDir,
 	// });
@@ -92,7 +89,7 @@ export async function beforeAllDb(unitName: string, createDbOptions: CreateDbOpt
 
 	initGlobalLogger();
 
-	await createDb(config().database, { dropIfExists: true, ...createDbOptions });
+	await createDb(config().database, { dropIfExists: true });
 	db_ = await connectDb(config().database);
 
 	const mustache = new MustacheService(config().viewDir, config().baseUrl);

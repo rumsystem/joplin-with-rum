@@ -1,4 +1,4 @@
-import { Item } from '../services/database/types';
+import { Item } from '../db';
 import { itemIsEncrypted } from './joplinUtils';
 import { expectThrow } from './testing/testUtils';
 

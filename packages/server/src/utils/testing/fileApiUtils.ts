@@ -8,7 +8,7 @@
 //   In that case, it returns the complete Koa context, which can be used in
 //   particular to access the response object and test for errors.
 
-import { File } from '../../services/database/types';
+import { File } from '../../db';
 import routeHandler from '../../middleware/routeHandler';
 import { PaginatedResults, Pagination, paginationToQueryParams } from '../../models/utils/pagination';
 import { AppContext } from '../types';

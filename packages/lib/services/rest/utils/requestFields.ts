@@ -11,18 +11,13 @@ function defaultFieldsByModelType(modelType: number): string[] {
 	return output;
 }
 
-export default function(request: Request, modelType: number, defaultFields: string[] = null) {
-	const getDefaults = () => {
-		if (defaultFields) return defaultFields;
-		return defaultFieldsByModelType(modelType);
-	};
-
+export default function(request: Request, modelType: number) {
 	const query = request.query;
-	if (!query || !query.fields) return getDefaults();
+	if (!query || !query.fields) return defaultFieldsByModelType(modelType);
 	if (Array.isArray(query.fields)) return query.fields.slice();
 	const fields = query.fields
 		.split(',')
 		.map((f: string) => f.trim())
 		.filter((f: string) => !!f);
-	return fields.length ? fields : getDefaults();
+	return fields.length ? fields : defaultFieldsByModelType(modelType);
 }

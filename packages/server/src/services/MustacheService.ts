@@ -1,13 +1,10 @@
 import * as Mustache from 'mustache';
 import * as fs from 'fs-extra';
-import { extname } from 'path';
 import config from '../config';
 import { filename } from '@joplin/lib/path-utils';
 import { NotificationView } from '../utils/types';
-import { User } from '../services/database/types';
+import { User } from '../db';
 import { makeUrl, UrlType } from '../utils/routeUtils';
-import MarkdownIt = require('markdown-it');
-import { headerAnchor } from '@joplin/renderer';
 
 export interface RenderOptions {
 	partials?: any;
@@ -40,7 +37,6 @@ interface GlobalParams {
 	showErrorStackTraces?: boolean;
 	userDisplayName?: string;
 	supportEmail?: string;
-	isJoplinCloud?: boolean;
 }
 
 export function isView(o: any): boolean {
@@ -54,7 +50,6 @@ export default class MustacheService {
 	private baseAssetUrl_: string;
 	private prefersDarkEnabled_: boolean = true;
 	private partials_: Record<string, string> = {};
-	private fileContentCache_: Record<string, string> = {};
 
 	public constructor(viewDir: string, baseAssetUrl: string) {
 		this.viewDir_ = viewDir;
@@ -97,35 +92,11 @@ export default class MustacheService {
 			termsUrl: config().termsEnabled ? makeUrl(UrlType.Terms) : '',
 			privacyUrl: config().termsEnabled ? makeUrl(UrlType.Privacy) : '',
 			showErrorStackTraces: config().showErrorStackTraces,
-			isJoplinCloud: config().isJoplinCloud,
 		};
 	}
 
-	private async viewFilePath(name: string): Promise<string> {
-		const pathsToTry = [
-			`${this.viewDir_}/${name}.mustache`,
-			`${this.viewDir_}/${name}.md`,
-		];
-
-		for (const p of pathsToTry) {
-			if (await fs.pathExists(p)) return p;
-		}
-
-		throw new Error(`Cannot find view file: ${name}`);
-	}
-
 	private async loadTemplateContent(path: string): Promise<string> {
-		if (this.fileContentCache_[path]) return this.fileContentCache_[path];
-
-		try {
-			const output = await fs.readFile(path, 'utf8');
-			this.fileContentCache_[path] = output;
-			return output;
-		} catch (error) {
-			// Shouldn't have to do this but node.fs error messages are useless
-			// so throw a new error to get a proper stack trace.
-			throw new Error(`Cannot load view ${path}: ${error.message}`);
-		}
+		return fs.readFile(path, 'utf8');
 	}
 
 	private resolvesFilePaths(type: string, paths: string[]): string[] {
@@ -143,38 +114,10 @@ export default class MustacheService {
 		return '';
 	}
 
-	private async renderFileContent(filePath: string, view: View, globalParams: GlobalParams = null): Promise<string> {
-		const ext = extname(filePath);
-
-		if (ext === '.mustache') {
-			return Mustache.render(
-				await this.loadTemplateContent(filePath),
-				{
-					...view.content,
-					global: globalParams,
-				},
-				this.partials_
-			);
-		} else if (ext === '.md') {
-			const markdownIt = new MarkdownIt({
-				linkify: true,
-			});
-
-			markdownIt.use(headerAnchor);
-
-			// Need to wrap in a `content` element so that default styles are
-			// applied to it.
-			// https://github.com/jgthms/bulma/issues/3232#issuecomment-909176563
-			return `<div class="content">${markdownIt.render(await this.loadTemplateContent(filePath))}</div>`;
-		}
-
-		throw new Error(`Unsupported view extension: ${ext}`);
-	}
-
 	public async renderView(view: View, globalParams: GlobalParams = null): Promise<string> {
 		const cssFiles = this.resolvesFilePaths('css', view.cssFiles || []);
 		const jsFiles = this.resolvesFilePaths('js', view.jsFiles || []);
-		const filePath = await this.viewFilePath(view.path);
+		const filePath = `${this.viewDir_}/${view.path}.mustache`;
 
 		globalParams = {
 			...this.defaultLayoutOptions,
@@ -182,7 +125,14 @@ export default class MustacheService {
 			userDisplayName: this.userDisplayName(globalParams ? globalParams.owner : null),
 		};
 
-		const contentHtml = await this.renderFileContent(filePath, view, globalParams);
+		const contentHtml = Mustache.render(
+			await this.loadTemplateContent(filePath),
+			{
+				...view.content,
+				global: globalParams,
+			},
+			this.partials_
+		);
 
 		const layoutView: any = {
 			global: globalParams,

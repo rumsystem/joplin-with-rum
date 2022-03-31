@@ -1,4 +1,4 @@
-import { User } from '../../services/database/types';
+import { User } from '../../db';
 import { bodyFields } from '../../utils/requestUtils';
 import { SubPath } from '../../utils/routeUtils';
 import Router from '../../utils/Router';

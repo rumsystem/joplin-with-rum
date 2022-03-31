@@ -1,4 +1,4 @@
-import { Share, ShareType } from '../../services/database/types';
+import { Share, ShareType } from '../../db';
 import routeHandler from '../../middleware/routeHandler';
 import { ErrorForbidden } from '../../utils/errors';
 import { postApi } from '../../utils/testing/apiUtils';
@@ -174,10 +174,7 @@ describe('shares.link', function() {
 			note_id: noteItem.jop_id,
 		});
 
-		await models().user().save({
-			id: user.id,
-			enabled: 0,
-		});
+		await models().user().disable(user.id);
 
 		await expectHttpError(async () => getShareContent(share.id), ErrorForbidden.httpCode);
 	});

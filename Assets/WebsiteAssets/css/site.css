@@ -29,7 +29,7 @@ ol, ul {
 #main-container {
 	position: relative;
 	min-height: 100vh;
-	padding-bottom: 127px; /* Needs to be the height of the footer */
+	padding-bottom: 225px;
 }
 
 .help-page-container img {
@@ -583,7 +583,7 @@ div.navbar-mobile-content a.sponsor-button {
 
 /* footer section  */
 footer {
-	padding-top: 30px;
+	padding-top: 50px;
 	padding-bottom: 30px;
 	position: absolute;
 	bottom: 0;
@@ -594,7 +594,6 @@ footer a,
 footer p {
 	color: #90b1d9;
 	text-decoration: none;
-	margin-bottom: 0;
 }
 
 footer a:hover {
@@ -616,35 +615,6 @@ footer .button-link {
 
 footer .right-links a {
 	margin-left: 15px;
-}
-
-footer .footer-right {
-	margin-left: 30px;
-}
-
-footer .social-links {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	padding-bottom: 20px;
-	border-bottom: 1px solid #315885;
-}
-
-footer .social-links a:hover {
-	color: #e8f3ff;
-}
-
-footer .social-links i {
-	margin-left: 15px;
-	font-size: 22px;
-}
-
-footer .bottom-links-row {
-	padding-top: 20px;
-}
-
-footer .bottom-links-row p {
-	font-size: 1.1em;
 }
 
 /*****************************************************************
@@ -709,7 +679,7 @@ footer .bottom-links-row p {
 	#main-container {
 		position: relative;
 		min-height: 100vh;
-		padding-bottom: 130px;
+		padding-bottom: 260px;
 	}
 
 	.front-page h1 {
@@ -896,7 +866,7 @@ footer .bottom-links-row p {
 
 .help-page-container {
 	padding-top: 90px;
-	padding-bottom: 70px;
+	padding-bottom: 50px;
 }
 
 .donate-links {

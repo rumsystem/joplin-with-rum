@@ -1,5 +1,5 @@
 import { isValidOrigin, parseSubPath, splitItemPath } from './routeUtils';
-import { ItemAddressingType } from '../services/database/types';
+import { ItemAddressingType } from '../db';
 import { RouteType } from './types';
 
 describe('routeUtils', function() {
