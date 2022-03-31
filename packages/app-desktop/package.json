@@ -11,8 +11,7 @@
     "tsc": "node node_modules/typescript/bin/tsc --project tsconfig.json",
     "watch": "node node_modules/typescript/bin/tsc --watch --project tsconfig.json",
     "start": "gulp build && electron . --env dev --log-level debug --no-welcome --open-dev-tools",
-    "test": "jest",
-    "test-ci": "test"
+    "test": "jest"
   },
   "repository": {
     "type": "git",

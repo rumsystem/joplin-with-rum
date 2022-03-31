@@ -9,14 +9,13 @@ const Folder = require('@joplin/lib/models/Folder.js');
 const Note = require('@joplin/lib/models/Note.js');
 const BaseModel = require('@joplin/lib/BaseModel').default;
 const shim = require('@joplin/lib/shim').default;
-const HtmlToHtml = require('@joplin/renderer/HtmlToHtml');
 const { enexXmlToMd } = require('@joplin/lib/import-enex-md-gen.js');
 
 process.on('unhandledRejection', (reason, p) => {
 	console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
 });
 
-describe('HtmlToHtml', function() {
+describe('EnexToMd', function() {
 
 	beforeEach(async (done) => {
 		await setupDatabaseAndSynchronizer(1);
@@ -24,44 +23,36 @@ describe('HtmlToHtml', function() {
 		done();
 	});
 
-	it('should convert from Html to Html', asyncTest(async () => {
-		const basePath = `${__dirname}/html_to_html`;
+	it('should convert from Enex to Markdown', asyncTest(async () => {
+		const basePath = `${__dirname}/enex_to_md`;
 		const files = await shim.fsDriver().readDirStats(basePath);
-		const htmlToHtml = new HtmlToHtml();
 
 		for (let i = 0; i < files.length; i++) {
-			const htmlSourceFilename = files[i].path;
-			if (htmlSourceFilename.indexOf('.src.html') < 0) continue;
+			const htmlFilename = files[i].path;
+			if (htmlFilename.indexOf('.html') < 0) continue;
 
-			const htmlSourceFilePath = `${basePath}/${htmlSourceFilename}`;
-			const htmlDestPath = `${basePath}/${filename(filename(htmlSourceFilePath))}.dest.html`;
+			const htmlPath = `${basePath}/${htmlFilename}`;
+			const mdPath = `${basePath}/${filename(htmlFilename)}.md`;
 
-			// if (htmlSourceFilename !== 'table_with_header.html') continue;
+			// if (htmlFilename !== 'multiline_inner_text.html') continue;
 
-			const htmlToHtmlOptions = {
-				bodyOnly: true,
-			};
+			const html = await shim.fsDriver().readFile(htmlPath);
+			let expectedMd = await shim.fsDriver().readFile(mdPath);
 
-			const sourceHtml = await shim.fsDriver().readFile(htmlSourceFilePath);
-			let expectedHtml = await shim.fsDriver().readFile(htmlDestPath);
-
-			const result = await htmlToHtml.render(sourceHtml, null, htmlToHtmlOptions);
-			let actualHtml = result.html;
+			let actualMd = await enexXmlToMd(`<div>${html}</div>`, []);
 
 			if (os.EOL === '\r\n') {
-				expectedHtml = expectedHtml.replace(/\r\n/g, '\n');
-				actualHtml = actualHtml.replace(/\r\n/g, '\n');
+				expectedMd = expectedMd.replace(/\r\n/g, '\n');
+				actualMd = actualMd.replace(/\r\n/g, '\n');
 			}
 
-			if (actualHtml !== expectedHtml) {
+			if (actualMd !== expectedMd) {
 				console.info('');
-				console.info(`Error converting file: ${htmlSourceFilename}`);
+				console.info(`Error converting file: ${htmlFilename}`);
 				console.info('--------------------------------- Got:');
-				console.info(actualHtml);
-				console.info('--------------------------------- Raw:');
-				console.info(actualHtml.split('\n'));
+				console.info(actualMd.split('\n'));
 				console.info('--------------------------------- Expected:');
-				console.info(expectedHtml.split('\n'));
+				console.info(expectedMd.split('\n'));
 				console.info('--------------------------------------------');
 				console.info('');
 

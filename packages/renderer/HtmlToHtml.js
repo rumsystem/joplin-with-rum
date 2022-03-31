@@ -1,6 +1,6 @@
-import htmlUtils from './htmlUtils';
-import linkReplacement from './MdToHtml/linkReplacement';
-import utils from './utils';
+const htmlUtils = require('./htmlUtils');
+const utils = require('./utils');
+// const noteStyle = require('./noteStyle').default;
 
 // TODO: fix
 // const Setting = require('@joplin/lib/models/Setting').default;
@@ -13,45 +13,9 @@ const md5 = require('md5');
 // relatively small.
 const inMemoryCache = new InMemoryCache(10);
 
-interface FsDriver {
-	writeFile: Function;
-	exists: Function;
-	cacheCssToFile: Function;
-}
-
-interface Options {
-	ResourceModel: any;
-	resourceBaseUrl?: string;
-	fsDriver?: FsDriver;
-}
-
-interface RenderOptions {
-	splitted: boolean;
-	bodyOnly: boolean;
-	externalAssetsOnly: boolean;
-	resources: any;
-	postMessageSyntax: string;
-	enableLongPress: boolean;
-}
-
-interface RenderResult {
-	html: string;
-	pluginAssets: any[];
-}
-
-export default class HtmlToHtml {
-
-	private resourceBaseUrl_;
-	private ResourceModel_;
-	private cache_;
-	private fsDriver_: any;
-
-	constructor(options: Options = null) {
-		options = {
-			ResourceModel: null,
-			...options,
-		};
-
+class HtmlToHtml {
+	constructor(options) {
+		if (!options) options = {};
 		this.resourceBaseUrl_ = 'resourceBaseUrl' in options ? options.resourceBaseUrl : null;
 		this.ResourceModel_ = options.ResourceModel;
 		this.cache_ = inMemoryCache;
@@ -72,7 +36,7 @@ export default class HtmlToHtml {
 		return this.fsDriver_;
 	}
 
-	splitHtml(html: string) {
+	splitHtml(html) {
 		const trimmedHtml = html.trimStart();
 		if (trimmedHtml.indexOf('<style>') !== 0) return { html: html, css: '' };
 
@@ -85,20 +49,17 @@ export default class HtmlToHtml {
 		};
 	}
 
-	async allAssets(/* theme*/): Promise<any[]> {
+	async allAssets(/* theme*/) {
 		return []; // TODO
 	}
 
 	// Note: the "theme" variable is ignored and instead the light theme is
 	// always used for HTML notes.
 	// See: https://github.com/laurent22/joplin/issues/3698
-	async render(markup: string, _theme: any, options: RenderOptions): Promise<RenderResult> {
-		options = {
+	async render(markup, _theme, options) {
+		options = Object.assign({}, {
 			splitted: false,
-			postMessageSyntax: 'postMessage',
-			enableLongPress: false,
-			...options,
-		};
+		}, options);
 
 		const cacheKey = md5(escape(markup));
 		let html = this.cache_.value(cacheKey);
@@ -106,7 +67,7 @@ export default class HtmlToHtml {
 		if (!html) {
 			html = htmlUtils.sanitizeHtml(markup);
 
-			html = htmlUtils.processImageTags(html, (data: any) => {
+			html = htmlUtils.processImageTags(html, data => {
 				if (!data.src) return null;
 
 				const r = utils.imageReplacement(this.ResourceModel_, data.src, options.resources, this.resourceBaseUrl_);
@@ -124,24 +85,6 @@ export default class HtmlToHtml {
 					};
 				}
 			});
-
-			html = htmlUtils.processAnchorTags(html, (data: any) => {
-				if (!data.href) return null;
-
-				const r = linkReplacement(data.href, {
-					resources: options.resources,
-					ResourceModel: this.ResourceModel_,
-					postMessageSyntax: options.postMessageSyntax,
-					enableLongPress: options.enableLongPress,
-				});
-
-				if (!r) return null;
-
-				return {
-					type: 'replaceElement',
-					html: r,
-				};
-			});
 		}
 
 		this.cache_.setValue(cacheKey, html, 1000 * 60 * 10);
@@ -155,13 +98,13 @@ export default class HtmlToHtml {
 
 		// const lightTheme = themeStyle(Setting.THEME_LIGHT);
 		// let cssStrings = noteStyle(lightTheme);
-		let cssStrings: string[] = [];
+		let cssStrings = [];
 
 		if (options.splitted) {
 			const splitted = this.splitHtml(html);
 			cssStrings = [splitted.css].concat(cssStrings);
 
-			const output: RenderResult = {
+			const output = {
 				html: splitted.html,
 				pluginAssets: [],
 			};
@@ -181,3 +124,5 @@ export default class HtmlToHtml {
 		};
 	}
 }
+
+module.exports = HtmlToHtml;

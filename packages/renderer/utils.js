@@ -9,9 +9,9 @@ const FetchStatuses = {
 	FETCH_STATUS_ERROR: 3,
 };
 
-const utils: any = {};
+const utils = {};
 
-utils.getAttr = function(attrs: string[], name: string, defaultValue: string = null) {
+utils.getAttr = function(attrs, name, defaultValue = null) {
 	for (let i = 0; i < attrs.length; i++) {
 		if (attrs[i][0] === name) return attrs[i].length > 1 ? attrs[i][1] : null;
 	}
@@ -63,12 +63,12 @@ utils.loaderImage = function() {
 	`;
 };
 
-utils.resourceStatusImage = function(status: string) {
+utils.resourceStatusImage = function(status) {
 	if (status === 'notDownloaded') return utils.notDownloadedResource();
 	return utils.resourceStatusFile(status);
 };
 
-utils.resourceStatusFile = function(status: string) {
+utils.resourceStatusFile = function(status) {
 	if (status === 'notDownloaded') return utils.notDownloadedResource();
 	if (status === 'downloading') return utils.loaderImage();
 	if (status === 'encrypted') return utils.loaderImage();
@@ -77,7 +77,7 @@ utils.resourceStatusFile = function(status: string) {
 	throw new Error(`Unknown status: ${status}`);
 };
 
-utils.resourceStatusIndex = function(status: string) {
+utils.resourceStatusIndex = function(status) {
 	if (status === 'error') return -1;
 	if (status === 'notDownloaded') return 0;
 	if (status === 'downloading') return 1;
@@ -87,7 +87,7 @@ utils.resourceStatusIndex = function(status: string) {
 	throw new Error(`Unknown status: ${status}`);
 };
 
-utils.resourceStatusName = function(index: number) {
+utils.resourceStatusName = function(index) {
 	if (index === -1) return 'error';
 	if (index === 0) return 'notDownloaded';
 	if (index === 1) return 'downloading';
@@ -97,7 +97,7 @@ utils.resourceStatusName = function(index: number) {
 	throw new Error(`Unknown index: ${index}`);
 };
 
-utils.resourceStatus = function(ResourceModel: any, resourceInfo: any) {
+utils.resourceStatus = function(ResourceModel, resourceInfo) {
 	if (!ResourceModel) return 'ready';
 
 	let resourceStatus = 'ready';
@@ -122,7 +122,7 @@ utils.resourceStatus = function(ResourceModel: any, resourceInfo: any) {
 	return resourceStatus;
 };
 
-utils.imageReplacement = function(ResourceModel: any, src: string, resources: any, resourceBaseUrl: string) {
+utils.imageReplacement = function(ResourceModel, src, resources, resourceBaseUrl) {
 	if (!ResourceModel || !resources) return null;
 
 	if (!ResourceModel.isResourceUrl(src)) return null;
@@ -151,8 +151,4 @@ utils.imageReplacement = function(ResourceModel: any, src: string, resources: an
 	return null;
 };
 
-// Used in mobile app when enableLongPress = true. Tells for how long
-// the resource should be pressed before the menu is shown.
-utils.longPressDelay = 500;
-
-export default utils;
+module.exports = utils;

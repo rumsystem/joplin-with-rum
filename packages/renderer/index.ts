@@ -1,9 +1,9 @@
 import MarkupToHtml, { MarkupLanguage } from './MarkupToHtml';
 import MdToHtml from './MdToHtml';
-import HtmlToHtml from './HtmlToHtml';
-import utils from './utils';
+const HtmlToHtml = require('./HtmlToHtml');
 const setupLinkify = require('./MdToHtml/setupLinkify');
 const assetsToHeaders = require('./assetsToHeaders');
+const utils = require('./utils');
 
 export {
 	MarkupToHtml,
