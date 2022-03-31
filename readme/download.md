@@ -3,7 +3,7 @@
 <div class="intro">
 Thank you for downloading the Joplin desktop app!
 
-If your download didn't start, <a href="#" class="download-click-here">click here</a>.
+If you download didn't start, <a href="#" class="download-click-here">click here</a>.
 
 </div>
 
