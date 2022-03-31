@@ -463,13 +463,14 @@ class ConfigScreenComponent extends BaseScreenComponent {
 		return output;
 	}
 
-	private renderFeatureFlags(settings: any, featureFlagKeys: string[]): any[] {
+	private renderFeatureFlags(settings: any): any[] {
 		const updateSettingValue = (key: string, value: any) => {
+			console.info('UPDATE', key, value);
 			return shared.updateSettingValue(this, key, value);
 		};
 
 		const output: any[] = [];
-		for (const key of featureFlagKeys) {
+		for (const key of Setting.featureFlagKeys(AppType.Mobile)) {
 			output.push(this.renderToggle(key, key, settings[key], updateSettingValue));
 		}
 		return output;
@@ -507,11 +508,8 @@ class ConfigScreenComponent extends BaseScreenComponent {
 			}
 		}
 
-		const featureFlagKeys = Setting.featureFlagKeys(AppType.Mobile);
-		if (featureFlagKeys.length) {
-			settingComps.push(this.renderHeader('featureFlags', _('Feature flags')));
-			settingComps.push(<View key="featureFlagsContainer">{this.renderFeatureFlags(settings, featureFlagKeys)}</View>);
-		}
+		settingComps.push(this.renderHeader('featureFlags', _('Feature flags')));
+		settingComps.push(<View key="featureFlagsContainer">{this.renderFeatureFlags(settings)}</View>);
 
 		settingComps.push(this.renderHeader('moreInfo', _('More information')));
 
