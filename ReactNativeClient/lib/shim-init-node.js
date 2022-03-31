@@ -224,7 +224,7 @@ function shimInit() {
 
 		const requestOptions = {
 			protocol: url.protocol,
-			host: url.host,
+			host: url.hostname,
 			port: url.port,
 			method: method,
 			path: url.path + (url.query ? '?' + url.query : ''),
@@ -233,9 +233,29 @@ function shimInit() {
 
 		const doFetchOperation = async () => {
 			return new Promise((resolve, reject) => {
+				let file = null;
+
+				const cleanUpOnError = (error) => {
+					// We ignore any unlink error as we only want to report on the main error
+					fs.unlink(filePath).catch(() => {}).then(() => {
+						if (file) {
+							file.close(() => {
+								file = null;
+								reject(error);
+							});
+						} else {
+							reject(error);
+						}						
+					});
+				}
+
 				try {
 					// Note: relative paths aren't supported
-					const file = fs.createWriteStream(filePath);
+					file = fs.createWriteStream(filePath);
+
+					file.on('error', function(error) {
+						cleanUpOnError(error);
+					});
 
 					const request = http.request(requestOptions, function(response) {
 						response.pipe(file);
@@ -248,14 +268,12 @@ function shimInit() {
 					})
 
 					request.on('error', function(error) {
-						fs.unlink(filePath);
-						reject(error);
+						cleanUpOnError(error);
 					});
 
 					request.end();
-				} catch(error) {
-					fs.unlink(filePath);
-					reject(error);
+				} catch (error) {
+					cleanUpOnError(error);
 				}
 			});
 		};
