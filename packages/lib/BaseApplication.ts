@@ -833,6 +833,8 @@ export default class BaseApplication {
 					const QuorumClient = new QuorumSDK();
 					await QuorumClient.up();
 					console.log('Quorum client started !');
+					console.log(QuorumClient);
+					window.QuorumClient = QuorumClient;
 					const groups = await QuorumClient.Group.list() || [];
 					if (groups.length > 0) {
 						Setting.setValue('sync.11.group', groups[0]);
@@ -846,7 +848,7 @@ export default class BaseApplication {
 						Setting.setValue('sync.11.group', group);
 					}
 					console.log(Setting.value('sync.11.group'));
-				} catch(e) {
+				} catch (e) {
 					console.log(e);
 				}
 			})();

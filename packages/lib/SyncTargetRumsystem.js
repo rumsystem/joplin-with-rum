@@ -18,6 +18,10 @@ class SyncTargetRumsystem extends BaseSyncTarget {
 		return _('Rum system');
 	}
 
+	static unsupportedPlatforms() {
+		return ['ios'];
+	}
+
 	async isAuthenticated() {
 		return true;
 	}

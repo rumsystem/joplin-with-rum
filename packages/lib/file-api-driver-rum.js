@@ -1,7 +1,5 @@
 const { basicDelta } = require('./file-api');
 const Setting = require('./models/Setting').default;
-const QuorumSDK = require('quorum-sdk-electron-renderer').default;
-const QuorumClient = new QuorumSDK();
 
 class FileApiDriverRum {
 	fsErrorToJsError_(error, path = null) {
@@ -17,12 +15,12 @@ class FileApiDriverRum {
 		return FileApiDriverRum.fsDriver_;
 	}
 
-	isTempFile(path) {
+	isLocalFile(path) {
 		if (/^\.resource.*$/.test(path) || /^\.sync.*$/.test(path) || /^\.lock.*$/.test(path) || /^temp.*$/.test(path) || /^locks.*$/.test(path)) return true;
 		return false;
 	}
 
-	tempFileFullPath(path) {
+	localFileFullPath(path) {
 		const output = [];
 		const syncPath = Setting.value('sync.11.path');
 		if (syncPath) output.push(syncPath);
@@ -30,24 +28,46 @@ class FileApiDriverRum {
 		return output.join('/');
 	}
 
+	// done
 	async stat(path) {
-    console.log('test stat');
+		console.log('test stat');
 		console.log(path);
-		console.log(this.isTempFile(path));
-		path = this.tempFileFullPath(path);
+		console.log(this.isLocalFile(path));
 		try {
-			const s = await QuorumClient.Object.get(path);
-      console.log(s);
+			const QuorumClient = window.QuorumClient;
+			let object = await QuorumClient.Object.get(path);
+			console.log(object);
+			object = this.remotePrefixPath_(this.metadataFromObject_(object), path);
+			console.log(object);
 		} catch (error) {
 			console.log(error);
 		}
 		try {
+		  path = this.localFileFullPath(path);
 			const s = await this.fsDriver().stat(path);
-      console.log(s);
+			console.log(s);
 			if (!s) return null;
 			return this.metadataFromStat_(s);
 		} catch (error) {
 			throw this.fsErrorToJsError_(error);
+		}
+	}
+
+	metadataFromObject_(object) {
+		return {
+			path: object.Content.id,
+			// created_time: ,
+			updated_time: object.TimeStamp / 1000000,
+			isDir: false,
+		};
+	}
+
+	remotePrefixPath_(meta, path) {
+		const reg = new RegExp('^' + path);
+		return {
+			path: meta.path.replace(reg, '').replace(/^\//, ''),
+			updated_time: meta.updated_time,
+			isDir: meta.isDir,
 		}
 	}
 
@@ -69,52 +89,62 @@ class FileApiDriverRum {
 		return output;
 	}
 
+	// done
 	async setTimestamp(path, timestampMs) {
-		path = this.tempFileFullPath(path);
-		try {
-			await this.fsDriver().setTimestamp(path, new Date(timestampMs));
-		} catch (error) {
-			throw this.fsErrorToJsError_(error);
+		if (this.isLocalFile(path)) {
+			path = this.localFileFullPath(path);
+			try {
+				await this.fsDriver().setTimestamp(path, new Date(timestampMs));
+			} catch (error) {
+				throw this.fsErrorToJsError_(error);
+			}
 		}
+		throw new Error('Not implemented'); // Not needed anymore
 	}
 
+	// done
 	async delta(path, options) {
 		console.log('test delta');
 		console.log(path);
-		console.log(this.isTempFile(path));
-		path = this.tempFileFullPath(path);
-		try {
-			const stats = await QuorumClient.Object.list();
-			console.log(stats);
-		} catch (error) {
-		}
-		const getStatFn = async path => {
-			const stats = await this.fsDriver().readDirStats(path);
-			return this.metadataFromStats_(stats);
+		console.log(this.isLocalFile(path));
+
+		const getDirStats = async path => {
+			const result = await this.list(path);
+			return result.items;
 		};
 
-		try {
-			const output = await basicDelta(path, getStatFn, options);
-			return output;
-		} catch (error) {
-			throw this.fsErrorToJsError_(error, path);
-		}
+		return await basicDelta(path, getDirStats, options);
 	}
 
+
+	// done
 	async list(path) {
 		console.log('test list');
 		console.log(path);
-		console.log(this.isTempFile(path));
-		path = this.tempFileFullPath(path);
+		console.log(this.isLocalFile(path));
 		try {
-			const stats = await QuorumClient.Object.list();
-			console.log(stats);
+			const QuorumClient = window.QuorumClient;
+			let objects = await QuorumClient.Object.list();
+			if (path) {
+				const reg = new RegExp('^' + path);
+				objects = objects.filter(object => reg.test(object.Content.id));
+			  console.log(objects);
+				objects = objects.map(this.metadataFromObject_).map(object => this.remotePrefixPath_(object, path));
+				console.log(objects);
+			} else {
+			  console.log(objects);
+				objects = objects.map(this.metadataFromObject_);
+				console.log(objects);
+			}
 		} catch (error) {
+			console.log(error);
 		}
 		try {
+		  path = this.localFileFullPath(path);
 			const stats = await this.fsDriver().readDirStats(path);
 			console.log(stats);
 			const output = this.metadataFromStats_(stats);
+			console.log(output);
 
 			return {
 				items: output,
@@ -126,168 +156,253 @@ class FileApiDriverRum {
 		}
 	}
 
+	// done
 	async get(path, options) {
 		console.log('test get');
 		console.log(path);
-		console.log(this.isTempFile(path));
-		path = this.tempFileFullPath(path);
-		try {
-			const stats = await QuorumClient.Object.get(path);
-			console.log(stats);
-		} catch (error) {
-		}
-
-		let output = null;
-
-		try {
-			if (options.target === 'file') {
-				// output = await fs.copy(path, options.path, { overwrite: true });
-				output = await this.fsDriver().copy(path, options.path);
-			} else {
-				// output = await fs.readFile(path, options.encoding);
-				output = await this.fsDriver().readFile(path, options.encoding);
+		console.log(this.isLocalFile(path));
+		if (this.isLocalFile(path)) {
+			let output = null;
+			try {
+				const QuorumClient = window.QuorumClient;
+				const object = await QuorumClient.Object.get(path);
+				output = object?.Content?.content || null;
+				console.log(output);
+				if (options.target === 'file') {
+				  await this.fsDriver().writeFile(options.path, output, 'utf8');
+				}
+			} catch (error) {
+				console.log(error);
 			}
-		} catch (error) {
-			if (error.code == 'ENOENT') return null;
-			throw this.fsErrorToJsError_(error, path);
-		}
 
-		return output;
+			path = this.localFileFullPath(path);
+
+			try {
+				if (options.target === 'file') {
+					// output = await fs.copy(path, options.path, { overwrite: true });
+					output = await this.fsDriver().copy(path, options.path);
+				} else {
+					// output = await fs.readFile(path, options.encoding);
+					output = await this.fsDriver().readFile(path, options.encoding);
+				}
+				console.log(output);
+			} catch (error) {
+				if (error.code == 'ENOENT') return null;
+				throw this.fsErrorToJsError_(error, path);
+			}
+
+			return output;
+		} else {
+			let output = null;
+			try {
+				const QuorumClient = window.QuorumClient;
+				const object = await QuorumClient.Object.get(path);
+				output = object?.Content?.content || null;
+				console.log(output);
+				if (options.target === 'file') {
+				  await this.fsDriver().writeFile(options.path, output, 'utf8');
+				}
+			} catch (error) {
+				console.log(error);
+			}
+
+			path = this.localFileFullPath(path);
+
+			try {
+				if (options.target === 'file') {
+					// output = await fs.copy(path, options.path, { overwrite: true });
+					output = await this.fsDriver().copy(path, options.path);
+				} else {
+					// output = await fs.readFile(path, options.encoding);
+					output = await this.fsDriver().readFile(path, options.encoding);
+				}
+			  console.log(output);
+			} catch (error) {
+				if (error.code == 'ENOENT') return null;
+				throw this.fsErrorToJsError_(error, path);
+			}
+
+			return output;
+
+		}
 	}
 
+	// done
 	async mkdir(path) {
-		path = this.tempFileFullPath(path);
-		if (await this.fsDriver().exists(path)) return;
+		console.log('test mkdir');
+		console.log(path);
+		if (this.isLocalFile(path)) {
+			path = this.localFileFullPath(path);
+			if (await this.fsDriver().exists(path)) return;
 
-		try {
-			await this.fsDriver().mkdir(path);
-		} catch (error) {
-			throw this.fsErrorToJsError_(error, path);
+			try {
+				await this.fsDriver().mkdir(path);
+			} catch (error) {
+				throw this.fsErrorToJsError_(error, path);
+			}
 		}
-
-		// return new Promise((resolve, reject) => {
-		// 	fs.exists(path, (exists) => {
-		// 		if (exists) {
-		// 			resolve();
-		// 			return;
-		// 		}
-
-		// 		fs.mkdirp(path, (error) => {
-		// 			if (error) {
-		// 				reject(this.fsErrorToJsError_(error));
-		// 			} else {
-		// 				resolve();
-		// 			}
-		// 		});
-		// 	});
-		// });
+		return true;
 	}
 
+	// done
 	async put(path, content, options = null) {
 		console.log('test put');
 		console.log(path);
-		console.log(this.isTempFile(path));
-		const keyPath = path;
-		path = this.tempFileFullPath(path);
 		if (!options) options = {};
-
-		try {
-			if (options.source === 'file') {
-				await this.fsDriver().copy(options.path, path);
-				return;
-			}
-
-			console.log(content);
-			await this.fsDriver().writeFile(path, content, 'utf8');
+		if (this.isLocalFile(path)) {
+			const keyPath = path;
+			path = this.localFileFullPath(path);
 			try {
-				const group = Setting.value('sync.11.group');
-				const object = await QuorumClient.Object.put(group.user_pubkey, {
-					type: 'Add',
-					object: {
-						id: keyPath,
-						type: 'Note',
-						content: content,
-					},
-					target: {
-						id: group.group_id,
-						type: 'Group',
-					},
-				});
-				console.log(object);
+				if (options.source === 'file') {
+					await this.fsDriver().copy(options.path, path);
+					try {
+						const content = await this.fsDriver().readFile(options.path);
+						const QuorumClient = window.QuorumClient;
+						const group = Setting.value('sync.11.group');
+						const object = await QuorumClient.Object.put(group.user_pubkey, {
+							type: 'Add',
+							object: {
+								id: keyPath,
+								type: 'Note',
+								content: content,
+							},
+							target: {
+								id: group.group_id,
+								type: 'Group',
+							},
+						});
+					} catch (error) {}
+					return;
+				}
+
+				await this.fsDriver().writeFile(path, content, 'utf8');
+
+				try {
+					const QuorumClient = window.QuorumClient;
+					const group = Setting.value('sync.11.group');
+					const object = await QuorumClient.Object.put(group.user_pubkey, {
+						type: 'Add',
+						object: {
+							id: keyPath,
+							type: 'Note',
+							content: content,
+						},
+						target: {
+							id: group.group_id,
+							type: 'Group',
+						},
+					});
+				} catch (error) {}
 			} catch (error) {
+				throw this.fsErrorToJsError_(error, path);
 			}
-		} catch (error) {
-			throw this.fsErrorToJsError_(error, path);
+		} else {
+			const keyPath = path;
+			path = this.localFileFullPath(path);
+			try {
+				if (options.source === 'file') {
+					await this.fsDriver().copy(options.path, path);
+					try {
+						const content = await this.fsDriver().readFile(options.path);
+						const QuorumClient = window.QuorumClient;
+						const group = Setting.value('sync.11.group');
+						const object = await QuorumClient.Object.put(group.user_pubkey, {
+							type: 'Add',
+							object: {
+								id: keyPath,
+								type: 'Note',
+								content: content,
+							},
+							target: {
+								id: group.group_id,
+								type: 'Group',
+							},
+						});
+					} catch (error) {}
+					return;
+				}
+
+				await this.fsDriver().writeFile(path, content, 'utf8');
+
+				try {
+					const QuorumClient = window.QuorumClient;
+					const group = Setting.value('sync.11.group');
+					const object = await QuorumClient.Object.put(group.user_pubkey, {
+						type: 'Add',
+						object: {
+							id: keyPath,
+							type: 'Note',
+							content: content,
+						},
+						target: {
+							id: group.group_id,
+							type: 'Group',
+						},
+					});
+				} catch (error) {}
+			} catch (error) {
+				throw this.fsErrorToJsError_(error, path);
+			}
 		}
-
-		// if (!options) options = {};
-
-		// if (options.source === 'file') content = await fs.readFile(options.path);
-
-		// return new Promise((resolve, reject) => {
-		// 	fs.writeFile(path, content, function(error) {
-		// 		if (error) {
-		// 			reject(this.fsErrorToJsError_(error));
-		// 		} else {
-		// 			resolve();
-		// 		}
-		// 	});
-		// });
 	}
 
+	// done
 	async delete(path) {
 		console.log('test delete');
 		console.log(path);
-		console.log(this.isTempFile(path));
+		console.log(this.isLocalFile(path));
 		try {
-			await QuorumClient.Object.delete(Setting.value('sync.11.group_id'), path);
+			const QuorumClient = window.QuorumClient;
+			await QuorumClient.Object.delete(Setting.value('sync.11.group').group_id, path);
 		} catch (error) {
+			console.log(error);
 		}
 		try {
+		  path = this.localFileFullPath(path);
 			await this.fsDriver().unlink(path);
 		} catch (error) {
 			throw this.fsErrorToJsError_(error, path);
 		}
 	}
 
+	// done
 	async move(oldPath, newPath) {
-		oldPath = this.tempFileFullPath(oldPath);
-		newPath = this.tempFileFullPath(newPath);
+		console.log('test move');
+		console.log(oldPath, newPath);
+		if (oldPath === newPath) return;
 		try {
-			await this.fsDriver().move(oldPath, newPath);
-		} catch (error) {
-			throw this.fsErrorToJsError_(error, oldPath);
-		}
-
-		// let lastError = null;
-
-		// for (let i = 0; i < 5; i++) {
-		// 	try {
-		// 		let output = await fs.move(oldPath, newPath, { overwrite: true });
-		// 		return output;
-		// 	} catch (error) {
-		// 		lastError = error;
-		// 		// Normally cannot happen with the `overwrite` flag but sometime it still does.
-		// 		// In this case, retry.
-		// 		if (error.code == 'EEXIST') {
-		// 			await time.sleep(1);
-		// 			continue;
-		// 		}
-		// 		throw this.fsErrorToJsError_(error);
-		// 	}
-		// }
-
-		// throw lastError;
+			const content = await this.get(oldPath);
+			await this.put(newPath, content);
+			await this.delete(oldPath);
+		} catch {}
 	}
 
+	// done
 	format() {
 		throw new Error('Not supported');
 	}
 
+	// done
 	async clearRoot(baseDir) {
-		baseDir = this.tempFileFullPath(baseDir);
+		baseDir = this.localFileFullPath(baseDir);
+		console.log('test clearRoot');
+		console.log(baseDir);
 		await this.fsDriver().remove(baseDir);
 		await this.fsDriver().mkdir(baseDir);
+		try {
+			const QuorumClient = window.QuorumClient;
+			const { group_id } = Setting.value('sync.11.group');
+			const objects = await QuorumClient.Object.list();
+			console.log(objects);
+			objects.forEach(async object => {
+				try {
+					await QuorumClient.Object.delete(group_id, object.Content.id);
+				} catch (error) {
+					console.log(error);
+				}
+			});
+		} catch (error) {
+		}
 	}
 }
 
