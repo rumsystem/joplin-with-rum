@@ -1,16 +1,12 @@
 /* eslint-disable require-atomic-updates */
 
 const fetch = require('node-fetch');
-const { writeFile, readFile, pathExists } = require('fs-extra');
+const fs = require('fs-extra');
 const { dirname } = require('@joplin/lib/path-utils');
 const markdownUtils = require('@joplin/lib/markdownUtils').default;
 const yargParser = require('yargs-parser');
-const { stripOffFrontMatter } = require('./website/utils/frontMatter');
-const dayjs = require('dayjs');
-dayjs.extend(require('dayjs/plugin/utc'));
 
 const rootDir = dirname(dirname(__dirname));
-const statsFilePath = `${rootDir}/readme/stats.md`;
 
 function endsWith(str, suffix) {
 	return str.indexOf(suffix, str.length - suffix.length) !== -1;
@@ -62,30 +58,8 @@ function createChangeLog(releases) {
 async function main() {
 	const argv = yargParser(process.argv);
 	const types = argv.types ? argv.types.split(',') : ['stats', 'changelog'];
-	const updateIntervalDays = argv.updateInterval ? argv.updateInterval : 0; // in days
-	const updateInterval = updateIntervalDays * 86400000; // in days
 
-	let updateStats = types.includes('stats');
-	const updateChangelog = types.includes('changelog');
-
-	if (updateStats && await pathExists(statsFilePath)) {
-		const md = await readFile(statsFilePath, 'utf8');
-		const info = stripOffFrontMatter(md);
-		if (!info.updated) throw new Error('Missing front matter property: updated');
-
-		if (info.updated.getTime() + updateInterval > Date.now()) {
-			console.info(`Skipping stat update because the file (from ${info.updated.toString()}) is not older than ${updateIntervalDays} days`);
-			updateStats = false;
-		} else {
-			console.info(`Proceeding with stat update because the file (from ${info.updated.toString()}) is older than ${updateIntervalDays} days`);
-		}
-	}
-
-	console.info(`Building docs: updateChangelog: ${updateChangelog}; updateStats: ${updateStats}`);
-	if (!updateStats && !updateChangelog) {
-		console.info('Nothing to do.');
-		return;
-	}
+	console.info(`Building docs: ${types.join(', ')}`);
 
 	const rows = [];
 
@@ -100,6 +74,7 @@ async function main() {
 			const release = releases[i];
 			if (!release.tag_name.match(/^v\d+\.\d+\.\d+$/)) continue;
 			if (release.draft) continue;
+			// if (release.prerelease) continue;
 
 			let row = {};
 			row = Object.assign(row, downloadCounts(release));
@@ -119,7 +94,7 @@ async function main() {
 	console.info('Build stats: Downloading releases info...');
 
 	const baseUrl = 'https://api.github.com/repos/laurent22/joplin/releases?page=';
-
+	// const baseUrl = 'http://test.local/releases.json?page='
 	let pageNum = 1;
 	while (true) {
 		console.info(`Build stats: Page ${pageNum}`);
@@ -130,13 +105,13 @@ async function main() {
 		pageNum++;
 	}
 
-	if (updateChangelog) {
+	if (types.includes('changelog')) {
 		console.info('Build stats: Updating changelog...');
 		const changelogText = createChangeLog(rows);
-		await writeFile(`${rootDir}/readme/changelog.md`, changelogText);
+		await fs.writeFile(`${rootDir}/readme/changelog.md`, changelogText);
 	}
 
-	if (!updateStats) return;
+	if (!types.includes('stats')) return;
 
 	console.info('Build stats: Updating stats...');
 
@@ -164,32 +139,30 @@ async function main() {
 		rows[i].total_count = formatter.format(rows[i].total_count);
 	}
 
-	const statsMd = [
-		'---',
-		`updated: ${dayjs.utc().format()}`,
-		'---',
-		'',
-		'# Joplin statistics',
-		'',
-		markdownUtils.createMarkdownTable([
-			{ name: 'name', label: 'Name' },
-			{ name: 'value', label: 'Value' },
-		], totalsMd),
-		'',
-		'(p) Indicates pre-releases',
-		'',
-		markdownUtils.createMarkdownTable([
-			{ name: 'tag_name', label: 'Version' },
-			{ name: 'published_at', label: 'Date' },
-			{ name: 'windows_count', label: 'Windows' },
-			{ name: 'mac_count', label: 'macOS' },
-			{ name: 'linux_count', label: 'Linux' },
-			{ name: 'total_count', label: 'Total' },
-		], rows),
-	];
+	const statsMd = [];
 
-	const statsText = statsMd.join('\n');
-	await writeFile(statsFilePath, statsText);
+	statsMd.push('# Joplin statistics');
+
+	statsMd.push(markdownUtils.createMarkdownTable([
+		{ name: 'name', label: 'Name' },
+		{ name: 'value', label: 'Value' },
+	], totalsMd));
+
+	statsMd.push('');
+	statsMd.push('(p) Indicates pre-releases');
+	statsMd.push('');
+
+	statsMd.push(markdownUtils.createMarkdownTable([
+		{ name: 'tag_name', label: 'Version' },
+		{ name: 'published_at', label: 'Date' },
+		{ name: 'windows_count', label: 'Windows' },
+		{ name: 'mac_count', label: 'macOS' },
+		{ name: 'linux_count', label: 'Linux' },
+		{ name: 'total_count', label: 'Total' },
+	], rows));
+
+	const statsText = statsMd.join('\n\n');
+	await fs.writeFile(`${rootDir}/readme/stats.md`, statsText);
 }
 
 main().catch((error) => {

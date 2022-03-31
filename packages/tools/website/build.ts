@@ -2,8 +2,9 @@ import { readFileSync, readFile, mkdirpSync, writeFileSync, remove, copy, pathEx
 import { rootDir } from '../tool-utils';
 import { pressCarouselItems } from './utils/pressCarousel';
 import { getMarkdownIt, loadMustachePartials, markdownToPageHtml, renderMustache } from './utils/render';
-import { AssetUrls, Env, PlanPageParams, Sponsors, TemplateParams } from './utils/types';
+import { AssetUrls, Env, OrgSponsor, PlanPageParams, Sponsors, TemplateParams } from './utils/types';
 import { getPlans, loadStripeConfig } from '@joplin/lib/utils/joplinCloud';
+import { shuffle } from '@joplin/lib/array';
 import { stripOffFrontMatter } from './utils/frontMatter';
 import { dirname, basename } from 'path';
 const moment = require('moment');
@@ -141,8 +142,7 @@ function renderPageToHtml(md: string, targetPath: string, templateParams: Templa
 }
 
 async function readmeFileTitle(sourcePath: string) {
-	let md = await readFile(sourcePath, 'utf8');
-	md = stripOffFrontMatter(md).doc;
+	const md = await readFile(sourcePath, 'utf8');
 	const r = md.match(/(^|\n)# (.*)/);
 
 	if (!r) {
@@ -172,10 +172,11 @@ function makeHomePageMd() {
 async function loadSponsors(): Promise<Sponsors> {
 	const sponsorsPath = `${rootDir}/packages/tools/sponsors.json`;
 	const output: Sponsors = JSON.parse(await readFile(sponsorsPath, 'utf8'));
-	output.orgs = output.orgs.map(o => {
+	output.orgs = shuffle<OrgSponsor>(output.orgs.map(o => {
 		if (o.urlWebsite) o.url = o.urlWebsite;
 		return o;
-	});
+	}));
+
 	return output;
 }
 
