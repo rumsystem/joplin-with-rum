@@ -13,8 +13,7 @@ const { toTitleCase } = require('lib/string-utils');
 
 class InteropService {
 	constructor() {
-		this.modules_ = null;
-	}
+		this.modules_ = null;	}
 
 	modules() {
 		if (this.modules_) return this.modules_;
