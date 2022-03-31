@@ -49,7 +49,7 @@ class SyncTargetDropbox extends BaseSyncTarget {
 		});
 
 		api.on('authRefreshed', (auth) => {
-			this.logger().info('Saving updated Dropbox auth.');
+			this.logger().info('Saving updated OneDrive auth.');
 			Setting.setValue('sync.' + SyncTargetDropbox.id() + '.auth', auth ? auth : null);
 		});
 

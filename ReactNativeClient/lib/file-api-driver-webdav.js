@@ -43,9 +43,6 @@ class FileApiDriverWebDav {
 		const propStat = this.api().arrayFromJson(resource, ['d:propstat']);
 		if (!Array.isArray(propStat)) throw new Error('Invalid WebDAV resource format: ' + JSON.stringify(resource));
 
-		const httpStatusCode = parseInt(propStat[0]['d:status'][0].split(' ')[1]); // Parsing "HTTP/1.1 200 OK"
-		if ( httpStatusCode === 404 ) throw  new JoplinError(resource, 404);
-
 		const resourceTypes = this.api().resourcePropByName(resource, 'array', 'd:resourcetype');
 		let isDir = false;
 		if (Array.isArray(resourceTypes)) {
@@ -302,11 +299,6 @@ class FileApiDriverWebDav {
 
 	async mkdir(path) {
 		try {
-			// RFC wants this, and so does NGINX. Not having the trailing slash means that some
-			// WebDAV implementations will redirect to a URL with "/". However, when doing so
-			// in React Native, the auth headers, etc. are lost so we need to avoid this.
-			// https://github.com/facebook/react-native/issues/929
-			if (!path.endsWith('/')) path = path + '/';
 			await this.api().exec('MKCOL', path);
 		} catch (error) {
 			if (error.code === 405) return; // 405 means that the collection already exists (Method Not Allowed)

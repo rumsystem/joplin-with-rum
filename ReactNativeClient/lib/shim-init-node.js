@@ -96,7 +96,7 @@ function shimInit() {
 		}
 	}
 
-	shim.attachFileToNote = async function(note, filePath, position = null) {
+	shim.createResourceFromPath = async function(filePath) {
 		const Resource = require('lib/models/Resource.js');
 		const { uuid } = require('lib/uuid.js');
 		const { basename, fileExtension, safeFileExtension } = require('lib/path-utils.js');
@@ -125,6 +125,41 @@ function shimInit() {
 		}
 
 		await Resource.save(resource, { isNew: true });
+
+		return resource;
+	}
+
+	shim.attachFileToNote = async function(note, filePath, position = null) {
+		// const Resource = require('lib/models/Resource.js');
+		// const { uuid } = require('lib/uuid.js');
+		// const { basename, fileExtension, safeFileExtension } = require('lib/path-utils.js');
+		// const mime = require('mime/lite');
+		// const Note = require('lib/models/Note.js');
+
+		// if (!(await fs.pathExists(filePath))) throw new Error(_('Cannot access %s', filePath));
+
+		// let resource = Resource.new();
+		// resource.id = uuid.create();
+		// resource.mime = mime.getType(filePath);
+		// resource.title = basename(filePath);
+		// resource.file_extension = safeFileExtension(fileExtension(filePath));
+
+		// if (!resource.mime) resource.mime = 'application/octet-stream';
+
+		// let targetPath = Resource.fullPath(resource);
+
+		// if (resource.mime == 'image/jpeg' || resource.mime == 'image/jpg' || resource.mime == 'image/png') {
+		// 	const result = await resizeImage_(filePath, targetPath, resource.mime);
+		// } else {
+		// 	const stat = await shim.fsDriver().stat(filePath);
+		// 	if (stat.size >= 10000000) throw new Error('Resources larger than 10 MB are not currently supported as they may crash the mobile applications. The issue is being investigated and will be fixed at a later time.');
+
+		// 	await fs.copy(filePath, targetPath, { overwrite: true });
+		// }
+
+		// await Resource.save(resource, { isNew: true });
+
+		const resource = shim.createResourceFromPath(filePath);
 
 		const newBody = [];
 
@@ -184,7 +219,7 @@ function shimInit() {
 
 		const requestOptions = {
 			protocol: url.protocol,
-			host: url.hostname,
+			host: url.host,
 			port: url.port,
 			method: method,
 			path: url.path + (url.query ? '?' + url.query : ''),
@@ -193,29 +228,9 @@ function shimInit() {
 
 		const doFetchOperation = async () => {
 			return new Promise((resolve, reject) => {
-				let file = null;
-
-				const cleanUpOnError = (error) => {
-					// We ignore any unlink error as we only want to report on the main error
-					fs.unlink(filePath).catch(() => {}).then(() => {
-						if (file) {
-							file.close(() => {
-								file = null;
-								reject(error);
-							});
-						} else {
-							reject(error);
-						}						
-					});
-				}
-
 				try {
 					// Note: relative paths aren't supported
-					file = fs.createWriteStream(filePath);
-
-					file.on('error', function(error) {
-						cleanUpOnError(error);
-					});
+					const file = fs.createWriteStream(filePath);
 
 					const request = http.request(requestOptions, function(response) {
 						response.pipe(file);
@@ -228,12 +243,14 @@ function shimInit() {
 					})
 
 					request.on('error', function(error) {
-						cleanUpOnError(error);
+						fs.unlink(filePath);
+						reject(error);
 					});
 
 					request.end();
-				} catch (error) {
-					cleanUpOnError(error);
+				} catch(error) {
+					fs.unlink(filePath);
+					reject(error);
 				}
 			});
 		};

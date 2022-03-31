@@ -810,10 +810,6 @@ msgstr "Adskil hver mærke med komma."
 msgid "Rename notebook:"
 msgstr "Omdøb notesbog:"
 
-#, fuzzy
-msgid "Rename tag:"
-msgstr "Omdøb"
-
 msgid "Set alarm:"
 msgstr "Indstil alarm:"
 
@@ -865,18 +861,9 @@ msgstr "Åben..."
 msgid "Save as..."
 msgstr "Gem som..."
 
-msgid "Copy path to clipboard"
-msgstr ""
-
 #, javascript-format
 msgid "Unsupported link or message: %s"
 msgstr "Ugyldigt- eller ulovligt link eller besked: %s"
-
-#, javascript-format
-msgid ""
-"This note has no content. Click on \"%s\" to toggle the editor and edit the "
-"note."
-msgstr "Denne note er tom. Klik på \"%s\" for at starte editor og rette noten."
 
 msgid "Attach file"
 msgstr "Vedhæft fil"
@@ -886,6 +873,12 @@ msgstr "Mærker"
 
 msgid "Set alarm"
 msgstr "Indstil alarm"
+
+#, javascript-format
+msgid ""
+"This note has no content. Click on \"%s\" to toggle the editor and edit the "
+"note."
+msgstr "Denne note er tom. Klik på \"%s\" for at starte editor og rette noten."
 
 msgid "to-do"
 msgstr "opgave"
@@ -1152,10 +1145,9 @@ msgstr "Global zoom procent"
 msgid "Editor font family"
 msgstr "Rediger skrifttype"
 
-#, fuzzy
 msgid ""
-"This must be *monospace* font or it will not work properly. If the font is "
-"incorrect or empty, it will default to a generic monospace font."
+"The font name will not be checked. If incorrect or empty, it will default to "
+"a generic monospace font."
 msgstr ""
 "Skrifttypenavn checkes ikke. Hvis tom eller ukorrekt, standard vil returnere "
 "til monospace font."
@@ -1352,22 +1344,6 @@ msgstr "Nye tags:"
 msgid "Type new tags or select from list"
 msgstr "Indtast nye tags eller vælg fra listen"
 
-msgid ""
-"To work correctly, the app needs the following permissions. Please enable "
-"them in your phone settings, in Apps > Joplin > Permissions"
-msgstr ""
-
-msgid ""
-"- Storage: to allow attaching files to notes and to enable filesystem "
-"synchronisation."
-msgstr ""
-
-msgid "- Camera: to allow taking a picture and attaching it to a note."
-msgstr ""
-
-msgid "- Location: to allow attaching geo-location information to a note."
-msgstr ""
-
 msgid "Joplin website"
 msgstr "Joplin hjemmeside"
 
@@ -1431,9 +1407,6 @@ msgstr "Vedhæft foto"
 
 msgid "Attach any file"
 msgstr "Vedhæft fil"
-
-msgid "Share"
-msgstr ""
 
 msgid "Convert to note"
 msgstr "Konverter til note"
