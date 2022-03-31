@@ -90,6 +90,8 @@ class NoteTextComponent extends React.Component {
 			query: '',
 			selectedIndex: 0,
 			resultCount: 0,
+			lastQuery: '',
+			lastResultCount: 0,
 		};
 
 		this.state = {
@@ -311,6 +313,9 @@ class NoteTextComponent extends React.Component {
 				localSearch: {
 					query: query,
 					selectedIndex: 0,
+					resultCount: undefined,
+					lastQuery: this.state.localSearch.query,
+					lastResultCount: this.state.localSearch.resultCount,
 					timestamp: Date.now(),
 				},
 			});
@@ -689,20 +694,12 @@ class NoteTextComponent extends React.Component {
 		if (newTags.length !== oldTags.length) return true;
 
 		for (let i = 0; i < newTags.length; ++i) {
-			let found = false;
 			let currNewTag = newTags[i];
 			for (let j = 0; j < oldTags.length; ++j) {
 				let currOldTag = oldTags[j];
-				if (currOldTag.id === currNewTag.id) {
-					found = true;
-					if (currOldTag.updated_time !== currNewTag.updated_time) {
-						return true;
-					}
-					break;
+				if (currOldTag.id === currNewTag.id && currOldTag.updated_time !== currNewTag.updated_time) {
+					return true;
 				}
-			}
-			if (!found) {
-				return true;
 			}
 		}
 
@@ -1111,11 +1108,9 @@ class NoteTextComponent extends React.Component {
 		if (!command) return;
 
 		let fn = null;
-		let args = null;
 
 		if (command.name === 'exportPdf') {
 			fn = this.commandSavePdf;
-			args = {noteId: command.noteId};
 		} else if (command.name === 'print') {
 			fn = this.commandPrint;
 		}
@@ -1167,7 +1162,7 @@ class NoteTextComponent extends React.Component {
 
 		requestAnimationFrame(() => {
 			fn = fn.bind(this);
-			fn(args);
+			fn();
 		});
 	}
 
@@ -1175,7 +1170,9 @@ class NoteTextComponent extends React.Component {
 		if (this.state.showLocalSearch) {
 			this.noteSearchBar_.current.wrappedInstance.focus();
 		} else {
-			this.setState({ showLocalSearch: true });
+			this.setState({
+				showLocalSearch: true,
+				localSearch: Object.assign({}, this.localSearchDefaultState) });
 		}
 
 		this.props.dispatch({
@@ -1260,7 +1257,7 @@ class NoteTextComponent extends React.Component {
 		setTimeout(async () => {
 			if (target === 'pdf') {
 				try {
-					const pdfData = await InteropServiceHelper.exportNoteToPdf(options.noteId, {
+					const pdfData = await InteropServiceHelper.exportNoteToPdf(this.state.note.id, {
 						printBackground: true,
 						pageSize: Setting.value('export.pdfPageSize'),
 						landscape: Setting.value('export.pdfPageOrientation') === 'landscape',
@@ -1272,7 +1269,7 @@ class NoteTextComponent extends React.Component {
 				}
 			} else if (target === 'printer') {
 				try {
-					await InteropServiceHelper.printNote(options.noteId, {
+					await InteropServiceHelper.printNote(this.state.note.id, {
 						printBackground: true,
 					});
 				} catch (error) {
@@ -1286,20 +1283,18 @@ class NoteTextComponent extends React.Component {
 		}, 100);
 	}
 
-	async commandSavePdf(args) {
+	async commandSavePdf() {
 		try {
-			if (!this.state.note && !args.noteId) throw new Error(_('Only one note can be exported to PDF at a time.'));
-
-			const note = (!args.noteId ? this.state.note : await Note.load(args.noteId));
+			if (!this.state.note) throw new Error(_('Only one note can be printed or exported to PDF at a time.'));
 
 			const path = bridge().showSaveDialog({
 				filters: [{ name: _('PDF File'), extensions: ['pdf'] }],
-				defaultPath: safeFilename(note.title),
+				defaultPath: safeFilename(this.state.note.title),
 			});
 
 			if (!path) return;
 
-			await this.printTo_('pdf', { path: path, noteId: args.noteId });
+			await this.printTo_('pdf', { path: path });
 		} catch (error) {
 			bridge().showErrorMessageBox(error.message);
 		}
@@ -1307,9 +1302,7 @@ class NoteTextComponent extends React.Component {
 
 	async commandPrint() {
 		try {
-			if (!this.state.note) throw new Error(_('Only one note can be printed at a time.'));
-
-			await this.printTo_('printer', { noteId: this.state.note.id });
+			await this.printTo_('printer');
 		} catch (error) {
 			bridge().showErrorMessageBox(error.message);
 		}
@@ -2139,7 +2132,23 @@ class NoteTextComponent extends React.Component {
 			/>
 		);
 
-		const noteSearchBarComp = !this.state.showLocalSearch ? null : <NoteSearchBar ref={this.noteSearchBar_} style={{ display: 'flex', height: searchBarHeight, width: innerWidth, borderTop: `1px solid ${theme.dividerColor}` }} onChange={this.noteSearchBar_change} onNext={this.noteSearchBar_next} onPrevious={this.noteSearchBar_previous} onClose={this.noteSearchBar_close} />;
+		const noteSearchBarComp = !this.state.showLocalSearch ? null : (
+			<NoteSearchBar
+				ref={this.noteSearchBar_}
+				style={{
+					display: 'flex',
+					height: searchBarHeight,
+					width: innerWidth,
+					borderTop: `1px solid ${theme.dividerColor}`,
+				}}
+				queryLength={this.state.localSearch.resultCount === undefined ? this.state.localSearch.lastQuery.length : this.state.localSearch.query.length}
+				resultCount={this.state.localSearch.resultCount === undefined ? this.state.localSearch.lastResultCount : this.state.localSearch.resultCount}
+				onChange={this.noteSearchBar_change}
+				onNext={this.noteSearchBar_next}
+				onPrevious={this.noteSearchBar_previous}
+				onClose={this.noteSearchBar_close}
+			/>
+		);
 
 		return (
 			<div style={rootStyle} onDrop={this.onDrop_}>
