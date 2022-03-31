@@ -83,8 +83,7 @@
       "icon": "../../Assets/LinuxIcons",
       "category": "Office",
       "desktop": {
-        "Icon": "joplin",
-        "MimeType": "x-scheme-handler/joplin;" 
+        "Icon": "joplin"
       },
       "target": "AppImage"
     },
