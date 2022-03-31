@@ -13,10 +13,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.2.4\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
 
 #: /Users/tessus/data/work/joplin/Tools/../CliClient/app/app-gui.js:445
 msgid "To delete a tag, untag the associated notes."
@@ -736,19 +734,22 @@ msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/app.js:363
 msgid "Sidebar"
-msgstr "側邊欄"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/app.js:369
+#, fuzzy
 msgid "Note list"
-msgstr "記事列表"
+msgstr "記事本歷史紀錄"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/app.js:375
+#, fuzzy
 msgid "Note title"
-msgstr "記事標題"
+msgstr "記事本標題:"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/app.js:381
+#, fuzzy
 msgid "Note body"
-msgstr "內容主體"
+msgstr "記事本"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/app.js:433
 #, javascript-format
@@ -792,24 +793,28 @@ msgid "Print"
 msgstr "列印"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/app.js:562
+#, fuzzy
 msgid "Create note from template"
-msgstr "從範本建立記事"
+msgstr "插入日期時間"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/app.js:572
 msgid "Create to-do from template"
-msgstr "從範本建立待辦事項"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/app.js:582
+#, fuzzy
 msgid "Insert template"
-msgstr "插入範本"
+msgstr "插入日期時間"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/app.js:592
+#, fuzzy
 msgid "Open template directory"
-msgstr "開啟暫存目錄"
+msgstr "Joplin 匯出目錄"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/app.js:599
+#, fuzzy
 msgid "Refresh templates"
-msgstr "重新載入範本"
+msgstr "插入日期時間"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/app.js:612
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/Root.min.js:92
@@ -818,13 +823,14 @@ msgstr "選項"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/app.js:625
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/Root.min.js:93
+#, fuzzy
 msgid "Resources"
-msgstr "資源"
+msgstr "資源: %d。"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/app.js:647
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Revision: %s (%s)"
-msgstr "修訂版: %s (%s)"
+msgstr "%s %s (%s)"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/app.js:654
 #, javascript-format
@@ -832,19 +838,19 @@ msgid "%s %s (%s, %s)"
 msgstr "%s %s (%s, %s)"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/app.js:656
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Client ID: %s"
-msgstr "用戶端ID: %s"
+msgstr "已完成於: %s"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/app.js:657
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Sync Version: %s"
-msgstr "同步版本: %s"
+msgstr "最新版本: %s"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/app.js:658
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Profile Version: %s"
-msgstr "設定檔版本: %s"
+msgstr "最新版本: %s"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/app.js:668
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/app.js:811
@@ -1017,15 +1023,15 @@ msgstr "焦點"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/app.js:1028
 msgid "Actual Size"
-msgstr "實際大小"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/app.js:1034
 msgid "Zoom In"
-msgstr "放大"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/app.js:1040
 msgid "Zoom Out"
-msgstr "縮小"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/app.js:1048
 msgid "&Tools"
@@ -1287,7 +1293,7 @@ msgstr "儲存"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/EncryptionConfigScreen.min.js:144
 msgid "Master keys that need upgrading"
-msgstr "主密鑰需要升級"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/EncryptionConfigScreen.min.js:149
 msgid ""
@@ -1295,8 +1301,6 @@ msgid ""
 "recommended to upgrade them. The upgraded master key will still be able to "
 "decrypt and encrypt your data as usual."
 msgstr ""
-"以下主密鑰使用了過時的加密演算法，建議對其進行升級。 升級後的主密鑰仍將能夠照"
-"常解密和加密您的資料。"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/EncryptionConfigScreen.min.js:163
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/FolderPropertiesDialog.min.js:21
@@ -1307,25 +1311,24 @@ msgstr "ID"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/EncryptionConfigScreen.min.js:168
 msgid "Upgrade"
-msgstr "升級"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/EncryptionConfigScreen.min.js:181
+#, fuzzy
 msgid "Re-encrypt data"
-msgstr "重新加密資料"
+msgstr "選擇日期"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/EncryptionConfigScreen.min.js:183
 msgid ""
 "The default encryption method has been changed to a more secure one and it "
 "is recommended that you apply it to your data."
-msgstr "預設的加密方法已更改為一種更安全的方法，建議您將其使用於資料上。"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/EncryptionConfigScreen.min.js:183
 msgid ""
 "You may use the tool below to re-encrypt your data, for example if you know "
 "that some of your notes are encrypted with an obsolete encryption method."
 msgstr ""
-"您可以使用下面的工具重新加密您的資料，例如:如果您知道某些筆記已使用過時的加密"
-"方法進行了加密。"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/EncryptionConfigScreen.min.js:185
 #, javascript-format
@@ -1344,17 +1347,6 @@ msgid ""
 "\n"
 "Important: you only need to run this ONCE on one device."
 msgstr ""
-"因為必須對整個資料集進行加密和同步，所以最好在夜間睡覺的時候進行。\n"
-"\n"
-"首先，請依照以下說明進行操作：\n"
-"\n"
-"1. 同步您的所有設備。\n"
-"2. 點選 \"%s\"。\n"
-"3. 等待執行完成。 在執行過程中，請避免在其他設備上更改任何記事，以免發生衝"
-"突。\n"
-"4. 在此設備上完成同步後，同步所有其他設備，並等待其執行完成。\n"
-"\n"
-"重要提示：您只需要在一台設備上執行此操作一次。"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/EncryptionConfigScreen.min.js:432
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/components/screens/encryption-config.js:277
@@ -1380,15 +1372,16 @@ msgstr "立即取得:"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/FolderPropertiesDialog.min.js:22
 msgid "Name"
-msgstr "名稱"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/FolderPropertiesDialog.min.js:23
 msgid "Icon"
-msgstr "圖案"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/FolderPropertiesDialog.min.js:272
+#, fuzzy
 msgid "Notebook properties"
-msgstr "記事本屬性"
+msgstr "記事本性質"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/Header.min.js:233
 msgid "Usage"
@@ -1417,8 +1410,9 @@ msgid "Add or remove tags:"
 msgstr "新增或移除標籤:"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/MainScreen.min.js:227
+#, fuzzy
 msgid "Move to notebook:"
-msgstr "移動至記事本:"
+msgstr "移動至記事本..."
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/MainScreen.min.js:247
 msgid "Rename notebook:"
@@ -1459,16 +1453,18 @@ msgid "Set the password"
 msgstr "設置密碼"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/MainScreen.min.js:578
+#, fuzzy
 msgid "One of your master keys use an obsolete encryption method."
-msgstr "您的主密鑰有一組使用了過時的加密方法。"
+msgstr "一個或多個主密鑰需要密碼。"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/MainScreen.min.js:590
 msgid ""
 "The default encryption method has been changed, you should re-encrypt your "
 "data."
-msgstr "預設的加密方法已更改，您應該重新加密資料。"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/MainScreen.min.js:595
+#, fuzzy
 msgid "More info"
 msgstr "更多資訊"
 
@@ -1483,23 +1479,24 @@ msgstr "搜尋..."
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/NoteContentPropertiesDialog.js:31
 msgid "Words"
-msgstr "單字"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/NoteContentPropertiesDialog.js:32
 msgid "Characters"
-msgstr "字元"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/NoteContentPropertiesDialog.js:33
 msgid "Characters excluding spaces"
-msgstr "不含空格的字元"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/NoteContentPropertiesDialog.js:34
 msgid "Lines"
-msgstr "行數"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/NoteContentPropertiesDialog.js:56
+#, fuzzy
 msgid "Content properties"
-msgstr "內容屬性"
+msgstr "記事本性質"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/NoteContentPropertiesDialog.js:58
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/ShareNoteDialog.js:175
@@ -1524,8 +1521,9 @@ msgid "Updated"
 msgstr "已更新"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/NotePropertiesDialog.min.js:29
+#, fuzzy
 msgid "Completed"
-msgstr "已完成"
+msgstr "已完成於: %s"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/NotePropertiesDialog.min.js:30
 msgid "Location"
@@ -1605,11 +1603,12 @@ msgstr "複製鏈接位址"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/NoteText.min.js:833
 msgid "There was an error downloading this attachment:"
-msgstr "下載此附件時出現錯誤:"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/NoteText.min.js:835
+#, fuzzy
 msgid "This attachment is not downloaded or not decrypted yet"
-msgstr "此附件尚未被下載或是尚未解密完成"
+msgstr "此附件尚未被下載或是尚未解密完成。"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/NoteText.min.js:1082
 #, javascript-format
@@ -1620,7 +1619,7 @@ msgstr "此筆記沒有內容。按一下 \"%s\" 切換到編輯模式並編輯�
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/NoteText.min.js:1318
 msgid "Only one note can be printed at a time."
-msgstr "一次只能列印一個記事。"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/NoteText.min.js:1528
 msgid "strong text"
@@ -1658,7 +1657,7 @@ msgstr "在: %s"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/NoteText.min.js:1668
 msgid "Front"
-msgstr "前"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/NoteText.min.js:1706
 msgid "Hyperlink"
@@ -1693,8 +1692,9 @@ msgid "Watching..."
 msgstr "觀察中..."
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/NoteText.min.js:1848
+#, fuzzy
 msgid "Content Properties"
-msgstr "內容屬性"
+msgstr "記事本性質"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/NoteText.min.js:2117
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/NoteText2.js:656
@@ -1717,16 +1717,18 @@ msgid "Clear"
 msgstr "清除"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/ResourceScreen.js:28
+#, fuzzy
 msgid "Title"
 msgstr "標題"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/ResourceScreen.js:32
 msgid "Size"
-msgstr "大小"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/ResourceScreen.js:36
+#, fuzzy
 msgid "Action"
-msgstr "動作"
+msgstr "地理位置"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/ResourceScreen.js:43
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/SideBar.min.js:286
@@ -1739,17 +1741,18 @@ msgid "Delete"
 msgstr "刪除"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/ResourceScreen.js:126
+#, fuzzy
 msgid "Please wait..."
-msgstr "請稍候..."
+msgstr "檢查中...請稍候。"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/ResourceScreen.js:128
 msgid "No resources!"
-msgstr "沒有資源!"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/ResourceScreen.js:130
 #, javascript-format
 msgid "Warning: not all resources shown for performance reasons (limit: %s)."
-msgstr "警告:出於效能原因，將不會顯示所有資源(限制: %s)。"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/Root.min.js:89
 msgid "OneDrive Login"
@@ -1847,8 +1850,9 @@ msgstr "請選擇將同步狀態導出到的位置"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/StatusScreen.min.js:71
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/components/screens/status.js:109
+#, fuzzy
 msgid "Retry All"
-msgstr "全部重試"
+msgstr "重試"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/StatusScreen.min.js:96
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/components/screens/status.js:115
@@ -1860,8 +1864,9 @@ msgid "Add or remove tags"
 msgstr "新增或移除標籤"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/utils/NoteListUtils.js:40
+#, fuzzy
 msgid "Move to notebook"
-msgstr "移動至記事本"
+msgstr "移動至記事本..."
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/utils/NoteListUtils.js:53
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/components/screen-header.js:331
@@ -1874,8 +1879,9 @@ msgid "%s - Copy"
 msgstr "%s - 複本"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/utils/NoteListUtils.js:78
+#, fuzzy
 msgid "Stop external editing"
-msgstr "停止外部編輯"
+msgstr "按下停止外部編輯"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/gui/utils/NoteListUtils.js:90
 msgid "Switch between note and to-do type"
@@ -1914,10 +1920,11 @@ msgid "Error opening note in editor: %s"
 msgstr "在編輯器中開啟記事時出錯: %s"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/plugins/GotoAnything.min.js:403
+#, fuzzy
 msgid ""
 "Type a note title to jump to it. Or type # followed by a tag name, or @ "
 "followed by a notebook name, or / followed by note content."
-msgstr "輸入筆記標題來跳轉, 輸入＃與標籤名稱, @與筆記本名稱, 或者/與記事內容。"
+msgstr "輸入筆記標題來跳轉。或輸入＃與標籤名稱，或者@與筆記本名稱。"
 
 #: /Users/tessus/data/work/joplin/Tools/../ElectronClient/plugins/GotoAnything.min.js:441
 msgid "Goto Anything..."
@@ -2038,8 +2045,6 @@ msgid ""
 "You are about to attach a large image (%dx%d pixels). Would you like to "
 "resize it down to %d pixels before attaching it?"
 msgstr ""
-"您將要附加較大的圖片 (%dx%d pixels)。您要在附加之前將其尺寸縮小為 %d pixels "
-"嗎？"
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/shim-init-node.js:156
 #, javascript-format
@@ -2154,15 +2159,16 @@ msgstr "無法移動此記事到 \"%s\" 記事本"
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/models/Resource.js:286
 msgid "Not downloaded"
-msgstr "尚未下載"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/models/Resource.js:287
+#, fuzzy
 msgid "Downloading"
-msgstr "正在下載資源檔案"
+msgstr "正在下載資源檔案..."
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/models/Resource.js:288
 msgid "Downloaded"
-msgstr "已下載"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/models/Setting.js:27
 #, javascript-format
@@ -2300,8 +2306,9 @@ msgid "Nord"
 msgstr "Nord"
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/models/Setting.js:251
+#, fuzzy
 msgid "OLED Dark"
-msgstr "OLED 暗黑"
+msgstr "暗黑"
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/models/Setting.js:256
 msgid "Show note counts"
@@ -2339,8 +2346,9 @@ msgid "%s / %s"
 msgstr "%s / %s"
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/models/Setting.js:268
+#, fuzzy
 msgid "Split"
-msgstr "分割"
+msgstr "分割顯示"
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/models/Setting.js:271
 msgid "Uncompleted to-dos on top"
@@ -2356,7 +2364,7 @@ msgstr "排序記事"
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/models/Setting.js:297
 msgid "Auto-pair braces, parenthesis, quotations, etc."
-msgstr "自動配對大括號，括號，引號等。"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/models/Setting.js:299
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/models/Setting.js:317
@@ -2446,8 +2454,9 @@ msgid "Enable Fountain syntax support"
 msgstr "啟用Fountain syntax 支援"
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/models/Setting.js:380
+#, fuzzy
 msgid "Enable Mermaid diagrams support"
-msgstr "啟用 Mermaid 流程圖支援"
+msgstr "啟用 typographer 支援"
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/models/Setting.js:392
 msgid "Show tray icon"
@@ -2602,7 +2611,7 @@ msgstr "忽略 TLS 證書錯誤"
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/models/Setting.js:572
 msgid "Fail-safe"
-msgstr "失效安全"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/models/Setting.js:573
 msgid ""
@@ -2784,27 +2793,29 @@ msgstr ""
 "備上，但Joplin將不再嘗試對其進行解密。"
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/services/report.js:181
+#, fuzzy
 msgid "Attachments"
 msgstr "附加檔案"
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/services/report.js:189
 msgid "Downloaded and decrypted"
-msgstr "已下載並解密"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/services/report.js:189
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/services/report.js:190
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/services/report.js:193
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "%s: %d"
-msgstr "%s: %d"
+msgstr "%s: %s"
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/services/report.js:190
 msgid "Downloaded and encrypted"
-msgstr "已下載並加密"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/services/report.js:203
+#, fuzzy
 msgid "Attachments that could not be downloaded"
-msgstr "附件無法被下載"
+msgstr "項目 \"%s\" 無法被下載: %s"
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/services/report.js:208
 #, javascript-format
@@ -2891,8 +2902,9 @@ msgid "Press to set the decryption password."
 msgstr "按下以設置解密密碼。"
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/components/screen-header.js:419
+#, fuzzy
 msgid "Some items cannot be synchronised. Press for more info."
-msgstr "有些項目不能同步。請按此查看更多資訊。"
+msgstr "有些項目不能同步。"
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/components/select-date-time-dialog.js:65
 msgid "Clear alarm"
@@ -2966,26 +2978,26 @@ msgstr ""
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/components/shared/encryption-config-shared.js:31
 msgid ""
 "Please confirm that you would like to re-encrypt your complete database."
-msgstr "請確認您要重新加密的完整資料庫。"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/components/shared/encryption-config-shared.js:37
 msgid "Your data is going to be re-encrypted and synced again."
-msgstr "您的資料將被重新加密並再次同步。"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/components/shared/encryption-config-shared.js:47
 msgid ""
 "Please enter your password in the master key list below before upgrading the "
 "key."
-msgstr "在升級密鑰前，請在下面的主密鑰列表中輸入您的密碼。"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/components/shared/encryption-config-shared.js:56
 msgid "The master key has been upgraded successfully!"
-msgstr "主密鑰已被成功升級!"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/components/shared/encryption-config-shared.js:58
 #, javascript-format
 msgid "Could not upgrade master key: %s"
-msgstr "無法升級主密鑰: %s"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/components/shared/encryption-config-shared.js:110
 #, javascript-format
@@ -3012,8 +3024,9 @@ msgid ""
 msgstr "為了使用檔案系統同步，您需要具有寫入外部儲存裝置的權限。"
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/components/screens/config.js:151
+#, fuzzy
 msgid "Information"
-msgstr "資訊"
+msgstr "設置"
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/components/screens/config.js:323
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/components/screens/encryption-config.js:262
@@ -3058,16 +3071,18 @@ msgstr ""
 "時間。"
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/components/screens/config.js:451
+#, fuzzy
 msgid "Exporting profile..."
-msgstr "正在匯出記事..."
+msgstr "正在匯入記事..."
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/components/screens/config.js:451
+#, fuzzy
 msgid "Export profile"
-msgstr "匯出設定檔"
+msgstr "Joplin 匯出檔"
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/components/screens/config.js:451
 msgid "For debugging purpose only: export your profile to an external SD card."
-msgstr "僅用於除錯: 將您的設定檔匯出至外部SD卡。"
+msgstr ""
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/components/screens/config.js:466
 msgid "More information"
@@ -3277,7 +3292,7 @@ msgstr "附加相片"
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/components/screens/note.js:710
 msgid "Attach any file"
-msgstr "附加任何檔案"
+msgstr "附加檔案"
 
 #: /Users/tessus/data/work/joplin/Tools/../ReactNativeClient/lib/components/screens/note.js:729
 msgid "Share"
