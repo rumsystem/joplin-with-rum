@@ -886,6 +886,9 @@ function enexXmlToMdArray(stream, resources) {
 						section.lines.push(`](${url})`);
 					}
 				}
+			} else if (isListTag(n)) {
+				section.lines.push(BLOCK_CLOSE);
+				state.lists.pop();
 			} else if (n == 'en-media') {
 				// Skip
 			} else if (n == 'span') {
@@ -900,6 +903,8 @@ function enexXmlToMdArray(stream, resources) {
 						section.lines.push('*');
 					}
 				}
+			} else if (isIgnoredEndTag(n)) {
+				// Skip
 			} else {
 				console.warn(`Unsupported end tag: ${n}`);
 			}
