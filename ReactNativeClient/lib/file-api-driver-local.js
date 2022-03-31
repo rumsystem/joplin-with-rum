@@ -44,6 +44,8 @@ class FileApiDriverLocal {
 			path: stat.path,
 			created_time: stat.birthtime.getTime(),
 			updated_time: stat.mtime.getTime(),
+			created_time_orig: stat.birthtime,
+			updated_time_orig: stat.mtime,
 			isDir: stat.isDirectory(),
 		};
 	}
