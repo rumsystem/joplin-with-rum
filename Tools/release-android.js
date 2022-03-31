@@ -100,7 +100,7 @@ async function main() {
 
 	console.info('Creating GitHub release ' + tagName + '...');
 
-	const release = await githubRelease(projectName, tagName);
+	const release = await githubRelease(projectName, tagName, false);
 	const uploadUrlTemplate = uriTemplate.parse(release.upload_url);
 	const uploadUrl = uploadUrlTemplate.expand({ name: apkFilename });
 

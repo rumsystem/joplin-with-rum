@@ -116,9 +116,9 @@ class Bridge {
 		return require('electron').shell.openItem(fullPath)
 	}
 
-	checkForUpdates(inBackground, window, logFilePath, options) {
+	checkForUpdates(inBackground, window, logFilePath) {
 		const { checkForUpdates } = require('./checkForUpdates.js');
-		checkForUpdates(inBackground, window, logFilePath, options);
+		checkForUpdates(inBackground, window, logFilePath);
 	}
 	
 }
