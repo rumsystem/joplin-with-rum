@@ -634,7 +634,4 @@ class Note extends BaseItem {
 Note.updateGeolocationEnabled_ = true;
 Note.geolocationUpdating_ = false;
 
-Note.MARKUP_LANGUAGE_MARKDOWN = 1;
-Note.MARKUP_LANGUAGE_HTML = 2;
-
 module.exports = Note;
