@@ -27,7 +27,7 @@ router.post('tasks', async (_path: SubPath, ctx: AppContext) => {
 
 		for (const k of Object.keys(fields)) {
 			if (k.startsWith('checkbox_')) {
-				const taskId = Number(k.substr(9));
+				const taskId = k.substr(9);
 				try {
 					void taskService.runTask(taskId, RunType.Manual);
 				} catch (error) {
@@ -58,10 +58,8 @@ router.get('tasks', async (_path: SubPath, ctx: AppContext) => {
 	const taskService = ctx.joplin.services.tasks;
 
 	const taskRows: Row[] = [];
-	for (const [taskIdString, task] of Object.entries(taskService.tasks)) {
-		const taskId = Number(taskIdString);
+	for (const [taskId, task] of Object.entries(taskService.tasks)) {
 		const state = taskService.taskState(taskId);
-		const events = await taskService.taskLastEvents(taskId);
 
 		taskRows.push([
 			{
@@ -69,7 +67,7 @@ router.get('tasks', async (_path: SubPath, ctx: AppContext) => {
 				checkbox: true,
 			},
 			{
-				value: taskId.toString(),
+				value: taskId,
 			},
 			{
 				value: task.description,
@@ -81,10 +79,10 @@ router.get('tasks', async (_path: SubPath, ctx: AppContext) => {
 				value: yesOrNo(state.running),
 			},
 			{
-				value: events.taskStarted ? formatDateTime(events.taskStarted.created_time) : '-',
+				value: state.lastRunTime ? formatDateTime(state.lastRunTime) : '-',
 			},
 			{
-				value: events.taskCompleted ? formatDateTime(events.taskCompleted.created_time) : '-',
+				value: state.lastCompletionTime ? formatDateTime(state.lastCompletionTime) : '-',
 			},
 		]);
 	}
