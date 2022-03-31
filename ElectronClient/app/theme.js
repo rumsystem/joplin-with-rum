@@ -62,7 +62,6 @@ globalStyle.icon = {
 globalStyle.lineInput = {
 	color: globalStyle.color,
 	backgroundColor: globalStyle.backgroundColor,
-	fontFamily: globalStyle.fontFamily,
 };
 
 globalStyle.textStyle = {

@@ -339,17 +339,22 @@ describe('Synchronizer', function() {
 	it('should delete local folder', asyncTest(async () => {
 		let folder1 = await Folder.save({ title: "folder1" });
 		let folder2 = await Folder.save({ title: "folder2" });
-		let context1 = await synchronizer().start();
+		await synchronizer().start();
 
 		await switchClient(2);
 
-		let context2 = await synchronizer().start();
+		await synchronizer().start();
+
+		await sleep(0.1);
+
 		await Folder.delete(folder2.id);
-		await synchronizer().start({ context: context2 });
+
+		await synchronizer().start();
 
 		await switchClient(1);
 
-		await synchronizer().start({ context: context1 });
+		await synchronizer().start();
+
 		let items = await allItems();
 		await localItemsSameAsRemote(items, expect);
 	}));
@@ -372,7 +377,7 @@ describe('Synchronizer', function() {
 		expect(items.length).toBe(1);
 		expect(items[0].title).toBe('note1');
 		expect(items[0].is_conflict).toBe(1);
-	}));
+			}));
 
 	it('should resolve conflict if note has been deleted remotely and locally', asyncTest(async () => {
 		let folder = await Folder.save({ title: "folder" });
@@ -433,7 +438,7 @@ describe('Synchronizer', function() {
 
 		expect(items1.length).toBe(0);
 		expect(items1.length).toBe(items2.length);
-	}));
+			}));
 
 	it('should handle conflict when remote note is deleted then local note is modified', asyncTest(async () => {
 		let folder1 = await Folder.save({ title: "folder1" });
@@ -542,11 +547,11 @@ describe('Synchronizer', function() {
 		let n1 = await Note.save({ title: "mynote" });
 		let n2 = await Note.save({ title: "mynote2" });
 		let tag = await Tag.save({ title: 'mytag' });
-		let context1 = await synchronizer().start();
+		await synchronizer().start();
 
 		await switchClient(2);
 
-		let context2 = await synchronizer().start();
+		await synchronizer().start();
 		if (withEncryption) {
 			const masterKey_2 = await MasterKey.load(masterKey.id);
 			await encryptionService().loadMasterKey(masterKey_2, '123456', true);
@@ -560,21 +565,21 @@ describe('Synchronizer', function() {
 		await Tag.addNote(remoteTag.id, n2.id);
 		let noteIds = await Tag.noteIds(tag.id);
 		expect(noteIds.length).toBe(2);
-		context2 = await synchronizer().start({ context: context2 });
+		await synchronizer().start();
 
 		await switchClient(1);
 
-		context1 = await synchronizer().start({ context: context1 });
+		await synchronizer().start();
 		let remoteNoteIds = await Tag.noteIds(tag.id);
 		expect(remoteNoteIds.length).toBe(2);
 		await Tag.removeNote(tag.id, n1.id);
 		remoteNoteIds = await Tag.noteIds(tag.id);
 		expect(remoteNoteIds.length).toBe(1);
-		context1 = await synchronizer().start({ context: context1 });
+		await synchronizer().start();
 
 		await switchClient(2);
 
-		context2 = await synchronizer().start({ context: context2 });
+		await synchronizer().start();
 		noteIds = await Tag.noteIds(tag.id);
 		expect(noteIds.length).toBe(1);
 		expect(remoteNoteIds[0]).toBe(noteIds[0]);

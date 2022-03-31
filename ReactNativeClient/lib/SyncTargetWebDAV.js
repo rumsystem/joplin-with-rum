@@ -24,7 +24,7 @@ class SyncTargetWebDAV extends BaseSyncTarget {
 		return _('WebDAV');
 	}
 
-	async isAuthenticated() {
+	isAuthenticated() {
 		return true;
 	}
 

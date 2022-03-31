@@ -11,10 +11,6 @@ parameters_.dev = {
 		id: '606fd4d7-4dfb-4310-b8b7-a47d96aa22b6',
 		secret: 'qabchuPYL7931$ePDEQ3~_$',
 	},
-	dropbox: {
-		id: 'cx9li9ur8taq1z7',
-		secret: 'i8f9a1mvx3bijrt',
-	},
 };
 
 parameters_.prod = {
@@ -25,10 +21,6 @@ parameters_.prod = {
 	oneDriveDemo: {
 		id: '606fd4d7-4dfb-4310-b8b7-a47d96aa22b6',
 		secret: 'qabchuPYL7931$ePDEQ3~_$',
-	},
-	dropbox: {
-		id: 'm044w3cvmxhzvop',
-		secret: 'r298deqisz0od56',
 	},
 };
 
