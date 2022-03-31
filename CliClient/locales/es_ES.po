@@ -16,8 +16,6 @@ msgstr ""
 "X-Generator: Poedit 1.8.11\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
 
 msgid "To delete a tag, untag the associated notes."
 msgstr "Desmarque las notas asociadas para eliminar una etiqueta."
@@ -190,6 +188,7 @@ msgstr "La nota ha sido guardada."
 msgid "Exits the application."
 msgstr "Sale de la aplicación."
 
+#, fuzzy
 msgid ""
 "Exports Joplin data to the given path. By default, it will export the "
 "complete database including notebooks, notes, tags and resources."
@@ -197,9 +196,9 @@ msgstr ""
 "Exporta datos de Joplin al directorio indicado. Por defecto, se exportará la "
 "base de datos completa incluyendo libretas, notas, etiquetas y recursos."
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Destination format: %s"
-msgstr "Formato de destino: %s"
+msgstr "Formato de fecha"
 
 msgid "Exports only the given note."
 msgstr "Exporta únicamente la nota indicada."
@@ -267,11 +266,11 @@ msgstr ""
 "Para una lista de los atajos de teclado disponibles, escriba `help keymap`"
 
 msgid "Imports data into Joplin."
-msgstr "Importa los datos en Joplin."
+msgstr ""
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Source format: %s"
-msgstr "Formato de origen: %s"
+msgstr "El comando no existe: %s"
 
 msgid "Do not ask for confirmation."
 msgstr "No requiere confirmación."
@@ -564,17 +563,17 @@ msgstr ""
 
 #, javascript-format
 msgid "Exporting to \"%s\" as \"%s\" format. Please wait..."
-msgstr "Exportando el formato de \"%s\" a \"%s\". Por favor espere..."
+msgstr ""
 
 msgid "File"
 msgstr "Archivo"
 
 msgid "Directory"
-msgstr "Directorio"
+msgstr ""
 
 #, javascript-format
 msgid "Importing from \"%s\" as \"%s\" format. Please wait..."
-msgstr "Importando el formato de \"%s\" a \"%s\". Por favor espere..."
+msgstr ""
 
 msgid "New note"
 msgstr "Nueva nota"
@@ -588,8 +587,9 @@ msgstr "Nueva libreta"
 msgid "Import"
 msgstr "Importar"
 
+#, fuzzy
 msgid "Export"
-msgstr "Exportar"
+msgstr "Importar"
 
 #, javascript-format
 msgid "Hide %s"
@@ -859,8 +859,6 @@ msgid ""
 "This note has no content. Click on \"%s\" to toggle the editor and edit the "
 "note."
 msgstr ""
-"Esta nota no tiene contenido. Pulse en \"%s\" para cambiar al editor y "
-"editar la nota."
 
 msgid "to-do"
 msgstr "lista de tareas"
@@ -1071,14 +1069,16 @@ msgstr "Claro"
 msgid "Dark"
 msgstr "Oscuro"
 
+#, fuzzy
 msgid "Uncompleted to-dos on top"
 msgstr "Mostrar tareas incompletas al inicio de las listas"
 
 msgid "Sort notes by"
-msgstr "Ordenar notas por"
+msgstr ""
 
+#, fuzzy
 msgid "Reverse sort order"
-msgstr "Invierte el orden"
+msgstr "Invierte el orden."
 
 msgid "Save geo-location with notes"
 msgstr "Guardar geolocalización en las notas"
@@ -1098,18 +1098,17 @@ msgstr "Cuando se crear una nota nueva:"
 msgid "Show tray icon"
 msgstr "Mostrar icono en la bandeja"
 
+#, fuzzy
 msgid "Global zoom percentage"
 msgstr "Establecer el porcentaje de aumento de la aplicación"
 
 msgid "Editor font family"
-msgstr "Fuente del editor"
+msgstr ""
 
 msgid ""
 "The font name will not be checked. If incorrect or empty, it will default to "
 "a generic monospace font."
 msgstr ""
-"El nombre de la fuente no se comprobado. Si es incorrecto o está vacío, se "
-"utilizará una fuente genérica monoespaciada."
 
 msgid "Automatically update the application"
 msgstr "Actualizar la aplicación automáticamente"
@@ -1175,39 +1174,40 @@ msgstr "Contraseña de WebDAV"
 msgid "Invalid option value: \"%s\". Possible values are: %s."
 msgstr "Opción inválida: «%s». Los valores posibles son: %s."
 
+#, fuzzy
 msgid "Joplin Export File"
-msgstr "Archivo de exportación de Joplin"
+msgstr "Archivos exportados de Evernote"
 
 msgid "Markdown"
-msgstr "Markdown"
+msgstr ""
 
 msgid "Joplin Export Directory"
-msgstr "Directorio para exportar de Joplin"
+msgstr ""
 
+#, fuzzy
 msgid "Evernote Export File"
-msgstr "Archivo exportado de Evernote"
+msgstr "Archivos exportados de Evernote"
 
 #, javascript-format
 msgid "Cannot load \"%s\" module for format \"%s\""
-msgstr "No se puede cargar el módulo \"%s\" para el formato \"%s\""
+msgstr ""
 
 #, javascript-format
 msgid "Please specify import format for %s"
-msgstr "Por favor especifique el formato para importar de %s"
+msgstr ""
 
 #, javascript-format
 msgid ""
 "This item is currently encrypted: %s \"%s\". Please wait for all items to be "
 "decrypted and try again."
 msgstr ""
-"El elemento se encuentra cifrado: %s \"%s\". Por favor espere a que todos "
-"los elementos estén descifrados y pruebe de nuevo."
 
 msgid "There is no data to export."
-msgstr "No hay datos para exportar."
+msgstr ""
 
+#, fuzzy
 msgid "Please specify the notebook where the notes should be imported to."
-msgstr "Por favor especifique la libreta donde las notas deben ser importadas."
+msgstr "Seleccione a dónde se debería exportar el estado de sincronización"
 
 msgid "Items that cannot be synchronised"
 msgstr "Elementos que no se pueden sincronizar"
