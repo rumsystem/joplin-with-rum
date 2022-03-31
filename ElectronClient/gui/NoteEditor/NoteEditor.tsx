@@ -13,18 +13,15 @@ import useMessageHandler from './utils/useMessageHandler';
 import useWindowCommandHandler from './utils/useWindowCommandHandler';
 import useDropHandler from './utils/useDropHandler';
 import useMarkupToHtml from './utils/useMarkupToHtml';
+import useNoteToolbarButtons from './utils/useNoteToolbarButtons';
 import useFormNote, { OnLoadEvent } from './utils/useFormNote';
 import useFolder from './utils/useFolder';
 import styles_ from './styles';
 import { NoteEditorProps, FormNote, ScrollOptions, ScrollOptionTypes, OnChangeEvent, NoteBodyEditorProps } from './utils/types';
-import ResourceEditWatcher from 'lib/services/ResourceEditWatcher/index';
+import ResourceEditWatcher from '../../lib/services/ResourceEditWatcher/index';
 import CommandService from 'lib/services/CommandService';
 import ToolbarButton from '../ToolbarButton/ToolbarButton';
 import Button, { ButtonLevel } from '../Button/Button';
-import eventManager from 'lib/eventManager';
-import { AppState } from '../../app';
-import ToolbarButtonUtils from 'lib/services/commands/ToolbarButtonUtils';
-import { _ } from 'lib/locale';
 
 const { themeStyle } = require('lib/theme');
 const { substrWithEllipsis } = require('lib/string-utils');
@@ -33,22 +30,18 @@ const { reg } = require('lib/registry.js');
 const { time } = require('lib/time-utils.js');
 const markupLanguageUtils = require('lib/markupLanguageUtils');
 const usePrevious = require('lib/hooks/usePrevious').default;
-const Setting = require('lib/models/Setting').default;
+const Setting = require('lib/models/Setting');
+const { _ } = require('lib/locale');
 const Note = require('lib/models/Note.js');
-const bridge = require('electron').remote.require('./bridge').default;
+const { bridge } = require('electron').remote.require('./bridge');
 const ExternalEditWatcher = require('lib/services/ExternalEditWatcher');
+const eventManager = require('lib/eventManager');
 const NoteRevisionViewer = require('../NoteRevisionViewer.min');
 const TagList = require('../TagList.min.js');
 
 const commands = [
 	require('./commands/showRevisions'),
 ];
-
-const toolbarStyle = {
-	marginBottom: 0,
-};
-
-const toolbarButtonUtils = new ToolbarButtonUtils(CommandService.instance());
 
 function NoteEditor(props: NoteEditorProps) {
 	const [showRevisions, setShowRevisions] = useState(false);
@@ -123,8 +116,6 @@ function NoteEditor(props: NoteEditorProps) {
 					type: 'EDITOR_NOTE_STATUS_REMOVE',
 					id: formNote.id,
 				});
-
-				eventManager.emit('noteContentChange', { note: savedNote });
 			};
 		};
 
@@ -347,17 +338,22 @@ function NoteEditor(props: NoteEditorProps) {
 	}
 
 	function renderNoteToolbar() {
+		const toolbarStyle = {
+			marginBottom: 0,
+		};
+
 		return <NoteToolbar
 			themeId={props.themeId}
-			// note={formNote}
+			note={formNote}
 			style={toolbarStyle}
 		/>;
 	}
 
 	function renderTagButton() {
+		const info = CommandService.instance().commandToToolbarButton('setTags');
 		return <ToolbarButton
 			themeId={props.themeId}
-			toolbarButtonInfo={props.setTagsToolbarButtonInfo}
+			toolbarButtonInfo={info}
 		/>;
 	}
 
@@ -411,7 +407,7 @@ function NoteEditor(props: NoteEditorProps) {
 		disabled: false,
 		themeId: props.themeId,
 		dispatch: props.dispatch,
-		noteToolbar: null,
+		noteToolbar: null,// renderNoteToolbar(),
 		onScroll: onScroll,
 		setLocalSearchResultCount: setLocalSearchResultCount,
 		searchMarkers: searchMarkers,
@@ -419,8 +415,7 @@ function NoteEditor(props: NoteEditorProps) {
 		keyboardMode: Setting.value('editor.keyboardMode'),
 		locale: Setting.value('locale'),
 		onDrop: onDrop,
-		noteToolbarButtonInfos: props.toolbarButtonInfos,
-		plugins: props.plugins,
+		noteToolbarButtonInfos: useNoteToolbarButtons(),
 	};
 
 	let editor = null;
@@ -468,7 +463,6 @@ function NoteEditor(props: NoteEditorProps) {
 			notes={props.notes}
 			dispatch={props.dispatch}
 			watchedNoteFiles={props.watchedNoteFiles}
-			plugins={props.plugins}
 		/>;
 	}
 
@@ -563,7 +557,7 @@ export {
 	NoteEditor as NoteEditorComponent,
 };
 
-const mapStateToProps = (state: AppState) => {
+const mapStateToProps = (state: any) => {
 	const noteId = state.selectedNoteIds.length === 1 ? state.selectedNoteIds[0] : null;
 
 	return {
@@ -586,16 +580,6 @@ const mapStateToProps = (state: AppState) => {
 		noteVisiblePanes: state.noteVisiblePanes,
 		watchedResources: state.watchedResources,
 		highlightedWords: state.highlightedWords,
-		plugins: state.pluginService.plugins,
-		toolbarButtonInfos: toolbarButtonUtils.commandsToToolbarButtons(state, [
-			'historyBackward',
-			'historyForward',
-			'toggleEditors',
-			'toggleExternalEditing',
-		]),
-		setTagsToolbarButtonInfo: toolbarButtonUtils.commandsToToolbarButtons(state, [
-			'setTags',
-		])[0],
 	};
 };
 

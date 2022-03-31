@@ -6,10 +6,10 @@ const { time } = require('lib/time-utils.js');
 const { sortedIds, createNTestNotes, asyncTest, fileContentEqual, setupDatabase, setupDatabaseAndSynchronizer, db, synchronizer, fileApi, sleep, clearDatabase, switchClient, syncTargetId, objectsEqual, checkThrowAsync } = require('test-utils.js');
 const Folder = require('lib/models/Folder.js');
 const Note = require('lib/models/Note.js');
-const Setting = require('lib/models/Setting').default;
+const Setting = require('lib/models/Setting.js');
 const BaseModel = require('lib/BaseModel.js');
 const ArrayUtils = require('lib/ArrayUtils.js');
-const shim = require('lib/shim').default;
+const { shim } = require('lib/shim');
 
 process.on('unhandledRejection', (reason, p) => {
 	console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);

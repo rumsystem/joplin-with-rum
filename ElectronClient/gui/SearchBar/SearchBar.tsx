@@ -3,9 +3,9 @@ import { useState, useCallback, useEffect } from 'react';
 import CommandService from 'lib/services/CommandService';
 import useSearch from './hooks/useSearch';
 import { Root, SearchInput, SearchButton, SearchButtonIcon } from './styles';
-
-import { _ } from 'lib/locale';
 const { connect } = require('react-redux');
+
+const { _ } = require('lib/locale.js');
 
 interface Props {
 	inputRef?: any,

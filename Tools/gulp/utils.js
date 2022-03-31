@@ -101,7 +101,6 @@ utils.copyDir = async function(src, dest, options) {
 		cmd.push(`"${src}"`);
 		cmd.push(`"${dest}"`);
 		cmd.push('/e');
-		cmd.push('/r:0');
 		if (options.delete) cmd.push('/purge');
 
 		if (options.excluded.length) {

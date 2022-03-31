@@ -1,4 +1,4 @@
-const { isListItem, isEmptyListItem, extractListToken, olLineNumber } = require('lib/markdownUtils').default;
+const { isListItem, isEmptyListItem, extractListToken, olLineNumber } = require('lib/markdownUtils');
 
 // Markdown list indentation.
 // If the current line starts with `markup.list` token,

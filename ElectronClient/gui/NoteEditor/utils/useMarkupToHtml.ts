@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { ResourceInfos } from './types';
 const { themeStyle } = require('lib/theme');
 const Note = require('lib/models/Note');
-const Setting = require('lib/models/Setting').default;
+const Setting = require('lib/models/Setting');
 const markupLanguageUtils = require('lib/markupLanguageUtils');
 
 interface HookDependencies {

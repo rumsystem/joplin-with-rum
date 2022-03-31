@@ -16,7 +16,6 @@
 		"sourceMap": true,
 		"jsx": "react",
 		"skipLibCheck": true,
-		"allowUmdGlobalAccess": true,
 		"baseUrl": ".",
 		"paths": {
 			"lib/*": ["./ReactNativeClient/lib/*"],
@@ -30,7 +29,5 @@
 	"exclude": [
 		"**/node_modules",
 		"ElectronClient/dist/**/*",
-		"CliClient/tests/support/**/*",
-		"CliClient/tests-build/support/**/*",
 	],
 }

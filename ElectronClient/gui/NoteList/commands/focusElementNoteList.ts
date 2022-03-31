@@ -1,5 +1,5 @@
-import { CommandRuntime, CommandDeclaration } from 'lib/services/CommandService';
-import { _ } from 'lib/locale';
+import { CommandRuntime, CommandDeclaration } from '../../../lib/services/CommandService';
+const { _ } = require('lib/locale');
 
 export const declaration:CommandDeclaration = {
 	name: 'focusElementNoteList',
@@ -9,18 +9,18 @@ export const declaration:CommandDeclaration = {
 
 export const runtime = (comp:any):CommandRuntime => {
 	return {
-		execute: async ({ noteId }:any) => {
-			if (noteId) {
-				const ref = comp.itemAnchorRef(noteId);
+		execute: async ({ selectedNoteIds }:any) => {
+			if (selectedNoteIds.length) {
+				const ref = comp.itemAnchorRef(selectedNoteIds[0]);
 				if (ref) ref.focus();
 			}
 		},
 		isEnabled: (props:any):boolean => {
-			return !!props.noteId;
+			return !!props.selectedNoteIds.length;
 		},
 		mapStateToProps: (state:any):any => {
 			return {
-				noteId: state.selectedNoteIds.length ? state.selectedNoteIds[0] : null,
+				selectedNoteIds: state.selectedNoteIds,
 			};
 		},
 	};

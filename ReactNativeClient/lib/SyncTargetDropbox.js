@@ -1,10 +1,10 @@
 const BaseSyncTarget = require('lib/BaseSyncTarget.js');
-const { _ } = require('lib/locale');
+const { _ } = require('lib/locale.js');
 const DropboxApi = require('lib/DropboxApi');
-const Setting = require('lib/models/Setting').default;
+const Setting = require('lib/models/Setting.js');
 const { parameters } = require('lib/parameters.js');
 const { FileApi } = require('lib/file-api.js');
-const Synchronizer = require('lib/Synchronizer').default;
+const { Synchronizer } = require('lib/synchronizer.js');
 const { FileApiDriverDropbox } = require('lib/file-api-driver-dropbox.js');
 
 class SyncTargetDropbox extends BaseSyncTarget {

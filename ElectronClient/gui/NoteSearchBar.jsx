@@ -1,7 +1,7 @@
 const React = require('react');
 const { connect } = require('react-redux');
 const { themeStyle } = require('lib/theme');
-const { _ } = require('lib/locale');
+const { _ } = require('lib/locale.js');
 
 class NoteSearchBarComponent extends React.Component {
 	constructor() {

@@ -1,6 +1,6 @@
 const { BaseCommand } = require('./base-command.js');
 const { app } = require('./app.js');
-const { _ } = require('lib/locale');
+const { _ } = require('lib/locale.js');
 
 class Command extends BaseCommand {
 	usage() {

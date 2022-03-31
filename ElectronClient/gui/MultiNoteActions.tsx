@@ -1,9 +1,8 @@
-import { PluginStates } from 'lib/services/plugins/reducer';
 import * as React from 'react';
-import NoteListUtils from './utils/NoteListUtils';
 
 const { buildStyle } = require('lib/theme');
-const bridge = require('electron').remote.require('./bridge').default;
+const { bridge } = require('electron').remote.require('./bridge');
+const NoteListUtils = require('./utils/NoteListUtils');
 
 interface MultiNoteActionsProps {
 	themeId: number,
@@ -11,7 +10,6 @@ interface MultiNoteActionsProps {
 	notes: any[],
 	dispatch: Function,
 	watchedNoteFiles: string[],
-	plugins: PluginStates,
 }
 
 function styles_(props:MultiNoteActionsProps) {
@@ -50,7 +48,6 @@ export default function MultiNoteActions(props:MultiNoteActionsProps) {
 		notes: props.notes,
 		dispatch: props.dispatch,
 		watchedNoteFiles: props.watchedNoteFiles,
-		plugins: props.plugins,
 	});
 
 	const itemComps = [];

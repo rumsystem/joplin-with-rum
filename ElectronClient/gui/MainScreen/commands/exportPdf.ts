@@ -1,9 +1,9 @@
 import { CommandRuntime, CommandDeclaration } from '../../../lib/services/CommandService';
-import shim from 'lib/shim';
-import InteropServiceHelper from '../../../InteropServiceHelper';
-import { _ } from 'lib/locale';
 const Note = require('lib/models/Note');
-const bridge = require('electron').remote.require('./bridge').default;
+const { _ } = require('lib/locale');
+const { shim } = require('lib/shim');
+const { bridge } = require('electron').remote.require('./bridge');
+const InteropServiceHelper = require('../../../InteropServiceHelper.js');
 
 export const declaration:CommandDeclaration = {
 	name: 'exportPdf',
