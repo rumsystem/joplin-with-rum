@@ -56,7 +56,7 @@ import SyncTargetNone from './SyncTargetNone';
 import { setRSA } from './services/e2ee/ppk';
 import RSA from './services/e2ee/RSA.node';
 import Resource from './models/Resource';
-// import QuorumSDK from 'quorum-sdk-electron-renderer';
+import QuorumSDK from 'quorum-sdk-electron-renderer';
 
 const appLogger: LoggerWrapper = Logger.create('App');
 
@@ -826,14 +826,30 @@ export default class BaseApplication {
 			Setting.setValue('sync.10.userContentPath', 'http://joplinusercontent.local:22300');
 		}
 
-		if (Setting.value('sync.target') === 2) {
-			console.log('hw: use rum system');
-			console.log('start rum');
-			// (async () => {
-			// const QuorumClient = new QuorumSDK();
-			// await QuorumClient.up();
-			// console.log('Quorum client started !');
-			// })();
+		if (Setting.value('sync.target') === 11) {
+			console.log('start rum system...');
+			(async () => {
+				try {
+					const QuorumClient = new QuorumSDK();
+					await QuorumClient.up();
+					console.log('Quorum client started !');
+					const groups = await QuorumClient.Group.list() || [];
+					if (groups.length > 0) {
+						Setting.setValue('sync.11.group', groups[0]);
+					} else {
+						const group = await QuorumClient.Group.create({
+							group_name: 'joplin',
+							consensus_type: 'poa',
+							encryption_type: 'public',
+							app_key: 'group_note',
+						});
+						Setting.setValue('sync.11.group', group);
+					}
+					console.log(Setting.value('sync.11.group'));
+				} catch(e) {
+					console.log(e);
+				}
+			})();
 		}
 
 		// For now always disable fuzzy search due to performance issues:

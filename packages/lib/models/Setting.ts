@@ -649,6 +649,8 @@ class Setting extends BaseModel {
 				secure: true,
 			},
 
+			'sync.11.group': { value: {}, type: SettingItemType.Object, public: false },
+
 			'sync.11.path': {
 				value: '',
 				type: SettingItemType.String,

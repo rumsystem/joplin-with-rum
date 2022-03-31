@@ -16,6 +16,7 @@
     "test-ci": "yarn test"
   },
   "devDependencies": {
+    "@babel/runtime": "^7.17.2",
     "@types/fs-extra": "^9.0.6",
     "@types/jest": "^26.0.15",
     "@types/js-yaml": "^4.0.2",

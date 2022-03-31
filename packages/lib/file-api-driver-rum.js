@@ -1,6 +1,7 @@
 const { basicDelta } = require('./file-api');
-// const QuorumSDK = require('quorum-sdk-electron-renderer').default;
-// console.log(QuorumSDK);
+const Setting = require('./models/Setting').default;
+const QuorumSDK = require('quorum-sdk-electron-renderer').default;
+const QuorumClient = new QuorumSDK();
 
 class FileApiDriverRum {
 	fsErrorToJsError_(error, path = null) {
@@ -16,9 +17,33 @@ class FileApiDriverRum {
 		return FileApiDriverRum.fsDriver_;
 	}
 
+	isTempFile(path) {
+		if (/^\.resource.*$/.test(path) || /^\.sync.*$/.test(path) || /^\.lock.*$/.test(path) || /^temp.*$/.test(path) || /^locks.*$/.test(path)) return true;
+		return false;
+	}
+
+	tempFileFullPath(path) {
+		const output = [];
+		const syncPath = Setting.value('sync.11.path');
+		if (syncPath) output.push(syncPath);
+		if (path) output.push(path);
+		return output.join('/');
+	}
+
 	async stat(path) {
+    console.log('test stat');
+		console.log(path);
+		console.log(this.isTempFile(path));
+		path = this.tempFileFullPath(path);
+		try {
+			const s = await QuorumClient.Object.get(path);
+      console.log(s);
+		} catch (error) {
+			console.log(error);
+		}
 		try {
 			const s = await this.fsDriver().stat(path);
+      console.log(s);
 			if (!s) return null;
 			return this.metadataFromStat_(s);
 		} catch (error) {
@@ -45,6 +70,7 @@ class FileApiDriverRum {
 	}
 
 	async setTimestamp(path, timestampMs) {
+		path = this.tempFileFullPath(path);
 		try {
 			await this.fsDriver().setTimestamp(path, new Date(timestampMs));
 		} catch (error) {
@@ -53,6 +79,15 @@ class FileApiDriverRum {
 	}
 
 	async delta(path, options) {
+		console.log('test delta');
+		console.log(path);
+		console.log(this.isTempFile(path));
+		path = this.tempFileFullPath(path);
+		try {
+			const stats = await QuorumClient.Object.list();
+			console.log(stats);
+		} catch (error) {
+		}
 		const getStatFn = async path => {
 			const stats = await this.fsDriver().readDirStats(path);
 			return this.metadataFromStats_(stats);
@@ -67,8 +102,18 @@ class FileApiDriverRum {
 	}
 
 	async list(path) {
+		console.log('test list');
+		console.log(path);
+		console.log(this.isTempFile(path));
+		path = this.tempFileFullPath(path);
+		try {
+			const stats = await QuorumClient.Object.list();
+			console.log(stats);
+		} catch (error) {
+		}
 		try {
 			const stats = await this.fsDriver().readDirStats(path);
+			console.log(stats);
 			const output = this.metadataFromStats_(stats);
 
 			return {
@@ -82,6 +127,16 @@ class FileApiDriverRum {
 	}
 
 	async get(path, options) {
+		console.log('test get');
+		console.log(path);
+		console.log(this.isTempFile(path));
+		path = this.tempFileFullPath(path);
+		try {
+			const stats = await QuorumClient.Object.get(path);
+			console.log(stats);
+		} catch (error) {
+		}
+
 		let output = null;
 
 		try {
@@ -101,6 +156,7 @@ class FileApiDriverRum {
 	}
 
 	async mkdir(path) {
+		path = this.tempFileFullPath(path);
 		if (await this.fsDriver().exists(path)) return;
 
 		try {
@@ -128,6 +184,11 @@ class FileApiDriverRum {
 	}
 
 	async put(path, content, options = null) {
+		console.log('test put');
+		console.log(path);
+		console.log(this.isTempFile(path));
+		const keyPath = path;
+		path = this.tempFileFullPath(path);
 		if (!options) options = {};
 
 		try {
@@ -136,7 +197,25 @@ class FileApiDriverRum {
 				return;
 			}
 
+			console.log(content);
 			await this.fsDriver().writeFile(path, content, 'utf8');
+			try {
+				const group = Setting.value('sync.11.group');
+				const object = await QuorumClient.Object.put(group.user_pubkey, {
+					type: 'Add',
+					object: {
+						id: keyPath,
+						type: 'Note',
+						content: content,
+					},
+					target: {
+						id: group.group_id,
+						type: 'Group',
+					},
+				});
+				console.log(object);
+			} catch (error) {
+			}
 		} catch (error) {
 			throw this.fsErrorToJsError_(error, path);
 		}
@@ -157,29 +236,23 @@ class FileApiDriverRum {
 	}
 
 	async delete(path) {
+		console.log('test delete');
+		console.log(path);
+		console.log(this.isTempFile(path));
+		try {
+			await QuorumClient.Object.delete(Setting.value('sync.11.group_id'), path);
+		} catch (error) {
+		}
 		try {
 			await this.fsDriver().unlink(path);
 		} catch (error) {
 			throw this.fsErrorToJsError_(error, path);
 		}
-
-		// return new Promise((resolve, reject) => {
-		// 	fs.unlink(path, function(error) {
-		// 		if (error) {
-		// 			if (error && error.code == 'ENOENT') {
-		// 				// File doesn't exist - it's fine
-		// 				resolve();
-		// 			} else {
-		// 				reject(this.fsErrorToJsError_(error));
-		// 			}
-		// 		} else {
-		// 			resolve();
-		// 		}
-		// 	});
-		// });
 	}
 
 	async move(oldPath, newPath) {
+		oldPath = this.tempFileFullPath(oldPath);
+		newPath = this.tempFileFullPath(newPath);
 		try {
 			await this.fsDriver().move(oldPath, newPath);
 		} catch (error) {
@@ -212,6 +285,7 @@ class FileApiDriverRum {
 	}
 
 	async clearRoot(baseDir) {
+		baseDir = this.tempFileFullPath(baseDir);
 		await this.fsDriver().remove(baseDir);
 		await this.fsDriver().mkdir(baseDir);
 	}

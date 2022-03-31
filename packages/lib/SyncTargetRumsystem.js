@@ -23,12 +23,11 @@ class SyncTargetRumsystem extends BaseSyncTarget {
 	}
 
 	async initFileApi() {
-		const syncPath = Setting.value('sync.11.path');
 		const driver = new FileApiDriverRum();
-		const fileApi = new FileApi(syncPath, driver);
+		const fileApi = new FileApi('', driver);
 		fileApi.setLogger(this.logger());
 		fileApi.setSyncTargetId(SyncTargetRumsystem.id());
-		await driver.mkdir(syncPath);
+		await driver.mkdir('');
 		return fileApi;
 	}
 
