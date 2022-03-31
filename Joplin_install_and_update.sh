@@ -162,7 +162,7 @@ DESKTOP=${DESKTOP,,}  # convert to lower case
 
 #-----------------------------------------------------
 echo 'Create Desktop icon...'
-if [[ $DESKTOP =~ .*gnome.*|.*kde.*|.*xfce.*|.*mate.*|.*lxqt.*|.*unity.*|.*x-cinnamon.*|.*deepin.*|.*pantheon.*|.*lxde.*|.*i3.*|.*sway.* ]]
+if [[ $DESKTOP =~ .*gnome.*|.*kde.*|.*xfce.*|.*mate.*|.*lxqt.*|.*unity.*|.*x-cinnamon.*|.*deepin.*|.*pantheon.*|.*lxde.*|.*i3.* ]]
 then
     # Only delete the desktop file if it will be replaced
     rm -f ~/.local/share/applications/appimagekit-joplin.desktop
