@@ -144,6 +144,8 @@ class NotesScreenComponent extends BaseScreenComponent {
 			notes: notes,
 			notesSource: source,
 		});
+
+		console.info('Done', Date.now() - startTime);
 	}
 
 	deleteFolder_onPress(folderId) {
