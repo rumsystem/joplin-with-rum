@@ -7,6 +7,7 @@ export default function convertToScreenCoordinates(o: any): any {
 
 	if (typeof o === 'object' && o !== null) {
 		o = JSON.parse(JSON.stringify(o));
+		console.info('K', Object.keys(o));
 		for (const k of Object.keys(o)) {
 			o[k] = convertToScreenCoordinates(o[k]);
 		}
