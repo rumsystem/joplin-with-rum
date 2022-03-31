@@ -1,6 +1,6 @@
 {
   "name": "Joplin",
-  "version": "1.0.199",
+  "version": "1.0.197",
   "description": "Joplin for Desktop",
   "main": "main.js",
   "scripts": {
@@ -28,7 +28,7 @@
     "win": {
       "asar": true,
       "rfc3161TimeStampServer": "http://sha256timestamp.ws.symantec.com/sha256/timestamp",
-      "icon": "../../Assets/Joplin.ico",
+      "icon": "../../Assets/ImageSources/Joplin.ico",
       "target": [
         {
           "target": "nsis",
