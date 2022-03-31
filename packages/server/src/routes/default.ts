@@ -1,5 +1,6 @@
 import * as Koa from 'koa';
-import { SubPath, Route, Response, ResponseType } from '../utils/routeUtils';
+import { SubPath, Response, ResponseType } from '../utils/routeUtils';
+import Router from '../utils/Router';
 import { ErrorNotFound, ErrorForbidden } from '../utils/errors';
 import { dirname, normalize } from 'path';
 import { pathExists } from 'fs-extra';
@@ -36,28 +37,25 @@ async function findLocalFile(path: string): Promise<string> {
 	return localPath;
 }
 
-const route: Route = {
+const router = new Router();
 
-	exec: async function(path: SubPath, ctx: Koa.Context) {
+router.public = true;
 
-		if (ctx.method === 'GET') {
-			const localPath = await findLocalFile(path.raw);
+// Used to serve static files, so it needs to be public because for example the
+// login page, which is public, needs access to the CSS files.
+router.get('', async (path: SubPath, ctx: Koa.Context) => {
+	const localPath = await findLocalFile(path.raw);
 
-			let mimeType: string = mime.fromFilename(localPath);
-			if (!mimeType) mimeType = 'application/octet-stream';
+	let mimeType: string = mime.fromFilename(localPath);
+	if (!mimeType) mimeType = 'application/octet-stream';
 
-			const fileContent: Buffer = await fs.readFile(localPath);
+	const fileContent: Buffer = await fs.readFile(localPath);
 
-			const koaResponse = ctx.response;
-			koaResponse.body = fileContent;
-			koaResponse.set('Content-Type', mimeType);
-			koaResponse.set('Content-Length', fileContent.length.toString());
-			return new Response(ResponseType.KoaResponse, koaResponse);
-		}
+	const koaResponse = ctx.response;
+	koaResponse.body = fileContent;
+	koaResponse.set('Content-Type', mimeType);
+	koaResponse.set('Content-Length', fileContent.length.toString());
+	return new Response(ResponseType.KoaResponse, koaResponse);
+});
 
-		throw new ErrorNotFound();
-	},
-
-};
-
-export default route;
+export default router;
