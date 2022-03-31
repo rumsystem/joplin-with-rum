@@ -323,7 +323,7 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 			}
 		}
 
-		void loadScripts();
+		loadScripts();
 
 		return () => {
 			cancelled = true;
@@ -630,7 +630,7 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 							editorPasteText();
 						} else {
 							// To handle pasting images
-							void onEditorPaste();
+							onEditorPaste();
 						}
 					},
 				})

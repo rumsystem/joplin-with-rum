@@ -66,7 +66,7 @@ export default class SpellCheckerService {
 	public setLanguage(language: string) {
 		Setting.setValue('spellChecker.language', language);
 		this.applyStateToDriver();
-		void this.addLatestSelectedLanguage(language);
+		this.addLatestSelectedLanguage(language);
 	}
 
 	public get language(): string {
@@ -98,7 +98,7 @@ export default class SpellCheckerService {
 				output.push({
 					label: suggestion,
 					click: () => {
-						void CommandService.instance().execute('replaceSelection', suggestion);
+						CommandService.instance().execute('replaceSelection', suggestion);
 					},
 				});
 			}
@@ -115,7 +115,7 @@ export default class SpellCheckerService {
 		output.push({
 			label: _('Add to dictionary'),
 			click: () => {
-				void this.addToDictionary(this.language, misspelledWord);
+				this.addToDictionary(this.language, misspelledWord);
 			},
 		});
 
