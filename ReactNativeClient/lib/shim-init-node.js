@@ -145,7 +145,6 @@ function shimInit() {
 	shim.createResourceFromPath = async function(filePath, defaultProps = null, options = null) {
 		options = Object.assign({
 			resizeLargeImages: 'always', // 'always', 'ask' or 'never'
-			userSideValidation: false,
 		}, options);
 
 		const readChunk = require('read-chunk');
@@ -160,7 +159,7 @@ function shimInit() {
 
 		const resourceId = defaultProps.id ? defaultProps.id : uuid.create();
 
-		const resource = Resource.new();
+		let resource = Resource.new();
 		resource.id = resourceId;
 		resource.mime = mimeUtils.fromFilename(filePath);
 		resource.title = basename(filePath);
@@ -187,13 +186,15 @@ function shimInit() {
 			const ok = await handleResizeImage_(filePath, targetPath, resource.mime, options.resizeLargeImages);
 			if (!ok) return null;
 		} else {
+			// const stat = await shim.fsDriver().stat(filePath);
+			// if (stat.size >= 10000000) throw new Error('Resources larger than 10 MB are not currently supported as they may crash the mobile applications. The issue is being investigated and will be fixed at a later time.');
+
 			await fs.copy(filePath, targetPath, { overwrite: true });
 		}
 
-		// While a whole object can be passed as defaultProps, we only just
-		// support the title and ID (used above). Any other prop should be
-		// derived from the provided file.
-		if ('title' in defaultProps) resource.title = defaultProps.title;
+		if (defaultProps) {
+			resource = Object.assign({}, resource, defaultProps);
+		}
 
 		const itDoes = await shim.fsDriver().waitTillExists(targetPath);
 		if (!itDoes) throw new Error(`Resource file was not created: ${targetPath}`);
@@ -201,9 +202,7 @@ function shimInit() {
 		const fileStat = await shim.fsDriver().stat(targetPath);
 		resource.size = fileStat.size;
 
-		const saveOptions =  { isNew: true };
-		if (options.userSideValidation) saveOptions.userSideValidation = true;
-		return Resource.save(resource, saveOptions);
+		return Resource.save(resource, { isNew: true });
 	};
 
 	shim.attachFileToNoteBody = async function(noteBody, filePath, position = null, options = null) {
