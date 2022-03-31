@@ -1,12 +1,14 @@
-import { MasterKeyEntity } from './e2ee/types';
-import Logger from '../Logger';
-import shim from '../shim';
-import Setting from '../models/Setting';
-import MasterKey from '../models/MasterKey';
-import BaseItem from '../models/BaseItem';
-import JoplinError from '../JoplinError';
-import { getActiveMasterKeyId, setActiveMasterKeyId } from './synchronizer/syncInfoUtils';
-const { padLeft } = require('../string-utils.js');
+import { MasterKeyEntity } from './types';
+import Logger from '../../Logger';
+import shim from '../../shim';
+import Setting from '../../models/Setting';
+import MasterKey from '../../models/MasterKey';
+import BaseItem from '../../models/BaseItem';
+import JoplinError from '../../JoplinError';
+import { getActiveMasterKeyId, setActiveMasterKeyId } from '../synchronizer/syncInfoUtils';
+const { padLeft } = require('../../string-utils.js');
+
+const logger = Logger.create('EncryptionService');
 
 function hexPad(s: string, length: number) {
 	return padLeft(s, length, '0');
@@ -52,7 +54,6 @@ export default class EncryptionService {
 	private decryptedMasterKeys_: Record<string, DecryptedMasterKey> = {};
 	public defaultEncryptionMethod_ = EncryptionService.METHOD_SJCL_1A; // public because used in tests
 	private defaultMasterKeyEncryptionMethod_ = EncryptionService.METHOD_SJCL_4;
-	private logger_ = new Logger();
 
 	private headerTemplates_ = {
 		// Template version 1
@@ -80,7 +81,6 @@ export default class EncryptionService {
 		this.decryptedMasterKeys_ = {};
 		this.defaultEncryptionMethod_ = EncryptionService.METHOD_SJCL_1A;
 		this.defaultMasterKeyEncryptionMethod_ = EncryptionService.METHOD_SJCL_4;
-		this.logger_ = new Logger();
 
 		this.headerTemplates_ = {
 			// Template version 1
@@ -95,14 +95,6 @@ export default class EncryptionService {
 		if (this.instance_) return this.instance_;
 		this.instance_ = new EncryptionService();
 		return this.instance_;
-	}
-
-	setLogger(l: Logger) {
-		this.logger_ = l;
-	}
-
-	logger() {
-		return this.logger_;
 	}
 
 	loadedMasterKeysCount() {
@@ -139,10 +131,14 @@ export default class EncryptionService {
 
 	public async loadMasterKey(model: MasterKeyEntity, password: string, makeActive = false) {
 		if (!model.id) throw new Error('Master key does not have an ID - save it first');
+
+		logger.info(`Loading master key: ${model.id}. Make active:`, makeActive);
+
 		this.decryptedMasterKeys_[model.id] = {
 			plainText: await this.decryptMasterKey_(model, password),
 			updatedTime: model.updated_time,
 		};
+
 		if (makeActive) this.setActiveMasterKeyId(model.id);
 	}
 
@@ -189,7 +185,9 @@ export default class EncryptionService {
 	}
 
 	masterKeysThatNeedUpgrading(masterKeys: MasterKeyEntity[]) {
-		return MasterKey.allWithoutEncryptionMethod(masterKeys, this.defaultMasterKeyEncryptionMethod_);
+		const output = MasterKey.allWithoutEncryptionMethod(masterKeys, this.defaultMasterKeyEncryptionMethod_);
+		// Anything below 5 is a new encryption method and doesn't need an upgrade
+		return output.filter(mk => mk.encryption_method <= 5);
 	}
 
 	async upgradeMasterKey(model: MasterKeyEntity, decryptionPassword: string) {
@@ -243,7 +241,7 @@ export default class EncryptionService {
 		return plainText;
 	}
 
-	async checkMasterKeyPassword(model: MasterKeyEntity, password: string) {
+	public async checkMasterKeyPassword(model: MasterKeyEntity, password: string) {
 		try {
 			await this.decryptMasterKey_(model, password);
 		} catch (error) {
@@ -253,7 +251,7 @@ export default class EncryptionService {
 		return true;
 	}
 
-	wrapSjclError(sjclError: any) {
+	private wrapSjclError(sjclError: any) {
 		const error = new Error(sjclError.message);
 		error.stack = sjclError.stack;
 		return error;
