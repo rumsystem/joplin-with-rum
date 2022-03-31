@@ -259,8 +259,7 @@ msgstr ""
 "Benutze die Pfeiltasten und Bild hoch/runter um durch Listen und Texte zu "
 "scrollen (inklusive diesem Terminal)."
 
-#, fuzzy
-msgid "To maximise/minimise the console, press \"tc\"."
+msgid "To maximise/minimise the console, press \"TC\"."
 msgstr "Um das Terminal zu maximieren/minimieren, drücke \"TC\"."
 
 msgid "To enter command line mode, press \":\""
@@ -646,9 +645,6 @@ msgstr "Alle Notizen durchsuchen"
 msgid "View"
 msgstr "Ansicht"
 
-msgid "Toggle sidebar"
-msgstr ""
-
 msgid "Toggle editor layout"
 msgstr "Editor Layout umschalten"
 
@@ -793,7 +789,7 @@ msgstr "Die Master-Keas dieser IDs werden für die Verschlüsselung einiger ..."
 
 msgid ""
 "For more information about End-To-End Encryption (E2EE) and advices on how "
-"to enable it please check the documentation:"
+"to enable it please check the documentation"
 msgstr ""
 
 msgid "Status"
@@ -1153,9 +1149,6 @@ msgstr "Wenn eine neue Notiz erstellt wird:"
 msgid "Show tray icon"
 msgstr "Zeige Tray Icon"
 
-msgid "Note: Does not work in all desktop environments."
-msgstr ""
-
 msgid "Global zoom percentage"
 msgstr "Zoomstufe der Benutzeroberfläche"
 
@@ -1388,6 +1381,11 @@ msgstr "Passwort darf nicht leer sein"
 
 msgid "Enable"
 msgstr "Aktivieren"
+
+msgid ""
+"For more information about End-To-End Encryption (E2EE) and advices on how "
+"to enable it please check the documentation:"
+msgstr ""
 
 #, javascript-format
 msgid "The notebook could not be saved: %s"

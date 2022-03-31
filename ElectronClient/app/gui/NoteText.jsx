@@ -1,6 +1,5 @@
 const React = require('react');
 const Note = require('lib/models/Note.js');
-const BaseItem = require('lib/models/BaseItem.js');
 const BaseModel = require('lib/BaseModel.js');
 const Search = require('lib/models/Search.js');
 const { time } = require('lib/time-utils.js');
@@ -77,6 +76,7 @@ class NoteTextComponent extends React.Component {
 	mdToHtml() {
 		if (this.mdToHtml_) return this.mdToHtml_;
 		this.mdToHtml_ = new MdToHtml({
+			supportsResourceLinks: true,
 			resourceBaseUrl: 'file://' + Setting.value('resourceDir') + '/',
 		});
 		return this.mdToHtml_;
@@ -210,22 +210,10 @@ class NoteTextComponent extends React.Component {
 			}
 
 			if (this.editor_) {
-				// Calling setValue here does two things:
-				// 1. It sets the initial value as recorded by the undo manager. If we were to set it instead to "" and wait for the render
-				//    phase to set the value, the initial value would still be "", which means pressing "undo" on a note that has just loaded
-				//    would clear it.
-				// 2. It resets the undo manager - fixes https://github.com/laurent22/joplin/issues/355
-				// Note: calling undoManager.reset() doesn't work
-				try {
-					this.editor_.editor.getSession().setValue(note ? note.body : '');
-				} catch (error) {
-					if (error.message === "Cannot read property 'match' of undefined") {
-						// The internals of Ace Editor throws an exception when creating a new note,
-						// but that can be ignored.
-					} else {
-						console.error(error);
-					}
-				}
+				const session = this.editor_.editor.getSession();
+				const undoManager = session.getUndoManager();
+				undoManager.reset();
+				session.setUndoManager(undoManager);
 				this.editor_.editor.clearSelection();
 				this.editor_.editor.moveCursorTo(0,0);
 			}
@@ -334,29 +322,11 @@ class NoteTextComponent extends React.Component {
 
 			menu.popup(bridge().window());
 		} else if (msg.indexOf('joplin://') === 0) {
-			const itemId = msg.substr('joplin://'.length);
-			const item = await BaseItem.loadItemById(itemId);
-
-			if (!item) throw new Error('No item with ID ' + itemId);
-
-			if (item.type_ === BaseModel.TYPE_RESOURCE) {
-				const filePath = Resource.fullPath(item);
+			const resourceId = msg.substr('joplin://'.length);
+			Resource.load(resourceId).then((resource) => {
+				const filePath = Resource.fullPath(resource);
 				bridge().openItem(filePath);
-			} else if (item.type_ === BaseModel.TYPE_NOTE) {
-				this.props.dispatch({
-					type: "FOLDER_SELECT",
-					id: item.parent_id,
-				});
-
-				setTimeout(() => {
-					this.props.dispatch({
-						type: 'NOTE_SELECT',
-						id: item.id,
-					});
-				}, 10);
-			} else {
-				throw new Error('Unsupported item type: ' + item.type_);
-			}
+			});
 		} else {
 			bridge().showErrorMessageBox(_('Unsupported link or message: %s', msg));
 		}
@@ -530,7 +500,6 @@ class NoteTextComponent extends React.Component {
 				});
 			} catch (error) {
 				reg.logger().error(error);
-				bridge().showErrorMessageBox(error.message);
 			}
 		}
 	}

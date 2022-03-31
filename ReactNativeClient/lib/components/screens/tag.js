@@ -25,7 +25,7 @@ class TagScreenComponent extends BaseScreenComponent {
 		this.refreshNotes();
 	}
 
-	UNSAFE_componentWillReceiveProps(newProps) {
+	componentWillReceiveProps(newProps) {
 		if (newProps.selectedTagId !== this.props.selectedTagId) {
 			this.refreshNotes(newProps);
 		}

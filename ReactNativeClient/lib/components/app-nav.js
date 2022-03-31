@@ -16,7 +16,7 @@ class AppNavComponent extends Component {
 		}
 	}
 
-	UNSAFE_componentWillMount() {
+	componentWillMount() {
 		if (Platform.OS === 'ios') {
 			this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow.bind(this));
 			this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide.bind(this));

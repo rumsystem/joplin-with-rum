@@ -10,16 +10,14 @@ shared.noteExists = async function(noteId) {
 	return !!existingNote;
 }
 
-shared.saveNoteButton_press = async function(comp, folderId = null) {
+shared.saveNoteButton_press = async function(comp) {
 	let note = Object.assign({}, comp.state.note);
 
 	// Note has been deleted while user was modifying it. In that case, we
 	// just save a new note by clearing the note ID.
 	if (note.id && !(await shared.noteExists(note.id))) delete note.id;
 
-	if (folderId) {
-		note.parent_id = folderId;
-	} else if (!note.parent_id) {
+	if (!note.parent_id) {
 		let folder = await Folder.defaultFolder();
 		if (!folder) return;
 		note.parent_id = folder.id;

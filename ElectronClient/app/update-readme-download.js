@@ -5,7 +5,7 @@ const https = require('https');
 const request = require('request');
 
 const url = 'https://api.github.com/repos/laurent22/joplin/releases/latest';
-const readmePath = __dirname + '/../README.md';
+const readmePath = __dirname + '/../../README.md';
 
 async function msleep(ms) {
 	return new Promise((resolve, reject) => {
@@ -91,10 +91,9 @@ async function main(argv) {
 
 	setReadmeContent(content);
 
-	// console.info("git pull && git add -A && git commit -m 'Update readme downloads' && git push")
+	console.info("git pull && git add -A && git commit -m 'Update readme downloads' && git push")
 }
 
 main(process.argv).catch((error) => {
 	console.error('Fatal error', error);
-	process.exit(1);
 });

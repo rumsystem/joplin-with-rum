@@ -96,7 +96,7 @@ class NoteTagsDialogComponent extends React.Component {
 		}
 	}
 
-	UNSAFE_componentWillMount() {
+	componentWillMount() {
 		const noteId = this.props.noteId;
 		this.setState({ noteId: noteId });
 		this.loadNoteTags(noteId);
@@ -164,7 +164,7 @@ class NoteTagsDialogComponent extends React.Component {
 		const dialogContent = (
 			<View style={{flex:1}}>
 				<View style={this.styles().newTagBox}>
-					<Text style={this.styles().newTagBoxLabel}>{_('New tags:')}</Text><TextInput selectionColor={theme.textSelectionColor} value={this.state.newTags} onChangeText={value => { this.setState({ newTags: value }) }} style={this.styles().newTagBoxInput}/>
+					<Text style={this.styles().newTagBoxLabel}>{_('New tags:')}</Text><TextInput value={this.state.newTags} onChangeText={value => { this.setState({ newTags: value }) }} style={this.styles().newTagBoxInput}/>
 				</View>
 				<FlatList
 					data={this.state.tagListData}

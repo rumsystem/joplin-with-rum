@@ -143,14 +143,6 @@ class BaseApplication {
 				continue;
 			}
 
-			if (arg.indexOf('-psn') === 0) {
-				// Some weird flag passed by macOS - can be ignored.
-				// https://github.com/laurent22/joplin/issues/480
-				// https://stackoverflow.com/questions/10242115
-				argv.splice(0, 1);
-				continue;
-			}
-
 			if (arg.length && arg[0] == '-') {
 				throw new JoplinError(_('Unknown flag: %s', arg), 'flagError');
 			} else {
@@ -376,11 +368,11 @@ class BaseApplication {
 		let initArgs = startFlags.matched;
 		if (argv.length) this.showPromptString_ = false;
 
-		// if (process.argv[1].indexOf('joplindev') >= 0) {
-		// 	if (!initArgs.profileDir) initArgs.profileDir = '/mnt/d/Temp/TestNotes2';
-		// 	initArgs.logLevel = Logger.LEVEL_DEBUG;
-		// 	initArgs.env = 'dev';
-		// }
+		if (process.argv[1].indexOf('joplindev') >= 0) {
+			if (!initArgs.profileDir) initArgs.profileDir = '/mnt/d/Temp/TestNotes2';
+			initArgs.logLevel = Logger.LEVEL_DEBUG;
+			initArgs.env = 'dev';
+		}
 
 		let appName = initArgs.env == 'dev' ? 'joplindev' : 'joplin';
 		if (Setting.value('appId').indexOf('-desktop') >= 0) appName += '-desktop';
@@ -437,7 +429,7 @@ class BaseApplication {
 				Setting.setValue('autoUpdateEnabled', 0);
 				Setting.setValue('sync.interval', 3600);
 			}
-
+			
 			Setting.setValue('firstStart', 0);
 		} else {
 			setLocale(Setting.value('locale'));
