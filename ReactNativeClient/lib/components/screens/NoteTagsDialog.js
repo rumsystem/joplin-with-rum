@@ -65,7 +65,7 @@ class NoteTagsDialogComponent extends React.Component {
 			return (
 				<TouchableOpacity key={tag.id} onPress={() => this.tag_press(tag.id)} style={this.styles().tag}>
 					<View style={this.styles().tagIconText}>
-						<Icon name={iconName} style={this.styles().tagCheckbox}/><Text style={this.styles().tagText}>{tag.title}</Text>
+						<Icon name={iconName} style={this.styles().tagCheckbox}/><Text>{tag.title}</Text>
 					</View>
 				</TouchableOpacity>
 			);
@@ -114,6 +114,7 @@ class NoteTagsDialogComponent extends React.Component {
 
 		tagListData.sort((a, b) => {
 			return naturalCompare.caseInsensitive(a.title, b.title);
+			//return a.title.toLowerCase() < b.title.toLowerCase() ? -1 : +1;
 		});
 
 		this.setState({ tagListData: tagListData });
@@ -136,11 +137,9 @@ class NoteTagsDialogComponent extends React.Component {
 				flexDirection: 'row',
 				alignItems: 'center',
 			},
-			tagText: Object.assign({}, theme.normalText),
 			tagCheckbox: {
-				marginRight: 8,
+				marginRight: 5,
 				fontSize: 20,
-				color: theme.color,
 			},
 			newTagBox: {
 				flexDirection:'row',
@@ -150,8 +149,6 @@ class NoteTagsDialogComponent extends React.Component {
 				borderBottomWidth: 1,
 				borderBottomColor: theme.dividerColor
 			},
-			newTagBoxLabel: Object.assign({}, theme.normalText, { marginRight: 8 }),
-			newTagBoxInput: Object.assign({}, theme.lineInput, { flex: 1 }),
 		};
 
 		this.styles_[themeId] = StyleSheet.create(styles);
@@ -164,7 +161,7 @@ class NoteTagsDialogComponent extends React.Component {
 		const dialogContent = (
 			<View style={{flex:1}}>
 				<View style={this.styles().newTagBox}>
-					<Text style={this.styles().newTagBoxLabel}>{_('New tags:')}</Text><TextInput value={this.state.newTags} onChangeText={value => { this.setState({ newTags: value }) }} style={this.styles().newTagBoxInput}/>
+					<Text>{_('New tags:')}</Text><TextInput value={this.state.newTags} onChangeText={value => { this.setState({ newTags: value }) }} style={{flex:1}}/>
 				</View>
 				<FlatList
 					data={this.state.tagListData}

@@ -26,7 +26,7 @@ class SyncTargetOneDrive extends BaseSyncTarget {
 		return _('OneDrive');
 	}
 
-	async isAuthenticated() {
+	isAuthenticated() {
 		return this.api().auth();
 	}
 
@@ -80,7 +80,7 @@ class SyncTargetOneDrive extends BaseSyncTarget {
 	}
 
 	async initSynchronizer() {
-		if (!await this.isAuthenticated()) throw new Error('User is not authentified');
+		if (!this.isAuthenticated()) throw new Error('User is not authentified');
 		return new Synchronizer(this.db(), await this.fileApi(), Setting.value('appType'));
 	}
 

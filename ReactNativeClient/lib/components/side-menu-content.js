@@ -138,10 +138,8 @@ class SideMenuContentComponent extends Component {
 	}
 
 	synchronizeButton(state) {
-		const theme = themeStyle(this.props.theme);
-		
 		const title = state == 'sync' ? _('Synchronise') : _('Cancel synchronisation');
-		const iconComp = state == 'sync' ? <Icon name='md-sync' style={theme.icon} /> : <Icon name='md-close' style={theme.icon} />;
+		const iconComp = state == 'sync' ? <Icon name='md-sync' style={globalStyle.icon} /> : <Icon name='md-close' style={globalStyle.icon} />;
 
 		return (
 			<TouchableOpacity key={'synchronize_button'} onPress={() => { this.synchronize_press() }}>

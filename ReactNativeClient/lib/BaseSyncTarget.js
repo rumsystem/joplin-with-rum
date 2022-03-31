@@ -30,7 +30,7 @@ class BaseSyncTarget {
 		return this.db_;
 	}
 
-	async isAuthenticated() {
+	isAuthenticated() {
 		return false;
 	}
 
@@ -63,10 +63,6 @@ class BaseSyncTarget {
 	async fileApi() {
 		if (this.fileApi_) return this.fileApi_;
 		this.fileApi_ = await this.initFileApi();
-		return this.fileApi_;
-	}
-
-	fileApiSync() {
 		return this.fileApi_;
 	}
 
@@ -113,7 +109,7 @@ class BaseSyncTarget {
 
 	async syncStarted() {
 		if (!this.synchronizer_) return false;
-		if (!await this.isAuthenticated()) return false;
+		if (!this.isAuthenticated()) return false;
 		const sync = await this.synchronizer();
 		return sync.state() != 'idle';
 	}

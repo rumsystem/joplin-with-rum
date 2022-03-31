@@ -35,17 +35,16 @@ class ModalDialog extends React.Component {
 			modalContentWrapper2: {
 				flex:1,
 			},
-			title: Object.assign({}, theme.normalText, {
+			title: {
 				borderBottomWidth: 1,
 				borderBottomColor: theme.dividerColor,
 				paddingBottom: 10,
 				fontWeight: 'bold',
-			}),
+			},
 			buttonRow: {
 				flexDirection: 'row',
 				borderTopWidth: 1,
 				borderTopColor: theme.dividerColor,
-				paddingTop: 10,
 			},
 		};
 
