@@ -106,9 +106,9 @@ async function main() {
 
 	fs.removeSync(`${serverRoot}/db-testing.sqlite`);
 
-	// const migrateCommand = 'NODE_ENV=testing node dist/app.js --migrate-latest --env dev';
+	// const migrateCommand = 'NODE_ENV=testing node dist/app.js --migrate-db --env dev';
 	const clearCommand = 'node dist/app.js --env dev --drop-tables';
-	const migrateCommand = 'node dist/app.js --env dev --migrate-latest';
+	const migrateCommand = 'node dist/app.js --env dev --migrate-db';
 
 	await execCommand(clearCommand);
 	await execCommand(migrateCommand);
