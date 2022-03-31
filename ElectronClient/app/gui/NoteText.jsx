@@ -1,7 +1,5 @@
 const React = require('react');
 const Note = require('lib/models/Note.js');
-const BaseModel = require('lib/BaseModel.js');
-const Search = require('lib/models/Search.js');
 const { time } = require('lib/time-utils.js');
 const Setting = require('lib/models/Setting.js');
 const { IconButton } = require('./IconButton.min.js');
@@ -197,9 +195,7 @@ class NoteTextComponent extends React.Component {
 			this.editorSetScrollTop(1);
 			this.restoreScrollTop_ = 0;
 
-			// If a search is in progress we don't focus any field otherwise it will
-			// take the focus out of the search box.
-			if (note && this.props.notesParentType !== 'Search') {
+			if (note) {
 				const focusSettingName = !!note.is_todo ? 'newTodoFocus' : 'newNoteFocus';
 
 				if (Setting.value(focusSettingName) === 'title') {
@@ -370,7 +366,7 @@ class NoteTextComponent extends React.Component {
 			webviewReady: true,
 		});
 
-		if (Setting.value('env') === 'dev') this.webview_.openDevTools();
+		// if (Setting.value('env') === 'dev') this.webview_.openDevTools();
 	}
 
 	webview_ref(element) {
@@ -397,18 +393,6 @@ class NoteTextComponent extends React.Component {
 
 		if (this.editor_) {
 			this.editor_.editor.renderer.on('afterRender', this.onAfterEditorRender_);
-
-			const cancelledKeys = ['Ctrl+F', 'Ctrl+T', 'Ctrl+P', 'Ctrl+Q', 'Ctrl+L', 'Ctrl+,'];
-			for (let i = 0; i < cancelledKeys.length; i++) {
-				const k = cancelledKeys[i];
-				this.editor_.editor.commands.bindKey(k, () => {
-					// HACK: Ace doesn't seem to provide a way to override its shortcuts, but throwing
-					// an exception from this undocumented function seems to cancel it without any
-					// side effect.
-					// https://stackoverflow.com/questions/36075846
-					throw new Error('HACK: Overriding Ace Editor shortcut: ' + k);
-				});
-			}
 		}
 	}
 
@@ -659,10 +643,6 @@ class NoteTextComponent extends React.Component {
 
 			const html = this.mdToHtml().render(bodyToRender, theme, mdOptions);
 			this.webview_.send('setHtml', html);
-
-			const search = BaseModel.byId(this.props.searches, this.props.selectedSearchId);
-			const keywords = search ? Search.keywords(search.query_pattern) : [];
-			this.webview_.send('setMarkers', keywords);
 		}
 
 		const toolbarItems = [];
@@ -715,24 +695,6 @@ class NoteTextComponent extends React.Component {
 			ref={(elem) => { this.webview_ref(elem); } }
 		/>
 
-		// const markers = [{
-		// 	startRow: 2,
-		// 	startCol: 3,
-		// 	endRow: 2,
-		// 	endCol: 6,
-		// 	type: 'text',
-		// 	className: 'test-marker'
-		// }];
-
-		// markers={markers}
-		// editorProps={{$useWorker: false}}
-
-		// #note-editor .test-marker {
-		// 	background-color: red;
-		// 	color: yellow;
-		// 	position: absolute;
-		// }
-
 		const editorRootStyle = Object.assign({}, editorStyle);
 		delete editorRootStyle.width;
 		delete editorRootStyle.height;
@@ -759,7 +721,7 @@ class NoteTextComponent extends React.Component {
 			editorProps={{$blockScrolling: true}}
 
 			// This is buggy (gets outside the container)
-			highlightActiveLine={false}			
+			highlightActiveLine={false}
 		/>
 
 		return (
@@ -789,9 +751,6 @@ const mapStateToProps = (state) => {
 		syncStarted: state.syncStarted,
 		newNote: state.newNote,
 		windowCommand: state.windowCommand,
-		notesParentType: state.notesParentType,
-		searches: state.searches,
-		selectedSearchId: state.selectedSearchId,
 	};
 };
 

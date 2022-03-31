@@ -140,27 +140,33 @@ class MainScreenComponent extends React.Component {
 				},
 			});
 		} else if (command.name === 'search') {
+			this.setState({
+				promptOptions: {
+					label: _('Search:'),
+					onClose: async (answer) => {
+						if (answer !== null) {
+							const searchId = uuid.create();
 
-			if (!this.searchId_) this.searchId_ = uuid.create();
+							this.props.dispatch({
+								type: 'SEARCH_ADD',
+								search: {
+									id: searchId,
+									title: answer,
+									query_pattern: answer,
+									query_folder_id: null,
+									type_: BaseModel.TYPE_SEARCH,
+								},
+							});
 
-			this.props.dispatch({
-				type: 'SEARCH_UPDATE',
-				search: {
-					id: this.searchId_,
-					title: command.query,
-					query_pattern: command.query,
-					query_folder_id: null,
-					type_: BaseModel.TYPE_SEARCH,
+							this.props.dispatch({
+								type: 'SEARCH_SELECT',
+								id: searchId,
+							});
+						}
+						this.setState({ promptOptions: null });
+					}
 				},
 			});
-
-			if (command.query) {
-				this.props.dispatch({
-					type: 'SEARCH_SELECT',
-					id: this.searchId_,
-				});
-			}
-			
 		} else if (command.name === 'toggleVisiblePanes') {
 			this.toggleVisiblePanes();
 		} else if (command.name === 'showModalMessage') {
@@ -292,40 +298,39 @@ class MainScreenComponent extends React.Component {
 		const selectedFolderId = this.props.selectedFolderId;
 		const onConflictFolder = this.props.selectedFolderId === Folder.conflictFolderId();
 
-		const headerItems = [];
+		const headerButtons = [];
 
-		headerItems.push({
+		headerButtons.push({
 			title: _('New note'),
 			iconName: 'fa-file-o',
 			enabled: !!folders.length && !onConflictFolder,
 			onClick: () => { this.doCommand({ name: 'newNote' }) },
 		});
 				
-		headerItems.push({
+		headerButtons.push({
 			title: _('New to-do'),
 			iconName: 'fa-check-square-o',
 			enabled: !!folders.length && !onConflictFolder,
 			onClick: () => { this.doCommand({ name: 'newTodo' }) },
 		});
 
-		headerItems.push({
+		headerButtons.push({
 			title: _('New notebook'),
 			iconName: 'fa-folder-o',
 			onClick: () => { this.doCommand({ name: 'newNotebook' }) },
 		});
 
-		headerItems.push({
+		headerButtons.push({
+			title: _('Search'),
+			iconName: 'fa-search',
+			onClick: () => { this.doCommand({ name: 'search' }) },
+		});
+
+		headerButtons.push({
 			title: _('Layout'),
 			iconName: 'fa-columns',
 			enabled: !!notes.length,
 			onClick: () => { this.doCommand({ name: 'toggleVisiblePanes' }) },
-		});
-
-		headerItems.push({
-			title: _('Search...'),
-			iconName: 'fa-search',
-			onQuery: (query) => { this.doCommand({ name: 'search', query: query }) },
-			type: 'search',
 		});
 
 		if (!this.promptOnClose_) {
@@ -384,7 +389,7 @@ class MainScreenComponent extends React.Component {
 					visible={!!this.state.promptOptions}
 					buttons={promptOptions && ('buttons' in promptOptions) ? promptOptions.buttons : null}
 					inputType={promptOptions && ('inputType' in promptOptions) ? promptOptions.inputType : null} />
-				<Header style={styles.header} showBackButton={false} items={headerItems} />
+				<Header style={styles.header} showBackButton={false} buttons={headerButtons} />
 				{messageComp}
 				<SideBar style={styles.sideBar} />
 				<NoteList style={styles.noteList} />

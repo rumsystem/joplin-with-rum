@@ -53,9 +53,4 @@ ObjectUtils.convertValuesToFunctions = function(o) {
 	return output;
 }
 
-ObjectUtils.isEmpty = function(o) {
-	if (!o) return true;
-	return Object.keys(o).length === 0 && o.constructor === Object;
-}
-
 module.exports = ObjectUtils;

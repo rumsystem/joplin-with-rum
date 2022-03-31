@@ -260,7 +260,7 @@ class BaseApplication {
 		const newState = store.getState();
 		let refreshNotes = false;
 
-		if (action.type == 'FOLDER_SELECT' || action.type === 'FOLDER_DELETE' || (action.type === 'SEARCH_UPDATE' && newState.notesParentType === 'Folder')) {
+		if (action.type == 'FOLDER_SELECT' || action.type === 'FOLDER_DELETE') {
 			Setting.setValue('activeFolderId', newState.selectedFolderId);
 			this.currentFolder_ = newState.selectedFolderId ? await Folder.load(newState.selectedFolderId) : null;
 			refreshNotes = true;
