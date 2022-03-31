@@ -18,7 +18,6 @@ export interface RenderOptions {
 export interface View {
 	name: string;
 	title: string;
-	titleOverride?: boolean;
 	path: string;
 	layout?: string;
 	navbar?: boolean;
@@ -188,7 +187,7 @@ export default class MustacheService {
 		const layoutView: any = {
 			global: globalParams,
 			pageName: view.name,
-			pageTitle: view.titleOverride ? view.title : `${config().appName} - ${view.title}`,
+			pageTitle: `${config().appName} - ${view.title}`,
 			contentHtml: contentHtml,
 			cssFiles: cssFiles,
 			jsFiles: jsFiles,
