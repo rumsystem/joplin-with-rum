@@ -162,18 +162,20 @@ class NoteListUtils {
 				);
 			}
 
-			exportMenu.append(
-				new MenuItem({
-					label: `PDF - ${_('PDF File')}`,
-					click: () => {
-						props.dispatch({
-							type: 'WINDOW_COMMAND',
-							name: 'exportPdf',
-							noteIds: noteIds,
-						});
-					},
-				})
-			);
+			if (noteIds.length === 1) {
+				exportMenu.append(
+					new MenuItem({
+						label: `PDF - ${_('PDF File')}`,
+						click: () => {
+							props.dispatch({
+								type: 'WINDOW_COMMAND',
+								name: 'exportPdf',
+								noteId: noteIds[0],
+							});
+						},
+					})
+				);
+			}
 
 			const exportMenuItem = new MenuItem({ label: _('Export'), submenu: exportMenu });
 
