@@ -17,7 +17,6 @@ const { time } = require('lib/time-utils');
 const SearchEngine = require('lib/services/SearchEngine');
 const RNFS = require('react-native-fs');
 
-import { PermissionsAndroid } from 'react-native';
 import Slider from '@react-native-community/slider';
 
 class ConfigScreenComponent extends BaseScreenComponent {
@@ -44,22 +43,7 @@ class ConfigScreenComponent extends BaseScreenComponent {
 			NavService.go('EncryptionConfig');
 		}
 
-		this.saveButton_press = async () => {
-			if (
-				this.state.changedSettingKeys.includes('sync.target')
-				&& this.state.settings['sync.target'] === SyncTargetRegistry.nameToId('filesystem')
-				&& !await this.checkFilesystemPermission()
-			) {
-				Alert.alert(
-					_('Warning'),
-					_(
-						'Joplin does not have permission to access "%s". ' +
-						'Either choose a different sync target, ' +
-						'or give Joplin the "Storage" permission.',
-						this.state.settings['sync.2.path'],
-					));
-				// Save settings anyway, even if permission has not been granted
-			}
+		this.saveButton_press = () => {
 			return shared.saveSettings(this);
 		};
 
@@ -104,30 +88,6 @@ class ConfigScreenComponent extends BaseScreenComponent {
 		this.logButtonPress_ = () => {
 			NavService.go('Log');
 		}
-	}
-
-	async checkFilesystemPermission() {
-		if (Platform.OS !== 'android') {
-			// Not implemented yet
-			return true;
-		}
-		const hasPermission = await PermissionsAndroid.check(
-			PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE);
-		if (hasPermission) {
-			return true;
-		}
-		const requestResult = await PermissionsAndroid.request(
-			PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-			{
-				title: _('Permission to write to external storage'),
-				message: _(
-					'In order to use file system synchronization your ' +
-					'permission to write to external storage is required.'
-				),
-				buttonPositive: _('OK'),
-			},
-		);
-		return (requestResult === PermissionsAndroid.RESULTS.GRANTED);
 	}
 
 	UNSAFE_componentWillMount() {
