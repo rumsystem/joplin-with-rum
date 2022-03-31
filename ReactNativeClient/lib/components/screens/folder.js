@@ -43,7 +43,7 @@ class FolderScreenComponent extends BaseScreenComponent {
 		return this.styles_[this.props.theme];
 	}
 
-	componentWillMount() {
+	UNSAFE_componentWillMount() {
 		if (!this.props.folderId) {
 			const folder = Folder.new();
 			this.setState({
@@ -103,6 +103,7 @@ class FolderScreenComponent extends BaseScreenComponent {
 
 	render() {
 		let saveButtonDisabled = !this.isModified();
+		const theme = themeStyle(this.props.theme);
 
 		return (
 			<View style={this.rootStyle(this.props.theme).root}>
@@ -112,7 +113,7 @@ class FolderScreenComponent extends BaseScreenComponent {
 					saveButtonDisabled={saveButtonDisabled}
 					onSaveButtonPress={() => this.saveFolderButton_press()}
 				/>
-				<TextInput style={this.styles().textInput} autoFocus={true} value={this.state.folder.title} onChangeText={(text) => this.title_changeText(text)} />
+				<TextInput selectionColor={theme.textSelectionColor} style={this.styles().textInput} autoFocus={true} value={this.state.folder.title} onChangeText={(text) => this.title_changeText(text)} />
 				<dialogs.DialogBox ref={dialogbox => { this.dialogbox = dialogbox }}/>
 			</View>
 		);

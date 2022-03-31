@@ -64,7 +64,7 @@ SyncTargetRegistry.addClass(SyncTargetWebDAV);
 SyncTargetRegistry.addClass(SyncTargetDropbox);
 
 // Disabled because not fully working
-//SyncTargetRegistry.addClass(SyncTargetFilesystem);
+SyncTargetRegistry.addClass(SyncTargetFilesystem);
 
 const FsDriverRN = require('lib/fs-driver-rn.js').FsDriverRN;
 const DecryptionWorker = require('lib/services/DecryptionWorker');
@@ -72,8 +72,17 @@ const EncryptionService = require('lib/services/EncryptionService');
 
 let storeDispatch = function(action) {};
 
+const logReducerAction = function(action) {
+	if (['SIDE_MENU_OPEN_PERCENT', 'SYNC_REPORT_UPDATE'].indexOf(action.type) >= 0) return;
+
+	let msg = [action.type];
+	if (action.routeName) msg.push(action.routeName);
+
+	reg.logger().info('Reducer action', msg.join(', '));
+}
+
 const generalMiddleware = store => next => async (action) => {
-	if (['SIDE_MENU_OPEN_PERCENT', 'SYNC_REPORT_UPDATE'].indexOf(action.type) < 0) reg.logger().info('Reducer action', action.type);
+	logReducerAction(action);
 	PoorManIntervals.update(); // This function needs to be called regularly so put it here
 
 	const result = next(action);
@@ -298,8 +307,18 @@ const appReducer = (state = appDefaultState, action) => {
 let store = createStore(appReducer, applyMiddleware(generalMiddleware));
 storeDispatch = store.dispatch;
 
+// function blobTest() {
+// 	const contentType = 'text/plain';
+// 	var blob = new Blob(['aaaaaaaaaaa'], { type: contentType });
+
+// 	const fileTest = new File([blob], '/storage/emulated/0/Download/test.txt', { type: contentType, lastModified: Date.now() });
+// 	console.info('FFFFFFFFFFFFFFFFFFFFF', fileTest);
+// }
+
 async function initialize(dispatch) {
 	shimInit();
+
+	// blobTest();
 
 	Setting.setConstant('env', __DEV__ ? 'dev' : 'prod');
 	Setting.setConstant('appId', 'net.cozic.joplin-mobile');
@@ -526,7 +545,7 @@ class AppComponent extends React.Component {
 		return false;
 	}
 
-	componentWillReceiveProps(newProps) {
+	UNSAFE_componentWillReceiveProps(newProps) {
 		if (newProps.syncStarted != this.lastSyncStarted_) {
 			if (!newProps.syncStarted) FoldersScreenUtils.refreshFolders();
 			this.lastSyncStarted_ = newProps.syncStarted;

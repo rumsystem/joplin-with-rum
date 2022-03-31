@@ -23,7 +23,7 @@ class DropboxLoginScreenComponent extends BaseScreenComponent {
 		);
 	}
 
-	componentWillMount() {
+	UNSAFE_componentWillMount() {
 		this.shared_.refreshUrl();
 	}
 
@@ -62,7 +62,7 @@ class DropboxLoginScreenComponent extends BaseScreenComponent {
 						</TouchableOpacity>
 					</View>
 					<Text style={this.styles().stepText}>{_('Step 2: Enter the code provided by Dropbox:')}</Text>
-					<TextInput value={this.state.authCode} onChangeText={this.shared_.authCodeInput_change} style={theme.lineInput}/>
+					<TextInput selectionColor={theme.textSelectionColor} value={this.state.authCode} onChangeText={this.shared_.authCodeInput_change} style={theme.lineInput}/>
 
 					<Button disabled={this.state.checkingAuthToken} title={_("Submit")} onPress={this.shared_.submit_click}></Button>
 				</View>
