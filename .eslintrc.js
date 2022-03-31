@@ -61,7 +61,6 @@ module.exports = {
 		"import/prefer-default-export": ["error"],
 		"import/first": ["error"],
 		"no-array-constructor": ["error"],
-		"radix": ["error"],
 
 		// Checks rules of Hooks
 		"react-hooks/rules-of-hooks": "error",
