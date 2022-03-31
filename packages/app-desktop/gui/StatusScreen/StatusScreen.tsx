@@ -41,7 +41,7 @@ function StatusScreen(props: Props) {
 	}
 
 	useEffect(() => {
-		void resfreshScreen();
+		resfreshScreen();
 	}, []);
 
 	const theme = themeStyle(props.themeId);
@@ -91,7 +91,7 @@ function StatusScreen(props: Props) {
 				if (item.canRetry) {
 					const onClick = async () => {
 						await item.retryHandler();
-						void resfreshScreen();
+						resfreshScreen();
 					};
 
 					retryLink = (
