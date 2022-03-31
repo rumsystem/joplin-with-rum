@@ -138,10 +138,6 @@ export function ltrimSlashes(path: string) {
 	return path.replace(/^\/+/, '');
 }
 
-export function trimSlashes(path: string): string {
-	return ltrimSlashes(rtrimSlashes(path));
-}
-
 export function quotePath(path: string) {
 	if (!path) return '';
 	if (path.indexOf('"') < 0 && path.indexOf(' ') < 0) return path;

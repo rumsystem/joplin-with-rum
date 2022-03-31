@@ -2,9 +2,10 @@ import FileApiDriverJoplinServer from './file-api-driver-joplinServer';
 import Setting from './models/Setting';
 import Synchronizer from './Synchronizer';
 import { _ } from './locale.js';
-import JoplinServerApi from './JoplinServerApi';
-import BaseSyncTarget from './BaseSyncTarget';
-import { FileApi } from './file-api';
+import JoplinServerApi from './JoplinServerApi2';
+
+const BaseSyncTarget = require('./BaseSyncTarget.js');
+const { FileApi } = require('./file-api.js');
 
 interface FileApiOptions {
 	path(): string;
@@ -15,31 +16,27 @@ interface FileApiOptions {
 
 export default class SyncTargetJoplinServer extends BaseSyncTarget {
 
-	public static id() {
+	static id() {
 		return 9;
 	}
 
-	public static supportsConfigCheck() {
+	static supportsConfigCheck() {
 		return true;
 	}
 
-	public static targetName() {
+	static targetName() {
 		return 'joplinServer';
 	}
 
-	public static label() {
+	static label() {
 		return _('Joplin Server');
 	}
 
-	public async isAuthenticated() {
+	async isAuthenticated() {
 		return true;
 	}
 
-	public async fileApi(): Promise<FileApi> {
-		return super.fileApi();
-	}
-
-	private static async newFileApi_(options: FileApiOptions) {
+	static async newFileApi_(options: FileApiOptions) {
 		const apiOptions = {
 			baseUrl: () => options.path(),
 			username: () => options.username(),
@@ -48,13 +45,13 @@ export default class SyncTargetJoplinServer extends BaseSyncTarget {
 
 		const api = new JoplinServerApi(apiOptions);
 		const driver = new FileApiDriverJoplinServer(api);
-		const fileApi = new FileApi(options.directory, driver);
+		const fileApi = new FileApi(() => `root:/${options.directory()}`, driver);
 		fileApi.setSyncTargetId(this.id());
 		await fileApi.initialize();
 		return fileApi;
 	}
 
-	public static async checkConfig(options: FileApiOptions) {
+	static async checkConfig(options: FileApiOptions) {
 		const output = {
 			ok: false,
 			errorMessage: '',
@@ -75,7 +72,7 @@ export default class SyncTargetJoplinServer extends BaseSyncTarget {
 		return output;
 	}
 
-	protected async initFileApi() {
+	async initFileApi() {
 		const fileApi = await SyncTargetJoplinServer.newFileApi_({
 			path: () => Setting.value('sync.9.path'),
 			username: () => Setting.value('sync.9.username'),
@@ -88,7 +85,7 @@ export default class SyncTargetJoplinServer extends BaseSyncTarget {
 		return fileApi;
 	}
 
-	protected async initSynchronizer() {
+	async initSynchronizer() {
 		return new Synchronizer(this.db(), await this.fileApi(), Setting.value('appType'));
 	}
 }

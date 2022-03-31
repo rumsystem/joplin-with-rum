@@ -10,7 +10,7 @@ import ResourceEditWatcher from '@joplin/lib/services/ResourceEditWatcher/index'
 
 const { MarkupToHtml } = require('@joplin/renderer');
 import Note from '@joplin/lib/models/Note';
-import { reg } from '@joplin/lib/registry';
+const { reg } = require('@joplin/lib/registry.js');
 import ResourceFetcher from '@joplin/lib/services/ResourceFetcher';
 import DecryptionWorker from '@joplin/lib/services/DecryptionWorker';
 

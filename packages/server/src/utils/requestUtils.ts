@@ -50,10 +50,6 @@ export async function bodyFields(req: any): Promise<BodyFields> {
 	return form.fields;
 }
 
-export function ownerRequired(ctx: AppContext) {
-	if (!ctx.owner) throw new ErrorForbidden();
-}
-
 export function headerSessionId(headers: any): string {
 	return headers['x-api-auth'] ? headers['x-api-auth'] : '';
 }

@@ -8,13 +8,11 @@ import Note from '../models/Note';
 import Resource from '../models/Resource';
 import SearchEngine from './searchengine/SearchEngine';
 import ItemChangeUtils from './ItemChangeUtils';
-import time from '../time';
 const { sprintf } = require('sprintf-js');
 
 export default class ResourceService extends BaseService {
 
 	public static isRunningInBackground_: boolean = false;
-	private isIndexing_: boolean = false;
 
 	private maintenanceCalls_: boolean[] = [];
 	private maintenanceTimer1_: any = null;
@@ -23,89 +21,76 @@ export default class ResourceService extends BaseService {
 	public async indexNoteResources() {
 		this.logger().info('ResourceService::indexNoteResources: Start');
 
-		if (this.isIndexing_) {
-			this.logger().info('ResourceService::indexNoteResources: Already indexing - waiting for it to finish');
-			await time.waitTillCondition(() => !this.isIndexing_);
-			return;
-		}
+		await ItemChange.waitForAllSaved();
 
-		this.isIndexing_ = true;
+		let foundNoteWithEncryption = false;
 
-		try {
-			await ItemChange.waitForAllSaved();
+		while (true) {
+			const changes = await ItemChange.modelSelectAll(`
+				SELECT id, item_id, type
+				FROM item_changes
+				WHERE item_type = ?
+				AND id > ?
+				ORDER BY id ASC
+				LIMIT 10
+			`,
+			[BaseModel.TYPE_NOTE, Setting.value('resourceService.lastProcessedChangeId')]
+			);
 
-			let foundNoteWithEncryption = false;
+			if (!changes.length) break;
 
-			while (true) {
-				const changes = await ItemChange.modelSelectAll(`
-					SELECT id, item_id, type
-					FROM item_changes
-					WHERE item_type = ?
-					AND id > ?
-					ORDER BY id ASC
-					LIMIT 10
-					`, [BaseModel.TYPE_NOTE, Setting.value('resourceService.lastProcessedChangeId')]
-				);
+			const noteIds = changes.map((a: any) => a.item_id);
+			const notes = await Note.modelSelectAll(`SELECT id, title, body, encryption_applied FROM notes WHERE id IN ("${noteIds.join('","')}")`);
 
-				if (!changes.length) break;
+			const noteById = (noteId: string) => {
+				for (let i = 0; i < notes.length; i++) {
+					if (notes[i].id === noteId) return notes[i];
+				}
+				// The note may have been deleted since the change was recorded. For example in this case:
+				// - Note created (Some Change object is recorded)
+				// - Note is deleted
+				// - ResourceService indexer runs.
+				// In that case, there will be a change for the note, but the note will be gone.
+				return null;
+			};
 
-				const noteIds = changes.map((a: any) => a.item_id);
-				const notes = await Note.modelSelectAll(`SELECT id, title, body, encryption_applied FROM notes WHERE id IN ("${noteIds.join('","')}")`);
+			for (let i = 0; i < changes.length; i++) {
+				const change = changes[i];
 
-				const noteById = (noteId: string) => {
-					for (let i = 0; i < notes.length; i++) {
-						if (notes[i].id === noteId) return notes[i];
-					}
-					// The note may have been deleted since the change was recorded. For example in this case:
-					// - Note created (Some Change object is recorded)
-					// - Note is deleted
-					// - ResourceService indexer runs.
-					// In that case, there will be a change for the note, but the note will be gone.
-					return null;
-				};
+				if (change.type === ItemChange.TYPE_CREATE || change.type === ItemChange.TYPE_UPDATE) {
+					const note = noteById(change.item_id);
 
-				for (let i = 0; i < changes.length; i++) {
-					const change = changes[i];
-
-					if (change.type === ItemChange.TYPE_CREATE || change.type === ItemChange.TYPE_UPDATE) {
-						const note = noteById(change.item_id);
-
-						if (note) {
-							if (note.encryption_applied) {
-								// If we hit an encrypted note, abort processing for now.
-								// Note will eventually get decrypted and processing can resume then.
-								// This is a limitation of the change tracking system - we cannot skip a change
-								// and keep processing the rest since we only keep track of "lastProcessedChangeId".
-								foundNoteWithEncryption = true;
-								break;
-							}
-
-							await this.setAssociatedResources(note.id, note.body);
-						} else {
-							this.logger().warn(`ResourceService::indexNoteResources: A change was recorded for a note that has been deleted: ${change.item_id}`);
+					if (note) {
+						if (note.encryption_applied) {
+							// If we hit an encrypted note, abort processing for now.
+							// Note will eventually get decrypted and processing can resume then.
+							// This is a limitation of the change tracking system - we cannot skip a change
+							// and keep processing the rest since we only keep track of "lastProcessedChangeId".
+							foundNoteWithEncryption = true;
+							break;
 						}
-					} else if (change.type === ItemChange.TYPE_DELETE) {
-						await NoteResource.remove(change.item_id);
-					} else {
-						throw new Error(`Invalid change type: ${change.type}`);
-					}
 
-					Setting.setValue('resourceService.lastProcessedChangeId', change.id);
+						await this.setAssociatedResources(note.id, note.body);
+					} else {
+						this.logger().warn(`ResourceService::indexNoteResources: A change was recorded for a note that has been deleted: ${change.item_id}`);
+					}
+				} else if (change.type === ItemChange.TYPE_DELETE) {
+					await NoteResource.remove(change.item_id);
+				} else {
+					throw new Error(`Invalid change type: ${change.type}`);
 				}
 
-				if (foundNoteWithEncryption) break;
+				Setting.setValue('resourceService.lastProcessedChangeId', change.id);
 			}
 
-			await Setting.saveAll();
-
-			await NoteResource.addOrphanedResources();
-
-			await ItemChangeUtils.deleteProcessedChanges();
-		} catch (error) {
-			this.logger().error('ResourceService::indexNoteResources:', error);
+			if (foundNoteWithEncryption) break;
 		}
 
-		this.isIndexing_ = false;
+		await Setting.saveAll();
+
+		await NoteResource.addOrphanedResources();
+
+		await ItemChangeUtils.deleteProcessedChanges();
 
 		this.logger().info('ResourceService::indexNoteResources: Completed');
 	}
@@ -191,7 +176,7 @@ export default class ResourceService extends BaseService {
 			const iid = shim.setInterval(() => {
 				if (!this.maintenanceCalls_.length) {
 					shim.clearInterval(iid);
-					resolve(null);
+					resolve();
 				}
 			}, 100);
 		});

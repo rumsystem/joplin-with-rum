@@ -126,11 +126,10 @@ export default function(theme: any) {
 			margin-top: 0.2em;
 			margin-bottom: 0;
 		}
-
 		.resource-icon {
 			display: inline-block;
 			position: relative;
-			top: 0.3em;
+			top: .5em;
 			text-decoration: none;
 			width: 1.2em;
 			height: 1.4em;

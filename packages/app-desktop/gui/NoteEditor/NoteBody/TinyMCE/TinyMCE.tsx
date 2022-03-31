@@ -16,7 +16,7 @@ import shim from '@joplin/lib/shim';
 
 const { MarkupToHtml } = require('@joplin/renderer');
 const taboverride = require('taboverride');
-import { reg } from '@joplin/lib/registry';
+const { reg } = require('@joplin/lib/registry.js');
 import BaseItem from '@joplin/lib/models/BaseItem';
 const { themeStyle } = require('@joplin/lib/theme');
 const { clipboard } = require('electron');
