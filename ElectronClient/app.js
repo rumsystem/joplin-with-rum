@@ -37,13 +37,13 @@ const resourceEditWatcherReducer = require('lib/services/ResourceEditWatcher/red
 const versionInfo = require('lib/versionInfo').default;
 
 const commands = [
-	require('./gui/NoteListControls/commands/focusSearch'),
+	require('./gui/Header/commands/focusSearch'),
 	require('./gui/MainScreen/commands/editAlarm'),
 	require('./gui/MainScreen/commands/exportPdf'),
 	require('./gui/MainScreen/commands/hideModalMessage'),
 	require('./gui/MainScreen/commands/moveToFolder'),
 	require('./gui/MainScreen/commands/newNote'),
-	require('./gui/MainScreen/commands/newFolder'),
+	require('./gui/MainScreen/commands/newNotebook'),
 	require('./gui/MainScreen/commands/newTodo'),
 	require('./gui/MainScreen/commands/print'),
 	require('./gui/MainScreen/commands/renameFolder'),
@@ -58,7 +58,6 @@ const commands = [
 	require('./gui/MainScreen/commands/toggleNoteList'),
 	require('./gui/MainScreen/commands/toggleSidebar'),
 	require('./gui/MainScreen/commands/toggleVisiblePanes'),
-	require('./gui/MainScreen/commands/toggleEditors'),
 	require('./gui/NoteEditor/commands/focusElementNoteBody'),
 	require('./gui/NoteEditor/commands/focusElementNoteTitle'),
 	require('./gui/NoteEditor/commands/showLocalSearch'),
@@ -287,11 +286,10 @@ class Application extends BaseApplication {
 		}
 
 		newState = resourceEditWatcherReducer(newState, action);
-		newState = super.reducer(newState, action);
 
 		CommandService.instance().scheduleMapStateToProps(newState);
 
-		return newState;
+		return super.reducer(newState, action);
 	}
 
 	toggleDevTools(visible) {
@@ -521,7 +519,7 @@ class Application extends BaseApplication {
 
 		const newNoteItem = cmdService.commandToMenuItem('newNote');
 		const newTodoItem = cmdService.commandToMenuItem('newTodo');
-		const newFolderItem = cmdService.commandToMenuItem('newFolder');
+		const newNotebookItem = cmdService.commandToMenuItem('newNotebook');
 		const printItem = cmdService.commandToMenuItem('print');
 
 		toolsItemsFirst.push(syncStatusItem, {
@@ -652,7 +650,7 @@ class Application extends BaseApplication {
 			},
 			shim.isMac() ? noItem : newNoteItem,
 			shim.isMac() ? noItem : newTodoItem,
-			shim.isMac() ? noItem : newFolderItem, {
+			shim.isMac() ? noItem : newNotebookItem, {
 				type: 'separator',
 				visible: shim.isMac() ? false : true,
 			}, {
@@ -701,7 +699,7 @@ class Application extends BaseApplication {
 			submenu: [
 				newNoteItem,
 				newTodoItem,
-				newFolderItem, {
+				newNotebookItem, {
 					label: _('Close Window'),
 					platforms: ['darwin'],
 					accelerator: shim.isMac() && keymapService.getAccelerator('closeWindow'),

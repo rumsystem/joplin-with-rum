@@ -727,8 +727,11 @@ class AppComponent extends React.Component {
 	}
 
 	render() {
-		if (this.props.appState != 'ready') return this.renderStartupScreen();
-		const theme = themeStyle(this.props.themeId);
+		if (this.props.appState != 'ready') {
+			return this.renderStartupScreen();
+		}
+
+		const theme = themeStyle(this.props.theme);
 
 		let sideMenuContent = null;
 		let menuPosition = 'left';
@@ -796,7 +799,7 @@ const mapStateToProps = (state) => {
 		noteSelectionEnabled: state.noteSelectionEnabled,
 		selectedFolderId: state.selectedFolderId,
 		routeName: state.route.routeName,
-		themeId: state.settings.theme,
+		theme: state.settings.theme,
 		noteSideMenuOptions: state.noteSideMenuOptions,
 	};
 };

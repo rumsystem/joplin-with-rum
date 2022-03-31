@@ -38,7 +38,7 @@ class NoteRevisionViewerComponent extends React.PureComponent {
 	}
 
 	style() {
-		const theme = themeStyle(this.props.themeId);
+		const theme = themeStyle(this.props.theme);
 
 		const style = {
 			root: {
@@ -114,7 +114,7 @@ class NoteRevisionViewerComponent extends React.PureComponent {
 			this.setState({ note: note });
 		}
 
-		const theme = themeStyle(this.props.themeId);
+		const theme = themeStyle(this.props.theme);
 
 		const markupToHtml = markupLanguageUtils.newMarkupToHtml({
 			resourceBaseUrl: `file://${Setting.value('resourceDir')}/`,
@@ -164,7 +164,7 @@ class NoteRevisionViewerComponent extends React.PureComponent {
 	}
 
 	render() {
-		const theme = themeStyle(this.props.themeId);
+		const theme = themeStyle(this.props.theme);
 		const style = this.style();
 
 		const revisionListItems = [];
@@ -213,7 +213,7 @@ class NoteRevisionViewerComponent extends React.PureComponent {
 
 const mapStateToProps = state => {
 	return {
-		themeId: state.settings.theme,
+		theme: state.settings.theme,
 	};
 };
 

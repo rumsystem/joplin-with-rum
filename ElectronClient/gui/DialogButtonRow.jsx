@@ -3,7 +3,7 @@ const { _ } = require('lib/locale.js');
 const { themeStyle } = require('lib/theme');
 
 function DialogButtonRow(props) {
-	const theme = themeStyle(props.themeId);
+	const theme = themeStyle(props.theme);
 
 	const okButton_click = () => {
 		if (props.onClick) props.onClick({ buttonName: 'ok' });

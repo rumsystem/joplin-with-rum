@@ -8,7 +8,7 @@ const { time } = require('lib/time-utils');
 export const declaration:CommandDeclaration = {
 	name: 'editAlarm',
 	label: () => _('Set alarm'),
-	iconName: 'icon-alarm',
+	iconName: 'fa-clock',
 };
 
 export const runtime = (comp:any):CommandRuntime => {

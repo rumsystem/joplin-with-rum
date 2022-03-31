@@ -40,12 +40,10 @@ class ClipperConfigScreenComponent extends React.Component {
 	}
 
 	render() {
-		const theme = themeStyle(this.props.themeId);
+		const theme = themeStyle(this.props.theme);
 
 		const containerStyle = Object.assign({}, theme.containerStyle, {
 			overflowY: 'scroll',
-			padding: theme.configScreenPadding,
-			backgroundColor: theme.backgroundColor3,
 		});
 
 		const buttonStyle = Object.assign({}, theme.buttonStyle, { marginRight: 10 });
@@ -108,8 +106,8 @@ class ClipperConfigScreenComponent extends React.Component {
 		return (
 			<div>
 				<div style={containerStyle}>
-					<div>
-						<p style={Object.assign({}, theme.textStyle, { marginTop: 0 })}>{_('Joplin Web Clipper allows saving web pages and screenshots from your browser to Joplin.')}</p>
+					<div style={{ padding: theme.margin }}>
+						<p style={theme.textStyle}>{_('Joplin Web Clipper allows saving web pages and screenshots from your browser to Joplin.')}</p>
 						<p style={theme.textStyle}>{_('In order to use the web clipper, you need to do the following:')}</p>
 
 						<div style={stepBoxStyle}>
@@ -122,8 +120,8 @@ class ClipperConfigScreenComponent extends React.Component {
 							<p style={theme.h1Style}>{_('Step 2: Install the extension')}</p>
 							<p style={theme.textStyle}>{_('Download and install the relevant extension for your browser:')}</p>
 							<div style={{ display: 'flex', flexDirection: 'row' }}>
-								<ExtensionBadge themeId={this.props.themeId} type="firefox" url="https://addons.mozilla.org/en-US/firefox/addon/joplin-web-clipper/"/>
-								<ExtensionBadge style={{ marginLeft: 10 }} themeId={this.props.themeId} type="chrome" url="https://chrome.google.com/webstore/detail/joplin-web-clipper/alofnhikmmkdbbbgpnglcpdollgjjfek"/>
+								<ExtensionBadge theme={this.props.theme} type="firefox" url="https://addons.mozilla.org/en-US/firefox/addon/joplin-web-clipper/"/>
+								<ExtensionBadge style={{ marginLeft: 10 }} theme={this.props.theme} type="chrome" url="https://chrome.google.com/webstore/detail/joplin-web-clipper/alofnhikmmkdbbbgpnglcpdollgjjfek"/>
 							</div>
 						</div>
 
@@ -147,7 +145,7 @@ class ClipperConfigScreenComponent extends React.Component {
 
 const mapStateToProps = state => {
 	return {
-		themeId: state.settings.theme,
+		theme: state.settings.theme,
 		clipperServer: state.clipperServer,
 		clipperServerAutoStart: state.settings['clipperServer.autoStart'],
 		apiToken: state.settings['api.token'],
