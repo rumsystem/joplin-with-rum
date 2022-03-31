@@ -88,9 +88,10 @@ export default class MenuUtils {
 	}
 
 	public commandToStatefulMenuItem(commandName:string, props:any = null):MenuItem {
-		return this.commandToMenuItem(commandName, () => {
+		const output = this.commandsToMenuItems([commandName], () => {
 			return this.service.execute(commandName, props ? props : {});
 		});
+		return output[commandName];
 	}
 
 	public commandsToMenuItems(commandNames:string[], onClick:Function):MenuItems {
