@@ -30,7 +30,6 @@ export default function() {
 		'textPaste',
 		'textSelectAll',
 		'toggleExternalEditing',
-		'toggleLayoutMoveMode',
 		'toggleNoteList',
 		'toggleSideBar',
 		'toggleVisiblePanes',

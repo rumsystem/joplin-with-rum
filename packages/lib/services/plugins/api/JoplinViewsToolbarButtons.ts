@@ -21,15 +21,8 @@ export default class JoplinViewsToolbarButtons {
 	/**
 	 * Creates a new toolbar button and associate it with the given command.
 	 */
-	async create(id: string, commandName: string, location: ToolbarButtonLocation) {
-		if (arguments.length < 3) {
-			this.plugin.deprecationNotice('1.5', 'Creating a view without an ID is deprecated. To fix it, change your call to `joplin.views.toolbarButtons.create("my-unique-id", ...)`');
-			location = commandName as any;
-			commandName = id as any;
-			id = `${this.plugin.viewCount}`;
-		}
-
-		const handle = createViewHandle(this.plugin, id);
+	async create(commandName: string, location: ToolbarButtonLocation) {
+		const handle = createViewHandle(this.plugin);
 		const controller = new ToolbarButtonController(handle, this.plugin.id, this.store, commandName, location);
 		this.plugin.addViewController(controller);
 	}

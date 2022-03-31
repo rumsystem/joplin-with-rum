@@ -685,6 +685,8 @@ const mapStateToProps = (state: any) => {
 		collapsedFolderIds: state.collapsedFolderIds,
 		decryptionWorker: state.decryptionWorker,
 		resourceFetcher: state.resourceFetcher,
+		sidebarVisibility: state.sidebarVisibility,
+		noteListVisibility: state.noteListVisibility,
 	};
 };
 

@@ -6,7 +6,7 @@ import OneDriveLoginScreen from './OneDriveLoginScreen';
 import DropboxLoginScreen from './DropboxLoginScreen';
 import ErrorBoundary from './ErrorBoundary';
 import { themeStyle } from '@joplin/lib/theme';
-import { Size } from './ResizableLayout/utils/types';
+import { Size } from './ResizableLayout/ResizableLayout';
 import MenuBar from './MenuBar';
 import { _ } from '@joplin/lib/locale';
 const React = require('react');
@@ -67,10 +67,20 @@ async function initialize() {
 		type: 'NOTE_VISIBLE_PANES_SET',
 		panes: Setting.value('noteVisiblePanes'),
 	});
+
+	store.dispatch({
+		type: 'SIDEBAR_VISIBILITY_SET',
+		visibility: Setting.value('sidebarVisibility'),
+	});
+
+	store.dispatch({
+		type: 'NOTELIST_VISIBILITY_SET',
+		visibility: Setting.value('noteListVisibility'),
+	});
 }
 
 class RootComponent extends React.Component<Props, any> {
-	public async componentDidMount() {
+	async componentDidMount() {
 		if (this.props.appState == 'starting') {
 			this.props.dispatch({
 				type: 'APP_STATE_SET',
@@ -88,7 +98,7 @@ class RootComponent extends React.Component<Props, any> {
 		await WelcomeUtils.install(this.props.dispatch);
 	}
 
-	public render() {
+	render() {
 		const navigatorStyle = {
 			width: this.props.size.width / this.props.zoomFactor,
 			height: this.props.size.height / this.props.zoomFactor,

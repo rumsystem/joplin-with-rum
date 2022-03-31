@@ -1,7 +1,5 @@
-import { CommandRuntime, CommandDeclaration, CommandContext } from '@joplin/lib/services/CommandService';
+import { CommandRuntime, CommandDeclaration } from '@joplin/lib/services/CommandService';
 import { _ } from '@joplin/lib/locale';
-import layoutItemProp from '../../ResizableLayout/utils/layoutItemProp';
-import { AppState } from '../../../app';
 
 export const declaration: CommandDeclaration = {
 	name: 'focusElementSideBar',
@@ -11,8 +9,8 @@ export const declaration: CommandDeclaration = {
 
 export const runtime = (comp: any): CommandRuntime => {
 	return {
-		execute: async (context: CommandContext) => {
-			const sideBarVisible = layoutItemProp((context.state as AppState).mainLayout, 'sideBar', 'visible');
+		execute: async (context: any) => {
+			const sideBarVisible = !!context.state.sidebarVisibility;
 
 			if (sideBarVisible) {
 				const item = comp.selectedItem();
