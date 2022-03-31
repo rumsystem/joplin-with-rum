@@ -15,6 +15,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.2.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
 
 msgid "To delete a tag, untag the associated notes."
 msgstr ""
@@ -139,14 +141,6 @@ msgstr "Voer het hoofdwachtwoord in:"
 
 msgid "Operation cancelled"
 msgstr "Handeling geannuleerd"
-
-#, fuzzy
-msgid "Confirm master password:"
-msgstr "Voer het hoofdwachtwoord in:"
-
-#, fuzzy
-msgid "Passwords do not match!"
-msgstr "Wachtwoord mag niet blanco zijn"
 
 msgid ""
 "Starting decryption... Please wait as it may take several minutes depending "
@@ -601,10 +595,6 @@ msgstr ""
 msgid "Exporting to \"%s\" as \"%s\" format. Please wait..."
 msgstr "Bezig met exporteren van \"%s\" in het formaat \"%s\". Even geduld..."
 
-#, javascript-format
-msgid "Could not export notes: %s"
-msgstr ""
-
 msgid "&File"
 msgstr "&Bestand"
 
@@ -747,10 +737,6 @@ msgstr "Ja"
 
 msgid "No"
 msgstr "Nee"
-
-#, fuzzy
-msgid "Full Release Notes"
-msgstr "Herstelde notities"
 
 msgid "Token has been copied to the clipboard!"
 msgstr "Token is naar het klembord gekopieerd!"
@@ -1165,9 +1151,6 @@ msgstr "Opties"
 msgid "Synchronisation Status"
 msgstr "Synchronisatiestatus"
 
-msgid "Remove"
-msgstr ""
-
 #, javascript-format
 msgid ""
 "Delete notebook \"%s\"?\n"
@@ -1179,15 +1162,15 @@ msgstr ""
 "Alle notities en sub-notitieboeken in dit notitieboek worden eveneens "
 "verwijderd."
 
-msgid "Delete"
-msgstr "Verwijderen"
-
 #, javascript-format
 msgid "Remove tag \"%s\" from all notes?"
 msgstr "Label “%s” verwijderen van alle notities?"
 
 msgid "Remove this search from the sidebar?"
 msgstr "Deze zoekopdracht verwijderen uit de zijbalk?"
+
+msgid "Delete"
+msgstr "Verwijderen"
 
 msgid "Rename"
 msgstr "Naam wijzigen"
@@ -1482,9 +1465,6 @@ msgstr "Licht"
 msgid "Dark"
 msgstr "Donker"
 
-msgid "Dracula"
-msgstr ""
-
 msgid "Solarised Light"
 msgstr "Solarised Light"
 
@@ -1523,10 +1503,6 @@ msgstr "Bij het creëren van een nieuwe notitie:"
 
 msgid "Enable soft breaks"
 msgstr "Inschakelen zacht afbreken"
-
-#, fuzzy
-msgid "Enable typographer support"
-msgstr "Inschakelen ondersteuning voor Fountain syntaxis"
 
 msgid "Enable math expressions"
 msgstr "Inschakelen wiskundige expressies"
@@ -1637,36 +1613,6 @@ msgstr ""
 "De opdracht van de tekstbewerker (mag argumenten bevatten) die wordt "
 "gebruikt bij het openen van notities. Als er geen wordt opgegeven, dan wordt "
 "getracht de standaard bewerker te achterhalen."
-
-msgid "Page size for PDF export"
-msgstr ""
-
-msgid "A4"
-msgstr ""
-
-msgid "Letter"
-msgstr ""
-
-msgid "A3"
-msgstr ""
-
-msgid "A5"
-msgstr ""
-
-msgid "Tabloid"
-msgstr ""
-
-msgid "Legal"
-msgstr ""
-
-msgid "Page orientation for PDF export"
-msgstr ""
-
-msgid "Portrait"
-msgstr ""
-
-msgid "Landscape"
-msgstr ""
 
 msgid "Custom TLS certificates"
 msgstr "Aangepaste TLS-certificaten"
@@ -2055,18 +2001,6 @@ msgstr "Wachtwoord:"
 msgid "Password cannot be empty"
 msgstr "Wachtwoord mag niet blanco zijn"
 
-#, fuzzy
-msgid "Confirm password cannot be empty"
-msgstr "Wachtwoord mag niet blanco zijn"
-
-#, fuzzy
-msgid "Confirm password:"
-msgstr "Voer het hoofdwachtwoord in:"
-
-#, fuzzy
-msgid "Confirm password"
-msgstr "Voer het hoofdwachtwoord in:"
-
 msgid "Enable"
 msgstr "Inschakelen"
 
@@ -2163,10 +2097,6 @@ msgstr "Inloggen met OneDrive"
 msgid "Search"
 msgstr "Zoeken"
 
-#, fuzzy
-#~ msgid "Toggle note list"
-#~ msgstr "Notitielijst"
-
 #~ msgid "Starting to edit note. Close the editor to get back to the prompt."
 #~ msgstr ""
 #~ "Bezig met starten van notitiebewerking. Sluit de bewerker om terug te "
@@ -2180,6 +2110,9 @@ msgstr "Zoeken"
 
 #~ msgid "Sidebar"
 #~ msgstr "Zijbalk"
+
+#~ msgid "Note list"
+#~ msgstr "Notitielijst"
 
 #~ msgid "Note title"
 #~ msgstr "Titel van notitie"
