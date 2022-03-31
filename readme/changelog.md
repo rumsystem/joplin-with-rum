@@ -1,39 +1,5 @@
 # Joplin changelog
 
-## [v1.0.99](https://github.com/laurent22/joplin/releases/tag/v1.0.99) - 2018-06-10T13:18:23Z
-
-Note: This is the same as 1.0.97, but with a fix for the Linux version, which could not start anymore.
-
-If you're using the web clipper, make sure to also update it!
-
-- Updated: Auto-delete resources only after 10 days to handle some edge cases
-- Clipper: Cleaner and more consistent clipper REST API, to facilitate third-party access
-- Clipper: Fixes [#569](https://github.com/laurent22/joplin/issues/569): Make clipper service available on localhost only
-- Clipper: Fixes [#573](https://github.com/laurent22/joplin/issues/573): Better handling of certain code blocks
-
-## [v1.0.97](https://github.com/laurent22/joplin/releases/tag/v1.0.97) - 2018-06-09T19:23:34Z
-
-If you're using the web clipper, make sure to also update it!
-
-- Updated: Auto-delete resources only after 10 days to handle some edge cases
-- Clipper: Cleaner and more consistent clipper REST API, to facilitate third-party access
-- Clipper: Fixes [#569](https://github.com/laurent22/joplin/issues/569): Make clipper service available on localhost only
-- Clipper: Fixes [#573](https://github.com/laurent22/joplin/issues/573): Better handling of certain code blocks
-
-## [v1.0.96](https://github.com/laurent22/joplin/releases/tag/v1.0.96) - 2018-05-26T16:36:39Z
-
-This release is mainly to fix various issues with the recently released Web Clipper.
-
-- Clipper: Allow selecting folder to add the note to
-- Clipper: Fixed issue when taking screenshot
-- Clipper: Added Firefox extension
-
-## [v1.0.95](https://github.com/laurent22/joplin/releases/tag/v1.0.95) - 2018-05-25T13:04:30Z
-
-- New: A web clipper is now available - it allows saving web pages and screenshots from your browser to Joplin. To start using it, go to Options > Web Clipper Options. Note that this feature is a beta release so there might still be some issues. Feedback is welcome.
-- Fix: Identify another Dropbox missing auth error, to allow resetting the token
-- Fixes [#531](https://github.com/laurent22/joplin/issues/531): Get WebDAV to work with certain servers that require a trailing slash on directories
-
 ## [v1.0.94](https://github.com/laurent22/joplin/releases/tag/v1.0.94) - 2018-05-21T20:52:59Z
 
 - New: Allow copying path of resources
@@ -236,3 +202,18 @@ IMPORTANT: If you use Nextcloud it is recommended to sync all your notes before 
 - Fixed auto-title when title is manually entered first
 - Improved auto-update process to avoid random crashes
 - New: Allow focusing either title or body when creating a new note or to-do
+
+## [v0.10.51](https://github.com/laurent22/joplin/releases/tag/v0.10.51) - 2018-01-28T18:47:02Z
+
+- Added Nextcloud support (Beta)
+- Upgraded Electron to 1.7.11 to fix security vulnerability
+- Fixed checkbox issue in config screen
+- Fixed detection of encrypted item
+
+## [v0.10.48](https://github.com/laurent22/joplin/releases/tag/v0.10.48) - 2018-01-23T11:19:51Z
+
+- Improved and optimised file system sync target when many items are present.
+- Fixes [#155](https://github.com/laurent22/joplin/issues/155): Caret alignment issue with Russian text
+- Dutch translation (Thanks @tcassaert)
+- Removed certain log statements so that sensitive info doesn't end up in logs
+- Fix: Handle case where resource blob is missing during sync

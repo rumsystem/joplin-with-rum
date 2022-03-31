@@ -14,6 +14,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.0.3\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
 
 msgid "To delete a tag, untag the associated notes."
 msgstr "Pour supprimer une vignette, enlever là des notes associées."
@@ -645,9 +647,6 @@ msgstr "Outils"
 msgid "Synchronisation status"
 msgstr "État de la synchronisation"
 
-msgid "Web clipper options"
-msgstr "Options du Web Clipper"
-
 msgid "Encryption options"
 msgstr "Options de cryptage"
 
@@ -698,56 +697,6 @@ msgstr "Oui"
 
 msgid "No"
 msgstr "Non"
-
-msgid "The web clipper service is enabled and set to auto-start."
-msgstr "Le service du Web Clipper est activé et démarrera automatiquement."
-
-#, javascript-format
-msgid "Status: Started on port %d"
-msgstr "État : Commencé sur le port %d"
-
-#, javascript-format
-msgid "Status: %s"
-msgstr "État : %s"
-
-msgid "Disable Web Clipper Service"
-msgstr "Désactiver le service du Web Clipper"
-
-msgid "The web clipper service is not enabled."
-msgstr "Le service du Web Clipper n'est pas activé."
-
-msgid "Enable Web Clipper Service"
-msgstr "Activer le service du Web Clipper"
-
-msgid ""
-"Joplin Web Clipper allows saving web pages and screenshots from your browser "
-"to Joplin."
-msgstr ""
-"Le Web Clipper permet de sauver des pages web et des captures d'écran depuis "
-"votre navigateur vers Joplin."
-
-msgid "In order to use the web clipper, you need to do the following:"
-msgstr "Pour utiliser le Web Clipper, veuillez suivre ces instructions :"
-
-msgid "Step 1: Enable the clipper service"
-msgstr "Étape 1 : Activez le service du Web Clipper"
-
-msgid ""
-"This service allows the browser extension to communicate with Joplin. When "
-"enabling it your firewall may ask you to give permission to Joplin to listen "
-"to a particular port."
-msgstr ""
-"Le service permet au module complémentaire de communiquer avec Joplin. "
-"Lorsque vous aller l'activer, il se pourrait que votre pare feu vous demande "
-"d'autoriser l'application Joplin."
-
-msgid "Step 2: Install the extension"
-msgstr "Étape 2 : Installez le module complémentaire"
-
-msgid "Download and install the relevant extension for your browser:"
-msgstr ""
-"Téléchargez et installez le module complémentaire correspondant à votre "
-"navigateur :"
 
 msgid "Check synchronisation configuration"
 msgstr "Vérifier config synchronisation"
@@ -955,10 +904,6 @@ msgstr "Étiquettes"
 msgid "Set alarm"
 msgstr "Régler alarme"
 
-#, javascript-format
-msgid "In: %s"
-msgstr "Dans : %s"
-
 msgid "to-do"
 msgstr "tâche"
 
@@ -989,9 +934,6 @@ msgstr "État de la synchronisation"
 
 msgid "Encryption Options"
 msgstr "Options de cryptage"
-
-msgid "Clipper Options"
-msgstr "Options du Web Clipper"
 
 msgid "Remove this tag from all the notes?"
 msgstr "Enlever cette étiquette de toutes les notes ?"
@@ -1144,15 +1086,6 @@ msgstr "Un carnet avec ce titre existe déjà : \"%s\""
 #, javascript-format
 msgid "Notebooks cannot be named \"%s\", which is a reserved title."
 msgstr "Les carnets ne peuvent être nommés \"%s\" car c'est un nom réservé."
-
-msgid "title"
-msgstr "titre"
-
-msgid "updated date"
-msgstr "Date modification"
-
-msgid "created date"
-msgstr "Date création"
 
 msgid "Untitled"
 msgstr "Sans titre"
@@ -1422,9 +1355,6 @@ msgstr "Déplacer %d notes vers carnet \"%s\" ?"
 
 msgid "Press to set the decryption password."
 msgstr "Définir mot de passe de synchronisation."
-
-msgid "Save alarm"
-msgstr "Enregistrer alarme"
 
 msgid "Select date"
 msgstr "Sélectionner date"

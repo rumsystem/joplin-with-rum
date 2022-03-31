@@ -156,18 +156,7 @@ class NoteListComponent extends React.Component {
 		}
 
 		const onDragStart = (event) => {
-			let noteIds = [];
-
-			// Here there is two cases:
-			// - If multiple notes are selected, we drag the group
-			// - If only one note is selected, we drag the note that was clicked on (which might be different from the currently selected note)
-			if (this.props.selectedNoteIds.length >= 2) {
-				noteIds = this.props.selectedNoteIds;
-			} else {
-				const clickedNoteId = event.currentTarget.getAttribute('data-id');
-				if (clickedNoteId) noteIds.push(clickedNoteId);
-			}
-
+			const noteIds = this.props.selectedNoteIds;
 			if (!noteIds.length) return;
 			
 			event.dataTransfer.setDragImage(new Image(), 1, 1);

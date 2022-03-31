@@ -271,8 +271,8 @@ msgstr "Um den Kommandozeilen Modus zu beenden, drücke ESCAPE"
 msgid ""
 "For the list of keyboard shortcuts and config options, type `help keymap`"
 msgstr ""
-"Um die komplette Liste aller verfügbaren Tastenkürzeln und "
-"Konfigurationseinstellungen anzuzeigen, tippe `help keymap` ein"
+"Um die komplette Liste aller verfügbaren Tastenkürzeln anzuzeigen, tippe "
+"`help keymap` ein"
 
 msgid "Imports data into Joplin."
 msgstr "Importiert Daten in Joplin."
@@ -379,12 +379,12 @@ msgstr "Löscht das ausgewählte Notizbuch."
 msgid "Deletes the notebook without asking for confirmation."
 msgstr "Löscht das Notizbuch, ohne nach einer Bestätigung zu fragen."
 
+#, fuzzy
 msgid ""
 "Delete notebook? All notes and sub-notebooks within this notebook will also "
 "be deleted."
 msgstr ""
-"Notizbuch wirklich löschen? Alle Notizen und Unternotizen darin werden "
-"ebenfalls gelöscht."
+"Notizbuch wirklich löschen? Alle Notizen darin werden ebenfalls gelöscht."
 
 msgid "Deletes the notes matching <note-pattern>."
 msgstr "Löscht die Notizen, die mit <note-pattern> übereinstimmen."
@@ -661,11 +661,8 @@ msgstr "Werkzeuge"
 msgid "Synchronisation status"
 msgstr "Status der Synchronisation"
 
-msgid "Web clipper options"
-msgstr "Web Clipper Optionen"
-
 msgid "Encryption options"
-msgstr "Verschlüsselungsoptionen"
+msgstr "Verschlüsselung"
 
 msgid "General Options"
 msgstr "Allgemeine Einstellungen"
@@ -713,58 +710,6 @@ msgstr "Ja"
 
 msgid "No"
 msgstr "Nein"
-
-#, fuzzy
-msgid "The web clipper service is enabled and set to auto-start."
-msgstr ""
-"Der Web Clipper Service ist bereits aktiviert und auf Autostart eingestellt."
-
-#, javascript-format
-msgid "Status: Started on port %d"
-msgstr "Status: Gestartet auf Port %d"
-
-#, javascript-format
-msgid "Status: %s"
-msgstr "Status: %s"
-
-msgid "Disable Web Clipper Service"
-msgstr "Web Clipper Service deaktivieren"
-
-msgid "The web clipper service is not enabled."
-msgstr "Der Web Clipper Service ist nicht aktiviert."
-
-msgid "Enable Web Clipper Service"
-msgstr "Web Clipper Service aktivieren"
-
-msgid ""
-"Joplin Web Clipper allows saving web pages and screenshots from your browser "
-"to Joplin."
-msgstr ""
-"Joplin Web Clipper erlaubt im Browser das Speichern von Webseiten und "
-"Screenshots nach Joplin."
-
-msgid "In order to use the web clipper, you need to do the following:"
-msgstr "Um den Web Clipper zu benutzen, musst du folgendes machen:"
-
-msgid "Step 1: Enable the clipper service"
-msgstr "Schritt 1: Clipper Service aktivieren"
-
-msgid ""
-"This service allows the browser extension to communicate with Joplin. When "
-"enabling it your firewall may ask you to give permission to Joplin to listen "
-"to a particular port."
-msgstr ""
-"Dieser Service erlaubt es der Browser-Erweiterung mit Joplin zu "
-"kommunizieren. Beim Aktivieren kann deine Firewall dich nach der Erlaubnis "
-"bitten, dass Joplin auf einen bestimmten Port mithört."
-
-msgid "Step 2: Install the extension"
-msgstr "Schritt 2: Erweiterung installieren"
-
-msgid "Download and install the relevant extension for your browser:"
-msgstr ""
-"Lade die entsprechende Erweiterung für deinen Browser herunter und "
-"installiere sie:"
 
 msgid "Check synchronisation configuration"
 msgstr "Überprüfen der Synchronisationseinstellungen"
@@ -890,8 +835,9 @@ msgstr "Trenne jede Markierung mit einem Komma."
 msgid "Rename notebook:"
 msgstr "Notizbuch umbenennen:"
 
+#, fuzzy
 msgid "Rename tag:"
-msgstr "Markierung umbenennen:"
+msgstr "Umbenennen"
 
 msgid "Set alarm:"
 msgstr "Alarm erstellen:"
@@ -920,8 +866,9 @@ msgstr "Markierungen hinzufügen oder entfernen"
 msgid "Switch between note and to-do type"
 msgstr "Zwischen Notiz und To-Do Typ wechseln"
 
+#, fuzzy
 msgid "Copy Markdown link"
-msgstr "Markdown-Link kopieren"
+msgstr "Markdown"
 
 msgid "Delete"
 msgstr "Löschen"
@@ -947,7 +894,7 @@ msgid "Save as..."
 msgstr "Sichern unter..."
 
 msgid "Copy path to clipboard"
-msgstr "Pfad in Zwischenablage kopieren"
+msgstr ""
 
 #, javascript-format
 msgid "Unsupported link or message: %s"
@@ -969,10 +916,6 @@ msgstr "Markierungen"
 
 msgid "Set alarm"
 msgstr "Alarm erstellen"
-
-#, fuzzy, javascript-format
-msgid "In: %s"
-msgstr "%s: %s"
 
 msgid "to-do"
 msgstr "To-Do"
@@ -1004,9 +947,6 @@ msgstr "Synchronisations Status"
 
 msgid "Encryption Options"
 msgstr "Verschlüsselungsoptionen"
-
-msgid "Clipper Options"
-msgstr "Clipper Einstellungen"
 
 msgid "Remove this tag from all the notes?"
 msgstr "Diese Markierung von allen Notizen entfernen?"
@@ -1149,8 +1089,9 @@ msgstr "Verschlüsselte Objekte können nicht verändert werden"
 msgid "Conflicts"
 msgstr "Konflikte"
 
+#, fuzzy
 msgid "Cannot move notebook to this location"
-msgstr "Kann Notizbuch nicht an diesen Ort verschieben"
+msgstr "Kann Notiz nicht zu Notizbuch \"%s\" verschieben"
 
 #, javascript-format
 msgid "A notebook with this title already exists: \"%s\""
@@ -1160,18 +1101,6 @@ msgstr "Ein Notizbuch mit diesem Titel existiert bereits : \"%s\""
 msgid "Notebooks cannot be named \"%s\", which is a reserved title."
 msgstr ""
 "Notizbuch kann nicht \"%s\" genannt werden. Dies ist ein reservierter Titel."
-
-#, fuzzy
-msgid "title"
-msgstr "Unbenannt"
-
-#, fuzzy
-msgid "updated date"
-msgstr "Aktualisiert: %d."
-
-#, fuzzy
-msgid "created date"
-msgstr "Erstellt: %d."
 
 msgid "Untitled"
 msgstr "Unbenannt"
@@ -1219,8 +1148,9 @@ msgstr "Dunkel"
 msgid "Uncompleted to-dos on top"
 msgstr "Zeige unvollständige To-Dos an oberster Stelle"
 
+#, fuzzy
 msgid "Show completed to-dos"
-msgstr "Abgeschlossene ToDos anzeigen"
+msgstr "Zeige unvollständige To-Dos an oberster Stelle"
 
 msgid "Sort notes by"
 msgstr "Sortiere Notizen nach"
@@ -1255,13 +1185,13 @@ msgstr "Zoomstufe der Benutzeroberfläche"
 msgid "Editor font family"
 msgstr "Editor Schriftenfamilie"
 
+#, fuzzy
 msgid ""
 "This must be *monospace* font or it will not work properly. If the font is "
 "incorrect or empty, it will default to a generic monospace font."
 msgstr ""
-"Dies muss eine *Monospace* Schriftart sein, sonst funktioniert es nicht "
-"richtig. Wenn die Schriftart falsch oder leer ist, wird eine "
-"voreingestellte, generische Monospace-Schriftart verwendet."
+"Der Name der Schrift wird nicht überprüft. Ist dieser inkorrekt oder leer "
+"wird eine generische Monospace Schrift verwendet."
 
 msgid "Automatically update the application"
 msgstr "Die Applikation automatisch aktualisieren"
@@ -1444,9 +1374,6 @@ msgstr "%d Notizen in das Notizbuch \"%s\" verschieben?"
 msgid "Press to set the decryption password."
 msgstr "Tippe hier, um das Entschlüsselungspasswort festzulegen."
 
-msgid "Save alarm"
-msgstr "Alarm speichern"
-
 msgid "Select date"
 msgstr "Datum auswählen"
 
@@ -1466,23 +1393,17 @@ msgid ""
 "To work correctly, the app needs the following permissions. Please enable "
 "them in your phone settings, in Apps > Joplin > Permissions"
 msgstr ""
-"Um korrekt arbeiten zu können, benötigt die Anwendung die folgenden "
-"Berechtigungen. Bitte aktiviere diese in deinen Telefoneinstellungen, unter "
-"Apps > Joplin > Berechtigungen"
 
 msgid ""
 "- Storage: to allow attaching files to notes and to enable filesystem "
 "synchronisation."
 msgstr ""
-"- Speicher: um das Anhängen von Dateien an Notizen und die Synchronisation "
-"des Dateisystems zu ermöglichen."
 
 msgid "- Camera: to allow taking a picture and attaching it to a note."
-msgstr "- Kamera: um ein Bild aufzunehmen und an eine Notiz anzuhängen."
+msgstr ""
 
 msgid "- Location: to allow attaching geo-location information to a note."
 msgstr ""
-"- Standort: zum Anhängen von Geolokalisierungsinformationen an eine Notiz."
 
 msgid "Joplin website"
 msgstr "Website von Joplin"
@@ -1531,12 +1452,11 @@ msgstr "Änderungen verwerfen"
 
 #, javascript-format
 msgid "No item with ID %s"
-msgstr "Kein Element mit ID %s"
+msgstr ""
 
 #, javascript-format
 msgid "The Joplin mobile app does not currently support this type of link: %s"
 msgstr ""
-"Die Joplin Handy-Applikation unterstützt derzeit diese Art von Link nicht: %s"
 
 #, javascript-format
 msgid "Unsupported image type: %s"
@@ -1549,7 +1469,7 @@ msgid "Attach any file"
 msgstr "Beliebige Datei anhängen"
 
 msgid "Share"
-msgstr "Teilen"
+msgstr ""
 
 msgid "Convert to note"
 msgstr "In eine Notiz umwandeln"

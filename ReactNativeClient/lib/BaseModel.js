@@ -161,10 +161,7 @@ class BaseModel {
 	}
 
 	static async all(options = null) {
-		if (!options) options = {};
-		if (!options.fields) options.fields = '*';
-
-		let q = this.applySqlOptions(options, 'SELECT ' + this.db().escapeFields(options.fields) + ' FROM `' + this.tableName() + '`');
+		let q = this.applySqlOptions(options, 'SELECT * FROM `' + this.tableName() + '`');
 		return this.modelSelectAll(q.sql);
 	}
 

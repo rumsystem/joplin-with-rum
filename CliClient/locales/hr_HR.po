@@ -643,9 +643,6 @@ msgstr "Alati"
 msgid "Synchronisation status"
 msgstr "Status sinkronizacije"
 
-msgid "Web clipper options"
-msgstr ""
-
 msgid "Encryption options"
 msgstr ""
 
@@ -698,49 +695,6 @@ msgstr ""
 #, fuzzy
 msgid "No"
 msgstr "N"
-
-msgid "The web clipper service is enabled and set to auto-start."
-msgstr ""
-
-#, javascript-format
-msgid "Status: Started on port %d"
-msgstr ""
-
-#, fuzzy, javascript-format
-msgid "Status: %s"
-msgstr "Stanje: \"%s\"."
-
-msgid "Disable Web Clipper Service"
-msgstr ""
-
-msgid "The web clipper service is not enabled."
-msgstr ""
-
-msgid "Enable Web Clipper Service"
-msgstr ""
-
-msgid ""
-"Joplin Web Clipper allows saving web pages and screenshots from your browser "
-"to Joplin."
-msgstr ""
-
-msgid "In order to use the web clipper, you need to do the following:"
-msgstr ""
-
-msgid "Step 1: Enable the clipper service"
-msgstr ""
-
-msgid ""
-"This service allows the browser extension to communicate with Joplin. When "
-"enabling it your firewall may ask you to give permission to Joplin to listen "
-"to a particular port."
-msgstr ""
-
-msgid "Step 2: Install the extension"
-msgstr ""
-
-msgid "Download and install the relevant extension for your browser:"
-msgstr ""
 
 #, fuzzy
 msgid "Check synchronisation configuration"
@@ -931,10 +885,6 @@ msgstr "Oznake"
 msgid "Set alarm"
 msgstr "Postavi upozorenje"
 
-#, fuzzy, javascript-format
-msgid "In: %s"
-msgstr "%s: %s"
-
 #, fuzzy
 msgid "to-do"
 msgstr "Novi zadatak"
@@ -967,10 +917,6 @@ msgstr "Status Sinkronizacije"
 
 msgid "Encryption Options"
 msgstr ""
-
-#, fuzzy
-msgid "Clipper Options"
-msgstr "Opcije"
 
 msgid "Remove this tag from all the notes?"
 msgstr "Makni ovu oznaku iz svih bilješki?"
@@ -1122,18 +1068,6 @@ msgstr "Bilježnica s ovim naslovom već postoji: \"%s\""
 #, javascript-format
 msgid "Notebooks cannot be named \"%s\", which is a reserved title."
 msgstr "Naslov \"%s\" je rezerviran i ne može se koristiti."
-
-#, fuzzy
-msgid "title"
-msgstr "Nenaslovljen"
-
-#, fuzzy
-msgid "updated date"
-msgstr "Ažurirano: %d."
-
-#, fuzzy
-msgid "created date"
-msgstr "Stvoreno: %d."
 
 msgid "Untitled"
 msgstr "Nenaslovljen"
@@ -1399,10 +1333,6 @@ msgstr "Premjesti %d bilješke u bilježnicu \"%s\"?"
 
 msgid "Press to set the decryption password."
 msgstr ""
-
-#, fuzzy
-msgid "Save alarm"
-msgstr "Postavi upozorenje"
 
 msgid "Select date"
 msgstr "Odaberi datum"
