@@ -1,27 +1,24 @@
-import PostMessageService, { MessageResponse, ResponderComponentType } from '@joplin/lib/services/PostMessageService';
+import Logger from '@joplin/lib/Logger';
 import { useEffect } from 'react';
 
-export default function(frameWindow: any, isReady: boolean, pluginId: string, viewId: string, postMessage: Function) {
-	useEffect(() => {
-		PostMessageService.instance().registerResponder(ResponderComponentType.UserWebview, viewId, (message: MessageResponse) => {
-			postMessage('postMessageService.response', { message });
-		});
+const logger = Logger.create('useWebviewToPluginMessages');
 
-		return () => {
-			PostMessageService.instance().unregisterResponder(ResponderComponentType.UserWebview, viewId);
-		};
-	}, [viewId]);
-
+export default function(frameWindow: any, isReady: boolean, onMessage: Function, pluginId: string, viewId: string) {
 	useEffect(() => {
 		if (!frameWindow) return () => {};
 
 		function onMessage_(event: any) {
-			if (!event.data || event.data.target !== 'postMessageService.message') return;
+			if (!event.data || event.data.target !== 'plugin') return;
 
-			void PostMessageService.instance().postMessage({
-				pluginId,
-				viewId,
-				...event.data.message,
+			// The message is passed from one component or service to the next
+			// till it reaches its destination, so if something doesn't work
+			// follow the chain of messages searching for the string "Got message"
+			logger.debug('Got message (WebView => Plugin) (1)', pluginId, viewId, event.data.message);
+
+			onMessage({
+				pluginId: pluginId,
+				viewId: viewId,
+				message: event.data.message,
 			});
 		}
 
@@ -30,5 +27,5 @@ export default function(frameWindow: any, isReady: boolean, pluginId: string, vi
 		return () => {
 			frameWindow.removeEventListener('message', onMessage_);
 		};
-	}, [frameWindow, isReady, pluginId, viewId]);
+	}, [frameWindow, onMessage, isReady, pluginId, viewId]);
 }

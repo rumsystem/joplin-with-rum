@@ -1,20 +1,21 @@
-import { SubPath } from '../../utils/routeUtils';
-import Router from '../../utils/Router';
+import { SubPath, Route } from '../../utils/routeUtils';
 import { AppContext } from '../../utils/types';
 import { contextSessionId } from '../../utils/requestUtils';
 import { ErrorMethodNotAllowed } from '../../utils/errors';
-import defaultView from '../../utils/defaultView';
 
-const router: Router = new Router();
+const route: Route = {
 
-router.get('home', async (_path: SubPath, ctx: AppContext) => {
-	contextSessionId(ctx);
+	exec: async function(_path: SubPath, ctx: AppContext) {
+		const sessionId = contextSessionId(ctx);
+		const homeController = ctx.controllers.indexHome();
 
-	if (ctx.method === 'GET') {
-		return defaultView('home');
-	}
+		if (ctx.method === 'GET') {
+			return homeController.getIndex(sessionId);
+		}
 
-	throw new ErrorMethodNotAllowed();
-});
+		throw new ErrorMethodNotAllowed();
+	},
 
-export default router;
+};
+
+export default route;

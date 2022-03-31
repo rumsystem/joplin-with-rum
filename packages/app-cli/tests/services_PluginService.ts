@@ -192,7 +192,7 @@ describe('services_PluginService', function() {
 			
 			joplin.plugins.register({
 				onStart: async function() {
-					await joplin.contentScripts.register('markdownItPlugin', 'justtesting', './markdownItTestPlugin.js');
+					await joplin.plugins.registerContentScript('markdownItPlugin', 'justtesting', './markdownItTestPlugin.js');
 				},
 			});
 		`);

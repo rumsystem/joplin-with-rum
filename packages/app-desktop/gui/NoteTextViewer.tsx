@@ -1,4 +1,3 @@
-import PostMessageService, { MessageResponse, ResponderComponentType } from '@joplin/lib/services/PostMessageService';
 import * as React from 'react';
 const { connect } = require('react-redux');
 const { reg } = require('@joplin/lib/registry.js');
@@ -20,19 +19,6 @@ class NoteTextViewerComponent extends React.Component<Props, any> {
 		super(props);
 
 		this.webviewRef_ = React.createRef();
-
-		PostMessageService.instance().registerResponder(ResponderComponentType.NoteTextViewer, '', (message: MessageResponse) => {
-			if (!this.webviewRef_?.current?.contentWindow) {
-				reg.logger().warn('Cannot respond to message because target is gone', message);
-				return;
-			}
-
-			this.webviewRef_.current.contentWindow.postMessage({
-				target: 'webview',
-				name: 'postMessageService.response',
-				data: message,
-			}, '*');
-		});
 
 		this.webview_domReady = this.webview_domReady.bind(this);
 		this.webview_ipcMessage = this.webview_ipcMessage.bind(this);

@@ -1,16 +1,20 @@
-import { SubPath, redirect } from '../../utils/routeUtils';
-import Router from '../../utils/Router';
+import { SubPath, Route, redirect } from '../../utils/routeUtils';
+import { ErrorMethodNotAllowed } from '../../utils/errors';
 import { AppContext } from '../../utils/types';
-import config from '../../config';
-import { contextSessionId } from '../../utils/requestUtils';
+import { baseUrl } from '../../config';
 
-const router = new Router();
+const route: Route = {
 
-router.post('logout', async (_path: SubPath, ctx: AppContext) => {
-	const sessionId = contextSessionId(ctx, false);
-	ctx.cookies.set('sessionId', '');
-	await ctx.models.session().logout(sessionId);
-	return redirect(ctx, `${config().baseUrl}/login`);
-});
+	exec: async function(_path: SubPath, ctx: AppContext) {
+		if (ctx.method === 'POST') {
+			// TODO: also delete the session from the database
+			ctx.cookies.set('sessionId', '');
+			return redirect(ctx, `${baseUrl()}/login`);
+		}
 
-export default router;
+		throw new ErrorMethodNotAllowed();
+	},
+
+};
+
+export default route;
