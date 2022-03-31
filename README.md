@@ -36,7 +36,7 @@ Linux | <a href='https://github.com/laurent22/joplin/releases/download/v2.0.11/J
 
 Operating System | Download | Alt. Download
 ---|---|---
-Android | <a href='https://play.google.com/store/apps/details?id=net.cozic.joplin&utm_source=GitHub&utm_campaign=README&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' height="40px" src='https://joplinapp.org/images/BadgeAndroid.png'/></a> | or download the APK file: [64-bit](https://github.com/laurent22/joplin-android/releases/download/android-v2.0.4/joplin-v2.0.4.apk) [32-bit](https://github.com/laurent22/joplin-android/releases/download/android-v2.0.4/joplin-v2.0.4-32bit.apk)
+Android | <a href='https://play.google.com/store/apps/details?id=net.cozic.joplin&utm_source=GitHub&utm_campaign=README&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' height="40px" src='https://joplinapp.org/images/BadgeAndroid.png'/></a> | or download the APK file: [64-bit](https://github.com/laurent22/joplin-android/releases/download/android-v2.1.3/joplin-v2.1.3.apk) [32-bit](https://github.com/laurent22/joplin-android/releases/download/android-v2.1.3/joplin-v2.1.3-32bit.apk)
 iOS | <a href='https://itunes.apple.com/us/app/joplin/id1315599797'><img alt='Get it on the App Store' height="40px" src='https://joplinapp.org/images/BadgeIOS.png'/></a> | -
 
 ## Terminal application
@@ -452,8 +452,6 @@ The filters are implicitly connected by and/or connectives depending on the foll
 - By default, all filters are connected by "AND".
 - To override this default behaviour, use the `any` filter, in which case the search terms will be connected by "OR" instead.
 - There's an exception for the `notebook` filters which are connected by "OR". The reason being that no note can be in multiple notebooks at once.
-
-Incorrect search filters are interpreted as a phrase search, e.g. misspelled `nootebook:Example` or non-existing `https://joplinapp.org`.
 
 ## Search order
 
