@@ -162,7 +162,6 @@ class SearchScreenComponent extends BaseScreenComponent {
 							onSubmitEditing={() => { this.searchTextInput_submit() }}
 							onChangeText={(text) => this.searchTextInput_changeText(text) }
 							value={this.state.query}
-							selectionColor={theme.textSelectionColor}
 						/>
 						<TouchableHighlight onPress={() => this.clearButton_press() }>
 							<Icon name='md-close-circle' style={this.styles().clearIcon} />

@@ -72,17 +72,8 @@ const EncryptionService = require('lib/services/EncryptionService');
 
 let storeDispatch = function(action) {};
 
-const logReducerAction = function(action) {
-	if (['SIDE_MENU_OPEN_PERCENT', 'SYNC_REPORT_UPDATE'].indexOf(action.type) >= 0) return;
-
-	let msg = [action.type];
-	if (action.routeName) msg.push(action.routeName);
-
-	reg.logger().info('Reducer action', msg.join(', '));
-}
-
 const generalMiddleware = store => next => async (action) => {
-	logReducerAction(action);
+	if (['SIDE_MENU_OPEN_PERCENT', 'SYNC_REPORT_UPDATE'].indexOf(action.type) < 0) reg.logger().info('Reducer action', action.type);
 	PoorManIntervals.update(); // This function needs to be called regularly so put it here
 
 	const result = next(action);
