@@ -22,7 +22,7 @@ const quote = (s: string) => {
 };
 
 
-const getTerms = (query: string, validFilters: Set<string>): Term[] => {
+const getTerms = (query: string): Term[] => {
 	const terms: Term[] = [];
 	let inQuote = false;
 	let inTerm = false;
@@ -52,8 +52,7 @@ const getTerms = (query: string, validFilters: Set<string>): Term[] => {
 			continue;
 		}
 
-		if (c === ':' && !inQuote && !inTerm &&
-		(validFilters.has(currentTerm) || currentTerm[0] === '-' && validFilters.has(currentTerm.substr(1, currentTerm.length)))) {
+		if (c === ':' && !inQuote && !inTerm) {
 			currentCol = currentTerm;
 			currentTerm = '';
 			inTerm = true; // to ignore any other ':' before a space eg.'sourceurl:https://www.google.com'
@@ -72,7 +71,7 @@ const parseQuery = (query: string): Term[] => {
 		'iscompleted', 'due', 'latitude', 'longitude',
 		'altitude', 'resource', 'sourceurl', 'id']);
 
-	const terms = getTerms(query, validFilters);
+	const terms = getTerms(query);
 
 	const result: Term[] = [];
 	for (let i = 0; i < terms.length; i++) {
