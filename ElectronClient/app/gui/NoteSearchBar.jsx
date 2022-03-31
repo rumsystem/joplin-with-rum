@@ -35,7 +35,7 @@ class NoteSearchBarComponent extends React.Component {
 		this.refs.searchInput.focus();
 	}
 
-	buttonIconComponent(iconName, clickHandler, isEnabled) {
+	buttonIconComponent(iconName, clickHandler) {
 		const theme = themeStyle(this.props.theme);
 
 		const searchButton = {
@@ -51,7 +51,6 @@ class NoteSearchBarComponent extends React.Component {
 			display: 'flex',
 			fontSize: Math.round(theme.fontSize) * 1.2,
 			color: theme.color,
-			opacity: isEnabled ? 1.0 : theme.disabledOpacity,
 		};
 
 		const icon = <i style={iconStyle} className={`fa ${iconName}`}></i>;
@@ -87,13 +86,6 @@ class NoteSearchBarComponent extends React.Component {
 
 			if (this.props.onClose) this.props.onClose();
 		}
-
-		if (event.keyCode === 70) {
-			// F key
-			if (event.ctrlKey) {
-				event.target.select();
-			}
-		}
 	}
 
 	previousButton_click() {
@@ -116,58 +108,18 @@ class NoteSearchBarComponent extends React.Component {
 		this.refs.searchInput.focus();
 	}
 
-	getMatchesFoundString() {
-		if (this.props.resultCount === 0) {
-			return _('No matches found');
-		}
-		if (this.props.resultCount === 1) {
-			return _('1 of 1 match');
-		}
-		return _('%d of %d matches', this.props.selectedIndex + 1, this.props.resultCount);
-	}
-
 	render() {
-		const theme = themeStyle(this.props.theme);
-		let backgroundColor = theme.backgroundColor;
-		let buttonEnabled = true;
-
-		if (this.props.resultCount === 0 && this.props.query.length >  0) {
-			backgroundColor = theme.warningBackgroundColor;
-			buttonEnabled = false;
-		}
-
-		const closeButton = this.buttonIconComponent('fa-times', this.closeButton_click, true);
-		const previousButton = this.buttonIconComponent('fa-chevron-up', this.previousButton_click, buttonEnabled);
-		const nextButton = this.buttonIconComponent('fa-chevron-down', this.nextButton_click, buttonEnabled);
-
-		const textStyle = Object.assign({
-			fontSize: theme.fontSize,
-			fontFamily: theme.fontFamily,
-			color: theme.colorFaded,
-			backgroundColor: theme.backgroundColor,
-		});
-		const matchesFoundString = (this.props.query.length > 0) ? (
-			<div style={textStyle}> {
-				this.getMatchesFoundString()
-			} </div>
-		) : null;
+		const closeButton = this.buttonIconComponent('fa-times', this.closeButton_click);
+		const previousButton = this.buttonIconComponent('fa-chevron-up', this.previousButton_click);
+		const nextButton = this.buttonIconComponent('fa-chevron-down', this.nextButton_click);
 
 		return (
 			<div style={this.props.style}>
 				<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
 					{closeButton}
-					<input
-						placeholder={_('Search...')}
-						value={this.state.query}
-						onChange={this.searchInput_change}
-						onKeyDown={this.searchInput_keyDown}
-						ref="searchInput"
-						type="text"
-						style={{ width: 200, marginRight: 5, backgroundColor: backgroundColor }}
-					/>
+					<input placeholder={_('Search...')} value={this.state.query} onChange={this.searchInput_change} onKeyDown={this.searchInput_keyDown} ref="searchInput" type="text" style={{ width: 200, marginRight: 5 }}></input>
 					{nextButton}
 					{previousButton}
-					{matchesFoundString}
 				</div>
 			</div>
 		);
