@@ -247,13 +247,10 @@ function themeStyle(theme) {
 	const cacheKey = [theme, zoomRatio, editorFontSize].join('-');
 	if (themeCache_[cacheKey]) return themeCache_[cacheKey];
 
-	// Font size are not theme specific, but they must be referenced
-	// and computed here to allow them to respond to settings changes
-	// without the need to restart
 	let fontSizes = {
-		fontSize: Math.round(globalStyle.fontSize * zoomRatio),
+		fontSize: Math.round(12 * zoomRatio),
 		editorFontSize: editorFontSize,
-		textAreaLineHeight: Math.round(globalStyle.textAreaLineHeight * editorFontSize / 12),
+		textAreaLineHeight: Math.round(17 * editorFontSize / 12),
 
 		// For WebView - must correspond to the properties above
 		htmlFontSize: Math.round(15 * zoomRatio) + 'px',
