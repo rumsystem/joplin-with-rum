@@ -25,6 +25,7 @@ export interface CommandRuntime {
 
 	// Used for the (optional) toolbar button title
 	title?(props:any):string,
+	// props?:any
 }
 
 export interface CommandDeclaration {
