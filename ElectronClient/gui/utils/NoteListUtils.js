@@ -25,7 +25,7 @@ class NoteListUtils {
 
 		if (!hasEncrypted) {
 			menu.append(
-				new MenuItem(cmdService.commandToMenuItem('setTags', { noteIds }))
+				new MenuItem(cmdService.commandToMenuItem('setTags'))
 			);
 
 			menu.append(

@@ -30,7 +30,7 @@ const PluginManager = require('lib/services/PluginManager');
 const RevisionService = require('lib/services/RevisionService');
 const MigrationService = require('lib/services/MigrationService');
 const CommandService = require('lib/services/CommandService').default;
-const KeymapService = require('lib/services/KeymapService').default;
+const KeymapService = require('lib/services/KeymapService.js').default;
 const TemplateUtils = require('lib/TemplateUtils');
 const CssUtils = require('lib/CssUtils');
 const resourceEditWatcherReducer = require('lib/services/ResourceEditWatcher/reducer').default;
@@ -110,8 +110,6 @@ class Application extends BaseApplication {
 
 		this.commandService_commandsEnabledStateChange = this.commandService_commandsEnabledStateChange.bind(this);
 		CommandService.instance().on('commandsEnabledStateChange', this.commandService_commandsEnabledStateChange);
-
-		KeymapService.instance().on('keymapChange', this.refreshMenu.bind(this));
 	}
 
 	commandService_commandsEnabledStateChange() {
@@ -571,7 +569,7 @@ class Application extends BaseApplication {
 		const toolsItemsWindowsLinux = toolsItemsFirst.concat([{
 			label: _('Options'),
 			visible: !shim.isMac(),
-			accelerator: !shim.isMac() && keymapService.getAccelerator('config'),
+			accelerator: shim.isMac() ? null : keymapService.getAccelerator('config'),
 			click: () => {
 				this.dispatch({
 					type: 'NAV_GO',
@@ -633,7 +631,7 @@ class Application extends BaseApplication {
 			}, {
 				label: _('Preferences...'),
 				visible: shim.isMac() ? true : false,
-				accelerator: shim.isMac() && keymapService.getAccelerator('config'),
+				accelerator: shim.isMac() ? keymapService.getAccelerator('config') : null,
 				click: () => {
 					this.dispatch({
 						type: 'NAV_GO',
@@ -665,7 +663,7 @@ class Application extends BaseApplication {
 				visible: shim.isMac() ? false : true,
 				submenu: importItems,
 			}, {
-				label: _('Export all'),
+				label: _('Export'),
 				visible: shim.isMac() ? false : true,
 				submenu: exportItems,
 			}, {
@@ -682,7 +680,7 @@ class Application extends BaseApplication {
 			}, {
 				label: _('Hide %s', 'Joplin'),
 				platforms: ['darwin'],
-				accelerator: shim.isMac() && keymapService.getAccelerator('hideApp'),
+				accelerator: shim.isMac() ? keymapService.getAccelerator('hideApp') : null,
 				click: () => { bridge().electronApp().hide(); },
 			}, {
 				type: 'separator',
@@ -702,7 +700,7 @@ class Application extends BaseApplication {
 				newNotebookItem, {
 					label: _('Close Window'),
 					platforms: ['darwin'],
-					accelerator: shim.isMac() && keymapService.getAccelerator('closeWindow'),
+					accelerator: shim.isMac() ? keymapService.getAccelerator('closeWindow') : null,
 					selector: 'performClose:',
 				}, {
 					type: 'separator',
@@ -1042,9 +1040,11 @@ class Application extends BaseApplication {
 		// https://github.com/laurent22/joplin/issues/155
 
 		const css = `.CodeMirror * { font-family: ${fontFamilies.join(', ')} !important; }`;
+		const ace_css = `.ace_editor * { font-family: ${fontFamilies.join(', ')} !important; }`;
 		const styleTag = document.createElement('style');
 		styleTag.type = 'text/css';
 		styleTag.appendChild(document.createTextNode(css));
+		styleTag.appendChild(document.createTextNode(ace_css));
 		document.head.appendChild(styleTag);
 	}
 
@@ -1093,7 +1093,7 @@ class Application extends BaseApplication {
 		const keymapService = KeymapService.instance();
 
 		try {
-			await keymapService.loadCustomKeymap(`${dir}/keymap-desktop.json`);
+			await KeymapService.instance().loadKeymap(`${dir}/keymap-desktop.json`);
 		} catch (err) {
 			bridge().showErrorMessageBox(err.message);
 		}

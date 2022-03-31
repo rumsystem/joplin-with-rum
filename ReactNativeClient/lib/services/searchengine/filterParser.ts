@@ -3,8 +3,6 @@ interface Term {
 	name: string
 	value: string
 	negated: boolean
-	quoted?: boolean
-	wildcard?: boolean
 }
 
 const makeTerm = (name: string, value: string): Term => {
@@ -12,9 +10,10 @@ const makeTerm = (name: string, value: string): Term => {
 	return { name: name, value: value, negated: false };
 };
 
-const quoted = (s: string) => s.startsWith('"') && s.endsWith('"');
 
 const quote = (s : string) => {
+	const quoted = (s: string) => s.startsWith('"') && s.endsWith('"');
+
 	if (!quoted(s)) {
 		return `"${s}"`;
 	}
@@ -72,6 +71,7 @@ const parseQuery = (query: string): Term[] => {
 		'altitude', 'resource', 'sourceurl']);
 
 	const terms = getTerms(query);
+	// console.log(terms);
 
 	const result: Term[] = [];
 	for (let i = 0; i < terms.length; i++) {
@@ -83,13 +83,13 @@ const parseQuery = (query: string): Term[] => {
 			}
 
 			if (name === 'tag' || name === 'notebook' || name === 'resource' || name === 'sourceurl') {
-				result.push({ name, value: trimQuotes(value.replace(/[*]/g, '%')), negated }); // for wildcard search
+				result.push({ name, value: value.replace(/[*]/g, '%'), negated }); // for wildcard search
 			} else if (name === 'title' || name === 'body') {
 				// Trim quotes since we don't support phrase query here
 				// eg. Split title:"hello world" to title:hello title:world
 				const values = trimQuotes(value).split(/[\s-_]+/);
 				values.forEach(value => {
-					result.push({ name, value, negated, wildcard: value.indexOf('*') >= 0 });
+					result.push({ name, value, negated });
 				});
 			} else {
 				result.push({ name, value, negated });
@@ -98,21 +98,9 @@ const parseQuery = (query: string): Term[] => {
 			// Every word is quoted if not already.
 			// By quoting the word, FTS match query will take care of removing dashes and other word seperators.
 			if (value.startsWith('-')) {
-				result.push({
-					name: 'text',
-					value: quote(value.slice(1)),
-					negated: true,
-					quoted: quoted(value),
-					wildcard: value.indexOf('*') >= 0,
-				});
+				result.push({ name: 'text', value: quote(value.slice(1)) , negated: true });
 			} else {
-				result.push({
-					name: 'text',
-					value: quote(value),
-					negated: false,
-					quoted: quoted(value),
-					wildcard: value.indexOf('*') >= 0,
-				});
+				result.push({ name: 'text', value: quote(value), negated: false });
 			}
 		}
 	}
