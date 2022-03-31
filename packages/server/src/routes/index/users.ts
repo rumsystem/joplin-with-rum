@@ -19,7 +19,6 @@ import { confirmUrl } from '../../utils/urlUtils';
 import { cancelSubscriptionByUserId, updateSubscriptionType } from '../../utils/stripe';
 import { createCsrfTag } from '../../utils/csrf';
 import { formatDateTime } from '../../utils/time';
-import { cookieSet } from '../../utils/cookies';
 
 export interface CheckRepeatPasswordInput {
 	password: string;
@@ -237,7 +236,7 @@ router.post('users/:id/confirm', async (path: SubPath, ctx: AppContext) => {
 		await ctx.joplin.models.token().deleteByValue(userId, fields.token);
 
 		const session = await ctx.joplin.models.session().createUserSession(userId);
-		cookieSet(ctx, 'sessionId', session.id);
+		ctx.cookies.set('sessionId', session.id);
 
 		await ctx.joplin.models.notification().add(userId, NotificationKey.PasswordSet);
 
