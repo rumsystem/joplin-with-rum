@@ -210,7 +210,7 @@ class PromptDialog extends React.Component {
 				theme={styles.tagListTheme}
 				ref={this.answerInput_}
 				value={this.state.answer}
-				placeholder=""
+				placeholder={this.props.label ? this.props.label.replace(':', '') : ''}
 				components={makeAnimated()}
 				isMulti={true}
 				isClearable={false}

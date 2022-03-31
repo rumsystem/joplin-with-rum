@@ -30,11 +30,4 @@ netUtils.findAvailablePort = async (possiblePorts, extraRandomPortsToTry = 20) =
 	return port;
 }
 
-netUtils.mimeTypeFromHeaders = headers => {
-	if (!headers || !headers['content-type']) return null;
-
-	const splitted = headers['content-type'].split(';');
-	return splitted[0].trim().toLowerCase();
-}
-
 module.exports = { netUtils };

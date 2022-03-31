@@ -19,11 +19,7 @@ shared.noteExists = async function(noteId) {
 	return !!existingNote;
 }
 
-shared.saveNoteButton_press = async function(comp, folderId = null, options = null) {
-	options = Object.assign({}, {
-		autoTitle: true,
-	}, options);
-
+shared.saveNoteButton_press = async function(comp, folderId = null) {
 	const releaseMutex = await saveNoteMutex_.acquire();
 
 	let note = Object.assign({}, comp.state.note);
@@ -44,18 +40,18 @@ shared.saveNoteButton_press = async function(comp, folderId = null, options = nu
 
 	let isNew = !note.id;
 
-	let saveOptions = { userSideValidation: true };
+	let options = { userSideValidation: true };
 	if (!isNew) {
-		saveOptions.fields = BaseModel.diffObjectsFields(comp.state.lastSavedNote, note);
+		options.fields = BaseModel.diffObjectsFields(comp.state.lastSavedNote, note);
 	}
 
 	const hasAutoTitle = comp.state.newAndNoTitleChangeNoteId || (isNew && !note.title);
-	if (hasAutoTitle && options.autoTitle) {
+	if (hasAutoTitle) {
 		note.title = Note.defaultTitle(note);
-		if (saveOptions.fields && saveOptions.fields.indexOf('title') < 0) saveOptions.fields.push('title');
+		if (options.fields && options.fields.indexOf('title') < 0) options.fields.push('title');
 	}
 
-	const savedNote = ('fields' in saveOptions) && !saveOptions.fields.length ? Object.assign({}, note) : await Note.save(note, saveOptions);
+	const savedNote = ('fields' in options) && !options.fields.length ? Object.assign({}, note) : await Note.save(note, options);
 
 	const stateNote = comp.state.note;
 
@@ -83,8 +79,6 @@ shared.saveNoteButton_press = async function(comp, folderId = null, options = nu
 	};
 
 	if (isNew && hasAutoTitle) newState.newAndNoTitleChangeNoteId = note.id;
-
-	if (!options.autoTitle) newState.newAndNoTitleChangeNoteId = null;
 
 	comp.setState(newState);
 

@@ -37,10 +37,9 @@ function isHidden(path) {
 	return b[0] === '.';
 }
 
-function safeFileExtension(e, maxLength = null) {
-	if (maxLength === null) maxLength = 8;
+function safeFileExtension(e) {
 	if (!e || !e.replace) return '';
-	return e.replace(/[^a-zA-Z0-9]/g, '').substr(0, maxLength);
+	return e.replace(/[^a-zA-Z0-9]/g, '')
 }
 
 function safeFilename(e, maxLength = null, allowSpaces = false) {

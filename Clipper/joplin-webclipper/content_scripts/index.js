@@ -19,7 +19,7 @@
 		const protocol = url.toLowerCase().split(':')[0];
 		if (['http', 'https', 'file'].indexOf(protocol) >= 0) return url;
 
-		if (url.indexOf('//') === 0) {
+		if (url.indexOf('//')) {
 			return location.protocol + url;
 		} else if (url[0] === '/') {
 			return location.protocol + '//' + location.host + url;
@@ -34,20 +34,8 @@
 		return document.title.trim();
 	}
 
-	function pageLocationOrigin() {
-		// location.origin normally returns the protocol + domain + port (eg. https://example.com:8080)
-		// but for file:// protocol this is browser dependant and in particular Firefox returns "null"
-		// in this case.
-
-		if (location.protocol === 'file:') {
-			return 'file://';
-		} else {
-			return location.origin;
-		}
-	}
-
 	function baseUrl() {
-		let output = pageLocationOrigin() + location.pathname;
+		let output = location.origin + location.pathname;
 		if (output[output.length - 1] !== '/') {
 			output = output.split('/');
 			output.pop();
@@ -68,20 +56,6 @@
 				naturalWidth: img.naturalWidth,
 				naturalHeight: img.naturalHeight,
 			};
-		}
-		return output;
-	}
-
-	function getAnchorNames(element) {
-		const anchors = element.getElementsByTagName('a');
-		const output = [];
-		for (let i = 0; i < anchors.length; i++) {
-			const anchor = anchors[i];
-			if (anchor.id) {
-				output.push(anchor.id);
-			} else if (anchor.name) {
-				output.push(anchor.name);
-			}
 		}
 		return output;
 	}
@@ -143,17 +117,16 @@
 	async function prepareCommandResponse(command) {
 		console.info('Got command: ' + command.name);
 
-		const clippedContentResponse = (title, html, imageSizes, anchorNames) => {
+		const clippedContentResponse = (title, html, imageSizes) => {
 			return {
 				name: 'clippedContent',
 				title: title,
 				html: html,
 				base_url: baseUrl(),
-				url: pageLocationOrigin() + location.pathname + location.search,
+				url: location.origin + location.pathname + location.search,
 				parent_id: command.parent_id,
 				tags: command.tags || '',
 				image_sizes: imageSizes,
-				anchor_names: anchorNames,
 			};			
 		}
 
@@ -170,7 +143,7 @@
 				response.warning = 'Could not retrieve simplified version of page - full page has been saved instead.';
 				return response;
 			}
-			return clippedContentResponse(article.title, article.body, getImageSizes(document), getAnchorNames(document));
+			return clippedContentResponse(article.title, article.body, getImageSizes(document));
 
 		} else if (command.name === "isProbablyReaderable") {
 
@@ -183,14 +156,14 @@
 			const cleanDocument = document.body.cloneNode(true);
 			const imageSizes = getImageSizes(document, true);
 			cleanUpElement(cleanDocument, imageSizes);
-			return clippedContentResponse(pageTitle(), cleanDocument.innerHTML, imageSizes, getAnchorNames(document));
+			return clippedContentResponse(pageTitle(), cleanDocument.innerHTML, imageSizes);
 
 		} else if (command.name === "selectedHtml") {
 
 		    const range = window.getSelection().getRangeAt(0);
 		    const container = document.createElement('div');
 		    container.appendChild(range.cloneContents());
-		    return clippedContentResponse(pageTitle(), container.innerHTML, getImageSizes(document), getAnchorNames(document));
+		    return clippedContentResponse(pageTitle(), container.innerHTML, getImageSizes(document));
 
 		} else if (command.name === 'screenshot') {
 
@@ -292,7 +265,7 @@
 					const content = {
 						title: pageTitle(),
 						crop_rect: selectionArea,
-						url: pageLocationOrigin() + location.pathname,
+						url: location.origin + location.pathname,
 						parent_id: command.parent_id,
 						tags: command.tags,
 					};
@@ -313,8 +286,8 @@
 
 		} else if (command.name === "pageUrl") {
 
-			let url = pageLocationOrigin() + location.pathname + location.search;
-			return clippedContentResponse(pageTitle(), url, getImageSizes(document), getAnchorNames(document));
+			let url = location.origin + location.pathname + location.search;
+			return clippedContentResponse(pageTitle(), url, getImageSizes(document));
 
 		} else {
 			throw new Error('Unknown command: ' + JSON.stringify(command));
