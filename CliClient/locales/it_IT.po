@@ -211,6 +211,7 @@ msgstr ""
 msgid "Shortcuts are not available in CLI mode."
 msgstr "Le scorciatoie non sono disponibili nella modalità CLI."
 
+#, fuzzy
 msgid ""
 "Type `help [command]` for more information about a command; or type `help "
 "all` for the complete usage information."
@@ -811,7 +812,7 @@ msgstr ""
 "terze parti di accedere a Joplin."
 
 msgid "This will open a new screen. Save your current changes?"
-msgstr "Questo aprirà una nuova schermata. Salvare le tue modifiche correnti?"
+msgstr ""
 
 #, javascript-format
 msgid "Notes and settings are stored in: %s"
@@ -1561,8 +1562,9 @@ msgstr "Percentuale di zoom globale"
 msgid "Editor font size"
 msgstr "Editor dimensione caratteri"
 
+#, fuzzy
 msgid "Editor font"
-msgstr "Editor caratteri"
+msgstr "Editor dimensione caratteri"
 
 msgid "Editor font family"
 msgstr "Editor famiglia caratteri"
@@ -1676,11 +1678,13 @@ msgstr "Plugins"
 msgid "Application"
 msgstr "Applicazione"
 
+#, fuzzy
 msgid "Encryption"
-msgstr "Crittografia"
+msgstr "La crittografia è:"
 
+#, fuzzy
 msgid "Web Clipper"
-msgstr "Web Clipper"
+msgstr "Opzioni Web Clipper"
 
 #, javascript-format
 msgid "The tag \"%s\" already exists. Please choose a different name."
@@ -1695,11 +1699,13 @@ msgstr "Markdown"
 msgid "Joplin Export Directory"
 msgstr "Cartella di esportazione di Joplin"
 
+#, fuzzy
 msgid "Evernote Export File (as Markdown)"
-msgstr "Esporta files di Evernote (come Markdown)"
+msgstr "Esporta files di Evernote"
 
+#, fuzzy
 msgid "Evernote Export File (as HTML)"
-msgstr "Esporta files di Evernote (come HTML)"
+msgstr "Esporta files di Evernote"
 
 msgid "Json Export Directory"
 msgstr "Cartella di esportazione JSON"
@@ -1905,8 +1911,6 @@ msgid ""
 "In order to use file system synchronisation your permission to write to "
 "external storage is required."
 msgstr ""
-"Per usare la sincronizzazione del file system è necessario il tuo permesso "
-"di scrittura sulla memoria esterna."
 
 msgid "Encryption Config"
 msgstr "Configurazione Crittografia"
