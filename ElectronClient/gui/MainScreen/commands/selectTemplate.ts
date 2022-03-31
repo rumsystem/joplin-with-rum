@@ -1,5 +1,5 @@
 import CommandService, { CommandRuntime, CommandDeclaration } from '../../../lib/services/CommandService';
-import { _ } from 'lib/locale';
+const { _ } = require('lib/locale');
 const TemplateUtils = require('lib/TemplateUtils');
 
 export const declaration:CommandDeclaration = {

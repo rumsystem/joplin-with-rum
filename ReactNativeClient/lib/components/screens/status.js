@@ -1,11 +1,11 @@
 const React = require('react');
 
 const { View, Text, Button, FlatList } = require('react-native');
-const Setting = require('lib/models/Setting').default;
+const Setting = require('lib/models/Setting.js');
 const { connect } = require('react-redux');
 const { ScreenHeader } = require('lib/components/screen-header.js');
 const { ReportService } = require('lib/services/report.js');
-const { _ } = require('lib/locale');
+const { _ } = require('lib/locale.js');
 const { BaseScreenComponent } = require('lib/components/base-screen.js');
 const { themeStyle } = require('lib/components/global-style.js');
 

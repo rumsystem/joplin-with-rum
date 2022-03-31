@@ -156,10 +156,6 @@ class FsDriverRN extends FsDriverBase {
 		handle.offset += length;
 		return output ? output : null;
 	}
-
-	resolve(path) {
-		throw new Error(`Not implemented: resolve(): ${path}`);
-	}
 }
 
 module.exports.FsDriverRN = FsDriverRN;

@@ -15,7 +15,6 @@ const useKeymap = (): [
 ] => {
 	const [keymapItems, setKeymapItems] = useState<KeymapItem[]>(() => keymapService.getKeymapItems());
 	const [keymapError, setKeymapError] = useState<Error>(null);
-	const [mustSave, setMustSave] = useState(false);
 
 	const setAccelerator = (commandName: string, accelerator: string) => {
 		setKeymapItems(prevKeymap => {
@@ -24,8 +23,6 @@ const useKeymap = (): [
 			newKeymap.find(item => item.command === commandName).accelerator = accelerator || null /* Disabled */;
 			return newKeymap;
 		});
-
-		setMustSave(true);
 	};
 
 	const resetAccelerator = (commandName: string) => {
@@ -36,8 +33,6 @@ const useKeymap = (): [
 			newKeymap.find(item => item.command === commandName).accelerator = defaultAccelerator;
 			return newKeymap;
 		});
-
-		setMustSave(true);
 	};
 
 	const overrideKeymapItems = (customKeymapItems: KeymapItem[]) => {
@@ -60,22 +55,14 @@ const useKeymap = (): [
 	};
 
 	useEffect(() => {
-		if (!mustSave) return;
-
-		setMustSave(false);
-
-		async function saveKeymap() {
-			try {
-				keymapService.overrideKeymap(keymapItems);
-				await keymapService.saveCustomKeymap();
-				setKeymapError(null);
-			} catch (err) {
-				setKeymapError(err);
-			}
+		try {
+			keymapService.overrideKeymap(keymapItems);
+			keymapService.saveCustomKeymap();
+			setKeymapError(null);
+		} catch (err) {
+			setKeymapError(err);
 		}
-
-		saveKeymap();
-	}, [keymapItems, mustSave]);
+	}, [keymapItems]);
 
 	return [keymapItems, keymapError, overrideKeymapItems, setAccelerator, resetAccelerator];
 };

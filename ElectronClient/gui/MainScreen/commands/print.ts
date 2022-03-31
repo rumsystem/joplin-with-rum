@@ -1,6 +1,6 @@
 import { CommandRuntime, CommandDeclaration } from '../../../lib/services/CommandService';
-import { _ } from 'lib/locale';
-const bridge = require('electron').remote.require('./bridge').default;
+const { _ } = require('lib/locale');
+const { bridge } = require('electron').remote.require('./bridge');
 
 export const declaration:CommandDeclaration = {
 	name: 'print',

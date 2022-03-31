@@ -1,9 +1,9 @@
-import shim from 'lib/shim';
-const Setting = require('lib/models/Setting').default;
+const Setting = require('lib/models/Setting');
 const Note = require('lib/models/Note.js');
 const BaseModel = require('lib/BaseModel.js');
 const Resource = require('lib/models/Resource.js');
-const bridge = require('electron').remote.require('./bridge').default;
+const { shim } = require('lib/shim');
+const { bridge } = require('electron').remote.require('./bridge');
 const ResourceFetcher = require('lib/services/ResourceFetcher.js');
 const { reg } = require('lib/registry.js');
 const joplinRendererUtils = require('lib/joplin-renderer').utils;

@@ -2,11 +2,11 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import JoplinServerApi from '../lib/JoplinServerApi';
 
-import { _, _n } from 'lib/locale';
+const { _, _n } = require('lib/locale.js');
 const { themeStyle, buildStyle } = require('lib/theme');
 const DialogButtonRow = require('./DialogButtonRow.min');
 const Note = require('lib/models/Note');
-const Setting = require('lib/models/Setting').default;
+const Setting = require('lib/models/Setting');
 const BaseItem = require('lib/models/BaseItem');
 const { reg } = require('lib/registry.js');
 const { clipboard } = require('electron');

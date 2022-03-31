@@ -1,4 +1,4 @@
-const { _ } = require('lib/locale');
+const { _ } = require('lib/locale.js');
 const { reg } = require('lib/registry.js');
 
 class BaseCommand {

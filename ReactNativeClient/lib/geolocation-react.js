@@ -1,6 +1,6 @@
 import Geolocation from '@react-native-community/geolocation';
 
-const Setting = require('lib/models/Setting').default;
+const Setting = require('lib/models/Setting.js');
 
 class GeolocationReact {
 	static currentPosition_testResponse() {

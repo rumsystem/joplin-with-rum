@@ -1,5 +1,4 @@
 import { useEffect, useCallback, useRef } from 'react';
-import shim from 'lib/shim';
 
 interface HookDependencies {
 	editor:any,
@@ -44,11 +43,11 @@ export default function useScroll(dependencies:HookDependencies) {
 
 	const scheduleOnScroll = useCallback((event: any) => {
 		if (scrollTimeoutId_.current) {
-			shim.clearTimeout(scrollTimeoutId_.current);
+			clearTimeout(scrollTimeoutId_.current);
 			scrollTimeoutId_.current = null;
 		}
 
-		scrollTimeoutId_.current = shim.setTimeout(() => {
+		scrollTimeoutId_.current = setTimeout(() => {
 			scrollTimeoutId_.current = null;
 			onScroll(event);
 		}, 10);

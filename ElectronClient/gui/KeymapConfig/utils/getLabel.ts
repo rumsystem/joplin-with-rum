@@ -1,7 +1,7 @@
 import CommandService from 'lib/services/CommandService';
-import shim from 'lib/shim';
 
-import { _ } from 'lib/locale';
+const { _ } = require('lib/locale');
+const { shim } = require('lib/shim');
 
 const commandService = CommandService.instance();
 

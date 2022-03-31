@@ -1,7 +1,6 @@
-const Logger = require('lib/Logger').default;
+const { Logger } = require('lib/logger.js');
 const { time } = require('lib/time-utils.js');
 const Mutex = require('async-mutex').Mutex;
-const shim = require('lib/shim').default;
 
 class Database {
 	constructor(driver) {
@@ -84,7 +83,7 @@ class Database {
 				if (this.profilingEnabled_) {
 					console.info(`SQL START ${queryId}`, sql, params);
 
-					profilingTimeoutId = shim.setInterval(() => {
+					profilingTimeoutId = setInterval(() => {
 						console.warn(`SQL ${queryId} has been running for ${Date.now() - callStartTime}: ${sql}`);
 					}, 3000);
 				}
@@ -92,7 +91,7 @@ class Database {
 				const result = await this.driver()[callName](sql, params);
 
 				if (this.profilingEnabled_) {
-					shim.clearInterval(profilingTimeoutId);
+					clearInterval(profilingTimeoutId);
 					profilingTimeoutId = null;
 					const elapsed = Date.now() - callStartTime;
 					if (elapsed > 10) console.info(`SQL END ${queryId}`, elapsed, sql, params);
@@ -113,7 +112,7 @@ class Database {
 					throw this.sqliteErrorToJsError(error, sql, params);
 				}
 			} finally {
-				if (profilingTimeoutId) shim.clearInterval(profilingTimeoutId);
+				if (profilingTimeoutId) clearInterval(profilingTimeoutId);
 			}
 		}
 	}

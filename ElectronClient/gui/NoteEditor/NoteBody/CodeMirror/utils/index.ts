@@ -1,5 +1,4 @@
 import { useEffect, useCallback, useRef, useState } from 'react';
-import shim from 'lib/shim';
 
 export function cursorPositionToTextOffset(cursorPos: any, body: string) {
 	if (!body) return 0;
@@ -35,11 +34,11 @@ export function useScrollHandler(editorRef: any, webviewRef: any, onScroll: Func
 
 	const scheduleOnScroll = useCallback((event: any) => {
 		if (scrollTimeoutId_.current) {
-			shim.clearTimeout(scrollTimeoutId_.current);
+			clearTimeout(scrollTimeoutId_.current);
 			scrollTimeoutId_.current = null;
 		}
 
-		scrollTimeoutId_.current = shim.setTimeout(() => {
+		scrollTimeoutId_.current = setTimeout(() => {
 			scrollTimeoutId_.current = null;
 			onScroll(event);
 		}, 10);

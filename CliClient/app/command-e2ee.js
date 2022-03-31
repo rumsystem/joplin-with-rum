@@ -1,10 +1,10 @@
 const { BaseCommand } = require('./base-command.js');
-const { _ } = require('lib/locale');
+const { _ } = require('lib/locale.js');
 const EncryptionService = require('lib/services/EncryptionService');
 const DecryptionWorker = require('lib/services/DecryptionWorker');
 const BaseItem = require('lib/models/BaseItem');
-const Setting = require('lib/models/Setting').default;
-const shim = require('lib/shim').default;
+const Setting = require('lib/models/Setting.js');
+const { shim } = require('lib/shim');
 const pathUtils = require('lib/path-utils.js');
 const imageType = require('image-type');
 const readChunk = require('read-chunk');
@@ -38,7 +38,7 @@ class Command extends BaseCommand {
 				this.stdout(_('Operation cancelled'));
 				return false;
 			}
-			Setting.setObjectValue('encryption.passwordCache', masterKeyId, password);
+			Setting.setObjectKey('encryption.passwordCache', masterKeyId, password);
 			await EncryptionService.instance().loadMasterKeysFromSettings();
 			return true;
 		};

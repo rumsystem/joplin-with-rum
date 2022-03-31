@@ -1,5 +1,5 @@
 import KeychainServiceDriverBase from './KeychainServiceDriverBase';
-import shim from 'lib/shim';
+const { shim } = require('lib/shim.js');
 
 // keytar throws an error when system keychain is not present;
 // even when keytar itself is installed.

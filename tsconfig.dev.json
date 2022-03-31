@@ -7,11 +7,5 @@
 		// https://github.com/electron/electron/issues/22996
 		"sourceMap": false,
 		"inlineSourceMap": true
-	},
-	"exclude": [
-		"**/node_modules",
-		"ElectronClient/dist/**/*",
-		"CliClient/tests/support/**/*",
-		"CliClient/tests-build/support/**/*",
-	],
+	}
 }

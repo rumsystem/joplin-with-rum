@@ -1,5 +1,5 @@
 import { CommandRuntime, CommandDeclaration } from '../../../lib/services/CommandService';
-import { _ } from 'lib/locale';
+const { _ } = require('lib/locale');
 
 export const declaration:CommandDeclaration = {
 	name: 'focusElementSideBar',

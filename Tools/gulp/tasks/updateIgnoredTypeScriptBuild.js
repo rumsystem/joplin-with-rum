@@ -10,14 +10,11 @@ module.exports = {
 				'**/node_modules/**',
 				'**/.git/**',
 				'**/ElectronClient/lib/**',
-				'**/CliClient/build/**',
+				'**/CliClient/build/lib/**',
 				'**/CliClient/tests-build/lib/**',
 				'**/ElectronClient/dist/**',
 				'**/Modules/TinyMCE/JoplinLists/**',
 				'**/Modules/TinyMCE/IconPack/**',
-				'**/CliClient/tests-build/support/**',
-				'**/CliClient/tests/support/plugins/**',
-				'**/plugin_types/**',
 			],
 		}).map(f => f.substr(rootDir.length + 1));
 

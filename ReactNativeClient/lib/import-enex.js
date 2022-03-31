@@ -1,10 +1,10 @@
-const uuid = require('lib/uuid').default;
+const { uuid } = require('lib/uuid.js');
 const moment = require('moment');
 const BaseModel = require('lib/BaseModel.js');
 const Note = require('lib/models/Note.js');
 const Tag = require('lib/models/Tag.js');
 const Resource = require('lib/models/Resource.js');
-const Setting = require('lib/models/Setting').default;
+const Setting = require('lib/models/Setting.js');
 const { MarkupToHtml } = require('lib/joplin-renderer');
 const { enexXmlToMd } = require('./import-enex-md-gen.js');
 const { enexXmlToHtml } = require('./import-enex-html-gen.js');
@@ -13,7 +13,6 @@ const Levenshtein = require('levenshtein');
 const md5 = require('md5');
 const { Base64Decode } = require('base64-stream');
 const md5File = require('md5-file');
-const shim = require('lib/shim').default;
 
 // const Promise = require('promise');
 const fs = require('fs-extra');
@@ -485,10 +484,10 @@ function importEnex(parentFolderId, filePath, importOptions = null) {
 
 		saxStream.on('end', function() {
 			// Wait till there is no more notes to process.
-			const iid = shim.setInterval(() => {
+			const iid = setInterval(() => {
 				processNotes().then(allDone => {
 					if (allDone) {
-						shim.clearTimeout(iid);
+						clearTimeout(iid);
 						resolve();
 					}
 				});

@@ -1,4 +1,4 @@
-const Setting = require('lib/models/Setting').default;
+const Setting = require('lib/models/Setting.js');
 const { Platform } = require('react-native');
 const { themeById } = require('lib/theme');
 

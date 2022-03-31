@@ -1,6 +1,6 @@
 const { BaseCommand } = require('./base-command.js');
 const { app } = require('./app.js');
-const { _ } = require('lib/locale');
+const { _ } = require('lib/locale.js');
 const Tag = require('lib/models/Tag.js');
 const BaseModel = require('lib/BaseModel.js');
 const { time } = require('lib/time-utils.js');

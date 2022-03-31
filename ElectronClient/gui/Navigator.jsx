@@ -1,15 +1,13 @@
 const React = require('react');
 const Component = React.Component;
-const Setting = require('lib/models/Setting').default;
 const { connect } = require('react-redux');
-const bridge = require('electron').remote.require('./bridge').default;
+const { bridge } = require('electron').remote.require('./bridge');
 
 class NavigatorComponent extends Component {
 	UNSAFE_componentWillReceiveProps(newProps) {
 		if (newProps.route) {
 			const screenInfo = this.props.screens[newProps.route.routeName];
-			const devMarker = Setting.value('env') === 'dev' ? ' (DEV)' : '';
-			const windowTitle = [`Joplin${devMarker}`];
+			const windowTitle = ['Joplin'];
 			if (screenInfo.title) {
 				windowTitle.push(screenInfo.title());
 			}

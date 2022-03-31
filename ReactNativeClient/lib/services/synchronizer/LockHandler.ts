@@ -1,5 +1,4 @@
 import { Dirnames } from './utils/types';
-import shim from 'lib/shim';
 
 const JoplinError = require('lib/JoplinError');
 const { time } = require('lib/time-utils');
@@ -278,7 +277,7 @@ export default class LockHandler {
 			inProgress: false,
 		};
 
-		this.refreshTimers_[handle].id = shim.setInterval(async () => {
+		this.refreshTimers_[handle].id = setInterval(async () => {
 			if (this.refreshTimers_[handle].inProgress) return;
 
 			const defer = () => {
@@ -311,7 +310,7 @@ export default class LockHandler {
 
 			if (error) {
 				if (this.refreshTimers_[handle]) {
-					shim.clearInterval(this.refreshTimers_[handle].id);
+					clearInterval(this.refreshTimers_[handle].id);
 					delete this.refreshTimers_[handle];
 				}
 				errorHandler(error);
@@ -332,7 +331,7 @@ export default class LockHandler {
 			return;
 		}
 
-		shim.clearInterval(this.refreshTimers_[handle].id);
+		clearInterval(this.refreshTimers_[handle].id);
 		delete this.refreshTimers_[handle];
 	}
 

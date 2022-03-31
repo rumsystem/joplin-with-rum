@@ -1,6 +1,6 @@
 const Note = require('lib/models/Note.js');
 const TextWidget = require('tkwidgets/TextWidget.js');
-const { _ } = require('lib/locale');
+const { _ } = require('lib/locale.js');
 
 class NoteWidget extends TextWidget {
 	constructor() {

@@ -1,8 +1,8 @@
 const { BaseCommand } = require('./base-command.js');
-const InteropService = require('lib/services/interop/InteropService').default;
+const InteropService = require('lib/services/InteropService.js');
 const BaseModel = require('lib/BaseModel.js');
 const { app } = require('./app.js');
-const { _ } = require('lib/locale');
+const { _ } = require('lib/locale.js');
 
 class Command extends BaseCommand {
 	usage() {
@@ -14,7 +14,7 @@ class Command extends BaseCommand {
 	}
 
 	options() {
-		const service = InteropService.instance();
+		const service = new InteropService();
 		const formats = service
 			.modules()
 			.filter(m => m.type === 'exporter' && m.format !== 'html')
@@ -41,7 +41,7 @@ class Command extends BaseCommand {
 			exportOptions.sourceFolderIds = folders.map(n => n.id);
 		}
 
-		const service = InteropService.instance();
+		const service = new InteropService();
 		const result = await service.export(exportOptions);
 
 		result.warnings.map(w => this.stdout(w));
