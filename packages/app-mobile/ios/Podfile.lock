@@ -213,7 +213,7 @@ PODS:
   - React-jsinspector (0.66.1)
   - React-logger (0.66.1):
     - glog
-  - react-native-alarm-notification (1.0.5):
+  - react-native-alarm-notification (1.0.3):
     - React
   - react-native-camera (3.40.0):
     - React-Core
@@ -528,7 +528,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: db2f6e22a534d466fc0e34e622df47d9d20bab2f
   React-jsinspector: 8c0517dee5e8c70cd6c3066f20213ff7ce54f176
   React-logger: bfddd3418dc1d45b77b822958f3e31422e2c179b
-  react-native-alarm-notification: 4817a2a0d7cc2ed2acc97337ebcdf9ae2a69c9d5
+  react-native-alarm-notification: 466e4ad56fbd948ecac26e657f292dca8bf483d5
   react-native-camera: 35854c4f764a4a6cf61c1c3525888b92f0fe4b31
   react-native-document-picker: 0bba80cc56caab1f67dbaa81ff557e3a9b7f2b9f
   react-native-geolocation: c956aeb136625c23e0dce0467664af2c437888c9
