@@ -621,11 +621,10 @@ class Application extends BaseApplication {
 			if ('git' in p) {
 				gitInfo = _('Revision: %s (%s)', p.git.hash, p.git.branch);
 			}
-			const copyrightText = 'Copyright © 2016-YYYY Laurent Cozic';
 			let message = [
 				p.description,
 				'',
-				copyrightText.replace('YYYY', new Date().getFullYear()),
+				'Copyright © 2016-2019 Laurent Cozic',
 				_('%s %s (%s, %s)', p.name, p.version, Setting.value('env'), process.platform),
 				'',
 				_('Client ID: %s', Setting.value('clientId')),
