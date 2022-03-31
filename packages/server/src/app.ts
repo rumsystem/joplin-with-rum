@@ -4,7 +4,7 @@ require('source-map-support').install();
 import * as Koa from 'koa';
 import * as fs from 'fs-extra';
 import Logger, { LoggerWrapper, TargetType } from '@joplin/lib/Logger';
-import config, { initConfig, runningInDocker } from './config';
+import config, { initConfig, runningInDocker, EnvVariables } from './config';
 import { migrateLatest, waitForConnection, sqliteDefaultDir } from './db';
 import { AppContext, Env, KoaNext } from './utils/types';
 import FsDriverNode from '@joplin/lib/fs-driver-node';
@@ -19,8 +19,6 @@ import apiVersionHandler from './middleware/apiVersionHandler';
 import clickJackingHandler from './middleware/clickJackingHandler';
 import newModelFactory from './models/factory';
 import setupCommands from './utils/setupCommands';
-import { RouteResponseFormat, routeResponseFormat } from './utils/routeUtils';
-import { parseEnv } from './env';
 
 interface Argv {
 	env?: Env;
@@ -34,7 +32,7 @@ const nodeEnvFile = require('node-env-file');
 const { shimInit } = require('@joplin/lib/shim-init-node.js');
 shimInit({ nodeSqlite });
 
-const defaultEnvVariables: Record<Env, any> = {
+const defaultEnvVariables: Record<Env, EnvVariables> = {
 	dev: {
 		// To test with the Postgres database, uncomment DB_CLIENT below and
 		// comment out SQLITE_DATABASE. Then start the Postgres server using
@@ -96,7 +94,10 @@ async function main() {
 
 	if (!defaultEnvVariables[env]) throw new Error(`Invalid env: ${env}`);
 
-	const envVariables = parseEnv(process.env, defaultEnvVariables[env]);
+	const envVariables: EnvVariables = {
+		...defaultEnvVariables[env],
+		...process.env,
+	};
 
 	const app = new Koa();
 
@@ -138,28 +139,17 @@ async function main() {
 		} catch (error) {
 			ctx.status = error.httpCode || 500;
 
-			appLogger().error(`Middleware error on ${ctx.path}:`, error);
-
-			const responseFormat = routeResponseFormat(ctx);
-
-			if (responseFormat === RouteResponseFormat.Html) {
-				// Since this is a low level error, rendering a view might fail too,
-				// so catch this and default to rendering JSON.
-				try {
-					ctx.response.set('Content-Type', 'text/html');
-					ctx.body = await ctx.joplin.services.mustache.renderView({
-						name: 'error',
-						title: 'Error',
-						path: 'index/error',
-						content: { error },
-					});
-				} catch (anotherError) {
-					ctx.response.set('Content-Type', 'application/json');
-					ctx.body = JSON.stringify({ error: error.message });
-				}
-			} else {
-				ctx.response.set('Content-Type', 'application/json');
-				ctx.body = JSON.stringify({ error: error.message });
+			// Since this is a low level error, rendering a view might fail too,
+			// so catch this and default to rendering JSON.
+			try {
+				ctx.body = await ctx.joplin.services.mustache.renderView({
+					name: 'error',
+					title: 'Error',
+					path: 'index/error',
+					content: { error },
+				});
+			} catch (anotherError) {
+				ctx.body = { error: anotherError.message };
 			}
 		}
 	});
@@ -252,7 +242,6 @@ async function main() {
 		appLogger().info('User content base URL:', config().userContentBaseUrl);
 		appLogger().info('Log dir:', config().logDir);
 		appLogger().info('DB Config:', markPasswords(config().database));
-		appLogger().info('Mailer Config:', markPasswords(config().mailer));
 
 		appLogger().info('Trying to connect to database...');
 		const connectionCheck = await waitForConnection(config().database);
