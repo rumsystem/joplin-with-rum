@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Joplin-CLI 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Tobias Grasse <mail@tobias-grasse.net>\n"
+"Last-Translator: Tobias Strobel <git@strobeltobias.de>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
@@ -15,8 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.0.6\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
 
 msgid "To delete a tag, untag the associated notes."
 msgstr ""
@@ -40,7 +38,7 @@ msgid "No notebook selected."
 msgstr "Kein Notizbuch ausgewählt."
 
 msgid "No notebook has been specified."
-msgstr "Es wurde kein Notizbuch festgelegt."
+msgstr "Kein Notizbuch wurde ausgewählt."
 
 msgid "Y"
 msgstr "J"
@@ -588,8 +586,9 @@ msgstr "Exportiere „%s“ ins „%s“ Format. Bitte warten..."
 msgid "Importing from \"%s\" as \"%s\" format. Please wait..."
 msgstr "Importiere „%s“ ins „%s“ Format. Bitte warten…"
 
+#, fuzzy
 msgid "PDF File"
-msgstr "PDF-Datei"
+msgstr "Datei"
 
 msgid "File"
 msgstr "Datei"
@@ -610,7 +609,7 @@ msgid "Export"
 msgstr "Exportieren"
 
 msgid "Print"
-msgstr "Drucken"
+msgstr ""
 
 #, javascript-format
 msgid "Hide %s"
@@ -658,8 +657,9 @@ msgstr "Hilfe"
 msgid "Website and documentation"
 msgstr "Webseite und Dokumentation"
 
+#, fuzzy
 msgid "Make a donation"
-msgstr "Spenden"
+msgstr "Webseite und Dokumentation"
 
 msgid "Check for updates..."
 msgstr "Überprüfe auf Updates..."
@@ -1027,15 +1027,15 @@ msgstr "Abbrechen..."
 msgid "Completed: %s"
 msgstr "Abgeschlossen: %s"
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Last error: %s"
-msgstr "Letzte Fehlermeldung: %s"
+msgstr "Schwerwiegender Fehler:"
 
 msgid "Idle"
-msgstr "wartend"
+msgstr ""
 
 msgid "In progress"
-msgstr "In Bearbeitung"
+msgstr ""
 
 #, javascript-format
 msgid "Synchronisation is already in progress. State: %s"
@@ -1333,7 +1333,7 @@ msgid "Cancel synchronisation"
 msgstr "Synchronisation abbrechen"
 
 msgid "Joplin website"
-msgstr "Website von Joplin"
+msgstr ""
 
 #, javascript-format
 msgid "Master Key %s"
