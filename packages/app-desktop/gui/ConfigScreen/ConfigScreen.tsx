@@ -466,7 +466,6 @@ class ConfigScreenComponent extends React.Component<any, any> {
 												onPathChange(event);
 											}}
 											value={cmd[0]}
-											spellCheck={false}
 										/>
 										<Button
 											level={ButtonLevel.Secondary}
@@ -484,7 +483,6 @@ class ConfigScreenComponent extends React.Component<any, any> {
 											onArgsChange(event);
 										}}
 										value={cmd[1]}
-										spellCheck={false}
 									/>
 									<div style={{ width: inputStyle.width }}>
 										{descriptionComp}
@@ -513,7 +511,6 @@ class ConfigScreenComponent extends React.Component<any, any> {
 							onChange={(event: any) => {
 								onTextChange(event);
 							}}
-							spellCheck={false}
 						/>
 						<div style={{ width: inputStyle.width }}>
 							{descriptionComp}
@@ -546,7 +543,6 @@ class ConfigScreenComponent extends React.Component<any, any> {
 						min={md.minimum}
 						max={md.maximum}
 						step={md.step}
-						spellCheck={false}
 					/>
 					{descriptionComp}
 				</div>
