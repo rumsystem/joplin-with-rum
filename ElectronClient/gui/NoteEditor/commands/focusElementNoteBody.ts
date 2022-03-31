@@ -1,4 +1,4 @@
-import { CommandRuntime, CommandDeclaration } from 'lib/services/CommandService';
+import { CommandRuntime, CommandDeclaration } from '../../../lib/services/CommandService';
 import { _ } from 'lib/locale';
 
 export const declaration:CommandDeclaration = {
@@ -12,6 +12,13 @@ export const runtime = (comp:any):CommandRuntime => {
 		execute: async () => {
 			comp.editorRef.current.execCommand({ name: 'focus' });
 		},
-		enabledCondition: 'oneNoteSelected',
+		isEnabled: (props:any):boolean => {
+			return props.hasOneNoteSelected;
+		},
+		mapStateToProps: (state:any):any => {
+			return {
+				hasOneNoteSelected: state.selectedNoteIds.length === 1,
+			};
+		},
 	};
 };

@@ -176,12 +176,7 @@ class Tag extends BaseItem {
 	}
 
 	static async save(o, options = null) {
-		options = Object.assign({}, {
-			dispatchUpdateAction: true,
-			userSideValidation: false,
-		}, options);
-
-		if (options.userSideValidation) {
+		if (options && options.userSideValidation) {
 			if ('title' in o) {
 				o.title = o.title.trim().toLowerCase();
 
@@ -191,13 +186,10 @@ class Tag extends BaseItem {
 		}
 
 		return super.save(o, options).then(tag => {
-			if (options.dispatchUpdateAction) {
-				this.dispatch({
-					type: 'TAG_UPDATE_ONE',
-					item: tag,
-				});
-			}
-
+			this.dispatch({
+				type: 'TAG_UPDATE_ONE',
+				item: tag,
+			});
 			return tag;
 		});
 	}

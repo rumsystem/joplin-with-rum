@@ -1,7 +1,10 @@
-import { CommandRuntime, CommandDeclaration, CommandContext } from 'lib/services/CommandService';
+import { CommandRuntime, CommandDeclaration } from '../lib/services/CommandService';
 import { _ } from 'lib/locale';
-import { stateUtils } from 'lib/reducer';
 const ExternalEditWatcher = require('lib/services/ExternalEditWatcher');
+
+interface Props {
+	noteId: string
+}
 
 export const declaration:CommandDeclaration = {
 	name: 'stopExternalEditing',
@@ -11,10 +14,14 @@ export const declaration:CommandDeclaration = {
 
 export const runtime = ():CommandRuntime => {
 	return {
-		execute: async (context:CommandContext, noteId:string = null) => {
-			noteId = noteId || stateUtils.selectedNoteId(context.state);
-			ExternalEditWatcher.instance().stopWatching(noteId);
+		execute: async (props:Props) => {
+			ExternalEditWatcher.instance().stopWatching(props.noteId);
 		},
-		enabledCondition: 'oneNoteSelected',
+		isEnabled: (props:any) => {
+			return !!props.noteId;
+		},
+		mapStateToProps: (state:any) => {
+			return { noteId: state.selectedNoteIds.length === 1 ? state.selectedNoteIds[0] : null };
+		},
 	};
 };

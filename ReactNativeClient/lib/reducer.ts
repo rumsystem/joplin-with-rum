@@ -2,7 +2,6 @@ import produce, { Draft } from 'immer';
 import pluginServiceReducer, { stateRootKey as pluginServiceStateRootKey, defaultState as pluginServiceDefaultState, State as PluginServiceState } from 'lib/services/plugins/reducer';
 const Note = require('lib/models/Note.js');
 const Folder = require('lib/models/Folder.js');
-const BaseModel = require('lib/BaseModel');
 const ArrayUtils = require('lib/ArrayUtils.js');
 const { ALL_NOTES_FILTER_ID } = require('lib/reserved-ids');
 const { createSelectorCreator, defaultMemoize } = require('reselect');
@@ -161,6 +160,8 @@ for (const additionalReducer of additionalReducers) {
 
 export const MAX_HISTORY = 200;
 
+export const stateUtils:any = {};
+
 const derivedStateCache_:any = {};
 
 // Allows, for a given state, to return the same derived
@@ -184,7 +185,9 @@ const createShallowArrayEqualSelector = createSelectorCreator(
 	}
 );
 
-const selectArrayShallow = createCachedSelector(
+// Given an input array, this selector ensures that the same array is returned
+// if its content hasn't changed.
+stateUtils.selectArrayShallow = createCachedSelector(
 	(state:any) => state.array,
 	(array:any[]) => array
 )({
@@ -194,85 +197,85 @@ const selectArrayShallow = createCachedSelector(
 	selectorCreator: createShallowArrayEqualSelector,
 });
 
-class StateUtils {
+stateUtils.hasOneSelectedNote = function(state:State):boolean {
+	return state.selectedNoteIds.length === 1;
+};
 
-	// Given an input array, this selector ensures that the same array is returned
-	// if its content hasn't changed.
-	public selectArrayShallow(props:any, cacheKey:any) {
-		return selectArrayShallow(props, cacheKey);
-	}
-
-	public oneNoteSelected(state:State):boolean {
-		return state.selectedNoteIds.length === 1;
-	}
-
-	public notesOrder(stateSettings:any) {
-		if (stateSettings['notes.sortOrder.field'] === 'order') {
-			return cacheEnabledOutput('notesOrder', [
-				{
-					by: 'order',
-					dir: 'DESC',
-				},
-				{
-					by: 'user_created_time',
-					dir: 'DESC',
-				},
-			]);
-		} else {
-			return cacheEnabledOutput('notesOrder', [
-				{
-					by: stateSettings['notes.sortOrder.field'],
-					dir: stateSettings['notes.sortOrder.reverse'] ? 'DESC' : 'ASC',
-				},
-			]);
-		}
-	}
-
-	public foldersOrder(stateSettings:any) {
-		return cacheEnabledOutput('foldersOrder', [
+stateUtils.notesOrder = function(stateSettings:any) {
+	if (stateSettings['notes.sortOrder.field'] === 'order') {
+		return cacheEnabledOutput('notesOrder', [
 			{
-				by: stateSettings['folders.sortOrder.field'],
-				dir: stateSettings['folders.sortOrder.reverse'] ? 'DESC' : 'ASC',
+				by: 'order',
+				dir: 'DESC',
+			},
+			{
+				by: 'user_created_time',
+				dir: 'DESC',
+			},
+		]);
+	} else {
+		return cacheEnabledOutput('notesOrder', [
+			{
+				by: stateSettings['notes.sortOrder.field'],
+				dir: stateSettings['notes.sortOrder.reverse'] ? 'DESC' : 'ASC',
 			},
 		]);
 	}
+};
 
-	public hasNotesBeingSaved(state:State):boolean {
-		for (const id in state.editorNoteStatuses) {
-			if (state.editorNoteStatuses[id] === 'saving') return true;
+stateUtils.foldersOrder = function(stateSettings:any) {
+	return cacheEnabledOutput('foldersOrder', [
+		{
+			by: stateSettings['folders.sortOrder.field'],
+			dir: stateSettings['folders.sortOrder.reverse'] ? 'DESC' : 'ASC',
+		},
+	]);
+};
+
+stateUtils.hasNotesBeingSaved = function(state:State):boolean {
+	for (const id in state.editorNoteStatuses) {
+		if (state.editorNoteStatuses[id] === 'saving') return true;
+	}
+	return false;
+};
+
+stateUtils.parentItem = function(state:State) {
+	const t = state.notesParentType;
+	let id = null;
+	if (t === 'Folder') id = state.selectedFolderId;
+	if (t === 'Tag') id = state.selectedTagId;
+	if (t === 'Search') id = state.selectedSearchId;
+	if (!t || !id) return null;
+	return { type: t, id: id };
+};
+
+stateUtils.lastSelectedNoteIds = function(state:State):string[] {
+	const parent = stateUtils.parentItem(state);
+	if (!parent) return [];
+	const output = (state.lastSelectedNotesIds as any)[parent.type][parent.id];
+	return output ? output : [];
+};
+
+stateUtils.getCurrentNote = function(state:State) {
+	const selectedNoteIds = state.selectedNoteIds;
+	const notes = state.notes;
+	if (selectedNoteIds != null && selectedNoteIds.length > 0) {
+		const currNote = notes.find(note => note.id === selectedNoteIds[0]);
+		if (currNote != null) {
+			return {
+				id: currNote.id,
+				parent_id: currNote.parent_id,
+				notesParentType: state.notesParentType,
+				selectedFolderId: state.selectedFolderId,
+				selectedTagId: state.selectedTagId,
+				selectedSearchId: state.selectedSearchId,
+				searches: state.searches,
+				selectedSmartFilterId: state.selectedSmartFilterId,
+			};
 		}
-		return false;
 	}
-
-	public parentItem(state:State) {
-		const t = state.notesParentType;
-		let id = null;
-		if (t === 'Folder') id = state.selectedFolderId;
-		if (t === 'Tag') id = state.selectedTagId;
-		if (t === 'Search') id = state.selectedSearchId;
-		if (!t || !id) return null;
-		return { type: t, id: id };
-	}
-
-	public lastSelectedNoteIds(state:State):string[] {
-		const parent = this.parentItem(state);
-		if (!parent) return [];
-		const output = (state.lastSelectedNotesIds as any)[parent.type][parent.id];
-		return output ? output : [];
-	}
-
-	public selectedNote(state:State):any {
-		const noteId = this.selectedNoteId(state);
-		return noteId ? BaseModel.byId(state.notes, noteId) : null;
-	}
-
-	public selectedNoteId(state:State):any {
-		return state.selectedNoteIds.length ? state.selectedNoteIds[0] : null;
-	}
-
-}
-
-export const stateUtils:StateUtils = new StateUtils();
+	return null;
+};
 
 function arrayHasEncryptedItems(array:any[]) {
 	for (let i = 0; i < array.length; i++) {
@@ -523,29 +526,8 @@ const getContextFromHistory = (ctx:any) => {
 	return result;
 };
 
-function getNoteHistoryInfo(state:State) {
-	const selectedNoteIds = state.selectedNoteIds;
-	const notes = state.notes;
-	if (selectedNoteIds != null && selectedNoteIds.length > 0) {
-		const currNote = notes.find(note => note.id === selectedNoteIds[0]);
-		if (currNote != null) {
-			return {
-				id: currNote.id,
-				parent_id: currNote.parent_id,
-				notesParentType: state.notesParentType,
-				selectedFolderId: state.selectedFolderId,
-				selectedTagId: state.selectedTagId,
-				selectedSearchId: state.selectedSearchId,
-				searches: state.searches,
-				selectedSmartFilterId: state.selectedSmartFilterId,
-			};
-		}
-	}
-	return null;
-}
-
 function handleHistory(draft:Draft<State>, action:any) {
-	const currentNote = getNoteHistoryInfo(draft);
+	const currentNote = stateUtils.getCurrentNote(draft);
 	switch (action.type) {
 	case 'HISTORY_BACKWARD': {
 		const note = draft.backwardHistoryNotes[draft.backwardHistoryNotes.length - 1];
@@ -1104,7 +1086,6 @@ const reducer = produce((draft: Draft<State> = defaultState, action:any) => {
 				const newPluginsLegacy = Object.assign({}, draft.pluginsLegacy);
 				const newPlugin = draft.pluginsLegacy[action.pluginName] ? Object.assign({}, draft.pluginsLegacy[action.pluginName]) : {};
 				if ('open' in action) newPlugin.dialogOpen = action.open;
-				if ('userData' in action) newPlugin.userData = action.userData;
 				newPluginsLegacy[action.pluginName] = newPlugin;
 				draft.pluginsLegacy = newPluginsLegacy;
 			}

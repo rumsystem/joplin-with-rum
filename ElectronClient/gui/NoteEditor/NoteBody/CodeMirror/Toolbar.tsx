@@ -5,7 +5,6 @@ import { utils as pluginUtils } from 'lib/services/plugins/reducer';
 import { connect } from 'react-redux';
 import { AppState } from '../../../../app';
 import ToolbarButtonUtils, { ToolbarButtonInfo } from 'lib/services/commands/ToolbarButtonUtils';
-import stateToWhenClauseContext from 'lib/services/commands/stateToWhenClauseContext';
 const { buildStyle } = require('lib/theme');
 
 interface ToolbarProps {
@@ -32,8 +31,6 @@ function Toolbar(props:ToolbarProps) {
 }
 
 const mapStateToProps = (state: AppState) => {
-	const whenClauseContext = stateToWhenClauseContext(state);
-
 	const commandNames = [
 		'historyBackward',
 		'historyForward',
@@ -56,7 +53,7 @@ const mapStateToProps = (state: AppState) => {
 	].concat(pluginUtils.commandNamesFromViews(state.pluginService.plugins, 'editorToolbar'));
 
 	return {
-		toolbarButtonInfos: toolbarButtonUtils.commandsToToolbarButtons(commandNames, whenClauseContext),
+		toolbarButtonInfos: toolbarButtonUtils.commandsToToolbarButtons(state, commandNames),
 	};
 };
 

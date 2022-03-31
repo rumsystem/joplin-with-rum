@@ -1,4 +1,4 @@
-import { CommandRuntime, CommandDeclaration, CommandContext } from 'lib/services/CommandService';
+import { CommandRuntime, CommandDeclaration } from '../../../lib/services/CommandService';
 import { _ } from 'lib/locale';
 const Folder = require('lib/models/Folder');
 const Note = require('lib/models/Note');
@@ -10,9 +10,7 @@ export const declaration:CommandDeclaration = {
 
 export const runtime = (comp:any):CommandRuntime => {
 	return {
-		execute: async (context:CommandContext, noteIds:string[] = null) => {
-			noteIds = noteIds || context.state.selectedNoteIds;
-
+		execute: async ({ noteIds }:any) => {
 			const folders:any[] = await Folder.sortFolderTree();
 			const startFolders:any[] = [];
 			const maxDepth = 15;
@@ -44,6 +42,13 @@ export const runtime = (comp:any):CommandRuntime => {
 				},
 			});
 		},
-		enabledCondition: 'someNotesSelected',
+		isEnabled: (props:any):boolean => {
+			return !!props.noteIds.length;
+		},
+		mapStateToProps: (state:any):any => {
+			return {
+				noteIds: state.selectedNoteIds,
+			};
+		},
 	};
 };

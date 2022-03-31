@@ -7,13 +7,23 @@ export const declaration:CommandDeclaration = {
 	iconName: 'icon-forward',
 };
 
+interface Props {
+	hasForwardNotes: boolean,
+}
+
 export const runtime = ():CommandRuntime => {
 	return {
-		execute: async () => {
+		execute: async (props:Props) => {
+			if (!props.hasForwardNotes) return;
 			utils.store.dispatch({
 				type: 'HISTORY_FORWARD',
 			});
 		},
-		enabledCondition: 'historyhasForwardNotes',
+		isEnabled: (props:Props) => {
+			return props.hasForwardNotes;
+		},
+		mapStateToProps: (state:any) => {
+			return { hasForwardNotes: state.forwardHistoryNotes.length > 0 };
+		},
 	};
 };

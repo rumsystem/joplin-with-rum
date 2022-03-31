@@ -49,7 +49,9 @@ joplin.plugins.register({
 
 		panels.onMessage(view, (message:any) => {
 			if (message.name === 'scrollToHash') {
-				joplin.commands.execute('scrollToHash', message.hash)
+				joplin.commands.execute('scrollToHash', {
+					hash: message.hash,
+				})
 			}
 		});
 

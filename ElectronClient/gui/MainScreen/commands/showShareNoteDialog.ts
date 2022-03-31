@@ -1,4 +1,4 @@
-import { CommandRuntime, CommandDeclaration, CommandContext } from 'lib/services/CommandService';
+import { CommandRuntime, CommandDeclaration } from '../../../lib/services/CommandService';
 import { _ } from 'lib/locale';
 
 export const declaration:CommandDeclaration = {
@@ -8,9 +8,7 @@ export const declaration:CommandDeclaration = {
 
 export const runtime = (comp:any):CommandRuntime => {
 	return {
-		execute: async (context:CommandContext, noteIds:string[] = null) => {
-			noteIds = noteIds || context.state.selectedNoteIds;
-
+		execute: async ({ noteIds }:any) => {
 			comp.setState({
 				shareNoteDialogOptions: {
 					noteIds: noteIds,
