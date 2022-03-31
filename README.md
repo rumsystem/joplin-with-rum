@@ -20,9 +20,9 @@ Three types of applications are available: for the **desktop** (Windows, macOS a
 
 Operating System | Download | Alternative
 -----------------|--------|-------------------
-Windows (32 and 64-bit)         | <a href='https://github.com/laurent22/joplin/releases/download/v1.0.94/Joplin-Setup-1.0.94.exe'><img alt='Get it on Windows' height="40px" src='https://joplin.cozic.net/images/BadgeWindows.png'/></a> | or Get the <a href='https://github.com/laurent22/joplin/releases/download/v1.0.94/JoplinPortable.exe'>Portable version</a><br>(to run from a USB key, etc.)
-macOS          | <a href='https://github.com/laurent22/joplin/releases/download/v1.0.94/Joplin-1.0.94.dmg'><img alt='Get it on macOS' height="40px" src='https://joplin.cozic.net/images/BadgeMacOS.png'/></a> | 
-Linux          | <a href='https://github.com/laurent22/joplin/releases/download/v1.0.94/Joplin-1.0.94-x86_64.AppImage'><img alt='Get it on Linux' height="40px" src='https://joplin.cozic.net/images/BadgeLinux.png'/></a> | An Arch Linux package<br>[is also available](#terminal-application).
+Windows (32 and 64-bit)         | <a href='https://github.com/laurent22/joplin/releases/download/v1.0.96/Joplin-Setup-1.0.96.exe'><img alt='Get it on Windows' height="40px" src='https://joplin.cozic.net/images/BadgeWindows.png'/></a> | or Get the <a href='https://github.com/laurent22/joplin/releases/download/v1.0.96/JoplinPortable.exe'>Portable version</a><br>(to run from a USB key, etc.)
+macOS          | <a href='https://github.com/laurent22/joplin/releases/download/v1.0.96/Joplin-1.0.96.dmg'><img alt='Get it on macOS' height="40px" src='https://joplin.cozic.net/images/BadgeMacOS.png'/></a> | 
+Linux          | <a href='https://github.com/laurent22/joplin/releases/download/v1.0.96/Joplin-1.0.96-x86_64.AppImage'><img alt='Get it on Linux' height="40px" src='https://joplin.cozic.net/images/BadgeLinux.png'/></a> | An Arch Linux package<br>[is also available](#terminal-application).
 
 The [portable application](https://en.wikipedia.org/wiki/Portable_application) allows installing the software on a portable device such as a USB key. Simply copy the file JoplinPortable.exe in any directory on that USB key ; the application will then create a directory called "JoplinProfile" next to the executable file.
 
@@ -296,21 +296,22 @@ Current translations:
 <!-- LOCALE-TABLE-AUTO-GENERATED -->
 &nbsp;  |  Language  |  Po File  |  Last translator  |  Percent done
 ---|---|---|---|---
-![](https://joplin.cozic.net/images/flags/es/basque_country.png)  |  Basque  |  [eu](https://github.com/laurent22/joplin/blob/master/CliClient/locales/eu.po)  |  juan.abasolo@ehu.eus  |  73%
-![](https://joplin.cozic.net/images/flags/country-4x3/hr.png)  |  Croatian  |  [hr_HR](https://github.com/laurent22/joplin/blob/master/CliClient/locales/hr_HR.po)  |  Hrvoje Mandić (trbuhom@net.hr)  |  59%
-![](https://joplin.cozic.net/images/flags/country-4x3/cz.png)  |  Czech  |  [cs_CZ](https://github.com/laurent22/joplin/blob/master/CliClient/locales/cs_CZ.po)  |  Lukas Helebrandt (lukas@aiya.cz)  |  93%
-![](https://joplin.cozic.net/images/flags/country-4x3/dk.png)  |  Dansk  |  [da_DK](https://github.com/laurent22/joplin/blob/master/CliClient/locales/da_DK.po)  |  Morten Juhl-Johansen Zölde-Fejér (mjjzf@syntaktisk.  |  95%
-![](https://joplin.cozic.net/images/flags/country-4x3/de.png)  |  Deutsch  |  [de_DE](https://github.com/laurent22/joplin/blob/master/CliClient/locales/de_DE.po)  |  Philipp Zumstein (zuphilip@gmail.com)  |  96%
+![](https://joplin.cozic.net/images/flags/es/basque_country.png)  |  Basque  |  [eu](https://github.com/laurent22/joplin/blob/master/CliClient/locales/eu.po)  |  juan.abasolo@ehu.eus  |  71%
+![](https://joplin.cozic.net/images/flags/country-4x3/hr.png)  |  Croatian  |  [hr_HR](https://github.com/laurent22/joplin/blob/master/CliClient/locales/hr_HR.po)  |  Hrvoje Mandić (trbuhom@net.hr)  |  57%
+![](https://joplin.cozic.net/images/flags/country-4x3/cz.png)  |  Czech  |  [cs_CZ](https://github.com/laurent22/joplin/blob/master/CliClient/locales/cs_CZ.po)  |  Lukas Helebrandt (lukas@aiya.cz)  |  89%
+![](https://joplin.cozic.net/images/flags/country-4x3/dk.png)  |  Dansk  |  [da_DK](https://github.com/laurent22/joplin/blob/master/CliClient/locales/da_DK.po)  |  Morten Juhl-Johansen Zölde-Fejér (mjjzf@syntaktisk.  |  91%
+![](https://joplin.cozic.net/images/flags/country-4x3/de.png)  |  Deutsch  |  [de_DE](https://github.com/laurent22/joplin/blob/master/CliClient/locales/de_DE.po)  |  Philipp Zumstein (zuphilip@gmail.com)  |  92%
 ![](https://joplin.cozic.net/images/flags/country-4x3/gb.png)  |  English  |  [en_GB](https://github.com/laurent22/joplin/blob/master/CliClient/locales/en_GB.po)  |    |  100%
-![](https://joplin.cozic.net/images/flags/country-4x3/es.png)  |  Español  |  [es_ES](https://github.com/laurent22/joplin/blob/master/CliClient/locales/es_ES.po)  |  Fernando Martín (f@mrtn.es)  |  97%
-![](https://joplin.cozic.net/images/flags/country-4x3/fr.png)  |  Français  |  [fr_FR](https://github.com/laurent22/joplin/blob/master/CliClient/locales/fr_FR.po)  |  Laurent Cozic  |  98%
-![](https://joplin.cozic.net/images/flags/country-4x3/es.png)  |  Galician  |  [gl_ES](https://github.com/laurent22/joplin/blob/master/CliClient/locales/gl_ES.po)  |  Marcos Lans (marcoslansgarza@gmail.com)  |  93%
-![](https://joplin.cozic.net/images/flags/country-4x3/it.png)  |  Italiano  |  [it_IT](https://github.com/laurent22/joplin/blob/master/CliClient/locales/it_IT.po)  |    |  61%
-![](https://joplin.cozic.net/images/flags/country-4x3/be.png)  |  Nederlands  |  [nl_BE](https://github.com/laurent22/joplin/blob/master/CliClient/locales/nl_BE.po)  |    |  74%
-![](https://joplin.cozic.net/images/flags/country-4x3/br.png)  |  Português (Brasil)  |  [pt_BR](https://github.com/laurent22/joplin/blob/master/CliClient/locales/pt_BR.po)  |  Renato Nunes Bastos (rnbastos@gmail.com)  |  95%
-![](https://joplin.cozic.net/images/flags/country-4x3/ru.png)  |  Русский  |  [ru_RU](https://github.com/laurent22/joplin/blob/master/CliClient/locales/ru_RU.po)  |  Artyom Karlov (artyom.karlov@gmail.com)  |  92%
-![](https://joplin.cozic.net/images/flags/country-4x3/cn.png)  |  中文 (简体)  |  [zh_CN](https://github.com/laurent22/joplin/blob/master/CliClient/locales/zh_CN.po)  |    |  89%
-![](https://joplin.cozic.net/images/flags/country-4x3/jp.png)  |  日本語  |  [ja_JP](https://github.com/laurent22/joplin/blob/master/CliClient/locales/ja_JP.po)  |    |  59%
+![](https://joplin.cozic.net/images/flags/country-4x3/es.png)  |  Español  |  [es_ES](https://github.com/laurent22/joplin/blob/master/CliClient/locales/es_ES.po)  |  Fernando Martín (f@mrtn.es)  |  93%
+![](https://joplin.cozic.net/images/flags/country-4x3/fr.png)  |  Français  |  [fr_FR](https://github.com/laurent22/joplin/blob/master/CliClient/locales/fr_FR.po)  |  Laurent Cozic  |  100%
+![](https://joplin.cozic.net/images/flags/country-4x3/es.png)  |  Galician  |  [gl_ES](https://github.com/laurent22/joplin/blob/master/CliClient/locales/gl_ES.po)  |  Marcos Lans (marcoslansgarza@gmail.com)  |  89%
+![](https://joplin.cozic.net/images/flags/country-4x3/it.png)  |  Italiano  |  [it_IT](https://github.com/laurent22/joplin/blob/master/CliClient/locales/it_IT.po)  |    |  59%
+![](https://joplin.cozic.net/images/flags/country-4x3/be.png)  |  Nederlands  |  [nl_BE](https://github.com/laurent22/joplin/blob/master/CliClient/locales/nl_BE.po)  |    |  71%
+![](https://joplin.cozic.net/images/flags/country-4x3/br.png)  |  Português (Brasil)  |  [pt_BR](https://github.com/laurent22/joplin/blob/master/CliClient/locales/pt_BR.po)  |  Renato Nunes Bastos (rnbastos@gmail.com)  |  91%
+![](https://joplin.cozic.net/images/flags/country-4x3/si.png)  |  Slovenian  |  [sl_SI](https://github.com/laurent22/joplin/blob/master/CliClient/locales/sl_SI.po)  |    |  88%
+![](https://joplin.cozic.net/images/flags/country-4x3/ru.png)  |  Русский  |  [ru_RU](https://github.com/laurent22/joplin/blob/master/CliClient/locales/ru_RU.po)  |  Artyom Karlov (artyom.karlov@gmail.com)  |  88%
+![](https://joplin.cozic.net/images/flags/country-4x3/cn.png)  |  中文 (简体)  |  [zh_CN](https://github.com/laurent22/joplin/blob/master/CliClient/locales/zh_CN.po)  |    |  85%
+![](https://joplin.cozic.net/images/flags/country-4x3/jp.png)  |  日本語  |  [ja_JP](https://github.com/laurent22/joplin/blob/master/CliClient/locales/ja_JP.po)  |    |  57%
 <!-- LOCALE-TABLE-AUTO-GENERATED -->
 
 # Known bugs
