@@ -1,5 +1,6 @@
 const { basicDelta } = require('./file-api');
 const Setting = require('./models/Setting').default;
+const QuorumServer = require('./QuorumServer').default;
 
 class FileApiDriverRum {
 	fsErrorToJsError_(error, path = null) {
@@ -45,7 +46,7 @@ class FileApiDriverRum {
 			}
 		} else {
 			try {
-				const QuorumClient = window.QuorumClient;
+				const QuorumClient = QuorumServer.instance().client();
 				let object = await QuorumClient.Object.get(path);
 				console.log(object);
 				if (!object) return null;
@@ -139,7 +140,7 @@ class FileApiDriverRum {
 		}
 		const getRumSystemList = async (path) => {
 			try {
-				const QuorumClient = window.QuorumClient;
+				const QuorumClient = QuorumServer.instance().client();
 				let objects = await QuorumClient.Object.list();
 				if (path) {
 					const reg = new RegExp('^' + path);
@@ -199,7 +200,7 @@ class FileApiDriverRum {
 			}
 		} else {
 			try {
-				const QuorumClient = window.QuorumClient;
+				const QuorumClient = QuorumServer.instance().client();
 				const object = await QuorumClient.Object.get(path);
 				output = object?.Content?.content || null;
 				console.log(output);
@@ -252,7 +253,7 @@ class FileApiDriverRum {
 			if (options.source === 'file') {
 				try {
 					const content = await this.fsDriver().readFile(options.path);
-					const QuorumClient = window.QuorumClient;
+					const QuorumClient = QuorumServer.instance().client();
 					const group = Setting.value('sync.11.group');
 					const object = await QuorumClient.Object.put(group.user_pubkey, {
 						type: 'Add',
@@ -271,7 +272,7 @@ class FileApiDriverRum {
 			}
 
 			try {
-				const QuorumClient = window.QuorumClient;
+				const QuorumClient = QuorumServer.instance().client();
 				const group = Setting.value('sync.11.group');
 				const object = await QuorumClient.Object.put(group.user_pubkey, {
 					type: 'Add',
@@ -303,7 +304,7 @@ class FileApiDriverRum {
 			}
 		} else {
 			try {
-				const QuorumClient = window.QuorumClient;
+				const QuorumClient = QuorumServer.instance().client();
 				await QuorumClient.Object.delete(Setting.value('sync.11.group').group_id, path);
 			} catch (error) {
 				console.log(error);
@@ -338,7 +339,7 @@ class FileApiDriverRum {
 		await this.fsDriver().remove(baseDir);
 		await this.fsDriver().mkdir(baseDir);
 		try {
-			const QuorumClient = window.QuorumClient;
+			const QuorumClient = QuorumServer.instance().client();
 			const { group_id } = Setting.value('sync.11.group');
 			const objects = await QuorumClient.Object.list();
 			console.log(objects);
