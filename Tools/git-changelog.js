@@ -248,9 +248,7 @@ function capitalizeFirstLetter(string) {
 
 function decreaseTagVersion(tag) {
 	const s = tag.split('.');
-	const lastToken = s.pop();
-	const s2 = lastToken.split('-');
-	let num = Number(s2[0]);
+	let num = Number(s.pop());
 	num--;
 	if (num < 0) throw new Error(`Cannot decrease tag version: ${tag}`);
 	s.push(`${num}`);
