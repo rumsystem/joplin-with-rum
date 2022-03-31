@@ -15,8 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.2.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
 
 msgid "To delete a tag, untag the associated notes."
 msgstr ""
@@ -148,11 +146,13 @@ msgstr "Πληκτρολογήστε τον κωδικό πρόσβασης:"
 msgid "Operation cancelled"
 msgstr "Η λειτουργία ακυρώθηκε"
 
+#, fuzzy
 msgid "Confirm password:"
-msgstr "Επιβεβαίωση κωδικού πρόσβασης:"
+msgstr "Πληκτρολογήστε τον κωδικό πρόσβασης:"
 
+#, fuzzy
 msgid "Passwords do not match!"
-msgstr "Ο κωδικός πρόσβασης δεν μπορεί να είναι κενός!"
+msgstr "Ο κωδικός πρόσβασης δεν μπορεί να είναι κενός"
 
 msgid ""
 "Starting decryption... Please wait as it may take several minutes depending "
@@ -165,10 +165,10 @@ msgid "Completed decryption."
 msgstr "Η αποκρυπτογράφηση ολοκληρώθηκε."
 
 msgid "Enabled"
-msgstr "Ενεργοποιημένη"
+msgstr "Ενεργοποιήθηκε"
 
 msgid "Disabled"
-msgstr "Απενεργοποιημένη"
+msgstr "Απενεργοποιήθηκε"
 
 #, javascript-format
 msgid "Encryption is: %s"
@@ -499,17 +499,17 @@ msgstr "Λήψη πόρων.."
 msgid "Cancelling... Please wait."
 msgstr "Ακύρωση... Παρακαλώ περιμένετε."
 
+#, fuzzy
 msgid ""
 "<tag-command> can be \"add\", \"remove\", \"list\", or \"notetags\" to "
 "assign or remove [tag] from [note], to list notes associated with [tag], or "
 "to list tags associated with [note]. The command `tag list` can be used to "
 "list all the tags (use -l for long option)."
 msgstr ""
-"<tag-command> μπορεί να είναι \"add\", \"remove\", \"list\" ή \"notetags\" "
-"για προσθήκη ή αφαίρεση [ετικέτας] στη [σημείωση], για λίστα σημειώσεων με "
-"τη συγκεκριμένη [ετικέτα] ή για λίστα ετικετών της συγκεκριμένης "
-"[σημείωσης]. Η εντολή `tag list` μπορεί να χρησιμοποιηθεί για να πάρετε "
-"λίστα με όλες τις ετικέτες (χρησιμοποιήστε το -l για μακρά επιλογή)."
+"<tag-command> μπορεί να είναι \"add\", \"remove\" ή \"list\" για προσθήκη ή "
+"αφαίρεση [ετικέτας] στη [σημείωση] ή για λίστα τις σημειώσεων με τη "
+"συγκεκριμένη [ετικέτα]. Η εντολή `tag list` μπορεί να χρησιμοποιηθεί για να "
+"πάρετε λίστα με όλες τις ετικέτες (χρησιμοποιήστε το -l για μακρά επιλογή)."
 
 #, javascript-format
 msgid "Invalid command: \"%s\""
@@ -711,10 +711,11 @@ msgid "Toggle sidebar"
 msgstr "Εναλλαγή πλευρικής μπάρας"
 
 msgid "Layout button sequence"
-msgstr "Ακολουθία κουμπιών διάταξης"
+msgstr ""
 
+#, fuzzy
 msgid "Toggle note list"
-msgstr "Εναλλαγή λίστας σημειώσεων"
+msgstr "Ενεργοποίηση ιστορικού σημειώσεων"
 
 msgid "Toggle editor layout"
 msgstr "Εναλλαγή διάταξης editor"
@@ -777,8 +778,9 @@ msgstr "Ναι"
 msgid "No"
 msgstr "Όχι"
 
+#, fuzzy
 msgid "Full Release Notes"
-msgstr "Πλήρεις σημειώσεις έκδοσης"
+msgstr "Ανακτημένες σημειώσεις"
 
 msgid "Token has been copied to the clipboard!"
 msgstr "Το Token έχει αντιγραφεί στο πρόχειρο!"
@@ -1198,7 +1200,7 @@ msgid "Synchronisation Status"
 msgstr "Κατάσταση Συγχρονισμού"
 
 msgid "Remove"
-msgstr "Κατάργηση"
+msgstr ""
 
 #, javascript-format
 msgid ""
@@ -1221,8 +1223,9 @@ msgstr "Κατάργηση της ετικέτας \"%s\" από όλες τις
 msgid "Remove this search from the sidebar?"
 msgstr "Κατάργηση αυτής της αναζήτησης από την πλευρική μπάρα;"
 
+#, fuzzy
 msgid "New sub-notebook"
-msgstr "Νέο υπο-σημειωματάριο"
+msgstr "Νέο σημειωματάριο"
 
 msgid "Rename"
 msgstr "Μετονομασία"
@@ -1443,16 +1446,17 @@ msgstr ""
 "αρχεία! Δείτε τις συνήθεις ερωτήσεις για περισσότερες λεπτομέρειες: %s"
 
 msgid "Keyboard Mode"
-msgstr "Λειτουργία πληκτρολογίου"
+msgstr ""
 
+#, fuzzy
 msgid "Default"
-msgstr "Προεπιλογή"
+msgstr "Προεπιλογή: %s"
 
 msgid "Emacs"
-msgstr "Emacs"
+msgstr ""
 
 msgid "Vim"
-msgstr "Vim"
+msgstr ""
 
 msgid "Synchronisation target"
 msgstr "Στόχος συγχρονισμού"
@@ -1530,7 +1534,7 @@ msgid "Dark"
 msgstr "Dark"
 
 msgid "Dracula"
-msgstr "Dracula"
+msgstr ""
 
 msgid "Solarised Light"
 msgstr "Solarised Light"
@@ -1539,27 +1543,30 @@ msgid "Solarised Dark"
 msgstr "Solarised Dark"
 
 msgid "Nord"
-msgstr "Nord"
+msgstr ""
 
+#, fuzzy
 msgid "Show note counts"
-msgstr "Εμφάνιση πλήθους σημειώσεων"
+msgstr "Εμφάνιση εικονιδίου στη γραμμή εργασιών"
 
+#, fuzzy
 msgid "Editor"
 msgstr "Επεξεργασία"
 
+#, fuzzy
 msgid "Viewer"
-msgstr "Εμφάνιση"
+msgstr "&Εμφάνιση"
 
 msgid "Split View"
-msgstr "Διαίρεση προβολής"
+msgstr ""
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "%s / %s / %s"
-msgstr "%s / %s / %s"
+msgstr "%s = %s (%s)"
 
 #, javascript-format
 msgid "%s / %s"
-msgstr "%s / %s"
+msgstr ""
 
 msgid "Uncompleted to-dos on top"
 msgstr "Μη ολοκληρωμένα to-dos στην κορυφή"
@@ -1594,8 +1601,9 @@ msgstr "Κατά τη δημιουργία μιας νέας σημείωσης:
 msgid "Enable soft breaks"
 msgstr "Ενεργοποίηση soft breaks"
 
+#, fuzzy
 msgid "Enable typographer support"
-msgstr "Ενεργοποίηση υποστήριξης typographer"
+msgstr "Ενεργοποίηση υποστήριξης Fountain syntax"
 
 msgid "Enable math expressions"
 msgstr "Ενεργοποίηση math expressions"
@@ -1708,34 +1716,34 @@ msgstr ""
 "ανιχνεύσει αυτόματα το προεπιλεγμένο πρόγραμμα επεξεργασίας."
 
 msgid "Page size for PDF export"
-msgstr "Μέγεθος σελίδας για εξαγωγή PDF"
+msgstr ""
 
 msgid "A4"
-msgstr "A4"
+msgstr ""
 
 msgid "Letter"
-msgstr "Letter"
+msgstr ""
 
 msgid "A3"
-msgstr "A3"
+msgstr ""
 
 msgid "A5"
-msgstr "A5"
+msgstr ""
 
 msgid "Tabloid"
-msgstr "Tabloid"
+msgstr ""
 
 msgid "Legal"
-msgstr "Legal"
+msgstr ""
 
 msgid "Page orientation for PDF export"
-msgstr "Προσανατολισμός σελίδας για εξαγωγή PDF"
+msgstr ""
 
 msgid "Portrait"
-msgstr "Κάθετη"
+msgstr ""
 
 msgid "Landscape"
-msgstr "Οριζόντια"
+msgstr ""
 
 msgid "Custom TLS certificates"
 msgstr "Custom πιστοποιητικά TLS"
@@ -1746,8 +1754,8 @@ msgid ""
 "pem. Note that if you make changes to the TLS settings, you must save your "
 "changes before clicking on \"Check synchronisation configuration\"."
 msgstr ""
-"Λίστα διαδρομών από φακέλους, διαχωρισμένων με κόμμα, για τη φόρτωση των "
-"πιστοποιητικών, ή διαδρομή των μεμονωμένων αρχείων πιστοποιητικών. Για "
+"Λίστα διαδρομών διαχωρισμένων με κόμμα από φακέλους για τη φόρτωση των "
+"πιστοποιητικών ή διαδρομή των μεμονωμένων αρχείων πιστοποιητικών. Για "
 "παράδειγμα: /my/cert_dir, /other/custom.pem. Σημειώστε ότι αν κάνετε αλλαγές "
 "στις ρυθμίσεις TLS, πρέπει να αποθηκεύσετε τις αλλαγές σας πριν κάνετε κλικ "
 "στο \"Έλεγχος ρύθμισης παραμέτρων συγχρονισμού\"."
@@ -2130,8 +2138,9 @@ msgstr "Κωδικός:"
 msgid "Password cannot be empty"
 msgstr "Ο κωδικός πρόσβασης δεν μπορεί να είναι κενός"
 
+#, fuzzy
 msgid "Confirm password cannot be empty"
-msgstr "Η επιβεβαίωση του κωδικού πρόσβασης δεν μπορεί να είναι κενή"
+msgstr "Ο κωδικός πρόσβασης δεν μπορεί να είναι κενός"
 
 msgid "Enable"
 msgstr "Ενεργό"
