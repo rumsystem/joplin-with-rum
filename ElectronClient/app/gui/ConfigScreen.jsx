@@ -7,18 +7,12 @@ const pathUtils = require('lib/path-utils.js');
 const { _ } = require('lib/locale.js');
 const SyncTargetRegistry = require('lib/SyncTargetRegistry');
 const shared = require('lib/components/shared/config-shared.js');
-const ConfigMenuBar = require('./ConfigMenuBar.min.js');
-const { EncryptionConfigScreen } = require('./EncryptionConfigScreen.min');
-const { ClipperConfigScreen } = require('./ClipperConfigScreen.min');
 
 class ConfigScreenComponent extends React.Component {
 	constructor() {
 		super();
 
 		shared.init(this);
-
-		this.state.selectedSectionName = 'general';
-		this.state.screenName = '';
 
 		this.checkSyncConfig_ = async () => {
 			await shared.checkSyncConfig(this, this.state.settings);
@@ -27,55 +21,10 @@ class ConfigScreenComponent extends React.Component {
 		this.rowStyle_ = {
 			marginBottom: 10,
 		};
-
-		this.configMenuBar_selectionChange = this.configMenuBar_selectionChange.bind(this);
 	}
 
 	componentWillMount() {
 		this.setState({ settings: this.props.settings });
-	}
-
-	componentDidMount() {
-		if (this.props.defaultSection) {
-			this.setState({ selectedSectionName: this.props.defaultSection }, () => {
-				this.switchSection(this.props.defaultSection);
-			});
-		}
-	}
-
-	sectionByName(name) {
-		const sections = shared.settingsSections({ device: 'desktop', settings: this.state.settings });
-		for (const section of sections) {
-			if (section.name === name) return section;
-		}
-
-		throw new Error('Invalid section name: ' + name);
-	}
-
-	screenFromName(screenName) {
-		if (screenName === 'encryption') return <EncryptionConfigScreen theme={this.props.theme}/>;
-		if (screenName === 'server') return <ClipperConfigScreen theme={this.props.theme}/>;
-
-		throw new Error('Invalid screen name: ' + screenName);
-	}
-
-	switchSection(name) {
-		const section = this.sectionByName(name);
-		let screenName = '';
-		if (section.isScreen) {
-			screenName = section.name;
-
-			if (this.hasChanges()) {
-				const ok = confirm(_('This will open a new screen. Save your current changes?'));
-				if (ok) shared.saveSettings(this);
-			}
-		}
-
-		this.setState({ selectedSectionName: section.name, screenName: screenName });
-	}
-
-	configMenuBar_selectionChange(event) {
-		this.switchSection(event.section.name);
 	}
 
 	keyValueToArray(kv) {
@@ -91,7 +40,7 @@ class ConfigScreenComponent extends React.Component {
 		return output;
 	}
 
-	sectionToComponent(key, section, settings, selected) {
+	sectionToComponent(key, section, settings) {
 		const theme = themeStyle(this.props.theme);
 		const settingComps = [];
 
@@ -103,11 +52,15 @@ class ConfigScreenComponent extends React.Component {
 		}
 
 		const sectionStyle = {
-			marginTop: 20,
 			marginBottom: 20,
 		};
 
-		if (!selected) sectionStyle.display = 'none';
+		const headerStyle = Object.assign({}, theme.headerStyle, {
+			borderBottomWidth: 1,
+			borderBottomColor: theme.dividerColor,
+			borderBottomStyle: 'solid',
+			paddingBottom: '.4em',
+		});
 
 		if (section.name === 'general') {
 			sectionStyle.borderTopWidth = 0;
@@ -141,6 +94,7 @@ class ConfigScreenComponent extends React.Component {
 
 		return (
 			<div key={key} style={sectionStyle}>
+				<h2 style={headerStyle}>{Setting.sectionNameToLabel(section.name)}</h2>
 				{noteComp}
 				<div>{settingComps}</div>
 			</div>
@@ -169,10 +123,6 @@ class ConfigScreenComponent extends React.Component {
 			opacity: 0,
 		});
 
-		const checkboxLabelStyle = Object.assign({}, labelStyle, {
-			marginLeft: 8,
-		});
-
 		const controlStyle = {
 			display: 'inline-block',
 			color: theme.color,
@@ -184,13 +134,6 @@ class ConfigScreenComponent extends React.Component {
 			marginTop: 5,
 			fontStyle: 'italic',
 			maxWidth: '70em',
-		});
-
-		const textInputBaseStyle = Object.assign({}, controlStyle, {
-			border: '1px solid',
-			padding: '4px 6px',
-			borderColor: theme.dividerColor,
-			borderRadius: 4,
 		});
 
 		const updateSettingValue = (key, value) => {
@@ -218,8 +161,6 @@ class ConfigScreenComponent extends React.Component {
 				);
 			}
 
-			const selectStyle = Object.assign({}, controlStyle, { height: 22, borderColor: theme.dividerColor });
-
 			return (
 				<div key={key} style={rowStyle}>
 					<div style={labelStyle}>
@@ -227,7 +168,7 @@ class ConfigScreenComponent extends React.Component {
 					</div>
 					<select
 						value={value}
-						style={selectStyle}
+						style={controlStyle}
 						onChange={event => {
 							updateSettingValue(key, event.target.value);
 						}}
@@ -260,7 +201,7 @@ class ConfigScreenComponent extends React.Component {
 							onClick={event => {
 								onCheckboxClick(event);
 							}}
-							style={checkboxLabelStyle}
+							style={labelStyle}
 							htmlFor={'setting_checkbox_' + key}
 						>
 							{md.label()}
@@ -270,9 +211,10 @@ class ConfigScreenComponent extends React.Component {
 				</div>
 			);
 		} else if (md.type === Setting.TYPE_STRING) {
-			const inputStyle = Object.assign({}, textInputBaseStyle, {
+			const inputStyle = Object.assign({}, controlStyle, {
 				width: '50%',
 				minWidth: '20em',
+				border: '1px solid',
 			});
 			const inputType = md.secure === true ? 'password' : 'text';
 
@@ -337,7 +279,7 @@ class ConfigScreenComponent extends React.Component {
 										}}
 										value={cmd[0]}
 									/>
-									<button onClick={browseButtonClick} style={Object.assign({}, theme.buttonStyle, { marginLeft: 5 })}>
+									<button onClick={browseButtonClick} style={Object.assign({}, theme.buttonStyle, { marginLeft: 5, minHeight: 20, height: 20 })}>
 										{_('Browse...')}
 									</button>
 								</div>
@@ -392,8 +334,6 @@ class ConfigScreenComponent extends React.Component {
 			const label = [md.label()];
 			if (md.unitLabel) label.push('(' + md.unitLabel() + ')');
 
-			const inputStyle = Object.assign({}, textInputBaseStyle);
-
 			return (
 				<div key={key} style={rowStyle}>
 					<div style={labelStyle}>
@@ -401,7 +341,7 @@ class ConfigScreenComponent extends React.Component {
 					</div>
 					<input
 						type="number"
-						style={inputStyle}
+						style={controlStyle}
 						value={this.state.settings[key]}
 						onChange={event => {
 							onNumChange(event);
@@ -433,10 +373,6 @@ class ConfigScreenComponent extends React.Component {
 		this.props.dispatch({ type: 'NAV_BACK' });
 	}
 
-	hasChanges() {
-		return !!this.state.changedSettingKeys.length;
-	}
-
 	render() {
 		const theme = themeStyle(this.props.theme);
 
@@ -454,9 +390,9 @@ class ConfigScreenComponent extends React.Component {
 
 		let settings = this.state.settings;
 
-		const containerStyle = Object.assign({}, theme.containerStyle, { padding: 10, paddingTop: 0, display: 'flex', flex: 1 });
+		const containerStyle = Object.assign({}, theme.containerStyle, { padding: 10, paddingTop: 0 });
 
-		const hasChanges = this.hasChanges();
+		const hasChanges = !!this.state.changedSettingKeys.length;
 
 		const buttonStyle = Object.assign({}, theme.buttonStyle, {
 			display: 'inline-block',
@@ -467,33 +403,19 @@ class ConfigScreenComponent extends React.Component {
 			opacity: hasChanges ? 1 : theme.disabledOpacity,
 		});
 
-		const settingComps = shared.settingsToComponents2(this, 'desktop', settings, this.state.selectedSectionName);
+		const settingComps = shared.settingsToComponents2(this, 'desktop', settings);
 
 		const buttonBarStyle = {
 			display: 'flex',
 			alignItems: 'center',
-			padding: 10,
-			borderTopWidth: 1,
-			borderTopStyle: 'solid',
-			borderTopColor: theme.dividerColor,
+			padding: 15,
+			borderBottomWidth: 1,
+			borderBottomStyle: 'solid',
+			borderBottomColor: theme.dividerColor,
 		};
-
-		const screenComp = this.state.screenName ? <div style={{overflow: 'scroll', flex:1}}>{this.screenFromName(this.state.screenName)}</div> : null;
-
-		if (screenComp) containerStyle.display = 'none';
-
-		const sections = shared.settingsSections({ device: 'desktop', settings });
 
 		return (
 			<div style={style}>
-				<ConfigMenuBar
-					selection={this.state.selectedSectionName}
-					onSelectionChange={this.configMenuBar_selectionChange}
-					sections={sections}
-					theme={this.props.theme}
-				/>
-				{screenComp}
-				<div style={containerStyle}>{settingComps}</div>
 				<div style={buttonBarStyle}>
 					<button
 						onClick={() => {
@@ -502,15 +424,28 @@ class ConfigScreenComponent extends React.Component {
 						style={buttonStyle}
 					>
 						<i style={theme.buttonIconStyle} className={'fa fa-chevron-left'}></i>
-						{hasChanges && !screenComp ? _('Cancel') : _('Back')}
+						{_('Cancel')}
 					</button>
-					{ !screenComp && (
-						<div>
-							<button disabled={!hasChanges} onClick={() => { this.onSaveClick(); }} style={buttonStyleApprove}>{_('OK')}</button>
-							<button disabled={!hasChanges} onClick={() => { this.onApplyClick(); }} style={buttonStyleApprove}>{_('Apply')}</button>
-						</div>
-					)}
+					<button
+						disabled={!hasChanges}
+						onClick={() => {
+							this.onSaveClick();
+						}}
+						style={buttonStyleApprove}
+					>
+						{_('OK')}
+					</button>
+					<button
+						disabled={!hasChanges}
+						onClick={() => {
+							this.onApplyClick();
+						}}
+						style={buttonStyleApprove}
+					>
+						{_('Apply')}
+					</button>
 				</div>
+				<div style={containerStyle}>{settingComps}</div>
 			</div>
 		);
 	}

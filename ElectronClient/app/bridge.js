@@ -122,10 +122,6 @@ class Bridge {
 		checkForUpdates(inBackground, window, logFilePath, options);
 	}
 
-	buildDir() {
-		return this.electronApp().buildDir();
-	}
-
 }
 
 let bridge_ = null;

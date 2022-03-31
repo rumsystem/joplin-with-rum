@@ -333,6 +333,7 @@ class Application extends BaseApplication {
 
 		const importItems = [];
 		const exportItems = [];
+		const preferencesItems = [];
 		const toolsItemsFirst = [];
 		const templateItems = [];
 		const ioService = new InteropService();
@@ -479,6 +480,33 @@ class Application extends BaseApplication {
 			},
 		};
 
+		preferencesItems.push({
+			label: _('General Options'),
+			accelerator: 'CommandOrControl+,',
+			click: () => {
+				this.dispatch({
+					type: 'NAV_GO',
+					routeName: 'Config',
+				});
+			},
+		}, {
+			label: _('Encryption options'),
+			click: () => {
+				this.dispatch({
+					type: 'NAV_GO',
+					routeName: 'EncryptionConfig',
+				});
+			},
+		}, {
+			label: _('Web clipper options'),
+			click: () => {
+				this.dispatch({
+					type: 'NAV_GO',
+					routeName: 'ClipperConfig',
+				});
+			},
+		});
+
 		toolsItemsFirst.push(syncStatusItem, {
 			type: 'separator',
 			screens: ['Main'],
@@ -535,17 +563,7 @@ class Application extends BaseApplication {
 			},
 		});
 
-		const toolsItems = toolsItemsFirst.push({
-			label: _('Options'),
-			visible: !shim.isMac(),
-			accelerator: 'CommandOrControl+,',
-			click: () => {
-				this.dispatch({
-					type: 'NAV_GO',
-					routeName: 'Config',
-				});
-			},
-		});
+		const toolsItems = toolsItemsFirst.concat(preferencesItems);
 
 		function _checkForUpdates(ctx) {
 			bridge().checkForUpdates(false, bridge().window(), ctx.checkForUpdateLoggerPath(), { includePreReleases: Setting.value('autoUpdate.includePreReleases') });
@@ -590,13 +608,7 @@ class Application extends BaseApplication {
 			}, {
 				label: _('Preferences...'),
 				visible: shim.isMac() ? true : false,
-				accelerator: 'CommandOrControl+,',
-				click: () => {
-					this.dispatch({
-						type: 'NAV_GO',
-						routeName: 'Config',
-					});
-				},
+				submenu: preferencesItems,
 			}, {
 				label: _('Check for updates...'),
 				visible: shim.isMac() ? true : false,

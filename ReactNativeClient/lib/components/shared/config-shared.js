@@ -2,7 +2,6 @@ const Setting = require('lib/models/Setting.js');
 const SyncTargetRegistry = require('lib/SyncTargetRegistry');
 const ObjectUtils = require('lib/ObjectUtils');
 const { _ } = require('lib/locale.js');
-const { createSelector } = require('reselect');
 
 const shared = {};
 
@@ -80,51 +79,26 @@ shared.settingsToComponents = function(comp, device, settings) {
 	return settingComps;
 };
 
-const deviceSelector = (state) => state.device;
-const settingsSelector = (state) => state.settings;
-
-shared.settingsSections = createSelector(
-	deviceSelector,
-	settingsSelector,
-	(device, settings) => {
-		const keys = Setting.keys(true, device);
-		const metadatas = [];
-
-		for (let i = 0; i < keys.length; i++) {
-			const key = keys[i];
-			if (!Setting.isPublic(key)) continue;
-
-			const md = Setting.settingMetadata(key);
-			if (md.show && !md.show(settings)) continue;
-
-			metadatas.push(md);
-		}
-
-		const output = Setting.groupMetadatasBySections(metadatas);
-
-		output.push({
-			name: 'encryption',
-			metadatas: [],
-			isScreen: true,
-		});
-
-		output.push({
-			name: 'server',
-			metadatas: [],
-			isScreen: true,
-		});
-
-		return output;
-	}
-);
-
-shared.settingsToComponents2 = function(comp, device, settings, selectedSectionName = '') {
+shared.settingsToComponents2 = function(comp, device, settings) {
+	const keys = Setting.keys(true, device);
 	const sectionComps = [];
-	const sections = shared.settingsSections({ device, settings });
+	const metadatas = [];
+
+	for (let i = 0; i < keys.length; i++) {
+		const key = keys[i];
+		if (!Setting.isPublic(key)) continue;
+
+		const md = Setting.settingMetadata(key);
+		if (md.show && !md.show(settings)) continue;
+
+		metadatas.push(md);
+	}
+
+	const sections = Setting.groupMetadatasBySections(metadatas);
 
 	for (let i = 0; i < sections.length; i++) {
 		const section = sections[i];
-		const sectionComp = comp.sectionToComponent(section.name, section, settings, selectedSectionName === section.name);
+		const sectionComp = comp.sectionToComponent(section.name, section, settings);
 		if (!sectionComp) continue;
 		sectionComps.push(sectionComp);
 	}

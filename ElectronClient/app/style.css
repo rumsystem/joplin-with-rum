@@ -22,10 +22,6 @@ table td, table th {
 	border: 1px solid #ccc;
 }
 
-a {
-	text-decoration: none;
-}
-
 ::-webkit-scrollbar {
 	width: 7px;
 	height: 7px;
@@ -144,8 +140,3 @@ a {
 		display: none;
 	}
 }
-
-.config-menu-bar button:focus {
-	outline: 0 none;
-}
-
