@@ -15,7 +15,6 @@ import KeychainServiceDriver from '@joplin/lib/services/keychain/KeychainService
 import KeychainServiceDriverDummy from '@joplin/lib/services/keychain/KeychainServiceDriver.dummy';
 import PluginRunner from '../app/services/plugins/PluginRunner';
 import PluginService from '@joplin/lib/services/plugins/PluginService';
-import FileApiDriverJoplinServer from '@joplin/lib/file-api-driver-joplinServer';
 
 const fs = require('fs-extra');
 const { JoplinDatabase } = require('@joplin/lib/joplin-database.js');
@@ -44,14 +43,12 @@ const SyncTargetOneDrive = require('@joplin/lib/SyncTargetOneDrive.js');
 const SyncTargetNextcloud = require('@joplin/lib/SyncTargetNextcloud.js');
 const SyncTargetDropbox = require('@joplin/lib/SyncTargetDropbox.js');
 const SyncTargetAmazonS3 = require('@joplin/lib/SyncTargetAmazonS3.js');
-const SyncTargetJoplinServer = require('@joplin/lib/SyncTargetJoplinServer').default;
 const EncryptionService = require('@joplin/lib/services/EncryptionService.js');
 const DecryptionWorker = require('@joplin/lib/services/DecryptionWorker.js');
 const RevisionService = require('@joplin/lib/services/RevisionService.js');
 const ResourceFetcher = require('@joplin/lib/services/ResourceFetcher.js');
 const WebDavApi = require('@joplin/lib/WebDavApi');
 const DropboxApi = require('@joplin/lib/DropboxApi');
-const JoplinServerApi = require('@joplin/lib/JoplinServerApi2').default;
 const { OneDriveApi } = require('@joplin/lib/onedrive-api');
 const { loadKeychainServiceAndSettings } = require('@joplin/lib/services/SettingUtils');
 const md5 = require('md5');
@@ -119,7 +116,6 @@ SyncTargetRegistry.addClass(SyncTargetOneDrive);
 SyncTargetRegistry.addClass(SyncTargetNextcloud);
 SyncTargetRegistry.addClass(SyncTargetDropbox);
 SyncTargetRegistry.addClass(SyncTargetAmazonS3);
-SyncTargetRegistry.addClass(SyncTargetJoplinServer);
 
 let syncTargetName_ = '';
 let syncTargetId_: number = null;
@@ -136,7 +132,7 @@ function setSyncTargetName(name: string) {
 	syncTargetName_ = name;
 	syncTargetId_ = SyncTargetRegistry.nameToId(syncTargetName_);
 	sleepTime = syncTargetId_ == SyncTargetRegistry.nameToId('filesystem') ? 1001 : 100;// 400;
-	isNetworkSyncTarget_ = ['nextcloud', 'dropbox', 'onedrive', 'amazon_s3', 'joplinServer'].includes(syncTargetName_);
+	isNetworkSyncTarget_ = ['nextcloud', 'dropbox', 'onedrive', 'amazon_s3'].includes(syncTargetName_);
 	synchronizers_ = [];
 	return previousName;
 }
@@ -146,7 +142,6 @@ setSyncTargetName('memory');
 // setSyncTargetName('dropbox');
 // setSyncTargetName('onedrive');
 // setSyncTargetName('amazon_s3');
-// setSyncTargetName('joplinServer');
 
 // console.info(`Testing with sync target: ${syncTargetName_}`);
 
@@ -217,16 +212,6 @@ function currentClientId() {
 async function afterEachCleanUp() {
 	await ItemChange.waitForAllSaved();
 	KeymapService.destroyInstance();
-}
-
-async function afterAllCleanUp() {
-	if (fileApi()) {
-		try {
-			await fileApi().clearRoot();
-		} catch (error) {
-			console.warn('Could not clear sync target root:', error);
-		}
-	}
 }
 
 async function switchClient(id: number, options: any = null) {
@@ -361,7 +346,7 @@ async function setupDatabaseAndSynchronizer(id: number, options: any = null) {
 	if (!synchronizers_[id]) {
 		const SyncTargetClass = SyncTargetRegistry.classById(syncTargetId_);
 		const syncTarget = new SyncTargetClass(db(id));
-		await initFileApi(suiteName_);
+		await initFileApi();
 		syncTarget.setFileApi(fileApi());
 		syncTarget.setLogger(logger);
 		synchronizers_[id] = await syncTarget.synchronizer();
@@ -376,7 +361,6 @@ async function setupDatabaseAndSynchronizer(id: number, options: any = null) {
 	resourceFetchers_[id] = new ResourceFetcher(() => { return synchronizers_[id].api(); });
 	kvStores_[id] = new KvStore();
 
-	await fileApi().initialize();
 	await fileApi().clearRoot();
 }
 
@@ -456,7 +440,7 @@ async function loadEncryptionMasterKey(id: number = null, useExisting = false) {
 	return masterKey;
 }
 
-async function initFileApi(suiteName: string) {
+async function initFileApi() {
 	if (fileApis_[syncTargetId_]) return;
 
 	let fileApi = null;
@@ -498,6 +482,7 @@ async function initFileApi(suiteName: string) {
 
 		if (!process.argv.includes('--runInBand')) {
 			throw new Error('OneDrive tests must be run sequentially, with the --runInBand arg. eg `npm test -- --runInBand`');
+
 		}
 
 		const { parameters, setEnvOverride } = require('@joplin/lib/parameters.js');
@@ -521,16 +506,6 @@ async function initFileApi(suiteName: string) {
 		if (!amazonS3Creds || !amazonS3Creds.accessKeyId) throw new Error(`AWS auth JSON missing in ${amazonS3CredsPath} format should be: { "accessKeyId": "", "secretAccessKey": "", "bucket": "mybucket"}`);
 		const api = new S3({ accessKeyId: amazonS3Creds.accessKeyId, secretAccessKey: amazonS3Creds.secretAccessKey, s3UseArnRegion: true });
 		fileApi = new FileApi('', new FileApiDriverAmazonS3(api, amazonS3Creds.bucket));
-	} else if (syncTargetId_ == SyncTargetRegistry.nameToId('joplinServer')) {
-		// Note that to test the API in parallel mode, you need to use Postgres
-		// as database, as the SQLite database is not reliable when being
-		// read/write from multiple processes at the same time.
-		const api = new JoplinServerApi({
-			baseUrl: () => 'http://localhost:22300',
-			username: () => 'admin@localhost',
-			password: () => 'admin',
-		});
-		fileApi = new FileApi(`root:/Apps/Joplin-${suiteName}`, new FileApiDriverJoplinServer(api));
 	}
 
 	fileApi.setLogger(logger);
@@ -768,18 +743,18 @@ class TestApp extends BaseApplication {
 	private middlewareCalls_: any[];
 	private logger_: LoggerWrapper;
 
-	public constructor(hasGui = true) {
+	constructor(hasGui = true) {
 		super();
 		this.hasGui_ = hasGui;
 		this.middlewareCalls_ = [];
 		this.logger_ = super.logger();
 	}
 
-	public hasGui() {
+	hasGui() {
 		return this.hasGui_;
 	}
 
-	public async start(argv: any[]) {
+	async start(argv: any[]) {
 		this.logger_.info('Test app starting...');
 
 		if (!argv.includes('--profile')) {
@@ -800,7 +775,7 @@ class TestApp extends BaseApplication {
 		this.logger_.info('Test app started...');
 	}
 
-	public async generalMiddleware(store: any, next: any, action: any) {
+	async generalMiddleware(store: any, next: any, action: any) {
 		this.middlewareCalls_.push(true);
 		try {
 			await super.generalMiddleware(store, next, action);
@@ -809,7 +784,7 @@ class TestApp extends BaseApplication {
 		}
 	}
 
-	public async wait() {
+	async wait() {
 		return new Promise((resolve) => {
 			const iid = shim.setInterval(() => {
 				if (!this.middlewareCalls_.length) {
@@ -820,11 +795,11 @@ class TestApp extends BaseApplication {
 		});
 	}
 
-	public async profileDir() {
+	async profileDir() {
 		return Setting.value('profileDir');
 	}
 
-	public async destroy() {
+	async destroy() {
 		this.logger_.info('Test app stopping...');
 		await this.wait();
 		await ItemChange.waitForAllSaved();
@@ -834,4 +809,4 @@ class TestApp extends BaseApplication {
 	}
 }
 
-module.exports = { afterAllCleanUp, exportDir, newPluginService, newPluginScript, synchronizerStart, afterEachCleanUp, syncTargetName, setSyncTargetName, syncDir, createTempDir, isNetworkSyncTarget, kvStore, expectThrow, logger, expectNotThrow, resourceService, resourceFetcher, tempFilePath, allSyncTargetItemsEncrypted, msleep, setupDatabase, revisionService, setupDatabaseAndSynchronizer, db, synchronizer, fileApi, sleep, clearDatabase, switchClient, syncTargetId, objectsEqual, checkThrowAsync, checkThrow, encryptionService, loadEncryptionMasterKey, fileContentEqual, decryptionWorker, currentClientId, id, ids, sortedIds, at, createNTestNotes, createNTestFolders, createNTestTags, TestApp };
+module.exports = { exportDir, newPluginService, newPluginScript, synchronizerStart, afterEachCleanUp, syncTargetName, setSyncTargetName, syncDir, createTempDir, isNetworkSyncTarget, kvStore, expectThrow, logger, expectNotThrow, resourceService, resourceFetcher, tempFilePath, allSyncTargetItemsEncrypted, msleep, setupDatabase, revisionService, setupDatabaseAndSynchronizer, db, synchronizer, fileApi, sleep, clearDatabase, switchClient, syncTargetId, objectsEqual, checkThrowAsync, checkThrow, encryptionService, loadEncryptionMasterKey, fileContentEqual, decryptionWorker, currentClientId, id, ids, sortedIds, at, createNTestNotes, createNTestFolders, createNTestTags, TestApp };
