@@ -2305,7 +2305,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@electron/get@npm:^1.0.1, @electron/get@npm:^1.13.0":
+"@electron/get@npm:^1.0.1":
   version: 1.13.1
   resolution: "@electron/get@npm:1.13.1"
   dependencies:
@@ -2956,8 +2956,8 @@ __metadata:
     node-notifier: ^8.0.0
     node-rsa: ^1.1.1
     pretty-bytes: ^5.3.0
-    quorum-sdk-electron-main: ^1.0.4
-    quorum-sdk-electron-renderer: ^1.0.2
+    quorum-bin: ^1.0.0
+    quorum-sdk-electron-main: ^1.0.6
     re-resizable: ^6.5.4
     react: 16.13.1
     react-datetime: ^2.14.0
@@ -3180,7 +3180,7 @@ __metadata:
     node-rsa: ^1.1.1
     promise: ^7.1.1
     query-string: 4.3.4
-    quorum-sdk-electron-renderer: ^1.0.3
+    quorum-sdk-electron-renderer: ^1.0.6
     re-reselect: ^4.0.0
     read-chunk: ^2.1.0
     redux: ^3.7.2
@@ -12604,19 +12604,6 @@ __metadata:
   bin:
     electron: cli.js
   checksum: 8b17f8cabba2b6842e71e11a8889f366712f32219d35c49f093d69939ff78c22b0e0870ec1a4ab851270015e43f00f9d759b0283998fd2d3065c8c20eca8b597
-  languageName: node
-  linkType: hard
-
-"electron@npm:16.0.8":
-  version: 16.0.8
-  resolution: "electron@npm:16.0.8"
-  dependencies:
-    "@electron/get": ^1.13.0
-    "@types/node": ^14.6.2
-    extract-zip: ^1.0.3
-  bin:
-    electron: cli.js
-  checksum: 9d3a2e1c3e6dcfdce25b4d9e1ef9dfe736354f9c3605945cfc5b1568862b69ad0a81e402cfaf09c2f51615b64bc3585ef4828a013437b9506cd0dbff3e6db903
   languageName: node
   linkType: hard
 
@@ -24776,42 +24763,34 @@ __metadata:
   languageName: node
   linkType: hard
 
-"quorum-sdk-electron-main@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "quorum-sdk-electron-main@npm:1.0.4"
+"quorum-bin@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "quorum-bin@npm:1.0.0"
+  checksum: 42aa159df8b292c39134da1867228e4743aa157caf53bde7eb676d14d11438a30609a281b412cd58fd2e8bbc13c189e01c14e5fddda034ecdc496762d8bcb5d7
+  languageName: node
+  linkType: hard
+
+"quorum-sdk-electron-main@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "quorum-sdk-electron-main@npm:1.0.6"
   dependencies:
-    electron: 16.0.8
     electron-log: ^4.4.6
     electron-store: ^8.0.1
     get-port: ^5.1.1
     node-watch: ^0.7.2
-  checksum: bac0c6ab4e6c78fea70c17b36bdee5cc533e311b26b43abe35f182bffd1b0c710fd71648890dc1fecbf5704bc3ea313531806fc69132176373025c8256bbaa51
+  checksum: 6c6b67f62945a918eec059c9fdf064ef6047ee1e513c912b5fbf2d75cbf32b16f7e68ad1b66a4d63f1b41d7671dd95a023c18d14b44853ac1582850980b8826f
   languageName: node
   linkType: hard
 
-"quorum-sdk-electron-renderer@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "quorum-sdk-electron-renderer@npm:1.0.2"
+"quorum-sdk-electron-renderer@npm:^1.0.6":
+  version: 1.0.7
+  resolution: "quorum-sdk-electron-renderer@npm:1.0.7"
   dependencies:
     "@electron/remote": ^2.0.5
     dexie: ^3.2.0
-    electron: 16.0.8
     electron-store: ^8.0.1
     query-string: ^7.1.1
-  checksum: b244cc57430095e967f6057ff3977c796098c50e563c0505d23af4633f808925e2aa729dc13a48fe97615757c496343434be4325fb0752f92eefdb2f010a0ced
-  languageName: node
-  linkType: hard
-
-"quorum-sdk-electron-renderer@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "quorum-sdk-electron-renderer@npm:1.0.3"
-  dependencies:
-    "@electron/remote": ^2.0.5
-    dexie: ^3.2.0
-    electron: 16.0.8
-    electron-store: ^8.0.1
-    query-string: ^7.1.1
-  checksum: 33fe07869d98fe386e5ee47cefaa521618af252b993773dfa3f9c3db02088a1f7674ddbaa63420c0b01708a099f02bf4b9cad61a5edf9f17db8e0e524f23031c
+  checksum: 0df1df9e3e92027845da9a23d9f0cbd04db61f7b38d384b8918e53f2a7334002573a0c38f1fb80790e60e34c834552cfa7e70ceff69adb2831ef793a65760aad
   languageName: node
   linkType: hard
 

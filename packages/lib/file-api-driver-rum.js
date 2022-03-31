@@ -201,7 +201,7 @@ class FileApiDriverRum {
 				output = object?.Content?.content || null;
 				console.log(output);
 				if (options.target === 'file') {
-				  await this.fsDriver().writeFile(options.path, output, 'utf8');
+				  await this.fsDriver().outputFile(options.path, output, 'utf8');
 				}
 			} catch (error) {
 				console.log(error);
@@ -239,7 +239,7 @@ class FileApiDriverRum {
 					return;
 				}
 
-				await this.fsDriver().writeFile(path, content, 'utf8');
+				await this.fsDriver().outputFile(path, content, 'utf8');
 			} catch (error) {
 				throw this.fsErrorToJsError_(error, path);
 			}

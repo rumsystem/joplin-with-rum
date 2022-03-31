@@ -38,6 +38,18 @@ export default class FsDriverNode extends FsDriverBase {
 		}
 	}
 
+	public async outputFile(path: string, string: string, encoding: string = 'base64') {
+		try {
+			if (encoding === 'buffer') {
+				return await fs.outputFile(path, string);
+			} else {
+				return await fs.outputFile(path, string, { encoding: encoding });
+			}
+		} catch (error) {
+			throw this.fsErrorToJsError_(error, path);
+		}
+	}
+
 	// same as rm -rf
 	public async remove(path: string) {
 		try {

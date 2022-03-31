@@ -47,7 +47,9 @@ const wrapper = new ElectronAppWrapper(electronApp, env, profilePath, isDebugMod
 
 initBridge(wrapper);
 
-Quorum.init();
+Quorum.init({
+	quorumBinPath: electronApp.isPackaged ? `${process.resourcesPath}/quorum-bin` : `${__dirname}/node_modules/quorum-bin`,
+});
 
 wrapper.start().catch((error) => {
 	console.error('Electron App fatal error:');
