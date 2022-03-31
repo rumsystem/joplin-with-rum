@@ -156,8 +156,6 @@ class BaseItem extends BaseModel {
 	}
 
 	static async loadItemsByIds(ids) {
-		if (!ids.length) return [];
-
 		const classes = this.syncItemClassNames();
 		let output = [];
 		for (let i = 0; i < classes.length; i++) {

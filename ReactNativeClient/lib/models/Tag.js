@@ -109,7 +109,6 @@ class Tag extends BaseItem {
 
 	static async tagsByNoteId(noteId) {
 		const tagIds = await NoteTag.tagIdsByNoteId(noteId);
-		if (!tagIds.length) return [];
 		return this.modelSelectAll(`SELECT * FROM tags WHERE id IN ("${tagIds.join('","')}")`);
 	}
 
