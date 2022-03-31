@@ -57,7 +57,7 @@ function useToolbarItems(props:NoteToolbarProps) {
 	});
 
 	toolbarItems.push({
-		tooltip: _('Forward'),
+		tooltip: _('Front'),
 		iconName: 'fa-arrow-right',
 		enabled: (forwardHistoryNotes.length > 0),
 		onClick: () => {
