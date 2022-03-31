@@ -81,6 +81,7 @@ export default class QuorumServer {
 			return;
 		}
 
+		this.logger().info('quorum started!');
 		this.logger().info(`Synchronise on rumsystem group ${Setting.value('sync.11.group').group_id}`);
 
 		this.setStartState(StartState.Started);
@@ -88,6 +89,7 @@ export default class QuorumServer {
 
 	async stop() {
 		this.client_.down();
+		this.logger().info('quorum stoped!');
 		this.setStartState(StartState.Idle);
 	}
 }

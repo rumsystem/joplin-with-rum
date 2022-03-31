@@ -3,6 +3,7 @@ const SyncTargetRegistry = require('../../SyncTargetRegistry').default;
 const ObjectUtils = require('../../ObjectUtils');
 const { _ } = require('../../locale');
 const { createSelector } = require('reselect');
+const QuorumServer = require('../../QuorumServer').default;
 
 const shared = {};
 
@@ -82,6 +83,16 @@ shared.saveSettings = function(comp) {
 	for (const key in comp.state.settings) {
 		if (!comp.state.settings.hasOwnProperty(key)) continue;
 		if (comp.state.changedSettingKeys.indexOf(key) < 0) continue;
+		if (key === 'sync.target') {
+			if (Setting.value(key) !== 11 && comp.state.settings[key] === 11) {
+				Setting.setValue('quorumServer.autoStart', true);
+				void QuorumServer.instance().start();
+			}
+			if (Setting.value(key) === 11 && comp.state.settings[key] !== 11) {
+				Setting.setValue('quorumServer.autoStart', false);
+				void QuorumServer.instance().stop();
+			}
+		}
 		Setting.setValue(key, comp.state.settings[key]);
 	}
 
