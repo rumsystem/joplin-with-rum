@@ -3,7 +3,6 @@ import { FormNote, EditorCommand } from './types';
 const { time } = require('lib/time-utils.js');
 const { reg } = require('lib/registry.js');
 const NoteListUtils = require('../../utils/NoteListUtils');
-const TemplateUtils = require('lib/TemplateUtils');
 
 interface HookDependencies {
 	windowCommand: any,
@@ -69,8 +68,8 @@ export default function useWindowCommandHandler(dependencies:HookDependencies) {
 					};
 				}
 			} else if (command.name === 'insertTemplate') {
-				editorCmd.name = 'insertText';
-				editorCmd.value = TemplateUtils.render(command.value);
+				editorCmd.name = 'insertText',
+				editorCmd.value = time.formatMsToLocal(new Date().getTime());
 			}
 
 			if (command.name === 'focusElement' && command.target === 'noteTitle') {

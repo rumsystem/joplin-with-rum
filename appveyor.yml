@@ -15,7 +15,7 @@ install:
 build_script:
   - npm install
   - ps: cd ElectronClient
-  - npm run dist
+  - yarn dist
 
 test: off
 

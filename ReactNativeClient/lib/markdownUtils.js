@@ -18,7 +18,6 @@ const markdownUtils = {
 	escapeLinkUrl(url) {
 		url = url.replace(/\(/g, '%28');
 		url = url.replace(/\)/g, '%29');
-		url = url.replace(/ /g, '%20');
 		return url;
 	},
 

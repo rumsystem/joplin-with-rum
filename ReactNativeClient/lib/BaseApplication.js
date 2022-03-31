@@ -582,17 +582,11 @@ class BaseApplication {
 	}
 
 	determineProfileDir(initArgs) {
-		let output = '';
+		if (initArgs.profileDir) return initArgs.profileDir;
 
-		if (initArgs.profileDir) {
-			output = initArgs.profileDir;
-		} else if (process && process.env && process.env.PORTABLE_EXECUTABLE_DIR) {
-			output = `${process.env.PORTABLE_EXECUTABLE_DIR}/JoplinProfile`;
-		} else {
-			output = `${os.homedir()}/.config/${Setting.value('appName')}`;
-		}
+		if (process && process.env && process.env.PORTABLE_EXECUTABLE_DIR) return `${process.env.PORTABLE_EXECUTABLE_DIR}/JoplinProfile`;
 
-		return toSystemSlashes(output, 'linux');
+		return toSystemSlashes(`${os.homedir()}/.config/${Setting.value('appName')}`, 'linux');
 	}
 
 	async start(argv) {
