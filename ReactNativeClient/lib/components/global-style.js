@@ -16,6 +16,7 @@ const globalStyle = {
 	selectedColor: '#e5e5e5',
 	disabledOpacity: 0.2,
 	colorUrl: '#000CFF',
+	textSelectionColor: "#0096FF",
 
 	raisedBackgroundColor: "#0080EF",
 	raisedColor: "#003363",
@@ -99,7 +100,10 @@ function addExtraStyles(style) {
 }
 
 function themeStyle(theme) {
-	if (!theme) throw new Error('Theme not set');
+	if (!theme) {
+		console.warn('Theme not set!! Defaulting to Light theme');
+		theme = Setting.THEME_LIGHT;
+	}
 
 	if (themeCache_[theme]) return themeCache_[theme];
 
@@ -111,6 +115,7 @@ function themeStyle(theme) {
 	output.colorFaded = '#777777';
 	output.dividerColor = '#555555';
 	output.selectedColor = '#333333';
+	output.textSelectionColor = '#00AEFF';
 
 	output.raisedBackgroundColor = "#0F2051";
 	output.raisedColor = "#788BC3";
