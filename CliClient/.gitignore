@@ -1,5 +1,4 @@
-build/*
-!build/locales
+build/
 node_modules/
 app/src
 tests-build/

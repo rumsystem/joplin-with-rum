@@ -307,15 +307,11 @@ async function main() {
 
 	saveToFile(`${jsonLocalesDir}/index.js`, buildIndex(locales, stats));
 
-	const destDirs = [
-		`${rnDir}/locales`,
-		`${electronDir}/locales`,
-		`${cliDir}/build/locales`,
-	];
+	const rnJsonLocaleDir = `${rnDir}/locales`;
+	await execCommand(`rsync -a "${jsonLocalesDir}/" "${rnJsonLocaleDir}"`);
 
-	for (const destDir of destDirs) {
-		await execCommand(`rsync -a "${jsonLocalesDir}/" "${destDir}/"`);
-	}
+	const electronJsonLocaleDir = `${electronDir}/locales`;
+	await execCommand(`rsync -a "${jsonLocalesDir}/" "${electronJsonLocaleDir}"`);
 
 	await updateReadmeWithStats(stats);
 }
