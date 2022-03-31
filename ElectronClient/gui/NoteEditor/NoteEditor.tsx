@@ -28,7 +28,6 @@ const { _ } = require('lib/locale');
 const Note = require('lib/models/Note.js');
 const { bridge } = require('electron').remote.require('./bridge');
 const ExternalEditWatcher = require('lib/services/ExternalEditWatcher');
-import ResourceEditWatcher from '../../lib/services/ResourceEditWatcher';
 const eventManager = require('../../eventManager');
 const NoteRevisionViewer = require('../NoteRevisionViewer.min');
 const TagList = require('../TagList.min.js');
@@ -173,8 +172,6 @@ function NoteEditor(props: NoteEditorProps) {
 			type: props.selectedNoteHash ? ScrollOptionTypes.Hash : ScrollOptionTypes.Percent,
 			value: props.selectedNoteHash ? props.selectedNoteHash : props.lastEditorScrollPercents[props.noteId] || 0,
 		});
-
-		ResourceEditWatcher.instance().stopWatchingAll();
 	}, [formNote.id, previousNoteId]);
 
 	const onFieldChange = useCallback((field: string, value: any, changeId = 0) => {
