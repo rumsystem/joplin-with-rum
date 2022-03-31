@@ -175,8 +175,7 @@ class NoteBodyViewer extends Component {
 					onLoadEnd={() => this.onLoadEnd()}
 					onError={() => reg.logger().error('WebView error') }
 					onMessage={(event) => {
-						// Since RN 58 (or 59) messages are now escaped twice???
-						let msg = unescape(unescape(event.nativeEvent.data));
+						let msg = event.nativeEvent.data;
 
 						console.info('Got IPC message: ', msg);
 
