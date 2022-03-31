@@ -11,11 +11,6 @@ export interface EmailToSend {
 	recipient_id?: Uuid;
 }
 
-export interface EmailSubjectBody {
-	subject: string;
-	body: string;
-}
-
 export default class EmailModel extends BaseModel<Email> {
 
 	public get tableName(): string {
