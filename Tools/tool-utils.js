@@ -68,8 +68,6 @@ toolUtils.unlinkForce = async function(filePath) {
 }
 
 toolUtils.fileExists = async function(filePath) {
-	const fs = require('fs-extra');
-	
 	return new Promise((resolve, reject) => {
 		fs.stat(filePath, function(err, stat) {
 			if (err == null) {

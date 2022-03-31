@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-const { execCommand, githubRelease, githubOauthToken, isWindows, fileExists } = require('./tool-utils.js');
+const { execCommand, githubRelease, githubOauthToken, isWindows } = require('./tool-utils.js');
 const path = require('path');
 const fetch = require('node-fetch');
 const uriTemplate = require('uri-template');
@@ -47,6 +47,10 @@ function gradleVersionName(content) {
 }
 
 async function main() {
+	const argv = require('yargs').argv
+
+	const doGitHubRelease = typeof argv['github-release'] === 'undefined' || !!argv['github-release'];
+
 	const projectName = 'joplin-android';
 	const newContent = updateGradleConfig();
 	const version = gradleVersionName(newContent);
@@ -63,7 +67,7 @@ async function main() {
 
 	let restoreDir = null;
 	let apkBuildCmd = 'assembleRelease -PbuildDir=build --console plain';
-	if (await fileExists('/mnt/c/Windows/System32/cmd.exe')) {
+	if (isWindows()) {
 		apkBuildCmd = '/mnt/c/Windows/System32/cmd.exe /c "cd ReactNativeClient\\android && gradlew.bat ' + apkBuildCmd + '"';
 	} else {
 		process.chdir(rnDir + '/android');
@@ -81,6 +85,8 @@ async function main() {
 
 	console.info('Copying APK to ' + apkFilePath);
 	await fs.copy('ReactNativeClient/android/app/build/outputs/apk/release/app-release.apk', apkFilePath);
+
+	if (!doGitHubRelease) return;
 
 	console.info('Updating Readme URL...');
 
