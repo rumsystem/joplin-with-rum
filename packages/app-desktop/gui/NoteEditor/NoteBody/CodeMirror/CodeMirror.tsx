@@ -33,11 +33,10 @@ const Menu = bridge().Menu;
 const MenuItem = bridge().MenuItem;
 import { reg } from '@joplin/lib/registry';
 import ErrorBoundary from '../../../ErrorBoundary';
-import { MarkupToHtmlOptions } from '../../utils/useMarkupToHtml';
 
 const menuUtils = new MenuUtils(CommandService.instance());
 
-function markupRenderOptions(override: MarkupToHtmlOptions = null): MarkupToHtmlOptions {
+function markupRenderOptions(override: any = null) {
 	return { ...override };
 }
 
@@ -385,12 +384,6 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 		if (Setting.value('style.editor.monospaceFontFamily')) monospaceFonts.push(`"${Setting.value('style.editor.monospaceFontFamily')}"`);
 		monospaceFonts.push('monospace');
 
-		const maxWidthCss = props.contentMaxWidth ? `
-			margin-right: auto !important;
-			margin-left: auto !important;
-			max-width: ${props.contentMaxWidth}px !important;	
-		` : '';
-
 		const element = document.createElement('style');
 		element.setAttribute('id', 'codemirrorStyle');
 		document.head.appendChild(element);
@@ -425,7 +418,6 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 				/* Add a fixed right padding to account for the appearance (and disappearance) */
 				/* of the sidebar */
 				padding-right: 10px !important;
-				${maxWidthCss}
 			}
 
 			/* This enforces monospace for certain elements (code, tables, etc.) */
@@ -541,7 +533,7 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 		return () => {
 			document.head.removeChild(element);
 		};
-	}, [props.themeId, props.contentMaxWidth]);
+	}, [props.themeId]);
 
 	const webview_domReady = useCallback(() => {
 		setWebviewReady(true);
@@ -580,10 +572,7 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 				bodyToRender = `<i>${_('This note has no content. Click on "%s" to toggle the editor and edit the note.', _('Layout'))}</i>`;
 			}
 
-			const result = await props.markupToHtml(props.contentMarkupLanguage, bodyToRender, markupRenderOptions({
-				resourceInfos: props.resourceInfos,
-				contentMaxWidth: props.contentMaxWidth,
-			}));
+			const result = await props.markupToHtml(props.contentMarkupLanguage, bodyToRender, markupRenderOptions({ resourceInfos: props.resourceInfos }));
 
 			if (cancelled) return;
 
@@ -806,7 +795,6 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 					viewerStyle={styles.viewer}
 					onIpcMessage={webview_ipcMessage}
 					onDomReady={webview_domReady}
-					contentMaxWidth={props.contentMaxWidth}
 				/>
 			</div>
 		);

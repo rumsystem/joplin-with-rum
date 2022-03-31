@@ -5,27 +5,9 @@ import setupLinkify from './MdToHtml/setupLinkify';
 import validateLinks from './MdToHtml/validateLinks';
 import { ItemIdToUrlHandler } from './utils';
 import { RenderResult, RenderResultPluginAsset } from './MarkupToHtml';
-import { Options as NoteStyleOptions } from './noteStyle';
 
 const MarkdownIt = require('markdown-it');
 const md5 = require('md5');
-
-export interface RenderOptions {
-	contentMaxWidth?: number;
-	bodyOnly?: boolean;
-	splitted?: boolean;
-	externalAssetsOnly?: boolean;
-	postMessageSyntax?: string;
-	highlightedKeywords?: string[];
-	codeTheme?: string;
-	theme?: any;
-	plugins?: Record<string, any>;
-	audioPlayerEnabled?: boolean;
-	videoPlayerEnabled?: boolean;
-	pdfViewerEnabled?: boolean;
-	codeHighlightCacheKey?: string;
-	plainResourceRendering?: boolean;
-}
 
 interface RendererRule {
 	install(context: any, ruleOptions: any): any;
@@ -349,7 +331,7 @@ export default class MdToHtml {
 	}
 
 	// This is similar to allProcessedAssets() but used only by the Rich Text editor
-	public async allAssets(theme: any, noteStyleOptions: NoteStyleOptions = null) {
+	public async allAssets(theme: any) {
 		const assets: any = {};
 		for (const key in rules) {
 			if (!this.pluginEnabled(key)) continue;
@@ -361,7 +343,7 @@ export default class MdToHtml {
 		}
 
 		const processedAssets = this.processPluginAssets(assets);
-		processedAssets.cssStrings.splice(0, 0, noteStyle(theme, noteStyleOptions).join('\n'));
+		processedAssets.cssStrings.splice(0, 0, noteStyle(theme).join('\n'));
 		if (this.customCss_) processedAssets.cssStrings.push(this.customCss_);
 		const output = await this.outputAssetsToExternalAssets_(processedAssets);
 		return output.pluginAssets;
@@ -394,9 +376,8 @@ export default class MdToHtml {
 	}
 
 	// "theme" is the theme as returned by themeStyle()
-	public async render(body: string, theme: any = null, options: RenderOptions = null): Promise<RenderResult> {
-
-		options = {
+	public async render(body: string, theme: any = null, options: any = null): Promise<RenderResult> {
+		options = Object.assign({}, {
 			// In bodyOnly mode, the rendered Markdown is returned without the wrapper DIV
 			bodyOnly: false,
 			// In splitted mode, the CSS and HTML will be returned in separate properties.
@@ -414,10 +395,7 @@ export default class MdToHtml {
 			audioPlayerEnabled: this.pluginEnabled('audioPlayer'),
 			videoPlayerEnabled: this.pluginEnabled('videoPlayer'),
 			pdfViewerEnabled: this.pluginEnabled('pdfViewer'),
-
-			contentMaxWidth: 0,
-			...options,
-		};
+		}, options);
 
 		// The "codeHighlightCacheKey" option indicates what set of cached object should be
 		// associated with this particular Markdown body. It is only used to allow us to
@@ -547,9 +525,7 @@ export default class MdToHtml {
 
 		const renderedBody = markdownIt.render(body, context);
 
-		let cssStrings = noteStyle(options.theme, {
-			contentMaxWidth: options.contentMaxWidth,
-		});
+		let cssStrings = noteStyle(options.theme);
 
 		let output = { ...this.allProcessedAssets(allRules, options.theme, options.codeTheme) };
 		cssStrings = cssStrings.concat(output.cssStrings);
