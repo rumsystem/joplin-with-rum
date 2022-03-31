@@ -1,27 +1,20 @@
 import markdownUtils from '@joplin/lib/markdownUtils';
 import Setting from '@joplin/lib/models/Setting';
-export function modifyListLines(lines: string[], num: number, listSymbol: string) {
-	const isNotNumbered = num === 1;
+export function modifyListLines(lines: string[],num: number,listSymbol: string) {
 	for (let j = 0; j < lines.length; j++) {
 		const line = lines[j];
 		if (!line && j === lines.length - 1) continue;
 		// Only add the list token if it's not already there
 		// if it is, remove it
-		if (num) {
-			const lineNum = markdownUtils.olLineNumber(line);
-			if (!lineNum && isNotNumbered) {
+		if (!line.startsWith(listSymbol)) {
+			if (num) {
 				lines[j] = `${num.toString()}. ${line}`;
 				num++;
 			} else {
-				const listToken = markdownUtils.extractListToken(line);
-				lines[j] = line.substr(listToken.length, line.length - listToken.length);
+				lines[j] = listSymbol + line;
 			}
 		} else {
-			if (!line.startsWith(listSymbol)) {
-				lines[j] = listSymbol + line;
-			} else {
-				lines[j] = line.substr(listSymbol.length, line.length - listSymbol.length);
-			}
+			lines[j] = line.substr(listSymbol.length, line.length - listSymbol.length);
 		}
 	}
 	return lines;

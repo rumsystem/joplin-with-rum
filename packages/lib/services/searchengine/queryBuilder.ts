@@ -21,7 +21,7 @@ enum Requirement {
 	INCLUSION = 'INCLUSION',
 }
 
-const _notebookFilter = (notebooks: string[], requirement: Requirement, conditions: string[], params: string[], withs: string[], useFts: boolean) => {
+const _notebookFilter = (notebooks: string[], requirement: Requirement, conditions: string[], params: string[], withs: string[]) => {
 	if (notebooks.length === 0) return;
 
 	const likes = [];
@@ -50,13 +50,12 @@ const _notebookFilter = (notebooks: string[], requirement: Requirement, conditio
 		ON folders.parent_id=${viewName}.id
 	)`;
 
-	const tableName = useFts ? 'notes_normalized' : 'notes';
 	const where = `
 	AND ROWID ${requirement === Requirement.EXCLUSION ? 'NOT' : ''} IN (
-		SELECT ${tableName}.ROWID
+		SELECT notes_normalized.ROWID
 		FROM ${viewName}
-		JOIN ${tableName}
-		ON ${viewName}.id=${tableName}.parent_id
+		JOIN notes_normalized
+		ON ${viewName}.id=notes_normalized.parent_id
 	)`;
 
 
@@ -66,12 +65,12 @@ const _notebookFilter = (notebooks: string[], requirement: Requirement, conditio
 
 };
 
-const notebookFilter = (terms: Term[], conditions: string[], params: string[], withs: string[], useFts: boolean) => {
+const notebookFilter = (terms: Term[], conditions: string[], params: string[], withs: string[]) => {
 	const notebooksToInclude = terms.filter(x => x.name === 'notebook' && !x.negated).map(x => x.value);
-	_notebookFilter(notebooksToInclude, Requirement.INCLUSION, conditions, params, withs, useFts);
+	_notebookFilter(notebooksToInclude, Requirement.INCLUSION, conditions, params, withs);
 
 	const notebooksToExclude = terms.filter(x => x.name === 'notebook' && x.negated).map(x => x.value);
-	_notebookFilter(notebooksToExclude, Requirement.EXCLUSION, conditions, params, withs, useFts);
+	_notebookFilter(notebooksToExclude, Requirement.EXCLUSION, conditions, params, withs);
 };
 
 
@@ -88,8 +87,7 @@ const filterByTableName = (
 	noteIDs: string,
 	requirement: Requirement,
 	withs: string[],
-	tableName: string,
-	useFts: boolean
+	tableName: string
 ) => {
 	const operator: Operation = getOperator(requirement, relation);
 
@@ -146,14 +144,13 @@ const filterByTableName = (
 	}
 
 	// Get the ROWIDs that satisfy the condition so we can filter the result
-	const targetTableName = useFts ? 'notes_normalized' : 'notes';
 	const whereCondition = `
 	${relation} ROWID ${(relation === 'AND' && requirement === 'EXCLUSION') ? 'NOT' : ''}
 	IN (
-		SELECT ${targetTableName}.ROWID
+		SELECT notes_normalized.ROWID
 		FROM notes_with_${requirement}_${tableName}
-		JOIN ${targetTableName}
-		ON notes_with_${requirement}_${tableName}.id=${targetTableName}.id
+		JOIN notes_normalized
+		ON notes_with_${requirement}_${tableName}.id=notes_normalized.id
 	)`;
 
 	withs.push(withCondition);
@@ -162,7 +159,7 @@ const filterByTableName = (
 };
 
 
-const resourceFilter = (terms: Term[], conditions: string[], params: string[], relation: Relation, withs: string[], useFts: boolean) => {
+const resourceFilter = (terms: Term[], conditions: string[], params: string[], relation: Relation, withs: string[]) => {
 	const tableName = 'resources';
 
 	const resourceIDs = `
@@ -180,15 +177,15 @@ const resourceFilter = (terms: Term[], conditions: string[], params: string[], r
 	const excludedResources = terms.filter(x => x.name === 'resource' && x.negated);
 
 	if (requiredResources.length > 0) {
-		filterByTableName(requiredResources, conditions, params, relation, noteIDsWithResource, Requirement.INCLUSION, withs, tableName, useFts);
+		filterByTableName(requiredResources, conditions, params, relation, noteIDsWithResource, Requirement.INCLUSION, withs, tableName);
 	}
 
 	if (excludedResources.length > 0) {
-		filterByTableName(excludedResources, conditions, params, relation, noteIDsWithResource, Requirement.EXCLUSION, withs, tableName, useFts);
+		filterByTableName(excludedResources, conditions, params, relation, noteIDsWithResource, Requirement.EXCLUSION, withs, tableName);
 	}
 };
 
-const tagFilter = (terms: Term[], conditions: string[], params: string[], relation: Relation, withs: string[], useFts: boolean) => {
+const tagFilter = (terms: Term[], conditions: string[], params: string[], relation: Relation, withs: string[]) => {
 	const tableName = 'tags';
 
 	const tagIDs = `
@@ -206,32 +203,30 @@ const tagFilter = (terms: Term[], conditions: string[], params: string[], relati
 	const excludedTags = terms.filter(x => x.name === 'tag' && x.negated);
 
 	if (requiredTags.length > 0) {
-		filterByTableName(requiredTags, conditions, params, relation, noteIDsWithTag, Requirement.INCLUSION, withs, tableName, useFts);
+		filterByTableName(requiredTags, conditions, params, relation, noteIDsWithTag, Requirement.INCLUSION, withs, tableName);
 	}
 
 	if (excludedTags.length > 0) {
-		filterByTableName(excludedTags, conditions, params, relation, noteIDsWithTag, Requirement.EXCLUSION, withs, tableName, useFts);
+		filterByTableName(excludedTags, conditions, params, relation, noteIDsWithTag, Requirement.EXCLUSION, withs, tableName);
 	}
 };
 
-const genericFilter = (terms: Term[], conditions: string[], params: string[], relation: Relation, fieldName: string, useFts: boolean) => {
+const genericFilter = (terms: Term[], conditions: string[], params: string[], relation: Relation, fieldName: string) => {
 	if (fieldName === 'iscompleted' || fieldName === 'type') {
 		// Faster query when values can only take two distinct values
-		biConditionalFilter(terms, conditions, relation, fieldName, useFts);
+		biConditionalFilter(terms, conditions, relation, fieldName);
 		return;
 	}
 
-	const tableName = useFts ? 'notes_normalized' : 'notes';
-
 	const getCondition = (term: Term) => {
 		if (fieldName === 'sourceurl') {
-			return `${tableName}.source_url ${term.negated ? 'NOT' : ''} LIKE ?`;
+			return `notes_normalized.source_url ${term.negated ? 'NOT' : ''} LIKE ?`;
 		} else if (fieldName === 'date' && term.name === 'due') {
 			return `todo_due ${term.negated ? '<' : '>='} ?`;
 		} else if (fieldName === 'id') {
 			return `id ${term.negated ? 'NOT' : ''} LIKE ?`;
 		} else {
-			return `${tableName}.${fieldName === 'date' ? `user_${term.name}_time` : `${term.name}`} ${term.negated ? '<' : '>='} ?`;
+			return `notes_normalized.${fieldName === 'date' ? `user_${term.name}_time` : `${term.name}`} ${term.negated ? '<' : '>='} ?`;
 		}
 	};
 
@@ -239,16 +234,16 @@ const genericFilter = (terms: Term[], conditions: string[], params: string[], re
 		conditions.push(`
 		${relation} ( ${term.name === 'due' ? 'is_todo IS 1 AND ' : ''} ROWID IN (
 			SELECT ROWID
-			FROM ${tableName}
+			FROM notes_normalized
 			WHERE ${getCondition(term)}
 		))`);
 		params.push(term.value);
 	});
 };
 
-const biConditionalFilter = (terms: Term[], conditions: string[], relation: Relation, filterName: string, useFts: boolean) => {
+const biConditionalFilter = (terms: Term[], conditions: string[], relation: Relation, filterName: string) => {
 	const getCondition = (filterName: string , value: string, relation: Relation) => {
-		const tableName = useFts ? (relation === 'AND' ? 'notes_fts' : 'notes_normalized') : 'notes';
+		const tableName = (relation === 'AND') ? 'notes_fts' : 'notes_normalized';
 		if (filterName === 'type') {
 			return `${tableName}.is_todo IS ${value === 'todo' ? 1 : 0}`;
 		} else if (filterName === 'iscompleted') {
@@ -267,44 +262,39 @@ const biConditionalFilter = (terms: Term[], conditions: string[], relation: Rela
 			AND ${getCondition(filterName, value, relation)}`);
 		}
 		if (relation === 'OR') {
-			if (useFts) {
-				conditions.push(`
-				OR ROWID IN (
-					SELECT ROWID
-					FROM notes_normalized
-					WHERE ${getCondition(filterName, value, relation)}
-				)`);
-			} else {
-				conditions.push(`
-				OR ${getCondition(filterName, value, relation)}`);
-			}
+			conditions.push(`
+			OR ROWID IN (
+				SELECT ROWID
+				FROM notes_normalized
+				WHERE ${getCondition(filterName, value, relation)}
+			)`);
 		}
 	});
 };
 
-const noteIdFilter = (terms: Term[], conditions: string[], params: string[], relation: Relation, useFts: boolean) => {
+const noteIdFilter = (terms: Term[], conditions: string[], params: string[], relation: Relation) => {
 	const noteIdTerms = terms.filter(x => x.name === 'id');
-	genericFilter(noteIdTerms, conditions, params, relation, 'id', useFts);
+	genericFilter(noteIdTerms, conditions, params, relation, 'id');
 };
 
 
-const typeFilter = (terms: Term[], conditions: string[], params: string[], relation: Relation, useFts: boolean) => {
+const typeFilter = (terms: Term[], conditions: string[], params: string[], relation: Relation) => {
 	const typeTerms = terms.filter(x => x.name === 'type');
-	genericFilter(typeTerms, conditions, params, relation, 'type', useFts);
+	genericFilter(typeTerms, conditions, params, relation, 'type');
 };
 
-const completedFilter = (terms: Term[], conditions: string[], params: string[], relation: Relation, useFts: boolean) => {
+const completedFilter = (terms: Term[], conditions: string[], params: string[], relation: Relation) => {
 	const completedTerms = terms.filter(x => x.name === 'iscompleted');
-	genericFilter(completedTerms, conditions, params, relation, 'iscompleted', useFts);
+	genericFilter(completedTerms, conditions, params, relation, 'iscompleted');
 };
 
 
-const locationFilter = (terms: Term[], conditons: string[], params: string[], relation: Relation, useFts: boolean) => {
+const locationFilter = (terms: Term[], conditons: string[], params: string[], relation: Relation) => {
 	const locationTerms = terms.filter(x => x.name === 'latitude' || x.name === 'longitude' || x.name === 'altitude');
-	genericFilter(locationTerms, conditons, params, relation, 'location', useFts);
+	genericFilter(locationTerms, conditons, params, relation, 'location');
 };
 
-const dateFilter = (terms: Term[], conditons: string[], params: string[], relation: Relation, useFts: boolean) => {
+const dateFilter = (terms: Term[], conditons: string[], params: string[], relation: Relation) => {
 	const getUnixMs = (date: string): string => {
 		const yyyymmdd = /^[0-9]{8}$/;
 		const yyyymm = /^[0-9]{6}$/;
@@ -331,61 +321,44 @@ const dateFilter = (terms: Term[], conditons: string[], params: string[], relati
 
 	const dateTerms = terms.filter(x => x.name === 'created' || x.name === 'updated' || x.name === 'due');
 	const unixDateTerms = dateTerms.map(term => { return { ...term, value: getUnixMs(term.value) }; });
-	genericFilter(unixDateTerms, conditons, params, relation, 'date', useFts);
+	genericFilter(unixDateTerms, conditons, params, relation, 'date');
 };
 
-const sourceUrlFilter = (terms: Term[], conditons: string[], params: string[], relation: Relation, useFts: boolean) => {
+const sourceUrlFilter = (terms: Term[], conditons: string[], params: string[], relation: Relation) => {
 	const urlTerms = terms.filter(x => x.name === 'sourceurl');
-	genericFilter(urlTerms, conditons, params, relation, 'sourceurl', useFts);
+	genericFilter(urlTerms, conditons, params, relation, 'sourceurl');
 };
 
-const trimQuotes = (str: string) => str.startsWith('"') && str.endsWith('"') ? str.substr(1, str.length - 2) : str;
 
-const textFilter = (terms: Term[], conditions: string[], params: string[], relation: Relation, useFts: boolean) => {
-	const createLikeMatch = (term: Term, negate: boolean) => {
-		const query = `${relation} ${negate ? 'NOT' : ''} (
-			${(term.name === 'text' || term.name === 'body') ? 'notes.body LIKE ? ' : ''}
-			${term.name === 'text' ? 'OR' : ''}
-			${(term.name === 'text' || term.name === 'title') ? 'notes.title LIKE ? ' : ''})`;
-
-		conditions.push(query);
-		const param = `%${trimQuotes(term.value).replace(/\*/, '%')}%`;
-		params.push(param);
-		if (term.name === 'text') params.push(param);
-	};
-
+const textFilter = (terms: Term[], conditions: string[], params: string[], relation: Relation) => {
 	const addExcludeTextConditions = (excludedTerms: Term[], conditions: string[], params: string[], relation: Relation) => {
-		if (useFts) {
-			const type = excludedTerms[0].name === 'text' ? '' : `.${excludedTerms[0].name}`;
-			if (relation === 'AND') {
-				conditions.push(`
-				AND ROWID NOT IN (
-					SELECT ROWID
-					FROM notes_fts
-					WHERE notes_fts${type} MATCH ?
-				)`);
-				params.push(excludedTerms.map(x => x.value).join(' OR '));
-			}
-			if (relation === 'OR') {
-				excludedTerms.forEach(term => {
-					conditions.push(`
-					OR ROWID IN (
-						SELECT *
-							FROM (
-								SELECT ROWID
-								FROM notes_fts
-								EXCEPT
-								SELECT ROWID
-								FROM notes_fts
-								WHERE notes_fts${type} MATCH ?
-						)
-					)`);
-					params.push(term.value);
-				});
-			}
-		} else {
+		const type = excludedTerms[0].name === 'text' ? '' : `.${excludedTerms[0].name}`;
+
+		if (relation === 'AND') {
+			conditions.push(`
+			AND ROWID NOT IN (
+				SELECT ROWID
+				FROM notes_fts
+				WHERE notes_fts${type} MATCH ?
+			)`);
+			params.push(excludedTerms.map(x => x.value).join(' OR '));
+		}
+
+		if (relation === 'OR') {
 			excludedTerms.forEach(term => {
-				createLikeMatch(term, true);
+				conditions.push(`
+				OR ROWID IN (
+					SELECT *
+					FROM (
+						SELECT ROWID
+						FROM notes_fts
+						EXCEPT
+						SELECT ROWID
+						FROM notes_fts
+						WHERE notes_fts${type} MATCH ?
+					)
+				)`);
+				params.push(term.value);
 			});
 		}
 	};
@@ -394,19 +367,13 @@ const textFilter = (terms: Term[], conditions: string[], params: string[], relat
 
 	const includedTerms = allTerms.filter(x => !x.negated);
 	if (includedTerms.length > 0) {
-		if (useFts) {
-			conditions.push(`${relation} notes_fts MATCH ?`);
-			const termsToMatch = includedTerms.map(term => {
-				if (term.name === 'text') return term.value;
-				else return `${term.name}:${term.value}`;
-			});
-			const matchQuery = (relation === 'OR') ? termsToMatch.join(' OR ') : termsToMatch.join(' ');
-			params.push(matchQuery);
-		} else {
-			includedTerms.forEach(term => {
-				createLikeMatch(term, false);
-			});
-		}
+		conditions.push(`${relation} notes_fts MATCH ?`);
+		const termsToMatch = includedTerms.map(term => {
+			if (term.name === 'text') return term.value;
+			else return `${term.name}:${term.value}`;
+		});
+		const matchQuery = (relation === 'OR') ? termsToMatch.join(' OR ') : termsToMatch.join(' ');
+		params.push(matchQuery);
 	}
 
 	const excludedTextTerms = allTerms.filter(x => x.name === 'text' && x.negated);
@@ -437,48 +404,47 @@ const getConnective = (terms: Term[], relation: Relation): string => {
 	return (!notebookTerm && (relation === 'OR')) ? 'ROWID=-1' : '1'; // ROWID=-1 acts as 0 (something always false)
 };
 
-export default function queryBuilder(terms: Term[], useFts: boolean) {
+export default function queryBuilder(terms: Term[]) {
 	const queryParts: string[] = [];
 	const params: string[] = [];
 	const withs: string[] = [];
 
 	const relation: Relation = getDefaultRelation(terms);
 
-	const tableName = useFts ? 'notes_fts' : 'notes';
-
 	queryParts.push(`
 	SELECT
-	${tableName}.id,
-	${tableName}.title,
-	${useFts ? 'offsets(notes_fts) AS offsets, matchinfo(notes_fts, \'pcnalx\') AS matchinfo,' : ''}
-	${tableName}.user_created_time,
-	${tableName}.user_updated_time,
-	${tableName}.is_todo,
-	${tableName}.todo_completed,
-	${tableName}.parent_id
-	FROM ${tableName}
+	notes_fts.id,
+	notes_fts.title,
+	offsets(notes_fts) AS offsets,
+	matchinfo(notes_fts, 'pcnalx') AS matchinfo,
+	notes_fts.user_created_time,
+	notes_fts.user_updated_time,
+	notes_fts.is_todo,
+	notes_fts.todo_completed,
+	notes_fts.parent_id
+	FROM notes_fts
 	WHERE ${getConnective(terms, relation)}`);
 
-	noteIdFilter(terms, queryParts, params, relation, useFts);
+	noteIdFilter(terms, queryParts, params, relation);
 
-	notebookFilter(terms, queryParts, params, withs, useFts);
+	notebookFilter(terms, queryParts, params, withs);
 
-	tagFilter(terms, queryParts, params, relation, withs, useFts);
+	tagFilter(terms, queryParts, params, relation, withs);
 
-	resourceFilter(terms, queryParts, params, relation, withs, useFts);
+	resourceFilter(terms, queryParts, params, relation, withs);
 
-	textFilter(terms, queryParts, params, relation, useFts);
+	textFilter(terms, queryParts, params, relation);
 
 
-	typeFilter(terms, queryParts, params, relation, useFts);
+	typeFilter(terms, queryParts, params, relation);
 
-	completedFilter(terms, queryParts, params, relation, useFts);
+	completedFilter(terms, queryParts, params, relation);
 
-	dateFilter(terms, queryParts, params, relation, useFts);
+	dateFilter(terms, queryParts, params, relation);
 
-	locationFilter(terms, queryParts, params, relation, useFts);
+	locationFilter(terms, queryParts, params, relation);
 
-	sourceUrlFilter(terms, queryParts, params, relation, useFts);
+	sourceUrlFilter(terms, queryParts, params, relation);
 
 	let query;
 	if (withs.length > 0) {

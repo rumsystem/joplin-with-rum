@@ -487,12 +487,13 @@ function shimInit(sharp = null, keytar = null, React = null, appVersion = null) 
 				maxSockets: 1,
 				keepAliveMsecs: 5000,
 			};
-			shim.httpAgent_ = {
-				http: new http.Agent(AgentSettings),
-				https: new https.Agent(AgentSettings),
-			};
+			if (url.startsWith('https')) {
+				shim.httpAgent_ = new https.Agent(AgentSettings);
+			} else {
+				shim.httpAgent_ = new http.Agent(AgentSettings);
+			}
 		}
-		return url.startsWith('https') ? shim.httpAgent_.https : shim.httpAgent_.http;
+		return shim.httpAgent_;
 	};
 
 	shim.openOrCreateFile = (filepath, defaultContents) => {

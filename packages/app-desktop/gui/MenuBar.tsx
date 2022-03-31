@@ -526,14 +526,6 @@ function useMenu(props: Props) {
 					click: () => { bridge().electronApp().hide(); },
 				} : noItem,
 
-				shim.isMac() ? {
-					role: 'hideothers',
-				} : noItem,
-
-				shim.isMac() ? {
-					role: 'unhide',
-				} : noItem,
-
 				{
 					type: 'separator',
 				},
