@@ -26,7 +26,7 @@ Linux          | <a href='https://github.com/laurent22/joplin/releases/download/
 
 Operating System | Download | Alt. Download
 -----------------|----------|----------------
-Android          | <a href='https://play.google.com/store/apps/details?id=net.cozic.joplin&utm_source=GitHub&utm_campaign=README&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' height="40px" src='https://raw.githubusercontent.com/laurent22/joplin/master/docs/images/BadgeAndroid.png'/></a> | or [Download APK File](https://github.com/laurent22/joplin/releases/download/android-v0.10.83/joplin-v0.10.83.apk)
+Android          | <a href='https://play.google.com/store/apps/details?id=net.cozic.joplin&utm_source=GitHub&utm_campaign=README&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' height="40px" src='https://raw.githubusercontent.com/laurent22/joplin/master/docs/images/BadgeAndroid.png'/></a> | or [Download APK File](https://github.com/laurent22/joplin/releases/download/android-v0.10.85/joplin-v0.10.85.apk)
 iOS              | <a href='https://itunes.apple.com/us/app/joplin/id1315599797'><img alt='Get it on the App Store' height="40px" src='https://raw.githubusercontent.com/laurent22/joplin/master/docs/images/BadgeIOS.png'/></a> | -
 
 ## Terminal application
@@ -175,6 +175,40 @@ Current translations:
 ![](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/cn.png)  |  中文 (简体)  |  zh_CN  |  RCJacH <RCJacH@outlook.com>  |  76%
 ![](https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/jp.png)  |  日本語  |  ja_JP  |    |  74%
 <!-- LOCALE-TABLE-AUTO-GENERATED -->
+
+# Markdown
+
+Joplin uses and renders [Github-flavoured Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) with a few variations and additions. In particular:
+
+## Math notation
+
+Math expressions can be added using the [Katex notation](https://khan.github.io/KaTeX/). To add an inline equation, wrap the expression in `` `{.katex}EXPRESSION` ``, eg. `` `{.katex}\sqrt{3x-1}+(1+x)^2` ``. To create an expression block, wrap it as follow:
+
+    ```katex
+    EXPRESSION
+    ```
+
+For example:
+
+    ```katex
+    f(x) = \int_{-\infty}^\infty
+        \hat f(\xi)\,e^{2 \pi i \xi x}
+        \,d\xi
+    ```
+
+Here is an example with the Markdown and rendered result side by side:
+
+<img src="https://raw.githubusercontent.com/laurent22/joplin/master/docs/images/Katex.png" style="max-width: 100%; max-height: 35em;">
+
+## Checkboxes
+
+Checkboxes can be added like so:
+
+    -[ ] Milk
+    -[ ] Rice
+    -[ ] Eggs
+
+The checkboxes can then be ticked in the mobile and desktop applications.
 
 # Contributing
 
