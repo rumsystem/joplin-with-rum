@@ -16,8 +16,6 @@ import KeychainServiceDriverDummy from '@joplin/lib/services/keychain/KeychainSe
 import PluginRunner from '../app/services/plugins/PluginRunner';
 import PluginService from '@joplin/lib/services/plugins/PluginService';
 import FileApiDriverJoplinServer from '@joplin/lib/file-api-driver-joplinServer';
-import OneDriveApi from '@joplin/lib/onedrive-api';
-import SyncTargetOneDrive from '@joplin/lib/SyncTargetOneDrive';
 
 const fs = require('fs-extra');
 const { JoplinDatabase } = require('@joplin/lib/joplin-database.js');
@@ -42,6 +40,7 @@ const { shimInit } = require('@joplin/lib/shim-init-node.js');
 const SyncTargetRegistry = require('@joplin/lib/SyncTargetRegistry.js');
 const SyncTargetMemory = require('@joplin/lib/SyncTargetMemory.js');
 const SyncTargetFilesystem = require('@joplin/lib/SyncTargetFilesystem.js');
+const SyncTargetOneDrive = require('@joplin/lib/SyncTargetOneDrive.js');
 const SyncTargetNextcloud = require('@joplin/lib/SyncTargetNextcloud.js');
 const SyncTargetDropbox = require('@joplin/lib/SyncTargetDropbox.js');
 const SyncTargetAmazonS3 = require('@joplin/lib/SyncTargetAmazonS3.js');
@@ -53,6 +52,7 @@ const ResourceFetcher = require('@joplin/lib/services/ResourceFetcher.js');
 const WebDavApi = require('@joplin/lib/WebDavApi');
 const DropboxApi = require('@joplin/lib/DropboxApi');
 const JoplinServerApi = require('@joplin/lib/JoplinServerApi2').default;
+const { OneDriveApi } = require('@joplin/lib/onedrive-api');
 const { loadKeychainServiceAndSettings } = require('@joplin/lib/services/SettingUtils');
 const md5 = require('md5');
 const S3 = require('aws-sdk/clients/s3');
@@ -104,6 +104,7 @@ FileApiDriverLocal.fsDriver_ = fsDriver;
 
 const logDir = `${__dirname}/../tests/logs`;
 const baseTempDir = `${__dirname}/../tests/tmp/${suiteName_}`;
+const supportDir = `${__dirname}/support`;
 
 // We add a space in the data directory path as that will help uncover
 // various space-in-path issues.
@@ -180,6 +181,7 @@ BaseItem.loadClass('Revision', Revision);
 Setting.setConstant('appId', 'net.cozic.joplintest-cli');
 Setting.setConstant('appType', 'cli');
 Setting.setConstant('tempDir', baseTempDir);
+Setting.setConstant('cacheDir', baseTempDir);
 Setting.setConstant('env', 'dev');
 
 BaseService.logger_ = logger;
@@ -864,4 +866,4 @@ class TestApp extends BaseApplication {
 	}
 }
 
-module.exports = { waitForFolderCount, afterAllCleanUp, exportDir, newPluginService, newPluginScript, synchronizerStart, afterEachCleanUp, syncTargetName, setSyncTargetName, syncDir, createTempDir, isNetworkSyncTarget, kvStore, expectThrow, logger, expectNotThrow, resourceService, resourceFetcher, tempFilePath, allSyncTargetItemsEncrypted, msleep, setupDatabase, revisionService, setupDatabaseAndSynchronizer, db, synchronizer, fileApi, sleep, clearDatabase, switchClient, syncTargetId, objectsEqual, checkThrowAsync, checkThrow, encryptionService, loadEncryptionMasterKey, fileContentEqual, decryptionWorker, currentClientId, id, ids, sortedIds, at, createNTestNotes, createNTestFolders, createNTestTags, TestApp };
+export { supportDir, waitForFolderCount, afterAllCleanUp, exportDir, newPluginService, newPluginScript, synchronizerStart, afterEachCleanUp, syncTargetName, setSyncTargetName, syncDir, createTempDir, isNetworkSyncTarget, kvStore, expectThrow, logger, expectNotThrow, resourceService, resourceFetcher, tempFilePath, allSyncTargetItemsEncrypted, msleep, setupDatabase, revisionService, setupDatabaseAndSynchronizer, db, synchronizer, fileApi, sleep, clearDatabase, switchClient, syncTargetId, objectsEqual, checkThrowAsync, checkThrow, encryptionService, loadEncryptionMasterKey, fileContentEqual, decryptionWorker, currentClientId, id, ids, sortedIds, at, createNTestNotes, createNTestFolders, createNTestTags, TestApp };

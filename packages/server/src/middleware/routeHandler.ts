@@ -1,7 +1,7 @@
 import routes from '../routes/routes';
-import { ErrorNotFound } from '../utils/errors';
+import { ErrorForbidden, ErrorNotFound } from '../utils/errors';
 import { routeResponseFormat, findMatchingRoute, Response, RouteResponseFormat, MatchedRoute } from '../utils/routeUtils';
-import { AppContext, Env } from '../utils/types';
+import { AppContext, Env, HttpMethod } from '../utils/types';
 import mustacheService, { isView, View } from '../services/MustacheService';
 
 export default async function(ctx: AppContext) {
@@ -13,7 +13,12 @@ export default async function(ctx: AppContext) {
 		const match = findMatchingRoute(ctx.path, routes);
 
 		if (match) {
-			const responseObject = await match.route.exec(match.subPath, ctx);
+			let responseObject = null;
+
+			const routeHandler = match.route.findEndPoint(ctx.request.method as HttpMethod, match.subPath.schema);
+			responseObject = await routeHandler(match.subPath, ctx);
+
+			if (!match.route.public && !ctx.owner) throw new ErrorForbidden();
 
 			if (responseObject instanceof Response) {
 				ctx.response = responseObject.response;
@@ -21,6 +26,7 @@ export default async function(ctx: AppContext) {
 				ctx.response.status = 200;
 				ctx.response.body = await mustacheService.renderView(responseObject, {
 					notifications: ctx.notifications || [],
+					hasNotifications: !!ctx.notifications && !!ctx.notifications.length,
 					owner: ctx.owner,
 				});
 			} else {
@@ -39,7 +45,7 @@ export default async function(ctx: AppContext) {
 
 		ctx.response.status = error.httpCode ? error.httpCode : 500;
 
-		const responseFormat = routeResponseFormat(match, ctx.path);
+		const responseFormat = routeResponseFormat(match, ctx);
 
 		if (responseFormat === RouteResponseFormat.Html) {
 			ctx.response.set('Content-Type', 'text/html');
