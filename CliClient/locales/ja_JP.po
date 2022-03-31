@@ -775,12 +775,11 @@ msgstr "ノートブックの名前を変更："
 msgid "Set alarm:"
 msgstr "アラームをセット："
 
+msgid "Search"
+msgstr "検索"
+
 msgid "Layout"
 msgstr "レイアウト"
-
-#, fuzzy
-msgid "Search..."
-msgstr "検索"
 
 msgid "Some items cannot be synchronised."
 msgstr "いくつかの項目は同期されませんでした。"
@@ -884,6 +883,9 @@ msgstr "同期"
 
 msgid "Notebooks"
 msgstr "ノートブック"
+
+msgid "Searches"
+msgstr "検索"
 
 msgid "Please select where the sync status should be exported to"
 msgstr "同期状況の出力先を選択してください"
@@ -1365,9 +1367,6 @@ msgstr "ノートブックを削除"
 msgid "Login with OneDrive"
 msgstr "OneDriveログイン"
 
-msgid "Search"
-msgstr "検索"
-
 msgid ""
 "Click on the (+) button to create a new note or notebook. Click on the side "
 "menu to access your existing notebooks."
@@ -1382,9 +1381,6 @@ msgstr ""
 
 msgid "Welcome"
 msgstr "ようこそ"
-
-#~ msgid "Searches"
-#~ msgstr "検索"
 
 #, fuzzy
 #~ msgid ""

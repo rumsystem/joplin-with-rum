@@ -795,12 +795,11 @@ msgstr "Переименовать блокнот:"
 msgid "Set alarm:"
 msgstr "Установить напоминание:"
 
+msgid "Search"
+msgstr "Поиск"
+
 msgid "Layout"
 msgstr "Вид"
-
-#, fuzzy
-msgid "Search..."
-msgstr "Поиск"
 
 msgid "Some items cannot be synchronised."
 msgstr "Некоторые элементы не могут быть синхронизированы."
@@ -902,6 +901,9 @@ msgstr "Синхронизировать"
 
 msgid "Notebooks"
 msgstr "Блокноты"
+
+msgid "Searches"
+msgstr "Запросы"
 
 msgid "Please select where the sync status should be exported to"
 msgstr "Выберите, куда должен быть экспортирован статус синхронизации"
@@ -1381,9 +1383,6 @@ msgstr "Удалить блокнот"
 msgid "Login with OneDrive"
 msgstr "Войти в OneDrive"
 
-msgid "Search"
-msgstr "Поиск"
-
 msgid ""
 "Click on the (+) button to create a new note or notebook. Click on the side "
 "menu to access your existing notebooks."
@@ -1396,9 +1395,6 @@ msgstr "У вас сейчас нет блокнота. Создайте его 
 
 msgid "Welcome"
 msgstr "Добро пожаловать"
-
-#~ msgid "Searches"
-#~ msgstr "Запросы"
 
 #, fuzzy
 #~ msgid ""

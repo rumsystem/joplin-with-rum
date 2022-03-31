@@ -708,10 +708,10 @@ msgstr ""
 msgid "Set alarm:"
 msgstr ""
 
-msgid "Layout"
+msgid "Search"
 msgstr ""
 
-msgid "Search..."
+msgid "Layout"
 msgstr ""
 
 msgid "Some items cannot be synchronised."
@@ -811,6 +811,9 @@ msgid "Synchronise"
 msgstr ""
 
 msgid "Notebooks"
+msgstr ""
+
+msgid "Searches"
 msgstr ""
 
 msgid "Please select where the sync status should be exported to"
@@ -1267,9 +1270,6 @@ msgid "Delete notebook"
 msgstr ""
 
 msgid "Login with OneDrive"
-msgstr ""
-
-msgid "Search"
 msgstr ""
 
 msgid ""
