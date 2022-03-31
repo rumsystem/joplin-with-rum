@@ -16,8 +16,6 @@ class NotePropertiesDialog extends React.Component {
 
 		this.okButton_click = this.okButton_click.bind(this);
 		this.cancelButton_click = this.cancelButton_click.bind(this);
-		this.onKeyDown = this.onKeyDown.bind(this);
-		this.okButton = React.createRef();
 
 		this.state = {
 			formNote: null,
@@ -42,12 +40,6 @@ class NotePropertiesDialog extends React.Component {
 
 		if ('noteId' in newProps) {
 			this.loadNote(newProps.noteId);
-		}
-	}
-
-	componentDidUpdate() {
-		if (this.state.editedKey == null) {
-			this.okButton.current.focus();
 		}
 	}
 
@@ -192,14 +184,6 @@ class NotePropertiesDialog extends React.Component {
 		this.closeDialog(false);
 	}
 
-	onKeyDown(event) {
-		if (event.keyCode === 13) {
-			this.closeDialog(true);
-		} else if (event.keyCode === 27) {
-			this.closeDialog(false);
-		}
-	}
-
 	editPropertyButtonClick(key, initialValue) {
 		this.setState({
 			editedKey: key,
@@ -238,7 +222,6 @@ class NotePropertiesDialog extends React.Component {
 
 	async cancelProperty() {
 		return new Promise((resolve, reject) => {
-			this.okButton.current.focus();
 			this.setState({
 				editedKey: null,
 				editedValue: null
@@ -364,17 +347,7 @@ class NotePropertiesDialog extends React.Component {
 		const formNote = this.state.formNote;
 
 		const buttonComps = [];
-		buttonComps.push(
-			<button
-				key="ok"
-				style={styles.button}
-				onClick={this.okButton_click}
-				ref={this.okButton}
-				onKeyDown={this.onKeyDown}
-			>
-				{_('Apply')}
-			</button>
-		);
+		buttonComps.push(<button key="ok" style={styles.button} onClick={this.okButton_click}>{_('Apply')}</button>);
 		buttonComps.push(<button key="cancel" style={styles.button} onClick={this.cancelButton_click}>{_('Cancel')}</button>);
 
 		const noteComps = [];

@@ -14,6 +14,7 @@ const InteropServiceHelper = require('../InteropServiceHelper.js');
 const Search = require('lib/models/Search');
 const Mark = require('mark.js/dist/mark.min.js');
 const SearchEngine = require('lib/services/SearchEngine');
+const { replaceRegexDiacritics } = require('lib/string-utils');
 
 class NoteListComponent extends React.Component {
 
@@ -279,9 +280,13 @@ class NoteListComponent extends React.Component {
 				const w = highlightedWords[i];
 
 				if (w.type === 'regex') {
-					mark.markRegExp(new RegExp(w.value, 'gmi'), { acrossElements: true });
+					mark.markRegExp(new RegExp('\\b' + replaceRegexDiacritics(w.value) + '\\b', 'gmi'), {
+						acrossElements: true,
+					});
 				} else {
-					mark.mark([w]);
+					mark.mark([w.value], {
+						accuracy: 'exactly',
+					});
 				}
 			}
 
