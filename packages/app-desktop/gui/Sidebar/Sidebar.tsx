@@ -449,11 +449,7 @@ class SidebarComponent extends React.Component<Props, State> {
 
 	renderTag(tag: any, selected: boolean) {
 		const anchorRef = this.anchorItemRef('tag', tag.id);
-		let noteCount = null;
-		if (Setting.value('showNoteCounts')) {
-			if (Setting.value('showCompletedTodos')) noteCount = this.renderNoteCount(tag.note_count);
-			else noteCount = this.renderNoteCount(tag.note_count - tag.todo_completed_count);
-		}
+		const noteCount = Setting.value('showNoteCounts') ? this.renderNoteCount(tag.note_count) : '';
 
 		return (
 			<StyledListItem selected={selected}
