@@ -58,26 +58,19 @@ export function safeFilename(e: string, maxLength: number = null, allowSpaces: b
 	return output.substr(0, maxLength);
 }
 
-let friendlySafeFilename_blackListChars = '/\n\r<>:\'"\\|?*#';
+let friendlySafeFilename_blackListChars = '/<>:\'"\\|?*#';
 for (let i = 0; i < 32; i++) {
 	friendlySafeFilename_blackListChars += String.fromCharCode(i);
 }
 
 const friendlySafeFilename_blackListNames = ['.', '..', 'CON', 'PRN', 'AUX', 'NUL', 'COM1', 'COM2', 'COM3', 'COM4', 'COM5', 'COM6', 'COM7', 'COM8', 'COM9', 'LPT1', 'LPT2', 'LPT3', 'LPT4', 'LPT5', 'LPT6', 'LPT7', 'LPT8', 'LPT9'];
 
-export function friendlySafeFilename(e: string, maxLength: number = null, preserveExtension: boolean = false) {
+export function friendlySafeFilename(e: string, maxLength: number = null) {
 	// Although Windows supports paths up to 255 characters, but that includes the filename and its
 	// parent directory path. Also there's generally no good reason for dir or file names
 	// to be so long, so keep it at 50, which should prevent various errors.
 	if (maxLength === null) maxLength = 50;
 	if (!e || !e.replace) return _('Untitled');
-
-	let fileExt = '';
-
-	if (preserveExtension) {
-		fileExt = `.${safeFileExtension(fileExtension(e))}`;
-		e = filename(e);
-	}
 
 	let output = '';
 	for (let i = 0; i < e.length; i++) {
@@ -113,9 +106,9 @@ export function friendlySafeFilename(e: string, maxLength: number = null, preser
 		}
 	}
 
-	if (!output) return _('Untitled') + fileExt;
+	if (!output) return _('Untitled');
 
-	return output.substr(0, maxLength) + fileExt;
+	return output.substr(0, maxLength);
 }
 
 export function toFileProtocolPath(filePathEncode: string, os: string = null) {
