@@ -663,8 +663,9 @@ msgstr "Im externen Editor bearbeiten"
 msgid "Search in all the notes"
 msgstr "Alle Notizen durchsuchen"
 
+#, fuzzy
 msgid "Search in current note"
-msgstr "Aktuelle Notiz durchsuchen"
+msgstr "Alle Notizen durchsuchen"
 
 msgid "View"
 msgstr "Ansicht"
@@ -1022,7 +1023,7 @@ msgid "Copy Link Address"
 msgstr "Link-Adresse kopieren"
 
 msgid "This attachment is not downloaded or not decrypted yet."
-msgstr "Dieser Anhang wurde nicht heruntergeladen oder noch nicht entschlüsselt."
+msgstr ""
 
 #, javascript-format
 msgid "Unsupported link or message: %s"
@@ -1141,9 +1142,9 @@ msgstr "Notizbücher"
 msgid "Decrypting items: %d/%d"
 msgstr "Entschlüsselte Objekte: %d/%d"
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Fetching resources: %d"
-msgstr "Ressourcen abrufen: %d"
+msgstr "Anhänge: %d."
 
 msgid "Please select where the sync status should be exported to"
 msgstr ""
@@ -1354,9 +1355,6 @@ msgid ""
 "this setting so that your notes are constantly being synchronised, thus "
 "reducing the number of conflicts."
 msgstr ""
-"Dadurch kann Joplin im Hintergrund laufen. Es wird empfohlen,"
-"diese Einstellung zu aktivieren, damit deine Notizen ständig synchronisiert"
-"werden und somit die Anzahl der Konflikte reduziert wird."
 
 msgid "Start application minimised in the tray icon"
 msgstr "Starte die Anwendung minimiert im Tray"
@@ -1364,11 +1362,12 @@ msgstr "Starte die Anwendung minimiert im Tray"
 msgid "Global zoom percentage"
 msgstr "Zoomstufe der Benutzeroberfläche"
 
+#, fuzzy
 msgid "Editor font size"
-msgstr "Schriftgröße im Editor"
+msgstr "Editor Schriftenfamilie"
 
 msgid "Editor font family"
-msgstr "Schriftfamilie im Editor"
+msgstr "Editor Schriftenfamilie"
 
 msgid ""
 "This must be *monospace* font or it will not work properly. If the font is "
@@ -1497,8 +1496,9 @@ msgstr "Joplin Export Verzeichnis"
 msgid "Evernote Export File"
 msgstr "Evernote Export Datei"
 
+#, fuzzy
 msgid "Json Export Directory"
-msgstr "Json Export Verzeichnis"
+msgstr "Joplin Export Verzeichnis"
 
 msgid "Directory"
 msgstr "Verzeichnis"
@@ -1692,24 +1692,24 @@ msgstr ""
 msgid "Joplin website"
 msgstr "Website von Joplin"
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Joplin v%s"
-msgstr "Joplin v%s"
+msgstr "Website von Joplin"
 
 #, javascript-format
 msgid "Database v%s"
-msgstr "Datenbank v%s"
+msgstr ""
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "FTS enabled: %d"
-msgstr "FTS aktiviert: %d"
+msgstr "Zu löschen: %d"
 
 msgid "Login with Dropbox"
 msgstr "Mit Dropbox anmelden"
 
 #, fuzzy
 msgid "Enter code here"
-msgstr "Hier Code eingeben"
+msgstr "Zum Terminal-Modus wechseln"
 
 #, javascript-format
 msgid "Master Key %s"
@@ -1763,8 +1763,9 @@ msgstr ""
 msgid "Unsupported image type: %s"
 msgstr "Nicht unterstütztes Fotoformat: %s"
 
+#, fuzzy
 msgid "Take photo"
-msgstr "Foto aufnehmen"
+msgstr "Foto anhängen"
 
 msgid "Attach photo"
 msgstr "Foto anhängen"
