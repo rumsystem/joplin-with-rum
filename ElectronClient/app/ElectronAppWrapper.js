@@ -62,9 +62,7 @@ class ElectronAppWrapper {
 
 		require('electron-context-menu')({
 			shouldShowMenu: (event, params) => {
-				// params.inputFieldType === 'none' when right-clicking the text editor. This is a bit of a hack to detect it because in this
-				// case we don't want to use the built-in context menu but a custom one.
-				return params.isEditable && params.inputFieldType !== 'none';
+				return params.isEditable;
 			},
 		});
 

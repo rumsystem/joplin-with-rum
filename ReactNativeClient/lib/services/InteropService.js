@@ -58,10 +58,6 @@ class InteropService {
 				format: 'raw',
 				target: 'directory',
 				description: _('Joplin Export Directory'),
-			}, {
-				format: 'md',
-				target: 'directory',
-				description: _('Markdown'),
 			},
 		];
 
