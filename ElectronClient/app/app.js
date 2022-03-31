@@ -365,7 +365,7 @@ class Application extends BaseApplication {
 					label: _('Hide %s', 'Joplin'),
 					platforms: ['darwin'],
 					accelerator: 'CommandOrControl+H',
-					click: () => { bridge().window().hide() }
+					click: () => { bridge().electronApp().hide() }
 				}, {
 					type: 'separator',
 				}, {
@@ -426,7 +426,7 @@ class Application extends BaseApplication {
 				}, {
 					label: Setting.settingMetadata('notes.sortOrder.reverse').label(),
 					type: 'checkbox',
-					checked: Setting.value('notes.sortOrder.reverse'),
+					checked: Setting.setValue('notes.sortOrder.reverse'),
 					screens: ['Main'],
 					click: () => {
 						Setting.setValue('notes.sortOrder.reverse', !Setting.value('notes.sortOrder.reverse'));
@@ -434,7 +434,7 @@ class Application extends BaseApplication {
 				}, {
 					label: Setting.settingMetadata('uncompletedTodosOnTop').label(),
 					type: 'checkbox',
-					checked: Setting.value('uncompletedTodosOnTop'),
+					checked: Setting.setValue('uncompletedTodosOnTop'),
 					screens: ['Main'],
 					click: () => {
 						Setting.setValue('uncompletedTodosOnTop', !Setting.value('uncompletedTodosOnTop'));
