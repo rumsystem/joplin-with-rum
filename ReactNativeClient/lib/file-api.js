@@ -128,8 +128,6 @@ class FileApi {
 		if (!options) options = {};
 		if (!('includeHidden' in options)) options.includeHidden = false;
 		if (!('context' in options)) options.context = null;
-		if (!('includeDirs' in options)) options.includeDirs = true;
-		if (!('syncItemsOnly' in options)) options.syncItemsOnly = false;
 
 		this.logger().debug(`list ${this.baseDir()}`);
 
@@ -141,14 +139,6 @@ class FileApi {
 				if (!isHidden(result.items[i].path)) temp.push(result.items[i]);
 			}
 			result.items = temp;
-		}
-
-		if (!options.includeDirs) {
-			result.items = result.items.filter(f => !f.isDir);
-		}
-
-		if (options.syncItemsOnly) {
-			result.items = result.items.filter(f => !f.isDir && BaseItem.isSystemPath(f.path));
 		}
 
 		return result;

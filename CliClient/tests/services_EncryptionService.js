@@ -19,6 +19,8 @@ process.on('unhandledRejection', (reason, p) => {
 	console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
 });
 
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000; // The first test is slow because the database needs to be built
+
 let service = null;
 
 describe('services_EncryptionService', function() {
