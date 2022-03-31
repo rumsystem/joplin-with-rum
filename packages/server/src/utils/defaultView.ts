@@ -8,7 +8,5 @@ export default function(name: string, title: string): View {
 		content: {},
 		navbar: true,
 		title: title,
-		jsFiles: [],
-		cssFiles: [],
 	};
 }

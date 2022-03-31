@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: packages/app-desktop/bridge.js:106 packages/app-desktop/bridge.js:110
 #: packages/app-desktop/bridge.js:126 packages/app-desktop/bridge.js:134
@@ -64,7 +64,7 @@ msgstr ""
 "Uygulama şimdi kapanacak. İşlemi tamamlamak için lütfen uygulamayı "
 "kapandıktan sonar yeniden çalıştırın."
 
-#: packages/app-desktop/plugins/GotoAnything.js:455
+#: packages/app-desktop/plugins/GotoAnything.js:446
 msgid ""
 "Type a note title or part of its content to jump to it. Or type # followed "
 "by a tag name, or @ followed by a notebook name. Or type : to search for "
@@ -74,12 +74,12 @@ msgstr ""
 "olarak # ile etiket ismi ya da @ ile not defteri ismi yazın. Ayrıca : "
 "yazarak komutlar içinde arama yapabilirsiniz."
 
-#: packages/app-desktop/plugins/GotoAnything.js:480
+#: packages/app-desktop/plugins/GotoAnything.js:471
 #: packages/app-desktop/gui/KeymapConfig/utils/getLabel.js:20
 msgid "Goto Anything..."
 msgstr "Şuraya Git..."
 
-#: packages/app-desktop/plugins/GotoAnything.js:487
+#: packages/app-desktop/plugins/GotoAnything.js:478
 #: packages/app-desktop/gui/KeymapConfig/utils/getLabel.js:28
 msgid "Command palette"
 msgstr "Komut paleti"
@@ -123,11 +123,11 @@ msgstr "İndirme"
 
 #: packages/app-desktop/checkForUpdates.js:189
 msgid "Skip this version"
-msgstr "Bu sürümü pas geç"
+msgstr ""
 
 #: packages/app-desktop/checkForUpdates.js:189
 msgid "Full changelog"
-msgstr "Tüm sürüm geçmişi"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteRevisionViewer.min.js:100
 msgid "This note has no history"
@@ -267,10 +267,12 @@ msgid "Retry"
 msgstr "Yeniden dene"
 
 #: packages/app-desktop/gui/StatusScreen/StatusScreen.js:137
+#, fuzzy
 msgid "Advanced tools"
-msgstr "Gelişmiş araçlar"
+msgstr "Gelişmiş seçenekler"
 
 #: packages/app-desktop/gui/StatusScreen/StatusScreen.js:139
+#, fuzzy
 msgid "Export debug report"
 msgstr "Hata Ayıklama Raporunu Dışa Aktar"
 
@@ -292,11 +294,11 @@ msgstr "Köprü Link ekle"
 msgid "List item"
 msgstr "Öğeyi listele"
 
-#: packages/app-desktop/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.js:545
+#: packages/app-desktop/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.js:513
 msgid "Layout"
 msgstr "Düzen"
 
-#: packages/app-desktop/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.js:545
+#: packages/app-desktop/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.js:513
 #, javascript-format
 msgid ""
 "This note has no content. Click on \"%s\" to toggle the editor and edit the "
@@ -305,20 +307,20 @@ msgstr ""
 "Bu nota içerik girilmemiş. Editöre geçiş yapıp notu düzenlemek için \"%s\" "
 "butonuna tıklayın."
 
-#: packages/app-desktop/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.js:654
+#: packages/app-desktop/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.js:622
 #: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:128
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:18
 msgid "Cut"
 msgstr "Kes"
 
-#: packages/app-desktop/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.js:661
+#: packages/app-desktop/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.js:629
 #: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:136
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:13
 #: packages/app-desktop/gui/MenuBar.js:377
 msgid "Copy"
 msgstr "Kopyala"
 
-#: packages/app-desktop/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.js:668
+#: packages/app-desktop/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.js:636
 #: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:143
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:23
 msgid "Paste"
@@ -330,57 +332,57 @@ msgstr "Onay Kutusu listesi"
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/utils/setupToolbarButtons.js:17
 msgid "Highlight"
-msgstr "Vurgula"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/utils/setupToolbarButtons.js:22
 msgid "Strikethrough"
-msgstr "Ortadan çizgili"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/utils/setupToolbarButtons.js:27
 msgid "Insert"
-msgstr "Gir"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/utils/setupToolbarButtons.js:33
 msgid "Superscript"
-msgstr "Üst Simge"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/utils/setupToolbarButtons.js:39
 msgid "Subscript"
-msgstr "Alt Simge"
+msgstr ""
 
-#: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:574
+#: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:564
 #: packages/app-mobile/components/screens/Note.js:1016
 msgid "Edit"
 msgstr "Düzenle"
 
-#: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:630
+#: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:620
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:53
 #: packages/app-mobile/components/screens/Note.js:771
 msgid "Attach file"
 msgstr "Dosya ekle"
 
-#: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:640
+#: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:630
 msgid "Code Block"
 msgstr "Kod Bloğu"
 
-#: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:649
+#: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:639
 msgid "Inline Code"
 msgstr "İç Kod"
 
-#: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:664
+#: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:654
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:83
 msgid "Insert Date Time"
 msgstr "Tarih Ekle"
 
-#: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:1115
+#: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:1103
 msgid "Drop notes or files here"
 msgstr "Not veya dosyaları buraya sürükleyin"
 
-#: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:1115
+#: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:1103
 msgid "Code View"
 msgstr "Kod Görünümü"
 
-#: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:1115
+#: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:1103
 #, javascript-format
 msgid ""
 "Please wait for all attachments to be downloaded and decrypted. You may also "
@@ -423,8 +425,7 @@ msgid "to-do"
 msgstr "yapılacak"
 
 #: packages/app-desktop/gui/NoteEditor/NoteTitle/NoteTitleBar.js:79
-#: packages/server/dist/models/UserModel.js:186
-#: packages/server/dist/models/UserModel.js:191
+#: packages/server/dist/models/UserModel.js:175
 msgid "note"
 msgstr "not"
 
@@ -513,8 +514,9 @@ msgid "Delete line"
 msgstr "Satırı sil"
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:92
+#, fuzzy
 msgid "Duplicate line"
-msgstr "Satırı Kopyala"
+msgstr "Çoğalt"
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:96
 msgid "Undo"
@@ -593,7 +595,7 @@ msgid "URL"
 msgstr "URL"
 
 #: packages/app-desktop/gui/NotePropertiesDialog.min.js:34
-#: packages/lib/models/Setting.js:1666
+#: packages/lib/models/Setting.js:1665
 msgid "Note History"
 msgstr "Not Geçmişi"
 
@@ -644,7 +646,7 @@ msgid "Keyboard Shortcut"
 msgstr "Klavye Kısayolu"
 
 #: packages/app-desktop/gui/KeymapConfig/utils/getLabel.js:14
-#: packages/app-desktop/gui/MenuBar.js:213 packages/app-desktop/app.js:372
+#: packages/app-desktop/gui/MenuBar.js:213 packages/app-desktop/app.js:371
 msgid "Quit"
 msgstr "Çıkış"
 
@@ -703,33 +705,17 @@ msgstr ""
 msgid "Save"
 msgstr "Kaydet"
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:463
-msgid "The Web Clipper needs your authorisation to access your data."
-msgstr ""
-
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:463
-#, fuzzy
-msgid "Grant authorisation"
-msgstr "Yetkilendirme anahtarı:"
-
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:463
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:483
-msgid "Reject"
-msgstr "Reddet"
-
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:466
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:445
 msgid ""
 "Safe mode is currently active. Note rendering and all plugins are "
 "temporarily disabled."
 msgstr ""
-"Güvenli mod şu an aktif. Not görselleştirme ve tüm ekelntiler geçici olarak "
-"devre dışı."
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:466
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:447
 msgid "Disable safe mode and restart"
-msgstr "Güvenli modu kapatıp yeniden başlat"
+msgstr ""
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:469
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:451
 msgid ""
 "The sync target needs to be upgraded before Joplin can sync. The operation "
 "may take a few minutes to complete and the app needs to be restarted. To "
@@ -740,26 +726,26 @@ msgstr ""
 "sürebilir, ve de bu işlem ardından uygulama yeniden başlatılacaktır. Bu "
 "işlemi başlatmak için lütfen linke tıklayın."
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:469
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:453
 msgid "Restart and upgrade"
 msgstr "Yeniden başlat ve güncelle"
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:472
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:457
 msgid "Some items cannot be decrypted."
 msgstr "Bazı öğelerin şifresi çözülemiyor."
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:472
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:475
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:486
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:459
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:465
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:487
 msgid "View them now"
 msgstr "Şimdi görüntüle"
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:475
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:463
 msgid "One of your master keys use an obsolete encryption method."
 msgstr ""
 "Ana şifreleme anahtarlarınızdan biri eski bir şifreleme yolunu kullanıyor."
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:478
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:469
 msgid ""
 "The default encryption method has been changed, you should re-encrypt your "
 "data."
@@ -767,32 +753,36 @@ msgstr ""
 "Varsayılan şifreleme yolu daha güvenli bir yola güncellendi, bu sebeple tüm "
 "verinizi yeniden şifrelemelisiniz."
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:478
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:471
 msgid "More info"
 msgstr "Daha fazla bilgi"
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:483
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:477
 #, javascript-format
 msgid "%s (%s) would like to share a notebook with you."
-msgstr "%s (%s) sizinle bir not defteri paylaşmak istiyor."
+msgstr ""
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:483
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:479
 msgid "Accept"
-msgstr "Kabul Et"
+msgstr ""
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:486
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:481
+msgid "Reject"
+msgstr ""
+
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:485
 msgid "Some items cannot be synchronised."
 msgstr "Bazı öğeler senkronize edilemiyor."
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:489
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:491
 msgid "One or more master keys need a password."
 msgstr "Bir veya birden fazla ana anahtar parola istiyor."
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:489
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:493
 msgid "Set the password"
 msgstr "Parola belirle"
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:612
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:616
 msgid "Use the arrows to move the layout items. Press \"Escape\" to exit."
 msgstr ""
 "Yön oklarını kullanarak görünüm elemanlarını dizebilirsiniz. Çıkmak için "
@@ -864,8 +854,9 @@ msgid "Toggle editors"
 msgstr "Editörleri aç / kapat"
 
 #: packages/app-desktop/gui/MainScreen/commands/showShareFolderDialog.js:16
+#, fuzzy
 msgid "Share notebook..."
-msgstr "No deferini paylaş..."
+msgstr "Notu paylaş..."
 
 #: packages/app-desktop/gui/MainScreen/commands/toggleLayoutMoveMode.js:16
 msgid "Change application layout"
@@ -944,7 +935,7 @@ msgstr "Anahtar panoya kopyalandı!"
 
 #: packages/app-desktop/gui/ClipperConfigScreen.min.js:44
 msgid "Are you sure you want to renew the authorisation token?"
-msgstr "Kimlik doğrulama jetonunu yenilemek istediğinizden emin misiniz?"
+msgstr ""
 
 #: packages/app-desktop/gui/ClipperConfigScreen.min.js:84
 msgid "The web clipper service is enabled and set to auto-start."
@@ -1029,7 +1020,7 @@ msgstr ""
 
 #: packages/app-desktop/gui/ClipperConfigScreen.min.js:222
 msgid "Renew token"
-msgstr "Jetonu yenile"
+msgstr ""
 
 #: packages/app-desktop/gui/MenuBar.js:167
 #, javascript-format
@@ -1063,7 +1054,7 @@ msgstr "Ek Dosyalar..."
 
 #: packages/app-desktop/gui/MenuBar.js:388
 #: packages/app-desktop/gui/MenuBar.js:466
-#: packages/app-desktop/gui/MenuBar.js:768
+#: packages/app-desktop/gui/MenuBar.js:766
 msgid "&File"
 msgstr "&Dosya"
 
@@ -1097,7 +1088,7 @@ msgid "Hide %s"
 msgstr "Şunu Gizle: %s"
 
 #: packages/app-desktop/gui/MenuBar.js:512
-#: packages/app-desktop/gui/MenuBar.js:772
+#: packages/app-desktop/gui/MenuBar.js:770
 msgid "&Edit"
 msgstr "&Düzenle"
 
@@ -1123,8 +1114,9 @@ msgid "&Go"
 msgstr "&Git"
 
 #: packages/app-desktop/gui/MenuBar.js:631
+#, fuzzy
 msgid "Note&book"
-msgstr "Not&defteri"
+msgstr "Not defterleri"
 
 #: packages/app-desktop/gui/MenuBar.js:637
 msgid "&Note"
@@ -1143,7 +1135,7 @@ msgid "Joplin Forum"
 msgstr "Joplin Forum"
 
 #: packages/app-desktop/gui/MenuBar.js:661
-#: packages/app-mobile/components/screens/ConfigScreen.js:425
+#: packages/app-mobile/components/screens/ConfigScreen.js:423
 msgid "Make a donation"
 msgstr "Bağış yapın"
 
@@ -1496,7 +1488,7 @@ msgid "Restart now"
 msgstr "Şimdi yeniden başlat"
 
 #: packages/app-desktop/gui/ConfigScreen/Sidebar.js:89
-#: packages/lib/models/Setting.js:1662
+#: packages/lib/models/Setting.js:1661
 msgid "Plugins"
 msgstr "Eklentiler"
 
@@ -1522,12 +1514,13 @@ msgid "You do not have any installed plugin."
 msgstr "Herhangi bir yüklü eklentiniz bulunmamakta."
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginsStates.js:232
+#, fuzzy
 msgid "Could not connect to plugin repository"
-msgstr "Eklenti sunucusuna bağlanılamadı"
+msgstr "Eklenti yüklenemedi: %s"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginsStates.js:234
 msgid "Try again"
-msgstr "Yeniden dene"
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginsStates.js:242
 msgid "Plugin tools"
@@ -1715,8 +1708,9 @@ msgid "Warning: not all resources shown for performance reasons (limit: %s)."
 msgstr "Uyarı: performans sebebi ile tüm kaynaklar görüntülenmedi (limit: %s)."
 
 #: packages/app-desktop/gui/ShareNoteDialog.js:141
+#, fuzzy
 msgid "Unshare note"
-msgstr "Notu paylaşmayı bırak"
+msgstr "Paylaş"
 
 #: packages/app-desktop/gui/ShareNoteDialog.js:168
 msgid "Synchronising..."
@@ -1750,18 +1744,19 @@ msgstr[0] "Paylaşılabilir Bağlantıyı Kopyala"
 msgstr[1] "Paylaşılabilir Bağlantıları Kopyala"
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:138
+#, fuzzy
 msgid "Unshare"
-msgstr "Paylaşmayı bırak"
+msgstr "Paylaş"
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:180
 msgid ""
 "Delete this invitation? The recipient will no longer have access to this "
 "shared notebook."
-msgstr "Bu davetiye kaldırılsın mi? Alıcı paylaşılan nota artık erişemeyecek."
+msgstr ""
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:194
 msgid "Add recipient:"
-msgstr "Alıcı ekle:"
+msgstr ""
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:197
 #: packages/app-mobile/components/NoteBodyViewer/hooks/useOnResourceLongPress.js:28
@@ -1771,41 +1766,45 @@ msgstr "Paylaş"
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:206
 msgid "Recipient has not yet accepted the invitation"
-msgstr "Alıcı henüz davetiyeyi Kabul etmedi"
+msgstr ""
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:207
 msgid "Recipient has rejected the invitation"
-msgstr "Alıcı davetiyeyi reddetti"
+msgstr ""
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:208
 msgid "Recipient has accepted the invitation"
-msgstr "Alıcı davetiyeyi Kabul etti"
+msgstr ""
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:218
 msgid "Recipients:"
-msgstr "Alıcılar:"
+msgstr ""
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:230
+#, fuzzy
 msgid "Synchronizing..."
 msgstr "Senkronize Ediliyor..."
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:231
+#, fuzzy
 msgid "Sharing notebook..."
-msgstr "Not paylaşılıyor..."
+msgstr "Notu paylaş..."
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:241
 msgid ""
 "Unshare this notebook? The recipients will no longer have access to its "
 "content."
-msgstr "Not paylaşımı kaldırılsın mı? Alıcı artık not içeriğine erişemeyecek."
+msgstr ""
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:251
+#, fuzzy
 msgid "Share Notebook"
-msgstr "Not Defterini Paylaş"
+msgstr "Notları Paylaş"
 
 #: packages/app-desktop/commands/toggleSafeMode.js:18
+#, fuzzy
 msgid "Toggle safe mode"
-msgstr "Güvenli modu aç / kapat"
+msgstr "Kenar çubuğunu aç / kapat"
 
 #: packages/app-desktop/commands/toggleExternalEditing.js:18
 msgid "Toggle external editing"
@@ -1837,7 +1836,7 @@ msgstr "Editörde not açılırken hata oluştu: %s"
 msgid "Open profile directory"
 msgstr "Profil dizinini aç"
 
-#: packages/app-desktop/app.js:370
+#: packages/app-desktop/app.js:369
 #, javascript-format
 msgid "Open %s"
 msgstr "Aç %s"
@@ -1892,13 +1891,13 @@ msgid "New Notebook"
 msgstr "Yeni Not Defteri"
 
 #: packages/app-mobile/components/side-menu-content.js:316
-#: packages/app-mobile/components/screens/ConfigScreen.js:443
+#: packages/app-mobile/components/screens/ConfigScreen.js:441
 msgid "Configuration"
 msgstr "Yapılandırma"
 
 #: packages/app-mobile/components/side-menu-content.js:351
 msgid "Mobile data - auto-sync disabled"
-msgstr "Mobil veri - otomatik senkronizasyon devre dışı"
+msgstr ""
 
 #: packages/app-mobile/components/note-list.js:97
 msgid "You currently have no notebooks."
@@ -1977,35 +1976,35 @@ msgstr "Bilgi"
 msgid "Encryption Config"
 msgstr "Yapılandırmayı şifrele"
 
-#: packages/app-mobile/components/screens/ConfigScreen.js:388
+#: packages/app-mobile/components/screens/ConfigScreen.js:389
 msgid "Tools"
 msgstr "Araçlar"
 
-#: packages/app-mobile/components/screens/ConfigScreen.js:389
+#: packages/app-mobile/components/screens/ConfigScreen.js:390
 msgid "Sync Status"
 msgstr "Senkronizasyon Durumu"
 
-#: packages/app-mobile/components/screens/ConfigScreen.js:390
+#: packages/app-mobile/components/screens/ConfigScreen.js:391
 msgid "Log"
 msgstr "Log"
 
-#: packages/app-mobile/components/screens/ConfigScreen.js:392
+#: packages/app-mobile/components/screens/ConfigScreen.js:393
 msgid "Creating report..."
 msgstr "Rapor oluşturuluyor..."
 
-#: packages/app-mobile/components/screens/ConfigScreen.js:392
+#: packages/app-mobile/components/screens/ConfigScreen.js:393
 msgid "Export Debug Report"
 msgstr "Hata Ayıklama Raporunu Dışa Aktar"
 
-#: packages/app-mobile/components/screens/ConfigScreen.js:394
+#: packages/app-mobile/components/screens/ConfigScreen.js:395
 msgid "Fixing search index..."
 msgstr "Arama indeksi düzeltiliyor..."
 
-#: packages/app-mobile/components/screens/ConfigScreen.js:394
+#: packages/app-mobile/components/screens/ConfigScreen.js:395
 msgid "Fix search index"
 msgstr "Arama indeksini düzelt"
 
-#: packages/app-mobile/components/screens/ConfigScreen.js:394
+#: packages/app-mobile/components/screens/ConfigScreen.js:395
 msgid ""
 "Use this to rebuild the search index if there is a problem with search. It "
 "may take a long time depending on the number of notes."
@@ -2013,28 +2012,28 @@ msgstr ""
 "Arama ile ilgili bir sorun olduğunda bunu kullanın. Not sayısına göre bu "
 "işlem uzun sürebilir."
 
-#: packages/app-mobile/components/screens/ConfigScreen.js:396
+#: packages/app-mobile/components/screens/ConfigScreen.js:397
 msgid "Exporting profile..."
 msgstr "Profil dışa aktarılıyor..."
 
-#: packages/app-mobile/components/screens/ConfigScreen.js:396
+#: packages/app-mobile/components/screens/ConfigScreen.js:397
 msgid "Export profile"
 msgstr "Profili dışarı aktar"
 
-#: packages/app-mobile/components/screens/ConfigScreen.js:396
+#: packages/app-mobile/components/screens/ConfigScreen.js:397
 msgid "For debugging purpose only: export your profile to an external SD card."
 msgstr ""
 "Sadece hata ayıklama amacıyla için: Profilinizi harici SD kart'a çıktı alın."
 
-#: packages/app-mobile/components/screens/ConfigScreen.js:407
+#: packages/app-mobile/components/screens/ConfigScreen.js:406
 msgid "Feature flags"
-msgstr "Özellik bilgileri"
+msgstr ""
 
-#: packages/app-mobile/components/screens/ConfigScreen.js:410
+#: packages/app-mobile/components/screens/ConfigScreen.js:408
 msgid "More information"
 msgstr "Daha fazla bilgi"
 
-#: packages/app-mobile/components/screens/ConfigScreen.js:416
+#: packages/app-mobile/components/screens/ConfigScreen.js:414
 msgid ""
 "To work correctly, the app needs the following permissions. Please enable "
 "them in your phone settings, in Apps > Joplin > Permissions"
@@ -2042,7 +2041,7 @@ msgstr ""
 "Düzgün çalışması için uygulamanın aşağıdaki izinlere ihtiyacı var. Lütfen "
 "bunları telefon ayarlarınızda, Uygulamalar> Joplin> İzinler’de etkinleştirin"
 
-#: packages/app-mobile/components/screens/ConfigScreen.js:417
+#: packages/app-mobile/components/screens/ConfigScreen.js:415
 msgid ""
 "- Storage: to allow attaching files to notes and to enable filesystem "
 "synchronisation."
@@ -2050,29 +2049,29 @@ msgstr ""
 "- Depolama: notlara dosya eklenmesine ve dosya sistemi senkronizasyonunun "
 "etkinleştirilmesine izin vermek için."
 
-#: packages/app-mobile/components/screens/ConfigScreen.js:418
+#: packages/app-mobile/components/screens/ConfigScreen.js:416
 msgid "- Camera: to allow taking a picture and attaching it to a note."
 msgstr "-Kamera: fotoğraf çekimi ve fotoğrafın nota eklenebilmesi için."
 
-#: packages/app-mobile/components/screens/ConfigScreen.js:419
+#: packages/app-mobile/components/screens/ConfigScreen.js:417
 msgid "- Location: to allow attaching geo-location information to a note."
 msgstr ""
 "- Konum: coğrafi konum bilgilerinin bir nota eklenmesine izin vermek için."
 
-#: packages/app-mobile/components/screens/ConfigScreen.js:430
+#: packages/app-mobile/components/screens/ConfigScreen.js:428
 msgid "Joplin website"
 msgstr "Joplin Web Sitesi"
 
-#: packages/app-mobile/components/screens/ConfigScreen.js:435
+#: packages/app-mobile/components/screens/ConfigScreen.js:433
 msgid "Privacy Policy"
 msgstr "Gizlilik Politikası"
 
-#: packages/app-mobile/components/screens/ConfigScreen.js:439
+#: packages/app-mobile/components/screens/ConfigScreen.js:437
 #, javascript-format
 msgid "Database v%s"
 msgstr "Veritabanı v%s"
 
-#: packages/app-mobile/components/screens/ConfigScreen.js:441
+#: packages/app-mobile/components/screens/ConfigScreen.js:439
 #, javascript-format
 msgid "FTS enabled: %d"
 msgstr "FTS aktif edildi: %d"
@@ -2259,23 +2258,16 @@ msgstr ""
 "Varsayılan admin parolası güvenli değil ve de henüz güncellenmedi! [Şimdi "
 "güncelle](%s)"
 
-#: packages/server/dist/models/UserModel.js:186
-#: packages/server/dist/models/UserModel.js:191
+#: packages/server/dist/models/UserModel.js:175
+#, fuzzy
 msgid "attachment"
-msgstr "ek dosya"
+msgstr "Ek Dosyalar"
 
-#: packages/server/dist/models/UserModel.js:186
+#: packages/server/dist/models/UserModel.js:175
 #, javascript-format
 msgid ""
 "Cannot save %s \"%s\" because it is larger than than the allowed limit (%s)"
-msgstr "%s \"%s\" kaydedilemedi, çünkü izin verilen limitten (%s) daha büyük"
-
-#: packages/server/dist/models/UserModel.js:191
-#, fuzzy, javascript-format
-msgid ""
-"Cannot save %s \"%s\" because it would go over the total allowed size (%s) "
-"for this account"
-msgstr "%s \"%s\" kaydedilemedi, çünkü izin verilen limitten (%s) daha büyük"
+msgstr ""
 
 #: packages/lib/onedrive-api-node-utils.js:46
 #, javascript-format
@@ -2324,23 +2316,23 @@ msgstr "Joplin Sunucusu"
 msgid "Cannot access %s"
 msgstr "%s erişilemiyor"
 
-#: packages/lib/models/Folder.js:38 packages/lib/models/Note.js:36
+#: packages/lib/models/Folder.js:36 packages/lib/models/Note.js:36
 msgid "title"
 msgstr "başlık"
 
-#: packages/lib/models/Folder.js:39 packages/lib/models/Note.js:37
+#: packages/lib/models/Folder.js:37 packages/lib/models/Note.js:37
 msgid "updated date"
 msgstr "güncelleme zamanı"
 
-#: packages/lib/models/Folder.js:103
+#: packages/lib/models/Folder.js:101
 msgid "Conflicts"
 msgstr "Çakışmalar"
 
-#: packages/lib/models/Folder.js:558
+#: packages/lib/models/Folder.js:535
 msgid "Cannot move notebook to this location"
 msgstr "Not defteri bu konuma taşınamıyor"
 
-#: packages/lib/models/Folder.js:610
+#: packages/lib/models/Folder.js:587
 #, javascript-format
 msgid "Notebooks cannot be named \"%s\", which is a reserved title."
 msgstr "Not defterine ayrılmış bir başlık adı olan \"%s\" adı verilemez."
@@ -2462,20 +2454,23 @@ msgid "Joplin Server URL"
 msgstr "Joplin Sunucusu URL"
 
 #: packages/lib/models/Setting.js:333
+#, fuzzy
 msgid "Joplin Server email"
-msgstr "Joplin Sunucusu e-posta adresi"
+msgstr "Joplin Sunucusu"
 
 #: packages/lib/models/Setting.js:344
 msgid "Joplin Server password"
 msgstr "Joplin Sunucusu ğarola"
 
 #: packages/lib/models/Setting.js:371
+#, fuzzy
 msgid "Joplin Cloud email"
-msgstr "Joplin Cloud e-posta"
+msgstr "Joplin Sunucusu"
 
 #: packages/lib/models/Setting.js:382
+#, fuzzy
 msgid "Joplin Cloud password"
-msgstr "Joplin Sunucusu parola"
+msgstr "Joplin Sunucusu ğarola"
 
 #: packages/lib/models/Setting.js:394
 msgid "Attachment download behaviour"
@@ -2715,13 +2710,11 @@ msgid ""
 "Used for most text in the markdown editor. If not found, a generic "
 "proportional (variable width) font is used."
 msgstr ""
-"Markdown metin düzenleyicilerde pek çok metinde kullanılır. Bu değer "
-"bulunamazsa, genişliği karakterlerce değişebilen jenerik bir font "
-"kullanılacak."
 
 #: packages/lib/models/Setting.js:764
+#, fuzzy
 msgid "Editor monospace font family"
-msgstr "Metin düzenleyici monospace (sabit genişlikteki) yazı tipi"
+msgstr "Editör yazı tipi"
 
 #: packages/lib/models/Setting.js:765
 msgid ""
@@ -2729,9 +2722,6 @@ msgid ""
 "tables, checkboxes, code). If not found, a generic monospace (fixed width) "
 "font is used."
 msgstr ""
-"Sabit bir metin uzunluğu gerektiren yerlerde (örn: tablolar, doğrulama "
-"kutucukları, kod vs.) kullanılır. Eğer bulunamazsa jenerik ve monospace olan "
-"bir font kullanılacak."
 
 #: packages/lib/models/Setting.js:786
 msgid "Custom stylesheet for rendered Markdown"
@@ -2743,11 +2733,11 @@ msgstr "Joplin-geneli uygulama stili için özel stil sayfası"
 
 #: packages/lib/models/Setting.js:812
 msgid "Re-upload local data to sync target"
-msgstr "Yerel veriyi senkronizasyon sunucusuna yeniden yükle"
+msgstr ""
 
 #: packages/lib/models/Setting.js:822
 msgid "Delete local data and re-download from sync target"
-msgstr "Yerel veriyi silip senkronizasyon sunucusundan yeniden indir"
+msgstr ""
 
 #: packages/lib/models/Setting.js:827
 msgid "Automatically update the application"
@@ -2784,7 +2774,7 @@ msgstr "%d saat"
 
 #: packages/lib/models/Setting.js:855
 msgid "Synchronise only over WiFi connection"
-msgstr "Sadece WiFi bağlantısı varken senkronize et"
+msgstr ""
 
 #: packages/lib/models/Setting.js:862
 msgid "Text editor command"
@@ -2850,11 +2840,11 @@ msgstr "Emacs"
 msgid "Vim"
 msgstr "Vim"
 
-#: packages/lib/models/Setting.js:918
+#: packages/lib/models/Setting.js:914
 msgid "Custom TLS certificates"
 msgstr "Özel TLS sertifikaları"
 
-#: packages/lib/models/Setting.js:919
+#: packages/lib/models/Setting.js:915
 msgid ""
 "Comma-separated list of paths to directories to load the certificates from, "
 "or path to individual cert files. For example: /my/cert_dir, /other/custom."
@@ -2867,15 +2857,15 @@ msgstr ""
 "yapılandırmasını kontrol et\" seçeneğini tıklamadan önce değişikliklerinizi "
 "kaydetmeniz gerektiğini unutmayın."
 
-#: packages/lib/models/Setting.js:941
+#: packages/lib/models/Setting.js:928
 msgid "Ignore TLS certificate errors"
 msgstr "TLS sertifikası hatalarını yoksay"
 
-#: packages/lib/models/Setting.js:950
+#: packages/lib/models/Setting.js:937
 msgid "Fail-safe"
 msgstr "Tedbir Modu"
 
-#: packages/lib/models/Setting.js:951
+#: packages/lib/models/Setting.js:938
 msgid ""
 "Fail-safe: Do not wipe out local data when sync target is empty (often the "
 "result of a misconfiguration or bug)"
@@ -2883,7 +2873,7 @@ msgstr ""
 "Tedbir Modu: Senkronize hedefi boş olduğunda yerel verileri silme (bazen "
 "yanlış ayar ve hata sonucu olur)"
 
-#: packages/lib/models/Setting.js:955
+#: packages/lib/models/Setting.js:942
 msgid ""
 "Specify the port that should be used by the API server. If not set, a "
 "default will be used."
@@ -2891,29 +2881,29 @@ msgstr ""
 "API sunucu tarafından kullanılacak portu belirleyiniz. Belirlenmez ise "
 "varsayılan bir değer kullanılır."
 
-#: packages/lib/models/Setting.js:960
+#: packages/lib/models/Setting.js:947
 msgid "Enable note history"
 msgstr "Not tarihçesini etkinleştir"
 
-#: packages/lib/models/Setting.js:970
+#: packages/lib/models/Setting.js:957
 msgid "days"
 msgstr "gün"
 
-#: packages/lib/models/Setting.js:970
+#: packages/lib/models/Setting.js:957
 #, javascript-format
 msgid "%d days"
 msgstr "%d gün"
 
-#: packages/lib/models/Setting.js:972
+#: packages/lib/models/Setting.js:959
 msgid "Keep note history for"
 msgstr "Not tarihçesini şu kadar süre tut"
 
-#: packages/lib/models/Setting.js:999
+#: packages/lib/models/Setting.js:986
 msgid "Notebook list growth factor"
 msgstr "Not defteri listesi büyüme faktörü"
 
-#: packages/lib/models/Setting.js:1000 packages/lib/models/Setting.js:1013
-#: packages/lib/models/Setting.js:1026
+#: packages/lib/models/Setting.js:987 packages/lib/models/Setting.js:1000
+#: packages/lib/models/Setting.js:1013
 msgid ""
 "The factor property sets how the item will grow or shrink to fit the "
 "available space in its container with respect to the other items. Thus an "
@@ -2925,58 +2915,58 @@ msgstr ""
 "2 olan bir bileşen, faktör değeri 1 olana nazaran 2 kat fazla alan kaplar. "
 "Değişiklikleri görmek için uygulamayı yeniden başlatın."
 
-#: packages/lib/models/Setting.js:1012
+#: packages/lib/models/Setting.js:999
 msgid "Note list growth factor"
 msgstr "Not listesi büyüme faktörü"
 
-#: packages/lib/models/Setting.js:1025
+#: packages/lib/models/Setting.js:1012
 msgid "Note area growth factor"
 msgstr "Not alanı büyüme faktörü"
 
-#: packages/lib/models/Setting.js:1253
+#: packages/lib/models/Setting.js:1252
 #, javascript-format
 msgid "Invalid option value: \"%s\". Possible values are: %s."
 msgstr "Geçersiz seçenek değeri:  \"%s\". Mümkün değerler: %s."
 
-#: packages/lib/models/Setting.js:1652
+#: packages/lib/models/Setting.js:1651
 msgid "General"
 msgstr "Genel"
 
-#: packages/lib/models/Setting.js:1654
+#: packages/lib/models/Setting.js:1653
 msgid "Synchronisation"
 msgstr "Senkronizasyon"
 
-#: packages/lib/models/Setting.js:1656
+#: packages/lib/models/Setting.js:1655
 msgid "Appearance"
 msgstr "Görünüm"
 
-#: packages/lib/models/Setting.js:1658
+#: packages/lib/models/Setting.js:1657
 msgid "Note"
 msgstr "Not"
 
-#: packages/lib/models/Setting.js:1660
+#: packages/lib/models/Setting.js:1659
 #: packages/lib/services/interop/InteropService.js:49
 #: packages/lib/services/interop/InteropService.js:59
 msgid "Markdown"
 msgstr "Markdown"
 
-#: packages/lib/models/Setting.js:1664
+#: packages/lib/models/Setting.js:1663
 msgid "Application"
 msgstr "Uygulama"
 
-#: packages/lib/models/Setting.js:1668
+#: packages/lib/models/Setting.js:1667
 msgid "Encryption"
 msgstr "Şifreleme"
 
-#: packages/lib/models/Setting.js:1670
+#: packages/lib/models/Setting.js:1669
 msgid "Web Clipper"
 msgstr "Web Alıntılayıcısı"
 
-#: packages/lib/models/Setting.js:1672
+#: packages/lib/models/Setting.js:1671
 msgid "Keyboard Shortcuts"
 msgstr "Klavye Kısayolları"
 
-#: packages/lib/models/Setting.js:1679
+#: packages/lib/models/Setting.js:1678
 msgid ""
 "These plugins enhance the Markdown renderer with additional features. Please "
 "note that, while these features might be useful, they are not standard "
@@ -2994,7 +2984,7 @@ msgstr ""
 "bir notu açmaya çalışırsanız eklentinin biçimlendirmesini kaybedersiniz. "
 "Zengin metin editörünün hangi eklentileri desteklediği altta belirtilmiştir."
 
-#: packages/lib/models/Setting.js:1681
+#: packages/lib/models/Setting.js:1680
 #, javascript-format
 msgid "Notes and settings are stored in: %s"
 msgstr "Notlar ve ayarlar şu konumda saklanır: %s"
@@ -3067,8 +3057,9 @@ msgid "Encrypted items cannot be modified"
 msgstr "Şifrelenmiş öğeler değiştirilemez"
 
 #: packages/lib/SyncTargetJoplinCloud.js:28
+#, fuzzy
 msgid "Joplin Cloud"
-msgstr "Joplin Cloud"
+msgstr "Joplin Forum"
 
 #: packages/lib/BaseApplication.js:152 packages/lib/BaseApplication.js:164
 #: packages/lib/BaseApplication.js:196
@@ -3198,9 +3189,9 @@ msgid "Cancelling..."
 msgstr "İptal ediliyor..."
 
 #: packages/lib/Synchronizer.js:156
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Completed: %s (%s)"
-msgstr "Tamamlandı: %s (%s)"
+msgstr "Tamamlanan: %s"
 
 #: packages/lib/Synchronizer.js:158
 #, javascript-format
@@ -3223,15 +3214,15 @@ msgstr ""
 "güncelleyin"
 
 #: packages/lib/JoplinServerApi.js:73
-#, javascript-format
+#, fuzzy, javascript-format
 msgid ""
 "Could not connect to Joplin Server. Please check the Synchronisation options "
 "in the config screen. Full error was:\n"
 "\n"
 "%s"
 msgstr ""
-"Joplin Sunucusuna bağlanılamadı. Lütfen senkronizasyon yapılandırması "
-"ekranını kontrol edin. Hatanın tamamı:\n"
+"Joplin Nextcloud uygulamasına bağlanılamadı. Lütfen senkronizasyon "
+"yapılandırması ekranını kontrol edin. Hatanın tamamı:\n"
 "\n"
 "%s"
 
@@ -3909,8 +3900,6 @@ msgid ""
 "Runs the commands contained in the text file. There should be one command "
 "per line."
 msgstr ""
-"Metin dosyasındaki komutları çalıştırır. Her bir komut ayrı satırda "
-"olmalıdır."
 
 #: packages/app-cli/app/command-version.js:11
 msgid "Displays version information"
@@ -4037,7 +4026,7 @@ msgstr "E"
 
 #: packages/app-cli/app/cli-utils.js:161 packages/app-cli/app/app.js:138
 msgid "n"
-msgstr "h"
+msgstr "e"
 
 #: packages/app-cli/app/base-command.js:15
 msgid "Cannot change encrypted item"

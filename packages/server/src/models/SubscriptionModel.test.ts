@@ -1,7 +1,6 @@
 import { beforeAllDb, afterAllTests, beforeEachDb, models } from '../utils/testing/testUtils';
 import { AccountType } from './UserModel';
 import { MB } from '../utils/bytes';
-import { getCanShareFolder, getMaxItemSize } from './utils/user';
 
 describe('SubscriptionModel', function() {
 
@@ -30,8 +29,8 @@ describe('SubscriptionModel', function() {
 
 		expect(user.account_type).toBe(AccountType.Pro);
 		expect(user.email).toBe('toto@example.com');
-		expect(getCanShareFolder(user)).toBe(1);
-		expect(getMaxItemSize(user)).toBe(200 * MB);
+		expect(user.can_share_folder).toBe(1);
+		expect(user.max_item_size).toBe(200 * MB);
 
 		expect(sub.stripe_subscription_id).toBe('STRIPE_SUB_ID');
 		expect(sub.stripe_user_id).toBe('STRIPE_USER_ID');

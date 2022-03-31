@@ -1,11 +1,9 @@
 import config from '../../config';
 import { NotificationKey } from '../../models/NotificationModel';
 import { AccountType } from '../../models/UserModel';
-import { getCanShareFolder, getMaxItemSize } from '../../models/utils/user';
 import { MB } from '../../utils/bytes';
 import { execRequestC } from '../../utils/testing/apiUtils';
 import { beforeAllDb, afterAllTests, beforeEachDb, models } from '../../utils/testing/testUtils';
-import uuidgen from '../../utils/uuidgen';
 import { FormUser } from './signup';
 
 describe('index_signup', function() {
@@ -23,12 +21,11 @@ describe('index_signup', function() {
 	});
 
 	test('should create a new account', async function() {
-		const password = uuidgen();
 		const formUser: FormUser = {
 			full_name: 'Toto',
 			email: 'toto@example.com',
-			password: password,
-			password2: password,
+			password: 'testing',
+			password2: 'testing',
 		};
 
 		// First confirm that it doesn't work if sign up is disabled
@@ -46,8 +43,8 @@ describe('index_signup', function() {
 		expect(user).toBeTruthy();
 		expect(user.account_type).toBe(AccountType.Basic);
 		expect(user.email_confirmed).toBe(0);
-		expect(getCanShareFolder(user)).toBe(0);
-		expect(getMaxItemSize(user)).toBe(10 * MB);
+		expect(user.can_share_folder).toBe(0);
+		expect(user.max_item_size).toBe(10 * MB);
 
 		// Check that the user is logged in
 		const session = await models().session().load(context.cookies.get('sessionId'));

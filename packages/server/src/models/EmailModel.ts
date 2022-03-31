@@ -11,11 +11,6 @@ export interface EmailToSend {
 	recipient_id?: Uuid;
 }
 
-export interface EmailSubjectBody {
-	subject: string;
-	body: string;
-}
-
 export default class EmailModel extends BaseModel<Email> {
 
 	public get tableName(): string {
@@ -27,17 +22,12 @@ export default class EmailModel extends BaseModel<Email> {
 	}
 
 	public async push(email: EmailToSend) {
-		const output = await super.save({ ...email });
-		EmailModel.eventEmitter.emit('queued');
-		return output;
+		EmailModel.eventEmitter.emit('saved');
+		return super.save({ ...email });
 	}
 
 	public async needToBeSent(): Promise<Email[]> {
 		return this.db(this.tableName).where('sent_time', '=', 0);
-	}
-
-	public async deleteAll() {
-		await this.db(this.tableName).delete();
 	}
 
 }

@@ -5,9 +5,9 @@ import { AppContext } from '../../utils/types';
 import { contextSessionId } from '../../utils/requestUtils';
 import { ErrorMethodNotAllowed } from '../../utils/errors';
 import defaultView from '../../utils/defaultView';
-import { accountTypeToString } from '../../models/UserModel';
-import { formatMaxItemSize, formatMaxTotalSize, formatTotalSize, formatTotalSizePercent, yesOrNo } from '../../utils/strings';
-import { getCanShareFolder, totalSizeClass } from '../../models/utils/user';
+import { accountTypeProperties, accountTypeToString } from '../../models/UserModel';
+import { formatBytes } from '../../utils/bytes';
+import { yesOrNo } from '../../utils/strings';
 
 const router: Router = new Router(RouteType.Web);
 
@@ -15,46 +15,30 @@ router.get('home', async (_path: SubPath, ctx: AppContext) => {
 	contextSessionId(ctx);
 
 	if (ctx.method === 'GET') {
-		const user = ctx.joplin.owner;
+		const accountProps = accountTypeProperties(ctx.owner.account_type);
 
 		const view = defaultView('home', 'Home');
 		view.content = {
 			userProps: [
 				{
 					label: 'Account Type',
-					value: accountTypeToString(user.account_type),
-					show: true,
+					value: accountTypeToString(accountProps.account_type),
 				},
 				{
 					label: 'Is Admin',
-					value: yesOrNo(user.is_admin),
-					show: !!user.is_admin,
+					value: yesOrNo(ctx.owner.is_admin),
 				},
 				{
 					label: 'Max Item Size',
-					value: formatMaxItemSize(user),
-					show: true,
+					value: accountProps.max_item_size ? formatBytes(accountProps.max_item_size) : '∞',
 				},
 				{
-					label: 'Total Size',
-					classes: [totalSizeClass(user)],
-					value: `${formatTotalSize(user)} (${formatTotalSizePercent(user)})`,
-					show: true,
-				},
-				{
-					label: 'Max Total Size',
-					value: formatMaxTotalSize(user),
-					show: true,
-				},
-				{
-					label: 'Can Publish Note',
+					label: 'Can Share Note',
 					value: yesOrNo(true),
-					show: true,
 				},
 				{
 					label: 'Can Share Notebook',
-					value: yesOrNo(getCanShareFolder(user)),
-					show: true,
+					value: yesOrNo(accountProps.can_share_folder),
 				},
 			],
 		};

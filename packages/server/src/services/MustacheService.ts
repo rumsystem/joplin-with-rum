@@ -16,7 +16,6 @@ export interface View {
 	name: string;
 	title: string;
 	path: string;
-	layout?: string;
 	navbar?: boolean;
 	content?: any;
 	partials?: string[];
@@ -36,7 +35,6 @@ interface GlobalParams {
 	privacyUrl?: string;
 	showErrorStackTraces?: boolean;
 	userDisplayName?: string;
-	supportEmail?: string;
 }
 
 export function isView(o: any): boolean {
@@ -78,9 +76,8 @@ export default class MustacheService {
 		this.prefersDarkEnabled_ = v;
 	}
 
-	private layoutPath(name: string): string {
-		if (!name) name = 'default';
-		return `${config().layoutDir}/${name}.mustache`;
+	private get defaultLayoutPath(): string {
+		return `${config().layoutDir}/default.mustache`;
 	}
 
 	private get defaultLayoutOptions(): GlobalParams {
@@ -145,7 +142,7 @@ export default class MustacheService {
 			...view.content,
 		};
 
-		return Mustache.render(await this.loadTemplateContent(this.layoutPath(view.layout)), layoutView, this.partials_);
+		return Mustache.render(await this.loadTemplateContent(this.defaultLayoutPath), layoutView, this.partials_);
 	}
 
 }

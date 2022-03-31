@@ -37,9 +37,6 @@ module.exports = {
 
 		// Server admin UI global variables
 		'onDocumentReady': 'readonly',
-		'setupPasswordStrengthHandler': 'readonly',
-		'$': 'readonly',
-		'zxcvbn': 'readonly',
 
 		'tinymce': 'readonly',
 	},

@@ -52,8 +52,6 @@ export interface Theme {
 	codeBorderColor: string;
 	codeColor: string;
 
-	blockQuoteOpacity: number;
-
 	codeMirrorTheme: string;
 	codeThemeCss: string;
 

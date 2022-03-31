@@ -44,14 +44,9 @@ export async function createDb(config: DatabaseConfig, options: CreateDbOptions 
 		}
 	}
 
-	try {
-		const db = await connectDb(config);
-		await migrateDb(db);
-		await disconnectDb(db);
-	} catch (error) {
-		error.message += `: ${config.name}`;
-		throw error;
-	}
+	const db = await connectDb(config);
+	await migrateDb(db);
+	await disconnectDb(db);
 }
 
 export async function dropDb(config: DatabaseConfig, options: DropDbOptions = null) {

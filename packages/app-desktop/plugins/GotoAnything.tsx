@@ -79,14 +79,11 @@ class Dialog extends React.PureComponent<Props, State> {
 	private itemListRef: any;
 	private listUpdateIID_: any;
 	private markupToHtml_: any;
-	private userCallback_: any = null;
 
 	constructor(props: Props) {
 		super(props);
 
 		const startString = props?.userData?.startString ? props?.userData?.startString : '';
-
-		this.userCallback_ = props?.userData?.callback;
 
 		this.state = {
 			query: startString,
@@ -401,14 +398,6 @@ class Dialog extends React.PureComponent<Props, State> {
 			open: false,
 		});
 
-		if (this.userCallback_) {
-			this.userCallback_.resolve({
-				type: this.state.listType,
-				item: { ...item },
-			});
-			return;
-		}
-
 		if (item.type === BaseModel.TYPE_COMMAND) {
 			void CommandService.instance().execute(item.id, ...item.commandArgs);
 			void focusEditorIfEditorCommand(item.id, CommandService.instance());
@@ -603,9 +592,6 @@ GotoAnything.manifest = {
 			userData: {
 				startString: ':',
 			},
-		},
-		{
-			id: 'controlledApi',
 		},
 	],
 

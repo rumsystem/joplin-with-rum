@@ -19,7 +19,6 @@ import { FolderEntity, NoteEntity, ResourceEntity } from '@joplin/lib/services/d
 import { ModelType } from '@joplin/lib/BaseModel';
 import { initializeJoplinUtils } from '../joplinUtils';
 import MustacheService from '../../services/MustacheService';
-import uuidgen from '../uuidgen';
 
 // Takes into account the fact that this file will be inside the /dist directory
 // when it runs.
@@ -59,8 +58,6 @@ function initGlobalLogger() {
 
 let createdDbPath_: string = null;
 export async function beforeAllDb(unitName: string) {
-	unitName = unitName.replace(/\//g, '_');
-
 	createdDbPath_ = `${packageRootDir}/db-test-${unitName}.sqlite`;
 
 	const tempDir = `${packageRootDir}/temp/test-${unitName}`;
@@ -178,20 +175,16 @@ export async function koaAppContext(options: AppContextTestOptions = null): Prom
 
 	const appLogger = Logger.create('AppTest');
 
-	const baseAppContext = await setupAppContext({} as any, Env.Dev, db_, () => appLogger);
-
 	// Set type to "any" because the Koa context has many properties and we
 	// don't need to mock all of them.
 	const appContext: any = {
-		baseAppContext,
-		joplin: {
-			...baseAppContext.joplinBase,
-			env: Env.Dev,
-			db: db_,
-			models: models(),
-			owner: owner,
-		},
+		...await setupAppContext({} as any, Env.Dev, db_, () => appLogger),
+		env: Env.Dev,
+		db: db_,
+		models: models(),
+		appLogger: () => appLogger,
 		path: req.url,
+		owner: owner,
 		cookies: new FakeCookies(),
 		request: new FakeRequest(req),
 		response: new FakeResponse(),
@@ -219,7 +212,6 @@ export const testAssetDir = `${packageRootDir}/assets/tests`;
 interface UserAndSession {
 	user: User;
 	session: Session;
-	password: string;
 }
 
 export function db() {
@@ -245,11 +237,9 @@ interface CreateUserAndSessionOptions {
 }
 
 export const createUserAndSession = async function(index: number = 1, isAdmin: boolean = false, options: CreateUserAndSessionOptions = null): Promise<UserAndSession> {
-	const password = uuidgen();
-
 	options = {
 		email: `user${index}@localhost`,
-		password,
+		password: '123456',
 		...options,
 	};
 
@@ -258,8 +248,7 @@ export const createUserAndSession = async function(index: number = 1, isAdmin: b
 
 	return {
 		user: await models().user().load(user.id),
-		session,
-		password,
+		session: session,
 	};
 };
 

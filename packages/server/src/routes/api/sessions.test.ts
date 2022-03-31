@@ -20,10 +20,10 @@ async function postSession(email: string, password: string): Promise<AppContext>
 	return context;
 }
 
-describe('api/sessions', function() {
+describe('api_sessions', function() {
 
 	beforeAll(async () => {
-		await beforeAllDb('api/sessions');
+		await beforeAllDb('api_sessions');
 	});
 
 	afterAll(async () => {
@@ -35,9 +35,9 @@ describe('api/sessions', function() {
 	});
 
 	test('should login user', async function() {
-		const { user, password } = await createUserAndSession(1, false);
+		const { user } = await createUserAndSession(1, false);
 
-		const context = await postSession(user.email, password);
+		const context = await postSession(user.email, '123456');
 		expect(context.response.status).toBe(200);
 		expect(!!context.response.body.id).toBe(true);
 

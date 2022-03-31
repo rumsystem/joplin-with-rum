@@ -53,7 +53,6 @@ packages/app-mobile/locales
 packages/app-mobile/node_modules
 packages/app-mobile/pluginAssets/
 packages/app-mobile/lib/rnInjectedJs/
-packages/app-mobile/components/NoteEditor/CodeMirror.bundle.js
 packages/lib/assets/
 packages/lib/rnInjectedJs/
 packages/lib/vendor/
@@ -225,9 +224,6 @@ packages/app-desktop/gui/MainScreen/commands/editAlarm.js.map
 packages/app-desktop/gui/MainScreen/commands/exportPdf.d.ts
 packages/app-desktop/gui/MainScreen/commands/exportPdf.js
 packages/app-desktop/gui/MainScreen/commands/exportPdf.js.map
-packages/app-desktop/gui/MainScreen/commands/gotoAnything.d.ts
-packages/app-desktop/gui/MainScreen/commands/gotoAnything.js
-packages/app-desktop/gui/MainScreen/commands/gotoAnything.js.map
 packages/app-desktop/gui/MainScreen/commands/hideModalMessage.d.ts
 packages/app-desktop/gui/MainScreen/commands/hideModalMessage.js
 packages/app-desktop/gui/MainScreen/commands/hideModalMessage.js.map
@@ -702,12 +698,6 @@ packages/app-mobile/components/NoteBodyViewer/hooks/useOnResourceLongPress.js.ma
 packages/app-mobile/components/NoteBodyViewer/hooks/useSource.d.ts
 packages/app-mobile/components/NoteBodyViewer/hooks/useSource.js
 packages/app-mobile/components/NoteBodyViewer/hooks/useSource.js.map
-packages/app-mobile/components/NoteEditor/CodeMirror.d.ts
-packages/app-mobile/components/NoteEditor/CodeMirror.js
-packages/app-mobile/components/NoteEditor/CodeMirror.js.map
-packages/app-mobile/components/NoteEditor/NoteEditor.d.ts
-packages/app-mobile/components/NoteEditor/NoteEditor.js
-packages/app-mobile/components/NoteEditor/NoteEditor.js.map
 packages/app-mobile/components/SelectDateTimeDialog.d.ts
 packages/app-mobile/components/SelectDateTimeDialog.js
 packages/app-mobile/components/SelectDateTimeDialog.js.map
@@ -1407,9 +1397,6 @@ packages/lib/services/searchengine/SearchEngineUtils.test.js.map
 packages/lib/services/searchengine/filterParser.d.ts
 packages/lib/services/searchengine/filterParser.js
 packages/lib/services/searchengine/filterParser.js.map
-packages/lib/services/searchengine/filterParser.test.d.ts
-packages/lib/services/searchengine/filterParser.test.js
-packages/lib/services/searchengine/filterParser.test.js.map
 packages/lib/services/searchengine/queryBuilder.d.ts
 packages/lib/services/searchengine/queryBuilder.js
 packages/lib/services/searchengine/queryBuilder.js.map
@@ -1683,19 +1670,4 @@ packages/tools/tool-utils.js.map
 packages/tools/update-readme-sponsors.d.ts
 packages/tools/update-readme-sponsors.js
 packages/tools/update-readme-sponsors.js.map
-packages/tools/website/build.d.ts
-packages/tools/website/build.js
-packages/tools/website/build.js.map
-packages/tools/website/utils/plans.d.ts
-packages/tools/website/utils/plans.js
-packages/tools/website/utils/plans.js.map
-packages/tools/website/utils/pressCarousel.d.ts
-packages/tools/website/utils/pressCarousel.js
-packages/tools/website/utils/pressCarousel.js.map
-packages/tools/website/utils/render.d.ts
-packages/tools/website/utils/render.js
-packages/tools/website/utils/render.js.map
-packages/tools/website/utils/types.d.ts
-packages/tools/website/utils/types.js
-packages/tools/website/utils/types.js.map
 # AUTO-GENERATED - EXCLUDED TYPESCRIPT BUILD
