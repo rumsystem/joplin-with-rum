@@ -117,9 +117,6 @@ class NotePropertiesDialog extends React.Component {
 		this.styles_.controlBox = {
 			marginBottom: '1em',
 			color: 'black', // This will apply for the calendar
-			display: 'flex',
-			flexDirection: 'row',
-			alignItems: 'center',
 		};
 
 		this.styles_.button = {
@@ -136,11 +133,8 @@ class NotePropertiesDialog extends React.Component {
 			color: theme.color,
 			textDecoration: 'none',
 			backgroundColor: theme.backgroundColor,
-			padding: '.14em',
-			display: 'flex',
-			alignItems: 'center',
-			justifyContent: 'center',
-			marginLeft: '0.5em',
+			border: '1px solid',
+			borderColor: theme.dividerColor,
 		};
 
 		this.styles_.input = {
@@ -329,7 +323,7 @@ class NotePropertiesDialog extends React.Component {
 		if (editCompHandler) {
 			editComp = (
 				<a href="#" onClick={editCompHandler} style={styles.editPropertyButton}>
-					<i className={`fa ${editCompIcon}`} aria-hidden="true"></i>
+					<i className={`fa ${editCompIcon}`} aria-hidden="true" style={{ marginLeft: '.5em' }}></i>
 				</a>
 			);
 		}
