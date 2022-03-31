@@ -50,8 +50,6 @@ const theme: Theme = {
 	codeBorderColor: 'rgb(220, 220, 220)',
 	codeColor: 'rgb(0,0,0)',
 
-	blockQuoteOpacity: 0.7,
-
 	codeMirrorTheme: 'default',
 	codeThemeCss: 'atom-one-light.css',
 };
