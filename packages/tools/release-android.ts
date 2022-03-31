@@ -173,6 +173,8 @@ async function main() {
 		await fs.writeFile(`${rootDir}/README.md`, readmeContent);
 	}
 
+	await execCommandVerbose('git', ['pull']);
+
 	// NOT TESTED: These commands should not be necessary anymore since they are
 	// done in completeReleaseWithChangelog()
 

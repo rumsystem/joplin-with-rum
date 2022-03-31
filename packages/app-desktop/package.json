@@ -1,6 +1,6 @@
 {
   "name": "@joplin/app-desktop",
-  "version": "2.3.3",
+  "version": "2.3.2",
   "description": "Joplin for Desktop",
   "main": "main.js",
   "private": true,
@@ -83,7 +83,8 @@
       "icon": "../../Assets/LinuxIcons",
       "category": "Office",
       "desktop": {
-        "Icon": "joplin"
+        "Icon": "joplin",
+        "MimeType": "x-scheme-handler/joplin;" 
       },
       "target": "AppImage"
     },
