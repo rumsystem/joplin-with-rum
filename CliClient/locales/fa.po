@@ -13,7 +13,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.3\n"
+"X-Generator: Poedit 2.2.2\n"
 "Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
 
 msgid "To delete a tag, untag the associated notes."
@@ -68,7 +68,7 @@ msgstr "کمبود آرگمان در دستور: %s"
 
 #, javascript-format
 msgid "%s: %s"
-msgstr "%s: %s"
+msgstr ""
 
 msgid "Your choice: "
 msgstr "انتخاب شما: "
@@ -113,7 +113,7 @@ msgid ""
 msgstr ""
 
 msgid "Marks a to-do as done."
-msgstr "علامت زدن فهرست کارها به عنوان انجام شده."
+msgstr ""
 
 #, javascript-format
 msgid "Note is not a to-do: \"%s\""
@@ -182,7 +182,7 @@ msgstr ""
 
 #, javascript-format
 msgid "Destination format: %s"
-msgstr "فرمت مقصد: %s"
+msgstr ""
 
 msgid "Exports only the given note."
 msgstr "فقط یادداشت مشخص شده را خروجی بده."
@@ -244,7 +244,7 @@ msgstr "بارگذاری اطلاعات در جاپلین."
 
 #, javascript-format
 msgid "Source format: %s"
-msgstr "فرمت مبدا: %s"
+msgstr ""
 
 msgid "Do not ask for confirmation."
 msgstr "برای تایید سوال نکن."
@@ -417,7 +417,7 @@ msgid "Downloading resources..."
 msgstr ""
 
 msgid "Cancelling... Please wait."
-msgstr "در حال لغو... لطفا منتظر بمانید."
+msgstr ""
 
 msgid ""
 "<tag-command> can be \"add\", \"remove\" or \"list\" to assign or remove "
@@ -449,7 +449,7 @@ msgstr ""
 
 #, javascript-format
 msgid "%s %s (%s)"
-msgstr "%s %s (%s)"
+msgstr ""
 
 msgid "Enum"
 msgstr ""
@@ -467,7 +467,7 @@ msgid "Default: %s"
 msgstr "پیشفرض: %s"
 
 msgid "Possible keys/values:"
-msgstr "کلید ها یا مقادیر ممکن:"
+msgstr ""
 
 msgid "Type `joplin help` for usage information."
 msgstr ""
@@ -491,7 +491,7 @@ msgid ""
 msgstr ""
 
 msgid "Search:"
-msgstr "جستجو:"
+msgstr ""
 
 msgid ""
 "Welcome to Joplin!\n"
@@ -514,16 +514,16 @@ msgid "Exporting to \"%s\" as \"%s\" format. Please wait..."
 msgstr ""
 
 msgid "Sidebar"
-msgstr "نوار کناری"
+msgstr ""
 
 msgid "Note list"
-msgstr "لیست یادداشت"
+msgstr ""
 
 msgid "Note title"
-msgstr "موضوع یادداشت"
+msgstr ""
 
 msgid "Note body"
-msgstr "بدنه ی یادداشت"
+msgstr ""
 
 #, javascript-format
 msgid "Importing from \"%s\" as \"%s\" format. Please wait..."
@@ -540,7 +540,7 @@ msgid "New note"
 msgstr "یادداشت جدید"
 
 msgid "New to-do"
-msgstr "فهرست کارهای جدید"
+msgstr ""
 
 msgid "New notebook"
 msgstr "دفترچه جدید"
@@ -577,7 +577,7 @@ msgid "Import"
 msgstr "بارگذاری"
 
 msgid "Export"
-msgstr "خروجی"
+msgstr ""
 
 #, fuzzy
 msgid "Synchronise"
@@ -585,7 +585,7 @@ msgstr "سینک کردن"
 
 #, javascript-format
 msgid "Hide %s"
-msgstr "پنهان کردن %s"
+msgstr ""
 
 msgid "Quit"
 msgstr "بستن"
@@ -615,7 +615,7 @@ msgid "Italic"
 msgstr ""
 
 msgid "Link"
-msgstr "لینک"
+msgstr ""
 
 msgid "Insert Date Time"
 msgstr "وارد کردن تاریخ و ساعت"
@@ -624,10 +624,10 @@ msgid "Edit in external editor"
 msgstr "تنظیم ویرایشگر خارجی"
 
 msgid "Search in all the notes"
-msgstr "جستجو در تمام یادداشت ها"
+msgstr ""
 
 msgid "Search in current note"
-msgstr "جستجو در همین یادداشت"
+msgstr ""
 
 msgid "&View"
 msgstr ""
@@ -642,10 +642,10 @@ msgid "Focus"
 msgstr ""
 
 msgid "&Tools"
-msgstr "&ابزارها"
+msgstr ""
 
 msgid "&Help"
-msgstr "&کمک"
+msgstr ""
 
 msgid "Website and documentation"
 msgstr ""
@@ -667,7 +667,7 @@ msgid "Cancel"
 msgstr "لغو"
 
 msgid "Current version is up-to-date."
-msgstr "ورژن فعلی به‌روز است."
+msgstr ""
 
 #, javascript-format
 msgid "%s (pre-release)"
@@ -743,7 +743,7 @@ msgid "Authorisation token:"
 msgstr ""
 
 msgid "Copy token"
-msgstr "کپی کرد توکن"
+msgstr ""
 
 msgid ""
 "This authorisation token is only needed to allow third-party applications to "
@@ -860,7 +860,7 @@ msgid "Notebook title:"
 msgstr "موضوع دفترچه:"
 
 msgid "Add or remove tags:"
-msgstr "اضافه یا حذف برچسب:"
+msgstr "اضافه یا حذف برچسب"
 
 msgid "Separate each tag by a comma."
 msgstr "هر برچسب را با ویرگول شده کنید."
@@ -897,29 +897,29 @@ msgstr ""
 
 msgid ""
 "There is currently no notebook. Create one by clicking on \"New notebook\"."
-msgstr "در حال حاظر هیچ یادداشتی وجود ندارد. با کلیک بر روی «یادداشت جدید» یک یادداشت جدید ایجاد کنید."
+msgstr ""
 
 msgid "Location"
-msgstr "مکان"
+msgstr ""
 
 msgid "URL"
 msgstr ""
 
 msgid "Note History"
-msgstr "تاریخچه ی یادداشت"
+msgstr ""
 
 msgid "Previous versions of this note"
 msgstr ""
 
 msgid "Note properties"
-msgstr "جزییات یادداشت"
+msgstr ""
 
 #, javascript-format
 msgid "The note \"%s\" has been successfully restored to the notebook \"%s\"."
 msgstr ""
 
 msgid "This note has no history"
-msgstr "این یادداشت هیچ تاریخچه ای ندارد"
+msgstr ""
 
 msgid "Restore"
 msgstr "بازگرداندن"
@@ -968,25 +968,24 @@ msgstr ""
 msgid "emphasized text"
 msgstr ""
 
-#, fuzzy
 msgid "List item"
-msgstr "لیست"
+msgstr ""
 
 msgid "Insert Hyperlink"
-msgstr "وارد کردن لینک"
+msgstr ""
 
 msgid "Attach file"
-msgstr "پیوست فایل"
+msgstr ""
 
 msgid "Tags"
-msgstr "برچسب‌ها"
+msgstr ""
 
 msgid "Set alarm"
 msgstr ""
 
 #, javascript-format
 msgid "In: %s"
-msgstr "در: %s"
+msgstr ""
 
 msgid "Hyperlink"
 msgstr "لینک"
@@ -994,36 +993,32 @@ msgstr "لینک"
 msgid "Code"
 msgstr "کد"
 
-#, fuzzy
 msgid "Numbered List"
-msgstr "لیست ترتیبی"
+msgstr ""
 
-#, fuzzy
 msgid "Bulleted List"
-msgstr "لیست بدون ترتیب"
+msgstr ""
 
-#, fuzzy
 msgid "Checkbox"
-msgstr "گزینه (چک‌باکس)"
+msgstr ""
 
 msgid "Heading"
 msgstr ""
 
 msgid "Horizontal Rule"
-msgstr "خط افقی"
+msgstr ""
 
-#, fuzzy
 msgid "Click to stop external editing"
-msgstr "کلیک کنید تا ویرایشگر خارجی را متوقف کنید"
+msgstr ""
 
 msgid "Watching..."
 msgstr ""
 
 msgid "to-do"
-msgstr "فهرست کارها"
+msgstr ""
 
 msgid "note"
-msgstr "یادداشت"
+msgstr ""
 
 #, javascript-format
 msgid "Creating new %s..."
@@ -1032,9 +1027,8 @@ msgstr ""
 msgid "Refresh"
 msgstr ""
 
-#, fuzzy
 msgid "Clear"
-msgstr "پاک"
+msgstr ""
 
 msgid "OneDrive Login"
 msgstr "ورود به OneDrive"
@@ -1052,7 +1046,7 @@ msgid "Encryption Options"
 msgstr "گزینه های رمزنگاری"
 
 msgid "Clipper Options"
-msgstr "تنظیمات کلیپر"
+msgstr ""
 
 #, javascript-format
 msgid ""
@@ -1066,7 +1060,7 @@ msgid "Remove tag \"%s\" from all notes?"
 msgstr ""
 
 msgid "Remove this search from the sidebar?"
-msgstr "این جستجو را از نواک کناری حذف شود؟"
+msgstr ""
 
 msgid "Delete"
 msgstr "پاک کردن"
@@ -1081,9 +1075,9 @@ msgstr "دفترچه ها"
 msgid "Decrypting items: %d/%d"
 msgstr ""
 
-#, javascript-format
-msgid "Fetching resources: %d"
-msgstr ""
+#, fuzzy, javascript-format
+msgid "Fetching resources: %d/%d"
+msgstr "منابع: %d."
 
 msgid "Please select where the sync status should be exported to"
 msgstr ""
@@ -1112,11 +1106,11 @@ msgstr "کپی کردن لینک Markdown"
 
 #, javascript-format
 msgid "Delete note \"%s\"?"
-msgstr "یادداشت «%s» پاک شود؟"
+msgstr ""
 
 #, javascript-format
 msgid "Delete these %d notes?"
-msgstr "تعداد %d یادداشت پاک شود؟"
+msgstr ""
 
 msgid ""
 "Type a note title to jump to it. Or type # followed by a tag name, or @ "
@@ -1128,7 +1122,7 @@ msgstr "رفنت به هر چیزی..."
 
 #, javascript-format
 msgid "Usage: %s"
-msgstr "کارکرد: %s"
+msgstr ""
 
 #, javascript-format
 msgid "Unknown flag: %s"
@@ -1207,14 +1201,14 @@ msgstr ""
 
 #, javascript-format
 msgid "Fetched items: %d/%d."
-msgstr "آیتم های دریافت شده: %d از %d"
+msgstr ""
 
 msgid "Cancelling..."
 msgstr "در حال لغو..."
 
 #, javascript-format
 msgid "Completed: %s"
-msgstr "کامل شد: %s"
+msgstr ""
 
 #, javascript-format
 msgid "Last error: %s"
@@ -1228,7 +1222,7 @@ msgstr "درحال انجام"
 
 #, javascript-format
 msgid "Synchronisation is already in progress. State: %s"
-msgstr "سینک کردن در حال انجام است. وضعیت: %s"
+msgstr ""
 
 msgid ""
 "Unknown item type downloaded - please upgrade Joplin to the latest version"
@@ -1251,11 +1245,11 @@ msgid "Conflicts"
 msgstr "تداخل ها"
 
 msgid "Cannot move notebook to this location"
-msgstr "دفترچه را نمیتوان به این مکان انتقال داد"
+msgstr ""
 
 #, javascript-format
 msgid "Notebooks cannot be named \"%s\", which is a reserved title."
-msgstr "دفترچه نمیتوان نام «%s» داشته باشد، این نام رزرو شده."
+msgstr ""
 
 msgid "created date"
 msgstr "تاریخ ایجاد"
@@ -1265,11 +1259,11 @@ msgstr ""
 
 #, javascript-format
 msgid "Cannot copy note to \"%s\" notebook"
-msgstr "نمیتوان یادداشت را به دفترچه ی «%s» کپی کرد"
+msgstr ""
 
 #, javascript-format
 msgid "Cannot move note to \"%s\" notebook"
-msgstr "نمیتوان یادداشت را به دفترچه ی «%s» انتقال داد"
+msgstr ""
 
 #, javascript-format
 msgid ""
@@ -1282,10 +1276,10 @@ msgid "Language"
 msgstr "زبان"
 
 msgid "Date format"
-msgstr "فرمت تاریخ"
+msgstr ""
 
 msgid "Time format"
-msgstr "فرمت ساعت"
+msgstr ""
 
 msgid "Theme"
 msgstr ""
@@ -1339,7 +1333,7 @@ msgid "Enable footnotes"
 msgstr "فعال سازی پاورقی"
 
 msgid "Enable table of contents extension"
-msgstr "فعال کردن افزونه ی لیست مطالب"
+msgstr ""
 
 msgid "Enable ~sub~ syntax"
 msgstr ""
@@ -1416,9 +1410,8 @@ msgstr "%d ساعت"
 msgid "%d hours"
 msgstr "%d ساعت"
 
-#, fuzzy
 msgid "Text editor command"
-msgstr "دستور ویراستار متنی"
+msgstr ""
 
 msgid ""
 "The editor command (may include arguments) that will be used to open a note. "
@@ -1447,13 +1440,13 @@ msgid ""
 msgstr ""
 
 msgid "Always"
-msgstr "همیشه"
+msgstr ""
 
 msgid "Manual"
-msgstr "دستی"
+msgstr ""
 
 msgid "Auto"
-msgstr "خودکار"
+msgstr ""
 
 msgid "Directory to synchronise with (absolute path)"
 msgstr ""
@@ -1493,21 +1486,21 @@ msgid "Enable note history"
 msgstr "فعال سایز ثبت تاریخچه ی یادداشت"
 
 msgid "days"
-msgstr "روز"
+msgstr ""
 
 #, javascript-format
 msgid "%d days"
-msgstr "%d روز"
+msgstr ""
 
 msgid "Keep note history for"
-msgstr "تاریخچه ی یادداشت را نگه دار به مدت"
+msgstr ""
 
 #, javascript-format
 msgid "Invalid option value: \"%s\". Possible values are: %s."
 msgstr ""
 
 msgid "General"
-msgstr "کلی"
+msgstr ""
 
 msgid "Synchronisation"
 msgstr ""
@@ -1526,22 +1519,22 @@ msgstr "نرم‌افزار"
 
 #, javascript-format
 msgid "The tag \"%s\" already exists. Please choose a different name."
-msgstr "برچسب «%s» وجود دارد. لطفا نام دیگری انتخاب کنی"
+msgstr ""
 
 msgid "Joplin Export File"
-msgstr "فایل خروجی Joplin"
+msgstr ""
 
 msgid "Markdown"
 msgstr ""
 
 msgid "Joplin Export Directory"
-msgstr "فولدر خروجی Joplin"
+msgstr ""
 
 msgid "Evernote Export File"
-msgstr "فولدر خروجی Evernote"
+msgstr ""
 
 msgid "Json Export Directory"
-msgstr "فولدر خروجی JSON"
+msgstr ""
 
 msgid "File"
 msgstr "فایل"
@@ -1598,7 +1591,7 @@ msgstr ""
 
 #, javascript-format
 msgid "Total: %d/%d"
-msgstr "مجموع: %d از %d"
+msgstr ""
 
 #, javascript-format
 msgid "Conflicted: %d"
@@ -1641,10 +1634,10 @@ msgid "Export Debug Report"
 msgstr ""
 
 msgid "Encryption Config"
-msgstr "تنظیمات رمزنگاری"
+msgstr ""
 
 msgid "Configuration"
-msgstr "تنظیمات"
+msgstr "تینظیمات"
 
 msgid "Move to notebook..."
 msgstr "انتقال به دفترچه..."
@@ -1663,7 +1656,7 @@ msgid "Save alarm"
 msgstr ""
 
 msgid "Select date"
-msgstr "انتخاب تاریخ"
+msgstr ""
 
 msgid "Confirm"
 msgstr "تایید"
@@ -1677,7 +1670,7 @@ msgid "Checking... Please wait."
 msgstr "در حال چک کرد... لطفا صبر کنید."
 
 msgid "Success! Synchronisation configuration appears to be correct."
-msgstr "موفقیت! تنظیمات سینک به نظر صحیح است."
+msgstr ""
 
 msgid ""
 "Error. Please check that URL, username, password, etc. are correct and that "
@@ -1698,7 +1691,7 @@ msgstr ""
 
 #, javascript-format
 msgid "Decrypted items: %s / %s"
-msgstr "موارد رمزگشایی شده: %s از %s"
+msgstr ""
 
 msgid "New tags:"
 msgstr "برچسب جدید:"
@@ -1723,29 +1716,29 @@ msgid "- Location: to allow attaching geo-location information to a note."
 msgstr ""
 
 msgid "Joplin website"
-msgstr "سایت Joplin"
+msgstr "سایت جاپلین"
 
 #, javascript-format
 msgid "Database v%s"
-msgstr "پایگاه داده ورژن %s"
+msgstr ""
 
 #, javascript-format
 msgid "FTS enabled: %d"
 msgstr ""
 
 msgid "Login with Dropbox"
-msgstr "ورود با Dropbox"
+msgstr ""
 
 msgid "Enter code here"
 msgstr "کد را اینجا وارد کنید"
 
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Master Key %s"
-msgstr "رمز اصلی %s"
+msgstr ""
 
 #, javascript-format
 msgid "Created: %s"
-msgstr "ایجاد شده: %s"
+msgstr ""
 
 msgid "Password:"
 msgstr "رمز:"
@@ -1806,15 +1799,13 @@ msgid "Convert to note"
 msgstr "تبدیل به یادداشت"
 
 msgid "Convert to todo"
-msgstr "تبدیل به فهرست کارها"
+msgstr ""
 
-#, fuzzy
 msgid "Hide metadata"
-msgstr "پنهان کردن متادیتا"
+msgstr ""
 
-#, fuzzy
 msgid "Show metadata"
-msgstr "نمایش متادیتا"
+msgstr ""
 
 msgid "View on map"
 msgstr "نمایش بر روی نقشه"
@@ -1826,7 +1817,7 @@ msgid "Edit"
 msgstr "ویرایش"
 
 msgid "Delete notebook"
-msgstr "پاک کردن دفترچه"
+msgstr ""
 
 msgid "Login with OneDrive"
 msgstr "ورود با OneDrive"
@@ -1840,7 +1831,7 @@ msgid ""
 msgstr ""
 
 msgid "You currently have no notebook. Create one by clicking on (+) button."
-msgstr "شما هیچ دفترچه ای ندارید. با کلیک کردن بر روی (+) یک دفترچه ی جدید ایجاد کنید."
+msgstr ""
 
 msgid "Welcome"
-msgstr "خوش آمدید"
+msgstr ""
