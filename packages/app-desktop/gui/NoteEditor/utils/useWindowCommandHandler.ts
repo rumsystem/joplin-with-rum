@@ -19,10 +19,9 @@ interface HookDependencies {
 	editorRef: any;
 	titleInputRef: any;
 	saveNoteAndWait: Function;
-	setFormNote: Function;
 }
 
-function editorCommandRuntime(declaration: CommandDeclaration, editorRef: any, setFormNote: Function): CommandRuntime {
+function editorCommandRuntime(declaration: CommandDeclaration, editorRef: any): CommandRuntime {
 	return {
 		execute: async (_context: CommandContext, ...args: any[]) => {
 			if (!editorRef.current.execCommand) {
@@ -40,10 +39,6 @@ function editorCommandRuntime(declaration: CommandDeclaration, editorRef: any, s
 					type: ScrollOptionTypes.Hash,
 					value: args[0],
 				});
-			} else if (declaration.name === 'editorSetText') {
-				setFormNote((prev: FormNote) => {
-					return { ...prev, body: args[0] };
-				});
 			} else {
 				return editorRef.current.execCommand({
 					name: declaration.name,
@@ -56,11 +51,11 @@ function editorCommandRuntime(declaration: CommandDeclaration, editorRef: any, s
 }
 
 export default function useWindowCommandHandler(dependencies: HookDependencies) {
-	const { setShowLocalSearch, noteSearchBarRef, editorRef, titleInputRef, setFormNote } = dependencies;
+	const { setShowLocalSearch, noteSearchBarRef, editorRef, titleInputRef } = dependencies;
 
 	useEffect(() => {
 		for (const declaration of editorCommandDeclarations) {
-			CommandService.instance().registerRuntime(declaration.name, editorCommandRuntime(declaration, editorRef, setFormNote));
+			CommandService.instance().registerRuntime(declaration.name, editorCommandRuntime(declaration, editorRef));
 		}
 
 		const dependencies = {
