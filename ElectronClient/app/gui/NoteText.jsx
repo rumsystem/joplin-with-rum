@@ -409,7 +409,7 @@ class NoteTextComponent extends React.Component {
 
 		this.scheduleReloadNoteIID_ = setTimeout(() => {
 			this.reloadNote(props, options);
-		}, 10);
+		}, 100);
 	}
 
 	// Generally, reloadNote() should not be called directly so that it's not called multiple times
@@ -562,9 +562,9 @@ class NoteTextComponent extends React.Component {
 	}
 
 	async componentWillReceiveProps(nextProps) {
-		if (this.props.newNote !== nextProps.newNote && nextProps.newNote) {
+		if (nextProps.newNote) {
 			await this.scheduleReloadNote(nextProps);
-		} else if (('noteId' in nextProps) && nextProps.noteId !== this.props.noteId) {
+		} else if ('noteId' in nextProps && nextProps.noteId !== this.props.noteId) {
 			await this.scheduleReloadNote(nextProps);
 		} else if ('noteTags' in nextProps && this.areNoteTagsModified(nextProps.noteTags, this.state.noteTags)) {
 			this.setState({
@@ -572,7 +572,7 @@ class NoteTextComponent extends React.Component {
 			});
 		}
 
-		if ((nextProps.syncStarted !== this.props.syncStarted) && ('syncStarted' in nextProps) && !nextProps.syncStarted && !this.isModified()) {
+		if ('syncStarted' in nextProps && !nextProps.syncStarted && !this.isModified()) {
 			await this.scheduleReloadNote(nextProps, { noReloadIfLocalChanges: true });
 		}
 
