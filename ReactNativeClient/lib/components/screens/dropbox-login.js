@@ -1,5 +1,5 @@
 const React = require('react'); const Component = React.Component;
-const { View, Button, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView } = require('react-native');
+const { View, Button, Text, TextInput, TouchableOpacity, StyleSheet } = require('react-native');
 const { connect } = require('react-redux');
 const { ScreenHeader } = require('lib/components/screen-header.js');
 const { _ } = require('lib/locale.js');
@@ -53,7 +53,7 @@ class DropboxLoginScreenComponent extends BaseScreenComponent {
 			<View style={this.styles().screen}>
 				<ScreenHeader title={_('Login with Dropbox')}/>
 				
-				<ScrollView style={this.styles().container}>
+				<View style={this.styles().container}>
 					<Text style={this.styles().stepText}>{_('To allow Joplin to synchronise with Dropbox, please follow the steps below:')}</Text>
 					<Text style={this.styles().stepText}>{_('Step 1: Open this URL in your browser to authorise the application:')}</Text>
 					<View>
@@ -65,10 +65,7 @@ class DropboxLoginScreenComponent extends BaseScreenComponent {
 					<TextInput selectionColor={theme.textSelectionColor} value={this.state.authCode} onChangeText={this.shared_.authCodeInput_change} style={theme.lineInput}/>
 
 					<Button disabled={this.state.checkingAuthToken} title={_("Submit")} onPress={this.shared_.submit_click}></Button>
-
-					{/* Add this extra padding to make sure the view is scrollable when the keyboard is visible on small screens (iPhone SE) */}
-					<View style={{ height: 200 }}></View>
-				</ScrollView>
+				</View>
 
 				<DialogBox ref={dialogbox => { this.dialogbox = dialogbox }}/>
 			</View>
