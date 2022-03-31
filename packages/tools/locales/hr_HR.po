@@ -17,8 +17,6 @@ msgstr ""
 "X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
 
 #: packages/app-desktop/bridge.js:106 packages/app-desktop/bridge.js:110
 #: packages/app-desktop/bridge.js:126 packages/app-desktop/bridge.js:134
@@ -707,11 +705,12 @@ msgstr "Spremi"
 
 #: packages/app-desktop/gui/MainScreen/MainScreen.js:463
 msgid "The Web Clipper needs your authorisation to access your data."
-msgstr "Web Clipper treba tvoju autorizaciju za pristup podacima."
+msgstr ""
 
 #: packages/app-desktop/gui/MainScreen/MainScreen.js:463
+#, fuzzy
 msgid "Grant authorisation"
-msgstr "Odobri autorizaciju"
+msgstr "Ključ za autorizaciju:"
 
 #: packages/app-desktop/gui/MainScreen/MainScreen.js:463
 #: packages/app-desktop/gui/MainScreen/MainScreen.js:483
@@ -2025,7 +2024,7 @@ msgstr "Samo za otklanjanje grešaka: izvezi tvoj profil na vanjsku SD karticu."
 
 #: packages/app-mobile/components/screens/ConfigScreen.js:407
 msgid "Feature flags"
-msgstr "Oznake funkcija"
+msgstr ""
 
 #: packages/app-mobile/components/screens/ConfigScreen.js:410
 msgid "More information"
@@ -2066,12 +2065,12 @@ msgstr "Politika privatnosti"
 #: packages/app-mobile/components/screens/ConfigScreen.js:439
 #, javascript-format
 msgid "Database v%s"
-msgstr "Baza podataka v%s"
+msgstr ""
 
 #: packages/app-mobile/components/screens/ConfigScreen.js:441
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "FTS enabled: %d"
-msgstr "Pretraživanje cijelog teksta je aktivirano: %d"
+msgstr "Za brisanje: %d"
 
 #: packages/app-mobile/components/screens/dropbox-login.js:55
 msgid "Login with Dropbox"
@@ -2268,13 +2267,11 @@ msgid ""
 msgstr "Nije moguće spremiti %s \"%s\" jer je veći od dozvoljene granice (%s)"
 
 #: packages/server/dist/models/UserModel.js:191
-#, javascript-format
+#, fuzzy, javascript-format
 msgid ""
 "Cannot save %s \"%s\" because it would go over the total allowed size (%s) "
 "for this account"
-msgstr ""
-"Nije moguće spremiti %s \"%s\" jer bi se prekoračila dozvoljena veličina "
-"(%s) za ovaj račun"
+msgstr "Nije moguće spremiti %s \"%s\" jer je veći od dozvoljene granice (%s)"
 
 #: packages/lib/onedrive-api-node-utils.js:46
 #, javascript-format
@@ -3192,9 +3189,9 @@ msgid "Cancelling..."
 msgstr "Prekida se …"
 
 #: packages/lib/Synchronizer.js:156
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Completed: %s (%s)"
-msgstr "Završeno: %s (%s)"
+msgstr "Završeno: %s"
 
 #: packages/lib/Synchronizer.js:158
 #, javascript-format
