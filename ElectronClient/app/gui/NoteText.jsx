@@ -90,7 +90,6 @@ class NoteTextComponent extends React.Component {
 			query: '',
 			selectedIndex: 0,
 			resultCount: 0,
-			searching: false,
 		};
 
 		this.state = {
@@ -313,8 +312,6 @@ class NoteTextComponent extends React.Component {
 					query: query,
 					selectedIndex: 0,
 					timestamp: Date.now(),
-					resultCount: this.state.localSearch.resultCount,
-					searching: true,
 				},
 			});
 		};
@@ -768,7 +765,6 @@ class NoteTextComponent extends React.Component {
 		} else if (msg === 'setMarkerCount') {
 			const ls = Object.assign({}, this.state.localSearch);
 			ls.resultCount = arg0;
-			ls.searching = false;
 			this.setState({ localSearch: ls });
 		} else if (msg.indexOf('markForDownload:') === 0) {
 			const s = msg.split(':');
@@ -1179,9 +1175,7 @@ class NoteTextComponent extends React.Component {
 		if (this.state.showLocalSearch) {
 			this.noteSearchBar_.current.wrappedInstance.focus();
 		} else {
-			this.setState({
-				showLocalSearch: true,
-				localSearch: Object.assign({}, this.localSearchDefaultState) });
+			this.setState({ showLocalSearch: true });
 		}
 
 		this.props.dispatch({
@@ -1270,6 +1264,7 @@ class NoteTextComponent extends React.Component {
 						printBackground: true,
 						pageSize: Setting.value('export.pdfPageSize'),
 						landscape: Setting.value('export.pdfPageOrientation') === 'landscape',
+						customCss: this.props.customCss,
 					});
 					await shim.fsDriver().writeFile(options.path, pdfData, 'buffer');
 				} catch (error) {
@@ -1280,6 +1275,7 @@ class NoteTextComponent extends React.Component {
 				try {
 					await InteropServiceHelper.printNote(options.noteId, {
 						printBackground: true,
+						customCss: this.props.customCss,
 					});
 				} catch (error) {
 					console.error(error);
@@ -1305,7 +1301,7 @@ class NoteTextComponent extends React.Component {
 
 			if (!path) return;
 
-			await this.printTo_('pdf', { path: path, noteId: args.noteId });
+			await this.printTo_('pdf', { path: path, noteId: note.id });
 		} catch (error) {
 			bridge().showErrorMessageBox(error.message);
 		}
@@ -2145,25 +2141,7 @@ class NoteTextComponent extends React.Component {
 			/>
 		);
 
-		const noteSearchBarComp = !this.state.showLocalSearch ? null : (
-			<NoteSearchBar
-				ref={this.noteSearchBar_}
-				style={{
-					display: 'flex',
-					height: searchBarHeight,
-					width: innerWidth,
-					borderTop: `1px solid ${theme.dividerColor}`,
-				}}
-				query={this.state.localSearch.query}
-				searching={this.state.localSearch.searching}
-				resultCount={this.state.localSearch.resultCount}
-				selectedIndex={this.state.localSearch.selectedIndex}
-				onChange={this.noteSearchBar_change}
-				onNext={this.noteSearchBar_next}
-				onPrevious={this.noteSearchBar_previous}
-				onClose={this.noteSearchBar_close}
-			/>
-		);
+		const noteSearchBarComp = !this.state.showLocalSearch ? null : <NoteSearchBar ref={this.noteSearchBar_} style={{ display: 'flex', height: searchBarHeight, width: innerWidth, borderTop: `1px solid ${theme.dividerColor}` }} onChange={this.noteSearchBar_change} onNext={this.noteSearchBar_next} onPrevious={this.noteSearchBar_previous} onClose={this.noteSearchBar_close} />;
 
 		return (
 			<div style={rootStyle} onDrop={this.onDrop_}>
