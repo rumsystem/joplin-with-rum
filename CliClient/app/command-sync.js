@@ -11,7 +11,6 @@ const md5 = require('md5');
 const locker = require('proper-lockfile');
 const fs = require('fs-extra');
 const osTmpdir = require('os-tmpdir');
-const SyncTargetRegistry = require('lib/SyncTargetRegistry');
 
 class Command extends BaseCommand {
 
@@ -62,28 +61,14 @@ class Command extends BaseCommand {
 		});
 	}
 
-	async doAuth() {
+	async doAuth(syncTargetId) {
 		const syncTarget = reg.syncTarget(this.syncTargetId_);
-		const syncTargetMd = SyncTargetRegistry.idToMetadata(this.syncTargetId_);
-
-		if (this.syncTargetId_ === 3 || this.syncTargetId_ === 4) { // OneDrive
-			this.oneDriveApiUtils_ = new OneDriveApiNodeUtils(syncTarget.api());
-			const auth = await this.oneDriveApiUtils_.oauthDance({
-				log: (...s) => { return this.stdout(...s); }
-			});
-			this.oneDriveApiUtils_ = null;
-			
-			Setting.setValue('sync.' + this.syncTargetId_ + '.auth', auth ? JSON.stringify(auth) : null);
-			if (!auth) {
-				this.stdout(_('Authentication was not completed (did not receive an authentication token).'));
-				return false;
-			}
-
-			return true;
-		}
-
-		this.stdout(_('Not authentified with %s. Please provide any missing credentials.', syncTarget.label()));
-		return false;
+		this.oneDriveApiUtils_ = new OneDriveApiNodeUtils(syncTarget.api());
+		const auth = await this.oneDriveApiUtils_.oauthDance({
+			log: (...s) => { return this.stdout(...s); }
+		});
+		this.oneDriveApiUtils_ = null;
+		return auth;
 	}
 
 	cancelAuth() {
@@ -101,7 +86,7 @@ class Command extends BaseCommand {
 		this.releaseLockFn_ = null;
 
 		// Lock is unique per profile/database
-		const lockFilePath = osTmpdir() + '/synclock_' + md5(escape(Setting.value('profileDir'))); // https://github.com/pvorb/node-md5/issues/41
+		const lockFilePath = osTmpdir() + '/synclock_' + md5(Setting.value('profileDir'));
 		if (!await fs.pathExists(lockFilePath)) await fs.writeFile(lockFilePath, 'synclock');
 
 		try {
@@ -135,8 +120,12 @@ class Command extends BaseCommand {
 				app().gui().showConsole();
 				app().gui().maximizeConsole();
 
-				const authDone = await this.doAuth();
-				if (!authDone) return cleanUp();
+				const auth = await this.doAuth(this.syncTargetId_);
+				Setting.setValue('sync.' + this.syncTargetId_ + '.auth', auth ? JSON.stringify(auth) : null);
+				if (!auth) {
+					this.stdout(_('Authentication was not completed (did not receive an authentication token).'));
+					return cleanUp();
+				}
 			}
 			
 			const sync = await syncTarget.synchronizer();

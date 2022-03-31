@@ -7,7 +7,6 @@ const { mime } = require('lib/mime-utils.js');
 const { filename } = require('lib/path-utils.js');
 const { FsDriverDummy } = require('lib/fs-driver-dummy.js');
 const { markdownUtils } = require('lib/markdown-utils.js');
-const JoplinError = require('lib/JoplinError');
 
 class Resource extends BaseItem {
 
@@ -36,7 +35,7 @@ class Resource extends BaseItem {
 
 	static async serialize(item, type = null, shownKeys = null) {
 		let fieldNames = this.fieldNames();
-		fieldNames.push('type_');
+		fieldNames.push('type_');		
 		//fieldNames = ArrayUtils.removeElement(fieldNames, 'encryption_blob_encrypted');
 		return super.serialize(item, 'resource', fieldNames);
 	}
@@ -93,13 +92,7 @@ class Resource extends BaseItem {
 
 		const encryptedPath = this.fullPath(resource, true);
 		if (resource.encryption_blob_encrypted) return { path: encryptedPath, resource: resource };
-
-		try {
-			await this.encryptionService().encryptFile(plainTextPath, encryptedPath);
-		} catch (error) {
-			if (error.code === 'ENOENT') throw new JoplinError('File not found:' + error.toString(), 'fileNotFound');
-			throw error;
-		}
+		await this.encryptionService().encryptFile(plainTextPath, encryptedPath);
 
 		const resourceCopy = Object.assign({}, resource);
 		resourceCopy.encryption_blob_encrypted = 1;
@@ -127,7 +120,7 @@ class Resource extends BaseItem {
 	}
 
 	static async content(resource) {
-		return this.fsDriver().readFile(this.fullPath(resource), 'Buffer');
+		return this.fsDriver().readFile(this.fullPath(resource));
 	}
 
 	static setContent(resource, content) {

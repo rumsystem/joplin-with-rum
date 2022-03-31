@@ -2,7 +2,11 @@ class JoplinError extends Error {
 
 	constructor(message, code = null) {
 		super(message);
-		this.code = code;
+		this.code_ = code;
+	}
+
+	get code() {
+		return this.code_;
 	}
 
 }

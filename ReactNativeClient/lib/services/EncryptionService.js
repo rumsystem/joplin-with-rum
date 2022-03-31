@@ -378,8 +378,8 @@ class EncryptionService {
 			read: async (size) => {
 				return this.fsDriver().readFileChunk(reader.handle, size, encoding);
 			},
-			close: async () => {
-				await this.fsDriver().close(reader.handle);
+			close: () => {
+				this.fsDriver().close(reader.handle);
 			},
 		};
 		return reader;
@@ -412,9 +412,9 @@ class EncryptionService {
 		let source = await this.fileReader_(srcPath, 'base64');
 		let destination = await this.fileWriter_(destPath, 'ascii');
 
-		const cleanUp = async () => {
-			if (source) await source.close();
-			if (destination) await destination.close();
+		const cleanUp = () => {
+			if (source) source.close();
+			if (destination) destination.close();
 			source = null;
 			destination = null;
 		}
@@ -428,16 +428,16 @@ class EncryptionService {
 			throw error;
 		}
 
-		await cleanUp();
+		cleanUp();
 	}
 
 	async decryptFile(srcPath, destPath) {
 		let source = await this.fileReader_(srcPath, 'ascii');
 		let destination = await this.fileWriter_(destPath, 'base64');
 
-		const cleanUp = async () => {
-			if (source) await source.close();
-			if (destination) await destination.close();
+		const cleanUp = () => {
+			if (source) source.close();
+			if (destination) destination.close();
 			source = null;
 			destination = null;
 		}
@@ -451,7 +451,7 @@ class EncryptionService {
 			throw error;
 		}
 
-		await cleanUp();
+		cleanUp();
 	}
 
 	decodeHeaderVersion_(hexaByte) {
@@ -507,8 +507,7 @@ class EncryptionService {
 	}
 
 	isValidHeaderIdentifier(id, ignoreTooLongLength = false) {
-		if (!id) return false;
-		if (!ignoreTooLongLength && id.length !== 5) return false;
+		if (!ignoreTooLongLength && !id || id.length !== 5) return false;
 		return /JED\d\d/.test(id);
 	}
 
@@ -516,7 +515,7 @@ class EncryptionService {
 		if (!item) throw new Error('No item');
 		const ItemClass = BaseItem.itemClass(item);
 		if (!ItemClass.encryptionSupported()) return false;
-		return item.encryption_applied && this.isValidHeaderIdentifier(item.encryption_cipher_text, true);
+		return item.encryption_applied && this.isValidHeaderIdentifier(item.encryption_cipher_text);
 	}
 
 	async fileIsEncrypted(path) {

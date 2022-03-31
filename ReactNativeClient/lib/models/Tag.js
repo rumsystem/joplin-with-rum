@@ -109,7 +109,7 @@ class Tag extends BaseItem {
 		for (let i = 0; i < tagTitles.length; i++) {
 			const title = tagTitles[i].trim().toLowerCase();
 			if (!title) continue;
-			let tag = await this.loadByField('title', title, { caseInsensitive: true });
+			let tag = await this.loadByField('title', title);
 			if (!tag) tag = await Tag.save({ title: title }, { userSideValidation: true });
 			await this.addNote(tag.id, noteId);
 			addedTitles.push(title);

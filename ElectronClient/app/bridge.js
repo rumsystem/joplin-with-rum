@@ -125,11 +125,6 @@ class Bridge {
 		}
 	}
 
-	checkForUpdates(inBackground, logFilePath) {
-		const { checkForUpdates } = require('./checkForUpdates.js');
-		checkForUpdates(inBackground, logFilePath);
-	}
-
 }
 
 let bridge_ = null;

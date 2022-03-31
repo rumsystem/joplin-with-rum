@@ -42,20 +42,17 @@ class PromptDialog extends React.Component {
 
 		this.styles_ = {};
 
-		const paddingTop = 20;
-
 		this.styles_.modalLayer = {
 			zIndex: 9999,
 			position: 'absolute',
 			top: 0,
 			left: 0,
 			width: width,
-			height: height - paddingTop,
+			height: height,
 			backgroundColor: 'rgba(0,0,0,0.6)',
 			display: visible ? 'flex' : 'none',
-    		alignItems: 'flex-start',
+    		alignItems: 'center',
     		justifyContent: 'center',
-    		paddingTop: paddingTop + 'px',
 		};
 
 		this.styles_.promptDialog = {
@@ -90,6 +87,24 @@ class PromptDialog extends React.Component {
 
 		return this.styles_;
 	}
+
+	// shouldComponentUpdate(nextProps, nextState) {
+	// 	console.info(JSON.stringify(nextProps)+JSON.stringify(nextState));
+
+	// 	console.info('NEXT PROPS ====================');
+	// 	for (var n in nextProps) {
+	// 		if (!nextProps.hasOwnProperty(n)) continue;
+	// 		console.info(n + ' = ' + (nextProps[n] === this.props[n]));
+	// 	}
+
+	// 	console.info('NEXT STATE ====================');
+	// 	for (var n in nextState) {
+	// 		if (!nextState.hasOwnProperty(n)) continue;
+	// 		console.info(n + ' = ' + (nextState[n] === this.state[n]));
+	// 	}
+
+	// 	return true;
+	// }
 
 	render() {
 		const style = this.props.style;

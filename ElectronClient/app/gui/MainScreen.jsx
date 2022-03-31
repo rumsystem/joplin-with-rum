@@ -44,14 +44,16 @@ class MainScreenComponent extends React.Component {
 			const folderId = Setting.value('activeFolderId');
 			if (!folderId) return;
 
-			const newNote = {
+			const note = await Note.save({
+				title: title,
 				parent_id: folderId,
 				is_todo: isTodo ? 1 : 0,
-			};
+			});
+			Note.updateGeolocation(note.id);
 
 			this.props.dispatch({
-				type: 'NOTE_SET_NEW_ONE',
-				item: newNote,
+				type: 'NOTE_SELECT',
+				id: note.id,
 			});
 		}
 
@@ -63,14 +65,30 @@ class MainScreenComponent extends React.Component {
 				return;
 			}
 
-			await createNewNote(null, false);
+			this.setState({
+				promptOptions: {
+					label: _('Note title:'),
+					onClose: async (answer) => {
+						if (answer) await createNewNote(answer, false);
+						this.setState({ promptOptions: null });
+					}
+				},
+			});
 		} else if (command.name === 'newTodo') {
 			if (!this.props.folders.length) {
 				bridge().showErrorMessageBox(_('Please create a notebook first'));
 				return;
 			}
 
-			await createNewNote(null, true);
+			this.setState({
+				promptOptions: {
+					label: _('To-do title:'),
+					onClose: async (answer) => {
+						if (answer) await createNewNote(answer, true);
+						this.setState({ promptOptions: null });
+					}
+				},
+			});
 		} else if (command.name === 'newNotebook') {
 			this.setState({
 				promptOptions: {

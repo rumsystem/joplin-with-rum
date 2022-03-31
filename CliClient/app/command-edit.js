@@ -81,9 +81,7 @@ class Command extends BaseCommand {
 			const termState = app().gui().termSaveState();
 
 			const spawnSync	= require('child_process').spawnSync;
-			const result = spawnSync(editorPath, editorArgs, { stdio: 'inherit' });
-
-			if (result.error) this.stdout(_('Error opening note in editor: %s', result.error.message));
+			spawnSync(editorPath, editorArgs, { stdio: 'inherit' });
 
 			app().gui().termRestoreState(termState);
 			app().gui().hideModalOverlay();

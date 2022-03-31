@@ -24,12 +24,9 @@ class SyncTargetFilesystem extends BaseSyncTarget {
 	}
 
 	async initFileApi() {
-		const syncPath = Setting.value('sync.2.path');
-		const driver = new FileApiDriverLocal();
-		const fileApi = new FileApi(syncPath, driver);
+		const fileApi = new FileApi(Setting.value('sync.2.path'), new FileApiDriverLocal());
 		fileApi.setLogger(this.logger());
 		fileApi.setSyncTargetId(SyncTargetFilesystem.id());
-		await driver.mkdir(syncPath);
 		return fileApi;
 	}
 

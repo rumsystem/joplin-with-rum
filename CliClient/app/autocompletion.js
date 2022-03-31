@@ -4,7 +4,6 @@ var Folder = require('lib/models/Folder.js');
 var Tag = require('lib/models/Tag.js');
 var { cliUtils } = require('./cli-utils.js');
 var yargParser = require('yargs-parser');
-var fs = require('fs-extra');
 
 async function handleAutocompletionPromise(line) {
 	// Auto-complete the command name
@@ -49,7 +48,7 @@ async function handleAutocompletionPromise(line) {
 			if (options.length > 1 && options[1].indexOf(next) === 0) {
 				l.push(options[1]);
 			} else if (options[0].indexOf(next) === 0) {
-				l.push(options[0]);
+				l.push(options[2]);
 			}
 		}
 		if (l.length === 0) {
@@ -72,10 +71,8 @@ async function handleAutocompletionPromise(line) {
 		let argName = cmdUsage[positionalArgs - 1];
 		argName = cliUtils.parseCommandArg(argName).name;
 
-		const currentFolder = app().currentFolder();
-
-		if (argName == 'note' || argName == 'note-pattern') {
-			const notes = currentFolder ? await Note.previews(currentFolder.id, { titlePattern: next + '*' }) : [];
+		if (argName == 'note' || argName == 'note-pattern' && app().currentFolder()) {
+			const notes = await Note.previews(app().currentFolder().id, { titlePattern: next + '*' });
 			l.push(...notes.map((n) => n.title));
 		}
 
@@ -84,20 +81,9 @@ async function handleAutocompletionPromise(line) {
 			l.push(...folders.map((n) => n.title));
 		}
 
-		if (argName == 'item') {
-			const notes = currentFolder ? await Note.previews(currentFolder.id, { titlePattern: next + '*' }) : [];
-			const folders = await Folder.search({ titlePattern: next + '*' });
-			l.push(...notes.map((n) => n.title), folders.map((n) => n.title));
-		}
-
 		if (argName == 'tag') {
 			let tags = await Tag.search({ titlePattern: next + '*' });
 			l.push(...tags.map((n) => n.title));
-		}
-
-		if (argName == 'file') {
-			let files = await fs.readdir('.');
-			l.push(...files);
 		}
 
 		if (argName == 'tag-command') {

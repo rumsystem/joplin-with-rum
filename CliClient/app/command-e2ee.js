@@ -131,6 +131,7 @@ class Command extends BaseCommand {
 				} else if (stat.isDirectory()) {
 					continue;
 				} else {
+					itemCount++;
 					const content = await fs.readFile(fullPath, 'utf8');
 					const item = await BaseItem.unserialize(content);
 					const ItemClass = BaseItem.itemClass(item);
@@ -139,8 +140,6 @@ class Command extends BaseCommand {
 						otherItemCount++;
 						continue;
 					}
-
-					itemCount++;
 
 					const isEncrypted = await EncryptionService.instance().itemIsEncrypted(item);
 

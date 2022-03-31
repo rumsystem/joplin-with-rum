@@ -1,6 +1,3 @@
-# Only build tags (Doesn't work - doesn't build anything)
-if: tag IS present
-
 rvm: 2.3.3
 
 matrix:
@@ -48,4 +45,5 @@ script:
   - |
     cd ElectronClient/app
     rsync -aP --delete ../../ReactNativeClient/lib/ lib/
-    npm install && yarn dist
+    npm install
+    yarn dist

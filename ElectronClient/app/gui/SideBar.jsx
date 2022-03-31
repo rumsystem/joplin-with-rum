@@ -35,7 +35,6 @@ class SideBarComponent extends React.Component {
 				alignItems: 'center',
 				cursor: 'default',
 				opacity: 0.8,
-				whiteSpace: 'nowrap',
 			},
 			listItemSelected: {
 				backgroundColor: theme.selectedColor2,
