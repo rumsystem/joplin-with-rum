@@ -3,8 +3,6 @@ import noteStyle from './noteStyle';
 import { fileExtension } from './pathUtils';
 import setupLinkify from './MdToHtml/setupLinkify';
 import validateLinks from './MdToHtml/validateLinks';
-import { ItemIdToUrlHandler } from './utils';
-import { RenderResult, RenderResultPluginAsset } from './MarkupToHtml';
 
 const MarkdownIt = require('markdown-it');
 const md5 = require('md5');
@@ -116,6 +114,18 @@ interface PluginContext {
 	currentLinks: Link[];
 }
 
+interface RenderResultPluginAsset {
+	name: string;
+	path: string;
+	mime: string;
+}
+
+interface RenderResult {
+	html: string;
+	pluginAssets: RenderResultPluginAsset[];
+	cssStrings: string[];
+}
+
 export interface RuleOptions {
 	context: PluginContext;
 	theme: any;
@@ -147,8 +157,6 @@ export interface RuleOptions {
 	audioPlayerEnabled: boolean;
 	videoPlayerEnabled: boolean;
 	pdfViewerEnabled: boolean;
-
-	itemIdToUrl?: ItemIdToUrlHandler;
 }
 
 export default class MdToHtml {

@@ -78,7 +78,6 @@ export function initConfig(env: EnvVariables) {
 		rootDir: rootDir,
 		viewDir: viewDir,
 		layoutDir: `${viewDir}/layouts`,
-		tempDir: `${rootDir}/temp`,
 		logDir: `${rootDir}/logs`,
 		database: databaseConfigFromEnv(runningInDocker_, env),
 		port: appPort,

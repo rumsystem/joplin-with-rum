@@ -6,7 +6,6 @@ export interface AlarmEntity {
   'id'?: number | null;
   'note_id'?: string;
   'trigger_time'?: number;
-  'type_'?: number;
 }
 export interface DeletedItemEntity {
   'id'?: number | null;
@@ -14,7 +13,6 @@ export interface DeletedItemEntity {
   'item_id'?: string;
   'deleted_time'?: number;
   'sync_target'?: number;
-  'type_'?: number;
 }
 export interface FolderEntity {
   'id'?: string | null;
@@ -27,7 +25,6 @@ export interface FolderEntity {
   'encryption_applied'?: number;
   'parent_id'?: string;
   'is_shared'?: number;
-  'type_'?: number;
 }
 export interface ItemChangeEntity {
   'id'?: number | null;
@@ -37,7 +34,6 @@ export interface ItemChangeEntity {
   'created_time'?: number;
   'source'?: number;
   'before_change_item'?: string;
-  'type_'?: number;
 }
 export interface KeyValueEntity {
   'id'?: number | null;
@@ -45,7 +41,6 @@ export interface KeyValueEntity {
   'value'?: string;
   'type'?: number;
   'updated_time'?: number;
-  'type_'?: number;
 }
 export interface MasterKeyEntity {
   'id'?: string | null;
@@ -55,14 +50,12 @@ export interface MasterKeyEntity {
   'encryption_method'?: number;
   'checksum'?: string;
   'content'?: string;
-  'type_'?: number;
 }
 export interface MigrationEntity {
   'id'?: number | null;
   'number'?: number;
   'updated_time'?: number;
   'created_time'?: number;
-  'type_'?: number;
 }
 export interface NoteResourceEntity {
   'id'?: number | null;
@@ -70,7 +63,6 @@ export interface NoteResourceEntity {
   'resource_id'?: string;
   'is_associated'?: number;
   'last_seen_time'?: number;
-  'type_'?: number;
 }
 export interface NoteTagEntity {
   'id'?: string | null;
@@ -83,7 +75,6 @@ export interface NoteTagEntity {
   'encryption_cipher_text'?: string;
   'encryption_applied'?: number;
   'is_shared'?: number;
-  'type_'?: number;
 }
 export interface NoteEntity {
   'id'?: string | null;
@@ -111,7 +102,6 @@ export interface NoteEntity {
   'encryption_applied'?: number;
   'markup_language'?: number;
   'is_shared'?: number;
-  'type_'?: number;
 }
 export interface NotesNormalizedEntity {
   'id'?: string;
@@ -126,14 +116,12 @@ export interface NotesNormalizedEntity {
   'longitude'?: number;
   'altitude'?: number;
   'source_url'?: string;
-  'type_'?: number;
 }
 export interface ResourceLocalStateEntity {
   'id'?: number | null;
   'resource_id'?: string;
   'fetch_status'?: number;
   'fetch_error'?: string;
-  'type_'?: number;
 }
 export interface ResourceEntity {
   'id'?: string | null;
@@ -150,14 +138,12 @@ export interface ResourceEntity {
   'encryption_blob_encrypted'?: number;
   'size'?: number;
   'is_shared'?: number;
-  'type_'?: number;
 }
 export interface ResourcesToDownloadEntity {
   'id'?: number | null;
   'resource_id'?: string;
   'updated_time'?: number;
   'created_time'?: number;
-  'type_'?: number;
 }
 export interface RevisionEntity {
   'id'?: string | null;
@@ -172,12 +158,10 @@ export interface RevisionEntity {
   'encryption_applied'?: number;
   'updated_time'?: number;
   'created_time'?: number;
-  'type_'?: number;
 }
 export interface SettingEntity {
   'key'?: string | null;
   'value'?: string | null;
-  'type_'?: number;
 }
 export interface SyncItemEntity {
   'id'?: number | null;
@@ -189,7 +173,6 @@ export interface SyncItemEntity {
   'sync_disabled_reason'?: string;
   'force_sync'?: number;
   'item_location'?: number;
-  'type_'?: number;
 }
 export interface TableFieldEntity {
   'id'?: number | null;
@@ -197,7 +180,6 @@ export interface TableFieldEntity {
   'field_name'?: string;
   'field_type'?: number;
   'field_default'?: string | null;
-  'type_'?: number;
 }
 export interface TagEntity {
   'id'?: string | null;
@@ -210,7 +192,6 @@ export interface TagEntity {
   'encryption_applied'?: number;
   'is_shared'?: number;
   'parent_id'?: string;
-  'type_'?: number;
 }
 export interface TagsWithNoteCountEntity {
   'id'?: string | null;
@@ -218,10 +199,8 @@ export interface TagsWithNoteCountEntity {
   'created_time'?: number | null;
   'updated_time'?: number | null;
   'note_count'?: any | null;
-  'type_'?: number;
 }
 export interface VersionEntity {
   'version'?: number;
   'table_fields_version'?: number;
-  'type_'?: number;
 }

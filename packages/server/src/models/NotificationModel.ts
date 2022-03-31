@@ -1,7 +1,7 @@
 import { Notification, NotificationLevel, Uuid } from '../db';
 import BaseModel from './BaseModel';
 
-export default class NotificationModel extends BaseModel<Notification> {
+export default class NotificationModel extends BaseModel {
 
 	protected get tableName(): string {
 		return 'notifications';

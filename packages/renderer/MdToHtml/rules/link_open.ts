@@ -20,7 +20,6 @@ function plugin(markdownIt: any, ruleOptions: RuleOptions) {
 			plainResourceRendering: ruleOptions.plainResourceRendering,
 			postMessageSyntax: ruleOptions.postMessageSyntax,
 			enableLongPress: ruleOptions.enableLongPress,
-			itemIdToUrl: ruleOptions.itemIdToUrl,
 		});
 
 		ruleOptions.context.currentLinks.push({

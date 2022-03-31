@@ -10,13 +10,13 @@ import { RequestMethod, Request } from '../Api';
 import markdownUtils from '../../../markdownUtils';
 import collectionToPaginatedResults from '../utils/collectionToPaginatedResults';
 
-import { reg } from '../../../registry';
-import Database from '../../../database';
+const { reg } = require('../../../registry.js');
+const { Database } = require('../../../database.js');
 import Folder from '../../../models/Folder';
 import Note from '../../../models/Note';
 import Tag from '../../../models/Tag';
 import Resource from '../../../models/Resource';
-const htmlUtils = require('../../../htmlUtils');
+import htmlUtils from '../../../htmlUtils';
 import markupLanguageUtils from '../../../markupLanguageUtils';
 const mimeUtils = require('../../../mime-utils.js').mime;
 const md5 = require('md5');

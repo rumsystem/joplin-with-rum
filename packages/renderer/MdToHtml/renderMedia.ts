@@ -9,17 +9,12 @@ export interface Options {
 	pdfViewerEnabled: boolean;
 }
 
-function resourceUrl(resourceFullPath: string): string {
-	if (resourceFullPath.indexOf('http://') === 0 || resourceFullPath.indexOf('https://')) return resourceFullPath;
-	return `file://${toForwardSlashes(resourceFullPath)}`;
-}
-
 export default function(link: Link, options: Options) {
 	const resource = link.resource;
 
 	if (!link.resourceReady || !resource || !resource.mime) return '';
 
-	const escapedResourcePath = htmlentities(resourceUrl(link.resourceFullPath));
+	const escapedResourcePath = htmlentities(`file://${toForwardSlashes(link.resourceFullPath)}`);
 	const escapedMime = htmlentities(resource.mime);
 
 	if (options.videoPlayerEnabled && resource.mime.indexOf('video/') === 0) {

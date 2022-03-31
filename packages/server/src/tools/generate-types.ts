@@ -29,16 +29,7 @@ const config = {
 		'main.api_clients': 'WithDates, WithUuid',
 		'main.changes': 'WithDates, WithUuid',
 		'main.notifications': 'WithDates, WithUuid',
-		'main.shares': 'WithDates, WithUuid',
 	},
-};
-
-const propertyTypes: Record<string, string> = {
-	'*.item_type': 'ItemType',
-	'files.content': 'Buffer',
-	'changes.type': 'ChangeType',
-	'notifications.level': 'NotificationLevel',
-	'shares.type': 'ShareType',
 };
 
 function insertContentIntoFile(filePath: string, markerOpen: string, markerClose: string, contentToInsert: string): void {
@@ -73,8 +64,10 @@ function createTypeString(table: any) {
 			if (['id'].includes(name)) continue;
 		}
 
-		if (propertyTypes[`*.${name}`]) type = propertyTypes[`*.${name}`];
-		if (propertyTypes[`${table.name}.${name}`]) type = propertyTypes[`${table.name}.${name}`];
+		if (name === 'item_type') type = 'ItemType';
+		if (table.name === 'files' && name === 'content') type = 'Buffer';
+		if (table.name === 'changes' && name === 'type') type = 'ChangeType';
+		if (table.name === 'notifications' && name === 'level') type = 'NotificationLevel';
 		if ((name === 'id' || name.endsWith('_id') || name === 'uuid') && type === 'string') type = 'Uuid';
 
 		colStrings.push(`\t${name}?: ${type};`);

@@ -24,7 +24,7 @@ export function defaultChangePagination(): ChangePagination {
 	};
 }
 
-export default class ChangeModel extends BaseModel<Change> {
+export default class ChangeModel extends BaseModel {
 
 	public get tableName(): string {
 		return 'changes';
@@ -44,7 +44,7 @@ export default class ChangeModel extends BaseModel<Change> {
 			owner_id: this.userId,
 		};
 
-		return this.save(change) as Change;
+		return this.save(change);
 	}
 
 	// Note: doesn't currently support checking for changes recursively but this
@@ -58,7 +58,7 @@ export default class ChangeModel extends BaseModel<Change> {
 		let changeAtCursor: Change = null;
 
 		if (pagination.cursor) {
-			changeAtCursor = await this.load(pagination.cursor) as Change;
+			changeAtCursor = await this.load(pagination.cursor);
 			if (!changeAtCursor) throw new ErrorResyncRequired();
 		}
 

@@ -63,7 +63,6 @@ import PermissionModel from './PermissionModel';
 import SessionModel from './SessionModel';
 import ChangeModel from './ChangeModel';
 import NotificationModel from './NotificationModel';
-import ShareModel from './ShareModel';
 
 export class Models {
 
@@ -101,10 +100,6 @@ export class Models {
 
 	public notification(options: ModelOptions = null) {
 		return new NotificationModel(this.db_, newModelFactory, this.baseUrl_, options);
-	}
-
-	public share(options: ModelOptions = null) {
-		return new ShareModel(this.db_, newModelFactory, this.baseUrl_, options);
 	}
 
 }

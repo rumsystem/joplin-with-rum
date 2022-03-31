@@ -22,24 +22,7 @@ export function isView(o: any): boolean {
 	return 'path' in o && 'name' in o;
 }
 
-export default class MustacheService {
-
-	private viewDir_: string;
-	private baseAssetUrl_: string;
-	private prefersDarkEnabled_: boolean = true;
-
-	public constructor(viewDir: string, baseAssetUrl: string) {
-		this.viewDir_ = viewDir;
-		this.baseAssetUrl_ = baseAssetUrl;
-	}
-
-	public get prefersDarkEnabled(): boolean {
-		return this.prefersDarkEnabled_;
-	}
-
-	public set prefersDarkEnabled(v: boolean) {
-		this.prefersDarkEnabled_ = v;
-	}
+class MustacheService {
 
 	private get defaultLayoutPath(): string {
 		return `${config().layoutDir}/default.mustache`;
@@ -48,7 +31,6 @@ export default class MustacheService {
 	private get defaultLayoutOptions(): any {
 		return {
 			baseUrl: config().baseUrl,
-			prefersDarkEnabled: this.prefersDarkEnabled_,
 		};
 	}
 
@@ -59,7 +41,7 @@ export default class MustacheService {
 	private resolvesFilePaths(type: string, paths: string[]): string[] {
 		const output: string[] = [];
 		for (const path of paths) {
-			output.push(`${this.baseAssetUrl_}/${type}/${path}.${type}`);
+			output.push(`${config().baseUrl}/${type}/${path}.${type}`);
 		}
 		return output;
 	}
@@ -71,11 +53,11 @@ export default class MustacheService {
 
 		const partialContents: any = {};
 		for (const partialName of partials) {
-			const filePath = `${this.viewDir_}/partials/${partialName}.mustache`;
+			const filePath = `${config().viewDir}/partials/${partialName}.mustache`;
 			partialContents[partialName] = await this.loadTemplateContent(filePath);
 		}
 
-		const filePath = `${this.viewDir_}/${view.path}.mustache`;
+		const filePath = `${config().viewDir}/${view.path}.mustache`;
 
 		globalParams = {
 			...this.defaultLayoutOptions,
@@ -104,3 +86,7 @@ export default class MustacheService {
 	}
 
 }
+
+const mustacheService = new MustacheService();
+
+export default mustacheService;

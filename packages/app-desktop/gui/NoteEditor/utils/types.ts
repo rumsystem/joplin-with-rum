@@ -64,7 +64,6 @@ export interface NoteBodyEditorProps {
 	onDrop: Function;
 	noteToolbarButtonInfos: ToolbarButtonInfo[];
 	plugins: PluginStates;
-	fontSize: number;
 }
 
 export interface FormNote {
