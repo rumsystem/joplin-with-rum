@@ -155,7 +155,7 @@ const headerHtml = `<!doctype html>
 		padding-left: 2em;
 		margin-bottom: 0;
 		display: table-cell;
-		min-width: 250px;
+		min-width: 165px;
 	}
 	.nav ul li {
 		display: inline-block;
@@ -175,8 +175,14 @@ const headerHtml = `<!doctype html>
 	.nav-right .share-btn {
 		display: none;
 	}
+	.share-btn-github {
+		display: inline-block;
+	}
 	.nav-right .small-share-btn {
 		display: none;
+	}
+	.nav-right .share-btn-github {
+		display: inline-block;
 	}
 	.footer {
 		padding-top: 1em;
@@ -210,8 +216,7 @@ const headerHtml = `<!doctype html>
 	<div class="nav">
 		<ul>
 			<li class="{{selectedHome}}"><a href="{{baseUrl}}/" title="Home"><i class="fa fa-home"></i></a></li>
-			<li><a href="https://discourse.joplin.cozic.net" title="Forum">Forum</a></li>
-			<li><a class="help" href="#" title="Menu">Menu</a></li>
+			<li><a class="help" href="#" title="Terminal">Help</a></li>
 		</ul>
 		<div class="nav-right">
 			<iframe class="share-btn" src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2Fjoplin.cozic.net&layout=button&size=small&mobile_iframe=true&width=60&height=20&appId" width="60" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
@@ -382,7 +387,6 @@ async function main() {
 	renderFileToHtml(rootDir + '/readme/terminal.md', rootDir + '/docs/terminal/index.html', {});
 	renderFileToHtml(rootDir + '/readme/debugging.md', rootDir + '/docs/debugging/index.html', {});
 	renderFileToHtml(rootDir + '/readme/desktop.md', rootDir + '/docs/desktop/index.html', {});
-	renderFileToHtml(rootDir + '/readme/faq.md', rootDir + '/docs/faq/index.html', {});
 	renderFileToHtml(rootDir + '/readme/mobile.md', rootDir + '/docs/mobile/index.html', {});
 	renderFileToHtml(rootDir + '/readme/e2ee.md', rootDir + '/docs/e2ee/index.html', {});
 	renderFileToHtml(rootDir + '/readme/spec.md', rootDir + '/docs/spec/index.html', {});

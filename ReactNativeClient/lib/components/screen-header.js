@@ -99,8 +99,7 @@ class ScreenHeaderComponent extends Component {
 				height: 18,
 			},
 			contextMenuTrigger: {
-				fontSize: 30,
-				paddingLeft: 10,
+				fontSize: 25,
 				paddingRight: theme.marginRight,
 				color: theme.raisedColor,
 				fontWeight: 'bold',
@@ -446,7 +445,7 @@ class ScreenHeaderComponent extends Component {
 		const menuComp = !showContextMenuButton ? null : (
 			<Menu onSelect={(value) => this.menu_select(value)} style={this.styles().contextMenu}>
 				<MenuTrigger style={{ paddingTop: PADDING_V, paddingBottom: PADDING_V }}>
-					<Icon name='md-more' style={this.styles().contextMenuTrigger} />
+					<Text style={this.styles().contextMenuTrigger}>  &#8942;</Text>
 				</MenuTrigger>
 				<MenuOptions>
 					<ScrollView style={{ maxHeight: windowHeight }}>

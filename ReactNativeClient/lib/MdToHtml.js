@@ -14,6 +14,7 @@ class MdToHtml {
 	constructor(options = null) {
 		if (!options) options = {};
 
+		this.supportsResourceLinks_ = !!options.supportsResourceLinks;
 		this.loadedResources_ = {};
 		this.cachedContent_ = null;
 		this.cachedContentKey_ = null;
@@ -131,27 +132,35 @@ class MdToHtml {
 		const isResourceUrl = Resource.isResourceUrl(href);
 		const title = isResourceUrl ? this.getAttr_(attrs, 'title') : href;
 
-		let resourceIdAttr = "";
-		let icon = "";
-		let hrefAttr = '#';
-		if (isResourceUrl) {
-			const resourceId = Resource.pathToId(href);
-			href = "joplin://" + resourceId;
-			resourceIdAttr = "data-resource-id='" + resourceId + "'";
-			icon = '<span class="resource-icon"></span>';
+		if (isResourceUrl && !this.supportsResourceLinks_) {
+			// In mobile, links to local resources, such as PDF, etc. currently aren't supported.
+			// Ideally they should be opened in the user's browser.
+			return '<span style="opacity: 0.5">(Resource not yet supported: '; //+ htmlentities(text) + ']';
 		} else {
-			// If the link is a plain URL (as opposed to a resource link), set the href to the actual
-			// link. This allows the link to be exported too when exporting to PDF. 
-			hrefAttr = href;
-		}
+			let resourceIdAttr = "";
+			let icon = "";
+			if (isResourceUrl) {
+				const resourceId = Resource.pathToId(href);
+				href = "joplin://" + resourceId;
+				resourceIdAttr = "data-resource-id='" + resourceId + "'";
+				icon = '<span class="resource-icon"></span>';
+			}
 
-		const js = options.postMessageSyntax + "(" + JSON.stringify(href) + "); return false;";
-		let output = "<a " + resourceIdAttr + " title='" + htmlentities(title) + "' href='" + hrefAttr + "' onclick='" + js + "'>" + icon;
-		return output;
+			const js = options.postMessageSyntax + "(" + JSON.stringify(href) + "); return false;";
+			let output = "<a " + resourceIdAttr + " title='" + htmlentities(title) + "' href='#' onclick='" + js + "'>" + icon;
+			return output;
+		}
 	}
 
 	renderCloseLink_(attrs, options) {
-		return '</a>';
+		const href = this.getAttr_(attrs, 'href');
+		const isResourceUrl = Resource.isResourceUrl(href);
+
+		if (isResourceUrl && !this.supportsResourceLinks_) {
+			return ')</span>';
+		} else {
+			return '</a>';
+		}
 	}
 
 	rendererPlugin_(language) {
@@ -211,7 +220,12 @@ class MdToHtml {
 
 			if (isCodeBlock) rendererPlugin = this.rendererPlugin_(codeBlockLanguage);
 
-			if (isInlineCode) {
+			if (previousToken && previousToken.tag === 'li' && tag === 'p') {
+				// Markdown-it render list items as <li><p>Text<p></li> which makes it
+				// complicated to style and layout the HTML, so we remove this extra
+				// <p> here and below in closeTag.
+				openTag = null;
+			} else if (isInlineCode) {
 				openTag = null;
 			} else if (tag && t.type.indexOf('html_inline') >= 0) {
 				openTag = null;
@@ -406,8 +420,8 @@ class MdToHtml {
 
 		if (HORRIBLE_HACK) {
 			let counter = -1;
-			while (body.indexOf('- [ ]') >= 0 || body.indexOf('- [X]') >= 0 || body.indexOf('- [x]') >= 0) {
-				body = body.replace(/- \[(X| |x)\]/, function(v, p1) {
+			while (body.indexOf('- [ ]') >= 0 || body.indexOf('- [X]') >= 0) {
+				body = body.replace(/- \[(X| )\]/, function(v, p1) {
 					let s = p1 == ' ' ? 'NOTICK' : 'TICK';
 					counter++;
 					return '- mJOPmCHECKBOXm' + s + 'm' + counter + 'm';
@@ -475,9 +489,6 @@ class MdToHtml {
 			}
 			ul {
 				padding-left: 1.3em;
-			}
-			li p {
-				margin-bottom: 0;
 			}
 			.resource-icon {
 				display: inline-block;
@@ -566,10 +577,10 @@ class MdToHtml {
 
 	toggleTickAt(body, index) {
 		let counter = -1;
-		while (body.indexOf('- [ ]') >= 0 || body.indexOf('- [X]') >= 0 || body.indexOf('- [x]') >= 0) {
+		while (body.indexOf('- [ ]') >= 0 || body.indexOf('- [X]') >= 0) {
 			counter++;
 
-			body = body.replace(/- \[(X| |x)\]/, function(v, p1) {
+			body = body.replace(/- \[(X| )\]/, function(v, p1) {
 				let s = p1 == ' ' ? 'NOTICK' : 'TICK';
 				if (index == counter) {
 					s = s == 'NOTICK' ? 'TICK' : 'NOTICK';

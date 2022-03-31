@@ -34,7 +34,7 @@ class ItemList extends React.Component {
 		});
 	}
 
-	UNSAFE_componentWillMount() {
+	componentWillMount() {
 		this.setState({
 			topItemIndex: 0,
 			bottomItemIndex: 0,
@@ -45,7 +45,7 @@ class ItemList extends React.Component {
 		this.updateStateItemIndexes();
 	}
 
-	UNSAFE_componentWillReceiveProps(newProps) {
+	componentWillReceiveProps(newProps) {
 		if (newProps.itemHeight) {
 			this.setState({
 				itemHeight: newProps.itemHeight,

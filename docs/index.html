@@ -150,7 +150,7 @@
 		padding-left: 2em;
 		margin-bottom: 0;
 		display: table-cell;
-		min-width: 250px;
+		min-width: 165px;
 	}
 	.nav ul li {
 		display: inline-block;
@@ -170,8 +170,14 @@
 	.nav-right .share-btn {
 		display: none;
 	}
+	.share-btn-github {
+		display: inline-block;
+	}
 	.nav-right .small-share-btn {
 		display: none;
+	}
+	.nav-right .share-btn-github {
+		display: inline-block;
 	}
 	.footer {
 		padding-top: 1em;
@@ -205,8 +211,7 @@
 	<div class="nav">
 		<ul>
 			<li class=""><a href="https:&#x2F;&#x2F;joplin.cozic.net/" title="Home"><i class="fa fa-home"></i></a></li>
-			<li><a href="https://discourse.joplin.cozic.net" title="Forum">Forum</a></li>
-			<li><a class="help" href="#" title="Menu">Menu</a></li>
+			<li><a class="help" href="#" title="Terminal">Help</a></li>
 		</ul>
 		<div class="nav-right">
 			<iframe class="share-btn" src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2Fjoplin.cozic.net&layout=button&size=small&mobile_iframe=true&width=60&height=20&appId" width="60" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
@@ -229,11 +234,9 @@
 <li>
 <p>Support</p>
 <ul>
-<li><a href="https://discourse.joplin.cozic.net">Joplin Forum</a></li>
 <li><a href="https://joplin.cozic.net/e2ee">How to enable end-to-end encryption</a></li>
 <li><a href="https://joplin.cozic.net/spec">End-to-end encryption spec</a></li>
 <li><a href="https://joplin.cozic.net/debugging">How to enable debug mode</a></li>
-<li><a href="https://joplin.cozic.net/faq">FAQ</a></li>
 </ul>
 </li>
 <li>
@@ -261,24 +264,20 @@
 <tr>
 <th>Operating System</th>
 <th>Download</th>
-<th>Alternative</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Windows (32 and 64-bit)</td>
-<td><a href='https://github.com/laurent22/joplin/releases/download/v1.0.85/Joplin-Setup-1.0.85.exe'><img alt='Get it on Windows' height="40px" src='https://joplin.cozic.net/images/BadgeWindows.png'/></a></td>
-<td></td>
+<td>Windows (64-bit only)</td>
+<td><a href='https://github.com/laurent22/joplin/releases/download/v1.0.83/Joplin-Setup-1.0.83.exe'><img alt='Get it on Windows' height="40px" src='https://joplin.cozic.net/images/BadgeWindows.png'/></a></td>
 </tr>
 <tr>
 <td>macOS</td>
-<td><a href='https://github.com/laurent22/joplin/releases/download/v1.0.85/Joplin-1.0.85.dmg'><img alt='Get it on macOS' height="40px" src='https://joplin.cozic.net/images/BadgeMacOS.png'/></a></td>
-<td></td>
+<td><a href='https://github.com/laurent22/joplin/releases/download/v1.0.83/Joplin-1.0.83.dmg'><img alt='Get it on macOS' height="40px" src='https://joplin.cozic.net/images/BadgeMacOS.png'/></a></td>
 </tr>
 <tr>
 <td>Linux</td>
-<td><a href='https://github.com/laurent22/joplin/releases/download/v1.0.85/Joplin-1.0.85-x86_64.AppImage'><img alt='Get it on Linux' height="40px" src='https://joplin.cozic.net/images/BadgeLinux.png'/></a></td>
-<td>An Arch Linux package <a href="#terminal-application">is also available</a>.</td>
+<td><a href='https://github.com/laurent22/joplin/releases/download/v1.0.83/Joplin-1.0.83-x86_64.AppImage'><img alt='Get it on Linux' height="40px" src='https://joplin.cozic.net/images/BadgeLinux.png'/></a></td>
 </tr>
 </tbody>
 </table>
@@ -295,7 +294,7 @@
 <tr>
 <td>Android</td>
 <td><a href='https://play.google.com/store/apps/details?id=net.cozic.joplin&utm_source=GitHub&utm_campaign=README&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' height="40px" src='https://joplin.cozic.net/images/BadgeAndroid.png'/></a></td>
-<td>or <a href="https://github.com/laurent22/joplin-android/releases/download/android-v1.0.120/joplin-v1.0.120.apk">Download APK File</a></td>
+<td>or <a href="https://github.com/laurent22/joplin-android/releases/download/android-v1.0.116/joplin-v1.0.116.apk">Download APK File</a></td>
 </tr>
 <tr>
 <td>iOS</td>
@@ -305,28 +304,13 @@
 </tbody>
 </table>
 <h2 id="terminal-application">Terminal application</h2>
-<table>
-<thead>
-<tr>
-<th>Operating system</th>
-<th>Method</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>macOS</td>
-<td><code>brew install joplin</code></td>
-</tr>
-<tr>
-<td>Linux or Windows (via <a href="https://msdn.microsoft.com/en-us/commandline/wsl/faq?f=255&amp;MSPPError=-2147217396">WSL</a>)</td>
-<td><strong>Important:</strong> First, <a href="https://nodejs.org/en/download/package-manager/">install Node 8+</a>. Node 8 is LTS but not yet available everywhere so you might need to manually install it.<br/><br/><code>NPM_CONFIG_PREFIX=~/.joplin-bin npm install -g joplin</code><br/><code>sudo ln -s ~/.joplin-bin/bin/joplin /usr/bin/joplin</code><br><br>By default, the application binary will be installed under <code>~/.joplin-bin</code>. You may change this directory if needed. Alternatively, if your npm permissions are setup as described <a href="https://docs.npmjs.com/getting-started/fixing-npm-permissions#option-2-change-npms-default-directory-to-another-directory">here</a> (Option 2) then simply running <code>npm -g install joplin</code> would work.</td>
-</tr>
-<tr>
-<td>Arch Linux</td>
-<td>An Arch Linux pakage is available <a href="https://aur.archlinux.org/packages/joplin/">here</a>. To install it, use an AUR wrapper such as yay: <code>yay -S joplin</code>. Both the CLI tool (type <code>joplin</code>) and desktop app (type <code>joplin-desktop</code>) are packaged. For support, please go to the <a href="https://github.com/masterkorp/joplin-pkgbuild">GitHub repo</a>.</td>
-</tr>
-</tbody>
-</table>
+<p>On macOS:</p>
+<pre><code>brew install joplin
+</code></pre><p>On Linux or Windows (via <a href="https://msdn.microsoft.com/en-us/commandline/wsl/faq?f=255&amp;MSPPError=-2147217396">WSL</a>):</p>
+<p><strong>Important:</strong> First, <a href="https://nodejs.org/en/download/package-manager/">install Node 8+</a>. Node 8 is LTS but not yet available everywhere so you might need to manually install it.</p>
+<pre><code>NPM_CONFIG_PREFIX=~/.joplin-bin npm install -g joplin
+sudo ln -s ~/.joplin-bin/bin/joplin /usr/bin/joplin
+</code></pre><p>By default, the application binary will be installed under <code>~/.joplin-bin</code>. You may change this directory if needed. Alternatively, if your npm permissions are setup as described <a href="https://docs.npmjs.com/getting-started/fixing-npm-permissions#option-2-change-npms-default-directory-to-another-directory">here</a> (Option 2) then simply running <code>npm -g install joplin</code> would work.</p>
 <p>To start it, type <code>joplin</code>.</p>
 <p>For usage information, please refer to the full <a href="https://joplin.cozic.net/terminal">Joplin Terminal Application Documentation</a>.</p>
 <h1 id="features">Features</h1>
@@ -378,7 +362,7 @@
 <p><img src="https://joplin.cozic.net/images/nextcloud-logo-background.png" width="100" align="left"> <a href="https://nextcloud.com/">Nextcloud</a> is a self-hosted, private cloud solution. It can store documents, images and videos but also calendars, passwords and countless other things and can sync them to your laptop or phone. As you can host your own Nextcloud server, you own both the data on your device and infrastructure used for synchronisation. As such it is a good fit for Joplin. The platform is also well supported and with a strong community, so it is likely to be around for a while - since it&#39;s open source anyway, it is not a service that can be closed, it can exist on a server for as long as one chooses.</p>
 <p>On the <strong>desktop application</strong> or <strong>mobile application</strong>, go to the config screen and select Nextcloud as the synchronisation target. Then input the WebDAV URL (to get it, click on Settings in the bottom left corner of the page, in Nextcloud), this is normally <code>https://example.com/nextcloud/remote.php/webdav/Joplin</code> (<strong>make sure to create the &quot;Joplin&quot; directory in Nextcloud</strong>), and set the username and password. If it does not work, please <a href="https://github.com/laurent22/joplin/issues/61#issuecomment-373282608">see this explanation</a> for more details.</p>
 <p>On the <strong>terminal application</strong>, you will need to set the <code>sync.target</code> config variable and all the <code>sync.5.path</code>, <code>sync.5.username</code> and <code>sync.5.password</code> config variables to, respectively the Nextcloud WebDAV URL, your username and your password. This can be done from the command line mode using:</p>
-<pre><code>:config sync.5.path https://example.com/nextcloud/remote.php/webdav/Joplin
+<pre><code>:config sync.5.path https://example.com/nextcloud/remote.php/dav/files/USERNAME/Joplin
 :config sync.5.username YOUR_USERNAME
 :config sync.5.password YOUR_PASSWORD
 :config sync.target 5
@@ -409,7 +393,6 @@
 <p>For a more technical description, mostly relevant for development or to review the method being used, please see the <a href="https://joplin.cozic.net/spec">Encryption specification</a>.</p>
 <h1 id="attachments-resources">Attachments / Resources</h1>
 <p>Any kind of file can be attached to a note. In Markdown, links to these files are represented as a simple ID to the resource. In the note viewer, these files, if they are images, will be displayed or, if they are other files (PDF, text files, etc.) they will be displayed as links. Clicking on this link will open the file in the default application.</p>
-<p>Resources that are not attached to any note will be automatically deleted after a day or two.</p>
 <h1 id="notifications">Notifications</h1>
 <p>On the desktop and mobile apps, an alarm can be associated with any to-do. It will be triggered at the given time by displaying a notification. How the notification will be displayed depends on the operating system since each has a different way to handle this. Please see below for the requirements for the desktop applications:</p>
 <ul>
@@ -422,10 +405,6 @@
 <p>If for any reason the notifications do not work, please <a href="https://github.com/laurent22/joplin/issues">open an issue</a>.</p>
 <h1 id="markdown">Markdown</h1>
 <p>Joplin uses and renders <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Github-flavoured Markdown</a> with a few variations and additions. In particular:</p>
-<h2 id="links-to-other-notes">Links to other notes</h2>
-<p>You can create a link to a note by specifying its ID in the URL. For example:</p>
-<pre><code>[Link to my note](:/0b0d62d15e60409dac34f354b6e9e839)
-</code></pre><p>Since getting the ID of a note is not straightforward, each app provides a way to create such link. In the <strong>desktop app</strong>, right click on a note an select &quot;Copy Markdown link&quot;. In the <strong>mobile app</strong>, open a note and, in the top right menu, select &quot;Copy Markdown link&quot;. You can then paste this link anywhere in another note.</p>
 <h2 id="math-notation">Math notation</h2>
 <p>Math expressions can be added using the <a href="https://khan.github.io/KaTeX/">Katex notation</a>. To add an inline equation, wrap the expression in <code>$EXPRESSION$</code>, eg. <code>$\sqrt{3x-1}+(1+x)^2$</code>. To create an expression block, wrap it as follow:</p>
 <pre><code>$$
@@ -448,12 +427,6 @@ $$
 <h1 id="donations">Donations</h1>
 <p>Donations to Joplin support the development of the project. Developing quality applications mostly takes time, but there are also some expenses, such as digital certificates to sign the applications, app store fees, hosting, etc. Most of all, your donation will make it possible to keep up the current development standard.</p>
 <p>Please see the <a href="https://joplin.cozic.net/donate/">donation page</a> for information on how to support the development of Joplin.</p>
-<h1 id="community">Community</h1>
-<ul>
-<li>For general discussion about Joplin, user support, software development questions, and to discuss new features, go to the <a href="https://discourse.joplin.cozic.net/">Joplin Forum</a>. It is possible to login with your GitHub account.</li>
-<li>For bug reports and feature requests, go to the <a href="https://github.com/laurent22/joplin/issues">GitHub Issue Tracker</a>.</li>
-<li>The latest news are often posted <a href="https://twitter.com/laurent2233">on this Twitter account</a>.</li>
-</ul>
 <h1 id="contributing">Contributing</h1>
 <p>Please see the guide for information on how to contribute to the development of Joplin: <a href="https://github.com/laurent22/joplin/blob/master/CONTRIBUTING.md">https://github.com/laurent22/joplin/blob/master/CONTRIBUTING.md</a></p>
 <h1 id="localisation">Localisation</h1>
@@ -484,35 +457,35 @@ $$
 <td>Basque</td>
 <td><a href="https://github.com/laurent22/joplin/blob/master/CliClient/locales/eu.po">eu</a></td>
 <td>juan.abasolo@ehu.eus</td>
-<td>76%</td>
+<td>77%</td>
 </tr>
 <tr>
 <td><img src="https://joplin.cozic.net/images/flags/country-4x3/hr.png" alt=""></td>
 <td>Croatian</td>
 <td><a href="https://github.com/laurent22/joplin/blob/master/CliClient/locales/hr_HR.po">hr_HR</a></td>
-<td>Hrvoje Mandić <a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#58;&#116;&#x72;&#98;&#x75;&#x68;&#111;&#109;&#64;&#110;&#101;&#116;&#46;&#x68;&#114;">&#116;&#x72;&#98;&#x75;&#x68;&#111;&#109;&#64;&#110;&#101;&#116;&#46;&#x68;&#114;</a></td>
+<td>Hrvoje Mandić <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#x74;&#114;&#x62;&#x75;&#x68;&#111;&#109;&#64;&#110;&#x65;&#116;&#x2e;&#104;&#114;">&#x74;&#114;&#x62;&#x75;&#x68;&#111;&#109;&#64;&#110;&#x65;&#116;&#x2e;&#104;&#114;</a></td>
 <td>62%</td>
 </tr>
 <tr>
 <td><img src="https://joplin.cozic.net/images/flags/country-4x3/cz.png" alt=""></td>
 <td>Czech</td>
 <td><a href="https://github.com/laurent22/joplin/blob/master/CliClient/locales/cs_CZ.po">cs_CZ</a></td>
-<td>Lukas Helebrandt <a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#x6c;&#x75;&#107;&#x61;&#x73;&#64;&#x61;&#x69;&#121;&#x61;&#46;&#99;&#x7a;">&#x6c;&#x75;&#107;&#x61;&#x73;&#64;&#x61;&#x69;&#121;&#x61;&#46;&#99;&#x7a;</a></td>
-<td>96%</td>
+<td>Lukas Helebrandt <a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#x3a;&#108;&#x75;&#x6b;&#97;&#115;&#x40;&#97;&#105;&#x79;&#97;&#46;&#99;&#122;">&#108;&#x75;&#x6b;&#97;&#115;&#x40;&#97;&#105;&#x79;&#97;&#46;&#99;&#122;</a></td>
+<td>97%</td>
 </tr>
 <tr>
 <td><img src="https://joplin.cozic.net/images/flags/country-4x3/dk.png" alt=""></td>
 <td>Dansk</td>
 <td><a href="https://github.com/laurent22/joplin/blob/master/CliClient/locales/da_DK.po">da_DK</a></td>
-<td>Morten Juhl-Johansen Zölde-Fejér &lt;mjjzf@syntaktisk.</td>
-<td>98%</td>
+<td></td>
+<td>96%</td>
 </tr>
 <tr>
 <td><img src="https://joplin.cozic.net/images/flags/country-4x3/de.png" alt=""></td>
 <td>Deutsch</td>
 <td><a href="https://github.com/laurent22/joplin/blob/master/CliClient/locales/de_DE.po">de_DE</a></td>
-<td>Tobias Grasse <a href="&#109;&#97;&#x69;&#108;&#116;&#x6f;&#x3a;&#x6d;&#97;&#x69;&#108;&#64;&#116;&#x6f;&#x62;&#x69;&#97;&#x73;&#45;&#103;&#114;&#x61;&#115;&#115;&#x65;&#46;&#110;&#101;&#x74;">&#x6d;&#97;&#x69;&#108;&#64;&#116;&#x6f;&#x62;&#x69;&#97;&#x73;&#45;&#103;&#114;&#x61;&#115;&#115;&#x65;&#46;&#110;&#101;&#x74;</a></td>
-<td>95%</td>
+<td>Tobias Grasse <a href="&#109;&#97;&#105;&#108;&#x74;&#x6f;&#x3a;&#109;&#97;&#x69;&#108;&#64;&#x74;&#111;&#98;&#x69;&#x61;&#x73;&#45;&#103;&#x72;&#97;&#x73;&#x73;&#x65;&#46;&#110;&#101;&#116;">&#109;&#97;&#x69;&#108;&#64;&#x74;&#111;&#98;&#x69;&#x61;&#x73;&#45;&#103;&#x72;&#97;&#x73;&#x73;&#x65;&#46;&#110;&#101;&#116;</a></td>
+<td>96%</td>
 </tr>
 <tr>
 <td><img src="https://joplin.cozic.net/images/flags/country-4x3/gb.png" alt=""></td>
@@ -525,8 +498,8 @@ $$
 <td><img src="https://joplin.cozic.net/images/flags/country-4x3/es.png" alt=""></td>
 <td>Español</td>
 <td><a href="https://github.com/laurent22/joplin/blob/master/CliClient/locales/es_ES.po">es_ES</a></td>
-<td>Fernando Martín <a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6f;&#x3a;&#x66;&#x40;&#x6d;&#x72;&#x74;&#x6e;&#x2e;&#x65;&#115;">&#x66;&#x40;&#x6d;&#x72;&#x74;&#x6e;&#x2e;&#x65;&#115;</a></td>
-<td>99%</td>
+<td>Fernando Martín <a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#102;&#64;&#109;&#x72;&#x74;&#110;&#46;&#x65;&#115;">&#102;&#64;&#109;&#x72;&#x74;&#110;&#46;&#x65;&#115;</a></td>
+<td>96%</td>
 </tr>
 <tr>
 <td><img src="https://joplin.cozic.net/images/flags/country-4x3/fr.png" alt=""></td>
@@ -539,15 +512,15 @@ $$
 <td><img src="https://joplin.cozic.net/images/flags/country-4x3/es.png" alt=""></td>
 <td>Galician</td>
 <td><a href="https://github.com/laurent22/joplin/blob/master/CliClient/locales/gl_ES.po">gl_ES</a></td>
-<td>Marcos Lans <a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#58;&#109;&#x61;&#x72;&#99;&#111;&#115;&#108;&#x61;&#110;&#115;&#x67;&#97;&#x72;&#122;&#97;&#64;&#x67;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#109;">&#109;&#x61;&#x72;&#99;&#111;&#115;&#108;&#x61;&#110;&#115;&#x67;&#97;&#x72;&#122;&#97;&#64;&#x67;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#109;</a></td>
-<td>97%</td>
+<td>José Antonio Martínez <a href="&#109;&#x61;&#105;&#108;&#x74;&#x6f;&#x3a;&#102;&#97;&#99;&#x65;&#x6d;&#x6f;&#115;&#x68;&#105;&#115;&#116;&#111;&#x72;&#x69;&#97;&#x40;&#x67;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;">&#102;&#97;&#99;&#x65;&#x6d;&#x6f;&#115;&#x68;&#105;&#115;&#116;&#111;&#x72;&#x69;&#97;&#x40;&#x67;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;</a></td>
+<td>100%</td>
 </tr>
 <tr>
 <td><img src="https://joplin.cozic.net/images/flags/country-4x3/it.png" alt=""></td>
 <td>Italiano</td>
 <td><a href="https://github.com/laurent22/joplin/blob/master/CliClient/locales/it_IT.po">it_IT</a></td>
 <td></td>
-<td>63%</td>
+<td>64%</td>
 </tr>
 <tr>
 <td><img src="https://joplin.cozic.net/images/flags/country-4x3/be.png" alt=""></td>
@@ -560,22 +533,22 @@ $$
 <td><img src="https://joplin.cozic.net/images/flags/country-4x3/br.png" alt=""></td>
 <td>Português (Brasil)</td>
 <td><a href="https://github.com/laurent22/joplin/blob/master/CliClient/locales/pt_BR.po">pt_BR</a></td>
-<td>Renato Nunes Bastos <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#x72;&#x6e;&#98;&#x61;&#115;&#116;&#111;&#x73;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#x72;&#x6e;&#98;&#x61;&#115;&#116;&#111;&#x73;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></td>
-<td>99%</td>
+<td>Renato Nunes Bastos <a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#114;&#x6e;&#98;&#x61;&#115;&#116;&#111;&#x73;&#x40;&#103;&#x6d;&#97;&#105;&#108;&#46;&#99;&#x6f;&#x6d;">&#114;&#x6e;&#98;&#x61;&#115;&#116;&#111;&#x73;&#x40;&#103;&#x6d;&#97;&#105;&#108;&#46;&#99;&#x6f;&#x6d;</a></td>
+<td>95%</td>
 </tr>
 <tr>
 <td><img src="https://joplin.cozic.net/images/flags/country-4x3/ru.png" alt=""></td>
 <td>Русский</td>
 <td><a href="https://github.com/laurent22/joplin/blob/master/CliClient/locales/ru_RU.po">ru_RU</a></td>
-<td>Artyom Karlov <a href="&#109;&#x61;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#x61;&#x72;&#116;&#x79;&#111;&#109;&#x2e;&#107;&#x61;&#114;&#x6c;&#111;&#118;&#x40;&#x67;&#109;&#97;&#x69;&#108;&#46;&#99;&#111;&#109;">&#x61;&#x72;&#116;&#x79;&#111;&#109;&#x2e;&#107;&#x61;&#114;&#x6c;&#111;&#118;&#x40;&#x67;&#109;&#97;&#x69;&#108;&#46;&#99;&#111;&#109;</a></td>
-<td>95%</td>
+<td>Artyom Karlov <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#x61;&#114;&#116;&#121;&#111;&#x6d;&#46;&#x6b;&#x61;&#114;&#x6c;&#x6f;&#x76;&#64;&#x67;&#109;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#x61;&#114;&#116;&#121;&#111;&#x6d;&#46;&#x6b;&#x61;&#114;&#x6c;&#x6f;&#x76;&#64;&#x67;&#109;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></td>
+<td>96%</td>
 </tr>
 <tr>
 <td><img src="https://joplin.cozic.net/images/flags/country-4x3/cn.png" alt=""></td>
 <td>中文 (简体)</td>
 <td><a href="https://github.com/laurent22/joplin/blob/master/CliClient/locales/zh_CN.po">zh_CN</a></td>
-<td></td>
-<td>92%</td>
+<td>RCJacH <a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#x6f;&#58;&#x52;&#67;&#x4a;&#x61;&#x63;&#72;&#64;&#111;&#x75;&#116;&#x6c;&#x6f;&#x6f;&#107;&#x2e;&#x63;&#111;&#109;">&#x52;&#67;&#x4a;&#x61;&#x63;&#72;&#64;&#111;&#x75;&#116;&#x6c;&#x6f;&#x6f;&#107;&#x2e;&#x63;&#111;&#109;</a></td>
+<td>64%</td>
 </tr>
 <tr>
 <td><img src="https://joplin.cozic.net/images/flags/country-4x3/jp.png" alt=""></td>

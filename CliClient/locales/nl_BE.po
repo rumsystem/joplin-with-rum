@@ -249,8 +249,7 @@ msgstr ""
 "Gebruik de pijltjes en page up/down om door de lijsten en de tekstvelden te "
 "scrollen (ook deze console)."
 
-#, fuzzy
-msgid "To maximise/minimise the console, press \"tc\"."
+msgid "To maximise/minimise the console, press \"TC\"."
 msgstr "Om de console te maximaliseren/minimaliseren, typ \"TC\"."
 
 msgid "To enter command line mode, press \":\""
@@ -632,9 +631,6 @@ msgstr "Zoek in alle notities"
 msgid "View"
 msgstr ""
 
-msgid "Toggle sidebar"
-msgstr ""
-
 msgid "Toggle editor layout"
 msgstr ""
 
@@ -782,7 +778,7 @@ msgstr ""
 
 msgid ""
 "For more information about End-To-End Encryption (E2EE) and advices on how "
-"to enable it please check the documentation:"
+"to enable it please check the documentation"
 msgstr ""
 
 msgid "Status"
@@ -1146,9 +1142,6 @@ msgstr "Maakt een nieuwe notitie aan."
 msgid "Show tray icon"
 msgstr ""
 
-msgid "Note: Does not work in all desktop environments."
-msgstr ""
-
 msgid "Global zoom percentage"
 msgstr ""
 
@@ -1377,6 +1370,11 @@ msgstr "Wachtwoord kan niet leeg zijn"
 
 msgid "Enable"
 msgstr "Activeer"
+
+msgid ""
+"For more information about End-To-End Encryption (E2EE) and advices on how "
+"to enable it please check the documentation:"
+msgstr ""
 
 #, javascript-format
 msgid "The notebook could not be saved: %s"

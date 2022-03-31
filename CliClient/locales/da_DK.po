@@ -2,13 +2,13 @@
 # Copyright (C) YEAR Laurent Cozic
 # This file is distributed under the same license as the Joplin-CLI package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Joplin-CLI 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Morten Juhl-Johansen Zölde-Fejér <mjjzf@syntaktisk."
-"dk>Language-Team: \n"
+"Last-Translator: Morten Juhl-Johansen Zölde-Fejér <mjjzf@syntaktisk.dk>"
+"Language-Team: \n"
 "Language: da_DK\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -163,8 +163,8 @@ msgstr "Rediger note."
 msgid ""
 "No text editor is defined. Please set it using `config editor <editor-path>`"
 msgstr ""
-"Ingen teksteditor er valgt.  Vælg en ved at indstille `config editor <editor-"
-"path>`"
+"Ingen teksteditor er valgt.  Vælg en ved at indstille `config editor "
+"<editor-path>`"
 
 msgid "No active notebook."
 msgstr "Ingen aktiv notesbog."
@@ -247,8 +247,7 @@ msgstr ""
 "Brug pilene og PageUp/PageDown for at rulle lister og tekst-områder (inkl. "
 "denne konsol)"
 
-#, fuzzy
-msgid "To maximise/minimise the console, press \"tc\"."
+msgid "To maximise/minimise the console, press \"TC\"."
 msgstr "For at maximere/ninimere konsollen, tryk \"TC\"."
 
 msgid "To enter command line mode, press \":\""
@@ -413,9 +412,7 @@ msgstr "Godkendelse  blev ikke fuldført (modtog ikke godkendelses token)."
 
 msgid ""
 "To allow Joplin to synchronise with Dropbox, please follow the steps below:"
-msgstr ""
-"For at Joplin kan synkronisere med Dropbox, skal man igennem nedenstående "
-"trin:"
+msgstr "For at Joplin kan synkronisere med Dropbox, skal man igennem nedenstående trin:"
 
 msgid "Step 1: Open this URL in your browser to authorise the application:"
 msgstr "Trin 1: Åben denne  URL i din browser for at autorisere applikationen:"
@@ -622,9 +619,6 @@ msgstr "Søg i alle noter"
 msgid "View"
 msgstr "Vis"
 
-msgid "Toggle sidebar"
-msgstr ""
-
 msgid "Toggle editor layout"
 msgstr "Skift editor layout"
 
@@ -770,10 +764,10 @@ msgstr ""
 
 msgid ""
 "For more information about End-To-End Encryption (E2EE) and advices on how "
-"to enable it please check the documentation:"
+"to enable it please check the documentation"
 msgstr ""
 "Se dokumentationen for nærmere oplysninger om End-To-End-kryptering (E2EE) "
-"og vejledning om hvordan det skal opsættes_"
+"og vejledning om hvordan det skal opsættes"
 
 msgid "Status"
 msgstr "Status"
@@ -1121,9 +1115,6 @@ msgstr "Ved oprettelse af ny note:"
 msgid "Show tray icon"
 msgstr "Vis ikon på bundbjælke"
 
-msgid "Note: Does not work in all desktop environments."
-msgstr ""
-
 msgid "Global zoom percentage"
 msgstr "Global zoom procent"
 
@@ -1353,6 +1344,13 @@ msgstr "Kodeord må ikke være tomt"
 msgid "Enable"
 msgstr "Tænd"
 
+msgid ""
+"For more information about End-To-End Encryption (E2EE) and advices on how "
+"to enable it please check the documentation:"
+msgstr ""
+"Se dokumentationen for nærmere oplysninger om End-To-End-kryptering (E2EE) "
+"og vejledning om hvordan det skal opsættes_"
+
 #, javascript-format
 msgid "The notebook could not be saved: %s"
 msgstr "Notesbogen kan ikke gemmes: %s"
@@ -1421,13 +1419,6 @@ msgstr "Du har ingen notesbøger. Opret en ved at klikke på (+) knappen."
 
 msgid "Welcome"
 msgstr "Velkommen"
-
-#~ msgid ""
-#~ "For more information about End-To-End Encryption (E2EE) and advices on "
-#~ "how to enable it please check the documentation"
-#~ msgstr ""
-#~ "Se dokumentationen for nærmere oplysninger om End-To-End-kryptering "
-#~ "(E2EE) og vejledning om hvordan det skal opsættes"
 
 #~ msgid "Searches"
 #~ msgstr "Søgninger"

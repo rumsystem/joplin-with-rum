@@ -38,7 +38,6 @@ const appDefaultState = Object.assign({}, defaultState, {
 	fileToImport: null,
 	windowCommand: null,
 	noteVisiblePanes: ['editor', 'viewer'],
-	sidebarVisibility: true,
 	windowContentSize: bridge().windowContentSize(),
 });
 
@@ -86,7 +85,7 @@ class Application extends BaseApplication {
 
 						action = newAction;
 					}
-
+					
 					if (!goingBack) newNavHistory.push(currentRoute);
 					newState.navHistory = newNavHistory
 					newState.route = action;
@@ -124,20 +123,9 @@ class Application extends BaseApplication {
 					break;
 
 				case 'NOTE_VISIBLE_PANES_SET':
-
+				
 					newState = Object.assign({}, state);
 					newState.noteVisiblePanes = action.panes;
-					break;
-
-				case 'SIDEBAR_VISIBILITY_TOGGLE':
-
-					newState = Object.assign({}, state);
-					newState.sidebarVisibility = !state.sidebarVisibility;
-					break;
-
-				case 'SIDEBAR_VISIBILITY_SET':
-					newState = Object.assign({}, state);
-					newState.sidebarVisibility = action.visibility;
 					break;
 
 			}
@@ -164,7 +152,7 @@ class Application extends BaseApplication {
 		}
 
 		if (["NOTE_UPDATE_ONE", "NOTE_DELETE", "FOLDER_UPDATE_ONE", "FOLDER_DELETE"].indexOf(action.type) >= 0) {
-			if (!await reg.syncTarget().syncStarted()) reg.scheduleSync(30, { syncSteps: ["update_remote", "delete_remote"] });
+			if (!await reg.syncTarget().syncStarted()) reg.scheduleSync(5, { syncSteps: ["update_remote", "delete_remote"] });
 		}
 
 		if (['EVENT_NOTE_ALARM_FIELD_CHANGE', 'NOTE_DELETE'].indexOf(action.type) >= 0) {
@@ -180,10 +168,6 @@ class Application extends BaseApplication {
 
 		if (['NOTE_VISIBLE_PANES_TOGGLE', 'NOTE_VISIBLE_PANES_SET'].indexOf(action.type) >= 0) {
 			Setting.setValue('noteVisiblePanes', newState.noteVisiblePanes);
-		}
-
-		if (['SIDEBAR_VISIBILITY_TOGGLE', 'SIDEBAR_VISIBILITY_SET'].indexOf(action.type) >= 0) {
-			Setting.setValue('sidebarVisibility', newState.sidebarVisibility);
 		}
 
 		return result;
@@ -211,7 +195,7 @@ class Application extends BaseApplication {
 					Setting.setValue('notes.sortOrder.field', field);
 					this.refreshMenu();
 				}
-			});
+			});		
 		}
 
 		const importItems = [];
@@ -289,7 +273,7 @@ class Application extends BaseApplication {
 				this.dispatch({
 					type: 'WINDOW_COMMAND',
 					name: 'exportPdf',
-				});
+				});				
 			}
 		});
 
@@ -395,16 +379,6 @@ class Application extends BaseApplication {
 			}, {
 				label: _('View'),
 				submenu: [{
-					label: _('Toggle sidebar'),
-					screens: ['Main'],
-					accelerator: 'F10',
-					click: () => {
-						this.dispatch({
-							type: 'WINDOW_COMMAND',
-							name: 'toggleSidebar',
-						});
-					}
-				}, {
 					label: _('Toggle editor layout'),
 					screens: ['Main'],
 					accelerator: 'CommandOrControl+L',
@@ -536,6 +510,11 @@ class Application extends BaseApplication {
 	}
 
 	updateTray() {
+		// Tray icon (called AppIndicator) doesn't work in Ubuntu
+		// http://www.webupd8.org/2017/04/fix-appindicator-not-working-for.html
+		// Might be fixed in Electron 18.x but no non-beta release yet.
+		if (!shim.isWindows() && !shim.isMac()) return;
+
 		const app = bridge().electronApp();
 
 		if (app.trayShown() === Setting.value('showTrayIcon')) return;
@@ -568,12 +547,6 @@ class Application extends BaseApplication {
 	}
 
 	async start(argv) {
-		const electronIsDev = require('electron-is-dev');
-
-		// If running inside a package, the command line, instead of being "node.exe <path> <flags>" is "joplin.exe <flags>" so
-		// insert an extra argument so that they can be processed in a consistent way everywhere.
-		if (!electronIsDev) argv.splice(1, 0, '.');
-
 		argv = await super.start(argv);
 
 		AlarmService.setDriver(new AlarmServiceDriverNode({ appName: packageInfo.build.appId }));
@@ -623,7 +596,7 @@ class Application extends BaseApplication {
 					bridge().checkForUpdates(true, bridge().window(), this.checkForUpdateLoggerPath());
 				}
 			}
-
+			
 			// Initial check on startup
 			setTimeout(() => { runAutoUpdateCheck() }, 5000);
 			// Then every x hours

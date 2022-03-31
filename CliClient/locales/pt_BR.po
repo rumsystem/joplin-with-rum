@@ -13,7 +13,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.7\n"
+"X-Generator: Poedit 2.0.6\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "To delete a tag, untag the associated notes."
@@ -246,8 +246,7 @@ msgstr ""
 "Use as setas e a Page Up/Page Down para rolar as listas e áreas de texto "
 "(incluindo este console)."
 
-#, fuzzy
-msgid "To maximise/minimise the console, press \"tc\"."
+msgid "To maximise/minimise the console, press \"TC\"."
 msgstr "Para maximizar / minimizar o console, pressione \"TC\"."
 
 msgid "To enter command line mode, press \":\""
@@ -415,14 +414,12 @@ msgstr ""
 msgid ""
 "To allow Joplin to synchronise with Dropbox, please follow the steps below:"
 msgstr ""
-"Para permitir o Joplin sincronizar com o Dropbox, por favor, execute os "
-"seguintes passos:"
 
 msgid "Step 1: Open this URL in your browser to authorise the application:"
-msgstr "Passo 1: Abra essa URL em seu navegador para autorizar:"
+msgstr ""
 
 msgid "Step 2: Enter the code provided by Dropbox:"
-msgstr "Passo 2: Entre o código fornecido pelo Dropbox:"
+msgstr ""
 
 #, javascript-format
 msgid "Not authentified with %s. Please provide any missing credentials."
@@ -580,8 +577,9 @@ msgstr "Exportando para \"%s\" com o formato \"%s\". Por favor, aguarde..."
 msgid "Importing from \"%s\" as \"%s\" format. Please wait..."
 msgstr "Importando de \"%s\" com o formato \"%s\". Por favor, aguarde..."
 
+#, fuzzy
 msgid "PDF File"
-msgstr "Arquivo PDF"
+msgstr "Arquivo"
 
 msgid "File"
 msgstr "Arquivo"
@@ -602,7 +600,7 @@ msgid "Export"
 msgstr "Exportar"
 
 msgid "Print"
-msgstr "Imprimir"
+msgstr ""
 
 #, javascript-format
 msgid "Hide %s"
@@ -628,9 +626,6 @@ msgstr "Pesquisar em todas as notas"
 
 msgid "View"
 msgstr "Visualizar"
-
-msgid "Toggle sidebar"
-msgstr ""
 
 msgid "Toggle editor layout"
 msgstr "Alternar layout do editor"
@@ -702,7 +697,7 @@ msgid "Save"
 msgstr "Salvar"
 
 msgid "Submit"
-msgstr "Enviar"
+msgstr ""
 
 msgid ""
 "Disabling encryption means *all* your notes and attachments are going to be "
@@ -777,10 +772,8 @@ msgstr ""
 
 msgid ""
 "For more information about End-To-End Encryption (E2EE) and advices on how "
-"to enable it please check the documentation:"
+"to enable it please check the documentation"
 msgstr ""
-"Para mais informações sobre Encriptação ponto-a-ponto (E2EE) e recomendações "
-"sobre como habilitar, favor verificar a documentação:"
 
 msgid "Status"
 msgstr "Status"
@@ -821,8 +814,9 @@ msgstr "Definir alarme:"
 msgid "Layout"
 msgstr "Layout"
 
+#, fuzzy
 msgid "Search..."
-msgstr "Pesquisar..."
+msgstr "Procurar"
 
 msgid "Some items cannot be synchronised."
 msgstr "Alguns itens não podem ser sincronizados."
@@ -902,7 +896,7 @@ msgid "OneDrive Login"
 msgstr "Login no OneDrive"
 
 msgid "Dropbox Login"
-msgstr "Login no Dropbox"
+msgstr ""
 
 msgid "Options"
 msgstr "Opções"
@@ -942,7 +936,7 @@ msgid "Unknown flag: %s"
 msgstr "Flag desconhecido: %s"
 
 msgid "Dropbox"
-msgstr "Dropbox"
+msgstr ""
 
 msgid "File system"
 msgstr "Sistema de arquivos"
@@ -1021,7 +1015,7 @@ msgstr "Itens remotos excluídos: %d."
 msgid "Fetched items: %d/%d."
 msgstr "Itens pesquisados: %d/%d."
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "State: %s."
 msgstr "Estado: \"%s\"."
 
@@ -1032,15 +1026,15 @@ msgstr "Cancelando..."
 msgid "Completed: %s"
 msgstr "Completado: %s"
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Last error: %s"
-msgstr "Último erro: %s"
+msgstr "Erro fatal:"
 
 msgid "Idle"
-msgstr "Inativo"
+msgstr ""
 
 msgid "In progress"
-msgstr "Em andamento"
+msgstr ""
 
 #, javascript-format
 msgid "Synchronisation is already in progress. State: %s"
@@ -1132,9 +1126,6 @@ msgstr "Quando criar uma nota nova:"
 
 msgid "Show tray icon"
 msgstr "Exibir tray icon"
-
-msgid "Note: Does not work in all desktop environments."
-msgstr ""
 
 msgid "Global zoom percentage"
 msgstr "Porcentagem global do zoom"
@@ -1337,16 +1328,17 @@ msgid "Cancel synchronisation"
 msgstr "Cancelar sincronização"
 
 msgid "New tags:"
-msgstr "Novas tags:"
+msgstr ""
 
 msgid "Type new tags or select from list"
-msgstr "Digite novsa tags, ou selecione da lista"
+msgstr ""
 
 msgid "Joplin website"
 msgstr "Site do Joplin"
 
+#, fuzzy
 msgid "Login with Dropbox"
-msgstr "Login com Dropbox"
+msgstr "Login com OneDrive"
 
 #, javascript-format
 msgid "Master Key %s"
@@ -1364,6 +1356,11 @@ msgstr "Senha não pode ser vazia"
 
 msgid "Enable"
 msgstr "Habilitar"
+
+msgid ""
+"For more information about End-To-End Encryption (E2EE) and advices on how "
+"to enable it please check the documentation:"
+msgstr ""
 
 #, javascript-format
 msgid "The notebook could not be saved: %s"
