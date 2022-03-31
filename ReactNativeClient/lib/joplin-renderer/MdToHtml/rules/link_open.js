@@ -23,9 +23,8 @@ function installRule(markdownIt, mdOptions, ruleOptions) {
 		let icon = '';
 		let hrefAttr = '#';
 		let mime = '';
-		let resourceId = '';
 		if (isResourceUrl) {
-			resourceId = resourceHrefInfo.itemId;
+			const resourceId = resourceHrefInfo.itemId;
 
 			const result = ruleOptions.resources[resourceId];
 			const resourceStatus = utils.resourceStatus(ruleOptions.ResourceModel, result);
@@ -63,7 +62,7 @@ function installRule(markdownIt, mdOptions, ruleOptions) {
 		// https://github.com/laurent22/joplin/issues/2030
 		href = href.replace(/'/g, '%27');
 
-		let js = `${ruleOptions.postMessageSyntax}(${JSON.stringify(href)}, { resourceId: ${JSON.stringify(resourceId)} }); return false;`;
+		let js = `${ruleOptions.postMessageSyntax}(${JSON.stringify(href)}); return false;`;
 		if (hrefAttr.indexOf('#') === 0 && href.indexOf('#') === 0) js = ''; // If it's an internal anchor, don't add any JS since the webview is going to handle navigating to the right place
 
 		if (ruleOptions.plainResourceRendering || pluginOptions.linkRenderingType === 2) {
