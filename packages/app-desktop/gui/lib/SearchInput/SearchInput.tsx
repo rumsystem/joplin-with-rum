@@ -41,8 +41,6 @@ interface Props {
 	onKeyDown?: Function;
 	onSearchButtonClick: Function;
 	searchStarted: boolean;
-	placeholder?: string;
-	disabled?: boolean;
 }
 
 export interface OnChangeEvent {
@@ -62,13 +60,12 @@ export default function(props: Props) {
 				ref={props.inputRef}
 				value={props.value}
 				type="text"
-				placeholder={props.placeholder || _('Search...')}
+				placeholder={_('Search...')}
 				onChange={onChange}
 				onFocus={props.onFocus}
 				onBlur={props.onBlur}
 				onKeyDown={props.onKeyDown}
 				spellCheck={false}
-				disabled={props.disabled}
 			/>
 			<SearchButton onClick={props.onSearchButtonClick}>
 				<SearchButtonIcon className={iconName}/>

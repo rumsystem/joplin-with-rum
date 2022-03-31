@@ -1387,7 +1387,7 @@ class Setting extends BaseModel {
 	static async saveAll() {
 		if (Setting.autoSaveEnabled && !this.saveTimeoutId_) return Promise.resolve();
 
-		this.logger().debug('Saving settings...');
+		this.logger().info('Saving settings...');
 		shim.clearTimeout(this.saveTimeoutId_);
 		this.saveTimeoutId_ = null;
 
@@ -1434,7 +1434,7 @@ class Setting extends BaseModel {
 
 		await BaseModel.db().transactionExecBatch(queries);
 
-		this.logger().debug('Settings have been saved.');
+		this.logger().info('Settings have been saved.');
 	}
 
 	static scheduleChangeEvent() {
@@ -1659,7 +1659,6 @@ Setting.constants_ = {
 	profileDir: '',
 	templateDir: '',
 	tempDir: '',
-	cacheDir: '',
 	pluginDir: '',
 	flagOpenDevTools: false,
 	syncVersion: 2,

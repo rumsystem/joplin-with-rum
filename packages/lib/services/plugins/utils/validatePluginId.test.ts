@@ -4,12 +4,11 @@ describe('validatePluginId', () => {
 
 	test('should validate an ID', () => {
 		const okCases = [
-			'joplinapp.org.plugins.thatsok',
-			'joplinapp.org.plugins.that-s-ok',
-			'joplinapp.org.plugins.that_s_fine12',
-			'joplinapp.org.plugins.com.ok.too',
-			'joplinapp.org.plugins.Good',
-			'outline',
+			'thatsok',
+			'that-s-ok',
+			'that_s_fine12',
+			'com.ok.too',
+			'Good',
 		];
 
 		const errorCases = [
@@ -17,9 +16,8 @@ describe('validatePluginId', () => {
 			'verylongidverylongidverylongidverylongidverylongidverylongidverylongidverylongidverylongidverylongidverylongidverylongidverylongidverylongidverylongidverylongidverylongidverylongidverylongidverylongidverylongidverylongidverylongidverylongidverylongidverylongidverylongidverylongidverylongid',
 			'-shouldstartwiththis',
 			'shouldntendwithit.',
-			' no space no space no space no space ',
-			'no spaceno spaceno spaceno spaceno space',
-			'tooshort',
+			' no space ',
+			'no space',
 		];
 
 		for (const t of okCases) {

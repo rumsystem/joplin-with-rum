@@ -19,14 +19,10 @@ joplin.plugins.register({
 			},
 		});
 
-		await joplin.contentScripts.register(
+		await joplin.plugins.registerContentScript(
 			ContentScriptType.MarkdownItPlugin,
 			'justtesting',
 			'./markdownItTestPlugin.js'
 		);
-
-		await joplin.contentScripts.onMessage('justtesting', (message:any) => {
-			return message + '+response';
-		});
 	},
 });

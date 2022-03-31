@@ -17,10 +17,7 @@ export default function stateToWhenClauseContext(state: AppState) {
 		markdownEditorPaneVisible: state.settings['editor.codeView'] && state.noteVisiblePanes.includes('editor'),
 		markdownViewerPaneVisible: state.settings['editor.codeView'] && state.noteVisiblePanes.includes('viewer'),
 		modalDialogVisible: !!Object.keys(state.visibleDialogs).length,
-		sidebarVisible: !!state.mainLayout && layoutItemProp(state.mainLayout, 'sideBar', 'visible'),
-		noteListHasNotes: !!state.notes.length,
-
-		// Deprecated
 		sideBarVisible: !!state.mainLayout && layoutItemProp(state.mainLayout, 'sideBar', 'visible'),
+		noteListHasNotes: !!state.notes.length,
 	};
 }

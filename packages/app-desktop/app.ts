@@ -78,7 +78,7 @@ const commands = [
 	require('./gui/NoteEditor/commands/showRevisions'),
 	require('./gui/NoteList/commands/focusElementNoteList'),
 	require('./gui/NoteListControls/commands/focusSearch'),
-	require('./gui/Sidebar/commands/focusElementSideBar'),
+	require('./gui/SideBar/commands/focusElementSideBar'),
 ];
 
 // Commands that are not tied to any particular component.
@@ -527,7 +527,7 @@ class Application extends BaseApplication {
 		// time, however we only effectively uninstall the plugin the next
 		// time the app is started. What plugin should be uninstalled is
 		// stored in the settings.
-		const newSettings = service.clearUpdateState(await service.uninstallPlugins(pluginSettings));
+		const newSettings = await service.uninstallPlugins(pluginSettings);
 		Setting.setValue('plugins.states', newSettings);
 
 		try {

@@ -6,8 +6,7 @@ export enum ButtonLevel {
 	Primary = 'primary',
 	Secondary = 'secondary',
 	Tertiary = 'tertiary',
-	SidebarSecondary = 'sidebarSecondary',
-	Recommended = 'recommended',
+	SideBarSecondary = 'sideBarSecondary',
 }
 
 interface Props {
@@ -122,21 +121,7 @@ const StyledButtonTertiary = styled(StyledButtonBase)`
 	}
 `;
 
-const StyledButtonRecommended = styled(StyledButtonBase)`
-	border: 1px solid ${(props: any) => props.theme.borderColor4};
-	background-color: ${(props: any) => props.theme.warningBackgroundColor};
-
-	${StyledIcon} {
-		color: ${(props: any) => props.theme.color};
-	}
-
-	${StyledTitle} {
-		color: ${(props: any) => props.theme.color};
-		opacity: 0.9;
-	}
-`;
-
-const StyledButtonSidebarSecondary = styled(StyledButtonBase)`
+const StyledButtonSideBarSecondary = styled(StyledButtonBase)`
 	background: none;
 	border-color: ${(props: any) => props.theme.color2};
 	color: ${(props: any) => props.theme.color2};
@@ -181,12 +166,11 @@ const StyledButtonSidebarSecondary = styled(StyledButtonBase)`
 function buttonClass(level: ButtonLevel) {
 	if (level === ButtonLevel.Primary) return StyledButtonPrimary;
 	if (level === ButtonLevel.Tertiary) return StyledButtonTertiary;
-	if (level === ButtonLevel.SidebarSecondary) return StyledButtonSidebarSecondary;
-	if (level === ButtonLevel.Recommended) return StyledButtonRecommended;
+	if (level === ButtonLevel.SideBarSecondary) return StyledButtonSideBarSecondary;
 	return StyledButtonSecondary;
 }
 
-function Button(props: Props) {
+export default function Button(props: Props) {
 	const iconOnly = props.iconName && !props.title;
 
 	const StyledButton = buttonClass(props.level);
@@ -213,5 +197,3 @@ function Button(props: Props) {
 		</StyledButton>
 	);
 }
-
-export default styled(Button)`${space}`;

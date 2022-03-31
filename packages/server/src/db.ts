@@ -47,15 +47,15 @@ export interface ConnectionCheckResult {
 	connection: DbConnection;
 }
 
-export function sqliteFilePath(name: string): string {
-	return `${sqliteDbDir}/db-${name}.sqlite`;
+export function sqliteFilePath(dbConfig: DatabaseConfig): string {
+	return `${sqliteDbDir}/db-${dbConfig.name}.sqlite`;
 }
 
 export function makeKnexConfig(dbConfig: DatabaseConfig): KnexDatabaseConfig {
 	const connection: DbConfigConnection = {};
 
 	if (dbConfig.client === 'sqlite3') {
-		connection.filename = sqliteFilePath(dbConfig.name);
+		connection.filename = sqliteFilePath(dbConfig);
 	} else {
 		connection.database = dbConfig.name;
 		connection.host = dbConfig.host;

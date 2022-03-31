@@ -26,11 +26,6 @@ function mergePackageKey(parentKey, source, dest) {
 		} else if (typeof source[k] === 'object' && !Array.isArray(source[k]) && source[k] !== null) {
 			// If it's an object, recursively process it
 			output[k] = mergePackageKey(k, source[k], output[k]);
-		} else if (parentKey === 'scripts' && ['dist', 'prepare', 'update'].includes(k)) {
-			// When merging scripts, we need to take certain keys from source
-			// because if they aren't right, the plugin might not build
-			// correctly.
-			output[k] = source[k];
 		} else {
 			// Otherwise, the default is to preserve the destination key
 			output[k] = dest[k];
@@ -41,12 +36,12 @@ function mergePackageKey(parentKey, source, dest) {
 }
 
 function mergeIgnoreFile(source, dest) {
-	const output = dest.trim().split('\n').concat(source.trim().split('\n'));
+	const output = source.split('\n').concat(dest.split('\n'));
 
-	return `${output.filter(function(item, pos) {
+	return output.filter(function(item, pos) {
 		if (!item) return true; // Leave blank lines
 		return output.indexOf(item) === pos;
-	}).join('\n').trim()}\n`;
+	}).join('\n');
 }
 
 function packageNameFromPluginName(pluginName) {
