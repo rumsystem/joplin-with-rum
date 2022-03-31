@@ -24,15 +24,13 @@ import { themeStyle } from '@joplin/lib/theme';
 import Setting from '@joplin/lib/models/Setting';
 import { Models } from '../models/factory';
 import MustacheService from '../services/MustacheService';
-import Logger from '@joplin/lib/Logger';
 
-const logger = Logger.create('JoplinUtils');
+// const logger = Logger.create('JoplinUtils');
 
 export interface FileViewerResponse {
 	body: any;
 	mime: string;
 	size: number;
-	filename: string;
 }
 
 interface ResourceInfo {
@@ -155,25 +153,11 @@ async function noteLinkedItemInfos(userId: Uuid, itemModel: ItemModel, note: Not
 	return output;
 }
 
-async function renderResource(userId: string, resourceId: string, item: Item, content: any): Promise<FileViewerResponse> {
-	// The item passed to this function is the resource blob, which is
-	// sufficient to download the resource. However, if we want a more user
-	// friendly download, we need to know the resource original name and mime
-	// type. So below, we try to get that information.
-	let jopItem: any = null;
-
-	try {
-		const resourceItem = await models_.item().loadByJopId(userId, resourceId);
-		jopItem = await models_.item().loadAsJoplinItem(resourceItem.id);
-	} catch (error) {
-		logger.error(`Could not load Joplin item ${resourceId} associated with item: ${item.id}`);
-	}
-
+async function renderResource(item: Item, content: any): Promise<FileViewerResponse> {
 	return {
 		body: content,
-		mime: jopItem ? jopItem.mime : item.mime_type,
+		mime: item.mime_type,
 		size: item.content_size,
-		filename: jopItem ? jopItem.title : '',
 	};
 }
 
@@ -235,7 +219,6 @@ async function renderNote(share: Share, note: NoteEntity, resourceInfos: Resourc
 		body: bodyHtml,
 		mime: 'text/html',
 		size: Buffer.byteLength(bodyHtml, 'utf-8'),
-		filename: '',
 	};
 }
 
@@ -251,34 +234,28 @@ export async function renderItem(userId: Uuid, item: Item, share: Share, query: 
 	const linkedItemInfos: LinkedItemInfos = await noteLinkedItemInfos(userId, models_.item(), rootNote);
 	const resourceInfos = await getResourceInfos(linkedItemInfos);
 
-	interface FileToRender {
-		item: Item;
-		content: any;
-		jopItemId: string;
-	}
-
-	const fileToRender: FileToRender = {
+	const fileToRender = {
 		item: item,
 		content: null as any,
-		jopItemId: rootNote.id,
+		itemId: rootNote.id,
 	};
 
 	if (query.resource_id) {
 		const resourceItem = await models_.item().loadByName(userId, resourceBlobPath(query.resource_id), { fields: ['*'] });
 		fileToRender.item = resourceItem;
 		fileToRender.content = resourceItem.content;
-		fileToRender.jopItemId = query.resource_id;
+		fileToRender.itemId = query.resource_id;
 	}
 
-	if (fileToRender.item !== item && !linkedItemInfos[fileToRender.jopItemId]) {
-		throw new ErrorNotFound(`Item "${fileToRender.jopItemId}" does not belong to this note`);
+	if (fileToRender.item !== item && !linkedItemInfos[fileToRender.itemId]) {
+		throw new ErrorNotFound(`Item "${fileToRender.itemId}" does not belong to this note`);
 	}
 
-	const itemToRender = fileToRender.item === item ? rootNote : linkedItemInfos[fileToRender.jopItemId].item;
+	const itemToRender = fileToRender.item === item ? rootNote : linkedItemInfos[fileToRender.itemId].item;
 	const itemType: ModelType = itemToRender.type_;
 
 	if (itemType === ModelType.Resource) {
-		return renderResource(userId, fileToRender.jopItemId, fileToRender.item, fileToRender.content);
+		return renderResource(fileToRender.item, fileToRender.content);
 	} else if (itemType === ModelType.Note) {
 		return renderNote(share, itemToRender, resourceInfos, linkedItemInfos);
 	} else {

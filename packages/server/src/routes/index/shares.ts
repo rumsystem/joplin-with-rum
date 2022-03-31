@@ -6,7 +6,6 @@ import { ErrorForbidden, ErrorNotFound } from '../../utils/errors';
 import { Item, Share } from '../../db';
 import { ModelType } from '@joplin/lib/BaseModel';
 import { FileViewerResponse, renderItem as renderJoplinItem } from '../../utils/joplinUtils';
-import { friendlySafeFilename } from '@joplin/lib/path-utils';
 
 async function renderItem(context: AppContext, item: Item, share: Share): Promise<FileViewerResponse> {
 	if (item.jop_type === ModelType.Note) {
@@ -17,7 +16,6 @@ async function renderItem(context: AppContext, item: Item, share: Share): Promis
 		body: item.content,
 		mime: item.mime_type,
 		size: item.content_size,
-		filename: '',
 	};
 }
 
@@ -46,7 +44,6 @@ router.get('shares/:id', async (path: SubPath, ctx: AppContext) => {
 	ctx.response.body = result.body;
 	ctx.response.set('Content-Type', result.mime);
 	ctx.response.set('Content-Length', result.size.toString());
-	if (result.filename) ctx.response.set('Content-disposition', `attachment; filename="${friendlySafeFilename(result.filename)}"`);
 	return new Response(ResponseType.KoaResponse, ctx.response);
 }, RouteType.UserContent);
 
