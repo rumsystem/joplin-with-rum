@@ -1,8 +1,11 @@
-import filterParser from './filterParser';
+/* eslint-disable no-unused-vars */
 
-const makeTerm = (name: string, value: string, negated: boolean, quoted: boolean = false, wildcard: boolean = false) => {
+const filterParser = require('../../services/searchengine/filterParser.js').default;
+// import filterParser from '../../services/searchengine/filterParser.js';
+
+const makeTerm = (name, value, negated, quoted = false, wildcard = false) => {
 	if (name === 'text') { return { name, value, negated, quoted, wildcard }; }
-	if (name === 'title' || name === 'body') { return { name, value, negated, wildcard }; }
+	if (name === 'title' | name === 'body') { return { name, value, negated, wildcard }; }
 	return { name, value, negated };
 };
 
@@ -132,16 +135,13 @@ describe('filterParser should be correct filter for keyword', () => {
 
 	it('handle invalid filters', () => {
 		let searchString = 'titletitle:123';
-		expect(filterParser(searchString)).toContainEqual(makeTerm('text', '"titletitle:123"', false));
+		expect(() => filterParser(searchString)).toThrow(new Error('Invalid filter: titletitle'));
 
 		searchString = 'invalid:abc';
-		expect(filterParser(searchString)).toContainEqual(makeTerm('text', '"invalid:abc"', false));
-
-		searchString = '-invalid:abc';
-		expect(filterParser(searchString)).toContainEqual(makeTerm('text', '"invalid:abc"', true));
+		expect(() => filterParser(searchString)).toThrow(new Error('Invalid filter: invalid'));
 
 		searchString = ':abc';
-		expect(filterParser(searchString)).toContainEqual(makeTerm('text', '":abc"', false));
+		expect(() => filterParser(searchString)).toThrow(new Error('Invalid filter: '));
 
 		searchString = 'type:blah';
 		expect(() => filterParser(searchString)).toThrow(new Error('The value of filter "type" must be "note" or "todo"'));
