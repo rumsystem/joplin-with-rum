@@ -3,12 +3,7 @@
 const Setting = require('lib/models/Setting');
 
 class InteropService_Exporter_Base {
-	constructor() {
-		this.context_ = {};
-	}
-
 	async init(destDir) {}
-	async prepareForProcessingItemType(type, itemsToExport) {}
 	async processItem(ItemClass, item) {}
 	async processResource(resource, filePath) {}
 	async close() {}
@@ -22,7 +17,7 @@ class InteropService_Exporter_Base {
 	}
 
 	updateContext(context) {
-		this.context_ = Object.assign(this.context_, context);
+		this.context_ = context;
 	}
 
 	context() {
