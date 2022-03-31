@@ -41,11 +41,11 @@ export default function NoteListControls(props: Props) {
 	}, []);
 
 	function onNewTodoButtonClick() {
-		void CommandService.instance().execute('newTodo');
+		CommandService.instance().execute('newTodo');
 	}
 
 	function onNewNoteButtonClick() {
-		void CommandService.instance().execute('newNote');
+		CommandService.instance().execute('newNote');
 	}
 
 	function renderNewNoteButtons() {
