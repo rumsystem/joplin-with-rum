@@ -1,40 +1,40 @@
-import FsDriverBase from '@joplin/lib/fs-driver-base';
-const RNFetchBlob = require('rn-fetch-blob').default;
 const RNFS = require('react-native-fs');
+const FsDriverBase = require('@joplin/lib/fs-driver-base').default;
+const RNFetchBlob = require('rn-fetch-blob').default;
 const { Writable } = require('stream-browserify');
 const { Buffer } = require('buffer');
 
-export default class FsDriverRN extends FsDriverBase {
-	public appendFileSync() {
+class FsDriverRN extends FsDriverBase {
+	appendFileSync() {
 		throw new Error('Not implemented');
 	}
 
 	// Encoding can be either "utf8" or "base64"
-	public appendFile(path: string, content: any, encoding = 'base64') {
+	appendFile(path, content, encoding = 'base64') {
 		return RNFS.appendFile(path, content, encoding);
 	}
 
 	// Encoding can be either "utf8" or "base64"
-	public writeFile(path: string, content: any, encoding = 'base64') {
+	writeFile(path, content, encoding = 'base64') {
 		// We need to use rn-fetch-blob here due to this bug:
 		// https://github.com/itinance/react-native-fs/issues/700
 		return RNFetchBlob.fs.writeFile(path, content, encoding);
 	}
 
 	// same as rm -rf
-	public async remove(path: string) {
+	async remove(path) {
 		return await this.unlink(path);
 	}
 
-	public writeBinaryFile(path: string, content: any) {
+	writeBinaryFile(path, content) {
 		const buffer = Buffer.from(content);
-		return RNFetchBlob.fs.writeStream(path, 'base64').then((stream: any) => {
+		return RNFetchBlob.fs.writeStream(path, 'base64').then(stream => {
 			const fileStream = new Writable({
-				write(chunk: any, _encoding: any, callback: Function) {
+				write(chunk, encoding, callback) {
 					this.stream.write(chunk.toString('base64'));
 					callback();
 				},
-				final(callback: Function) {
+				final(callback) {
 					this.stream.close();
 					callback();
 				},
@@ -48,7 +48,7 @@ export default class FsDriverRN extends FsDriverBase {
 	}
 
 	// Returns a format compatible with Node.js format
-	private rnfsStatToStd_(stat: any, path: string) {
+	rnfsStatToStd_(stat, path) {
 		return {
 			birthtime: stat.ctime ? stat.ctime : stat.mtime, // Confusingly, "ctime" normally means "change time" but here it's used as "creation time". Also sometimes it is null
 			mtime: stat.mtime,
@@ -58,7 +58,7 @@ export default class FsDriverRN extends FsDriverBase {
 		};
 	}
 
-	public async readDirStats(path: string, options: any = null) {
+	async readDirStats(path, options = null) {
 		if (!options) options = {};
 		if (!('recursive' in options)) options.recursive = false;
 
@@ -69,7 +69,7 @@ export default class FsDriverRN extends FsDriverBase {
 			throw new Error(`Could not read directory: ${path}: ${error.message}`);
 		}
 
-		let output: any[] = [];
+		let output = [];
 		for (let i = 0; i < items.length; i++) {
 			const item = items[i];
 			const relativePath = item.path.substr(path.length + 1);
@@ -80,19 +80,19 @@ export default class FsDriverRN extends FsDriverBase {
 		return output;
 	}
 
-	public async move(source: string, dest: string) {
+	async move(source, dest) {
 		return RNFS.moveFile(source, dest);
 	}
 
-	public async exists(path: string) {
+	async exists(path) {
 		return RNFS.exists(path);
 	}
 
-	public async mkdir(path: string) {
+	async mkdir(path) {
 		return RNFS.mkdir(path);
 	}
 
-	public async stat(path: string) {
+	async stat(path) {
 		try {
 			const r = await RNFS.stat(path);
 			return this.rnfsStatToStd_(r, path);
@@ -111,11 +111,11 @@ export default class FsDriverRN extends FsDriverBase {
 	// arguments but the function returns `false` and the timestamp is not set.
 	// Current setTimestamp is not really used so keep it that way, but careful if it
 	// becomes needed.
-	public async setTimestamp() {
+	async setTimestamp() {
 		// return RNFS.touch(path, timestampDate, timestampDate);
 	}
 
-	public async open(path: string, mode: number) {
+	async open(path, mode) {
 		// Note: RNFS.read() doesn't provide any way to know if the end of file has been reached.
 		// So instead we stat the file here and use stat.size to manually check for end of file.
 		// Bug: https://github.com/itinance/react-native-fs/issues/342
@@ -128,17 +128,17 @@ export default class FsDriverRN extends FsDriverBase {
 		};
 	}
 
-	public close(): void {
-		// Nothing
+	close() {
+		return null;
 	}
 
-	public readFile(path: string, encoding = 'utf8') {
+	readFile(path, encoding = 'utf8') {
 		if (encoding === 'Buffer') throw new Error('Raw buffer output not supported for FsDriverRN.readFile');
 		return RNFS.readFile(path, encoding);
 	}
 
 	// Always overwrite destination
-	public async copy(source: string, dest: string) {
+	async copy(source, dest) {
 		let retry = false;
 		try {
 			await RNFS.copyFile(source, dest);
@@ -151,7 +151,7 @@ export default class FsDriverRN extends FsDriverBase {
 		if (retry) await RNFS.copyFile(source, dest);
 	}
 
-	public async unlink(path: string) {
+	async unlink(path) {
 		try {
 			await RNFS.unlink(path);
 		} catch (error) {
@@ -164,7 +164,7 @@ export default class FsDriverRN extends FsDriverBase {
 		}
 	}
 
-	public async readFileChunk(handle: any, length: number, encoding = 'base64') {
+	async readFileChunk(handle, length, encoding = 'base64') {
 		if (handle.offset + length > handle.stat.size) {
 			length = handle.stat.size - handle.offset;
 		}
@@ -176,15 +176,13 @@ export default class FsDriverRN extends FsDriverBase {
 		return output ? output : null;
 	}
 
-	public resolve(path: string) {
+	resolve(path) {
 		throw new Error(`Not implemented: resolve(): ${path}`);
 	}
 
-	public resolveRelativePathWithinDir(_baseDir: string, relativePath: string) {
+	resolveRelativePathWithinDir(_baseDir, relativePath) {
 		throw new Error(`Not implemented: resolveRelativePathWithinDir(): ${relativePath}`);
 	}
-
-	public async md5File(path: string): Promise<string> {
-		throw new Error(`Not implemented: md5File(): ${path}`);
-	}
 }
+
+module.exports.FsDriverRN = FsDriverRN;

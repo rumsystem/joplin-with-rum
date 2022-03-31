@@ -1,5 +1,3 @@
-'use strict';
-
 const fs = require('fs-extra');
 const shim = require('./shim').default;
 const { GeolocationNode } = require('./geolocation-node.js');
@@ -23,15 +21,6 @@ function fileExists(filePath) {
 	} catch (err) {
 		return false;
 	}
-}
-
-// https://github.com/sindresorhus/callsites/blob/main/index.js
-function callsites() {
-	const _prepareStackTrace = Error.prepareStackTrace;
-	Error.prepareStackTrace = (_any, stack) => stack;
-	const stack = new Error().stack.slice(1);
-	Error.prepareStackTrace = _prepareStackTrace;
-	return stack;
 }
 
 const gunzipFile = function(source, destination) {
@@ -546,17 +535,7 @@ function shimInit(sharp = null, keytar = null, React = null) {
 	};
 
 	shim.requireDynamic = (path) => {
-		if (path.indexOf('.') === 0) {
-			const sites = callsites();
-			if (sites.length <= 1) throw new Error(`Cannot require file (1) ${path}`);
-			const filename = sites[1].getFileName();
-			if (!filename) throw new Error(`Cannot require file (2) ${path}`);
-
-			const fileDirName = require('path').dirname(filename);
-			return require(`${fileDirName}/${path}`);
-		} else {
-			return require(path);
-		}
+		return require(path);
 	};
 }
 

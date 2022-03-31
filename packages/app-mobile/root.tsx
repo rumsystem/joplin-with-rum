@@ -30,7 +30,7 @@ import SyncTargetOneDrive from '@joplin/lib/SyncTargetOneDrive';
 const { AppState, Keyboard, NativeModules, BackHandler, Animated, View, StatusBar } = require('react-native');
 
 const DropdownAlert = require('react-native-dropdownalert').default;
-const AlarmServiceDriver = require('./services/AlarmServiceDriver').default;
+const AlarmServiceDriver = require('./services/AlarmServiceDriver');
 const SafeAreaView = require('./components/SafeAreaView');
 const { connect, Provider } = require('react-redux');
 const { BackButtonService } = require('./services/back-button.js');
@@ -90,7 +90,7 @@ SyncTargetRegistry.addClass(SyncTargetFilesystem);
 SyncTargetRegistry.addClass(SyncTargetAmazonS3);
 SyncTargetRegistry.addClass(SyncTargetJoplinServer);
 
-import FsDriverRN from './utils/fs-driver-rn';
+const FsDriverRN = require('./utils/fs-driver-rn.js').FsDriverRN;
 import DecryptionWorker from '@joplin/lib/services/DecryptionWorker';
 import EncryptionService from '@joplin/lib/services/EncryptionService';
 import MigrationService from '@joplin/lib/services/MigrationService';
