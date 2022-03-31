@@ -132,17 +132,6 @@ async function main() {
 		}
 	});
 
-	// Creates the request-specific "joplin" context property.
-	app.use(async (ctx: AppContext, next: KoaNext) => {
-		ctx.joplin = {
-			...ctx.joplinBase,
-			owner: null,
-			notifications: [],
-		};
-
-		return next();
-	});
-
 	app.use(cors({
 		// https://github.com/koajs/cors/issues/52#issuecomment-413887382
 		origin: (ctx: AppContext) => {
@@ -156,7 +145,6 @@ async function main() {
 			}
 		},
 	}));
-
 	app.use(apiVersionHandler);
 	app.use(ownerHandler);
 	app.use(notificationHandler);
@@ -214,16 +202,16 @@ async function main() {
 		delete connectionCheckLogInfo.connection;
 
 		appLogger().info('Connection check:', connectionCheckLogInfo);
-		const ctx = app.context as AppContext;
+		const appContext = app.context as AppContext;
 
-		await setupAppContext(ctx, env, connectionCheck.connection, appLogger);
-		await initializeJoplinUtils(config(), ctx.joplinBase.models, ctx.joplinBase.services.mustache);
+		await setupAppContext(appContext, env, connectionCheck.connection, appLogger);
+		await initializeJoplinUtils(config(), appContext.models, appContext.services.mustache);
 
 		appLogger().info('Migrating database...');
-		await migrateDb(ctx.joplinBase.db);
+		await migrateDb(appContext.db);
 
 		appLogger().info('Starting services...');
-		await startServices(ctx.joplinBase.services);
+		await startServices(appContext);
 
 		appLogger().info(`Call this for testing: \`curl ${config().apiBaseUrl}/api/ping\``);
 

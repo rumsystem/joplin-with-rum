@@ -22,11 +22,11 @@ Three types of applications are available: for the **desktop** (Windows, macOS a
 
 Operating System | Download
 ---|---
-Windows (32 and 64-bit) | <a href='https://github.com/laurent22/joplin/releases/download/v2.1.8/Joplin-Setup-2.1.8.exe'><img alt='Get it on Windows' width="134px" src='https://joplinapp.org/images/BadgeWindows.png'/></a>
-macOS | <a href='https://github.com/laurent22/joplin/releases/download/v2.1.8/Joplin-2.1.8.dmg'><img alt='Get it on macOS' width="134px" src='https://joplinapp.org/images/BadgeMacOS.png'/></a>
-Linux | <a href='https://github.com/laurent22/joplin/releases/download/v2.1.8/Joplin-2.1.8.AppImage'><img alt='Get it on Linux' width="134px" src='https://joplinapp.org/images/BadgeLinux.png'/></a>
+Windows (32 and 64-bit) | <a href='https://github.com/laurent22/joplin/releases/download/v2.0.11/Joplin-Setup-2.0.11.exe'><img alt='Get it on Windows' width="134px" src='https://joplinapp.org/images/BadgeWindows.png'/></a>
+macOS | <a href='https://github.com/laurent22/joplin/releases/download/v2.0.11/Joplin-2.0.11.dmg'><img alt='Get it on macOS' width="134px" src='https://joplinapp.org/images/BadgeMacOS.png'/></a>
+Linux | <a href='https://github.com/laurent22/joplin/releases/download/v2.0.11/Joplin-2.0.11.AppImage'><img alt='Get it on Linux' width="134px" src='https://joplinapp.org/images/BadgeLinux.png'/></a>
 
-**On Windows**, you may also use the <a href='https://github.com/laurent22/joplin/releases/download/v2.1.8/JoplinPortable.exe'>Portable version</a>. The [portable application](https://en.wikipedia.org/wiki/Portable_application) allows installing the software on a portable device such as a USB key. Simply copy the file JoplinPortable.exe in any directory on that USB key ; the application will then create a directory called "JoplinProfile" next to the executable file.
+**On Windows**, you may also use the <a href='https://github.com/laurent22/joplin/releases/download/v2.0.11/JoplinPortable.exe'>Portable version</a>. The [portable application](https://en.wikipedia.org/wiki/Portable_application) allows installing the software on a portable device such as a USB key. Simply copy the file JoplinPortable.exe in any directory on that USB key ; the application will then create a directory called "JoplinProfile" next to the executable file.
 
 **On Linux**, the recommended way is to use the following installation script as it will handle the desktop icon too:
 
@@ -64,7 +64,7 @@ The Web Clipper is a browser extension that allows you to save web pages and scr
 
 # Sponsors
 
-<a href="https://seirei.ne.jp"><img title="Serei Network" width="256" src="https://joplinapp.org/images/sponsors/SeireiNetwork.png"/></a> <a href="https://usrigging.com/"><img title="U.S. Ringing Supply" width="256" src="https://joplinapp.org/images/sponsors/RingingSupply.svg"/></a> <a href="https://tranio.com/italy/"><img title="Tranio" width="256" src="https://joplinapp.org/images/sponsors/Tranio.png"/></a>
+<a href="https://seirei.ne.jp"><img title="Serei Network" width="256" src="https://joplinapp.org/images/sponsors/SeireiNetwork.png"/></a> <a href="https://usrigging.com/"><img title="U.S. Ringing Supply" width="256" src="https://joplinapp.org/images/sponsors/RingingSupply.svg"/></a> <a href=" https://tranio.com/italy/"><img title="Tranio" width="256" src="https://joplinapp.org/images/sponsors/Tranio.png"/></a>
 
 * * *
 
@@ -453,8 +453,6 @@ The filters are implicitly connected by and/or connectives depending on the foll
 - To override this default behaviour, use the `any` filter, in which case the search terms will be connected by "OR" instead.
 - There's an exception for the `notebook` filters which are connected by "OR". The reason being that no note can be in multiple notebooks at once.
 
-Incorrect search filters are interpreted as a phrase search, e.g. misspelled `nootebook:Example` or non-existing `https://joplinapp.org`.
-
 ## Search order
 
 Notes are sorted by "relevance". Currently it means the notes that contain the requested terms the most times are on top. For queries with multiple terms, it also matters how close to each other the terms are. This is a bit experimental so if you notice a search query that returns unexpected results, please report it in the forum, providing as many details as possible to replicate the issue.
@@ -646,3 +644,20 @@ Thank you to everyone who've contributed to Joplin's source code!
 | <img width="50" src="https://avatars.githubusercontent.com/u/37692927?v=4"/></br>[zaoyifan](https://github.com/zaoyifan) | <img width="50" src="https://avatars.githubusercontent.com/u/10813608?v=4"/></br>[zawnk](https://github.com/zawnk) | <img width="50" src="https://avatars.githubusercontent.com/u/55245068?v=4"/></br>[zen-quo](https://github.com/zen-quo) | <img width="50" src="https://avatars.githubusercontent.com/u/23507174?v=4"/></br>[zozolina123](https://github.com/zozolina123) | <img width="50" src="https://avatars.githubusercontent.com/u/25315?v=4"/></br>[xcession](https://github.com/xcession) |
 | <img width="50" src="https://avatars.githubusercontent.com/u/34542665?v=4"/></br>[paventyang](https://github.com/paventyang) | <img width="50" src="https://avatars.githubusercontent.com/u/608014?v=4"/></br>[jackytsu](https://github.com/jackytsu) | <img width="50" src="https://avatars.githubusercontent.com/u/1308646?v=4"/></br>[zhangmx](https://github.com/zhangmx) |  |  |
 <!-- CONTRIBUTORS-TABLE-AUTO-GENERATED -->
+
+# Known bugs
+
+- Resources larger than 10 MB are not currently supported on mobile as they can crash the application.
+- Non-alphabetical characters such as Chinese or Arabic might create glitches in the terminal on Windows. This is a limitation of the current Windows console.
+
+# License
+
+MIT License
+
+Copyright (c) 2016-2021 Laurent Cozic
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
