@@ -16,7 +16,6 @@ import com.facebook.soloader.SoLoader;
 
 import net.cozic.joplin.share.SharePackage;
 import net.cozic.joplin.ssl.SslPackage;
-import net.cozic.joplin.textinput.TextInputPackage;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -45,7 +44,6 @@ public class MainApplication extends Application implements ReactApplication {
           // Packages that cannot be autolinked yet can be added manually here, for example:
           packages.add(new SharePackage());
           packages.add(new SslPackage());
-          packages.add(new TextInputPackage());
           return packages;
         }
 
