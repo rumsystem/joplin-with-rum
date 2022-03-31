@@ -26,8 +26,7 @@
 				"*.min.js",
 				"*.bundle.js",
 				"yarn.lock",
-				"*.icns",
-				"*.base64",
+				"*.icns"
 			],
 			"folder_exclude_patterns":
 			[
