@@ -52,8 +52,6 @@ class MdToHtml {
 		if (!options.paddingBottom) options.paddingBottom = '0';
 		if (!options.highlightedKeywords) options.highlightedKeywords = [];
 
-		const breaks_ = Setting.value('markdown.softbreaks') ? false : true;
-
 		const cacheKey = md5(escape(body + JSON.stringify(options) + JSON.stringify(style)));
 		const cachedOutput = this.cachedOutputs_[cacheKey];
 		if (cachedOutput) return cachedOutput;
@@ -65,7 +63,7 @@ class MdToHtml {
 		};
 
 		const markdownIt = new MarkdownIt({
-			breaks: breaks_,
+			breaks: true,
 			linkify: true,
 			html: true,
 			highlight: function(str, lang) {
