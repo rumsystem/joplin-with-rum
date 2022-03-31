@@ -93,7 +93,7 @@ class ActionButtonComponent extends React.Component {
 		}
 
 		if (!buttonComps.length && !this.props.mainButton) {
-			return null;
+			return <ReactNativeActionButton style={{ display: 'none' }} />;
 		}
 
 		const mainButton = this.props.mainButton ? this.props.mainButton : {};

@@ -41,7 +41,6 @@ export default function useMessageHandler(scrollWhenReady:any, setScrollWhenRead
 				itemType: arg0 && arg0.type,
 				resourceId: arg0.resourceId,
 				textToCopy: arg0.textToCopy,
-				linkToCopy: null,
 				htmlToCopy: '',
 				insertContent: () => { console.warn('insertContent() not implemented'); },
 			});
