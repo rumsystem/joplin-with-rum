@@ -134,8 +134,7 @@ class NotesScreenComponent extends BaseScreenComponent {
 			Folder.delete(folderId).then(() => {
 				this.props.dispatch({
 					type: 'NAV_GO',
-					routeName: 'Notes',
-					smartFilterId: 'c3176726992c11e9ac940492261af972',
+					routeName: 'Welcome',
 				});
 			}).catch((error) => {
 				alert(error.message);

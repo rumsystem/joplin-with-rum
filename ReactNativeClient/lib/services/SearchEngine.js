@@ -131,7 +131,7 @@ class SearchEngine {
 					WHERE item_type = ?
 					AND id > ?
 					ORDER BY id ASC
-					LIMIT 10
+					LIMIT 100
 				`, [BaseModel.TYPE_NOTE, lastChangeId]);
 
 				const maxRow = await ItemChange.db().selectOne('SELECT max(id) FROM item_changes');
