@@ -165,6 +165,8 @@ class NoteTextComponent extends React.Component {
 
 		this.lastLoadedNoteId_ = note ? note.id : null;
 
+		this.updateHtml(note && note.body ? note.body : '');
+
 		eventManager.on('alarmChange', this.onAlarmChange_);
 		eventManager.on('noteTypeToggle', this.onNoteTypeToggle_);
 		eventManager.on('todoToggle', this.onTodoToggle_);
@@ -394,6 +396,12 @@ class NoteTextComponent extends React.Component {
 					});
 					if (!filePath) return;
 					await fs.copy(resourcePath, filePath);
+				}}));
+
+				menu.append(new MenuItem({label: _('Copy path to clipboard'), click: async () => {
+					const { clipboard } = require('electron');
+					const { toSystemSlashes } = require('lib/path-utils.js');
+					clipboard.writeText(toSystemSlashes(resourcePath));
 				}}));
 			} else {
 				reg.logger().error('Unhandled item type: ' + itemType);

@@ -152,6 +152,9 @@ class Application extends BaseApplication {
 	async generalMiddleware(store, next, action) {
 		if (action.type == 'SETTING_UPDATE_ONE' && action.key == 'locale' || action.type == 'SETTING_UPDATE_ALL') {
 			setLocale(Setting.value('locale'));
+			// The bridge runs within the main process, with its own instance of locale.js
+			// so it needs to be set too here. 
+			bridge().setLocale(Setting.value('locale'));
 			this.refreshMenu();
 		}
 
@@ -532,6 +535,21 @@ class Application extends BaseApplication {
 				if (('submenu' in t) && isEmptyMenu(t.submenu)) continue;
 				output.push(t);
 			}
+
+			// Remove empty separator for now empty sections
+			let temp = [];
+			let previous = null;
+			for (let i = 0; i < output.length; i++) {
+				const t = Object.assign({}, output[i]);
+				if (t.type === 'separator') {
+					if (!previous) continue;
+					if (previous.type === 'separator') continue;
+				}
+				temp.push(t);
+				previous = t;
+			}
+			output = temp;
+
 			return output;
 		}
 
