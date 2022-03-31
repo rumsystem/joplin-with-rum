@@ -91,18 +91,4 @@ urlUtils.extractResourceUrls = function(text) {
 	return output;
 };
 
-urlUtils.objectToQueryString = function(query) {
-	if (!query) return '';
-
-	let queryString = '';
-	const s = [];
-	for (const k in query) {
-		if (!query.hasOwnProperty(k)) continue;
-		s.push(`${encodeURIComponent(k)}=${encodeURIComponent(query[k])}`);
-	}
-	queryString = s.join('&');
-
-	return queryString;
-};
-
 module.exports = urlUtils;

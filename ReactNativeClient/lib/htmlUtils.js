@@ -42,7 +42,6 @@ class HtmlUtils {
 		return selfClosingElements.includes(tagName.toLowerCase());
 	}
 
-	// Returns the **encoded** URLs, so to be useful they should be decoded again before use.
 	extractImageUrls(html) {
 		if (!html) return [];
 

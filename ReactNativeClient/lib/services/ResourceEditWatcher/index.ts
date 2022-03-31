@@ -73,20 +73,6 @@ export default class ResourceEditWatcher {
 		return this.eventEmitter_.removeListener(eventName, callback);
 	}
 
-	externalApi() {
-		return {
-			openAndWatch: async ({ resourceId }:any) => {
-				return this.openAndWatch(resourceId);
-			},
-			stopWatching: async ({ resourceId }:any) => {
-				return this.stopWatching(resourceId);
-			},
-			isWatched: async ({ resourceId }:any) => {
-				return !!this.watchedItemByResourceId(resourceId);
-			},
-		};
-	}
-
 	private watch(fileToWatch:string) {
 		if (!this.chokidar_) return;
 

@@ -3,7 +3,6 @@ const { stringify } = require('query-string');
 const { time } = require('lib/time-utils.js');
 const Logger = require('lib/Logger').default;
 const { _ } = require('lib/locale');
-const urlUtils = require('lib/urlUtils.js');
 
 class OneDriveApi {
 	// `isPublic` is to tell OneDrive whether the application is a "public" one (Mobile and desktop
@@ -91,16 +90,16 @@ class OneDriveApi {
 	}
 
 	async execTokenRequest(code, redirectUri) {
-		const body = {};
-		body['client_id'] = this.clientId();
-		if (!this.isPublic()) body['client_secret'] = this.clientSecret();
-		body['code'] = code;
-		body['redirect_uri'] = redirectUri;
-		body['grant_type'] = 'authorization_code';
+		const body = new shim.FormData();
+		body.append('client_id', this.clientId());
+		if (!this.isPublic()) body.append('client_secret', this.clientSecret());
+		body.append('code', code);
+		body.append('redirect_uri', redirectUri);
+		body.append('grant_type', 'authorization_code');
 
 		const r = await shim.fetch(this.tokenBaseUrl(), {
 			method: 'POST',
-			body: urlUtils.objectToQueryString(body),
+			body: body,
 			headers: {
 				['Content-Type']: 'application/x-www-form-urlencoded',
 			},
@@ -367,21 +366,19 @@ class OneDriveApi {
 			throw new Error(_('Cannot refresh token: authentication data is missing. Starting the synchronisation again may fix the problem.'));
 		}
 
-		const body = {};
-		body['client_id'] = this.clientId();
-		if (!this.isPublic()) body['client_secret'] = this.clientSecret();
-		body['refresh_token'] = this.auth_.refresh_token;
-		body['redirect_uri'] = 'http://localhost:1917';
-		body['grant_type'] = 'refresh_token';
+		const body = new shim.FormData();
+		body.append('client_id', this.clientId());
+		if (!this.isPublic()) body.append('client_secret', this.clientSecret());
+		body.append('refresh_token', this.auth_.refresh_token);
+		body.append('redirect_uri', 'http://localhost:1917');
+		body.append('grant_type', 'refresh_token');
 
-		const response = await shim.fetch(this.tokenBaseUrl(), {
+		const options = {
 			method: 'POST',
-			body: urlUtils.objectToQueryString(body),
-			headers: {
-				['Content-Type']: 'application/x-www-form-urlencoded',
-			},
-		});
+			body: body,
+		};
 
+		const response = await shim.fetch(this.tokenBaseUrl(), options);
 		if (!response.ok) {
 			this.setAuth(null);
 			const msg = await response.text();
