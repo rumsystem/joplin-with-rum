@@ -122,43 +122,35 @@ async function saveGitHubUsernameCache(cache) {
 	await fs.writeFile(path, JSON.stringify(cache));
 }
 
-toolUtils.githubUsername = async function(email, name) {
+toolUtils.githubUsername = async function(email) {
 	const cache = await loadGitHubUsernameCache();
-	const cacheKey = `${email}:${name}`;
-	if (cacheKey in cache) return cache[cacheKey];
+	if (email in cache) return cache[email];
 
 	let output = null;
 
 	const oauthToken = await toolUtils.githubOauthToken();
 
-	const urlsToTry = [
-		`https://api.github.com/search/users?q=${encodeURI(email)}+in:email`,
-		`https://api.github.com/search/users?q=user:${encodeURI(name)}`,
-	];
+	const response = await fetch(`https://api.github.com/search/users?q=${encodeURI(email)}+in:email`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': `token ${oauthToken}`,
+		},
+	});
 
-	for (const url of urlsToTry) {
-		const response = await fetch(url, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				'Authorization': `token ${oauthToken}`,
-			},
-		});
+	const responseText = await response.text();
 
-		const responseText = await response.text();
-
-		if (!response.ok) continue;
-
+	if (response.ok) {
 		const responseJson = JSON.parse(responseText);
-		if (!responseJson || !responseJson.items || responseJson.items.length !== 1) continue;
-
-		output = responseJson.items[0].login;
-		break;
+		if (!responseJson || !responseJson.items || responseJson.items.length !== 1) {
+			output = null;
+		} else {
+			output = responseJson.items[0].login;
+		}
 	}
 
-	cache[cacheKey] = output;
+	cache[email] = output;
 	await saveGitHubUsernameCache(cache);
-
 	return output;
 };
 
