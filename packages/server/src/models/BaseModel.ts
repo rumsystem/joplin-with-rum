@@ -8,10 +8,16 @@ import * as EventEmitter from 'events';
 import { Config } from '../utils/types';
 import personalizedUserContentBaseUrl from '@joplin/lib/services/joplinServer/personalizedUserContentBaseUrl';
 import Logger from '@joplin/lib/Logger';
+import dbuuid from '../utils/dbuuid';
 
 const logger = Logger.create('BaseModel');
 
 type SavePoint = string;
+
+export enum UuidType {
+	NanoId = 1,
+	Native = 2,
+}
 
 export interface SaveOptions {
 	isNew?: boolean;
@@ -139,6 +145,10 @@ export default abstract class BaseModel<T> {
 		return true;
 	}
 
+	protected uuidType(): UuidType {
+		return UuidType.NanoId;
+	}
+
 	protected autoTimestampEnabled(): boolean {
 		return true;
 	}
@@ -211,6 +221,13 @@ export default abstract class BaseModel<T> {
 		return rows as T[];
 	}
 
+	public async count(): Promise<number> {
+		const r = await this
+			.db(this.tableName)
+			.count('*', { as: 'item_count' });
+		return r[0].item_count;
+	}
+
 	public fromApiInput(object: T): T {
 		const blackList = ['updated_time', 'created_time', 'owner_id'];
 		const whiteList = Object.keys(databaseSchema[this.tableName]);
@@ -250,13 +267,12 @@ export default abstract class BaseModel<T> {
 
 	public async save(object: T, options: SaveOptions = {}): Promise<T> {
 		if (!object) throw new Error('Object cannot be empty');
-
 		const toSave = Object.assign({}, object);
 
 		const isNew = await this.isNew(object, options);
 
 		if (this.hasUuid() && isNew && !(toSave as WithUuid).id) {
-			(toSave as WithUuid).id = uuidgen();
+			(toSave as WithUuid).id = this.uuidType() === UuidType.NanoId ? uuidgen() : dbuuid();
 		}
 
 		if (this.autoTimestampEnabled()) {
