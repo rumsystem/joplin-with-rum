@@ -1,1 +1,1 @@
-Hello World:$katexcode$
+$katexcode$
