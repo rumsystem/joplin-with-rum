@@ -17,7 +17,7 @@ class FileApiDriverRum {
 	}
 
 	isLocalFile(path) {
-		if (/^\.resource.*$/.test(path) || /^\.sync.*$/.test(path) || /^\.lock.*$/.test(path) || /^temp.*$/.test(path)) return true;
+		if (/^\.resource.*$/.test(path) || /^\.sync.*$/.test(path) || /^\.lock.*$/.test(path) || /^temp.*$/.test(path) || /^locks.*$/.test(path)) return true;
 		return false;
 	}
 
