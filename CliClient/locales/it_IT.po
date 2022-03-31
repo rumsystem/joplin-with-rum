@@ -2,7 +2,7 @@
 # Copyright (C) YEAR Laurent Cozic
 # This file is distributed under the same license as the Joplin-CLI package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Joplin-CLI 1.0.0\n"
@@ -13,14 +13,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.1.1\n"
+"X-Generator: Poedit 2.0.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "To delete a tag, untag the associated notes."
 msgstr "Elimina un'etichetta, togli l'etichetta associata alle note."
 
 msgid "Please select the note or notebook to be deleted first."
-msgstr "Per favore seleziona la Nota o il Taccuino da eliminare."
+msgstr "Per favore seleziona la nota o il blocco note da eliminare."
 
 msgid "Press Ctrl+D or type \"exit\" to exit the application"
 msgstr "Premi Ctrl+D o digita \"exit\" per uscire dall'applicazione"
@@ -31,10 +31,10 @@ msgstr ""
 "Più di un elemento corrisponde a \"%s\". Per favore restringi la ricerca."
 
 msgid "No notebook selected."
-msgstr "Nessun Taccuino selezionato."
+msgstr "Nessun blocco note selezionato."
 
 msgid "No notebook has been specified."
-msgstr "Nessun Taccuino è stato specificato."
+msgstr "Nessun blocco note è statoi specificato."
 
 msgid "Y"
 msgstr "S"
@@ -60,7 +60,7 @@ msgid "The command \"%s\" is only available in GUI mode"
 msgstr "Il comando \"%s\" è disponibile solo nella modalità grafica"
 
 msgid "Cannot change encrypted item"
-msgstr "Impossibile modificare l'elemento crittografato"
+msgstr ""
 
 #, javascript-format
 msgid "Missing required argument: %s"
@@ -114,8 +114,8 @@ msgid ""
 "Duplicates the notes matching <note> to [notebook]. If no notebook is "
 "specified the note is duplicated in the current notebook."
 msgstr ""
-"Duplica le note che corrispondono a <note> nel [notebook]. Se nessun "
-"Taccuino è specificato, la nota viene duplicata nel Taccuino corrente."
+"Duplica le note che corrispondono a <note> nel [notebook]. Se nessun blocco "
+"note è specificato, la nota viene duplicata nel blocco note corrente."
 
 msgid "Marks a to-do as done."
 msgstr "Segna un'attività come completata."
@@ -128,34 +128,31 @@ msgid ""
 "Manages E2EE configuration. Commands are `enable`, `disable`, `decrypt`, "
 "`status` and `target-status`."
 msgstr ""
-"Gestisci la configurazione E2EE. I comandi sono `abilita`, `disabilita`, "
-"`decripta`, `stato` e `stato-target`."
 
 msgid "Enter master password:"
-msgstr "Inserisci password principale:"
+msgstr ""
 
 msgid "Operation cancelled"
-msgstr "Operazione annullata"
+msgstr ""
 
 msgid ""
 "Starting decryption... Please wait as it may take several minutes depending "
 "on how much there is to decrypt."
 msgstr ""
-"Avvio decrittazione ... Attendere prego, ci potrebbero volere diversi minuti "
-"per la decriptazione."
 
 msgid "Completed decryption."
-msgstr "Decrittografia completata."
+msgstr ""
 
+#, fuzzy
 msgid "Enabled"
-msgstr "Attivato"
+msgstr "Disabilitato"
 
 msgid "Disabled"
 msgstr "Disabilitato"
 
 #, javascript-format
 msgid "Encryption is: %s"
-msgstr "La crittografia è: %s"
+msgstr ""
 
 msgid "Edit note."
 msgstr "Modifica nota."
@@ -167,7 +164,7 @@ msgstr ""
 "editor <editor-path>`"
 
 msgid "No active notebook."
-msgstr "Nessun Taccuino attivo."
+msgstr "Nessun blocco note attivo."
 
 #, javascript-format
 msgid "Note does not exist: \"%s\". Create it?"
@@ -178,7 +175,7 @@ msgstr "Comincia a modificare la nota. Chiudi l'editor per tornare al prompt."
 
 #, javascript-format
 msgid "Error opening note in editor: %s"
-msgstr "Errore durante l'apertura della nota nell'editor: %s"
+msgstr ""
 
 msgid "Note has been saved."
 msgstr "La nota è stata salvata."
@@ -186,23 +183,24 @@ msgstr "La nota è stata salvata."
 msgid "Exits the application."
 msgstr "Esci dall'applicazione."
 
+#, fuzzy
 msgid ""
 "Exports Joplin data to the given path. By default, it will export the "
 "complete database including notebooks, notes, tags and resources."
 msgstr ""
 "Esporta i dati da Joplin nella directory selezionata. Come impostazione "
 "predefinita verrà esportato il database completo, inclusi blocchi note, "
-"note, tag e risorse."
+"note, etichette e risorse."
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Destination format: %s"
-msgstr "Formato di destinazione: %s"
+msgstr "Formato della data"
 
 msgid "Exports only the given note."
 msgstr "Esporta solo la seguente nota."
 
 msgid "Exports only the given notebook."
-msgstr "Esporta solo il seguente Taccuino."
+msgstr "Esporta solo il seguente blocco note."
 
 msgid "Displays a geolocation URL for the note."
 msgstr "Mostra l'URL di geolocalizzazione per la nota."
@@ -213,8 +211,6 @@ msgstr "Mostra le informazioni di utilizzo."
 #, javascript-format
 msgid "For information on how to customise the shortcuts please visit %s"
 msgstr ""
-"Per informazioni su come personalizzare le scorciatoie si prega di visitare "
-"%s"
 
 msgid "Shortcuts are not available in CLI mode."
 msgstr "Le scorciatoie non sono disponibili nella modalità CLI."
@@ -224,8 +220,7 @@ msgid ""
 "Type `help [command]` for more information about a command; or type `help "
 "all` for the complete usage information."
 msgstr ""
-"Digita `help [command]` per ottenere maggiori informazioni su un comando; o "
-"scrivi `help all` per le informazioni di utilizzo complete."
+"Digita `help [command]` per ottenere maggiori informazioni su un comando."
 
 msgid "The possible commands are:"
 msgstr "I possibili comandi sono:"
@@ -235,10 +230,10 @@ msgid ""
 "using the shortcuts `$n` or `$b` for, respectively, the currently selected "
 "note or notebook. `$c` can be used to refer to the currently selected item."
 msgstr ""
-"In ciascun comando, si deve necessariamente definire una Nota o un Taccuino "
-"usando un titolo, un ID o usando le scorciatoie `$n` or `$b` per , "
-"rispettivamente, la nota o il Taccuino selezionato `$c` può essere usato per "
-"fare riferimento all'elemento selezionato."
+"In ciascun comando, si deve necessariamente definire una nota o un blocco "
+"note usando un titolo, un ID o usando le scorciatoie `$n` or `$b` per , "
+"rispettivamente, la nota o il blocco note selezionato `$c` può essere usato "
+"per fare riferimento all'elemento selezionato."
 
 msgid "To move from one pane to another, press Tab or Shift+Tab."
 msgstr "Per passare da un pannello all'altro, premi Tab o Shift+Tab."
@@ -250,8 +245,9 @@ msgstr ""
 "Usa le frecce e pagina su/giù per scorrere le liste e le aree di testo "
 "(compresa questa console)."
 
+#, fuzzy
 msgid "To maximise/minimise the console, press \"tc\"."
-msgstr "Per massimizzare/minimizzare la console, premi \"tc\"."
+msgstr "Per massimizzare/minimizzare la console, premi \"TC\"."
 
 msgid "To enter command line mode, press \":\""
 msgstr "Per entrare nella modalità command line, premi \":\""
@@ -259,18 +255,18 @@ msgstr "Per entrare nella modalità command line, premi \":\""
 msgid "To exit command line mode, press ESCAPE"
 msgstr "Per uscire dalla modalità command line, premi ESC"
 
+#, fuzzy
 msgid ""
 "For the list of keyboard shortcuts and config options, type `help keymap`"
 msgstr ""
-"Per l'elenco delle scorciatoie da tastiera e delle opzioni di "
-"configurazione, digita `help keymap`"
+"Per la lista completa delle scorciatoie disponibili, digita `help shortcuts`"
 
 msgid "Imports data into Joplin."
-msgstr "Importa i dati in Joplin."
+msgstr ""
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Source format: %s"
-msgstr "Formato sorgente: %s"
+msgstr "Nessun comando: %s"
 
 msgid "Do not ask for confirmation."
 msgstr "Non chiedere conferma."
@@ -310,8 +306,8 @@ msgid ""
 "Displays the notes in the current notebook. Use `ls /` to display the list "
 "of notebooks."
 msgstr ""
-"Mostra le Note nel seguente Taccuino. Usa `ls /` per mostrare la lista dei "
-"Taccuini."
+"Mostra le note nel seguente blocco note. Usa `ls /` per mostrare la lista "
+"dei blocchi note."
 
 msgid "Displays only the first top <num> notes."
 msgstr "Mostra solo le prima <num> note."
@@ -342,16 +338,16 @@ msgstr ""
 "note), DATE, TODO_CHECKED (per le attività), TITLE"
 
 msgid "Please select a notebook first."
-msgstr "Per favore prima seleziona un Taccuino."
+msgstr "Per favore prima seleziona un blocco note."
 
 msgid "Creates a new notebook."
-msgstr "Crea un nuovo Taccuino."
+msgstr "Crea un nuovo blocco note."
 
 msgid "Creates a new note."
 msgstr "Crea una nuova nota."
 
 msgid "Notes can only be created within a notebook."
-msgstr "Le note possono essere create all'interno del Taccuino."
+msgstr "Le note possono essere create all'interno de blocco note."
 
 msgid "Creates a new to-do."
 msgstr "Crea una nuova attività."
@@ -360,20 +356,18 @@ msgid "Moves the notes matching <note> to [notebook]."
 msgstr "Sposta le note che corrispondono a <note> in [notebook]."
 
 msgid "Renames the given <item> (note or notebook) to <name>."
-msgstr "Rinomina <item> (Nota o Taccuino) in <name>."
+msgstr "Rinomina <item> (nota o blocco note) in <name>."
 
 msgid "Deletes the given notebook."
-msgstr "Elimina il seguente Taccuino."
+msgstr "Elimina il seguente blocco note."
 
 msgid "Deletes the notebook without asking for confirmation."
-msgstr "Elimina il Taccuino senza richiedere una conferma."
+msgstr "Elimina il blocco note senza richiedere una conferma."
 
 msgid ""
 "Delete notebook? All notes and sub-notebooks within this notebook will also "
 "be deleted."
 msgstr ""
-"Eliminare taccuino? Anche tutte le note e cartelle di questo taccuino "
-"saranno cancellati."
 
 msgid "Deletes the notes matching <note-pattern>."
 msgstr "Elimina le note che corrispondono a <note-pattern>."
@@ -391,17 +385,13 @@ msgstr "Eliminare la nota?"
 msgid "Searches for the given <pattern> in all the notes."
 msgstr "Cerca <pattern> in tutte le note."
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid ""
 "Sets the property <name> of the given <note> to the given [value]. Possible "
 "properties are:\n"
 "\n"
 "%s"
-msgstr ""
-"Imposta la proprietà <name> della <note> data al [value] specificato. Le "
-"possibili proprietà sono:\n"
-"\n"
-"%s"
+msgstr "Imposta il proprietà <name> nella nota <note> con il valore [value]."
 
 msgid "Displays summary about the notes and notebooks."
 msgstr "Mostra un sommario delle note e dei blocchi note."
@@ -423,19 +413,16 @@ msgstr ""
 msgid ""
 "To allow Joplin to synchronise with Dropbox, please follow the steps below:"
 msgstr ""
-"Per consentire a Joplin di sincronizzarsi con Dropbox, procedi come indicato "
-"di seguito:"
 
 msgid "Step 1: Open this URL in your browser to authorise the application:"
 msgstr ""
-"Passaggio 1: apri questa URL nel tuo browser per autorizzare l'applicazione:"
 
 msgid "Step 2: Enter the code provided by Dropbox:"
-msgstr "Passaggio 2: inserisci il codice fornito da Dropbox:"
+msgstr ""
 
 #, javascript-format
 msgid "Not authentified with %s. Please provide any missing credentials."
-msgstr "Non autenticato con %s. Si prega di fornire le credenziali mancanti."
+msgstr ""
 
 msgid "Synchronisation is already in progress."
 msgstr "La sincronizzazione è in corso."
@@ -495,7 +482,7 @@ msgid ""
 "notebook."
 msgstr ""
 "Passa tra [notebook] - tutte le ulteriori operazioni interesseranno il "
-"seguente Taccuino."
+"seguente blocco note."
 
 msgid "Displays version information"
 msgstr "Mostra le informazioni sulla versione"
@@ -522,8 +509,9 @@ msgstr "Predefinito: %s"
 msgid "Possible keys/values:"
 msgstr "Chiave/valore possibili:"
 
+#, fuzzy
 msgid "Type `joplin help` for usage information."
-msgstr "Scrivi `joplin help` per informazioni sull'uso."
+msgstr "Mostra le informazioni di utilizzo."
 
 msgid "Fatal error:"
 msgstr "Errore fatale:"
@@ -568,21 +556,18 @@ msgid ""
 "supplied the password, the encrypted items are being decrypted in the "
 "background and will be available soon."
 msgstr ""
-"Uno o più elementi sono attualmente crittografati e potrebbe essere "
-"necessario fornire una password principale. Per fare ciò, digitare `e2ee "
-"decrypt`. Se hai già fornito la password, gli elementi crittografati vengono "
-"decifrati in background e saranno presto disponibile."
 
 #, javascript-format
 msgid "Exporting to \"%s\" as \"%s\" format. Please wait..."
-msgstr "Esportazione da \"%s\" come formato \"%s\". Si prega di attendere..."
+msgstr ""
 
 #, javascript-format
 msgid "Importing from \"%s\" as \"%s\" format. Please wait..."
-msgstr "Importazione da \"%s\" come formato \"%s\". Si prega di attendere..."
+msgstr ""
 
+#, fuzzy
 msgid "PDF File"
-msgstr "PDF File"
+msgstr "File"
 
 msgid "File"
 msgstr "File"
@@ -594,20 +579,21 @@ msgid "New to-do"
 msgstr "Nuova attività"
 
 msgid "New notebook"
-msgstr "Nuovo Taccuino"
+msgstr "Nuovo blocco note"
 
 msgid "Import"
 msgstr "Importa"
 
+#, fuzzy
 msgid "Export"
-msgstr "Esporta"
+msgstr "Importa"
 
 msgid "Print"
-msgstr "Stampa"
+msgstr ""
 
 #, javascript-format
 msgid "Hide %s"
-msgstr "Nascondi %s"
+msgstr ""
 
 msgid "Quit"
 msgstr "Esci"
@@ -625,28 +611,28 @@ msgid "Paste"
 msgstr "Incolla"
 
 msgid "Bold"
-msgstr "Grasseto"
+msgstr ""
 
 msgid "Italic"
-msgstr "Corsivo"
+msgstr ""
 
 msgid "Insert Date Time"
-msgstr "Inserisci data e ora"
+msgstr ""
 
 msgid "Edit in external editor"
-msgstr "Modifica in un editor esterno"
+msgstr ""
 
 msgid "Search in all the notes"
 msgstr "Cerca in tutte le note"
 
 msgid "View"
-msgstr "Vista"
+msgstr ""
 
 msgid "Toggle sidebar"
-msgstr "Attiva / disattiva barra laterale"
+msgstr ""
 
 msgid "Toggle editor layout"
-msgstr "Attiva / disattiva il layout dell'editor"
+msgstr ""
 
 msgid "Tools"
 msgstr "Strumenti"
@@ -655,13 +641,14 @@ msgid "Synchronisation status"
 msgstr "Stato di sincronizzazione"
 
 msgid "Web clipper options"
-msgstr "Opzioni Web Clipper"
+msgstr ""
 
 msgid "Encryption options"
-msgstr "Opzioni Crittografia"
+msgstr ""
 
+#, fuzzy
 msgid "General Options"
-msgstr "Opzioni Generali"
+msgstr "Opzioni"
 
 msgid "Help"
 msgstr "Aiuto"
@@ -669,25 +656,26 @@ msgstr "Aiuto"
 msgid "Website and documentation"
 msgstr "Sito web e documentazione"
 
+#, fuzzy
 msgid "Make a donation"
-msgstr "Fai una donazione"
+msgstr "Sito web e documentazione"
 
 msgid "Check for updates..."
-msgstr "Controlla aggiornamenti ..."
+msgstr ""
 
 msgid "About Joplin"
-msgstr "Informazione su Joplin"
+msgstr "Informazione si Joplin"
 
 #, javascript-format
 msgid "%s %s (%s, %s)"
 msgstr "%s %s (%s, %s)"
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Open %s"
-msgstr "Aprire %s"
+msgstr "Su %s: %s"
 
 msgid "Exit"
-msgstr "Esci"
+msgstr ""
 
 msgid "OK"
 msgstr "OK"
@@ -696,90 +684,83 @@ msgid "Cancel"
 msgstr "Cancella"
 
 msgid "Current version is up-to-date."
-msgstr "La versione attuale è aggiornata."
+msgstr ""
 
 msgid "An update is available, do you want to download it now?"
-msgstr "È disponibile un aggiornamento, vuoi scaricarlo ora?"
+msgstr ""
 
 msgid "Yes"
-msgstr "Sì"
+msgstr ""
 
+#, fuzzy
 msgid "No"
-msgstr "No"
+msgstr "N"
 
 msgid "The web clipper service is enabled and set to auto-start."
 msgstr ""
-"Il servizio Web clipper è abilitato e impostato per l'avvio automatico."
 
 #, javascript-format
 msgid "Status: Started on port %d"
-msgstr "Stato: avviato sulla porta %d"
+msgstr ""
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Status: %s"
-msgstr "Stato: %s"
+msgstr "Stato: \"%s\"."
 
 msgid "Disable Web Clipper Service"
-msgstr "Disattiva servizio Web Clipper"
+msgstr ""
 
 msgid "The web clipper service is not enabled."
-msgstr "Il servizio web clipper non è abilitato."
+msgstr ""
 
 msgid "Enable Web Clipper Service"
-msgstr "Abilita servizio Web Clipper"
+msgstr ""
 
 msgid ""
 "Joplin Web Clipper allows saving web pages and screenshots from your browser "
 "to Joplin."
 msgstr ""
-"Joplin Web Clipper consente di salvare pagine Web e schermate dal tuo "
-"browser in a Joplin."
 
 msgid "In order to use the web clipper, you need to do the following:"
-msgstr "Per utilizzare il web clipper, devi fare quanto segue:"
+msgstr ""
 
 msgid "Step 1: Enable the clipper service"
-msgstr "Passaggio 1: abilitare il servizio clipper"
+msgstr ""
 
 msgid ""
 "This service allows the browser extension to communicate with Joplin. When "
 "enabling it your firewall may ask you to give permission to Joplin to listen "
 "to a particular port."
 msgstr ""
-"Questo servizio consente all'estensione del browser di comunicare con "
-"Joplin. Quando lo abiliti, il tuo firewall potrebbe chiederti di dare il "
-"permesso a Joplin di ascoltare una particolare porta."
 
 msgid "Step 2: Install the extension"
-msgstr "Passaggio 2: installare l'estensione"
+msgstr ""
 
 msgid "Download and install the relevant extension for your browser:"
-msgstr "Scarica e installa l'estensione adatta per il tuo browser:"
+msgstr ""
 
+#, fuzzy
 msgid "Check synchronisation configuration"
-msgstr "Controlla la configurazione della sincronizzazione"
+msgstr "Cancella la sincronizzazione"
 
 #, javascript-format
 msgid "Notes and settings are stored in: %s"
-msgstr "Le note e le impostazioni sono memorizzate in: %s"
+msgstr ""
 
 msgid "Apply"
-msgstr "Applica"
+msgstr ""
 
 msgid "Submit"
-msgstr "Invio"
+msgstr ""
 
 msgid "Save"
-msgstr "Salva"
+msgstr ""
 
 msgid ""
 "Disabling encryption means *all* your notes and attachments are going to be "
 "re-synchronised and sent unencrypted to the sync target. Do you wish to "
 "continue?"
 msgstr ""
-"Disabilitare la crittografia significa *tutti* i tuoi appunti e gli allegati "
-"saranno risincronizzati e inviati in chiaro alla destinazione di "
-"sincronizzazione. Vuoi continuare?"
 
 msgid ""
 "Enabling encryption means *all* your notes and attachments are going to be "
@@ -787,76 +768,64 @@ msgid ""
 "password as, for security purposes, this will be the *only* way to decrypt "
 "the data! To enable encryption, please enter your password below."
 msgstr ""
-"Abilitare la crittografia significa *tutte* le tue note e gli allegati "
-"verranno risincronizzati e inviati crittografati alla destinazione di "
-"sincronizzazione. Non perdere la password poiché, per motivi di sicurezza, "
-"questo sarà il *solo* modo per decifrare i dati! Per abilitare la "
-"crittografia, inserisci la tua password qui sotto."
 
 msgid "Disable encryption"
-msgstr "Disattiva Crittografia"
+msgstr ""
 
 msgid "Enable encryption"
-msgstr "Attiva Crittografia"
+msgstr ""
 
 msgid "Master Keys"
-msgstr "Chiave Master"
+msgstr ""
 
 msgid "Active"
-msgstr "Attivo"
+msgstr ""
 
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 msgid "Source"
-msgstr "Sorgente"
+msgstr ""
 
+#, fuzzy
 msgid "Created"
-msgstr "Creato"
+msgstr "Creato: %d."
 
+#, fuzzy
 msgid "Updated"
-msgstr "Aggiornato"
+msgstr "Aggiornato: %d."
 
 msgid "Password"
-msgstr "Password"
+msgstr ""
 
 msgid "Password OK"
-msgstr "Password OK"
+msgstr ""
 
 msgid ""
 "Note: Only one master key is going to be used for encryption (the one marked "
 "as \"active\"). Any of the keys might be used for decryption, depending on "
 "how the notes or notebooks were originally encrypted."
 msgstr ""
-"Nota: verrà utilizzata una sola chiave master per la crittografia (quella "
-"contrassegnata come \"attiva\"). È possibile utilizzare qualsiasi chiave per "
-"la decrittografia, a seconda di come le note e i taccuini erano "
-"originariamente crittografati."
 
 msgid "Missing Master Keys"
-msgstr "Chiave master mancante"
+msgstr ""
 
 msgid ""
 "The master keys with these IDs are used to encrypt some of your items, "
 "however the application does not currently have access to them. It is likely "
 "they will eventually be downloaded via synchronisation."
 msgstr ""
-"Le chiavi principali con questi ID vengono utilizzate per crittografare "
-"alcuni dei tuoi articoli, tuttavia l'applicazione al momento non ha accesso "
-"ad essi. È probabile che verranno scaricati tramite la sincronizzazione."
 
 msgid ""
 "For more information about End-To-End Encryption (E2EE) and advices on how "
 "to enable it please check the documentation:"
 msgstr ""
-"Per ulteriori informazioni sulla crittografia end-to-end (E2EE) e consigli "
-"su come abilitarlo, consultare la documentazione:"
 
 msgid "Status"
 msgstr "Stato"
 
 msgid "Encryption is:"
-msgstr "La crittografia è:"
+msgstr ""
 
 msgid "Back"
 msgstr "Indietro"
@@ -864,16 +833,16 @@ msgstr "Indietro"
 #, javascript-format
 msgid ""
 "New notebook \"%s\" will be created and file \"%s\" will be imported into it"
-msgstr "Il nuovo Taccuino \"%s\" verrà creato e \"%s\" verrà importato"
+msgstr "Il nuovo blocco note \"%s\" verrà creato e \"%s\" vi verrà importato"
 
 msgid "Please create a notebook first."
-msgstr "Per favore prima crea un Taccuino."
+msgstr "Per favore prima crea un blocco note."
 
 msgid "Please create a notebook first"
-msgstr "Per favore prima crea un Taccuino"
+msgstr "Per favore prima crea un blocco note"
 
 msgid "Notebook title:"
-msgstr "Titolo del Taccuino:"
+msgstr "Titolo del blocco note:"
 
 msgid "Add or remove tags:"
 msgstr "Aggiungi or rimuovi etichetta:"
@@ -882,10 +851,11 @@ msgid "Separate each tag by a comma."
 msgstr "Separa ogni etichetta da una virgola."
 
 msgid "Rename notebook:"
-msgstr "Rinomina il Taccuino:"
+msgstr "Rinomina il blocco note:"
 
+#, fuzzy
 msgid "Rename tag:"
-msgstr "Rinomina Tag:"
+msgstr "Rinomina"
 
 msgid "Set alarm:"
 msgstr "Imposta allarme:"
@@ -893,8 +863,9 @@ msgstr "Imposta allarme:"
 msgid "Layout"
 msgstr "Disposizione"
 
+#, fuzzy
 msgid "Search..."
-msgstr "Cerca..."
+msgstr "Cerca"
 
 msgid "Some items cannot be synchronised."
 msgstr "Alcuni elementi non possono essere sincronizzati."
@@ -902,27 +873,28 @@ msgstr "Alcuni elementi non possono essere sincronizzati."
 msgid "View them now"
 msgstr "Mostrali ora"
 
+#, fuzzy
 msgid "Some items cannot be decrypted."
-msgstr "Alcuni elementi non possono essere decodificati."
+msgstr "Alcuni elementi non possono essere sincronizzati."
 
 msgid "Set the password"
-msgstr "Imposta la password"
+msgstr ""
 
 msgid "Add or remove tags"
 msgstr "Aggiungi o rimuovi etichetta"
 
 msgid "Duplicate"
-msgstr "Duplicare"
+msgstr ""
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "%s - Copy"
-msgstr "%s - Copia"
+msgstr "Copia"
 
 msgid "Switch between note and to-do type"
 msgstr "Passa da un tipo di nota a un elenco di attività"
 
 msgid "Copy Markdown link"
-msgstr "Copia il link Markdown"
+msgstr ""
 
 msgid "Delete"
 msgstr "Elimina"
@@ -933,102 +905,102 @@ msgstr "Eliminare le note?"
 msgid "No notes in here. Create one by clicking on \"New note\"."
 msgstr "Non è presente nessuna nota. Creane una cliccando \"Nuova nota\"."
 
+#, fuzzy
 msgid ""
 "There is currently no notebook. Create one by clicking on \"New notebook\"."
-msgstr ""
-"Al momento non ci sono Taccuini. Creane uno facendo clic su \"Nuovo Taccuino"
-"\"."
+msgstr "Al momento non ci sono note. Creane una cliccando sul bottone (+)."
 
 msgid "Open..."
-msgstr "Apri ..."
+msgstr ""
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "This file could not be opened: %s"
-msgstr "Questo file non può essere aperto: %s"
+msgstr "Il blocco note non può essere salvato: %s"
 
+#, fuzzy
 msgid "Save as..."
-msgstr "Salva come..."
+msgstr "Salva i cambiamenti"
 
 msgid "Copy path to clipboard"
-msgstr "Copia il percorso negli appunti"
+msgstr ""
 
 msgid "Copy Link Address"
-msgstr "Copia l'indirizzo del link"
+msgstr ""
 
 #, javascript-format
 msgid "Unsupported link or message: %s"
-msgstr "Link o Messaggio non supportato: %s"
+msgstr "Collegamento o messaggio non supportato: %s"
 
 #, javascript-format
 msgid ""
 "This note has no content. Click on \"%s\" to toggle the editor and edit the "
 "note."
 msgstr ""
-"Questa nota non ha contenuto. Fai clic su \"%s\" per attivare l'editor e "
-"modificare la nota."
 
 msgid "strong text"
-msgstr "Testo grasseto"
+msgstr ""
 
 msgid "emphasized text"
-msgstr "Testo Sottolineato"
+msgstr ""
 
 msgid "List item"
-msgstr "Lista Elemento"
+msgstr ""
 
 msgid "Insert Hyperlink"
-msgstr "Inserire collegamento ipertestuale"
+msgstr ""
 
 msgid "Attach file"
-msgstr "Allega File"
+msgstr "Allega file"
 
 msgid "Tags"
-msgstr "Tag"
+msgstr "Etichette"
 
 msgid "Set alarm"
-msgstr "Imposta Allarme"
+msgstr "Imposta allarme"
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "In: %s"
-msgstr "In: %s"
+msgstr "%s: %s"
 
 msgid "Hyperlink"
-msgstr "Collegamento ipertestuale"
+msgstr ""
 
 msgid "Code"
-msgstr "Codice"
+msgstr ""
 
 msgid "Numbered List"
-msgstr "Elenco Numerato"
+msgstr ""
 
 msgid "Bulleted List"
-msgstr "Elenco Puntato"
+msgstr ""
 
 msgid "Checkbox"
-msgstr "Casella di controllo"
+msgstr ""
 
 msgid "Heading"
-msgstr "Intestazione"
+msgstr ""
 
 msgid "Horizontal Rule"
-msgstr "Riga orizzontale"
+msgstr ""
 
 msgid "Click to stop external editing"
-msgstr "Fare clic per interrompere le modifiche esterne"
+msgstr ""
 
+#, fuzzy
 msgid "Watching..."
-msgstr "Osservare..."
+msgstr "Cancellazione..."
 
 #, fuzzy
 msgid "to-do"
 msgstr "Nuova attività"
 
+#, fuzzy
 msgid "note"
-msgstr "Nota"
+msgstr "Nuova nota"
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Creating new %s..."
-msgstr "Creare nuovo %s..."
+msgstr "Importazione delle note..."
 
 msgid "Refresh"
 msgstr "Aggiorna"
@@ -1040,7 +1012,7 @@ msgid "OneDrive Login"
 msgstr "Login OneDrive"
 
 msgid "Dropbox Login"
-msgstr "Login Dropbox"
+msgstr ""
 
 msgid "Options"
 msgstr "Opzioni"
@@ -1049,10 +1021,11 @@ msgid "Synchronisation Status"
 msgstr "Stato della Sincronizzazione"
 
 msgid "Encryption Options"
-msgstr "Opzioni di crittografia"
+msgstr ""
 
+#, fuzzy
 msgid "Clipper Options"
-msgstr "Opzioni Clipper"
+msgstr "Opzioni"
 
 msgid "Remove this tag from all the notes?"
 msgstr "Rimuovere questa etichetta da tutte le note?"
@@ -1069,8 +1042,9 @@ msgstr "Sincronizza"
 msgid "Notebooks"
 msgstr "Blocchi note"
 
+#, fuzzy
 msgid "Please select where the sync status should be exported to"
-msgstr ""
+msgstr "Per favore seleziona la nota o il blocco note da eliminare."
 
 #, javascript-format
 msgid "Usage: %s"
@@ -1081,13 +1055,13 @@ msgid "Unknown flag: %s"
 msgstr "Etichetta sconosciuta: %s"
 
 msgid "Dropbox"
-msgstr "Dropbox"
+msgstr ""
 
 msgid "File system"
 msgstr "File system"
 
 msgid "Nextcloud"
-msgstr "Nextcloud"
+msgstr ""
 
 msgid "OneDrive"
 msgstr "OneDrive"
@@ -1096,7 +1070,7 @@ msgid "OneDrive Dev (For testing only)"
 msgstr "OneDrive Dev (solo per test)"
 
 msgid "WebDAV"
-msgstr "WebDAV"
+msgstr ""
 
 #, javascript-format
 msgid "Unknown log level: %s"
@@ -1156,13 +1130,13 @@ msgstr "Elementi locali eliminati: %d."
 msgid "Deleted remote items: %d."
 msgstr "Elementi remoti eliminati: %d."
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Fetched items: %d/%d."
-msgstr "Elementi recuperati: %d/%d."
+msgstr "Elementi locali creati: %d."
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "State: %s."
-msgstr "Stato: %s."
+msgstr "Stato: \"%s\"."
 
 msgid "Cancelling..."
 msgstr "Cancellazione..."
@@ -1171,48 +1145,53 @@ msgstr "Cancellazione..."
 msgid "Completed: %s"
 msgstr "Completata: %s"
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Last error: %s"
-msgstr "Ultimo Errore: %s"
+msgstr "Errore fatale:"
 
 msgid "Idle"
-msgstr "Inattivo"
+msgstr ""
 
 msgid "In progress"
-msgstr "In corso"
+msgstr ""
 
 #, javascript-format
 msgid "Synchronisation is already in progress. State: %s"
 msgstr "La sincronizzazione è già in corso. Stato: %s"
 
 msgid "Encrypted"
-msgstr "Crittografato"
+msgstr ""
 
+#, fuzzy
 msgid "Encrypted items cannot be modified"
-msgstr "Gli elementi crittografati non possono essere modificati"
+msgstr "Alcuni elementi non possono essere sincronizzati."
 
 msgid "Conflicts"
 msgstr "Conflitti"
 
+#, fuzzy
 msgid "Cannot move notebook to this location"
-msgstr "Impossibile spostare il Taccuino in questa posizione"
+msgstr "Non posso spostare la nota nel blocco note \"%s\""
 
 #, javascript-format
 msgid "A notebook with this title already exists: \"%s\""
-msgstr "Esiste già un Taccuino col titolo \"%s\""
+msgstr "Esiste già un blocco note col titolo \"%s\""
 
 #, javascript-format
 msgid "Notebooks cannot be named \"%s\", which is a reserved title."
 msgstr "I blocchi non possono essere chiamati \"%s\". È un titolo riservato."
 
+#, fuzzy
 msgid "title"
-msgstr "Titolo"
+msgstr "Senza titolo"
 
+#, fuzzy
 msgid "updated date"
-msgstr "Data di aggiornamento"
+msgstr "Aggiornato: %d."
 
+#, fuzzy
 msgid "created date"
-msgstr "Data di creazione"
+msgstr "Creato: %d."
 
 msgid "Untitled"
 msgstr "Senza titolo"
@@ -1222,11 +1201,11 @@ msgstr "Questa nota non ha informazione sulla geolocalizzazione."
 
 #, javascript-format
 msgid "Cannot copy note to \"%s\" notebook"
-msgstr "Non posso copiare la nota nel Taccuino \"%s\""
+msgstr "Non posso copiare la nota nel blocco note \"%s\""
 
 #, javascript-format
 msgid "Cannot move note to \"%s\" notebook"
-msgstr "Non posso spostare la nota nel Taccuino \"%s\""
+msgstr "Non posso spostare la nota nel blocco note \"%s\""
 
 msgid "Language"
 msgstr "Linguaggio"
@@ -1246,52 +1225,55 @@ msgstr "Chiaro"
 msgid "Dark"
 msgstr "Scuro"
 
+#, fuzzy
 msgid "Uncompleted to-dos on top"
-msgstr "Cose da fare incomplete in cima alla lista"
+msgstr "Mostra todo inclompleti in cima alla lista"
 
+#, fuzzy
 msgid "Show completed to-dos"
-msgstr "Mostra le cose da fare completate"
+msgstr "Mostra todo inclompleti in cima alla lista"
 
 msgid "Sort notes by"
-msgstr "Ordina le note per"
+msgstr ""
 
+#, fuzzy
 msgid "Reverse sort order"
-msgstr "Inverti l'ordine"
+msgstr "Inverti l'ordine."
 
 msgid "Save geo-location with notes"
-msgstr "Salva geolocalizzazione con le note"
+msgstr "Salva geo-localizzazione con le note"
 
+#, fuzzy
 msgid "When creating a new to-do:"
-msgstr "Quando crei una nuova attività:"
+msgstr "Crea una nuova attività."
 
+#, fuzzy
 msgid "Focus title"
-msgstr ""
+msgstr "Titolo della Nota:"
 
 msgid "Focus body"
 msgstr ""
 
+#, fuzzy
 msgid "When creating a new note:"
-msgstr "Quando si crea una nuova nota:"
+msgstr "Crea una nuova nota."
 
 msgid "Show tray icon"
-msgstr "Visualizza tray icon"
+msgstr ""
 
 msgid "Note: Does not work in all desktop environments."
-msgstr "Nota: non funziona in tutti gli ambienti desktop."
+msgstr ""
 
 msgid "Global zoom percentage"
-msgstr "Percentuale di zoom globale"
+msgstr ""
 
 msgid "Editor font family"
-msgstr "Editor Famiglia Caratteri"
+msgstr ""
 
 msgid ""
 "This must be *monospace* font or it will not work properly. If the font is "
 "incorrect or empty, it will default to a generic monospace font."
 msgstr ""
-"Questo carattere deve essere * monospace * o non funzionerà correttamente. "
-"Se il carattere è errato o vuoto, verrà impostato automaticamente su un "
-"carattere generico monospace."
 
 msgid "Automatically update the application"
 msgstr "Aggiorna automaticamente l'applicazione"
@@ -1311,16 +1293,17 @@ msgstr "%d ora"
 msgid "%d hours"
 msgstr "%d ore"
 
+#, fuzzy
 msgid "Text editor command"
-msgstr "Comando editor di testo"
+msgstr "Editor di testo"
 
+#, fuzzy
 msgid ""
 "The editor command (may include arguments) that will be used to open a note. "
 "If none is provided it will try to auto-detect the default editor."
 msgstr ""
-"Il comando editor (può includere argomenti) che verrà utilizzato per aprire "
-"una nota. Se non ne viene fornita alcuna, cercherà di rilevare "
-"automaticamente l'editor predefinito."
+"L'editor che sarà usato per aprire la nota. Se nessun editor è specificato "
+"si cercherà di individuare automaticamente l'editor predefinito."
 
 msgid "Show advanced options"
 msgstr "Mostra opzioni avanzate"
@@ -1332,11 +1315,9 @@ msgid ""
 "The target to synchonise to. Each sync target may have additional parameters "
 "which are named as `sync.NUM.NAME` (all documented below)."
 msgstr ""
-"Ogni target di sincronizzazione può avere parametri aggiuntivi denominati "
-"come `sync.NUM.NAME` (tutti documentati di seguito)."
 
 msgid "Directory to synchronise with (absolute path)"
-msgstr "Cartella da sincronizzare con (percorso assoluto)"
+msgstr ""
 
 msgid ""
 "The path to synchronise with when file system synchronisation is enabled. "
@@ -1346,25 +1327,25 @@ msgstr ""
 "`sync.target`."
 
 msgid "Nextcloud WebDAV URL"
-msgstr "URL Nextcloud WebDAV"
+msgstr ""
 
 msgid "Nextcloud username"
-msgstr "Nome Utente Nextcloud"
+msgstr ""
 
 msgid "Nextcloud password"
-msgstr "Password Nextcloud"
+msgstr ""
 
 msgid "WebDAV URL"
-msgstr "URL WebDAV"
+msgstr ""
 
 msgid "WebDAV username"
-msgstr "Nome Utente WebDAV"
+msgstr ""
 
 msgid "WebDAV password"
-msgstr "Password WebDAV"
+msgstr ""
 
 msgid "Custom TLS certificates"
-msgstr "Certificati TLS personalizzati"
+msgstr ""
 
 msgid ""
 "Comma-separated list of paths to directories to load the certificates from, "
@@ -1372,71 +1353,64 @@ msgid ""
 "pem. Note that if you make changes to the TLS settings, you must save your "
 "changes before clicking on \"Check synchronisation configuration\"."
 msgstr ""
-"Elenco separato da virgole di percorsi alle cartelle per caricare i "
-"certificati o percorso dei singoli file cert. Ad esempio: /my/cert_dir, /"
-"other/custom.pem. Notare che se si apportano modifiche alle impostazioni "
-"TLS, è necessario salvare le modifiche prima di fare clic su \"Verifica "
-"configurazione sincronizzazione\"."
 
 msgid "Ignore TLS certificate errors"
-msgstr "Ignora gli errori del certificato TLS"
+msgstr ""
 
 #, javascript-format
 msgid "Invalid option value: \"%s\". Possible values are: %s."
 msgstr "Oprione non valida: \"%s\". I valori possibili sono: %s."
 
+#, fuzzy
 msgid "Joplin Export File"
-msgstr "Esposta files di Joplin"
+msgstr "Esposta i files di Evernote"
 
 msgid "Markdown"
-msgstr "Markdown"
+msgstr ""
 
 msgid "Joplin Export Directory"
-msgstr "Cartella di esportazione di Joplin"
+msgstr ""
 
+#, fuzzy
 msgid "Evernote Export File"
-msgstr "Esporta files di Evernote"
+msgstr "Esposta i files di Evernote"
 
 msgid "Directory"
-msgstr "Cartella"
+msgstr ""
 
 #, javascript-format
 msgid "Cannot load \"%s\" module for format \"%s\""
-msgstr "Impossibile caricare il modulo \"%s\" per il formato \"%s\""
+msgstr ""
 
 #, javascript-format
 msgid "Please specify import format for %s"
-msgstr "Si prega di specificare il formato di importazione per %s"
+msgstr ""
 
 #, javascript-format
 msgid ""
 "This item is currently encrypted: %s \"%s\". Please wait for all items to be "
 "decrypted and try again."
 msgstr ""
-"Questo elemento è attualmente crittografato: %s \"%s\". Attendi che tutti "
-"gli elementi siano decodificati e riprova."
 
 msgid "There is no data to export."
-msgstr "Non ci sono dati da esportare."
+msgstr ""
 
+#, fuzzy
 msgid "Please specify the notebook where the notes should be imported to."
-msgstr "Si prega di specificare il Taccuino in cui importare le note."
+msgstr "Per favore seleziona la nota o il blocco note da eliminare."
 
 msgid "Items that cannot be synchronised"
 msgstr "Elementi che non possono essere sincronizzati"
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "%s (%s): %s"
-msgstr "%s (%s): %s"
+msgstr "%s %s (%s)"
 
 msgid ""
 "These items will remain on the device but will not be uploaded to the sync "
 "target. In order to find these items, either search for the title or the ID "
 "(which is displayed in brackets above)."
 msgstr ""
-"Questi elementi rimarranno sul dispositivo ma non verranno caricati nella "
-"destinazione di sincronizzazione. Per trovare questi elementi, cercare il "
-"titolo o l'ID (che viene visualizzato tra parentesi qui sopra)."
 
 msgid "Sync status (synced items / total items)"
 msgstr "Stato di sincronizzazione (Elementi sincronizzati / Elementi totali)"
@@ -1484,23 +1458,24 @@ msgid "Export Debug Report"
 msgstr "Esporta il Report di Debug"
 
 msgid "Encryption Config"
-msgstr "Configurazione Crittografia"
+msgstr ""
 
 msgid "Configuration"
 msgstr "Configurazione"
 
 msgid "Move to notebook..."
-msgstr "Sposta sul Taccuino..."
+msgstr "Sposta sul blocco note..."
 
 #, javascript-format
 msgid "Move %d notes to notebook \"%s\"?"
-msgstr "Spostare le note %d sul Taccuino \"%s\"?"
+msgstr "Spostare le note %d sul blocco note \"%s\"?"
 
 msgid "Press to set the decryption password."
-msgstr "Premere per impostare la password di decrittografia."
+msgstr ""
 
+#, fuzzy
 msgid "Save alarm"
-msgstr "Salva Allarme"
+msgstr "Imposta allarme"
 
 msgid "Select date"
 msgstr "Seleziona la data"
@@ -1511,75 +1486,69 @@ msgstr "Conferma"
 msgid "Cancel synchronisation"
 msgstr "Cancella la sincronizzazione"
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Decrypting items: %d/%d"
-msgstr "Decrittografia Elementi: %d/%d"
+msgstr "Elementi locali creati: %d."
 
 msgid "New tags:"
-msgstr "Nuovi tag:"
+msgstr ""
 
 msgid "Type new tags or select from list"
-msgstr "Digita nuovi tag o seleziona dalla lista"
+msgstr ""
 
 msgid ""
 "To work correctly, the app needs the following permissions. Please enable "
 "them in your phone settings, in Apps > Joplin > Permissions"
 msgstr ""
-"Per funzionare correttamente, l'app necessita delle seguenti autorizzazioni. "
-"Si prega di abilitarli nelle impostazioni del telefono, in App > Joplin > "
-"Autorizzazioni"
 
 msgid ""
 "- Storage: to allow attaching files to notes and to enable filesystem "
 "synchronisation."
 msgstr ""
-"- Archiviazione: per consentire il collegamento di file alle note e per "
-"abilitare la sincronizzazione del filesystem."
 
 msgid "- Camera: to allow taking a picture and attaching it to a note."
 msgstr ""
-"- Fotocamera: per consentire di scattare una foto e allegarla a una nota."
 
 msgid "- Location: to allow attaching geo-location information to a note."
 msgstr ""
-"- Posizione: per consentire il collegamento di informazioni sulla posizione "
-"geografica ad una nota."
 
 msgid "Joplin website"
-msgstr "Siro web Joplin"
+msgstr ""
 
+#, fuzzy
 msgid "Login with Dropbox"
-msgstr "Login Dropbox"
+msgstr "Accedi a OneDrive"
 
 #, javascript-format
 msgid "Master Key %s"
-msgstr "Chiave Master %s"
+msgstr ""
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Created: %s"
-msgstr "Creato: %s"
+msgstr "Creato: %d."
 
 msgid "Password:"
-msgstr "Password:"
+msgstr ""
 
 msgid "Password cannot be empty"
-msgstr "La password non può essere vuota"
+msgstr ""
 
+#, fuzzy
 msgid "Enable"
-msgstr "Abilitato"
+msgstr "Disabilitato"
 
 #, javascript-format
 msgid "The notebook could not be saved: %s"
-msgstr "Il Taccuino non può essere salvato: %s"
+msgstr "Il blocco note non può essere salvato: %s"
 
 msgid "Edit notebook"
-msgstr "Modifica Taccuino"
+msgstr "Modifica blocco note"
 
 msgid "Show all"
-msgstr "Mostra tutto"
+msgstr ""
 
 msgid "Errors only"
-msgstr "Solo gli errori"
+msgstr ""
 
 msgid "This note has been modified:"
 msgstr "Questa note è stata modificata:"
@@ -1592,12 +1561,11 @@ msgstr "Ignora modifiche"
 
 #, javascript-format
 msgid "No item with ID %s"
-msgstr "Nessun elemento con ID %s"
+msgstr ""
 
 #, javascript-format
 msgid "The Joplin mobile app does not currently support this type of link: %s"
 msgstr ""
-"L'app mobile Joplin attualmente non supporta questo tipo di collegamento: %s"
 
 #, javascript-format
 msgid "Unsupported image type: %s"
@@ -1610,7 +1578,7 @@ msgid "Attach any file"
 msgstr "Allega qualsiasi file"
 
 msgid "Share"
-msgstr "Condividi"
+msgstr ""
 
 msgid "Convert to note"
 msgstr "Converti in nota"
@@ -1628,7 +1596,7 @@ msgid "View on map"
 msgstr "Guarda sulla mappa"
 
 msgid "Delete notebook"
-msgstr "Cancella Taccuino"
+msgstr "Cancella blocco note"
 
 msgid "Login with OneDrive"
 msgstr "Accedi a OneDrive"
@@ -1640,32 +1608,16 @@ msgid ""
 "Click on the (+) button to create a new note or notebook. Click on the side "
 "menu to access your existing notebooks."
 msgstr ""
-"Fare clic sul pulsante (+) per creare una nuova Nota o un nuovo Taccuino. "
-"Fare clic sul menu laterale per accedere ai tuoi Taccuini esistenti."
+"Fare clic sul pulsante (+) per creare una nuova nota o un nuovo blocco note. "
+"Fare clic sul menu laterale per accedere ai tuoi blocchi note esistenti."
 
 msgid "You currently have no notebook. Create one by clicking on (+) button."
 msgstr ""
-"Attualmente non hai nessun Taccuino. Crearne uno cliccando sul pulsante (+)."
+"Attualmente non hai nessun blocco note. Crearne uno cliccando sul pulsante "
+"(+)."
 
 msgid "Welcome"
 msgstr "Benvenuto"
-
-#~ msgid ""
-#~ "Benvenuto su Joplin!\n"
-#~ "\n"
-#~ "Digita `:help shortcuts` per l'elenco delle scorciatoie da tastiera, o "
-#~ "semplicemente `:help` per informazioni sull'utilizzo.\n"
-#~ "\n"
-#~ "Ad esempio, per creare un taccuino, premere `mb`; per creare una nota "
-#~ "premere `mn`."
-#~ msgstr ""
-#~ "Benvenuto su Joplin!\n"
-#~ "\n"
-#~ "Digita `:help shortcuts` per l'elenco delle scorciatoie da tastiera, o "
-#~ "semplicemente `:help` per informazioni sull'utilizzo.\n"
-#~ "\n"
-#~ "Ad esempio, per creare un taccuino, premere `mb`; per creare una nota "
-#~ "premere `mn`."
 
 #~ msgid "Searches"
 #~ msgstr "Ricerche"
