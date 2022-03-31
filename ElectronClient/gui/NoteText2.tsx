@@ -442,36 +442,20 @@ function NoteText2(props:NoteTextProps) {
 
 		saveNoteIfWillChange(formNote, editorRef, props.dispatch);
 
-		function handleAutoFocus(noteIsTodo:boolean) {
-			if (!props.isProvisional) return;
-
-			const focusSettingName = noteIsTodo ? 'newTodoFocus' : 'newNoteFocus';
-
-			requestAnimationFrame(() => {
-				if (Setting.value(focusSettingName) === 'title') {
-					if (titleInputRef.current) titleInputRef.current.focus();
-				} else {
-					if (editorRef.current) editorRef.current.execCommand({ name: 'focus' });
-				}
-			});
-		}
-
-		async function loadNote() {
+		const loadNote = async () => {
 			const n = await Note.load(props.noteId);
 			if (cancelled) return;
 			if (!n) throw new Error(`Cannot find note with ID: ${props.noteId}`);
 			reg.logger().debug('Loaded note:', n);
 			initNoteState(n, setFormNote, setDefaultEditorState);
-
-			handleAutoFocus(!!n.is_todo);
-		}
+		};
 
 		loadNote();
 
 		return () => {
 			cancelled = true;
 		};
-	}, [props.noteId, props.isProvisional, formNote, waitingToSaveNote]);
+	}, [props.noteId, formNote, waitingToSaveNote]);
 
 	const onFieldChange = useCallback((field:string, value:any, changeId: number = 0) => {
 		handleProvisionalFlag();
