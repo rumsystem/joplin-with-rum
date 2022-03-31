@@ -50,22 +50,18 @@ class SyncTargetNextcloud extends BaseSyncTarget {
 		return new Synchronizer(this.db(), await this.fileApi(), Setting.value('appType'));
 	}
 
-	async appApi(settings = null) {
-		const useCache = !settings;
+	async appApi() {
+		if (!this.appApi_) {
+			this.appApi_ = new JoplinServerApi({
+				baseUrl: () => JoplinServerApi.baseUrlFromNextcloudWebDavUrl(Setting.value('sync.5.path')),
+				username: () => Setting.value('sync.5.username'),
+				password: () => Setting.value('sync.5.password'),
+			});
 
-		if (this.appApi_ && useCache) return this.appApi_;
+			this.appApi_.setLogger(this.logger());
+		}
 
-		const appApi = new JoplinServerApi({
-			baseUrl: () => JoplinServerApi.baseUrlFromNextcloudWebDavUrl(settings ? settings['sync.5.path'] : Setting.value('sync.5.path')),
-			username: () => settings ? settings['sync.5.username'] : Setting.value('sync.5.username'),
-			password: () => settings ? settings['sync.5.password'] : Setting.value('sync.5.password'),
-		});
-
-		appApi.setLogger(this.logger());
-
-		if (useCache) this.appApi_ = appApi;
-
-		return appApi;
+		return this.appApi_;
 	}
 
 }

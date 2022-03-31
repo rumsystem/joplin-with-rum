@@ -59,7 +59,7 @@ shared.checkNextcloudApp = async function(comp, settings) {
 
 	comp.setState({ checkNextcloudAppResult: 'checking' });
 	let result = null;
-	const appApi = await reg.syncTargetNextcloud().appApi(settings);
+	const appApi = await reg.syncTargetNextcloud().appApi();
 
 	try {
 		result = await appApi.setupSyncTarget(settings['sync.5.path']);
@@ -79,16 +79,14 @@ shared.checkNextcloudApp = async function(comp, settings) {
 };
 
 shared.updateSettingValue = function(comp, key, value) {
-	comp.setState(state => {
-		const settings = Object.assign({}, state.settings);
-		const changedSettingKeys = state.changedSettingKeys.slice();
-		settings[key] = Setting.formatValue(key, value);
-		if (changedSettingKeys.indexOf(key) < 0) changedSettingKeys.push(key);
+	const settings = Object.assign({}, comp.state.settings);
+	const changedSettingKeys = comp.state.changedSettingKeys.slice();
+	settings[key] = Setting.formatValue(key, value);
+	if (changedSettingKeys.indexOf(key) < 0) changedSettingKeys.push(key);
 
-		return {
-			settings: settings,
-			changedSettingKeys: changedSettingKeys,
-		};
+	comp.setState({
+		settings: settings,
+		changedSettingKeys: changedSettingKeys,
 	});
 };
 
