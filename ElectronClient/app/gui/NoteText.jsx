@@ -394,8 +394,7 @@ class NoteTextComponent extends React.Component {
 				const resourcePath = Resource.fullPath(resource);
 
 				menu.append(new MenuItem({label: _('Open...'), click: async () => {
-					const ok = bridge().openExternal('file://' + resourcePath);
-					if (!ok) bridge().showErrorMessageBox(_('This file could not be opened: %s', resourcePath));
+					bridge().openExternal(resourcePath);
 				}}));
 
 				menu.append(new MenuItem({label: _('Save as...'), click: async () => {
