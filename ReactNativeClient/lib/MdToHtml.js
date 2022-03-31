@@ -198,8 +198,7 @@ class MdToHtml {
 			this.rendererPlugins_['mermaid'] = new MdToHtml_Mermaid();
 		}
 
-		const plugin = this.rendererPlugins_[language];
-		return plugin && plugin.enabled() ? plugin : null;
+		return language in this.rendererPlugins_ ? this.rendererPlugins_[language] : null;
 	}
 
 	parseInlineCodeLanguage_(content) {
