@@ -143,7 +143,9 @@ function shimInit() {
 			await fs.copy(filePath, targetPath, { overwrite: true });
 		}
 
-		return await Resource.save(resource, { isNew: true });
+		await Resource.save(resource, { isNew: true });
+
+		return resource;
 	}
 
 	shim.attachFileToNote = async function(note, filePath, position = null) {
