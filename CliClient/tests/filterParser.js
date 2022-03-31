@@ -4,7 +4,12 @@ require('app-module-path').addPath(__dirname);
 const filterParser = require('lib/services/searchengine/filterParser.js').default;
 // import filterParser from 'lib/services/searchengine/filterParser.js';
 
-const makeTerm = (name, value, negated) => { return { name, value, negated }; };
+const makeTerm = (name, value, negated, quoted = false, wildcard = false) => {
+	if (name === 'text') { return { name, value, negated, quoted, wildcard }; }
+	if (name === 'title' | name === 'body') { return { name, value, negated, wildcard }; }
+	return { name, value, negated };
+};
+
 describe('filterParser should be correct filter for keyword', () => {
 	it('title', () => {
 		const searchString = 'title: something';
@@ -65,7 +70,7 @@ describe('filterParser should be correct filter for keyword', () => {
 
 	it('phrase text search', () => {
 		const searchString = '"scott joplin"';
-		expect(filterParser(searchString)).toContain(makeTerm('text', '"scott joplin"', false));
+		expect(filterParser(searchString)).toContain(makeTerm('text', '"scott joplin"', false, true));
 	});
 
 	it('multi word body', () => {
@@ -105,6 +110,9 @@ describe('filterParser should be correct filter for keyword', () => {
 
 		searchString = 'tag:bl*sphemy';
 		expect(filterParser(searchString)).toContain(makeTerm('tag', 'bl%sphemy', false));
+
+		searchString = 'tag:"space travel"';
+		expect(filterParser(searchString)).toContain(makeTerm('tag', 'space travel', false));
 	});
 
 	it('wildcard notebooks', () => {
