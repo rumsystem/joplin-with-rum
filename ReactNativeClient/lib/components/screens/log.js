@@ -1,5 +1,3 @@
-/* eslint-disable enforce-react-hooks/enforce-react-hooks */
-
 const React = require('react');
 
 const { ListView, View, Text, Button, StyleSheet, Platform } = require('react-native');

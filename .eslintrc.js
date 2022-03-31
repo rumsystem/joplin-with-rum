@@ -6,11 +6,6 @@ module.exports = {
 	},
 	"parser": "@typescript-eslint/parser",
 	'extends': ['eslint:recommended'],
-	"settings": {
-		'react': {
-			'version': '16.12',
-		},
-	},
 	'globals': {
 		'Atomics': 'readonly',
 		'SharedArrayBuffer': 'readonly',
@@ -49,11 +44,7 @@ module.exports = {
 		// This error is always a false positive so far since it detects
 		// possible race conditions in contexts where we know it cannot happen.
 		"require-atomic-updates": 0,
-
-		// -------------------------------
-		// Coding style preferences
-		// -------------------------------
-		"enforce-react-hooks/enforce-react-hooks": 2,
+		// "no-lonely-if": "error",
 
 		// -------------------------------
 		// Formatting
@@ -90,6 +81,5 @@ module.exports = {
 	"plugins": [
 		"react",
 		"@typescript-eslint",
-		"enforce-react-hooks",
 	],
 };
