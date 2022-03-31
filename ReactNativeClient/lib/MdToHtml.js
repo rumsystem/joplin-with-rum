@@ -208,8 +208,6 @@ class MdToHtml {
 				openTag = null;
 			} else if (isInlineCode) {
 				openTag = null;
-			} else if (tag && t.type.indexOf('html_inline') >= 0) {
-				openTag = null;
 			} else if (tag && t.type.indexOf('_open') >= 0) {
 				openTag = tag;
 			} else if (tag && t.type.indexOf('_close') >= 0) {
@@ -268,8 +266,6 @@ class MdToHtml {
 			if (t.type === 'image') {
 				if (tokenContent) attrs.push(['title', tokenContent]);
 				output.push(this.renderImage_(attrs, options));
-			} else if (t.type === 'html_inline') {
-				output.push(t.content);
 			} else if (t.type === 'softbreak') {
 				output.push('<br/>');
 			} else if (t.type === 'hr') {
@@ -355,7 +351,6 @@ class MdToHtml {
 		const md = new MarkdownIt({
 			breaks: true,
 			linkify: true,
-			html: true,
 		});
 
 		// This is currently used only so that the $expression$ and $$\nexpression\n$$ blocks are translated
