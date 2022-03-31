@@ -22,12 +22,12 @@ describe('ownerHandler', function() {
 			sessionId: session.id,
 		});
 
-		context.joplin.owner = null;
+		context.owner = null;
 
 		await ownerHandler(context, koaNext);
 
-		expect(!!context.joplin.owner).toBe(true);
-		expect(context.joplin.owner.id).toBe(user.id);
+		expect(!!context.owner).toBe(true);
+		expect(context.owner.id).toBe(user.id);
 	});
 
 	test('should not login user with invalid session ID', async function() {
@@ -37,11 +37,11 @@ describe('ownerHandler', function() {
 			sessionId: 'ihack',
 		});
 
-		context.joplin.owner = null;
+		context.owner = null;
 
 		await ownerHandler(context, koaNext);
 
-		expect(!!context.joplin.owner).toBe(false);
+		expect(!!context.owner).toBe(false);
 	});
 
 });
