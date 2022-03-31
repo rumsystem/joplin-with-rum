@@ -18,7 +18,7 @@ class FileApiDriverMemory {
 	}
 
 	decodeContent_(content) {
-		return Buffer.from(content, 'base64').toString('utf-8');
+		return Buffer.from(content, 'base64').toString('ascii');
 	}
 
 	itemIndexByPath(path) {
@@ -49,13 +49,14 @@ class FileApiDriverMemory {
 		return Promise.resolve(item ? Object.assign({}, item) : null);
 	}
 
-	async setTimestamp(path, timestampMs) {
+	setTimestamp(path, timestampMs) {
 		let item = this.itemByPath(path);
 		if (!item) return Promise.reject(new Error('File not found: ' + path));
 		item.updated_time = timestampMs;
+		return Promise.resolve();
 	}
 
-	async list(path, options) {
+	list(path, options) {
 		let output = [];
 
 		for (let i = 0; i < this.items_.length; i++) {
@@ -94,10 +95,11 @@ class FileApiDriverMemory {
 		return output;
 	}
 
-	async mkdir(path) {
+	mkdir(path) {
 		let index = this.itemIndexByPath(path);
-		if (index >= 0) return;
+		if (index >= 0) return Promise.resolve();
 		this.items_.push(this.newItem(path, true));
+		return Promise.resolve();
 	}
 
 	async put(path, content, options = null) {
@@ -114,9 +116,10 @@ class FileApiDriverMemory {
 			this.items_[index].content = this.encodeContent_(content);
 			this.items_[index].updated_time = time.unix();
 		}
+		return Promise.resolve();
 	}
 
-	async delete(path) {
+	delete(path) {
 		let index = this.itemIndexByPath(path);
 		if (index >= 0) {
 			let item = Object.assign({}, this.items_[index]);
@@ -125,17 +128,20 @@ class FileApiDriverMemory {
 			this.deletedItems_.push(item);
 			this.items_.splice(index, 1);
 		}
+		return Promise.resolve();
 	}
 
-	async move(oldPath, newPath) {
+	move(oldPath, newPath) {
 		let sourceItem = this.itemByPath(oldPath);
 		if (!sourceItem) return Promise.reject(new Error('Path not found: ' + oldPath));
 		this.delete(newPath); // Overwrite if newPath already exists
 		sourceItem.path = newPath;
+		return Promise.resolve();
 	}
 
-	async format() {
+	format() {
 		this.items_ = [];
+		return Promise.resolve();
 	}
 
 	async delta(path, options = null) {
@@ -153,8 +159,9 @@ class FileApiDriverMemory {
 		return output;
 	}
 
-	async clearRoot() {
+	clearRoot() {
 		this.items_ = [];
+		return Promise.resolve();
 	}
 
 }
