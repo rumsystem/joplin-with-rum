@@ -465,10 +465,10 @@ function useMenu(props: Props) {
 							routeName: 'Config',
 						});
 					},
-				}, {
-					label: _('Check for updates...'),
-					visible: shim.isMac() ? true : false,
-					click: () => _checkForUpdates(),
+				// }, {
+					// label: _('Check for updates...'),
+					// visible: shim.isMac() ? true : false,
+					// click: () => _checkForUpdates(),
 				}, {
 					type: 'separator',
 					visible: shim.isMac() ? true : false,
