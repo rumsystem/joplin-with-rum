@@ -110,7 +110,7 @@
         "Icon": "joplin",
         "MimeType": "x-scheme-handler/joplin;"
       },
-      "target": "AppImage",
+      "target": "zip",
       "extraResources": [
         {
           "from": "node_modules/quorum-bin/quorum_linux",
