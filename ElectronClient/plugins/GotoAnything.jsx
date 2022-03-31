@@ -227,7 +227,7 @@ class Dialog extends React.PureComponent {
 				} else {
 					const limit = 20;
 					const searchKeywords = this.keywords(searchQuery);
-					const notes = await Note.byIds(results.map(result => result.id).slice(0, limit), { fields: ['id', 'body', 'markup_language', 'is_todo', 'todo_completed'] });
+					const notes = await Note.byIds(results.map(result => result.id).slice(0, limit), { fields: ['id', 'body', 'markup_language'] });
 					const notesById = notes.reduce((obj, { id, body, markup_language }) => ((obj[[id]] = { id, body, markup_language }), obj), {});
 
 					for (let i = 0; i < results.length; i++) {
@@ -268,10 +268,6 @@ class Dialog extends React.PureComponent {
 						} else {
 							results[i] = Object.assign({}, row, { path: path, fragments: '' });
 						}
-					}
-
-					if (!this.props.showCompletedTodos) {
-						results = results.filter((row) => !row.is_todo || !row.todo_completed);
 					}
 				}
 			}
@@ -453,7 +449,6 @@ const mapStateToProps = (state) => {
 	return {
 		folders: state.folders,
 		theme: state.settings.theme,
-		showCompletedTodos: state.settings.showCompletedTodos,
 	};
 };
 

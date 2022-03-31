@@ -61,8 +61,6 @@ Modules/TinyMCE/IconPack/postinstall.js
 Modules/TinyMCE/langs/
 
 # AUTO-GENERATED - EXCLUDED TYPESCRIPT BUILD
-CliClient/app/LinkSelector.js
-CliClient/build/LinkSelector.js
 ElectronClient/commands/focusElement.js
 ElectronClient/commands/startExternalEditing.js
 ElectronClient/commands/stopExternalEditing.js
@@ -145,7 +143,6 @@ ReactNativeClient/lib/hooks/useImperativeHandlerDebugger.js
 ReactNativeClient/lib/hooks/usePrevious.js
 ReactNativeClient/lib/joplin-renderer/MdToHtml/rules/checkbox.js
 ReactNativeClient/lib/joplin-renderer/MdToHtml/rules/fence.js
-ReactNativeClient/lib/joplin-renderer/MdToHtml/rules/media.js
 ReactNativeClient/lib/joplin-renderer/MdToHtml/rules/mermaid.js
 ReactNativeClient/lib/joplin-renderer/MdToHtml/rules/sanitize_html.js
 ReactNativeClient/lib/JoplinServerApi.js
