@@ -738,7 +738,7 @@ msgid "Make a donation"
 msgstr "Spenden"
 
 msgid "Toggle development tools"
-msgstr "Entwicklerwerkzeuge ein-/ausschalten"
+msgstr ""
 
 #, javascript-format
 msgid "Open %s"
@@ -998,8 +998,9 @@ msgstr "Manche Objekte können nicht synchronisiert werden."
 msgid "View them now"
 msgstr "Zeige sie jetzt an"
 
+#, fuzzy
 msgid "One or more master keys need a password."
-msgstr "Mindestens ein Hauptschlüssel benötigt ein Passwort."
+msgstr "Master-Passwort eingeben:"
 
 msgid "Set the password"
 msgstr "Setze ein Passwort"
@@ -1210,7 +1211,7 @@ msgstr ""
 "Bitte wähle aus, wohin der Synchronisations-Status exportiert werden soll"
 
 msgid "Retry"
-msgstr "Erneut versuchen"
+msgstr ""
 
 msgid "Add or remove tags"
 msgstr "Schlagwörter hinzufügen oder entfernen"
@@ -1470,7 +1471,7 @@ msgid "Auto"
 msgstr "Automatisch"
 
 msgid "Max concurrent connections"
-msgstr "Maximale Anzahl an gleichzeitigen Verbindungen"
+msgstr ""
 
 msgid "Language"
 msgstr "Sprache"
@@ -1755,18 +1756,15 @@ msgstr "%s (%s) konnte nicht hochgeladen werden: %s"
 msgid "Item \"%s\" could not be downloaded: %s"
 msgstr "Eintrag \"%s\" konnte nicht heruntergeladen werden: %s"
 
+#, fuzzy
 msgid "Items that cannot be decrypted"
-msgstr "Objekte, die nicht entschlüsselt werden konnten"
+msgstr "Objekte können nicht synchronisiert werden"
 
 msgid ""
 "Joplin failed to decrypt these items multiple times, possibly because they "
 "are corrupted or too large. These items will remain on the device but Joplin "
 "will no longer attempt to decrypt them."
 msgstr ""
-"Joplin konnte diese Objekte trotz mehrfacher Versuche nicht entschlüsseln, "
-"weil sie wahrscheinlich entweder kaputt oder zu groß sind. Diese Objekte "
-"bleiben auf dem Gerat, aber Joplin wird nicht mehr versuchen sie zu "
-"entschlüsseln."
 
 msgid "Sync status (synced items / total items)"
 msgstr "Synchronisationsstatus (synchronisierte Objekte / gesamte Objekte)"
@@ -1893,8 +1891,9 @@ msgstr "Neue Schlagwörter:"
 msgid "Type new tags or select from list"
 msgstr "Neues Schlagwort eingeben oder aus der Liste auswählen"
 
+#, fuzzy
 msgid "More information"
-msgstr "Weitere Information"
+msgstr "Konfiguration"
 
 msgid ""
 "To work correctly, the app needs the following permissions. Please enable "
