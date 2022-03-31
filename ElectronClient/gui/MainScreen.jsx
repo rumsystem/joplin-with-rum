@@ -17,7 +17,7 @@ const Note = require('lib/models/Note.js');
 const { uuid } = require('lib/uuid.js');
 const { shim } = require('lib/shim');
 const Folder = require('lib/models/Folder.js');
-const { themeStyle } = require('lib/theme.js');
+const { themeStyle } = require('../theme.js');
 const { _ } = require('lib/locale.js');
 const { bridge } = require('electron').remote.require('./bridge');
 const eventManager = require('../eventManager');
@@ -139,15 +139,11 @@ class MainScreenComponent extends React.Component {
 
 			const body = template ? TemplateUtils.render(template) : '';
 
-			const defaultValues = Note.previewFieldsWithDefaultValues({ includeTimestamps: false });
-
-			let newNote = Object.assign({}, defaultValues, {
+			const newNote = await Note.save({
 				parent_id: folderId,
 				is_todo: isTodo ? 1 : 0,
 				body: body,
-			});
-
-			newNote = await Note.save(newNote, { provisional: true });
+			}, { provisional: true });
 
 			this.props.dispatch({
 				type: 'NOTE_SELECT',
@@ -866,8 +862,7 @@ class MainScreenComponent extends React.Component {
 		const noteContentPropertiesDialogOptions = this.state.noteContentPropertiesDialogOptions;
 		const shareNoteDialogOptions = this.state.shareNoteDialogOptions;
 
-		const codeEditor = Setting.value('editor.betaCodeMirror') ? 'CodeMirror' : 'AceEditor';
-		const bodyEditor = this.props.settingEditorCodeView ? codeEditor : 'TinyMCE';
+		const bodyEditor = this.props.settingEditorCodeView ? 'AceEditor' : 'TinyMCE';
 
 		return (
 			<div style={style}>

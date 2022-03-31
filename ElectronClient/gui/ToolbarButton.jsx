@@ -1,5 +1,5 @@
 const React = require('react');
-const { themeStyle } = require('lib/theme');
+const { themeStyle } = require('../theme.js');
 
 class ToolbarButton extends React.Component {
 	render() {
@@ -20,10 +20,7 @@ class ToolbarButton extends React.Component {
 			icon = <i style={iconStyle} className={`fas ${this.props.iconName}`}></i>;
 		}
 
-		// Keep this for legacy compatibility but for consistency we should use "disabled" prop
-		let isEnabled = !('enabled' in this.props) || this.props.enabled === true;
-		if (this.props.disabled) isEnabled = false;
-
+		const isEnabled = !('enabled' in this.props) || this.props.enabled === true;
 		const classes = ['button'];
 		if (!isEnabled) classes.push('disabled');
 

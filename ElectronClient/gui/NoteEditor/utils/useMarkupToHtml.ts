@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { ResourceInfos } from './types';
-const { themeStyle } = require('lib/theme');
+const { themeStyle } = require('../../../theme.js');
 const Note = require('lib/models/Note');
 const Setting = require('lib/models/Setting');
 const markupLanguageUtils = require('lib/markupLanguageUtils');

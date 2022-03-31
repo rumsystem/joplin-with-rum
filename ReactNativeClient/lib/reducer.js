@@ -58,7 +58,6 @@ const defaultState = {
 	plugins: {},
 	provisionalNoteIds: [],
 	editorNoteStatuses: {},
-	isInsertingNotes: false,
 };
 
 const MAX_HISTORY = 200;
@@ -78,25 +77,12 @@ const cacheEnabledOutput = (key, output) => {
 };
 
 stateUtils.notesOrder = function(stateSettings) {
-	if (stateSettings['notes.sortOrder.field'] === 'order') {
-		return cacheEnabledOutput('notesOrder', [
-			{
-				by: 'order',
-				dir: 'DESC',
-			},
-			{
-				by: 'user_created_time',
-				dir: 'DESC',
-			},
-		]);
-	} else {
-		return cacheEnabledOutput('notesOrder', [
-			{
-				by: stateSettings['notes.sortOrder.field'],
-				dir: stateSettings['notes.sortOrder.reverse'] ? 'DESC' : 'ASC',
-			},
-		]);
-	}
+	return cacheEnabledOutput('notesOrder', [
+		{
+			by: stateSettings['notes.sortOrder.field'],
+			dir: stateSettings['notes.sortOrder.reverse'] ? 'DESC' : 'ASC',
+		},
+	]);
 };
 
 stateUtils.foldersOrder = function(stateSettings) {
@@ -727,14 +713,6 @@ const reducer = (state = defaultState, action) => {
 					t.splice(idx, 1);
 					newState.provisionalNoteIds = t;
 				}
-			}
-			break;
-
-		case 'NOTE_IS_INSERTING_NOTES':
-
-			if (state.isInsertingNotes !== action.value) {
-				newState = Object.assign({}, state);
-				newState.isInsertingNotes = action.value;
 			}
 			break;
 

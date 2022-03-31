@@ -32,10 +32,6 @@ class ItemList extends React.Component {
 		});
 	}
 
-	offsetTop() {
-		return this.listRef.current ? this.listRef.current.offsetTop : 0;
-	}
-
 	UNSAFE_componentWillMount() {
 		this.updateStateItemIndexes();
 	}
@@ -74,30 +70,12 @@ class ItemList extends React.Component {
 		this.updateStateItemIndexes();
 	}
 
-	// shouldComponentUpdate(nextProps, nextState) {
-	// 	for (const n in this.props) {
-	// 		if (this.props[n] !== nextProps[n]) {
-	// 			console.info('Props', n, nextProps[n]);
-	// 		}
-	// 	}
-
-	// 	for (const n in this.state) {
-	// 		if (this.state[n] !== nextState[n]) {
-	// 			console.info('State', n, nextState[n]);
-	// 		}
-	// 	}
-
-	// 	return true;
-	// }
-
 	render() {
 		const items = this.props.items;
 		const style = Object.assign({}, this.props.style, {
 			overflowX: 'hidden',
 			overflowY: 'auto',
 		});
-
-		// if (this.props.disabled) style.opacity = 0.5;
 
 		if (!this.props.itemHeight) throw new Error('itemHeight is required');
 
@@ -108,7 +86,7 @@ class ItemList extends React.Component {
 		const itemComps = [blankItem('top', this.state.topItemIndex * this.props.itemHeight)];
 
 		for (let i = this.state.topItemIndex; i <= this.state.bottomItemIndex; i++) {
-			const itemComp = this.props.itemRenderer(items[i], i);
+			const itemComp = this.props.itemRenderer(items[i]);
 			itemComps.push(itemComp);
 		}
 

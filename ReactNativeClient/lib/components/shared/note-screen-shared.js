@@ -200,7 +200,8 @@ shared.initState = async function(comp) {
 	const note = await Note.load(comp.props.noteId);
 	let mode = 'view';
 
-	if (isProvisionalNote && !comp.props.sharedData) {
+	if (isProvisionalNote) {
+		// note = comp.props.itemType == 'todo' ? Note.newTodo(comp.props.folderId) : Note.new(comp.props.folderId);
 		mode = 'edit';
 		comp.scheduleFocusUpdate();
 	}
@@ -217,25 +218,8 @@ shared.initState = async function(comp) {
 		noteResources: await shared.attachedResources(note ? note.body : ''),
 	});
 
-
 	if (comp.props.sharedData) {
-		if (comp.props.sharedData.title) {
-			this.noteComponent_change(comp, 'title', comp.props.sharedData.title);
-		}
-		if (comp.props.sharedData.text) {
-			this.noteComponent_change(comp, 'body', comp.props.sharedData.text);
-		}
-		if (comp.props.sharedData.resources) {
-			for (let i = 0; i < comp.props.sharedData.resources.length; i++) {
-				const resource = comp.props.sharedData.resources[i];
-				reg.logger().info(`about to attach resource ${JSON.stringify(resource)}`);
-				await comp.attachFile({
-					uri: resource.uri,
-					type: resource.mimeType,
-					fileName: resource.name,
-				}, null);
-			}
-		}
+		this.noteComponent_change(comp, 'body', comp.props.sharedData.value);
 	}
 
 	// eslint-disable-next-line require-atomic-updates

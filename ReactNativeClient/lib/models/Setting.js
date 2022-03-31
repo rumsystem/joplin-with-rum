@@ -18,15 +18,6 @@ class Setting extends BaseModel {
 		return BaseModel.TYPE_SETTING;
 	}
 
-	static keychainService() {
-		if (!this.keychainService_) throw new Error('keychainService has not been set!!');
-		return this.keychainService_;
-	}
-
-	static setKeychainService(s) {
-		this.keychainService_ = s;
-	}
-
 	static metadata() {
 		if (this.metadata_) return this.metadata_;
 
@@ -50,12 +41,14 @@ class Setting extends BaseModel {
 			const output = {};
 			output[Setting.THEME_LIGHT] = _('Light');
 			output[Setting.THEME_DARK] = _('Dark');
-			output[Setting.THEME_DRACULA] = _('Dracula');
-			output[Setting.THEME_SOLARIZED_LIGHT] = _('Solarised Light');
-			output[Setting.THEME_SOLARIZED_DARK] = _('Solarised Dark');
-			output[Setting.THEME_NORD] = _('Nord');
-			output[Setting.THEME_ARITIM_DARK] = _('Aritim Dark');
-			output[Setting.THEME_OLED_DARK] = _('OLED Dark');
+			if (platform !== mobilePlatform) {
+				output[Setting.THEME_DRACULA] = _('Dracula');
+				output[Setting.THEME_SOLARIZED_LIGHT] = _('Solarised Light');
+				output[Setting.THEME_SOLARIZED_DARK] = _('Solarised Dark');
+				output[Setting.THEME_NORD] = _('Nord');
+			} else {
+				output[Setting.THEME_OLED_DARK] = _('OLED Dark');
+			}
 			return output;
 		};
 
@@ -302,8 +295,7 @@ class Setting extends BaseModel {
 				options: () => themeOptions(),
 			},
 
-			showNoteCounts: { value: true, type: Setting.TYPE_BOOL, public: false, advanced: true, appTypes: ['desktop'], label: () => _('Show note counts') },
-
+			showNoteCounts: { value: true, type: Setting.TYPE_BOOL, public: true, advanced: true, appTypes: ['desktop'], label: () => _('Show note counts') },
 			layoutButtonSequence: {
 				value: Setting.LAYOUT_ALL,
 				type: Setting.TYPE_INT,
@@ -329,7 +321,7 @@ class Setting extends BaseModel {
 				label: () => _('Sort notes by'),
 				options: () => {
 					const Note = require('lib/models/Note');
-					const noteSortFields = ['user_updated_time', 'user_created_time', 'title', 'order'];
+					const noteSortFields = ['user_updated_time', 'user_created_time', 'title'];
 					const options = {};
 					for (let i = 0; i < noteSortFields.length; i++) {
 						options[noteSortFields[i]] = toTitleCase(Note.fieldToLabel(noteSortFields[i]));
@@ -344,14 +336,6 @@ class Setting extends BaseModel {
 				section: 'note',
 				appTypes: ['desktop'],
 				label: () => _('Auto-pair braces, parenthesis, quotations, etc.'),
-			},
-			'editor.betaCodeMirror': {
-				value: false,
-				type: Setting.TYPE_BOOL,
-				public: true,
-				section: 'note',
-				appTypes: ['desktop'],
-				label: () => _('Use CodeMirror as the code editor (WARNING: BETA).'),
 			},
 			'notes.sortOrder.reverse': { value: true, type: Setting.TYPE_BOOL, section: 'note', public: true, label: () => _('Reverse sort order'), appTypes: ['cli'] },
 			'folders.sortOrder.field': {
@@ -457,7 +441,6 @@ class Setting extends BaseModel {
 
 			collapsedFolderIds: { value: [], type: Setting.TYPE_ARRAY, public: false },
 
-			'keychain.supported': { value: -1, type: Setting.TYPE_INT, public: false },
 			'db.ftsEnabled': { value: -1, type: Setting.TYPE_INT, public: false },
 			'encryption.enabled': { value: false, type: Setting.TYPE_BOOL, public: false },
 			'encryption.activeMasterKeyId': { value: '', type: Setting.TYPE_STRING, public: false },
@@ -505,7 +488,7 @@ class Setting extends BaseModel {
 						section: 'appearance',
 						label: () => _('Editor font family'),
 						description: () =>
-							_('This should be a *monospace* font or some elements will render incorrectly. If the font ' +
+							_('This must be *monospace* font or it will not work properly. If the font ' +
 						'is incorrect or empty, it will default to a generic monospace font.'),
 					},
 			'style.sidebar.width': { value: 150, minimum: 80, maximum: 400, type: Setting.TYPE_INT, public: false, appTypes: ['desktop'] },
@@ -752,15 +735,7 @@ class Setting extends BaseModel {
 		return md.description(appType);
 	}
 
-	static isSecureKey(key) {
-		return this.metadata()[key] && this.metadata()[key].secure === true;
-	}
-
-	static keys(publicOnly = false, appType = null, options = null) {
-		options = Object.assign({}, {
-			secureOnly: false,
-		}, options);
-
+	static keys(publicOnly = false, appType = null) {
 		if (!this.keys_) {
 			const metadata = this.metadata();
 			this.keys_ = [];
@@ -770,13 +745,12 @@ class Setting extends BaseModel {
 			}
 		}
 
-		if (appType || publicOnly || options.secureOnly) {
+		if (appType || publicOnly) {
 			const output = [];
 			for (let i = 0; i < this.keys_.length; i++) {
 				const md = this.settingMetadata(this.keys_[i]);
 				if (publicOnly && !md.public) continue;
 				if (appType && md.appTypes && md.appTypes.indexOf(appType) < 0) continue;
-				if (options.secureOnly && !md.secure) continue;
 				output.push(md.key);
 			}
 			return output;
@@ -789,52 +763,21 @@ class Setting extends BaseModel {
 		return this.keys(true).indexOf(key) >= 0;
 	}
 
-	// Low-level method to load a setting directly from the database. Should not be used in most cases.
-	static loadOne(key) {
-		return this.modelSelectOne('SELECT * FROM settings WHERE key = ?', [key]);
-	}
-
 	static load() {
 		this.cancelScheduleSave();
 		this.cache_ = [];
-		return this.modelSelectAll('SELECT * FROM settings').then(async (rows) => {
+		return this.modelSelectAll('SELECT * FROM settings').then(rows => {
 			this.cache_ = [];
 
-			const pushItemsToCache = (items) => {
-				for (let i = 0; i < items.length; i++) {
-					const c = items[i];
+			for (let i = 0; i < rows.length; i++) {
+				const c = rows[i];
 
-					if (!this.keyExists(c.key)) continue;
+				if (!this.keyExists(c.key)) continue;
+				c.value = this.formatValue(c.key, c.value);
+				c.value = this.filterValue(c.key, c.value);
 
-					c.value = this.formatValue(c.key, c.value);
-					c.value = this.filterValue(c.key, c.value);
-
-					this.cache_.push(c);
-				}
-			};
-
-			// Keys in the database takes precedence over keys in the keychain because
-			// they are more likely to be up to date (saving to keychain can fail, but
-			// saving to database shouldn't). When the keychain works, the secure keys
-			// are deleted from the database and transfered to the keychain in saveAll().
-
-			const rowKeys = rows.map(r => r.key);
-			const secureKeys = this.keys(false, null, { secureOnly: true });
-			const secureItems = [];
-			for (const key of secureKeys) {
-				if (rowKeys.includes(key)) continue;
-
-				const password = await this.keychainService().password(`setting.${key}`);
-				if (password) {
-					secureItems.push({
-						key: key,
-						value: password,
-					});
-				}
+				this.cache_.push(c);
 			}
-
-			pushItemsToCache(rows);
-			pushItemsToCache(secureItems);
 
 			this.dispatchUpdateAll();
 		});
@@ -935,13 +878,6 @@ class Setting extends BaseModel {
 		this.setValue(settingKey, o);
 	}
 
-	static async deleteKeychainPasswords() {
-		const secureKeys = this.keys(false, null, { secureOnly: true });
-		for (const key of secureKeys) {
-			await this.keychainService().deletePassword(`setting.${key}`);
-		}
-	}
-
 	static valueToString(key, value) {
 		const md = this.settingMetadata(key);
 		value = this.formatValue(key, value);
@@ -1011,7 +947,7 @@ class Setting extends BaseModel {
 		if (key in this.constants_) {
 			const v = this.constants_[key];
 			const output = typeof v === 'function' ? v() : v;
-			if (output == 'SET_ME') throw new Error(`SET_ME constant has not been set: ${key}`);
+			if (output == 'SET_ME') throw new Error(`Setting constant has not been set: ${key}`);
 			return output;
 		}
 
@@ -1092,7 +1028,7 @@ class Setting extends BaseModel {
 	}
 
 	static async saveAll() {
-		if (Setting.autoSaveEnabled && !this.saveTimeoutId_) return Promise.resolve();
+		if (!this.saveTimeoutId_) return Promise.resolve();
 
 		this.logger().info('Saving settings...');
 		clearTimeout(this.saveTimeoutId_);
@@ -1103,31 +1039,6 @@ class Setting extends BaseModel {
 		for (let i = 0; i < this.cache_.length; i++) {
 			const s = Object.assign({}, this.cache_[i]);
 			s.value = this.valueToString(s.key, s.value);
-
-			if (this.isSecureKey(s.key)) {
-				// We need to be careful here because there's a bug in the macOS keychain that can
-				// make it fail to save a password. https://github.com/desktop/desktop/issues/3263
-				// So we try to set it and if it fails, we set it on the database instead. This is not
-				// ideal because they won't be crypted, but better than losing all the user's passwords.
-				// The passwords would be set again on the keychain once it starts working again (probably
-				// after the user switch their computer off and on again).
-				//
-				// Also we don't control what happens on the keychain - the values can be edited or deleted
-				// outside the application. For that reason, we rewrite it every time the values are saved,
-				// even if, internally, they haven't changed.
-				// As an optimisation, we check if the value exists on the keychain before writing it again.
-				try {
-					const passwordName = `setting.${s.key}`;
-					const currentValue = await this.keychainService().password(passwordName);
-					if (currentValue !== s.value) {
-						const wasSet = await this.keychainService().setPassword(passwordName, s.value);
-						if (wasSet) continue;
-					}
-				} catch (error) {
-					this.logger().error(`Could not set setting on the keychain. Will be saved to database instead: ${s.key}:`, error);
-				}
-			}
-
 			queries.push(Database.insertQuery(this.tableName(), s));
 		}
 
@@ -1141,12 +1052,8 @@ class Setting extends BaseModel {
 
 		if (this.saveTimeoutId_) clearTimeout(this.saveTimeoutId_);
 
-		this.saveTimeoutId_ = setTimeout(async () => {
-			try {
-				await this.saveAll();
-			} catch (error) {
-				this.logger().error('Could not save settings', error);
-			}
+		this.saveTimeoutId_ = setTimeout(() => {
+			this.saveAll();
 		}, 500);
 	}
 

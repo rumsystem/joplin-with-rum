@@ -112,7 +112,7 @@ class EncryptionConfigScreenComponent extends BaseScreenComponent {
 
 		const inputStyle = { flex: 1, marginRight: 10, color: theme.color };
 		inputStyle.borderBottomWidth = 1;
-		inputStyle.borderBottomColor = theme.dividerColor;
+		inputStyle.borderBottomColor = theme.strongDividerColor;
 
 		return (
 			<View key={mk.id}>

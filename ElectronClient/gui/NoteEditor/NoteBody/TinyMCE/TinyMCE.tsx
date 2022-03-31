@@ -10,7 +10,7 @@ const { reg } = require('lib/registry.js');
 const { _, closestSupportedLocale } = require('lib/locale');
 const BaseItem = require('lib/models/BaseItem');
 const Resource = require('lib/models/Resource');
-const { themeStyle, buildStyle } = require('lib/theme');
+const { themeStyle, buildStyle } = require('../../../../theme.js');
 const { clipboard } = require('electron');
 const supportedLocales = require('./supportedLocales');
 
@@ -158,10 +158,7 @@ const TinyMCE = (props:NoteBodyEditorProps, ref:any) => {
 	const markupToHtml = useRef(null);
 	markupToHtml.current = props.markupToHtml;
 
-	const lastOnChangeEventInfo = useRef<any>({
-		content: null,
-		resourceInfos: null,
-	});
+	const lastOnChangeEventContent = useRef<string>('');
 
 	const rootIdRef = useRef<string>(`tinymce-${Date.now()}${Math.round(Math.random() * 10000)}`);
 	const editorRef = useRef<any>(null);
@@ -182,7 +179,6 @@ const TinyMCE = (props:NoteBodyEditorProps, ref:any) => {
 
 	const insertResourcesIntoContent = useCallback(async (filePaths:string[] = null, options:any = null) => {
 		const resourceMd = await commandAttachFileToBody('', filePaths, options);
-		if (!resourceMd) return;
 		const result = await props.markupToHtml(MarkupToHtml.MARKUP_LANGUAGE_MARKDOWN, resourceMd, markupRenderOptions({ bodyOnly: true }));
 		editor.insertContent(result.html);
 		// editor.fire('joplinChange');
@@ -765,15 +761,10 @@ const TinyMCE = (props:NoteBodyEditorProps, ref:any) => {
 		let cancelled = false;
 
 		const loadContent = async () => {
-			if (lastOnChangeEventInfo.current.content !== props.content || lastOnChangeEventInfo.current.resourceInfos !== props.resourceInfos) {
+			if (lastOnChangeEventContent.current !== props.content) {
 				const result = await props.markupToHtml(props.contentMarkupLanguage, props.content, markupRenderOptions({ resourceInfos: props.resourceInfos }));
 				if (cancelled) return;
-
-				lastOnChangeEventInfo.current = {
-					content: props.content,
-					resourceInfos: props.resourceInfos,
-				};
-
+				lastOnChangeEventContent.current = props.content;
 				editor.setContent(result.html);
 			}
 
@@ -868,7 +859,7 @@ const TinyMCE = (props:NoteBodyEditorProps, ref:any) => {
 
 				if (!editor) return;
 
-				lastOnChangeEventInfo.current.content = contentMd;
+				lastOnChangeEventContent.current = contentMd;
 
 				props_onChangeRef.current({
 					changeId: changeId,

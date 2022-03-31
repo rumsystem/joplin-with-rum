@@ -47,14 +47,6 @@ class BaseModel {
 		return null;
 	}
 
-	static defaultValues(fieldNames) {
-		const output = {};
-		for (const n of fieldNames) {
-			output[n] = this.db().fieldDefaultValue(this.tableName(), n);
-		}
-		return output;
-	}
-
 	static modelIndexById(items, id) {
 		for (let i = 0; i < items.length; i++) {
 			if (items[i].id == id) return i;
@@ -190,7 +182,7 @@ class BaseModel {
 			const items = [];
 			for (let i = 0; i < options.order.length; i++) {
 				const o = options.order[i];
-				let item = `\`${o.by}\``;
+				let item = o.by;
 				if (options.caseInsensitive === true) item += ' COLLATE NOCASE';
 				if (o.dir) item += ` ${o.dir}`;
 				items.push(item);

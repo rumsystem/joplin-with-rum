@@ -19,11 +19,11 @@ module.exports = function(theme) {
 		b,strong{font-weight:bolder}small{font-size:80%}img{border-style:none}
 
 		body {
-			font-size: ${theme.noteViewerFontSize};
-			color: ${theme.color};
+			font-size: ${theme.htmlFontSize};
+			color: ${theme.htmlColor};
 			word-wrap: break-word;
-			line-height: ${theme.lineHeight};
-			background-color: ${theme.backgroundColor};
+			line-height: ${theme.htmlLineHeight};
+			background-color: ${theme.htmlBackgroundColor};
 			font-family: ${fontFamily};
 			padding-bottom: ${formatCssSize(theme.bodyPaddingBottom)};
 			padding-top: ${formatCssSize(theme.bodyPaddingTop)};
@@ -32,11 +32,11 @@ module.exports = function(theme) {
 			color: ${theme.colorBright};
 		}
 		kbd {
-			border: 1px solid ${theme.codeBorderColor};
-			box-shadow: inset 0 -1px 0 ${theme.codeBorderColor};
+			border: 1px solid ${theme.htmlCodeBorderColor};
+			box-shadow: inset 0 -1px 0 ${theme.htmlCodeBorderColor};
 			padding: 2px 4px;
 			border-radius: 3px;
-			background-color: ${theme.codeBackgroundColor};
+			background-color: ${theme.htmlCodeBackgroundColor};
 		}
 		::-webkit-scrollbar {
 			width: 7px;
@@ -85,7 +85,7 @@ module.exports = function(theme) {
 		h1 {
 			font-size: 1.5em;
 			font-weight: bold;
-			border-bottom: 1px solid ${theme.dividerColor};
+			border-bottom: 1px solid ${theme.htmlDividerColor};
 			padding-bottom: .3em;
 		}
 		h2 {
@@ -100,18 +100,8 @@ module.exports = function(theme) {
 			font-size: 1em;
 			font-weight: bold;
 		}
-
-		.exported-note-title {
-			font-size: 2em;
-			font-weight: bold;
-			margin-bottom: 0.8em;
-			line-height: 1.5em;
-			padding-bottom: .35em;
-			border-bottom: 1px solid ${theme.dividerColor};
-		}
-
 		a {
-			color: ${theme.urlColor};
+			color: ${theme.htmlLinkColor};
 		}
 		ul, ol {
 			padding-left: 0;
@@ -132,7 +122,7 @@ module.exports = function(theme) {
 			width: 1.2em;
 			height: 1.4em;
 			margin-right: 0.4em;
-			background-color:  ${theme.urlColor};
+			background-color:  ${theme.htmlLinkColor};
 		}
     /* These icons are obtained from the wonderful ForkAwesome project by copying the src svgs 
      * into the css classes below.
@@ -193,7 +183,7 @@ module.exports = function(theme) {
       -webkit-mask-repeat: no-repeat;
 		}
 		blockquote {
-			border-left: 4px solid ${theme.codeBorderColor};
+			border-left: 4px solid ${theme.htmlCodeBorderColor};
 			padding-left: 1.2em;
 			margin-left: 0;
 			opacity: .7;
@@ -203,34 +193,34 @@ module.exports = function(theme) {
 		table {
 			text-align: left;
 			border-collapse: collapse;
-			border: 1px solid ${theme.codeBorderColor};
-			background-color: ${theme.backgroundColor};
+			border: 1px solid ${theme.htmlCodeBorderColor};
+			background-color: ${theme.htmlBackgroundColor};
 		}
 
 		.jop-tinymce table td, .jop-tinymce table th,
 		table td, th {
 			text-align: left;
 			padding: .5em 1em .5em 1em;
-			font-size: ${theme.noteViewerFontSize};
-			color: ${theme.color};
+			font-size: ${theme.htmlFontSize};
+			color: ${theme.htmlColor};
 			font-family: ${fontFamily};
 		}
 
 		.jop-tinymce table td,
 		table td {
-			border: 1px solid ${theme.codeBorderColor};
+			border: 1px solid ${theme.htmlCodeBorderColor};
 		}
 
 		.jop-tinymce table th,
 		table th {
-			border: 1px solid ${theme.codeBorderColor};
-			border-bottom: 2px solid ${theme.codeBorderColor};
-			background-color: ${theme.tableBackgroundColor};
+			border: 1px solid ${theme.htmlCodeBorderColor};
+			border-bottom: 2px solid ${theme.htmlCodeBorderColor};
+			background-color: ${theme.htmlTableBackgroundColor};
 		}
 
 		.jop-tinymce table tr:nth-child(even),
 		table tr:nth-child(even) {
-			background-color: ${theme.tableBackgroundColor};
+			background-color: ${theme.htmlTableBackgroundColor};
 		}
 
 		.jop-tinymce table tr:hover,
@@ -240,7 +230,7 @@ module.exports = function(theme) {
 
 		hr {
 			border: none;
-			border-bottom: 2px solid ${theme.dividerColor};
+			border-bottom: 2px solid ${theme.htmlDividerColor};
 		}
 		img {
 			max-width: 100%;
@@ -249,13 +239,13 @@ module.exports = function(theme) {
 		
 		.inline-code,
 		.mce-content-body code {
-			border: 1px solid ${theme.codeBorderColor};
-			background-color: ${theme.codeBackgroundColor};
+			border: 1px solid ${theme.htmlCodeBorderColor};
+			background-color: ${theme.htmlCodeBackgroundColor};
 			padding-right: .2em;
 			padding-left: .2em;
 			border-radius: .25em;
-			color: ${theme.codeColor};
-			font-size: ${theme.codeFontSize};
+			color: ${theme.htmlCodeColor};
+			font-size: ${theme.htmlCodeFontSize};
 		}
 
 		.highlighted-keyword {
@@ -288,6 +278,12 @@ module.exports = function(theme) {
 
 		.md-checkbox .checkbox-label-checked {
 			opacity: 0.5;
+		}
+
+		.exported-note-title {
+			font-size: 2.2em;
+			font-weight: bold;
+			margin-bottom: 1em;
 		}
 
 		.exported-note {

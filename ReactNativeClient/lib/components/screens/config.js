@@ -1,6 +1,5 @@
-import Slider from '@react-native-community/slider';
 const React = require('react');
-const { Platform, TouchableOpacity, Linking, View, Switch, StyleSheet, Text, Button, ScrollView, TextInput, Alert, PermissionsAndroid } = require('react-native');
+const { Platform, TouchableOpacity, Linking, View, Switch, StyleSheet, Text, Button, ScrollView, TextInput, Alert } = require('react-native');
 const { connect } = require('react-redux');
 const { ScreenHeader } = require('lib/components/screen-header.js');
 const { _ } = require('lib/locale.js');
@@ -18,7 +17,9 @@ const { time } = require('lib/time-utils');
 const { shim } = require('lib/shim');
 const SearchEngine = require('lib/services/SearchEngine');
 const RNFS = require('react-native-fs');
-const checkPermissions = require('lib/checkPermissions.js').default;
+
+import { PermissionsAndroid } from 'react-native';
+import Slider from '@react-native-community/slider';
 
 class ConfigScreenComponent extends BaseScreenComponent {
 	static navigationOptions() {
@@ -100,29 +101,27 @@ class ConfigScreenComponent extends BaseScreenComponent {
 			const exportPath = this.state.profileExportPath;
 			const resourcePath = `${exportPath}/resources`;
 			try {
-				const hasPermissions = await checkPermissions(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE);
-				if (!hasPermissions) {
-					throw new Error('Permission denied');
-				}
 
-				const copyFiles = async (source, dest) => {
-					await shim.fsDriver().mkdir(dest);
+				{
+					const copyFiles = async (source, dest) => {
+						await shim.fsDriver().mkdir(dest);
 
-					const files = await shim.fsDriver().readDirStats(source);
+						const files = await shim.fsDriver().readDirStats(source);
 
-					for (const file of files) {
-						const source_ = `${source}/${file.path}`;
-						const dest_ = `${dest}/${file.path}`;
-						if (!file.isDirectory()) {
-							reg.logger().info(`Copying profile: ${source_} => ${dest_}`);
-							await shim.fsDriver().copy(source_, dest_);
-						} else {
-							await copyFiles(source_, dest_);
+						for (const file of files) {
+							const source_ = `${source}/${file.path}`;
+							const dest_ = `${dest}/${file.path}`;
+							if (!file.isDirectory()) {
+								reg.logger().info(`Copying profile: ${source_} => ${dest_}`);
+								await shim.fsDriver().copy(source_, dest_);
+							} else {
+								await copyFiles(source_, dest_);
+							}
 						}
-					}
-				};
-				await copyFiles(dbPath, exportPath);
-				await copyFiles(Setting.value('resourceDir'), resourcePath);
+					};
+					await copyFiles(dbPath, exportPath);
+					await copyFiles(Setting.value('resourceDir'), resourcePath);
+				}
 
 				alert('Profile has been exported!');
 			} catch (error) {
@@ -142,11 +141,16 @@ class ConfigScreenComponent extends BaseScreenComponent {
 			// Not implemented yet
 			return true;
 		}
-		return await checkPermissions(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE, {
+		const hasPermission = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE);
+		if (hasPermission) {
+			return true;
+		}
+		const requestResult = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE, {
 			title: _('Information'),
 			message: _('In order to use file system synchronisation your permission to write to external storage is required.'),
 			buttonPositive: _('OK'),
 		});
+		return requestResult === PermissionsAndroid.RESULTS.GRANTED;
 	}
 
 	UNSAFE_componentWillMount() {
@@ -222,7 +226,7 @@ class ConfigScreenComponent extends BaseScreenComponent {
 		});
 
 		styles.settingControl.borderBottomWidth = 1;
-		styles.settingControl.borderBottomColor = theme.dividerColor;
+		styles.settingControl.borderBottomColor = theme.strongDividerColor;
 
 		styles.switchSettingText = Object.assign({}, styles.settingText);
 		styles.switchSettingText.width = '80%';
@@ -388,7 +392,7 @@ class ConfigScreenComponent extends BaseScreenComponent {
 						<Text key="label" style={this.styles().switchSettingText}>
 							{md.label()}
 						</Text>
-						<Switch key="control" style={this.styles().switchSettingControl} trackColor={{ false: theme.dividerColor }} value={value} onValueChange={value => updateSettingValue(key, value)} />
+						<Switch key="control" style={this.styles().switchSettingControl} trackColor={{ false: theme.strongDividerColor }} value={value} onValueChange={value => updateSettingValue(key, value)} />
 					</View>
 					{descriptionComp}
 				</View>
@@ -447,7 +451,7 @@ class ConfigScreenComponent extends BaseScreenComponent {
 
 			if (this.state.profileExportStatus === 'prompt') {
 				const profileExportPrompt = (
-					<View style={this.styles().settingContainer} key="profileExport">
+					<View style={this.styles().settingContainer}>
 						<Text style={this.styles().settingText}>Path:</Text>
 						<TextInput style={{ ...this.styles().textInput, paddingRight: 20 }} onChange={(event) => this.setState({ profileExportPath: event.nativeEvent.text })} value={this.state.profileExportPath} placeholder="/path/to/sdcard" keyboardAppearance={theme.keyboardAppearance}></TextInput>
 						<Button title="OK" onPress={this.exportProfileButtonPress2_}></Button>

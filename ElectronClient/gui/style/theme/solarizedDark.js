@@ -14,6 +14,7 @@ const solarizedDarkStyle = {
 	urlColor: '#268bd2',
 
 	backgroundColor2: '#073642',
+	depthColor: 'rgb(200, 200, 200, OPACITY)',
 	color2: '#eee8d5',
 	selectedColor2: '#6c71c4',
 	colorError2: '#cb4b16',
@@ -23,13 +24,16 @@ const solarizedDarkStyle = {
 
 	warningBackgroundColor: '#b5890055',
 
-	tableBackgroundColor: '#002b36',
-	codeBackgroundColor: '#002b36',
-	codeBorderColor: '#696969',
-	codeColor: '#fdf6e3',
+	htmlColor: '#93a1a1',
+	htmlBackgroundColor: '#002b36',
+	htmlDividerColor: '#073642',
+	htmlLinkColor: '#268bd2',
+	htmlTableBackgroundColor: '#002b36',
+	htmlCodeBackgroundColor: '#002b36',
+	htmlCodeBorderColor: '#696969',
+	htmlCodeColor: '#fdf6e3',
 
-	aceEditorTheme: 'twilight',
-	codeMirrorTheme: 'solarized dark',
+	editorTheme: 'twilight',
 	codeThemeCss: 'atom-one-dark-reasonable.css',
 };
 

@@ -1,6 +1,6 @@
 const React = require('react');
 const { connect } = require('react-redux');
-const { themeStyle } = require('lib/theme');
+const { themeStyle } = require('../theme.js');
 const { _ } = require('lib/locale.js');
 const NoteTextViewer = require('./NoteTextViewer.min');
 const HelpButton = require('./HelpButton.min');

@@ -1,5 +1,5 @@
 const React = require('react');
-const { themeStyle } = require('lib/theme');
+const { themeStyle } = require('../theme.js');
 
 class ToolbarSpace extends React.Component {
 	render() {
