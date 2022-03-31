@@ -15,8 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
 
 #: packages/app-desktop/bridge.js:106 packages/app-desktop/bridge.js:110
 #: packages/app-desktop/bridge.js:126 packages/app-desktop/bridge.js:134
@@ -62,7 +60,7 @@ msgstr "Annulla"
 msgid ""
 "The app is now going to close. Please relaunch it to complete the process."
 msgstr ""
-"Ora l'applicazione si chiuderà. Per favore riavviala per completare il "
+"Ora l'applicazione si chiuderà. Per favore rilancia per completare il "
 "processo."
 
 #: packages/app-desktop/plugins/GotoAnything.js:431
@@ -78,7 +76,7 @@ msgstr ""
 #: packages/app-desktop/plugins/GotoAnything.js:456
 #: packages/app-desktop/gui/KeymapConfig/utils/getLabel.js:20
 msgid "Goto Anything..."
-msgstr "Cerca ovunque..."
+msgstr "Goto..."
 
 #: packages/app-desktop/plugins/GotoAnything.js:463
 #: packages/app-desktop/gui/KeymapConfig/utils/getLabel.js:28
@@ -88,7 +86,7 @@ msgstr "Comandi"
 #: packages/app-desktop/InteropServiceHelper.js:154
 #, javascript-format
 msgid "Exporting to \"%s\" as \"%s\" format. Please wait..."
-msgstr "Esportazione da \"%s\" in formato \"%s\". Per favore attendere..."
+msgstr "Esportazione da \"%s\" in formato \"%s\". Si prega di attendere..."
 
 #: packages/app-desktop/InteropServiceHelper.js:174
 #, javascript-format
@@ -258,8 +256,7 @@ msgstr "Focus"
 #: packages/app-desktop/gui/StatusScreen/StatusScreen.js:26
 msgid "Please select where the sync status should be exported to"
 msgstr ""
-"Per favore selezionare dove lo stato della sincronizzazione deve essere "
-"esportato"
+"Prego selezionare dove lo stato della sincronizzazione deve essere esportato"
 
 #: packages/app-desktop/gui/StatusScreen/StatusScreen.js:61
 #: packages/app-mobile/components/screens/status.js:112
@@ -410,24 +407,23 @@ msgid "Creating new %s..."
 msgstr "Creare nuovo %s..."
 
 #: packages/app-desktop/gui/NoteEditor/NoteEditor.js:284
+#, fuzzy
 msgid "Click to add tags..."
-msgstr "Clicca per aggiungere etichetta..."
+msgstr "Controlla aggiornamenti..."
 
 #: packages/app-desktop/gui/NoteEditor/NoteEditor.js:337
 msgid ""
 "This Rich Text editor has a number of limitations and it is recommended to "
 "be aware of them before using it."
 msgstr ""
-"Questo editor di testo RTF ha un certo numero di limitazioni e si raccomanda "
-"di conoscerle prima di utilizzarlo."
 
 #: packages/app-desktop/gui/NoteEditor/NoteEditor.js:341
 msgid "Read more about it"
-msgstr "Per saperne di più"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteEditor.js:346
 msgid "Dismiss"
-msgstr "Non visualizzare più"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteEditor.js:382
 msgid "The following attachments are being watched for changes:"
@@ -487,40 +483,43 @@ msgid "Horizontal Rule"
 msgstr "Riga orizzontale"
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:88
+#, fuzzy
 msgid "Delete line"
-msgstr "Elimina riga"
+msgstr "Eliminare la nota?"
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:92
 msgid "Undo"
-msgstr "Annulla"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:96
 msgid "Redo"
-msgstr "Ripristina"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:100
 msgid "Indent less"
-msgstr "Meno rientro"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:104
 msgid "Indent more"
-msgstr "Più rientro"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:108
+#, fuzzy
 msgid "Toggle comment"
-msgstr "Attiva / disattiva commento"
+msgstr "Attiva lista delle note"
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:112
+#, fuzzy
 msgid "Sort selected lines"
-msgstr "Ordina alfabeticamente le righe selezionate"
+msgstr "Modifica la nota selezionata"
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:116
 msgid "Swap line up"
-msgstr "Sposta la riga sopra"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:120
 msgid "Swap line down"
-msgstr "Sposta la riga sotto"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/commands/focusElementNoteTitle.js:16
 msgid "Note title"
@@ -1388,7 +1387,7 @@ msgstr "Mostra opzioni avanzate"
 
 #: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:406
 msgid "Path:"
-msgstr "Percorso:"
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:411
 msgid "Browse..."
@@ -1396,12 +1395,12 @@ msgstr "Naviga..."
 
 #: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:413
 msgid "Arguments:"
-msgstr "Argomenti:"
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:461
 msgid "The application must be restarted for these changes to take effect."
 msgstr ""
-"L'applicazione deve essere riavviata affinché le modifiche siano attive."
+"L'applicazione deve essere riavviata perché le modificano siano attive."
 
 #: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:473
 #: packages/app-desktop/gui/NoteList/NoteList.js:163
@@ -1431,66 +1430,75 @@ msgid "Delete plugin \"%s\"?"
 msgstr "Eliminare il plugin \"%s\"?"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginsStates.js:155
+#, fuzzy
 msgid "Browse all plugins"
-msgstr "Sfoglia tutti i plugins"
+msgstr "Installa plugin"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginsStates.js:159
 msgid "Install from file"
-msgstr "Installa da file"
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginsStates.js:193
 msgid "You do not have any installed plugin."
-msgstr "Non hai installato nessun plugin."
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginsStates.js:208
+#, fuzzy
 msgid "Plugin tools"
-msgstr "Strumenti plugin"
+msgstr "Plugins"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginsStates.js:209
 msgid "Manage your plugins"
-msgstr "Gestisci plugins"
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/SearchPlugins.js:68
+#, fuzzy
 msgid "No results"
-msgstr "Nessun risultato"
+msgstr "Nessuna risorsa!"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/SearchPlugins.js:80
+#, fuzzy
 msgid "Search for plugins..."
-msgstr "Cerca plugins..."
+msgstr "Cerca..."
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginBox.js:127
+#, fuzzy
 msgid "Install"
-msgstr "Installa"
+msgstr "Installa plugin"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginBox.js:129
+#, fuzzy
 msgid "Installing..."
-msgstr "Installazione..."
+msgstr "Annullamento..."
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginBox.js:131
+#, fuzzy
 msgid "Installed"
-msgstr "Installato"
+msgstr "Installa plugin"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginBox.js:137
+#, fuzzy
 msgid "Update"
-msgstr "Aggiorna"
+msgstr "Aggiornato"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginBox.js:139
+#, fuzzy
 msgid "Updating..."
-msgstr "Aggiornamento..."
+msgstr "Osservare..."
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginBox.js:151
 msgid "Please upgrade Joplin to use this plugin"
-msgstr "Aggiorna Joplin per utilizzare questo plugin"
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginBox.js:165
 #, javascript-format
 msgid "(%s)"
-msgstr "(%s)"
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/useOnInstallHandler.js:49
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Could not install plugin: %s"
-msgstr "Non è possibile installare il plugin: %s"
+msgstr "Impossibile esportare le note: %s"
 
 #: packages/app-desktop/gui/PromptDialog.min.js:249
 msgid "Clear"
@@ -1967,7 +1975,7 @@ msgstr "Sito web Joplin"
 
 #: packages/app-mobile/components/screens/config.js:523
 msgid "Privacy Policy"
-msgstr "Politica sulla Privacy"
+msgstr ""
 
 #: packages/app-mobile/components/screens/Note.js:98
 msgid "This note has been modified:"
@@ -2096,14 +2104,12 @@ msgid ""
 "The default admin password is insecure and has not been changed! [Change it "
 "now](%s)"
 msgstr ""
-"La password d'amministratore predefinita non è sicura e non è stata "
-"modificata! [Modificala ora](%s)"
 
 #: packages/lib/onedrive-api-node-utils.js:46
 #, javascript-format
 msgid "All potential ports are in use - please report the issue at %s"
 msgstr ""
-"Tutte le potenziali porte sono in uso - per favore riportare il problema a %s"
+"Tutte le potenziali porte sono in uso - prego riportare il problema a %s"
 
 #: packages/lib/onedrive-api-node-utils.js:86
 msgid ""
@@ -2139,8 +2145,9 @@ msgid "Dropbox"
 msgstr "Dropbox"
 
 #: packages/lib/SyncTargetJoplinServer.js:30
+#, fuzzy
 msgid "Joplin Server"
-msgstr "Joplin Server"
+msgstr "Sito web Joplin"
 
 #: packages/lib/shim-init-node.js:212
 #, javascript-format
@@ -2282,19 +2289,21 @@ msgstr "Secret AWS"
 
 #: packages/lib/models/Setting.js:293
 msgid "Joplin Server URL"
-msgstr "URL Joplin Server"
+msgstr ""
 
 #: packages/lib/models/Setting.js:308
+#, fuzzy
 msgid "Joplin Server Directory"
-msgstr "Cartella di Joplin Server"
+msgstr "Cartella di esportazione di Joplin"
 
 #: packages/lib/models/Setting.js:319
 msgid "Joplin Server username"
-msgstr "Nome Utente Joplin Server"
+msgstr ""
 
 #: packages/lib/models/Setting.js:330
+#, fuzzy
 msgid "Joplin Server password"
-msgstr "Password Joplin Server"
+msgstr "Inserisci password principale:"
 
 #: packages/lib/models/Setting.js:342
 msgid "Attachment download behaviour"
@@ -2423,8 +2432,9 @@ msgid "Enable typographer support"
 msgstr "Attiva supporto tipografico"
 
 #: packages/lib/models/Setting.js:614
+#, fuzzy
 msgid "Enable Linkify"
-msgstr "Abilita Linkify"
+msgstr "Attiva cronologia della nota"
 
 #: packages/lib/models/Setting.js:615
 msgid "Enable math expressions"
@@ -2439,16 +2449,17 @@ msgid "Enable Mermaid diagrams support"
 msgstr "Attiva supporto diagrammi Mermaid"
 
 #: packages/lib/models/Setting.js:618
+#, fuzzy
 msgid "Enable audio player"
-msgstr "Abilita riproduttore audio"
+msgstr "Abilita emoji markdown"
 
 #: packages/lib/models/Setting.js:619
 msgid "Enable video player"
-msgstr "Abilita riproduttore video"
+msgstr ""
 
 #: packages/lib/models/Setting.js:620
 msgid "Enable PDF viewer"
-msgstr "Abilita visualizzatore PDF"
+msgstr ""
 
 #: packages/lib/models/Setting.js:621
 msgid "Enable ==mark== syntax"
@@ -2891,7 +2902,7 @@ msgid ""
 "Error. Please check that URL, username, password, etc. are correct and that "
 "the sync target is accessible. The reported error was:"
 msgstr ""
-"Errore. Per favore controllare che URL, nome utente, password, etc. siano "
+"Errore. Prego controllare che URL, nome utente, password, etc. siano "
 "corretti e che la destinazione di sincronizzazione sia accessibile. L’errore "
 "riportato era:"
 
@@ -2912,7 +2923,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Riprovare per favore."
+"Riprovare prego."
 
 #: packages/lib/components/shared/encryption-config-shared.js:33
 msgid ""
@@ -3015,20 +3026,20 @@ msgstr "In corso"
 msgid ""
 "Unknown item type downloaded - please upgrade Joplin to the latest version"
 msgstr ""
-"Elemento scaricato sconosciuto - cortesemente aggiornare Joplin all’ultima "
+"Tipo elemento scaricato sconosciuto - prego aggiornare Joplin all’ultima "
 "versione"
 
 #: packages/lib/JoplinServerApi.js:63
-#, javascript-format
+#, fuzzy, javascript-format
 msgid ""
 "Could not connect to Joplin Server. Please check the Synchronisation options "
 "in the config screen. Full error was:\n"
 "\n"
 "%s"
 msgstr ""
-"Non è stato possibile connettersi al Joplin Server. Per favore controllare "
-"le opzioni di sincronizzazione nella relativa schermata di configurazione. "
-"Errore completo era:\n"
+"Non è stato possibile connettersi alla Joplin Nextcloud app. Si prega di "
+"controllare la configurazione nella schermata di Config. della "
+"Sincronizzazione. Errore completo era:\n"
 "\n"
 "%s"
 
@@ -3183,13 +3194,10 @@ msgstr "comando"
 msgid "\"%s\" is missing the required \"%s\" property."
 msgstr "A \"% s\" manca la proprietà \"% s\" richiesta."
 
-# Non è chiaro cosa sia un accelerator senza contesto, non lo trovo nell'applicazione e non credo sia corretto tradurlo con acceleratore.
-# Cercando online ho trovato che 
-# "accelerator" fa parte di opzioni 
-# relative ai comandi delle API dei 
-# Plugins.
+# Non è chiaro cosa sia un accelerator senza contesto, non lo trovo nell'applicazione e non credo sia corretto tradurlo con acceleratore
 #: packages/lib/services/KeymapService.js:278
 #: packages/lib/services/KeymapService.js:285
+#, fuzzy
 msgid "accelerator"
 msgstr "accelerator"
 
@@ -3198,15 +3206,14 @@ msgstr "accelerator"
 msgid "Invalid %s: %s."
 msgstr "%s non valido: %s."
 
-# Non è chiaro cosa sia un accelerator senza contesto, non lo trovo nell'applicazione e non credo sia corretto tradurlo con acceleratore.
-# Cercando online ho trovato che "accelerator" fa parte di opzioni relative ai comandi delle API dei Plugins.
+# Non è chiaro cosa sia un accelerator senza contesto, non lo trovo nell'applicazione e non credo sia corretto tradurlo con acceleratore
 #: packages/lib/services/KeymapService.js:303
-#, javascript-format
+#, fuzzy, javascript-format
 msgid ""
 "Accelerator \"%s\" is used for \"%s\" and \"%s\" commands. This may lead to "
 "unexpected behaviour."
 msgstr ""
-"Accelerator \"%s\" è utilizzato per i comandi \"%s\" e \"%s\". Questo "
+"L'accelerator \"%s\" è utilizzato per i comandi \"%s\" e \"%s\". Questo "
 "potrebbe portare a comportamenti inaspettati."
 
 #: packages/lib/services/KeymapService.js:328
@@ -3279,8 +3286,9 @@ msgid "Downloaded and encrypted"
 msgstr "Scaricato e criptato"
 
 #: packages/lib/services/ReportService.js:180
+#, fuzzy
 msgid "Created locally"
-msgstr "Creato localmente"
+msgstr "Elementi locali creati: %d."
 
 #: packages/lib/services/ReportService.js:191
 msgid "Attachments that could not be downloaded"
@@ -3497,8 +3505,8 @@ msgid ""
 "Starting decryption... Please wait as it may take several minutes depending "
 "on how much there is to decrypt."
 msgstr ""
-"Avvio decrittazione... Attendere per favore, ci potrebbero volere diversi "
-"minuti per la decriptazione."
+"Avvio decrittazione... Attendere prego, ci potrebbero volere diversi minuti "
+"per la decriptazione."
 
 #: packages/app-cli/app/command-e2ee.js:55
 #, javascript-format
@@ -3945,8 +3953,7 @@ msgstr "s"
 
 #: packages/app-cli/app/app.js:170
 msgid "Cancelling background synchronisation... Please wait."
-msgstr ""
-"Annullamento della sincronizzazione in background... Attendere per favore."
+msgstr "Annullamento della sincronizzazione in background... Attendere prego."
 
 #: packages/app-cli/app/app.js:255
 #, javascript-format
