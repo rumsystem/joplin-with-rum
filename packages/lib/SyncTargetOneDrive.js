@@ -1,20 +1,18 @@
-import OneDriveApi from './onedrive-api';
-import { _ } from './locale';
-import Setting from './models/Setting';
-import Synchronizer from './Synchronizer';
-
 const BaseSyncTarget = require('./BaseSyncTarget.js');
+const { _ } = require('./locale');
+const { OneDriveApi } = require('./onedrive-api.js');
+const Setting = require('./models/Setting').default;
 const { parameters } = require('./parameters.js');
 const { FileApi } = require('./file-api.js');
+const Synchronizer = require('./Synchronizer').default;
 const { FileApiDriverOneDrive } = require('./file-api-driver-onedrive.js');
 
-export default class SyncTargetOneDrive extends BaseSyncTarget {
-
+class SyncTargetOneDrive extends BaseSyncTarget {
 	static id() {
 		return 3;
 	}
 
-	constructor(db: any, options: any = null) {
+	constructor(db, options = null) {
 		super(db, options);
 		this.api_ = null;
 	}
@@ -60,8 +58,9 @@ export default class SyncTargetOneDrive extends BaseSyncTarget {
 		const isPublic = Setting.value('appType') != 'cli' && Setting.value('appType') != 'desktop';
 
 		this.api_ = new OneDriveApi(this.oneDriveParameters().id, this.oneDriveParameters().secret, isPublic);
+		this.api_.setLogger(this.logger());
 
-		this.api_.on('authRefreshed', (a: any) => {
+		this.api_.on('authRefreshed', a => {
 			this.logger().info('Saving updated OneDrive auth.');
 			Setting.setValue(`sync.${this.syncTargetId()}.auth`, a ? JSON.stringify(a) : null);
 		});
@@ -111,3 +110,5 @@ export default class SyncTargetOneDrive extends BaseSyncTarget {
 
 	}
 }
+
+module.exports = SyncTargetOneDrive;

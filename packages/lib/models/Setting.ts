@@ -716,14 +716,14 @@ class Setting extends BaseModel {
 							// IMPORTANT: The font mapping must match the one in global-styles.js::editorFont()
 							if (mobilePlatform === 'ios') {
 								return {
-									[Setting.FONT_DEFAULT]: 'Default',
+									[Setting.FONT_DEFAULT]: _('Default'),
 									[Setting.FONT_MENLO]: 'Menlo',
 									[Setting.FONT_COURIER_NEW]: 'Courier New',
 									[Setting.FONT_AVENIR]: 'Avenir',
 								};
 							}
 							return {
-								[Setting.FONT_DEFAULT]: 'Default',
+								[Setting.FONT_DEFAULT]: _('Default'),
 								[Setting.FONT_MONOSPACE]: 'Monospace',
 							};
 						},
@@ -1387,7 +1387,7 @@ class Setting extends BaseModel {
 	static async saveAll() {
 		if (Setting.autoSaveEnabled && !this.saveTimeoutId_) return Promise.resolve();
 
-		this.logger().info('Saving settings...');
+		this.logger().debug('Saving settings...');
 		shim.clearTimeout(this.saveTimeoutId_);
 		this.saveTimeoutId_ = null;
 
@@ -1434,7 +1434,7 @@ class Setting extends BaseModel {
 
 		await BaseModel.db().transactionExecBatch(queries);
 
-		this.logger().info('Settings have been saved.');
+		this.logger().debug('Settings have been saved.');
 	}
 
 	static scheduleChangeEvent() {

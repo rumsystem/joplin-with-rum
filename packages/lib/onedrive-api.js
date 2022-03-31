@@ -1,28 +1,17 @@
-import shim from './shim';
-import time from './time';
-import Logger from './Logger';
-import { _ } from './locale';
-
+const shim = require('./shim').default;
 const { stringify } = require('query-string');
+const time = require('./time').default;
+const Logger = require('./Logger').default;
+const { _ } = require('./locale');
 const urlUtils = require('./urlUtils.js');
 const Buffer = require('buffer').Buffer;
 
-const logger = Logger.create('OneDriveApi');
-
-export default class OneDriveApi {
-
-	private clientId_: string;
-	private clientSecret_: string;
-	private auth_: any = null;
-	private accountProperties_: any = null;
-	private isPublic_: boolean;
-	private listeners_: Record<string, any>;
-
+class OneDriveApi {
 	// `isPublic` is to tell OneDrive whether the application is a "public" one (Mobile and desktop
 	// apps are considered "public"), in which case the secret should not be sent to the API.
 	// In practice the React Native app is public, and the Node one is not because we
 	// use a local server for the OAuth dance.
-	constructor(clientId: string, clientSecret: string, isPublic: boolean) {
+	constructor(clientId, clientSecret, isPublic) {
 		this.clientId_ = clientId;
 		this.clientSecret_ = clientSecret;
 		this.auth_ = null;
@@ -31,20 +20,29 @@ export default class OneDriveApi {
 		this.listeners_ = {
 			authRefreshed: [],
 		};
+		this.logger_ = new Logger();
+	}
+
+	setLogger(l) {
+		this.logger_ = l;
+	}
+
+	logger() {
+		return this.logger_;
 	}
 
 	isPublic() {
 		return this.isPublic_;
 	}
 
-	dispatch(eventName: string, param: any) {
+	dispatch(eventName, param) {
 		const ls = this.listeners_[eventName];
 		for (let i = 0; i < ls.length; i++) {
 			ls[i](param);
 		}
 	}
 
-	on(eventName: string, callback: Function) {
+	on(eventName, callback) {
 		this.listeners_[eventName].push(callback);
 	}
 
@@ -56,11 +54,11 @@ export default class OneDriveApi {
 		return 'https://login.microsoftonline.com/common/oauth2/nativeclient';
 	}
 
-	auth(): any {
+	auth() {
 		return this.auth_;
 	}
 
-	setAuth(auth: any) {
+	setAuth(auth) {
 		this.auth_ = auth;
 		this.dispatch('authRefreshed', this.auth());
 	}
@@ -83,7 +81,7 @@ export default class OneDriveApi {
 		return `${r.parentReference.path}/${r.name}`;
 	}
 
-	authCodeUrl(redirectUri: string) {
+	authCodeUrl(redirectUri) {
 		const query = {
 			client_id: this.clientId_,
 			scope: 'files.readwrite offline_access sites.readwrite.all',
@@ -93,8 +91,8 @@ export default class OneDriveApi {
 		return `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?${stringify(query)}`;
 	}
 
-	async execTokenRequest(code: string, redirectUri: string) {
-		const body: any = {};
+	async execTokenRequest(code, redirectUri) {
+		const body = {};
 		body['client_id'] = this.clientId();
 		if (!this.isPublic()) body['client_secret'] = this.clientSecret();
 		body['code'] = code;
@@ -125,12 +123,12 @@ export default class OneDriveApi {
 		}
 	}
 
-	oneDriveErrorResponseToError(errorResponse: any) {
+	oneDriveErrorResponseToError(errorResponse) {
 		if (!errorResponse) return new Error('Undefined error');
 
 		if (errorResponse.error) {
 			const e = errorResponse.error;
-			const output: any = new Error(e.message);
+			const output = new Error(e.message);
 			if (e.code) output.code = e.code;
 			if (e.innerError) output.innerError = e.innerError;
 			return output;
@@ -139,7 +137,7 @@ export default class OneDriveApi {
 		}
 	}
 
-	async uploadChunk(url: string, handle: any, buffer: any, options: any) {
+	async uploadChunk(url, handle, buffer, options) {
 		options = Object.assign({}, options);
 		if (!options.method) { options.method = 'POST'; }
 
@@ -161,7 +159,7 @@ export default class OneDriveApi {
 		return response;
 	}
 
-	async uploadBigFile(url: string, options: any) {
+	async uploadBigFile(url, options) {
 		const response = await shim.fetch(url, {
 			method: 'POST',
 			headers: {
@@ -201,7 +199,7 @@ export default class OneDriveApi {
 						endByte = (i + 1) * chunkSize - 1;
 						contentLength = chunkSize;
 					}
-					logger.debug(`Uploading File Fragment ${(startByte / 1048576).toFixed(2)} - ${(endByte / 1048576).toFixed(2)} from ${(byteSize / 1048576).toFixed(2)} Mbit ...`);
+					this.logger().debug(`Uploading File Fragment ${(startByte / 1048576).toFixed(2)} - ${(endByte / 1048576).toFixed(2)} from ${(byteSize / 1048576).toFixed(2)} Mbit ...`);
 					const headers = {
 						'Content-Length': contentLength,
 						'Content-Range': `bytes ${startByte}-${endByte}/${byteSize}`,
@@ -217,7 +215,7 @@ export default class OneDriveApi {
 				return { ok: true };
 			} catch (error) {
 				const type = (handle) ? 'Resource' : 'Note Content';
-				logger.error(`Couldn't upload ${type} > 4 Mb. Got unhandled error:`, error ? error.code : '', error ? error.message : '', error);
+				this.logger().error(`Couldn't upload ${type} > 4 Mb. Got unhandled error:`, error ? error.code : '', error ? error.message : '', error);
 				throw error;
 			} finally {
 				if (handle) await shim.fsDriver().close(handle);
@@ -226,7 +224,7 @@ export default class OneDriveApi {
 		}
 	}
 
-	async exec(method: string, path: string, query: any = null, data: any = null, options: any = null) {
+	async exec(method, path, query = null, data = null, options = null) {
 		if (!path) throw new Error('Path is required');
 
 		method = method.toUpperCase();
@@ -266,12 +264,6 @@ export default class OneDriveApi {
 		for (let i = 0; i < 5; i++) {
 			options.headers['Authorization'] = `bearer ${this.token()}`;
 
-			const handleRequestRepeat = async (error: any) => {
-				logger.info(`Got error below - retrying (${i})...`);
-				logger.info(error);
-				await time.sleep((i + 1) * 5);
-			};
-
 			let response = null;
 			try {
 				if (path.includes('/createUploadSession')) {
@@ -285,31 +277,24 @@ export default class OneDriveApi {
 					response = await shim.fetchBlob(url, options);
 				}
 			} catch (error) {
-				if (shim.fetchRequestCanBeRetried(error)) {
-					await handleRequestRepeat(error);
-					continue;
-				} else {
-					logger.error('Got unhandled error:', error ? error.code : '', error ? error.message : '', error);
-					throw error;
-				}
+				this.logger().error('Got unhandled error:', error ? error.code : '', error ? error.message : '', error);
+				throw error;
 			}
 
 			if (!response.ok) {
 				const errorResponseText = await response.text();
 				let errorResponse = null;
-
 				try {
 					errorResponse = JSON.parse(errorResponseText); // await response.json();
 				} catch (error) {
 					error.message = `OneDriveApi::exec: Cannot parse JSON error: ${errorResponseText} ${error.message}`;
-					await handleRequestRepeat(error);
-					continue;
+					throw error;
 				}
 
 				const error = this.oneDriveErrorResponseToError(errorResponse);
 
 				if (error.code == 'InvalidAuthenticationToken' || error.code == 'unauthenticated') {
-					logger.info('Token expired: refreshing...');
+					this.logger().info('Token expired: refreshing...');
 					await this.refreshAccessToken();
 					continue;
 				} else if (error && ((error.error && error.error.code == 'generalException') || error.code == 'generalException' || error.code == 'EAGAIN')) {
@@ -327,7 +312,9 @@ export default class OneDriveApi {
 					//   type: 'system',
 					//   errno: 'EAGAIN',
 					//   code: 'EAGAIN' }
-					await handleRequestRepeat(error);
+					this.logger().info(`Got error below - retrying (${i})...`);
+					this.logger().info(error);
+					await time.sleep((i + 1) * 3);
 					continue;
 				} else if (error && (error.code === 'resourceModified' || (error.error && error.error.code === 'resourceModified'))) {
 					// NOTE: not tested, very hard to reproduce and non-informative error message, but can be repeated
@@ -337,7 +324,9 @@ export default class OneDriveApi {
 					// Header: {"_headers":{"cache-control":["private"],"transfer-encoding":["chunked"],"content-type":["application/json"],"request-id":["d...ea47"],"client-request-id":["d99...ea47"],"x-ms-ags-diagnostic":["{\"ServerInfo\":{\"DataCenter\":\"North Europe\",\"Slice\":\"SliceA\",\"Ring\":\"2\",\"ScaleUnit\":\"000\",\"Host\":\"AGSFE_IN_13\",\"ADSiteName\":\"DUB\"}}"],"duration":["96.9464"],"date":[],"connection":["close"]}}
 					// Request: PATCH https://graph.microsoft.com/v1.0/drive/root:/Apps/JoplinDev/f56c5601fee94b8085524513bf3e352f.md null "{\"fileSystemInfo\":{\"lastModifiedDateTime\":\"....\"}}" {"headers":{"Content-Type":"application/json","Authorization":"bearer ...
 
-					await handleRequestRepeat(error);
+					this.logger().info(`Got error below - retrying (${i})...`);
+					this.logger().info(error);
+					await time.sleep((i + 1) * 3);
 					continue;
 				} else if (error.code == 'itemNotFound' && method == 'DELETE') {
 					// Deleting a non-existing item is ok - noop
@@ -355,7 +344,7 @@ export default class OneDriveApi {
 		throw new Error(`Could not execute request after multiple attempts: ${method} ${url}`);
 	}
 
-	setAccountProperties(accountProperties: any) {
+	setAccountProperties(accountProperties) {
 		this.accountProperties_ = accountProperties;
 	}
 
@@ -371,7 +360,7 @@ export default class OneDriveApi {
 		}
 	}
 
-	async execJson(method: string, path: string, query: any = null, data: any = null) {
+	async execJson(method, path, query, data) {
 		const response = await this.exec(method, path, query, data);
 		const errorResponseText = await response.text();
 		try {
@@ -384,7 +373,7 @@ export default class OneDriveApi {
 		}
 	}
 
-	async execText(method: string, path: string, query: any = null, data: any = null) {
+	async execText(method, path, query, data) {
 		const response = await this.exec(method, path, query, data);
 		const output = await response.text();
 		return output;
@@ -396,7 +385,7 @@ export default class OneDriveApi {
 			throw new Error(_('Cannot refresh token: authentication data is missing. Starting the synchronisation again may fix the problem.'));
 		}
 
-		const body: any = {};
+		const body = {};
 		body['client_id'] = this.clientId();
 		if (!this.isPublic()) body['client_secret'] = this.clientSecret();
 		body['refresh_token'] = this.auth_.refresh_token;
@@ -421,3 +410,5 @@ export default class OneDriveApi {
 		this.setAuth(auth);
 	}
 }
+
+module.exports = { OneDriveApi };

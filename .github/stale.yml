@@ -9,7 +9,6 @@ exemptLabels:
   - "upstream"
   - "backlog"
   - "high"
-  - "medium"
   - "spec"
 # Label to use when marking an issue as stale
 staleLabel: stale

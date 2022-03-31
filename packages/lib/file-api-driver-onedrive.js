@@ -1,5 +1,4 @@
 const moment = require('moment');
-const { basicDelta } = require('./file-api');
 const { dirname, basename } = require('./path-utils');
 const shim = require('./shim').default;
 const Buffer = require('buffer').Buffer;
@@ -84,12 +83,10 @@ class FileApiDriverOneDrive {
 			context: null,
 		}, options);
 
-		let query = Object.assign({}, this.itemFilter_(), { '$top': 1000 });
+		let query = this.itemFilter_();
 		let url = `${this.makePath_(path)}:/children`;
 
 		if (options.context) {
-			// If there's a context, it already includes all required query
-			// parameters, including $top
 			query = null;
 			url = options.context;
 		}
@@ -216,24 +213,6 @@ class FileApiDriverOneDrive {
 	}
 
 	async delta(path, options = null) {
-		const getDirStats = async path => {
-			let items = [];
-			let context = null;
-
-			while (true) {
-				const result = await this.list(path, { includeDirs: false, context: context });
-				items = items.concat(result.items);
-				context = result.context;
-				if (!result.hasMore) break;
-			}
-
-			return items;
-		};
-
-		return await basicDelta(path, getDirStats, options);
-	}
-
-	async delta_BROKEN(path, options = null) {
 		const output = {
 			hasMore: false,
 			context: {},
