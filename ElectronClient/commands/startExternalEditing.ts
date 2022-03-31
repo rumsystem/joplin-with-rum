@@ -11,7 +11,7 @@ interface Props {
 export const declaration:CommandDeclaration = {
 	name: 'startExternalEditing',
 	label: () => _('Edit in external editor'),
-	iconName: 'icon-share',
+	iconName: 'fa-share-square',
 };
 
 export const runtime = ():CommandRuntime => {
@@ -27,14 +27,10 @@ export const runtime = ():CommandRuntime => {
 			// await comp.saveNoteAndWait(comp.formNote);
 		},
 		isEnabled: (props:any) => {
-			if (props.routeName !== 'Main') return false;
 			return !!props.noteId;
 		},
 		mapStateToProps: (state:any) => {
-			return {
-				noteId: state.selectedNoteIds.length === 1 ? state.selectedNoteIds[0] : null,
-				routeName: state.route.routeName,
-			};
+			return { noteId: state.selectedNoteIds.length === 1 ? state.selectedNoteIds[0] : null };
 		},
 	};
 };

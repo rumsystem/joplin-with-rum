@@ -1,15 +1,18 @@
 import { CommandRuntime, CommandDeclaration } from '../../../lib/services/CommandService';
+const Note = require('lib/models/Note');
 const BaseModel = require('lib/BaseModel');
+// const { _ } = require('lib/locale');
 const { uuid } = require('lib/uuid.js');
 
 export const declaration:CommandDeclaration = {
 	name: 'search',
-	iconName: 'icon-search',
 };
 
 export const runtime = (comp:any):CommandRuntime => {
 	return {
-		execute: async ({ query }:any) => {
+		execute: async ({ query, fuzzy }:any) => {
+			console.info('RUNTIME', query);
+
 			if (!comp.searchId_) comp.searchId_ = uuid.create();
 
 			comp.props.dispatch({
@@ -20,6 +23,7 @@ export const runtime = (comp:any):CommandRuntime => {
 					query_pattern: query,
 					query_folder_id: null,
 					type_: BaseModel.TYPE_SEARCH,
+					fuzzy: fuzzy,
 				},
 			});
 
@@ -29,18 +33,14 @@ export const runtime = (comp:any):CommandRuntime => {
 					id: comp.searchId_,
 				});
 			} else {
-				// Note: Normally there's no need to do anything when the search query
-				// is cleared as the reducer should handle all state changes.
-				// https://github.com/laurent22/joplin/issues/3748
-
-				// const note = await Note.load(comp.props.selectedNoteId);
-				// if (note) {
-				// 	comp.props.dispatch({
-				// 		type: 'FOLDER_AND_NOTE_SELECT',
-				// 		folderId: note.parent_id,
-				// 		noteId: note.id,
-				// 	});
-				// }
+				const note = await Note.load(comp.props.selectedNoteId);
+				if (note) {
+					comp.props.dispatch({
+						type: 'FOLDER_AND_NOTE_SELECT',
+						folderId: note.parent_id,
+						noteId: note.id,
+					});
+				}
 			}
 		},
 	};

@@ -1,10 +1,10 @@
 import * as React from 'react';
-import ButtonBar from './ConfigScreen/ButtonBar';
 
 const { connect } = require('react-redux');
 const { _ } = require('lib/locale.js');
 const { themeStyle } = require('lib/theme');
 const { bridge } = require('electron').remote.require('./bridge');
+const { Header } = require('./Header/Header.min.js');
 const prettyBytes = require('pretty-bytes');
 const Resource = require('lib/models/Resource.js');
 
@@ -14,9 +14,8 @@ interface Style {
 }
 
 interface Props {
-	themeId: number;
-	style: Style,
-	dispatch: Function,
+	theme: any;
+	style: Style
 }
 
 interface Resource {
@@ -38,7 +37,7 @@ interface ResourceTable {
 	onResourceClick: (resource: Resource) => any
 	onResourceDelete: (resource: Resource) => any
 	onToggleSorting: (order: SortingOrder) => any
-	themeId: number
+	theme: any
 	style: Style
 }
 
@@ -51,19 +50,17 @@ interface ActiveSorting {
 }
 
 const ResourceTable: React.FC<ResourceTable> = (props: ResourceTable) => {
-	const theme = themeStyle(props.themeId);
-
 	const sortOrderEngagedMarker = (s: SortingOrder) => {
 		return (
 			<a href="#"
-				style={{ color: theme.urlColor }}
+				style={{ color: props.theme.urlColor }}
 				onClick={() => props.onToggleSorting(s)}>{
 					(props.sorting.order === s && props.sorting.type === 'desc') ? '▾' : '▴'}</a>
 		);
 	};
 
 	const titleCellStyle = {
-		...theme.textStyle,
+		...props.theme.textStyle,
 		textOverflow: 'ellipsis',
 		overflowX: 'hidden',
 		maxWidth: 1,
@@ -72,14 +69,14 @@ const ResourceTable: React.FC<ResourceTable> = (props: ResourceTable) => {
 	};
 
 	const cellStyle = {
-		...theme.textStyle,
+		...props.theme.textStyle,
 		whiteSpace: 'nowrap',
-		color: theme.colorFaded,
+		color: props.theme.colorFaded,
 		width: 1,
 	};
 
 	const headerStyle = {
-		...theme.textStyle,
+		...props.theme.textStyle,
 		whiteSpace: 'nowrap',
 		width: 1,
 		fontWeight: 'bold',
@@ -100,7 +97,7 @@ const ResourceTable: React.FC<ResourceTable> = (props: ResourceTable) => {
 					<tr key={index}>
 						<td style={titleCellStyle} className="titleCell">
 							<a
-								style={{ color: theme.urlColor }}
+								style={{ color: props.theme.urlColor }}
 								href="#"
 								onClick={() => props.onResourceClick(resource)}>{resource.title || `(${_('Untitled')})`}
 							</a>
@@ -108,7 +105,7 @@ const ResourceTable: React.FC<ResourceTable> = (props: ResourceTable) => {
 						<td style={cellStyle} className="dataCell">{prettyBytes(resource.size)}</td>
 						<td style={cellStyle} className="dataCell">{resource.id}</td>
 						<td style={cellStyle} className="dataCell">
-							<button style={theme.buttonStyle} onClick={() => props.onResourceDelete(resource)}>{_('Delete')}</button>
+							<button style={props.theme.buttonStyle} onClick={() => props.onResourceDelete(resource)}>{_('Delete')}</button>
 						</td>
 					</tr>
 				)}
@@ -205,7 +202,8 @@ class ResourceScreenComponent extends React.Component<Props, State> {
 
 	render() {
 		const style = this.props.style;
-		const theme = themeStyle(this.props.themeId);
+		const theme = themeStyle(this.props.theme);
+		const headerStyle = Object.assign({}, theme.headerStyle, { width: style.width });
 
 		const rootStyle:any = {
 			...style,
@@ -213,16 +211,13 @@ class ResourceScreenComponent extends React.Component<Props, State> {
 			color: theme.color,
 			padding: 20,
 			boxSizing: 'border-box',
-			flex: 1,
 		};
-		// rootStyle.height = style.height - 35; // Minus the header height
-		delete rootStyle.height;
+		rootStyle.height = style.height - 35; // Minus the header height
 		delete rootStyle.width;
 
-		const containerHeight = style.height;
-
 		return (
-			<div style={{ ...theme.containerStyle, fontFamily: theme.fontFamily, height: containerHeight, display: 'flex', flexDirection: 'column' }}>
+			<div style={{ ...theme.containerStyle, fontFamily: theme.fontFamily }}>
+				<Header style={headerStyle} />
 				<div style={rootStyle}>
 					<div style={{ ...theme.notificationBox, marginBottom: 10 }}>{
 						_('This is an advanced tool to show the attachments that are linked to your notes. Please be careful when deleting one of them as they cannot be restored afterwards.')
@@ -237,7 +232,7 @@ class ResourceScreenComponent extends React.Component<Props, State> {
 							<div>{_('Warning: not all resources shown for performance reasons (limit: %s).', MAX_RESOURCES)}</div>
 						}
 						{this.state.resources && <ResourceTable
-							themeId={this.props.themeId}
+							theme={theme}
 							style={style}
 							resources={this.state.resources}
 							sorting={this.state.sorting}
@@ -248,16 +243,13 @@ class ResourceScreenComponent extends React.Component<Props, State> {
 					</div>
 					}
 				</div>
-				<ButtonBar
-					onCancelClick={() => this.props.dispatch({ type: 'NAV_BACK' })}
-				/>
 			</div>
 		);
 	}
 }
 
 const mapStateToProps = (state: any) => ({
-	themeId: state.settings.theme,
+	theme: state.settings.theme,
 });
 
 const ResourceScreen = connect(mapStateToProps)(ResourceScreenComponent);

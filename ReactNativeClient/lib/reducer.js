@@ -313,9 +313,7 @@ function updateSelectedNotesFromExistingNotes(state) {
 function defaultNotesParentType(state, exclusion) {
 	let newNotesParentType = null;
 
-	if (exclusion !== 'SmartFilter' && state.selectedSmartFilterId) {
-		newNotesParentType = 'SmartFilter';
-	} else if (exclusion !== 'Folder' && state.selectedFolderId) {
+	if (exclusion !== 'Folder' && state.selectedFolderId) {
 		newNotesParentType = 'Folder';
 	} else if (exclusion !== 'Tag' && state.selectedTagId) {
 		newNotesParentType = 'Tag';
@@ -545,7 +543,7 @@ function handleHistory(state, action) {
 }
 
 const reducer = (state = defaultState, action) => {
-	// if (!['SIDE_MENU_OPEN_PERCENT'].includes(action.type)) console.info('Action', action.type, action);
+	// if (!['SIDE_MENU_OPEN_PERCENT'].includes(action.type)) console.info('Action', action.type);
 
 	let newState = state;
 
@@ -792,17 +790,13 @@ const reducer = (state = defaultState, action) => {
 			break;
 
 		case 'TAG_SELECT':
-
-			if (state.selectedTagId !== action.id) {
-				newState = Object.assign({}, state);
-				newState.selectedTagId = action.id;
-				if (!action.id) {
-					newState.notesParentType = defaultNotesParentType(state, 'Tag');
-				} else {
-					newState.notesParentType = 'Tag';
-				}
-				newState.selectedNoteIds = [];
+			newState.selectedTagId = action.id;
+			if (!action.id) {
+				newState.notesParentType = defaultNotesParentType(state, 'Tag');
+			} else {
+				newState.notesParentType = 'Tag';
 			}
+			newState.selectedNoteIds = [];
 			break;
 
 		case 'TAG_UPDATE_ONE':

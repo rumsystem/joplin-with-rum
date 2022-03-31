@@ -5,8 +5,7 @@ export default function styles(themeId: number) {
 		return {
 			container: {
 				...theme.containerStyle,
-				padding: theme.configScreenPadding,
-				backgroundColor: theme.backgroundColor3,
+				padding: 16,
 			},
 			actionsContainer: {
 				display: 'flex',

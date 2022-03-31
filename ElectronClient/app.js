@@ -37,13 +37,13 @@ const resourceEditWatcherReducer = require('lib/services/ResourceEditWatcher/red
 const versionInfo = require('lib/versionInfo').default;
 
 const commands = [
-	require('./gui/NoteListControls/commands/focusSearch'),
+	require('./gui/Header/commands/focusSearch'),
 	require('./gui/MainScreen/commands/editAlarm'),
 	require('./gui/MainScreen/commands/exportPdf'),
 	require('./gui/MainScreen/commands/hideModalMessage'),
 	require('./gui/MainScreen/commands/moveToFolder'),
 	require('./gui/MainScreen/commands/newNote'),
-	require('./gui/MainScreen/commands/newFolder'),
+	require('./gui/MainScreen/commands/newNotebook'),
 	require('./gui/MainScreen/commands/newTodo'),
 	require('./gui/MainScreen/commands/print'),
 	require('./gui/MainScreen/commands/renameFolder'),
@@ -58,7 +58,6 @@ const commands = [
 	require('./gui/MainScreen/commands/toggleNoteList'),
 	require('./gui/MainScreen/commands/toggleSidebar'),
 	require('./gui/MainScreen/commands/toggleVisiblePanes'),
-	require('./gui/MainScreen/commands/toggleEditors'),
 	require('./gui/NoteEditor/commands/focusElementNoteBody'),
 	require('./gui/NoteEditor/commands/focusElementNoteTitle'),
 	require('./gui/NoteEditor/commands/showLocalSearch'),
@@ -99,7 +98,6 @@ const appDefaultState = Object.assign({}, defaultState, {
 	watchedNoteFiles: [],
 	lastEditorScrollPercents: {},
 	devToolsVisible: false,
-	visibleDialogs: {}, // empty object if no dialog is visible. Otherwise contains the list of visible dialogs.
 });
 
 class Application extends BaseApplication {
@@ -281,16 +279,6 @@ class Application extends BaseApplication {
 				newState.devToolsVisible = action.value;
 				break;
 
-			case 'VISIBLE_DIALOGS_ADD':
-				newState = Object.assign({}, state);
-				newState.visibleDialogs[state.name] = true;
-				break;
-
-			case 'VISIBLE_DIALOGS_REMOVE':
-				newState = Object.assign({}, state);
-				delete newState.visibleDialogs[state.name];
-				break;
-
 			}
 		} catch (error) {
 			error.message = `In reducer: ${error.message} Action: ${JSON.stringify(action)}`;
@@ -298,11 +286,10 @@ class Application extends BaseApplication {
 		}
 
 		newState = resourceEditWatcherReducer(newState, action);
-		newState = super.reducer(newState, action);
 
 		CommandService.instance().scheduleMapStateToProps(newState);
 
-		return newState;
+		return super.reducer(newState, action);
 	}
 
 	toggleDevTools(visible) {
@@ -388,7 +375,7 @@ class Application extends BaseApplication {
 		await this.updateMenu(screen);
 	}
 
-	async updateMenu(screen, updateStates = true) {
+	async updateMenu(screen) {
 		if (this.lastMenuScreen_ === screen) return;
 
 		const cmdService = CommandService.instance();
@@ -532,7 +519,7 @@ class Application extends BaseApplication {
 
 		const newNoteItem = cmdService.commandToMenuItem('newNote');
 		const newTodoItem = cmdService.commandToMenuItem('newTodo');
-		const newFolderItem = cmdService.commandToMenuItem('newFolder');
+		const newNotebookItem = cmdService.commandToMenuItem('newNotebook');
 		const printItem = cmdService.commandToMenuItem('print');
 
 		toolsItemsFirst.push(syncStatusItem, {
@@ -663,7 +650,7 @@ class Application extends BaseApplication {
 			},
 			shim.isMac() ? noItem : newNoteItem,
 			shim.isMac() ? noItem : newTodoItem,
-			shim.isMac() ? noItem : newFolderItem, {
+			shim.isMac() ? noItem : newNotebookItem, {
 				type: 'separator',
 				visible: shim.isMac() ? false : true,
 			}, {
@@ -712,7 +699,7 @@ class Application extends BaseApplication {
 			submenu: [
 				newNoteItem,
 				newTodoItem,
-				newFolderItem, {
+				newNotebookItem, {
 					label: _('Close Window'),
 					platforms: ['darwin'],
 					accelerator: shim.isMac() && keymapService.getAccelerator('closeWindow'),
@@ -751,6 +738,7 @@ class Application extends BaseApplication {
 		const separator = () => {
 			return {
 				type: 'separator',
+				screens: ['Main'],
 			};
 		};
 
@@ -998,8 +986,6 @@ class Application extends BaseApplication {
 		Menu.setApplicationMenu(menu);
 
 		this.lastMenuScreen_ = screen;
-
-		if (updateStates) await this.updateMenuItemStates();
 	}
 
 	async updateMenuItemStates(state = null) {
@@ -1142,7 +1128,7 @@ class Application extends BaseApplication {
 			CommandService.instance().registerDeclaration(declaration);
 		}
 
-		this.updateMenu('Main', false);
+		this.updateMenu('Main');
 
 		// Since the settings need to be loaded before the store is created, it will never
 		// receive the SETTING_UPDATE_ALL even, which mean state.settings will not be

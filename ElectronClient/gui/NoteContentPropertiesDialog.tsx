@@ -7,7 +7,7 @@ const Countable = require('countable');
 const markupLanguageUtils = require('lib/markupLanguageUtils');
 
 interface NoteContentPropertiesDialogProps {
-	themeId: number,
+	theme: number,
 	text: string,
 	markupLanguage: number,
 	onClose: Function,
@@ -46,9 +46,7 @@ function formatReadTime(readTimeMinutes: number) {
 }
 
 export default function NoteContentPropertiesDialog(props:NoteContentPropertiesDialogProps) {
-
-	console.info('MMMMMMMMMMMM', props.markupLanguage);
-	const theme = themeStyle(props.themeId);
+	const theme = themeStyle(props.theme);
 	const tableBodyComps: JSX.Element[] = [];
 	// For the source Markdown
 	const [lines, setLines] = useState<number>(0);
@@ -152,8 +150,6 @@ export default function NoteContentPropertiesDialog(props:NoteContentPropertiesD
 		textAlign: 'center',
 	};
 
-	const readTimeLabel = _('Read time: %s min', formatReadTime(strippedReadTime));
-
 	return (
 		<div style={theme.dialogModalLayer}>
 			<div style={theme.dialogBox}>
@@ -166,10 +162,10 @@ export default function NoteContentPropertiesDialog(props:NoteContentPropertiesD
 						{tableBodyComps}
 					</tbody>
 				</table>
-				<div style={{ ...labelCompStyle, marginTop: 10 }}>
-					{readTimeLabel}
+				<div style={labelCompStyle}>
+					{_('Read time: %s min', formatReadTime(strippedReadTime))}
 				</div>
-				<DialogButtonRow themeId={props.themeId} onClick={buttonRow_click} okButtonShow={false} cancelButtonLabel={_('Close')}/>
+				<DialogButtonRow theme={props.theme} onClick={buttonRow_click} okButtonShow={false} cancelButtonLabel={_('Close')}/>
 			</div>
 		</div>
 	);

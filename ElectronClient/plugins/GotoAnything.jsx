@@ -33,8 +33,6 @@ class Dialog extends React.PureComponent {
 	constructor() {
 		super();
 
-		this.fuzzy_ = false;
-
 		this.state = {
 			query: '',
 			results: [],
@@ -60,11 +58,11 @@ class Dialog extends React.PureComponent {
 	}
 
 	style() {
-		const styleKey = [this.props.themeId, this.state.resultsInBody ? '1' : '0'].join('-');
+		const styleKey = [this.props.theme, this.state.resultsInBody ? '1' : '0'].join('-');
 
 		if (this.styles_[styleKey]) return this.styles_[styleKey];
 
-		const theme = themeStyle(this.props.themeId);
+		const theme = themeStyle(this.props.theme);
 
 		const itemHeight = this.state.resultsInBody ? 84 : 64;
 
@@ -120,21 +118,11 @@ class Dialog extends React.PureComponent {
 
 	componentDidMount() {
 		document.addEventListener('keydown', this.onKeyDown);
-
-		this.props.dispatch({
-			type: 'VISIBLE_DIALOGS_ADD',
-			name: 'gotoAnything',
-		});
 	}
 
 	componentWillUnmount() {
 		if (this.listUpdateIID_) clearTimeout(this.listUpdateIID_);
 		document.removeEventListener('keydown', this.onKeyDown);
-
-		this.props.dispatch({
-			type: 'VISIBLE_DIALOGS_REMOVE',
-			name: 'gotoAnything',
-		});
 	}
 
 	onKeyDown(event) {
@@ -190,7 +178,7 @@ class Dialog extends React.PureComponent {
 	}
 
 	async keywords(searchQuery) {
-		const parsedQuery = await SearchEngine.instance().parseQuery(searchQuery, this.fuzzy_);
+		const parsedQuery = await SearchEngine.instance().parseQuery(searchQuery, false);
 		return SearchEngine.instance().allParsedQueryTerms(parsedQuery);
 	}
 
@@ -227,7 +215,7 @@ class Dialog extends React.PureComponent {
 			} else { // Note TITLE or BODY
 				listType = BaseModel.TYPE_NOTE;
 				searchQuery = this.makeSearchQuery(this.state.query);
-				results = await SearchEngine.instance().search(searchQuery, { fuzzy: this.fuzzy_ });
+				results = await SearchEngine.instance().search(searchQuery);
 
 				resultsInBody = !!results.find(row => row.fields.includes('body'));
 
@@ -353,7 +341,7 @@ class Dialog extends React.PureComponent {
 	}
 
 	listItemRenderer(item) {
-		const theme = themeStyle(this.props.themeId);
+		const theme = themeStyle(this.props.theme);
 		const style = this.style();
 		const rowStyle = item.id === this.state.selectedItemId ? style.rowSelected : style.row;
 		const titleHtml = item.fragments
@@ -442,7 +430,7 @@ class Dialog extends React.PureComponent {
 	}
 
 	render() {
-		const theme = themeStyle(this.props.themeId);
+		const theme = themeStyle(this.props.theme);
 		const style = this.style();
 		const helpComp = !this.state.showHelp ? null : <div style={style.help}>{_('Type a note title or part of its content to jump to it. Or type # followed by a tag name, or @ followed by a notebook name.')}</div>;
 
@@ -465,7 +453,7 @@ class Dialog extends React.PureComponent {
 const mapStateToProps = (state) => {
 	return {
 		folders: state.folders,
-		themeId: state.settings.theme,
+		theme: state.settings.theme,
 		showCompletedTodos: state.settings.showCompletedTodos,
 		highlightedWords: state.highlightedWords,
 	};
