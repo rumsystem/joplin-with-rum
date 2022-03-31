@@ -13,11 +13,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 "
 "|| n%100>14) ? 1 : 2);\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
 
 #: CliClient/app/command-cp.js:13
 msgid ""
@@ -321,7 +319,7 @@ msgstr ""
 
 #: CliClient/app/command-sync.js:35
 msgid "Upgrade the sync target to the latest version."
-msgstr "Aktualizuj cel synchronizacji do najnowszej wersji."
+msgstr ""
 
 #: CliClient/app/command-sync.js:81 CliClient/app/command-sync.js:95
 #: ElectronClient/gui/OneDriveLoginScreen.min.js:40
@@ -820,7 +818,6 @@ msgstr "Anuluj"
 msgid ""
 "The app is now going to close. Please relaunch it to complete the process."
 msgstr ""
-"Aplikacja zostanie teraz zamknięta. Uruchom ją ponownie aby ukończyć proces."
 
 #: ElectronClient/plugins/GotoAnything.min.js:446
 msgid ""
@@ -1182,13 +1179,13 @@ msgstr "Tworzenie nowego %s..."
 
 #: ElectronClient/gui/NoteEditor/NoteEditor.js:344
 msgid "The following attachments are being watched for changes:"
-msgstr "Następujące załączniki są obserwowane pod kątem zmian:"
+msgstr ""
 
 #: ElectronClient/gui/NoteEditor/NoteEditor.js:347
 msgid ""
 "The attachments will no longer be watched when you switch to a different "
 "note."
-msgstr "Załączniki nie będą obserwowane gdy przejdziesz do innej notatki."
+msgstr ""
 
 #: ElectronClient/gui/NoteEditor/commands/editorCommandDeclarations.js:25
 msgid "Select all"
@@ -1299,7 +1296,7 @@ msgstr "Właściwośći notatki"
 
 #: ElectronClient/gui/KeymapConfig/KeymapConfigScreen.js:62
 msgid "An unexpected error occured while importing the keymap!"
-msgstr "Wystąpił nieznany błąd podczas importu mapy klawiszy!"
+msgstr ""
 
 #: ElectronClient/gui/KeymapConfig/KeymapConfigScreen.js:119
 #: ElectronClient/gui/MainScreen/MainScreen.min.js:437
@@ -1314,11 +1311,12 @@ msgstr "Zaimportuj"
 
 #: ElectronClient/gui/KeymapConfig/KeymapConfigScreen.js:125
 msgid "Command"
-msgstr "Komenda"
+msgstr ""
 
 #: ElectronClient/gui/KeymapConfig/KeymapConfigScreen.js:126
+#, fuzzy
 msgid "Keyboard Shortcut"
-msgstr "Skrót klawiszowy"
+msgstr "Tryb klawiatury"
 
 #: ElectronClient/gui/KeymapConfig/utils/getLabel.js:14
 #: ElectronClient/app.js:690
@@ -1341,8 +1339,9 @@ msgid "Website and documentation"
 msgstr "Strona internetowa i dokumentacja"
 
 #: ElectronClient/gui/KeymapConfig/utils/getLabel.js:24
+#, fuzzy
 msgid "Hide Joplin"
-msgstr "Ukryj okno aplikacji"
+msgstr "O aplikacji Joplin"
 
 #: ElectronClient/gui/KeymapConfig/utils/getLabel.js:26
 #: ElectronClient/app.js:703
@@ -1350,8 +1349,9 @@ msgid "Close Window"
 msgstr "Zamknij okno"
 
 #: ElectronClient/gui/KeymapConfig/utils/getLabel.js:28
+#, fuzzy
 msgid "Preferences"
-msgstr "Ustawienia"
+msgstr "Preferencje..."
 
 #: ElectronClient/gui/KeymapConfig/utils/getLabel.js:28
 #: ElectronClient/gui/Root.min.js:92 ElectronClient/app.js:572
@@ -1360,15 +1360,13 @@ msgstr "Opcje"
 
 #: ElectronClient/gui/KeymapConfig/ShortcutRecorder.js:48
 msgid "Press the shortcut"
-msgstr "Naciśnij skrót klawiszowy"
+msgstr ""
 
 #: ElectronClient/gui/KeymapConfig/ShortcutRecorder.js:48
 msgid ""
 "Press the shortcut and then press ENTER. Or, press BACKSPACE to clear the "
 "shortcut."
 msgstr ""
-"Naciśnij skrót klawiszowy, a następnie ENTER aby potwierdzić. Naciśnij "
-"BACKSPACE aby wyczyścić skrót."
 
 #: ElectronClient/gui/KeymapConfig/ShortcutRecorder.js:49
 #: ElectronClient/gui/EncryptionConfigScreen.min.js:95
@@ -1382,13 +1380,11 @@ msgid ""
 "may take a few minutes to complete and the app needs to be restarted. To "
 "proceed please click on the link."
 msgstr ""
-"Cel synchronizacji wymaga aktualizacji zanim Joplin może się "
-"zsynchronizować. Ta operacja może zająć kilka minut po czym aplikacja będzie "
-"wymagać ponownego uruchomienia. Kliknij w link aby kontynuować."
 
 #: ElectronClient/gui/MainScreen/MainScreen.min.js:306
+#, fuzzy
 msgid "Restart and upgrade"
-msgstr "Uruchom ponownie i aktualizuj"
+msgstr "Klucze główne do aktualizacji"
 
 #: ElectronClient/gui/MainScreen/MainScreen.min.js:313
 msgid "Some items cannot be synchronised."
@@ -1829,7 +1825,7 @@ msgstr ""
 "metodą."
 
 #: ElectronClient/gui/EncryptionConfigScreen.min.js:185
-#, javascript-format
+#, fuzzy, javascript-format
 msgid ""
 "In order to do so, your entire data set will have to be encrypted and "
 "synchronised, so it is best to run it overnight.\n"
@@ -2148,8 +2144,9 @@ msgid "Templates"
 msgstr "Szablony"
 
 #: ElectronClient/app.js:668
+#, fuzzy
 msgid "Export all"
-msgstr "Eksportuj wszystko"
+msgstr "Eksportuj"
 
 #: ElectronClient/app.js:683
 #, javascript-format
@@ -2181,12 +2178,13 @@ msgid "Zoom Out"
 msgstr "Pomniejsz"
 
 #: ElectronClient/app.js:852
+#, fuzzy
 msgid "&Note"
-msgstr "&Notatka"
+msgstr "Notatka"
 
 #: ElectronClient/app.js:861
 msgid "&Tools"
-msgstr "N&arzędzia"
+msgstr "&Narzędzia"
 
 #: ElectronClient/app.js:865
 msgid "&Help"
@@ -2362,7 +2360,7 @@ msgid ""
 "The target to synchonise to. Each sync target may have additional parameters "
 "which are named as `sync.NUM.NAME` (all documented below)."
 msgstr ""
-"Serwis z którym nastąpi synchronizacja. Każdy serwis może zawierać dodatkowe "
+"Serwis z którym nastąpi snychronizacja. Każdy serwis może zawierać dodatkowe "
 "parametry, które są nazwane jako `sync.NUM.NAME` (udokumentowane poniżej)."
 
 #: ReactNativeClient/lib/models/Setting.js:110
@@ -2417,8 +2415,8 @@ msgid ""
 msgstr ""
 "W trybie \"Ręczny\", załączniki zostaną pobrane po naciśnięciu.W trybie "
 "\"Automatyczny\", załączniki zostaną pobrane przy otwieraniu notatki. W "
-"trybie \"Zawsze\", wszystkie załączniki zostaną pobrane bez względu na "
-"otwarcie notatki."
+"trybie \"Zawsze\", wszystkie załączniki zostaną pobrane bez względu "
+"naotwarcie notatki."
 
 #: ReactNativeClient/lib/models/Setting.js:234
 msgid "Always"
@@ -2454,7 +2452,7 @@ msgstr "Motyw"
 
 #: ReactNativeClient/lib/models/Setting.js:326
 msgid "Automatically switch theme to match system theme"
-msgstr "Automatycznie dopasuj motyw do motywu systemowego"
+msgstr "Automatycznie dopasyj motyw do motywu systemowego"
 
 #: ReactNativeClient/lib/models/Setting.js:338
 msgid "Preferred light theme"
@@ -2462,7 +2460,7 @@ msgstr "Preferuj jasny motyw"
 
 #: ReactNativeClient/lib/models/Setting.js:352
 msgid "Preferred dark theme"
-msgstr "Preferuj ciemny motyw"
+msgstr "Preferuj ciemny  motyw"
 
 #: ReactNativeClient/lib/models/Setting.js:357
 msgid "Show note counts"
@@ -2539,7 +2537,7 @@ msgstr "Aktywuj składnię typografu"
 
 #: ReactNativeClient/lib/models/Setting.js:469
 msgid "Enable math expressions"
-msgstr "Aktywuj wyrażenia matematyczne"
+msgstr "Atywuj wyrażenia matematyczne"
 
 #: ReactNativeClient/lib/models/Setting.js:470
 msgid "Enable Fountain syntax support"
@@ -2559,7 +2557,7 @@ msgstr "Aktywuj stopki"
 
 #: ReactNativeClient/lib/models/Setting.js:475
 msgid "Enable table of contents extension"
-msgstr "Aktywuj rozszerzenie dla tabeli zawartości"
+msgstr "Aktywuj rozszerenie dla tabeli zawartości"
 
 #: ReactNativeClient/lib/models/Setting.js:476
 msgid "Enable ~sub~ syntax"
@@ -2571,7 +2569,7 @@ msgstr "Aktywuj składnię ^sup^"
 
 #: ReactNativeClient/lib/models/Setting.js:478
 msgid "Enable deflist syntax"
-msgstr "Aktywuj składnię składnię deflist"
+msgstr "Aktywuj skladnię składnię deflist"
 
 #: ReactNativeClient/lib/models/Setting.js:479
 msgid "Enable abbreviation syntax"
@@ -2609,7 +2607,7 @@ msgstr ""
 
 #: ReactNativeClient/lib/models/Setting.js:500
 msgid "Start application minimised in the tray icon"
-msgstr "Uruchom aplikację zminimalizowaną w zasobniku systemowym"
+msgstr "Uruchom aplikację zminmalizowaną w zasobniku systemowym"
 
 #: ReactNativeClient/lib/models/Setting.js:519
 msgid "Editor font size"
@@ -2725,7 +2723,7 @@ msgstr "Pionowo"
 
 #: ReactNativeClient/lib/models/Setting.js:639
 msgid "Landscape"
-msgstr "Poziomo"
+msgstr "Poziomio"
 
 #: ReactNativeClient/lib/models/Setting.js:650
 msgid "Keyboard Mode"
@@ -2745,7 +2743,7 @@ msgstr "Vim"
 
 #: ReactNativeClient/lib/models/Setting.js:670
 msgid "Custom TLS certificates"
-msgstr "Niestandardowe certyfikaty TLS"
+msgstr "Niestandardowe ceryfikaty TLS"
 
 #: ReactNativeClient/lib/models/Setting.js:671
 msgid ""
@@ -2755,9 +2753,9 @@ msgid ""
 "changes before clicking on \"Check synchronisation configuration\"."
 msgstr ""
 "Wykaz ścieżek katalogów podzielony przecinkami z których będą ładowane "
-"certyfikaty, lub ścieżka do odrębnych plików certyfikatów. Na przykład: /my/"
-"cert_dir, /other/custom.pem. Jeżeli zostaną zmienione ustawienia TLS, będzie "
-"wymagane zapisanie zmian przez naciśnięciem na \"Sprawdź konfigurację "
+"ceryfikaty, lub ścieżka do odrębnych plików ceryfikacyjnych. Na przykład: /"
+"my/cert_dir, /other/custom.pem. Jeżeli zostaną zmienione ustawienia TLS, "
+"będzie wymagane zapisanie zmian przez naciśnięciem na \"Sprawdź konfigurację "
 "synchronizacji\"."
 
 #: ReactNativeClient/lib/models/Setting.js:683
@@ -2864,8 +2862,9 @@ msgid "Web Clipper"
 msgstr "Web clipper"
 
 #: ReactNativeClient/lib/models/Setting.js:1259
+#, fuzzy
 msgid "Keyboard Shortcuts"
-msgstr "Skróty klawiaturowe"
+msgstr "Tryb klawiatury"
 
 #: ReactNativeClient/lib/models/Setting.js:1264
 msgid ""
@@ -2877,13 +2876,13 @@ msgid ""
 "formatting. It is indicated below which plugins are compatible or not with "
 "the WYSIWYG editor."
 msgstr ""
-"Te wtyczki usprawniają wyświetlanie Markdownu. Miej na uwadze, że mimo, że "
-"te znaczniki mogą być przydatne, to nie są one częścią standardowego "
-"Markdownu i z uwagi na to większość z nich będzie działała wyłącznie w "
-"Joplinie. Dodatkowo, część z nich jest *niekompatybilna* z edytorem WYSIWYG. "
-"Jeśli otworzysz notatkę używającą tego formatowania w tym edytorze, utracisz "
-"to formatowanie. Poniżej jest widoczne które pluginy są kompatybilne z "
-"edytorem WYSIWYG."
+"Te wtyczki usprawniają wyświtlanie Markdownu. Miej na uwadze, że mimo, że te "
+"znaczniki mogą być przydatne, to nie są one częścią standardowego Markdownu "
+"i z uwagi na to większość z nich będzie działała wyłącznie w Joplinie. "
+"Dodatkowo, część z nich jest *niekompatybilna* z edytorem WYSIWYG. Jeśli "
+"otworzysz notatkę używającą tego formatowania w tym edytorze, utracisz to "
+"formatowanie. Poniżej jest widoczne które pluginy są kompatybilne z edytorem "
+"WYSIWYG."
 
 #: ReactNativeClient/lib/models/Setting.js:1265
 #, javascript-format
@@ -2991,15 +2990,15 @@ msgstr "Potwierdź"
 
 #: ReactNativeClient/lib/components/CameraView.js:180
 msgid "Permission to use camera"
-msgstr "Uprawienie do użytkowania kamery"
+msgstr "Uprawenie do użytkowania kamery"
 
 #: ReactNativeClient/lib/components/CameraView.js:181
 msgid "Your permission to use your camera is required."
-msgstr "Wymagane uprawnienie do użytkowania kamery."
+msgstr "Wymagane uprawenienie do użytkowania kamery."
 
 #: ReactNativeClient/lib/components/screen-header.js:185
 msgid "Delete these notes?"
-msgstr "Usunąć te notatki?"
+msgstr "Usunąć notatki?"
 
 #: ReactNativeClient/lib/components/screen-header.js:392
 msgid "Move to notebook..."
@@ -3008,7 +3007,7 @@ msgstr "Przenieś do notatnika..."
 #: ReactNativeClient/lib/components/screen-header.js:433
 #, javascript-format
 msgid "Move %d notes to notebook \"%s\"?"
-msgstr "Przenieść %d notatek do notatnika \"%s\"?"
+msgstr "Przenieś %d notatek do notatnika \"%s\"?"
 
 #: ReactNativeClient/lib/components/screen-header.js:451
 msgid "Press to set the decryption password."
@@ -3021,7 +3020,6 @@ msgstr "Niektóre przedmioty nie mogą być zsynchronizowane."
 #: ReactNativeClient/lib/components/screen-header.js:453
 msgid "The sync target needs to be upgraded. Press this banner to proceed."
 msgstr ""
-"Cel aktualizacji wymaga aktualizacji. Kliknij w ten baner aby kontynuować."
 
 #: ReactNativeClient/lib/components/side-menu-content.js:126
 #, javascript-format
@@ -3144,7 +3142,7 @@ msgstr "Odśwież"
 
 #: ReactNativeClient/lib/components/screens/UpgradeSyncTargetScreen.js:42
 msgid "Sync Target Upgrade"
-msgstr "Aktualizacja celu synchronizacji"
+msgstr ""
 
 #: ReactNativeClient/lib/components/screens/NoteTagsDialog.js:163
 msgid "New tags:"
@@ -3195,7 +3193,7 @@ msgid ""
 "the data! To enable encryption, please enter your password below."
 msgstr ""
 "Aktywowanie szyfrowania oznacza, że *wszystkie* Twoje notatki i załączniki "
-"będą re-synchronizowane i wysłane zaszyfrowane do celu synchronizacji. Nie "
+"będą resynchronizowane i wysłane zaszyfrowane do serwisu synchonizacji. Nie "
 "utrać hasła, jako że, w celu zapewnienia bezpieczeństwa, będzie to *jedyna* "
 "droga do deszyfrowania danych! Aby aktywować szyfrowanie, wprowadź hasło "
 "poniżej."
@@ -3216,11 +3214,11 @@ msgid ""
 msgstr ""
 "Klucze główne z tymi ID zostaną użyte do szyfrowania niektórych obiektów, "
 "jednakże aplikacja aktualnie nie ma do nich dostępu. Prawdopodobnie zostaną "
-"pobrane przy synchronizacji."
+"pobrane przy synchonizacji."
 
 #: ReactNativeClient/lib/components/screens/encryption-config.js:258
 msgid "Disable encryption"
-msgstr "Dezaktywuj szyfrowanie"
+msgstr "Deaktywuj szyfrowanie"
 
 #: ReactNativeClient/lib/components/screens/encryption-config.js:258
 msgid "Enable encryption"
@@ -3469,7 +3467,7 @@ msgstr "Utworzono lokalne obiekty: %d."
 #: ReactNativeClient/lib/synchronizer.js:105
 #, javascript-format
 msgid "Updated local items: %d."
-msgstr "Zaktualizowano lokalne obiekty: %d."
+msgstr "Zaaktualizowano lokalne obiekty: %d."
 
 #: ReactNativeClient/lib/synchronizer.js:106
 #, javascript-format
@@ -3479,7 +3477,7 @@ msgstr "Utworzono zdalne obiekty: %d."
 #: ReactNativeClient/lib/synchronizer.js:107
 #, javascript-format
 msgid "Updated remote items: %d."
-msgstr "Zaktualizowano zdalne obiekty: %d."
+msgstr "Zaaktualizowano zdalne obiekty: %d."
 
 #: ReactNativeClient/lib/synchronizer.js:108
 #, javascript-format
@@ -3579,7 +3577,7 @@ msgstr "Wersja profilu: %s"
 #: ReactNativeClient/lib/versionInfo.js:23
 #, javascript-format
 msgid "Keychain Supported: %s"
-msgstr "Wspierany menadżer kluczy: %s"
+msgstr ""
 
 #: ReactNativeClient/lib/services/InteropService_Exporter_Jex.js:29
 msgid "There is no data to export."
@@ -3596,38 +3594,32 @@ msgstr "Proszę określić notatnik do którego będą zaimportowane notatki."
 #: ReactNativeClient/lib/services/KeymapService.js:124
 #, javascript-format
 msgid "Error loading the keymap from file: %s"
-msgstr "Błąd podczas ładowania mapy klawiszy z pliku: %s"
+msgstr ""
 
 #: ReactNativeClient/lib/services/KeymapService.js:141
 #, javascript-format
 msgid "Error saving the keymap to file: %s"
-msgstr "Błąd podczas zapisu mapy klawiszy do pliku: %s"
+msgstr ""
 
 #: ReactNativeClient/lib/services/KeymapService.js:204
 #, javascript-format
 msgid "Keymap item %s is missing the required \"command\" property."
 msgstr ""
-"Element skrótu klawiszowego %s nie zawiera wymaganego pola: \"command\"."
 
 #: ReactNativeClient/lib/services/KeymapService.js:207
 #, javascript-format
 msgid "Keymap item %s is invalid because %s is not a valid command."
 msgstr ""
-"Element skrótu klawiszowego %s jest niepoprawny ponieważ %s nie jest "
-"prawidłową komendą."
 
 #: ReactNativeClient/lib/services/KeymapService.js:210
 #, javascript-format
 msgid "Keymap item %s is missing the required \"accelerator\" property."
 msgstr ""
-"Element skrótu klawiszowego %s nie zawiera wymaganego pola: \"accelerator\"."
 
 #: ReactNativeClient/lib/services/KeymapService.js:217
 #, javascript-format
 msgid "Keymap item %s is invalid because %s is not a valid accelerator."
 msgstr ""
-"Element skrótu klawiszowego %s jest niepoprawny ponieważ %s nie jest "
-"prawidłową kombinacją klawiszy."
 
 #: ReactNativeClient/lib/services/KeymapService.js:235
 #, javascript-format
@@ -3635,13 +3627,11 @@ msgid ""
 "Accelerator \"%s\" is used for \"%s\" and \"%s\" commands. This may lead to "
 "unexpected behaviour."
 msgstr ""
-"Skrót klawiszowy \"%s\" jest już używany w komendach \"%s\" i \"%s\". Może "
-"to powodować nieoczekiwane zachowanie."
 
 #: ReactNativeClient/lib/services/KeymapService.js:260
 #, javascript-format
 msgid "Accelerator \"%s\" is not valid."
-msgstr "Skrót klawiszowy \"%s\" nie jest prawidłowy."
+msgstr ""
 
 #: ReactNativeClient/lib/services/report.js:121
 msgid "Items that cannot be synchronised"
