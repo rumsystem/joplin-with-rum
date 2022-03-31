@@ -10,10 +10,11 @@ platform:
 
 install:
   - ps: Install-Product node 10 x64
+  - yarn
 
 build_script:
   - npm install
-  - ps: cd packages/app-desktop
+  - ps: cd ElectronClient
   - npm run dist
 
 test: off
