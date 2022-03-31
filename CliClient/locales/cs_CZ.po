@@ -801,10 +801,6 @@ msgstr "Tagy oddělujte čárkami."
 msgid "Rename notebook:"
 msgstr "Přejmenovat zápisník:"
 
-#, fuzzy
-msgid "Rename tag:"
-msgstr "Přejmenovat"
-
 msgid "Set alarm:"
 msgstr "Nastavit alarm:"
 
@@ -856,18 +852,9 @@ msgstr "Otevřít..."
 msgid "Save as..."
 msgstr "Uložit jako..."
 
-msgid "Copy path to clipboard"
-msgstr ""
-
 #, javascript-format
 msgid "Unsupported link or message: %s"
 msgstr "Nepodporovaný link či zpráva: %s"
-
-#, javascript-format
-msgid ""
-"This note has no content. Click on \"%s\" to toggle the editor and edit the "
-"note."
-msgstr "Tato poznámka je prázdný. Klikněte na  \"%s\" pro otevření editoru."
 
 msgid "Attach file"
 msgstr "Přiložit soubor"
@@ -877,6 +864,12 @@ msgstr "Tagy"
 
 msgid "Set alarm"
 msgstr "Nastavit alarm"
+
+#, javascript-format
+msgid ""
+"This note has no content. Click on \"%s\" to toggle the editor and edit the "
+"note."
+msgstr "Tato poznámka je prázdný. Klikněte na  \"%s\" pro otevření editoru."
 
 msgid "to-do"
 msgstr "to-do"
@@ -1143,10 +1136,9 @@ msgstr "Globální zoom"
 msgid "Editor font family"
 msgstr "Rodina písma v editoru"
 
-#, fuzzy
 msgid ""
-"This must be *monospace* font or it will not work properly. If the font is "
-"incorrect or empty, it will default to a generic monospace font."
+"The font name will not be checked. If incorrect or empty, it will default to "
+"a generic monospace font."
 msgstr ""
 "Jméno fontu není kontrolováno. Pokud je neplatné či chybí, bude použit "
 "defaultní monospace font."
@@ -1343,22 +1335,6 @@ msgstr "Nové tagy:"
 msgid "Type new tags or select from list"
 msgstr "Zadejte nové tagy, nebo vyberte existující ze seznamu"
 
-msgid ""
-"To work correctly, the app needs the following permissions. Please enable "
-"them in your phone settings, in Apps > Joplin > Permissions"
-msgstr ""
-
-msgid ""
-"- Storage: to allow attaching files to notes and to enable filesystem "
-"synchronisation."
-msgstr ""
-
-msgid "- Camera: to allow taking a picture and attaching it to a note."
-msgstr ""
-
-msgid "- Location: to allow attaching geo-location information to a note."
-msgstr ""
-
 msgid "Joplin website"
 msgstr "Web Joplinu"
 
@@ -1422,9 +1398,6 @@ msgstr "Přiložit obrázek"
 
 msgid "Attach any file"
 msgstr "Přiložit soubor"
-
-msgid "Share"
-msgstr ""
 
 msgid "Convert to note"
 msgstr "Konvertovat na poznámku"

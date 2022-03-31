@@ -808,10 +808,6 @@ msgstr "Separar cada etiqueta por unha coma."
 msgid "Rename notebook:"
 msgstr "Renomear caderno:"
 
-#, fuzzy
-msgid "Rename tag:"
-msgstr "Renomear"
-
 msgid "Set alarm:"
 msgstr "Estabelecer alarma:"
 
@@ -862,20 +858,9 @@ msgstr "Abrir…"
 msgid "Save as..."
 msgstr "Gardar como…"
 
-msgid "Copy path to clipboard"
-msgstr ""
-
 #, javascript-format
 msgid "Unsupported link or message: %s"
 msgstr "Ligazón ou mensaxe incompatíbeis: %s"
-
-#, javascript-format
-msgid ""
-"This note has no content. Click on \"%s\" to toggle the editor and edit the "
-"note."
-msgstr ""
-"Esta nota non ten contido. Prema en «%s» para ir ao editor e modificar a "
-"nota."
 
 msgid "Attach file"
 msgstr "Anexar un ficheiro"
@@ -885,6 +870,14 @@ msgstr "Etiquetas"
 
 msgid "Set alarm"
 msgstr "Estabelecer alarma"
+
+#, javascript-format
+msgid ""
+"This note has no content. Click on \"%s\" to toggle the editor and edit the "
+"note."
+msgstr ""
+"Esta nota non ten contido. Prema en «%s» para ir ao editor e modificar a "
+"nota."
 
 msgid "to-do"
 msgstr "tarefas pendentes"
@@ -1151,10 +1144,9 @@ msgstr "Porcentaxe de ampliación"
 msgid "Editor font family"
 msgstr "Familia de tipos de letra do editor"
 
-#, fuzzy
 msgid ""
-"This must be *monospace* font or it will not work properly. If the font is "
-"incorrect or empty, it will default to a generic monospace font."
+"The font name will not be checked. If incorrect or empty, it will default to "
+"a generic monospace font."
 msgstr ""
 "Non se comprobará o nome da fonte. Se é incorrecto ou está baleiro, "
 "estabelecerase por omisión un tipo de letra xenérico de largura única."
@@ -1351,22 +1343,6 @@ msgstr "Etiquetas novas:"
 msgid "Type new tags or select from list"
 msgstr "Escriba etiquetas novas ou seleccione da lista"
 
-msgid ""
-"To work correctly, the app needs the following permissions. Please enable "
-"them in your phone settings, in Apps > Joplin > Permissions"
-msgstr ""
-
-msgid ""
-"- Storage: to allow attaching files to notes and to enable filesystem "
-"synchronisation."
-msgstr ""
-
-msgid "- Camera: to allow taking a picture and attaching it to a note."
-msgstr ""
-
-msgid "- Location: to allow attaching geo-location information to a note."
-msgstr ""
-
 msgid "Joplin website"
 msgstr "Sitio web de Joplin"
 
@@ -1430,9 +1406,6 @@ msgstr "Anexar foto"
 
 msgid "Attach any file"
 msgstr "Adxuntar calquera ficheiro"
-
-msgid "Share"
-msgstr ""
 
 msgid "Convert to note"
 msgstr "Converter para nota"
