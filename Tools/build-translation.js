@@ -128,7 +128,6 @@ function buildIndex(locales, stats) {
 		delete stat.locale;
 		delete stat.translatorName;
 		delete stat.languageName;
-		delete stat.untranslatedCount;
 		output.push(`stats['${locale}'] = ${JSON.stringify(stat)};`);
 	}
 
