@@ -1,4 +1,5 @@
 import MdToHtml from '@joplin/renderer/MdToHtml';
+const os = require('os');
 const { filename } = require('@joplin/lib/path-utils');
 import { setupDatabaseAndSynchronizer, switchClient } from '@joplin/lib/testing/test-utils';
 import shim from '@joplin/lib/shim';
@@ -56,8 +57,10 @@ describe('MdToHtml', function() {
 			const result = await mdToHtml.render(markdown, null, mdToHtmlOptions);
 			let actualHtml = result.html;
 
-			expectedHtml = expectedHtml.replace(/\r?\n/g, '\n');
-			actualHtml = actualHtml.replace(/\r?\n/g, '\n');
+			if (os.EOL === '\r\n') {
+				expectedHtml = expectedHtml.replace(/\r\n/g, '\n');
+				actualHtml = actualHtml.replace(/\r\n/g, '\n');
+			}
 
 			if (actualHtml !== expectedHtml) {
 				console.info('');
