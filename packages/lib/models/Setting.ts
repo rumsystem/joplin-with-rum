@@ -651,26 +651,6 @@ class Setting extends BaseModel {
 
 			'sync.11.group': { value: {}, type: SettingItemType.Object, public: false },
 
-			'sync.11.path': {
-				value: '',
-				type: SettingItemType.String,
-				section: 'sync',
-				show: (settings: any) => {
-					try {
-						return settings['sync.target'] == SyncTargetRegistry.nameToId('rumsystem');
-					} catch (error) {
-						return false;
-					}
-				},
-				filter: (value: any) => {
-					return value ? rtrimSlashes(value) : '';
-				},
-				public: true,
-				label: () => _('Directory to synchronise with (absolute path)'),
-				description: () => emptyDirWarning,
-				storage: SettingStorage.File,
-			},
-
 			'sync.5.syncTargets': { value: {}, type: SettingItemType.Object, public: false },
 
 			'sync.resourceDownloadMode': {

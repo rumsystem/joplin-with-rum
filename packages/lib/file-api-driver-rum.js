@@ -17,13 +17,13 @@ class FileApiDriverRum {
 	}
 
 	isLocalFile(path) {
-		if (/^\.resource.*$/.test(path) || /^\.sync.*$/.test(path) || /^\.lock.*$/.test(path) || /^temp.*$/.test(path) || /^locks.*$/.test(path)) return true;
+		if (/^\.resource.*$/.test(path) || /^\.sync.*$/.test(path) || /^\.lock.*$/.test(path) || /^temp.*$/.test(path)) return true;
 		return false;
 	}
 
 	localFileFullPath(path) {
 		const output = [];
-		const syncPath = Setting.value('sync.11.path');
+		const syncPath = `${Setting.value('profileDir')}/rumsystemSyncLocalFiles`;
 		if (syncPath) output.push(syncPath);
 		if (path) output.push(path);
 		return output.join('/');
@@ -223,6 +223,8 @@ class FileApiDriverRum {
 			if (await this.fsDriver().exists(path)) return;
 
 			try {
+				console.log('making dir ......');
+				console.log(path);
 				await this.fsDriver().mkdir(path);
 			} catch (error) {
 				throw this.fsErrorToJsError_(error, path);
