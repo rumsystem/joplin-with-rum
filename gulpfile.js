@@ -1,7 +1,6 @@
 const gulp = require('gulp');
 const glob = require('glob');
 const ts = require('gulp-typescript');
-const execa = require('execa');
 const utils = require('./Tools/gulp/utils');
 
 const tasks = {
@@ -55,12 +54,7 @@ gulp.task('updateIgnoredTypeScriptBuild', updateIgnoredTypeScriptBuildTask);
 
 gulp.task('watch', function() {
 	gulp.watch(tasks.copyLib.src, tasks.copyLib.fn);
-	gulp.watch(tscTaskSrc, updateIgnoredTypeScriptBuildTask);
-
-	// For watching, we use the actual tsc tool because it's more robust and
-	// doesn't crash when there's an error
-	const promise = execa('npx', ['tsc', '--watch', '--project', 'tsconfig.json'], { cwd: `${__dirname}` });
-	promise.stdout.pipe(process.stdout);
+	gulp.watch(tscTaskSrc, gulp.series('tsc', 'updateIgnoredTypeScriptBuild'));
 });
 
 gulp.task('build', gulp.series('copyLib', 'tsc', 'updateIgnoredTypeScriptBuild'));
