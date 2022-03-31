@@ -1,5 +1,5 @@
 import routeHandler from '../../middleware/routeHandler';
-import { beforeAllDb, afterAllTests, beforeEachDb, koaAppContext } from '../../utils/testing/testUtils';
+import { beforeAllDb, afterAllDb, beforeEachDb, koaAppContext } from '../../utils/testing/testUtils';
 
 describe('api_ping', function() {
 
@@ -8,7 +8,7 @@ describe('api_ping', function() {
 	});
 
 	afterAll(async () => {
-		await afterAllTests();
+		await afterAllDb();
 	});
 
 	beforeEach(async () => {
