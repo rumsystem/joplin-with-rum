@@ -3,7 +3,7 @@ import BaseItem from '../../models/BaseItem';
 import MasterKey from '../../models/MasterKey';
 import Setting from '../../models/Setting';
 import { MasterKeyEntity } from './types';
-import EncryptionService from '../EncryptionService';
+import EncryptionService from './EncryptionService';
 import { getActiveMasterKeyId, masterKeyEnabled, setEncryptionEnabled, SyncInfo } from '../synchronizer/syncInfoUtils';
 
 const logger = Logger.create('e2ee/utils');
@@ -98,6 +98,14 @@ export function showMissingMasterKeyMessage(syncInfo: SyncInfo, notLoadedMasterK
 
 	for (let i = notLoadedMasterKeys.length - 1; i >= 0; i--) {
 		const mk = syncInfo.masterKeys.find(mk => mk.id === notLoadedMasterKeys[i]);
+
+		// A "notLoadedMasterKey" is a key that either doesn't exist or for
+		// which a password hasn't been set yet. For the purpose of this
+		// function, we only want to notify the user about unset passwords.
+		// Master keys that haven't been downloaded yet should normally be
+		// downloaded at some point.
+		// https://github.com/laurent22/joplin/issues/5391
+		if (!mk) continue;
 		if (!masterKeyEnabled(mk)) notLoadedMasterKeys.pop();
 	}
 
