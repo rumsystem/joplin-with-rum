@@ -20,7 +20,7 @@ Three types of applications are available: for the **desktop** (Windows, macOS a
 
 Operating System | Download | Alternative
 -----------------|--------|-------------------
-Windows (32 and 64-bit)         | <a href='https://github.com/laurent22/joplin/releases/download/v1.0.85/Joplin-Setup-1.0.85.exe'><img alt='Get it on Windows' height="40px" src='https://joplin.cozic.net/images/BadgeWindows.png'/></a> | 
+Windows (64-bit only)         | <a href='https://github.com/laurent22/joplin/releases/download/v1.0.85/Joplin-Setup-1.0.85.exe'><img alt='Get it on Windows' height="40px" src='https://joplin.cozic.net/images/BadgeWindows.png'/></a> | 
 macOS          | <a href='https://github.com/laurent22/joplin/releases/download/v1.0.85/Joplin-1.0.85.dmg'><img alt='Get it on macOS' height="40px" src='https://joplin.cozic.net/images/BadgeMacOS.png'/></a> | 
 Linux          | <a href='https://github.com/laurent22/joplin/releases/download/v1.0.85/Joplin-1.0.85-x86_64.AppImage'><img alt='Get it on Linux' height="40px" src='https://joplin.cozic.net/images/BadgeLinux.png'/></a> | An Arch Linux package [is also available](#terminal-application).
 
@@ -202,6 +202,14 @@ If for any reason the notifications do not work, please [open an issue](https://
 # Markdown
 
 Joplin uses and renders [Github-flavoured Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) with a few variations and additions. In particular:
+
+## Links to other notes
+
+You can create a link to a note by specifying its ID in the URL. For example:
+
+	[Link to my note](:/0b0d62d15e60409dac34f354b6e9e839)
+
+Since getting the ID of a note is not straightforward, each app provides a way to create such link. In the **desktop app**, right click on a note an select "Copy Markdown link". In the **mobile app**, open a note and, in the top right menu, select "Copy Markdown link". You can then paste this link anywhere in another note.
 
 ## Math notation
 
