@@ -14,14 +14,17 @@ import JoplinWindow from './JoplinWindow';
 /**
  * This is the main entry point to the Joplin API. You can access various services using the provided accessors.
  *
- * The API is now relatively stable and in general maintaining backward compatibility is a top priority, so you shouldn't except much breakages.
+ * **This is a beta API**
  *
- * If a breaking change ever becomes needed, best effort will be done to:
+ * Please note that the plugin API is relatively new and should be considered Beta state. Besides possible bugs, what it means is that there might be necessary breaking changes from one version to the next. Whenever such change is needed, best effort will be done to:
  *
- * - Deprecate features instead of removing them, so as to give you time to fix the issue;
+ * - Maintain backward compatibility;
+ * - When possible, deprecate features instead of removing them;
  * - Document breaking changes in the changelog;
  *
- * So if you are developing a plugin, please keep an eye on the changelog as everything will be in there with information about how to update your code.
+ * So if you are developing a plugin, please keep an eye on the changelog as everything will be in there with information about how to update your code. There won't be any major API rewrite or architecture changes, but possibly small tweaks like function signature change, type change, etc.
+ *
+ * Eventually, the plugin API will be versioned to make this process smoother.
  */
 export default class Joplin {
 
