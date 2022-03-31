@@ -1,20 +1,16 @@
 import * as React from 'react';
 import { useState, useCallback, useEffect, useRef } from 'react';
-import SearchInput from '../lib/SearchInput/SearchInput';
+import CommandService from '@joplin/lib/services/CommandService';
+import { Root, SearchInput, SearchButton, SearchButtonIcon } from './styles';
 import Setting from '@joplin/lib/models/Setting';
+
+import { _ } from '@joplin/lib/locale';
 import { stateUtils } from '@joplin/lib/reducer';
 import BaseModel from '@joplin/lib/BaseModel';
 import uuid from '@joplin/lib/uuid';
 const { connect } = require('react-redux');
 const Note = require('@joplin/lib/models/Note');
 const debounce = require('debounce');
-const styled = require('styled-components').default;
-
-export const Root = styled.div`
-	position: relative;
-	display: flex;
-	width: 100%;
-`;
 
 interface Props {
 	inputRef?: any;
@@ -26,6 +22,7 @@ interface Props {
 function SearchBar(props: Props) {
 	const [query, setQuery] = useState('');
 	const [searchStarted, setSearchStarted] = useState(false);
+	const iconName = !searchStarted ? CommandService.instance().iconName('search') : 'fa fa-times';
 	const searchId = useRef(uuid.create());
 
 	useEffect(() => {
@@ -81,7 +78,7 @@ function SearchBar(props: Props) {
 
 	function onChange(event: any) {
 		setSearchStarted(true);
-		setQuery(event.value);
+		setQuery(event.currentTarget.value);
 	}
 
 	function onFocus() {
@@ -123,15 +120,19 @@ function SearchBar(props: Props) {
 	return (
 		<Root>
 			<SearchInput
-				inputRef={props.inputRef}
+				ref={props.inputRef}
 				value={query}
+				type="text"
+				placeholder={_('Search...')}
 				onChange={onChange}
 				onFocus={onFocus}
 				onBlur={onBlur}
 				onKeyDown={onKeyDown}
-				onSearchButtonClick={onSearchButtonClick}
-				searchStarted={searchStarted}
+				spellCheck={false}
 			/>
+			<SearchButton onClick={onSearchButtonClick}>
+				<SearchButtonIcon className={iconName}/>
+			</SearchButton>
 		</Root>
 	);
 }

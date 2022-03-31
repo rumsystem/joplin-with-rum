@@ -20,18 +20,19 @@ export enum IntervalType {
 // Each queue should be associated with a specific entity (a note, resource, etc.)
 export default class AsyncActionQueue {
 
-	private queue_: QueueItem[] = [];
-	private interval_: number;
-	private intervalType_: number;
-	private scheduleProcessingIID_: any = null;
-	private processing_ = false;
+	queue_: QueueItem[] = [];
+	interval_: number;
+	intervalType_: number;
+	scheduleProcessingIID_: any = null;
+	processing_ = false;
+	needProcessing_ = false;
 
-	public constructor(interval: number = 100, intervalType: IntervalType = IntervalType.Debounce) {
+	constructor(interval: number = 100, intervalType: IntervalType = IntervalType.Debounce) {
 		this.interval_ = interval;
 		this.intervalType_ = intervalType;
 	}
 
-	public push(action: QueueItemAction, context: any = null) {
+	push(action: QueueItemAction, context: any = null) {
 		this.queue_.push({
 			action: action,
 			context: context,
@@ -39,8 +40,8 @@ export default class AsyncActionQueue {
 		this.scheduleProcessing();
 	}
 
-	public get isEmpty(): boolean {
-		return !this.queue_.length;
+	get queue(): QueueItem[] {
+		return this.queue_;
 	}
 
 	private scheduleProcessing(interval: number = null) {
@@ -76,7 +77,7 @@ export default class AsyncActionQueue {
 		this.processing_ = false;
 	}
 
-	public async reset() {
+	async reset() {
 		if (this.scheduleProcessingIID_) {
 			shim.clearTimeout(this.scheduleProcessingIID_);
 			this.scheduleProcessingIID_ = null;
@@ -88,11 +89,11 @@ export default class AsyncActionQueue {
 
 	// Currently waitForAllDone() already finishes all the actions
 	// as quickly as possible so we can make it an alias.
-	public async processAllNow() {
+	async processAllNow() {
 		return this.waitForAllDone();
 	}
 
-	public async waitForAllDone() {
+	async waitForAllDone() {
 		if (!this.queue_.length) return Promise.resolve();
 
 		this.scheduleProcessing(1);
