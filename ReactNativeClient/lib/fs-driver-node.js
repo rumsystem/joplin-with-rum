@@ -35,11 +35,7 @@ class FsDriverNode extends FsDriverBase {
 
 	async writeFile(path, string, encoding = 'base64') {
 		try {
-			if (encoding === 'buffer') {
-				return await fs.writeFile(path, string);
-			} else {
-				return await fs.writeFile(path, string, { encoding: encoding });
-			}
+			return await fs.writeFile(path, string, { encoding: encoding });
 		} catch (error) {
 			throw this.fsErrorToJsError_(error, path);
 		}

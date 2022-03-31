@@ -205,7 +205,7 @@ class Application extends BaseApplication {
 			const module = ioModules[i];
 			if (module.type === 'exporter') {
 				exportItems.push({
-					label: module.fullLabel(),
+					label: module.format + ' - ' + module.description,
 					screens: ['Main'],
 					click: async () => {
 						await InteropServiceHelper.export(this.dispatch.bind(this), module);
@@ -214,8 +214,12 @@ class Application extends BaseApplication {
 			} else {
 				for (let j = 0; j < module.sources.length; j++) {
 					const moduleSource = module.sources[j];
+					let label = [module.format + ' - ' + module.description];
+					if (module.sources.length > 1) {
+						label.push('(' + (moduleSource === 'file' ? _('File') : _('Directory')) + ')');
+					}
 					importItems.push({
-						label: module.fullLabel(moduleSource),
+						label: label.join(' '),
 						screens: ['Main'],
 						click: async () => {
 							let path = null;
@@ -265,17 +269,6 @@ class Application extends BaseApplication {
 			}
 		}
 
-		exportItems.push({
-			label: 'PDF - ' + _('PDF File'),
-			screens: ['Main'],
-			click: async () => {
-				this.dispatch({
-					type: 'WINDOW_COMMAND',
-					name: 'exportPdf',
-				});				
-			}
-		});
-
 		const template = [
 			{
 				label: _('File'),
@@ -311,24 +304,31 @@ class Application extends BaseApplication {
 					}
 				}, {
 					type: 'separator',
+				// }, {
+				// 	label: _('Import Evernote notes'),
+				// 	click: () => {
+				// 		const filePaths = bridge().showOpenDialog({
+				// 			properties: ['openFile', 'createDirectory'],
+				// 			filters: [
+				// 				{ name: _('Evernote Export Files'), extensions: ['enex'] },
+				// 			]
+				// 		});
+				// 		if (!filePaths || !filePaths.length) return;
+
+				// 		this.dispatch({
+				// 			type: 'NAV_GO',
+				// 			routeName: 'Import',
+				// 			props: {
+				// 				filePath: filePaths[0],
+				// 			},
+				// 		});
+				// 	}
 				}, {
 					label: _('Import'),
 					submenu: importItems,
 				}, {
 					label: _('Export'),
 					submenu: exportItems,
-				}, {
-					type: 'separator',
-				}, {
-					label: _('Print'),
-					accelerator: 'CommandOrControl+P',
-					screens: ['Main'],
-					click: () => {
-						this.dispatch({
-							type: 'WINDOW_COMMAND',
-							name: 'print',
-						});
-					}
 				}, {
 					type: 'separator',
 					platforms: ['darwin'],
