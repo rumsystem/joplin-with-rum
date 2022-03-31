@@ -55,21 +55,6 @@ class SideBarComponent extends React.Component {
 			}
 		};
 
-		this.onTagDrop_ = async (event) => {
-			const tagId = event.currentTarget.getAttribute('tagid');
-			const dt = event.dataTransfer;
-			if (!dt) return;
-
-			if (dt.types.indexOf("text/x-jop-note-ids") >= 0) {
-				event.preventDefault();
-
-				const noteIds = JSON.parse(dt.getData("text/x-jop-note-ids"));
-				for (let i = 0; i < noteIds.length; i++) {
-					await Tag.addNote(tagId, noteIds[i]);
-				}
-			}
-		}
-
 		this.onFolderToggleClick_ = async (event) => {
 			const folderId = event.currentTarget.getAttribute('folderid');
 
@@ -253,22 +238,14 @@ class SideBarComponent extends React.Component {
 
 			const InteropService = require("lib/services/InteropService.js");
 
-			const exportMenu = new Menu();
-			const ioService = new InteropService();
-			const ioModules = ioService.modules();
-			for (let i = 0; i < ioModules.length; i++) {
-				const module = ioModules[i];
-				if (module.type !== 'exporter') continue;
-
-				exportMenu.append(new MenuItem({ label: module.fullLabel() , click: async () => {
-					await InteropServiceHelper.export(this.props.dispatch.bind(this), module, { sourceFolderIds: [itemId] });
-				}}));
-			}
-
 			menu.append(
 				new MenuItem({
 					label: _("Export"),
-					submenu: exportMenu,
+					click: async () => {
+						const ioService = new InteropService();
+						const module = ioService.moduleByFormat_("exporter", "jex");
+						await InteropServiceHelper.export(this.props.dispatch.bind(this), module, { sourceFolderIds: [itemId] });
+					},
 				})
 			);
 		}
@@ -369,10 +346,8 @@ class SideBarComponent extends React.Component {
 				data-id={tag.id}
 				data-type={BaseModel.TYPE_TAG}
 				onContextMenu={event => this.itemContextMenu(event)}
-				tagid={tag.id}
 				key={tag.id}
 				style={style}
-				onDrop={this.onTagDrop_}
 				onClick={() => {
 					this.tagItem_click(tag);
 				}}
