@@ -5,7 +5,7 @@ import * as QuickActions from 'react-native-quick-actions';
 import { _ } from '@joplin/lib/locale';
 const { DeviceEventEmitter } = require('react-native');
 import Note from '@joplin/lib/models/Note';
-import { reg } from '@joplin/lib/registry';
+const { reg } = require('@joplin/lib/registry.js');
 
 type TData = {
 	type: string;

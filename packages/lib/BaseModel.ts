@@ -1,9 +1,8 @@
 import paginationToSql from './models/utils/paginationToSql';
 
-import Database from './database';
+const { Database } = require('./database.js');
 import uuid from './uuid';
 import time from './time';
-import JoplinDatabase from './JoplinDatabase';
 const Mutex = require('async-mutex').Mutex;
 
 // New code should make use of this enum
@@ -70,7 +69,7 @@ class BaseModel {
 	public static dispatch: Function = function() {};
 	private static saveMutexes_: any = {};
 
-	private static db_: JoplinDatabase;
+	private static db_: any;
 
 	static modelType(): ModelType {
 		throw new Error('Must be overriden');
@@ -632,12 +631,12 @@ class BaseModel {
 		return this.db().exec(`DELETE FROM ${this.tableName()} WHERE id = ?`, [id]);
 	}
 
-	static async batchDelete(ids: string[], options: any = null) {
+	static batchDelete(ids: string[], options: any = null) {
 		if (!ids.length) return;
 		options = this.modOptions(options);
 		const idFieldName = options.idFieldName ? options.idFieldName : 'id';
 		const sql = `DELETE FROM ${this.tableName()} WHERE ${idFieldName} IN ("${ids.join('","')}")`;
-		await this.db().exec(sql);
+		return this.db().exec(sql);
 	}
 
 	static db() {

@@ -42,13 +42,9 @@ export default class Resource extends BaseItem {
 		return imageMimeTypes.indexOf(type.toLowerCase()) >= 0;
 	}
 
-	static fetchStatuses(resourceIds: string[]): Promise<any[]> {
-		if (!resourceIds.length) return Promise.resolve([]);
+	static fetchStatuses(resourceIds: string[]) {
+		if (!resourceIds.length) return [];
 		return this.db().selectAll(`SELECT resource_id, fetch_status FROM resource_local_states WHERE resource_id IN ("${resourceIds.join('","')}")`);
-	}
-
-	public static sharedResourceIds(): Promise<string[]> {
-		return this.db().selectAllFields('SELECT id FROM resources WHERE is_shared = 1', {}, 'id');
 	}
 
 	static errorFetchStatuses() {

@@ -1,6 +1,6 @@
 import BaseModel from '../BaseModel';
 import { ResourceLocalStateEntity } from '../services/database/types';
-import Database from '../database';
+const { Database } = require('../database.js');
 
 export default class ResourceLocalState extends BaseModel {
 	static tableName() {

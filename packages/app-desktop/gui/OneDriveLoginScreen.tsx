@@ -3,7 +3,7 @@ import ButtonBar from './ConfigScreen/ButtonBar';
 import { _ } from '@joplin/lib/locale';
 
 const { connect } = require('react-redux');
-import { reg } from '@joplin/lib/registry';
+const { reg } = require('@joplin/lib/registry.js');
 import Setting from '@joplin/lib/models/Setting';
 const bridge = require('electron').remote.require('./bridge').default;
 const { themeStyle } = require('@joplin/lib/theme');
@@ -44,7 +44,7 @@ class OneDriveLoginScreenComponent extends React.Component<any, any> {
 		if (!auth) {
 			log(_('Authentication was not completed (did not receive an authentication token).'));
 		} else {
-			void reg.scheduleSync(0);
+			reg.scheduleSync(0);
 		}
 	}
 
