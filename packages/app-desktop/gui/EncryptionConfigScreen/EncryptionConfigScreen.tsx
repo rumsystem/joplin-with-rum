@@ -5,17 +5,23 @@ import { _ } from '@joplin/lib/locale';
 import time from '@joplin/lib/time';
 import shim from '@joplin/lib/shim';
 import dialogs from '../dialogs';
-import { decryptedStatText, dontReencryptData, enableEncryptionConfirmationMessages, onSavePasswordClick, onToggleEnabledClick, reencryptData, upgradeMasterKey, useInputPasswords, usePasswordChecker, useStats, useToggleShowDisabledMasterKeys } from '@joplin/lib/components/EncryptionConfigScreen/utils';
+import bridge from '../../services/bridge';
+import { decryptedStatText, dontReencryptData, enableEncryptionConfirmationMessages, onSavePasswordClick, onToggleEnabledClick, reencryptData, upgradeMasterKey, useInputMasterPassword, useInputPasswords, usePasswordChecker, useStats, useToggleShowDisabledMasterKeys } from '@joplin/lib/components/EncryptionConfigScreen/utils';
 import { MasterKeyEntity } from '@joplin/lib/services/e2ee/types';
 import { getEncryptionEnabled, masterKeyEnabled, SyncInfo } from '@joplin/lib/services/synchronizer/syncInfoUtils';
-import { getDefaultMasterKey, getMasterPasswordStatusMessage, masterPasswordIsValid, toggleAndSetupEncryption } from '@joplin/lib/services/e2ee/utils';
+import { getDefaultMasterKey, toggleAndSetupEncryption } from '@joplin/lib/services/e2ee/utils';
+import StyledInput from '../style/StyledInput';
 import Button, { ButtonLevel } from '../Button/Button';
+import styled from 'styled-components';
 import { useCallback, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../../app.reducer';
 import Setting from '@joplin/lib/models/Setting';
-import CommandService from '@joplin/lib/services/CommandService';
-import { PublicPrivateKeyPair } from '@joplin/lib/services/e2ee/ppk';
+
+const MasterPasswordInput = styled(StyledInput)`
+	min-width: 300px;
+	align-items: center;
+`;
 
 interface Props {
 	themeId: any;
@@ -26,7 +32,6 @@ interface Props {
 	shouldReencrypt: boolean;
 	activeMasterKeyId: string;
 	masterPassword: string;
-	ppk: PublicPrivateKeyPair;
 }
 
 const EncryptionConfigScreen = (props: Props) => {
@@ -37,7 +42,7 @@ const EncryptionConfigScreen = (props: Props) => {
 	}, [props.themeId]);
 
 	const stats = useStats();
-	const { passwordChecks, masterPasswordKeys, masterPasswordStatus } = usePasswordChecker(props.masterKeys, props.activeMasterKeyId, props.masterPassword, props.passwords);
+	const { passwordChecks, masterPasswordKeys } = usePasswordChecker(props.masterKeys, props.activeMasterKeyId, props.masterPassword, props.passwords);
 	const { showDisabledMasterKeys, toggleShowDisabledMasterKeys } = useToggleShowDisabledMasterKeys();
 
 	const onUpgradeMasterKey = useCallback((mk: MasterKeyEntity) => {
@@ -65,8 +70,8 @@ const EncryptionConfigScreen = (props: Props) => {
 
 		return (
 			<div>
-				<h2>{_('Keys that need upgrading')}</h2>
-				<p>{_('The following keys use an out-dated encryption algorithm and it is recommended to upgrade them. The upgraded key will still be able to decrypt and encrypt your data as usual.')}</p>
+				<h1 style={theme.h1Style}>{_('Master keys that need upgrading')}</h1>
+				<p style={theme.textStyle}>{_('The following master keys use an out-dated encryption algorithm and it is recommended to upgrade them. The upgraded master key will still be able to decrypt and encrypt your data as usual.')}</p>
 				<table>
 					<tbody>
 						<tr>
@@ -97,7 +102,7 @@ const EncryptionConfigScreen = (props: Props) => {
 
 		return (
 			<div>
-				<h2>{_('Re-encryption')}</h2>
+				<h1 style={theme.h1Style}>{_('Re-encryption')}</h1>
 				<p style={theme.textStyle} dangerouslySetInnerHTML={{ __html: t }}></p>
 				<span style={{ marginRight: 10 }}>
 					<button onClick={() => void reencryptData()} style={theme.buttonStyle}>{buttonLabel}</button>
@@ -166,8 +171,8 @@ const EncryptionConfigScreen = (props: Props) => {
 			mkComps.push(renderMasterKey(mk));
 		}
 
-		const headerComp = isEnabledMasterKeys ? <h2>{_('Encryption Keys')}</h2> : <a onClick={() => toggleShowDisabledMasterKeys() } style={{ ...theme.urlStyle, display: 'inline-block', marginBottom: 10 }} href="#">{showTable ? _('Hide disabled keys') : _('Show disabled keys')}</a>;
-		const infoComp: any = null; // isEnabledMasterKeys ? <p>{'Note: Only one key is going to be used for encryption (the one marked as "active"). Any of the keys might be used for decryption, depending on how the notes or notebooks were originally encrypted.'}</p> : null;
+		const headerComp = isEnabledMasterKeys ? <h1 style={theme.h1Style}>{_('Master Keys')}</h1> : <a onClick={() => toggleShowDisabledMasterKeys() } style={{ ...theme.urlStyle, display: 'inline-block', marginBottom: 10 }} href="#">{showTable ? _('Hide disabled master keys') : _('Show disabled master keys')}</a>;
+		const infoComp = isEnabledMasterKeys ? <p style={theme.textStyle}>{'Note: Only one master key is going to be used for encryption (the one marked as "active"). Any of the keys might be used for decryption, depending on how the notes or notebooks were originally encrypted.'}</p> : null;
 		const tableComp = !showTable ? null : (
 			<table>
 				<tbody>
@@ -186,7 +191,7 @@ const EncryptionConfigScreen = (props: Props) => {
 
 		if (mkComps.length) {
 			return (
-				<div className="section">
+				<div>
 					{headerComp}
 					{tableComp}
 					{infoComp}
@@ -197,153 +202,148 @@ const EncryptionConfigScreen = (props: Props) => {
 		return null;
 	};
 
-	const onToggleButtonClick = useCallback(async () => {
-		const isEnabled = getEncryptionEnabled();
-		const newEnabled = !isEnabled;
-		const masterKey = getDefaultMasterKey();
-		const hasMasterPassword = !!props.masterPassword;
-		let newPassword = '';
+	const { inputMasterPassword, onMasterPasswordSave, onMasterPasswordChange } = useInputMasterPassword(props.masterKeys, props.activeMasterKeyId);
 
-		if (isEnabled) {
-			const answer = await dialogs.confirm(_('Disabling encryption means *all* your notes and attachments are going to be re-synchronised and sent unencrypted to the sync target. Do you wish to continue?'));
-			if (!answer) return;
+	const renderMasterPassword = () => {
+		if (!props.encryptionEnabled && !props.masterKeys.length) return null;
+
+		const theme = themeStyle(props.themeId);
+
+		if (passwordChecks['master']) {
+			return (
+				<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+					<span style={theme.textStyle}>{_('Master password:')}</span>&nbsp;&nbsp;
+					<span style={{ ...theme.textStyle, fontWeight: 'bold' }}>✔ {_('Loaded')}</span>
+				</div>
+			);
 		} else {
-			const msg = enableEncryptionConfirmationMessages(masterKey, hasMasterPassword);
-			newPassword = await dialogs.prompt(msg.join('\n\n'), '', '', { type: 'password' });
-		}
-
-		if (hasMasterPassword && newEnabled) {
-			if (!(await masterPasswordIsValid(newPassword))) {
-				alert('Invalid password. Please try again. If you have forgotten your password you will need to reset it.');
-				return;
-			}
-		}
-
-		try {
-			await toggleAndSetupEncryption(EncryptionService.instance(), newEnabled, masterKey, newPassword);
-		} catch (error) {
-			await dialogs.alert(error.message);
-		}
-	}, [props.masterPassword]);
-
-	const renderEncryptionSection = () => {
-		const decryptedItemsInfo = <p>{decryptedStatText(stats)}</p>;
-		const toggleButton = (
-			<Button
-				onClick={onToggleButtonClick}
-				title={props.encryptionEnabled ? _('Disable encryption') : _('Enable encryption')}
-				level={ButtonLevel.Secondary}
-			/>
-		);
-		const needUpgradeSection = renderNeedUpgradeSection();
-		const reencryptDataSection = renderReencryptData();
-
-		return (
-			<div className="section">
-				<div className="encryption-section">
-					<h2 className="-no-top-margin">{_('End-to-end encryption')}</h2>
-					<p>
-						{_('Encryption:')} <strong>{props.encryptionEnabled ? _('Enabled') : _('Disabled')}</strong>
-					</p>
-					<p>
-						{_('Public-Private Key Pair:')} <strong>{props.ppk ? _('Generated') : _('Not generated')}</strong>
-					</p>
-					{decryptedItemsInfo}
-					{toggleButton}
-					{needUpgradeSection}
-					{props.shouldReencrypt ? reencryptDataSection : null}
-				</div>
-			</div>
-		);
-	};
-
-	const renderMasterPasswordSection = () => {
-		const onManageMasterPassword = async () => {
-			void CommandService.instance().execute('openMasterPasswordDialog');
-		};
-
-		const buttonTitle = CommandService.instance().label('openMasterPasswordDialog');
-		const needPassword = Object.values(passwordChecks).includes(false);
-
-		const needPasswordMessage = !needPassword ? null : (
-			<p className="needpassword">{_('Your master password is needed to decrypt some of your data.')}<br/>{_('Please click on "%s" to proceed', buttonTitle)}</p>
-		);
-
-		return (
-			<div className="section">
-				<div className="manage-password-section">
-					<h2>{_('Master password')}</h2>
-					<p className="status"><span>{_('Master password:')}</span>&nbsp;<span className="bold">{getMasterPasswordStatusMessage(masterPasswordStatus)}</span></p>
-					{needPasswordMessage}
-					<Button className="managebutton" level={needPassword ? ButtonLevel.Primary : ButtonLevel.Secondary} onClick={onManageMasterPassword} title={buttonTitle} />
-				</div>
-			</div>
-		);
-	};
-
-	const onClearMasterPassword = useCallback(() => {
-		Setting.setValue('encryption.masterPassword', '');
-	}, []);
-
-	const renderDebugSection = () => {
-		if (Setting.value('env') !== 'dev') return null;
-
-		return (
-			<div style={{ paddingBottom: '20px' }}>
-				<Button level={ButtonLevel.Secondary} onClick={onClearMasterPassword} title="Clear master password" />
-			</div>
-		);
-	};
-
-	const renderNonExistingMasterKeysSection = () => {
-		let nonExistingMasterKeySection = null;
-
-		const nonExistingMasterKeyIds = props.notLoadedMasterKeys.slice();
-
-		for (let i = 0; i < props.masterKeys.length; i++) {
-			const mk = props.masterKeys[i];
-			const idx = nonExistingMasterKeyIds.indexOf(mk.id);
-			if (idx >= 0) nonExistingMasterKeyIds.splice(idx, 1);
-		}
-
-		if (nonExistingMasterKeyIds.length) {
-			const rows = [];
-			for (let i = 0; i < nonExistingMasterKeyIds.length; i++) {
-				const id = nonExistingMasterKeyIds[i];
-				rows.push(
-					<tr key={id}>
-						<td style={theme.textStyle}>{id}</td>
-					</tr>
-				);
-			}
-
-			nonExistingMasterKeySection = (
-				<div className="section">
-					<h2>{_('Missing Keys')}</h2>
-					<p>{_('The keys with these IDs are used to encrypt some of your items, however the application does not currently have access to them. It is likely they will eventually be downloaded via synchronisation.')}</p>
-					<table>
-						<tbody>
-							<tr>
-								<th style={theme.textStyle}>{_('ID')}</th>
-							</tr>
-							{rows}
-						</tbody>
-					</table>
+			return (
+				<div style={{ display: 'flex', flexDirection: 'column' }}>
+					<span style={theme.textStyle}>❌ {'The master password is not set or is invalid. Please type it below:'}</span>
+					<div style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
+						<MasterPasswordInput placeholder={_('Enter your master password')} type="password" value={inputMasterPassword} onChange={(event: any) => onMasterPasswordChange(event.target.value)} />{' '}
+						<Button ml="10px" level={ButtonLevel.Secondary} onClick={onMasterPasswordSave} title={_('Save')} />
+					</div>
 				</div>
 			);
 		}
-
-		return nonExistingMasterKeySection;
 	};
 
+	const containerStyle = Object.assign({}, theme.containerStyle, {
+		padding: theme.configScreenPadding,
+		overflow: 'auto',
+		backgroundColor: theme.backgroundColor3,
+	});
+
+	const nonExistingMasterKeyIds = props.notLoadedMasterKeys.slice();
+
+	for (let i = 0; i < props.masterKeys.length; i++) {
+		const mk = props.masterKeys[i];
+		const idx = nonExistingMasterKeyIds.indexOf(mk.id);
+		if (idx >= 0) nonExistingMasterKeyIds.splice(idx, 1);
+	}
+
+	const onToggleButtonClick = async () => {
+		const isEnabled = getEncryptionEnabled();
+		const masterKey = getDefaultMasterKey();
+
+		let answer = null;
+		if (isEnabled) {
+			answer = await dialogs.confirm(_('Disabling encryption means *all* your notes and attachments are going to be re-synchronised and sent unencrypted to the sync target. Do you wish to continue?'));
+		} else {
+			const msg = enableEncryptionConfirmationMessages(masterKey);
+			answer = await dialogs.prompt(msg.join('\n\n'), '', '', { type: 'password' });
+		}
+
+		if (!answer) return;
+
+		try {
+			await toggleAndSetupEncryption(EncryptionService.instance(), !isEnabled, masterKey, answer);
+		} catch (error) {
+			await dialogs.alert(error.message);
+		}
+	};
+
+	const decryptedItemsInfo = <p style={theme.textStyle}>{decryptedStatText(stats)}</p>;
+	const toggleButton = (
+		<button
+			style={theme.buttonStyle}
+			onClick={() => {
+				void onToggleButtonClick();
+			}}
+		>
+			{props.encryptionEnabled ? _('Disable encryption') : _('Enable encryption')}
+		</button>
+	);
+
+	const needUpgradeSection = renderNeedUpgradeSection();
+	const reencryptDataSection = renderReencryptData();
+
+	const enabledMasterKeySection = renderMasterKeySection(props.masterKeys.filter(mk => masterKeyEnabled(mk)), true);
+	const disabledMasterKeySection = renderMasterKeySection(props.masterKeys.filter(mk => !masterKeyEnabled(mk)), false);
+
+	let nonExistingMasterKeySection = null;
+
+	if (nonExistingMasterKeyIds.length) {
+		const rows = [];
+		for (let i = 0; i < nonExistingMasterKeyIds.length; i++) {
+			const id = nonExistingMasterKeyIds[i];
+			rows.push(
+				<tr key={id}>
+					<td style={theme.textStyle}>{id}</td>
+				</tr>
+			);
+		}
+
+		nonExistingMasterKeySection = (
+			<div>
+				<h1 style={theme.h1Style}>{_('Missing Master Keys')}</h1>
+				<p style={theme.textStyle}>{_('The master keys with these IDs are used to encrypt some of your items, however the application does not currently have access to them. It is likely they will eventually be downloaded via synchronisation.')}</p>
+				<table>
+					<tbody>
+						<tr>
+							<th style={theme.textStyle}>{_('ID')}</th>
+						</tr>
+						{rows}
+					</tbody>
+				</table>
+			</div>
+		);
+	}
+
 	return (
-		<div className="config-screen-content">
-			{renderDebugSection()}
-			{renderEncryptionSection()}
-			{renderMasterPasswordSection()}
-			{renderMasterKeySection(props.masterKeys.filter(mk => masterKeyEnabled(mk)), true)}
-			{renderMasterKeySection(props.masterKeys.filter(mk => !masterKeyEnabled(mk)), false)}
-			{renderNonExistingMasterKeysSection()}
+		<div>
+			<div style={containerStyle}>
+				{
+					<div className="alert alert-warning" style={{ backgroundColor: theme.warningBackgroundColor, paddingLeft: 10, paddingRight: 10, paddingTop: 2, paddingBottom: 2 }}>
+						<p style={theme.textStyle}>
+							<span>{_('For more information about End-To-End Encryption (E2EE) and advice on how to enable it please check the documentation:')}</span>{' '}
+							<a
+								onClick={() => {
+									bridge().openExternal('https://joplinapp.org/e2ee/');
+								}}
+								href="#"
+								style={theme.urlStyle}
+							>
+								https://joplinapp.org/e2ee/
+							</a>
+						</p>
+					</div>
+				}
+				<h1 style={theme.h1Style}>{_('Status')}</h1>
+				<p style={theme.textStyle}>
+					{_('Encryption is:')} <strong>{props.encryptionEnabled ? _('Enabled') : _('Disabled')}</strong>
+				</p>
+				{renderMasterPassword()}
+				{decryptedItemsInfo}
+				{toggleButton}
+				{needUpgradeSection}
+				{props.shouldReencrypt ? reencryptDataSection : null}
+				{enabledMasterKeySection}
+				{disabledMasterKeySection}
+				{nonExistingMasterKeySection}
+				{!props.shouldReencrypt ? reencryptDataSection : null}
+			</div>
 		</div>
 	);
 };
@@ -360,7 +360,6 @@ const mapStateToProps = (state: AppState) => {
 		shouldReencrypt: state.settings['encryption.shouldReencrypt'] >= Setting.SHOULD_REENCRYPT_YES,
 		notLoadedMasterKeys: state.notLoadedMasterKeys,
 		masterPassword: state.settings['encryption.masterPassword'],
-		ppk: syncInfo.ppk,
 	};
 };
 

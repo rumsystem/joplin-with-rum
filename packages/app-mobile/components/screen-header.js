@@ -184,14 +184,10 @@ class ScreenHeaderComponent extends React.PureComponent {
 	async deleteButton_press() {
 		// Dialog needs to be displayed as a child of the parent component, otherwise
 		// it won't be visible within the header component.
-		const noteIds = this.props.selectedNoteIds;
-
-		const msg = await Note.deleteMessage(noteIds);
-		if (!msg) return;
-
-		const ok = await dialogs.confirm(this.props.parentComponent, msg);
+		const ok = await dialogs.confirm(this.props.parentComponent, _('Delete these notes?'));
 		if (!ok) return;
 
+		const noteIds = this.props.selectedNoteIds;
 		this.props.dispatch({ type: 'NOTE_SELECTION_END' });
 		await Note.batchDelete(noteIds);
 	}

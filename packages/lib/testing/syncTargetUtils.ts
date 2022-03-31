@@ -10,7 +10,6 @@ import * as fs from 'fs-extra';
 import { setEncryptionEnabled } from '../services/synchronizer/syncInfoUtils';
 const { shimInit } = require('../shim-init-node');
 const sharp = require('sharp');
-const nodeSqlite = require('sqlite3');
 
 const snapshotBaseDir = `${supportDir}/syncTargetSnapshots`;
 
@@ -109,7 +108,7 @@ export async function deploySyncTargetSnapshot(syncTargetType: string, syncVersi
 }
 
 export async function main(syncTargetType: string) {
-	shimInit({ sharp, nodeSqlite });
+	shimInit(sharp);
 
 	const validSyncTargetTypes = ['normal', 'e2ee'];
 	if (!validSyncTargetTypes.includes(syncTargetType)) throw new Error(`Sync target type must be: ${validSyncTargetTypes.join(', ')}`);

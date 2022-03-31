@@ -182,14 +182,6 @@ module.exports = {
 					// 	leadingUnderscore: 'allow',
 					// 	trailingUnderscore: 'allow',
 					// },
-
-					// Each rule below is made of two blocks: first the rule we
-					// actually want, and below exceptions to the rule.
-
-					// -----------------------------------
-					// ENUM
-					// -----------------------------------
-
 					{
 						selector: 'enumMember',
 						format: ['StrictPascalCase'],
@@ -198,26 +190,13 @@ module.exports = {
 						selector: 'enumMember',
 						format: null,
 						'filter': {
-							'regex': '^(GET|POST|PUT|DELETE|PATCH|HEAD|SQLite|PostgreSQL|ASC|DESC|E2EE|OR|AND|UNION|INTERSECT|EXCLUSION|INCLUSION|EUR|GBP|USD|SJCL.*)$',
+							'regex': '^(GET|POST|PUT|DELETE|PATCH|HEAD|SQLite|PostgreSQL|ASC|DESC|E2EE|OR|AND|UNION|INTERSECT|EXCLUSION|INCLUSION|EUR|GBP|USD)$',
 							'match': true,
 						},
 					},
-
-					// -----------------------------------
-					// INTERFACE
-					// -----------------------------------
-
 					{
 						selector: 'interface',
 						format: ['StrictPascalCase'],
-					},
-					{
-						selector: 'interface',
-						format: null,
-						'filter': {
-							'regex': '^(RSA|RSAKeyPair)$',
-							'match': true,
-						},
 					},
 				],
 			},

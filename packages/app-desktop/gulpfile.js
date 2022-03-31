@@ -1,16 +1,13 @@
 const gulp = require('gulp');
 const utils = require('@joplin/tools/gulp/utils');
 const compileSass = require('@joplin/tools/compileSass');
-const compilePackageInfo = require('@joplin/tools/compilePackageInfo');
 
 const tasks = {
 	compileScripts: {
 		fn: require('./tools/compileScripts'),
 	},
 	compilePackageInfo: {
-		fn: async () => {
-			await compilePackageInfo(`${__dirname}/package.json`, `${__dirname}/packageInfo.js`);
-		},
+		fn: require('./tools/compile-package-info.js'),
 	},
 	copyPluginAssets: {
 		fn: require('./tools/copyPluginAssets.js'),
@@ -26,10 +23,10 @@ const tasks = {
 	buildCommandIndex: require('@joplin/tools/gulp/tasks/buildCommandIndex'),
 	compileSass: {
 		fn: async () => {
-			await compileSass(
-				`${__dirname}/style.scss`,
-				`${__dirname}/style.min.css`
-			);
+			const guiDir = `${__dirname}/gui`;
+			await compileSass([
+				`${guiDir}/EncryptionConfigScreen/style.scss`,
+			], `${__dirname}/style.min.css`);
 		},
 	},
 };

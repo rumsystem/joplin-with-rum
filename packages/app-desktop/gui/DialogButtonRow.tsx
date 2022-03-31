@@ -17,13 +17,10 @@ export type ClickEventHandler = (event: ClickEvent)=> void;
 interface Props {
 	themeId: number;
 	onClick?: ClickEventHandler;
+	okButtonShow?: boolean;
 	cancelButtonShow?: boolean;
 	cancelButtonLabel?: string;
-	cancelButtonDisabled?: boolean;
-	okButtonShow?: boolean;
-	okButtonLabel?: string;
 	okButtonRef?: any;
-	okButtonDisabled?: boolean;
 	customButtons?: ButtonSpec[];
 }
 
@@ -71,15 +68,15 @@ export default function DialogButtonRow(props: Props) {
 
 	if (props.okButtonShow !== false) {
 		buttonComps.push(
-			<button disabled={props.okButtonDisabled} key="ok" style={buttonStyle} onClick={okButton_click} ref={props.okButtonRef} onKeyDown={onKeyDown}>
-				{props.okButtonLabel ? props.okButtonLabel : _('OK')}
+			<button key="ok" style={buttonStyle} onClick={okButton_click} ref={props.okButtonRef} onKeyDown={onKeyDown}>
+				{_('OK')}
 			</button>
 		);
 	}
 
 	if (props.cancelButtonShow !== false) {
 		buttonComps.push(
-			<button disabled={props.cancelButtonDisabled} key="cancel" style={Object.assign({}, buttonStyle)} onClick={cancelButton_click}>
+			<button key="cancel" style={Object.assign({}, buttonStyle)} onClick={cancelButton_click}>
 				{props.cancelButtonLabel ? props.cancelButtonLabel : _('Cancel')}
 			</button>
 		);

@@ -9,6 +9,7 @@ import { _, setLocale } from './locale';
 import KvStore from './services/KvStore';
 import SyncTargetJoplinServer from './SyncTargetJoplinServer';
 import SyncTargetOneDrive from './SyncTargetOneDrive';
+
 import { createStore, applyMiddleware, Store } from 'redux';
 const { defaultState, stateUtils } = require('./reducer');
 import JoplinDatabase from './JoplinDatabase';
@@ -52,8 +53,6 @@ const { setAutoFreeze } = require('immer');
 import { getEncryptionEnabled } from './services/synchronizer/syncInfoUtils';
 import { loadMasterKeysFromSettings, migrateMasterPassword } from './services/e2ee/utils';
 import SyncTargetNone from './SyncTargetNone';
-import { setRSA } from './services/e2ee/ppk';
-import RSA from './services/e2ee/RSA.node';
 
 const appLogger: LoggerWrapper = Logger.create('App');
 
@@ -80,12 +79,12 @@ export default class BaseApplication {
 
 	protected store_: Store<any> = null;
 
-	public constructor() {
+	constructor() {
 		this.eventEmitter_ = new EventEmitter();
 		this.decryptionWorker_resourceMetadataButNotBlobDecrypted = this.decryptionWorker_resourceMetadataButNotBlobDecrypted.bind(this);
 	}
 
-	public async destroy() {
+	async destroy() {
 		if (this.scheduleAutoAddResourcesIID_) {
 			shim.clearTimeout(this.scheduleAutoAddResourcesIID_);
 			this.scheduleAutoAddResourcesIID_ = null;
@@ -117,7 +116,7 @@ export default class BaseApplication {
 		this.decryptionWorker_resourceMetadataButNotBlobDecrypted = null;
 	}
 
-	public logger(): LoggerWrapper {
+	logger(): LoggerWrapper {
 		return appLogger;
 	}
 
@@ -125,11 +124,11 @@ export default class BaseApplication {
 		return this.store_;
 	}
 
-	public currentFolder() {
+	currentFolder() {
 		return this.currentFolder_;
 	}
 
-	public async refreshCurrentFolder() {
+	async refreshCurrentFolder() {
 		let newFolder = null;
 
 		if (this.currentFolder_) newFolder = await Folder.load(this.currentFolder_.id);
@@ -138,7 +137,7 @@ export default class BaseApplication {
 		this.switchCurrentFolder(newFolder);
 	}
 
-	public switchCurrentFolder(folder: any) {
+	switchCurrentFolder(folder: any) {
 		if (!this.hasGui()) {
 			this.currentFolder_ = Object.assign({}, folder);
 			Setting.setValue('activeFolderId', folder ? folder.id : '');
@@ -152,7 +151,7 @@ export default class BaseApplication {
 
 	// Handles the initial flags passed to main script and
 	// returns the remaining args.
-	private async handleStartFlags_(argv: string[], setDefaults: boolean = true) {
+	async handleStartFlags_(argv: string[], setDefaults: boolean = true) {
 		const matched: any = {};
 		argv = argv.slice(0);
 		argv.splice(0, 2); // First arguments are the node executable, and the node JS file
@@ -277,16 +276,16 @@ export default class BaseApplication {
 		};
 	}
 
-	public on(eventName: string, callback: Function) {
+	on(eventName: string, callback: Function) {
 		return this.eventEmitter_.on(eventName, callback);
 	}
 
-	public async exit(code = 0) {
+	async exit(code = 0) {
 		await Setting.saveAll();
 		process.exit(code);
 	}
 
-	public async refreshNotes(state: any, useSelectedNoteId: boolean = false, noteHash: string = '') {
+	async refreshNotes(state: any, useSelectedNoteId: boolean = false, noteHash: string = '') {
 		let parentType = state.notesParentType;
 		let parentId = null;
 
@@ -382,13 +381,13 @@ export default class BaseApplication {
 		}
 	}
 
-	private resourceFetcher_downloadComplete(event: any) {
+	resourceFetcher_downloadComplete(event: any) {
 		if (event.encrypted) {
 			void DecryptionWorker.instance().scheduleStart();
 		}
 	}
 
-	private async decryptionWorker_resourceMetadataButNotBlobDecrypted() {
+	async decryptionWorker_resourceMetadataButNotBlobDecrypted() {
 		ResourceFetcher.instance().scheduleAutoAddResources();
 	}
 
@@ -404,15 +403,15 @@ export default class BaseApplication {
 		return o.join(', ');
 	}
 
-	public hasGui() {
+	hasGui() {
 		return false;
 	}
 
-	public uiType() {
+	uiType() {
 		return this.hasGui() ? 'gui' : 'cli';
 	}
 
-	public generalMiddlewareFn() {
+	generalMiddlewareFn() {
 		const middleware = (store: any) => (next: any) => (action: any) => {
 			return this.generalMiddleware(store, next, action);
 		};
@@ -420,7 +419,7 @@ export default class BaseApplication {
 		return middleware;
 	}
 
-	protected async applySettingsSideEffects(action: any = null) {
+	async applySettingsSideEffects(action: any = null) {
 		const sideEffects: any = {
 			'dateFormat': async () => {
 				time.setLocale(Setting.value('locale'));
@@ -484,7 +483,7 @@ export default class BaseApplication {
 		}
 	}
 
-	protected async generalMiddleware(store: any, next: any, action: any) {
+	async generalMiddleware(store: any, next: any, action: any) {
 		// appLogger.debug('Reducer action', this.reducerActionToString(action));
 
 		const result = next(action);
@@ -620,15 +619,15 @@ export default class BaseApplication {
 		return result;
 	}
 
-	public dispatch(action: any) {
+	dispatch(action: any) {
 		if (this.store()) return this.store().dispatch(action);
 	}
 
-	public reducer(state: any = defaultState, action: any) {
+	reducer(state: any = defaultState, action: any) {
 		return reducer(state, action);
 	}
 
-	public initRedux() {
+	initRedux() {
 		this.store_ = createStore(this.reducer, applyMiddleware(this.generalMiddlewareFn() as any));
 		setStore(this.store_);
 		BaseModel.dispatch = this.store().dispatch;
@@ -640,7 +639,7 @@ export default class BaseApplication {
 		ShareService.instance().initialize(this.store());
 	}
 
-	public deinitRedux() {
+	deinitRedux() {
 		this.store_ = null;
 		BaseModel.dispatch = function() {};
 		FoldersScreenUtils.dispatch = function() {};
@@ -650,7 +649,7 @@ export default class BaseApplication {
 		ResourceFetcher.instance().dispatch = function() {};
 	}
 
-	public async readFlagsFromFile(flagPath: string) {
+	async readFlagsFromFile(flagPath: string) {
 		if (!fs.existsSync(flagPath)) return {};
 		let flagContent = fs.readFileSync(flagPath, 'utf8');
 		if (!flagContent) return {};
@@ -666,7 +665,7 @@ export default class BaseApplication {
 		return flags.matched;
 	}
 
-	public determineProfileDir(initArgs: any) {
+	determineProfileDir(initArgs: any) {
 		let output = '';
 
 		if (initArgs.profileDir) {
@@ -680,7 +679,7 @@ export default class BaseApplication {
 		return toSystemSlashes(output, 'linux');
 	}
 
-	public async start(argv: string[], options: StartOptions = null): Promise<any> {
+	async start(argv: string[], options: StartOptions = null): Promise<any> {
 		options = {
 			keychainEnabled: true,
 			...options,
@@ -774,8 +773,6 @@ export default class BaseApplication {
 
 		reg.setDb(this.database_);
 		BaseModel.setDb(this.database_);
-
-		setRSA(RSA);
 
 		await loadKeychainServiceAndSettings(options.keychainEnabled ? KeychainServiceDriver : KeychainServiceDriverDummy);
 		await migrateMasterPassword();

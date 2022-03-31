@@ -57,11 +57,9 @@ import { loadKeychainServiceAndSettings } from '../services/SettingUtils';
 import { setActiveMasterKeyId, setEncryptionEnabled } from '../services/synchronizer/syncInfoUtils';
 import Synchronizer from '../Synchronizer';
 import SyncTargetNone from '../SyncTargetNone';
-import { setRSA } from '../services/e2ee/ppk';
 const md5 = require('md5');
 const S3 = require('aws-sdk/clients/s3');
 const { Dirnames } = require('../services/synchronizer/utils/types');
-import RSA from '../services/e2ee/RSA.node';
 
 // Each suite has its own separate data and temp directory so that multiple
 // suites can be run at the same time. suiteName is what is used to
@@ -438,8 +436,6 @@ async function setupDatabaseAndSynchronizer(id: number, options: any = null) {
 	resourceFetchers_[id] = new ResourceFetcher(() => { return synchronizers_[id].api(); });
 	kvStores_[id] = new KvStore();
 
-	setRSA(RSA);
-
 	await fileApi().initialize();
 	await fileApi().clearRoot();
 }
@@ -509,12 +505,11 @@ function resourceFetcher(id: number = null) {
 
 async function loadEncryptionMasterKey(id: number = null, useExisting = false) {
 	const service = encryptionService(id);
-	const password = '123456';
 
 	let masterKey = null;
 
 	if (!useExisting) { // Create it
-		masterKey = await service.generateMasterKey(password);
+		masterKey = await service.generateMasterKey('123456');
 		masterKey = await MasterKey.save(masterKey);
 	} else { // Use the one already available
 		const masterKeys = await MasterKey.all();
@@ -522,12 +517,7 @@ async function loadEncryptionMasterKey(id: number = null, useExisting = false) {
 		masterKey = masterKeys[0];
 	}
 
-	const passwordCache = Setting.value('encryption.passwordCache');
-	passwordCache[masterKey.id] = password;
-	Setting.setValue('encryption.passwordCache', passwordCache);
-	await Setting.saveAll();
-
-	await service.loadMasterKey(masterKey, password, true);
+	await service.loadMasterKey(masterKey, '123456', true);
 
 	setActiveMasterKeyId(masterKey.id);
 

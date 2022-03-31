@@ -1,10 +1,10 @@
 import { SubPath } from '../../utils/routeUtils';
 import Router from '../../utils/Router';
-import { Env, RouteType } from '../../utils/types';
+import { RouteType } from '../../utils/types';
 import { AppContext } from '../../utils/types';
 import { bodyFields } from '../../utils/requestUtils';
 import globalConfig from '../../config';
-import { ErrorBadRequest, ErrorForbidden, ErrorNotFound } from '../../utils/errors';
+import { ErrorForbidden, ErrorNotFound } from '../../utils/errors';
 import { Stripe } from 'stripe';
 import Logger from '@joplin/lib/Logger';
 import getRawBody = require('raw-body');
@@ -12,7 +12,6 @@ import { AccountType } from '../../models/UserModel';
 import { betaUserTrialPeriodDays, cancelSubscription, initStripe, isBetaUser, priceIdToAccountType, stripeConfig } from '../../utils/stripe';
 import { Subscription, UserFlagType } from '../../services/database/types';
 import { findPrice, PricePeriod } from '@joplin/lib/utils/joplinCloud';
-import { Models } from '../../models/factory';
 
 const logger = Logger.create('/stripe');
 
@@ -35,7 +34,6 @@ async function stripeEvent(stripe: Stripe, req: any): Promise<Stripe.Event> {
 interface CreateCheckoutSessionFields {
 	priceId: string;
 	coupon: string;
-	promotionCode: string;
 	email: string;
 }
 
@@ -57,64 +55,6 @@ async function getSubscriptionInfo(event: Stripe.Event, ctx: AppContext): Promis
 	if (!sub) throw new Error(`No subscription with ID: ${stripeSub.id}`);
 	return { sub, stripeSub };
 }
-
-export const handleSubscriptionCreated = async (stripe: Stripe, models: Models, customerName: string, userEmail: string, accountType: AccountType, stripeUserId: string, stripeSubscriptionId: string) => {
-	const existingUser = await models.user().loadByEmail(userEmail);
-
-	if (existingUser) {
-		const sub = await models.subscription().byUserId(existingUser.id);
-
-		if (!sub) {
-			logger.info(`Setting up subscription for existing user: ${existingUser.email}`);
-
-			// First set the account type correctly (in case the
-			// user also upgraded or downgraded their account).
-			await models.user().save({
-				id: existingUser.id,
-				account_type: accountType,
-			});
-
-			// Also clear any payment and subscription related flags
-			// since if we're here it means payment was successful
-			await models.userFlag().removeMulti(existingUser.id, [
-				UserFlagType.FailedPaymentWarning,
-				UserFlagType.FailedPaymentFinal,
-				UserFlagType.SubscriptionCancelled,
-				UserFlagType.AccountWithoutSubscription,
-			]);
-
-			// Then save the subscription
-			await models.subscription().save({
-				user_id: existingUser.id,
-				stripe_user_id: stripeUserId,
-				stripe_subscription_id: stripeSubscriptionId,
-				last_payment_time: Date.now(),
-			});
-		} else {
-			if (sub.stripe_subscription_id === stripeSubscriptionId) {
-				// Stripe probably dispatched a "customer.subscription.created"
-				// event after "checkout.session.completed", so we already have
-				// save the subscription and can skip processing.
-			} else {
-				// The user already has a subscription. Most likely
-				// they accidentally created a second one, so cancel
-				// it.
-				logger.info(`User ${existingUser.email} already has a subscription: ${sub.stripe_subscription_id} - cancelling duplicate`);
-				await cancelSubscription(stripe, stripeSubscriptionId);
-			}
-		}
-	} else {
-		logger.info(`Creating subscription for new user: ${userEmail}`);
-
-		await models.subscription().saveUserAndSubscription(
-			userEmail,
-			customerName,
-			accountType,
-			stripeUserId,
-			stripeSubscriptionId
-		);
-	}
-};
 
 export const postHandlers: PostHandlers = {
 
@@ -146,29 +86,14 @@ export const postHandlers: PostHandlers = {
 		};
 
 		if (fields.coupon) {
+			delete checkoutSession.allow_promotion_codes;
+
 			checkoutSession.discounts = [
 				{
 					coupon: fields.coupon.trim(),
 				},
 			];
-		} else if (fields.promotionCode) {
-			const p = await stripe.promotionCodes.list({ code: fields.promotionCode });
-			const codes = p.data;
-			if (!codes.length) throw new ErrorBadRequest(`Could not find promotion code: ${fields.promotionCode}`);
-
-			// Should not be possible in our setup since a unique code is
-			// created for each customer.
-			if (codes.length > 1) console.warn(`Found more than one promotion code: ${fields.promotionCode}`);
-
-			checkoutSession.discounts = [
-				{
-					promotion_code: codes[0].id,
-				},
-			];
 		}
-
-		// "You may only specify one of these parameters: allow_promotion_codes, discounts"
-		if (checkoutSession.discounts) delete checkoutSession.allow_promotion_codes;
 
 		if (fields.email) {
 			checkoutSession.customer_email = fields.email.trim();
@@ -198,6 +123,32 @@ export const postHandlers: PostHandlers = {
 		return { sessionId: session.id };
 	},
 
+	// # How to test the complete workflow locally
+	//
+	// - In website/build.ts, set the env to "dev", then build the website - `npm run watch-website`
+	// - Start the Stripe CLI tool: `stripe listen --forward-to http://joplincloud.local:22300/stripe/webhook`
+	// - Copy the webhook secret, and paste it in joplin-credentials/server.env (under STRIPE_WEBHOOK_SECRET)
+	// - Start the local Joplin Server, `npm run start-dev`, running under http://joplincloud.local:22300
+	// - Start the workflow from http://localhost:8077/plans/
+	// - The local website often is not configured to send email, but you can see them in the database, in the "emails" table.
+	//
+	// # Simplified workflow
+	//
+	// To test without running the main website, use http://joplincloud.local:22300/stripe/checkoutTest
+	//
+	// # Stripe config
+	//
+	// - The public config is under packages/server/stripeConfig.json
+	// - The private config is in the server .env file
+	//
+	// # Failed Stripe cli login
+	//
+	// If the tool show this error, with code "api_key_expired":
+	//
+	// > FATAL Error while authenticating with Stripe: Authorization failed
+	//
+	// Need to logout and login again to refresh the CLI token - `stripe logout && stripe login`
+
 	webhook: async (stripe: Stripe, _path: SubPath, ctx: AppContext, event: Stripe.Event = null, logErrors: boolean = true) => {
 		event = event ? event : await stripeEvent(stripe, ctx.req);
 
@@ -220,6 +171,51 @@ export const postHandlers: PostHandlers = {
 				//
 				// For testing: `stripe trigger checkout.session.completed`
 				// Or use /checkoutTest URL.
+
+				// {
+				//   "object": {
+				//     "id": "cs_test_xxxxxxxxxxxxxxxxxx",
+				//     "object": "checkout.session",
+				//     "allow_promotion_codes": null,
+				//     "amount_subtotal": 499,
+				//     "amount_total": 499,
+				//     "billing_address_collection": null,
+				//     "cancel_url": "http://joplincloud.local:22300/stripe/cancel",
+				//     "client_reference_id": null,
+				//     "currency": "gbp",
+				//     "customer": "cus_xxxxxxxxxxxx",
+				//     "customer_details": {
+				//       "email": "toto@example.com",
+				//       "tax_exempt": "none",
+				//       "tax_ids": [
+				//       ]
+				//     },
+				//     "customer_email": null,
+				//     "livemode": false,
+				//     "locale": null,
+				//     "metadata": {
+				//     },
+				//     "mode": "subscription",
+				//     "payment_intent": null,
+				//     "payment_method_options": {
+				//     },
+				//     "payment_method_types": [
+				//       "card"
+				//     ],
+				//     "payment_status": "paid",
+				//     "setup_intent": null,
+				//     "shipping": null,
+				//     "shipping_address_collection": null,
+				//     "submit_type": null,
+				//     "subscription": "sub_xxxxxxxxxxxxxxxx",
+				//     "success_url": "http://joplincloud.local:22300/stripe/success?session_id={CHECKOUT_SESSION_ID}",
+				//     "total_details": {
+				//       "amount_discount": 0,
+				//       "amount_shipping": 0,
+				//       "amount_tax": 0
+				//     }
+				//   }
+				// }
 
 				const checkoutSession: Stripe.Checkout.Session = event.data.object as Stripe.Checkout.Session;
 				const userEmail = checkoutSession.customer_details.email || checkoutSession.customer_email;
@@ -256,41 +252,55 @@ export const postHandlers: PostHandlers = {
 				const stripeUserId = checkoutSession.customer as string;
 				const stripeSubscriptionId = checkoutSession.subscription as string;
 
-				await handleSubscriptionCreated(
-					stripe,
-					models,
-					customerName,
-					userEmail,
-					accountType,
-					stripeUserId,
-					stripeSubscriptionId
-				);
-			},
+				const existingUser = await models.user().loadByEmail(userEmail);
 
-			'customer.subscription.created': async () => {
-				const stripeSub: Stripe.Subscription = event.data.object as Stripe.Subscription;
-				const stripeUserId = stripeSub.customer as string;
-				const stripeSubscriptionId = stripeSub.id;
-				const customer = await stripe.customers.retrieve(stripeUserId) as Stripe.Customer;
+				if (existingUser) {
+					const sub = await models.subscription().byUserId(existingUser.id);
 
-				let accountType = AccountType.Basic;
-				try {
-					// Really have to dig out the price ID
-					const priceId = stripeSub.items.data[0].price.id;
-					accountType = priceIdToAccountType(priceId);
-				} catch (error) {
-					logger.error('Could not determine account type from price ID - defaulting to "Basic"', error);
+					if (!sub) {
+						logger.info(`Setting up subscription for existing user: ${existingUser.email}`);
+
+						// First set the account type correctly (in case the
+						// user also upgraded or downgraded their account).
+						await models.user().save({
+							id: existingUser.id,
+							account_type: accountType,
+						});
+
+						// Also clear any payment and subscription related flags
+						// since if we're here it means payment was successful
+						await models.userFlag().removeMulti(existingUser.id, [
+							UserFlagType.FailedPaymentWarning,
+							UserFlagType.FailedPaymentFinal,
+							UserFlagType.SubscriptionCancelled,
+							UserFlagType.AccountWithoutSubscription,
+						]);
+
+						// Then save the subscription
+						await models.subscription().save({
+							user_id: existingUser.id,
+							stripe_user_id: stripeUserId,
+							stripe_subscription_id: stripeSubscriptionId,
+							last_payment_time: Date.now(),
+						});
+					} else {
+						// The user already has a subscription. Most likely
+						// they accidentally created a second one, so cancel
+						// it.
+						logger.info(`User ${existingUser.email} already has a subscription: ${sub.stripe_subscription_id} - cancelling duplicate`);
+						await cancelSubscription(stripe, stripeSubscriptionId);
+					}
+				} else {
+					logger.info(`Creating subscription for new user: ${userEmail}`);
+
+					await models.subscription().saveUserAndSubscription(
+						userEmail,
+						customerName,
+						accountType,
+						stripeUserId,
+						stripeSubscriptionId
+					);
 				}
-
-				await handleSubscriptionCreated(
-					stripe,
-					models,
-					customer.name,
-					customer.email,
-					accountType,
-					stripeUserId,
-					stripeSubscriptionId
-				);
 			},
 
 			'invoice.paid': async () => {
@@ -398,13 +408,9 @@ const getHandlers: Record<string, StripeRouteHandler> = {
 			</html>`;
 	},
 
-	checkoutTest: async (_stripe: Stripe, _path: SubPath, ctx: AppContext) => {
-		if (globalConfig().env === Env.Prod) throw new ErrorForbidden();
-
+	checkoutTest: async (_stripe: Stripe, _path: SubPath, _ctx: AppContext) => {
 		const basicPrice = findPrice(stripeConfig().prices, { accountType: 1, period: PricePeriod.Monthly });
 		const proPrice = findPrice(stripeConfig().prices, { accountType: 2, period: PricePeriod.Monthly });
-
-		const customPriceId = ctx.request.query.price_id;
 
 		return `
 			<head>
@@ -414,15 +420,14 @@ const getHandlers: Record<string, StripeRouteHandler> = {
 				<script>
 					var stripe = Stripe(${JSON.stringify(stripeConfig().publishableKey)});
 
-					var createCheckoutSession = function(priceId, promotionCode) {
+					var createCheckoutSession = function(priceId) {
 						return fetch("/stripe/createCheckoutSession", {
 							method: "POST",
 							headers: {
 								"Content-Type": "application/json"
 							},
 							body: JSON.stringify({
-								priceId,
-								promotionCode,
+								priceId: priceId
 							})
 						}).then(function(result) {
 							return result.json();
@@ -431,27 +436,18 @@ const getHandlers: Record<string, StripeRouteHandler> = {
 				</script>
 			</head>
 			<body>
-				Promotion code: <input id="promotion_code" type="text"/> <br/>
 				<button id="checkout_basic">Subscribe Basic</button>
 				<button id="checkout_pro">Subscribe Pro</button>
-				<button id="checkout_custom">Subscribe Custom</button>
 				<script>
 					var BASIC_PRICE_ID = ${JSON.stringify(basicPrice.id)};
 					var PRO_PRICE_ID = ${JSON.stringify(proPrice.id)};
-					var CUSTOM_PRICE_ID = ${JSON.stringify(customPriceId)};
-
-					if (!CUSTOM_PRICE_ID) {
-						document.getElementById('checkout_custom').style.display = 'none';
-					}
 
 					function handleResult() {
 						console.info('Redirected to checkout');
 					}
 
 					function createSessionAndRedirect(priceId) {
-						var promotionCode = document.getElementById('promotion_code').value;
-
-						createCheckoutSession(priceId, promotionCode).then(function(data) {
+						createCheckoutSession(priceId).then(function(data) {
 							// Call Stripe.js method to redirect to the new Checkout page
 							stripe
 								.redirectToCheckout({
@@ -469,11 +465,6 @@ const getHandlers: Record<string, StripeRouteHandler> = {
 					document.getElementById("checkout_pro").addEventListener("click", function(evt) {
 						evt.preventDefault();
 						createSessionAndRedirect(PRO_PRICE_ID);
-					});
-
-					document.getElementById("checkout_custom").addEventListener("click", function(evt) {
-						evt.preventDefault();
-						createSessionAndRedirect(CUSTOM_PRICE_ID);
 					});
 				</script>
 			</body>

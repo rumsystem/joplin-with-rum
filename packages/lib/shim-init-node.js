@@ -62,22 +62,8 @@ const gunzipFile = function(source, destination) {
 	});
 };
 
-function shimInit(options = null) {
-	options = {
-		sharp: null,
-		keytar: null,
-		React: null,
-		appVersion: null,
-		electronBridge: null,
-		nodeSqlite: null,
-		...options,
-	};
-
-	const sharp = options.sharp;
-	const keytar = (shim.isWindows() || shim.isMac()) && !shim.isPortable() ? options.keytar : null;
-	const appVersion = options.appVersion;
-
-	shim.setNodeSqlite(options.nodeSqlite);
+function shimInit(sharp = null, keytar = null, React = null, appVersion = null) {
+	keytar = (shim.isWindows() || shim.isMac()) && !shim.isPortable() ? keytar : null;
 
 	shim.fsDriver = () => {
 		throw new Error('Not implemented');
@@ -86,22 +72,17 @@ function shimInit(options = null) {
 	shim.Geolocation = GeolocationNode;
 	shim.FormData = require('form-data');
 	shim.sjclModule = require('./vendor/sjcl.js');
-	shim.electronBridge_ = options.electronBridge;
 
 	shim.fsDriver = () => {
 		if (!shim.fsDriver_) shim.fsDriver_ = new FsDriverNode();
 		return shim.fsDriver_;
 	};
 
-	if (options.React) {
+	if (React) {
 		shim.react = () => {
-			return options.React;
+			return React;
 		};
 	}
-
-	shim.electronBridge = () => {
-		return shim.electronBridge_;
-	};
 
 	shim.randomBytes = async count => {
 		const buffer = require('crypto').randomBytes(count);
@@ -142,7 +123,8 @@ function shimInit(options = null) {
 
 	shim.showMessageBox = (message, options = null) => {
 		if (shim.isElectron()) {
-			return shim.electronBridge().showMessageBox(message, options);
+			const bridge = require('electron').remote.require('./bridge').default;
+			return bridge().showMessageBox(message, options);
 		} else {
 			throw new Error('Not implemented');
 		}
@@ -490,9 +472,10 @@ function shimInit(options = null) {
 	shim.Buffer = Buffer;
 
 	shim.openUrl = url => {
+		const bridge = require('electron').remote.require('./bridge').default;
 		// Returns true if it opens the file successfully; returns false if it could
 		// not find the file.
-		return shim.electronBridge().openExternal(url);
+		return bridge().openExternal(url);
 	};
 
 	shim.httpAgent_ = null;

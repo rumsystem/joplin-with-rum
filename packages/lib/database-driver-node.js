@@ -1,11 +1,9 @@
-const shim = require('./shim').default;
+const sqlite3 = require('sqlite3').verbose();
 const Promise = require('promise');
 
 class DatabaseDriverNode {
 	open(options) {
 		return new Promise((resolve, reject) => {
-			const sqlite3 = shim.nodeSqlite().verbose();
-
 			this.db_ = new sqlite3.Database(options.name, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, error => {
 				if (error) {
 					reject(error);

@@ -3,8 +3,8 @@ import { _ } from '../../locale';
 import BaseItem, { EncryptedItemsStats } from '../../models/BaseItem';
 import useAsyncEffect, { AsyncEffectEvent } from '../../hooks/useAsyncEffect';
 import { MasterKeyEntity } from '../../services/e2ee/types';
-// import time from '../../time';
-import { findMasterKeyPassword, getMasterPasswordStatus, masterPasswordIsValid, MasterPasswordStatus } from '../../services/e2ee/utils';
+import time from '../../time';
+import { findMasterKeyPassword } from '../../services/e2ee/utils';
 import EncryptionService from '../../services/e2ee/EncryptionService';
 import { masterKeyEnabled, setMasterKeyEnabled } from '../../services/synchronizer/syncInfoUtils';
 import MasterKey from '../../models/MasterKey';
@@ -21,10 +21,7 @@ export const useStats = () => {
 	useAsyncEffect(async (event: AsyncEffectEvent) => {
 		const r = await BaseItem.encryptedItemsStats();
 		if (event.cancelled) return;
-		setStats(stats => {
-			if (JSON.stringify(stats) === JSON.stringify(r)) return stats;
-			return r;
-		});
+		setStats(r);
 	}, [statsUpdateTime]);
 
 	useEffect(() => {
@@ -33,7 +30,7 @@ export const useStats = () => {
 		}, 3000);
 
 		return () => {
-			shim.clearInterval(iid);
+			clearInterval(iid);
 		};
 	}, []);
 
@@ -47,18 +44,20 @@ export const decryptedStatText = (stats: EncryptedItemsStats) => {
 	return result;
 };
 
-export const enableEncryptionConfirmationMessages = (_masterKey: MasterKeyEntity, hasMasterPassword: boolean) => {
-	const msg = [_('Enabling encryption means *all* your notes and attachments are going to be re-synchronised and sent encrypted to the sync target.')];
+export const enableEncryptionConfirmationMessages = (masterKey: MasterKeyEntity) => {
+	const msg = [_('Enabling encryption means *all* your notes and attachments are going to be re-synchronised and sent encrypted to the sync target. Do not lose the password as, for security purposes, this will be the *only* way to decrypt the data! To enable encryption, please enter your password below.')];
+	if (masterKey) msg.push(_('Encryption will be enabled using the master key created on %s', time.unixMsToLocalDateTime(masterKey.created_time)));
+	return msg;
+};
 
-	if (hasMasterPassword) {
-		msg.push(_('To continue, please enter your master password below.'));
-	} else {
-		msg.push(_('Do not lose the password as, for security purposes, this will be the *only* way to decrypt the data! To enable encryption, please enter your password below.'));
+const masterPasswordIsValid = async (masterKeys: MasterKeyEntity[], activeMasterKeyId: string, masterPassword: string = null) => {
+	const activeMasterKey = masterKeys.find((mk: MasterKeyEntity) => mk.id === activeMasterKeyId);
+	masterPassword = masterPassword === null ? masterPassword : masterPassword;
+	if (activeMasterKey && masterPassword) {
+		return EncryptionService.instance().checkMasterKeyPassword(activeMasterKey, masterPassword);
 	}
 
-	// if (masterKey) msg.push(_('Encryption will be enabled using the master key created on %s', time.unixMsToLocalDateTime(masterKey.created_time)));
-
-	return msg;
+	return false;
 };
 
 export const reencryptData = async () => {
@@ -108,7 +107,7 @@ export const useInputMasterPassword = (masterKeys: MasterKeyEntity[], activeMast
 	const onMasterPasswordSave = useCallback(async () => {
 		Setting.setValue('encryption.masterPassword', inputMasterPassword);
 
-		if (!(await masterPasswordIsValid(inputMasterPassword, masterKeys.find(mk => mk.id === activeMasterKeyId)))) {
+		if (!(await masterPasswordIsValid(masterKeys, activeMasterKeyId, inputMasterPassword))) {
 			alert('Password is invalid. Please try again.');
 		}
 	}, [inputMasterPassword]);
@@ -142,7 +141,6 @@ export const useInputPasswords = (propsPasswords: Record<string, string>) => {
 export const usePasswordChecker = (masterKeys: MasterKeyEntity[], activeMasterKeyId: string, masterPassword: string, passwords: Record<string, string>) => {
 	const [passwordChecks, setPasswordChecks] = useState<PasswordChecks>({});
 	const [masterPasswordKeys, setMasterPasswordKeys] = useState<PasswordChecks>({});
-	const [masterPasswordStatus, setMasterPasswordStatus] = useState<MasterPasswordStatus>(MasterPasswordStatus.Unknown);
 
 	useAsyncEffect(async (event: AsyncEffectEvent) => {
 		const newPasswordChecks: PasswordChecks = {};
@@ -156,25 +154,15 @@ export const usePasswordChecker = (masterKeys: MasterKeyEntity[], activeMasterKe
 			newMasterPasswordKeys[mk.id] = password === masterPassword;
 		}
 
-		newPasswordChecks['master'] = masterPassword ? await masterPasswordIsValid(masterPassword, masterKeys.find(mk => mk.id === activeMasterKeyId)) : true;
+		newPasswordChecks['master'] = await masterPasswordIsValid(masterKeys, activeMasterKeyId, masterPassword);
 
 		if (event.cancelled) return;
 
-		setPasswordChecks(passwordChecks => {
-			if (JSON.stringify(newPasswordChecks) === JSON.stringify(passwordChecks)) return passwordChecks;
-			return newPasswordChecks;
-		});
-
-		setMasterPasswordKeys(masterPasswordKeys => {
-			if (JSON.stringify(newMasterPasswordKeys) === JSON.stringify(masterPasswordKeys)) return masterPasswordKeys;
-			console.info('====', JSON.stringify(newMasterPasswordKeys), JSON.stringify(masterPasswordKeys));
-			return newMasterPasswordKeys;
-		});
-
-		setMasterPasswordStatus(await getMasterPasswordStatus(masterPassword));
+		setPasswordChecks(newPasswordChecks);
+		setMasterPasswordKeys(newMasterPasswordKeys);
 	}, [masterKeys, masterPassword]);
 
-	return { passwordChecks, masterPasswordKeys, masterPasswordStatus };
+	return { passwordChecks, masterPasswordKeys };
 };
 
 export const upgradeMasterKey = async (masterKey: MasterKeyEntity, passwordChecks: PasswordChecks, passwords: Record<string, string>): Promise<string> => {
@@ -185,7 +173,7 @@ export const upgradeMasterKey = async (masterKey: MasterKeyEntity, passwordCheck
 
 	try {
 		const password = passwords[masterKey.id];
-		const newMasterKey = await EncryptionService.instance().reencryptMasterKey(masterKey, password, password);
+		const newMasterKey = await EncryptionService.instance().upgradeMasterKey(masterKey, password);
 		await MasterKey.save(newMasterKey);
 		void reg.waitForSyncFinishedThenSync();
 		return _('The master key has been upgraded successfully!');

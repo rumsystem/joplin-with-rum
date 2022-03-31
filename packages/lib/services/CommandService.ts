@@ -124,12 +124,9 @@ export default class CommandService extends BaseService {
 
 		const output = [];
 
-		const whenClauseContext = this.currentWhenClauseContext();
-
 		for (const commandName of this.commandNames()) {
 			const label = this.label(commandName, true);
 			if (!label && excludeWithoutLabel) continue;
-			if (!this.isEnabled(commandName, whenClauseContext)) continue;
 
 			const title = label ? `${label} (${commandName})` : commandName;
 

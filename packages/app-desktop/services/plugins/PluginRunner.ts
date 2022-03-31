@@ -103,11 +103,8 @@ export default class PluginRunner extends BasePluginRunner {
 			show: false,
 			webPreferences: {
 				nodeIntegration: true,
-				contextIsolation: false,
 			},
 		});
-
-		require('@electron/remote/main').enable(pluginWindow.webContents);
 
 		bridge().electronApp().registerPluginWindow(plugin.id, pluginWindow);
 

@@ -22,10 +22,6 @@ const StyledRoot = styled.div`
 
 const StyledButton = styled(Button)`
 	margin-left: 8px;
-	width: 26px;
-	height: 26px;
-	min-width: 26px;
-	min-height: 26px;
 `;
 
 const ButtonContainer = styled.div`

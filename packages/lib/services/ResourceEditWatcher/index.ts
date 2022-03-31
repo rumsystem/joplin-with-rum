@@ -7,6 +7,7 @@ import Setting from '../../models/Setting';
 import Resource from '../../models/Resource';
 const EventEmitter = require('events');
 const chokidar = require('chokidar');
+const bridge = require('electron').remote.require('./bridge').default;
 
 interface WatchedItem {
 	resourceId: string;
@@ -21,8 +22,6 @@ interface WatchedItems {
 	[key: string]: WatchedItem;
 }
 
-type OpenItemFn = (path: string)=> void;
-
 export default class ResourceEditWatcher {
 
 	private static instance_: ResourceEditWatcher;
@@ -34,7 +33,6 @@ export default class ResourceEditWatcher {
 	private watchedItems_: WatchedItems = {};
 	private eventEmitter_: any;
 	private tempDir_: string = '';
-	private openItem_: OpenItemFn;
 
 	constructor() {
 		this.logger_ = new Logger();
@@ -44,10 +42,9 @@ export default class ResourceEditWatcher {
 		this.eventEmitter_ = new EventEmitter();
 	}
 
-	initialize(logger: any, dispatch: Function, openItem: OpenItemFn) {
+	initialize(logger: any, dispatch: Function) {
 		this.logger_ = logger;
 		this.dispatch = dispatch;
-		this.openItem_ = openItem;
 	}
 
 	static instance() {
@@ -256,8 +253,7 @@ export default class ResourceEditWatcher {
 
 	public async openAndWatch(resourceId: string) {
 		const watchedItem = await this.watch(resourceId);
-		// bridge().openItem(watchedItem.path);
-		this.openItem_(watchedItem.path);
+		bridge().openItem(watchedItem.path);
 	}
 
 	async stopWatching(resourceId: string) {
