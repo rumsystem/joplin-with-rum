@@ -628,17 +628,11 @@ msgstr ""
 msgid "Link"
 msgstr ""
 
-msgid "Code"
-msgstr "Cod"
-
 msgid "Insert Date Time"
 msgstr ""
 
 msgid "Edit in external editor"
 msgstr "Editați într-un editor extern"
-
-msgid "Tags"
-msgstr "Etichete"
 
 msgid "Search in all the notes"
 msgstr "Căutați în toate notițele"
@@ -1001,6 +995,9 @@ msgstr "Introduceți hyperlink"
 msgid "Attach file"
 msgstr "Atașați fișier"
 
+msgid "Tags"
+msgstr "Etichete"
+
 msgid "Set alarm"
 msgstr "Setați alarma"
 
@@ -1010,6 +1007,9 @@ msgstr "În: %s"
 
 msgid "Hyperlink"
 msgstr "Hyperlink"
+
+msgid "Code"
+msgstr "Cod"
 
 msgid "Numbered List"
 msgstr "Listă numerotată"
@@ -1824,10 +1824,6 @@ msgstr "Niciun item cu ID-ul %s"
 
 #, javascript-format
 msgid "The Joplin mobile app does not currently support this type of link: %s"
-msgstr ""
-
-#, javascript-format
-msgid "Links with protocol \"%s\" are not supported"
 msgstr ""
 
 #, javascript-format
