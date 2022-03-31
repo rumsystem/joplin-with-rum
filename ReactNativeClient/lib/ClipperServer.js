@@ -147,7 +147,6 @@ class ClipperServer {
 					const response = await this.api_.route(request.method, url.pathname, url.query, body, files);
 					writeResponse(200, response);
 				} catch (error) {
-					this.logger().error(error);
 					writeResponse(error.httpCode ? error.httpCode : 500, error.message);
 				}
 			}
@@ -174,7 +173,7 @@ class ClipperServer {
 						}
 				    });
 				} else {
-					if (request.method === 'POST' || request.method === 'PUT') {
+					if (request.method === 'POST') {
 						let body = '';
 
 						request.on('data', (data) => {
