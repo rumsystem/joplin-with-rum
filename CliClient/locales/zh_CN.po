@@ -610,6 +610,9 @@ msgstr "工具"
 msgid "Synchronisation status"
 msgstr "同步状态"
 
+msgid "Web clipper options"
+msgstr ""
+
 msgid "Encryption options"
 msgstr "加密选项"
 
@@ -659,6 +662,49 @@ msgstr "是"
 
 msgid "No"
 msgstr "否"
+
+msgid "The web clipper service is enabled and set to auto-start."
+msgstr ""
+
+#, javascript-format
+msgid "Status: Started on port %d"
+msgstr ""
+
+#, fuzzy, javascript-format
+msgid "Status: %s"
+msgstr "状态：\"%s\"。"
+
+msgid "Disable Web Clipper Service"
+msgstr ""
+
+msgid "The web clipper service is not enabled."
+msgstr ""
+
+msgid "Enable Web Clipper Service"
+msgstr ""
+
+msgid ""
+"Joplin Web Clipper allows saving web pages and screenshots from your browser "
+"to Joplin."
+msgstr ""
+
+msgid "In order to use the web clipper, you need to do the following:"
+msgstr ""
+
+msgid "Step 1: Enable the clipper service"
+msgstr ""
+
+msgid ""
+"This service allows the browser extension to communicate with Joplin. When "
+"enabling it your firewall may ask you to give permission to Joplin to listen "
+"to a particular port."
+msgstr ""
+
+msgid "Step 2: Install the extension"
+msgstr ""
+
+msgid "Download and install the relevant extension for your browser:"
+msgstr ""
 
 msgid "Check synchronisation configuration"
 msgstr "检查同步配置"
@@ -853,6 +899,10 @@ msgstr "标签"
 msgid "Set alarm"
 msgstr "设置提醒"
 
+#, fuzzy, javascript-format
+msgid "In: %s"
+msgstr "%s：%s"
+
 msgid "to-do"
 msgstr "待办事项"
 
@@ -883,6 +933,10 @@ msgstr "同步状态"
 
 msgid "Encryption Options"
 msgstr "加密选项"
+
+#, fuzzy
+msgid "Clipper Options"
+msgstr "通用选项"
 
 msgid "Remove this tag from all the notes?"
 msgstr "从所有笔记中删除此标签？"
@@ -1032,6 +1086,18 @@ msgstr "以此标题命名的笔记本已存在：\"%s\""
 #, javascript-format
 msgid "Notebooks cannot be named \"%s\", which is a reserved title."
 msgstr "笔记本无法被命名为\"%s\"，此标题为保留标题。"
+
+#, fuzzy
+msgid "title"
+msgstr "无标题"
+
+#, fuzzy
+msgid "updated date"
+msgstr "已更新：%d条。"
+
+#, fuzzy
+msgid "created date"
+msgstr "已创建：%d条。"
 
 msgid "Untitled"
 msgstr "无标题"
@@ -1292,6 +1358,10 @@ msgstr "移动%d条笔记至笔记本\"%s\"？"
 
 msgid "Press to set the decryption password."
 msgstr "按键将设置解密密码。"
+
+#, fuzzy
+msgid "Save alarm"
+msgstr "设置提醒"
 
 msgid "Select date"
 msgstr "选择日期"

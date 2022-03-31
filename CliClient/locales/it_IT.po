@@ -628,6 +628,9 @@ msgstr "Strumenti"
 msgid "Synchronisation status"
 msgstr "Stato di sincronizzazione"
 
+msgid "Web clipper options"
+msgstr ""
+
 msgid "Encryption options"
 msgstr ""
 
@@ -680,6 +683,49 @@ msgstr ""
 #, fuzzy
 msgid "No"
 msgstr "N"
+
+msgid "The web clipper service is enabled and set to auto-start."
+msgstr ""
+
+#, javascript-format
+msgid "Status: Started on port %d"
+msgstr ""
+
+#, fuzzy, javascript-format
+msgid "Status: %s"
+msgstr "Stato: \"%s\"."
+
+msgid "Disable Web Clipper Service"
+msgstr ""
+
+msgid "The web clipper service is not enabled."
+msgstr ""
+
+msgid "Enable Web Clipper Service"
+msgstr ""
+
+msgid ""
+"Joplin Web Clipper allows saving web pages and screenshots from your browser "
+"to Joplin."
+msgstr ""
+
+msgid "In order to use the web clipper, you need to do the following:"
+msgstr ""
+
+msgid "Step 1: Enable the clipper service"
+msgstr ""
+
+msgid ""
+"This service allows the browser extension to communicate with Joplin. When "
+"enabling it your firewall may ask you to give permission to Joplin to listen "
+"to a particular port."
+msgstr ""
+
+msgid "Step 2: Install the extension"
+msgstr ""
+
+msgid "Download and install the relevant extension for your browser:"
+msgstr ""
 
 #, fuzzy
 msgid "Check synchronisation configuration"
@@ -871,6 +917,10 @@ msgstr "Etichette"
 msgid "Set alarm"
 msgstr "Imposta allarme"
 
+#, fuzzy, javascript-format
+msgid "In: %s"
+msgstr "%s: %s"
+
 #, fuzzy
 msgid "to-do"
 msgstr "Nuova attività"
@@ -903,6 +953,10 @@ msgstr "Stato della Sincronizzazione"
 
 msgid "Encryption Options"
 msgstr ""
+
+#, fuzzy
+msgid "Clipper Options"
+msgstr "Opzioni"
 
 msgid "Remove this tag from all the notes?"
 msgstr "Rimuovere questa etichetta da tutte le note?"
@@ -1057,6 +1111,18 @@ msgstr "Esiste già un blocco note col titolo \"%s\""
 #, javascript-format
 msgid "Notebooks cannot be named \"%s\", which is a reserved title."
 msgstr "I blocchi non possono essere chiamati \"%s\". È un titolo riservato."
+
+#, fuzzy
+msgid "title"
+msgstr "Senza titolo"
+
+#, fuzzy
+msgid "updated date"
+msgstr "Aggiornato: %d."
+
+#, fuzzy
+msgid "created date"
+msgstr "Creato: %d."
 
 msgid "Untitled"
 msgstr "Senza titolo"
@@ -1322,6 +1388,10 @@ msgstr "Spostare le note %d sul blocco note \"%s\"?"
 
 msgid "Press to set the decryption password."
 msgstr ""
+
+#, fuzzy
+msgid "Save alarm"
+msgstr "Imposta allarme"
 
 msgid "Select date"
 msgstr "Seleziona la data"
