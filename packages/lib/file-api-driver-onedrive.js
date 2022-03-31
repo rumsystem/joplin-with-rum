@@ -220,8 +220,9 @@ class FileApiDriverOneDrive {
 		};
 
 		const freshStartDelta = () => {
+			// Business Accounts are only allowed to make delta requests to the root. For some reason /delta gives an error for personal accounts and :/delta an error for business accounts
 			const accountProperties = this.api_.accountProperties_;
-			const url = `/drives/${accountProperties.driveId}/root/delta`;
+			const url = (accountProperties.accountType === 'business') ? `/drives/${accountProperties.driveId}/root/delta` : `${this.makePath_(path)}:/delta`;
 			const query = this.itemFilter_();
 			query.select += ',deleted';
 			return { url: url, query: query };
