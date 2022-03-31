@@ -26,61 +26,43 @@ function folderIsVisible(folders, folderId, collapsedFolderIds) {
 	return true;
 }
 
-function renderFoldersRecursive_(props, renderItem, items, parentId, depth, order) {
+function renderFoldersRecursive_(props, renderItem, items, parentId, depth) {
 	const folders = props.folders;
 	for (let i = 0; i < folders.length; i++) {
 		let folder = folders[i];
 		if (!Folder.idsEqual(folder.parent_id, parentId)) continue;
 		if (!folderIsVisible(props.folders, folder.id, props.collapsedFolderIds)) continue;
 		const hasChildren = folderHasChildren_(folders, folder.id);
-		order.push(folder.id);
 		items.push(renderItem(folder, props.selectedFolderId == folder.id && props.notesParentType == 'Folder', hasChildren, depth));
-		if (hasChildren) {
-			const result = renderFoldersRecursive_(props, renderItem, items, folder.id, depth + 1, order);
-			items = result.items;
-			order = result.order;
-		}
+		if (hasChildren) items = renderFoldersRecursive_(props, renderItem, items, folder.id, depth + 1);
 	}
-	return {
-		items: items,
-		order: order,
-	};
+	return items;
 }
 
 shared.renderFolders = function(props, renderItem) {
-	return renderFoldersRecursive_(props, renderItem, [], '', 0, []);
+	return renderFoldersRecursive_(props, renderItem, [], '', 0);
 }
 
 shared.renderTags = function(props, renderItem) {
 	let tags = props.tags.slice();
 	tags.sort((a, b) => { return a.title < b.title ? -1 : +1; });
 	let tagItems = [];
-	const order = [];
 	for (let i = 0; i < tags.length; i++) {
 		const tag = tags[i];
-		order.push(tag.id);
 		tagItems.push(renderItem(tag, props.selectedTagId == tag.id && props.notesParentType == 'Tag'));
 	}
-	return {
-		items: tagItems,
-		order: order,
-	};
+	return tagItems;
 }
 
-// shared.renderSearches = function(props, renderItem) {
-// 	let searches = props.searches.slice();
-// 	let searchItems = [];
-// 	const order = [];
-// 	for (let i = 0; i < searches.length; i++) {
-// 		const search = searches[i];
-// 		order.push(search.id);
-// 		searchItems.push(renderItem(search, props.selectedSearchId == search.id && props.notesParentType == 'Search'));
-// 	}
-// 	return {
-// 		items: searchItems,
-// 		order: order,
-// 	};
-// }
+shared.renderSearches = function(props, renderItem) {
+	let searches = props.searches.slice();
+	let searchItems = [];
+	for (let i = 0; i < searches.length; i++) {
+		const search = searches[i];
+		searchItems.push(renderItem(search, props.selectedSearchId == search.id && props.notesParentType == 'Search'));
+	}
+	return searchItems;
+}
 
 shared.synchronize_press = async function(comp) {
 	const Setting = require('lib/models/Setting.js');

@@ -225,14 +225,6 @@ class Application extends BaseApplication {
 		this.updateMenu(screen);
 	}
 
-	focusElement_(target) {
-		this.dispatch({
-			type: 'WINDOW_COMMAND',
-			name: 'focusElement',
-			target: target,
-		});
-	}
-
 	updateMenu(screen) {
 		if (this.lastMenuScreen_ === screen) return;
 
@@ -251,32 +243,6 @@ class Application extends BaseApplication {
 				}
 			});
 		}
-
-		const focusItems = [];
-
-		focusItems.push({
-			label: _('Sidebar'),
-			click: () => { this.focusElement_('sideBar') },
-			accelerator: 'CommandOrControl+Shift+S',
-		});
-
-		focusItems.push({
-			label: _('Note list'),
-			click: () => { this.focusElement_('noteList') },
-			accelerator: 'CommandOrControl+Shift+L',
-		});
-
-		focusItems.push({
-			label: _('Note title'),
-			click: () => { this.focusElement_('noteTitle') },
-			accelerator: 'CommandOrControl+Shift+N',
-		});
-
-		focusItems.push({
-			label: _('Note body'),
-			click: () => { this.focusElement_('noteBody') },
-			accelerator: 'CommandOrControl+Shift+B',
-		});
 
 		const importItems = [];
 		const exportItems = [];
@@ -566,13 +532,6 @@ class Application extends BaseApplication {
 					click: () => {
 						Setting.setValue('showCompletedTodos', !Setting.value('showCompletedTodos'));
 					},
-				}, {
-					type: 'separator',
-					screens: ['Main'],
-				}, {
-					label: _('Focus'),
-					screens: ['Main'],
-					submenu: focusItems,
 				}],
 			}, {
 				label: _('Tools'),
