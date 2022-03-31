@@ -505,13 +505,7 @@ class SideBarComponent extends React.Component {
 			decryptionReportText = _('Decrypting items: %d/%d', this.props.decryptionWorker.itemIndex + 1, this.props.decryptionWorker.itemCount);
 		}
 
-		let resourceFetcherText = '';
-		if (this.props.resourceFetcher && this.props.resourceFetcher.toFetchCount) {
-			resourceFetcherText = _('Fetching resources: %d', this.props.resourceFetcher.toFetchCount);
-		}
-
 		let lines = Synchronizer.reportToLines(this.props.syncReport);
-		if (resourceFetcherText) lines.push(resourceFetcherText);
 		if (decryptionReportText) lines.push(decryptionReportText);
 		const syncReportText = [];
 		for (let i = 0; i < lines.length; i++) {
@@ -553,7 +547,6 @@ const mapStateToProps = state => {
 		theme: state.settings.theme,
 		collapsedFolderIds: state.collapsedFolderIds,
 		decryptionWorker: state.decryptionWorker,
-		resourceFetcher: state.resourceFetcher,
 	};
 };
 

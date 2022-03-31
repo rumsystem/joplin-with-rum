@@ -84,13 +84,7 @@ class DecryptionWorker {
 
 					const ItemClass = BaseItem.itemClass(item);
 
-					if (item.type_ === Resource.modelType()) {
-						const ls = await Resource.localState(item);
-						if (ls.fetch_status !== Resource.FETCH_STATUS_DONE) {
-							excludedIds.push(item.id);
-							continue;
-						}
-					}
+					if (('fetch_status' in item) && item.fetch_status !== Resource.FETCH_STATUS_DONE) continue;
 
 					this.dispatchReport({
 						itemIndex: i,

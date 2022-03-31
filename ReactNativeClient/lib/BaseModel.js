@@ -482,9 +482,7 @@ class BaseModel {
 	static batchDelete(ids, options = null) {
 		if (!ids.length) return;
 		options = this.modOptions(options);
-		const idFieldName = options.idFieldName ? options.idFieldName : 'id';
-		const sql = 'DELETE FROM ' + this.tableName() + ' WHERE ' + idFieldName + ' IN ("' + ids.join('","') + '")';
-		return this.db().exec(sql);
+		return this.db().exec('DELETE FROM ' + this.tableName() + ' WHERE id IN ("' + ids.join('","') + '")');
 	}	
 
 	static db() {
@@ -510,7 +508,6 @@ BaseModel.typeEnum_ = [
 	['TYPE_MASTER_KEY', 9],
 	['TYPE_ITEM_CHANGE', 10],
 	['TYPE_NOTE_RESOURCE', 11],
-	['TYPE_RESOURCE_LOCAL_STATE', 12],
 ];
 
 for (let i = 0; i < BaseModel.typeEnum_.length; i++) {

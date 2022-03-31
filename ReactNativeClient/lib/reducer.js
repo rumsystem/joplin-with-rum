@@ -38,10 +38,7 @@ const defaultState = {
 		itemIndex: 0,
 		itemCount: 0,
 	},
-	selectedNoteTags: [],
-	resourceFetcher: {
-		toFetchCount: 0,
-	},
+	selectedNoteTags: []
 };
 
 const stateUtils = {};
@@ -605,14 +602,6 @@ const reducer = (state = defaultState, action) => {
 					decryptionWorker[n] = action[n];
 				}
 				newState.decryptionWorker = decryptionWorker;
-				break;
-
-			case 'RESOURCE_FETCHER_SET':
-
-				newState = Object.assign({}, state);
-				const rf = Object.assign({}, action);
-				delete rf.type;
-				newState.resourceFetcher = rf;
 				break;
 
 			case 'LOAD_CUSTOM_CSS':
