@@ -34,7 +34,6 @@ const KeymapService = require('lib/services/KeymapService').default;
 const TemplateUtils = require('lib/TemplateUtils');
 const CssUtils = require('lib/CssUtils');
 const resourceEditWatcherReducer = require('lib/services/ResourceEditWatcher/reducer').default;
-// const populateDatabase = require('lib/services/debug/populateDatabase').default;
 const versionInfo = require('lib/versionInfo').default;
 
 const commands = [
@@ -1110,7 +1109,7 @@ class Application extends BaseApplication {
 		try {
 			await keymapService.loadCustomKeymap(`${dir}/keymap-desktop.json`);
 		} catch (err) {
-			reg.logger().error(err.message);
+			bridge().showErrorMessageBox(err.message);
 		}
 
 		AlarmService.setDriver(new AlarmServiceDriverNode({ appName: packageInfo.build.appId }));
@@ -1268,8 +1267,6 @@ class Application extends BaseApplication {
 		};
 
 		bridge().addEventListener('nativeThemeUpdated', this.bridge_nativeThemeUpdated);
-
-		// await populateDatabase(reg.db());
 	}
 
 }
