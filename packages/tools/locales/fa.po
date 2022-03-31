@@ -18,11 +18,11 @@ msgstr ""
 
 #: packages/app-desktop/bridge.js:106 packages/app-desktop/bridge.js:110
 #: packages/app-desktop/bridge.js:126 packages/app-desktop/bridge.js:134
+#: packages/app-desktop/checkForUpdates.js:175
 #: packages/app-desktop/gui/DialogButtonRow.min.js:30
-#: packages/app-desktop/gui/MenuBar.js:374
+#: packages/app-desktop/gui/MenuBar.js:373
 #: packages/app-desktop/gui/ConfigScreen/ButtonBar.js:22
 #: packages/app-desktop/gui/PromptDialog.min.js:235
-#: packages/app-desktop/gui/DialogButtonRow.js:35
 #: packages/app-desktop/services/plugins/UserWebviewDialogButtonBar.js:20
 #: packages/app-mobile/components/ModalDialog.js:67
 #: packages/app-mobile/components/CameraView.js:160
@@ -32,17 +32,16 @@ msgid "OK"
 msgstr "باشه"
 
 #: packages/app-desktop/bridge.js:110 packages/app-desktop/bridge.js:126
-#: packages/app-desktop/checkForUpdates.js:189
+#: packages/app-desktop/checkForUpdates.js:190
 #: packages/app-desktop/gui/DialogButtonRow.min.js:38
-#: packages/app-desktop/gui/Sidebar/Sidebar.js:215
-#: packages/app-desktop/gui/Sidebar/Sidebar.js:451
+#: packages/app-desktop/gui/Sidebar/Sidebar.js:201
+#: packages/app-desktop/gui/Sidebar/Sidebar.js:430
 #: packages/app-desktop/gui/KeymapConfig/ShortcutRecorder.js:52
 #: packages/app-desktop/gui/utils/NoteListUtils.js:169
 #: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:521
 #: packages/app-desktop/gui/PromptDialog.min.js:242
 #: packages/app-desktop/gui/NoteList/NoteList.js:163
 #: packages/app-desktop/gui/ResourceScreen.js:96
-#: packages/app-desktop/gui/DialogButtonRow.js:38
 #: packages/app-desktop/services/plugins/UserWebviewDialogButtonBar.js:21
 #: packages/app-mobile/components/ModalDialog.js:70
 #: packages/app-mobile/components/SelectDateTimeDialog.js:82
@@ -57,7 +56,7 @@ msgstr "باشه"
 msgid "Cancel"
 msgstr "لغو"
 
-#: packages/app-desktop/bridge.js:184
+#: packages/app-desktop/bridge.js:188
 msgid ""
 "The app is now going to close. Please relaunch it to complete the process."
 msgstr ""
@@ -96,7 +95,7 @@ msgstr "در حال استخراج به «%s» با فرمت «%s». لطفا ص
 msgid "Could not export notes: %s"
 msgstr "یادداشت‌ها استخراج نشدند: %s"
 
-#: packages/app-desktop/checkForUpdates.js:171
+#: packages/app-desktop/checkForUpdates.js:174
 msgid "Current version is up-to-date."
 msgstr "ورژن فعلی به‌روز است."
 
@@ -105,30 +104,26 @@ msgstr "ورژن فعلی به‌روز است."
 msgid "%s (pre-release)"
 msgstr ""
 
-#: packages/app-desktop/checkForUpdates.js:187
+#: packages/app-desktop/checkForUpdates.js:188
 msgid "An update is available, do you want to download it now?"
 msgstr "یک بروزرسانی موجود است، آیا میخواهید هم اکنون بارگیری‌اش کنید؟"
 
-#: packages/app-desktop/checkForUpdates.js:188
+#: packages/app-desktop/checkForUpdates.js:189
 #, javascript-format
 msgid "Your version: %s"
 msgstr "ورژن شما: %s"
 
-#: packages/app-desktop/checkForUpdates.js:188
+#: packages/app-desktop/checkForUpdates.js:189
 #, javascript-format
 msgid "New version: %s"
 msgstr "ورژن جدید: %s"
 
-#: packages/app-desktop/checkForUpdates.js:189
+#: packages/app-desktop/checkForUpdates.js:190
 #, fuzzy
 msgid "Download"
 msgstr "بارگیری شده"
 
-#: packages/app-desktop/checkForUpdates.js:189
-msgid "Skip this version"
-msgstr ""
-
-#: packages/app-desktop/checkForUpdates.js:189
+#: packages/app-desktop/checkForUpdates.js:190
 msgid "Full changelog"
 msgstr ""
 
@@ -168,11 +163,11 @@ msgstr ""
 msgid "Back"
 msgstr "بازگشت"
 
-#: packages/app-desktop/gui/Sidebar/Sidebar.js:190
+#: packages/app-desktop/gui/Sidebar/Sidebar.js:176
 msgid "Remove"
 msgstr "برداشتن"
 
-#: packages/app-desktop/gui/Sidebar/Sidebar.js:193
+#: packages/app-desktop/gui/Sidebar/Sidebar.js:179
 #: packages/app-mobile/components/side-menu-content.js:148
 #, javascript-format
 msgid ""
@@ -184,7 +179,7 @@ msgstr ""
 "\n"
 "تمامی یادداشت‌ها و زیر-دفترچه‌های درون این دفترچه نیز حذف می‌شوند."
 
-#: packages/app-desktop/gui/Sidebar/Sidebar.js:194
+#: packages/app-desktop/gui/Sidebar/Sidebar.js:180
 #: packages/app-desktop/gui/utils/NoteListUtils.js:140
 #: packages/app-desktop/gui/utils/NoteListUtils.js:169
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginBox.js:125
@@ -195,39 +190,39 @@ msgstr ""
 msgid "Delete"
 msgstr "حذف"
 
-#: packages/app-desktop/gui/Sidebar/Sidebar.js:198
+#: packages/app-desktop/gui/Sidebar/Sidebar.js:184
 #, javascript-format
 msgid "Remove tag \"%s\" from all notes?"
 msgstr "حذف برچسب «%s» از همه‌ی یادداشت‌ها؟"
 
-#: packages/app-desktop/gui/Sidebar/Sidebar.js:201
+#: packages/app-desktop/gui/Sidebar/Sidebar.js:187
 msgid "Remove this search from the sidebar?"
 msgstr "این جستجو از نوار کناری حذف شود؟"
 
-#: packages/app-desktop/gui/Sidebar/Sidebar.js:259
+#: packages/app-desktop/gui/Sidebar/Sidebar.js:238
 #: packages/app-desktop/gui/KeymapConfig/KeymapConfigScreen.js:122
 #: packages/app-desktop/gui/utils/NoteListUtils.js:136
 msgid "Export"
 msgstr "استخراج"
 
-#: packages/app-desktop/gui/Sidebar/Sidebar.js:322
+#: packages/app-desktop/gui/Sidebar/Sidebar.js:301
 #: packages/app-mobile/components/side-menu-content.js:368
 #: packages/app-mobile/components/screens/notes.js:188
 msgid "All notes"
 msgstr "همه یادداشت‌ها"
 
-#: packages/app-desktop/gui/Sidebar/Sidebar.js:451
+#: packages/app-desktop/gui/Sidebar/Sidebar.js:430
 #: packages/app-mobile/components/side-menu-content.js:338
 #: packages/lib/commands/synchronize.js:18
 msgid "Synchronise"
 msgstr "همگام سازی"
 
-#: packages/app-desktop/gui/Sidebar/Sidebar.js:476
+#: packages/app-desktop/gui/Sidebar/Sidebar.js:455
 #: packages/app-mobile/components/side-menu-content.js:372
 msgid "Notebooks"
 msgstr "دفترچه ها"
 
-#: packages/app-desktop/gui/Sidebar/Sidebar.js:488
+#: packages/app-desktop/gui/Sidebar/Sidebar.js:467
 #: packages/app-desktop/gui/MainScreen/commands/setTags.js:17
 #: packages/app-mobile/components/side-menu-content.js:314
 #: packages/app-mobile/components/screens/tags.js:101
@@ -235,13 +230,13 @@ msgstr "دفترچه ها"
 msgid "Tags"
 msgstr "برچسب‌ها"
 
-#: packages/app-desktop/gui/Sidebar/Sidebar.js:499
+#: packages/app-desktop/gui/Sidebar/Sidebar.js:478
 #: packages/app-mobile/components/side-menu-content.js:325
 #, javascript-format
 msgid "Decrypting items: %d/%d"
 msgstr "در حال رمزگشایی موارد: %d/%d"
 
-#: packages/app-desktop/gui/Sidebar/Sidebar.js:503
+#: packages/app-desktop/gui/Sidebar/Sidebar.js:482
 #: packages/app-mobile/components/side-menu-content.js:330
 #, javascript-format
 msgid "Fetching resources: %d/%d"
@@ -254,7 +249,7 @@ msgstr "نوار کناری"
 #: packages/app-desktop/gui/Sidebar/commands/focusElementSideBar.js:18
 #: packages/app-desktop/gui/NoteEditor/commands/focusElementNoteTitle.js:17
 #: packages/app-desktop/gui/NoteEditor/commands/focusElementNoteBody.js:17
-#: packages/app-desktop/gui/MenuBar.js:616
+#: packages/app-desktop/gui/MenuBar.js:615
 #: packages/app-desktop/gui/NoteList/commands/focusElementNoteList.js:18
 msgid "Focus"
 msgstr "تمرکز"
@@ -323,7 +318,7 @@ msgstr "بریدن"
 #: packages/app-desktop/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.js:626
 #: packages/app-desktop/gui/NoteEditor/utils/contextMenu.js:136
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:13
-#: packages/app-desktop/gui/MenuBar.js:374
+#: packages/app-desktop/gui/MenuBar.js:373
 msgid "Copy"
 msgstr "کپی"
 
@@ -604,7 +599,7 @@ msgid "URL"
 msgstr "آدرس اینترنتی"
 
 #: packages/app-desktop/gui/NotePropertiesDialog.min.js:34
-#: packages/lib/models/Setting.js:1603
+#: packages/lib/models/Setting.js:1593
 msgid "Note History"
 msgstr "تاریخچه ی یادداشت"
 
@@ -630,7 +625,7 @@ msgstr "خطا"
 #: packages/app-desktop/gui/KeymapConfig/KeymapConfigScreen.js:110
 #: packages/app-desktop/gui/EncryptionConfigScreen.min.js:443
 #: packages/app-mobile/components/screens/encryption-config.js:280
-#: packages/lib/models/Setting.js:801 packages/app-cli/app/command-e2ee.js:110
+#: packages/lib/models/Setting.js:791 packages/app-cli/app/command-e2ee.js:110
 msgid "Disabled"
 msgstr "غیر‌فعال"
 
@@ -641,8 +636,8 @@ msgid "Search..."
 msgstr "جستجو..."
 
 #: packages/app-desktop/gui/KeymapConfig/KeymapConfigScreen.js:121
-#: packages/app-desktop/gui/MenuBar.js:430
-#: packages/app-desktop/gui/MenuBar.js:477 packages/app-desktop/gui/Root.js:99
+#: packages/app-desktop/gui/MenuBar.js:429
+#: packages/app-desktop/gui/MenuBar.js:476 packages/app-desktop/gui/Root.js:99
 msgid "Import"
 msgstr "وارد کردن"
 
@@ -655,22 +650,22 @@ msgid "Keyboard Shortcut"
 msgstr "کلید های میانبر"
 
 #: packages/app-desktop/gui/KeymapConfig/utils/getLabel.js:14
-#: packages/app-desktop/gui/MenuBar.js:213 packages/app-desktop/app.js:369
+#: packages/app-desktop/gui/MenuBar.js:212 packages/app-desktop/app.js:368
 msgid "Quit"
 msgstr "بستن"
 
 #: packages/app-desktop/gui/KeymapConfig/utils/getLabel.js:16
-#: packages/app-desktop/gui/MenuBar.js:317
+#: packages/app-desktop/gui/MenuBar.js:316
 msgid "Insert template"
 msgstr "درج الگو"
 
 #: packages/app-desktop/gui/KeymapConfig/utils/getLabel.js:18
-#: packages/app-desktop/gui/MenuBar.js:577
+#: packages/app-desktop/gui/MenuBar.js:576
 msgid "Actual Size"
 msgstr "اندازه واقعی"
 
 #: packages/app-desktop/gui/KeymapConfig/utils/getLabel.js:22
-#: packages/app-desktop/gui/MenuBar.js:638
+#: packages/app-desktop/gui/MenuBar.js:637
 msgid "Website and documentation"
 msgstr "وب‌سایت و مستندات"
 
@@ -679,7 +674,7 @@ msgid "Hide Joplin"
 msgstr "Joplin را مخفی کنید"
 
 #: packages/app-desktop/gui/KeymapConfig/utils/getLabel.js:26
-#: packages/app-desktop/gui/MenuBar.js:465
+#: packages/app-desktop/gui/MenuBar.js:464
 msgid "Close Window"
 msgstr "بستن پنجره"
 
@@ -688,7 +683,7 @@ msgid "Preferences"
 msgstr "تنظیمات"
 
 #: packages/app-desktop/gui/KeymapConfig/utils/getLabel.js:30
-#: packages/app-desktop/gui/MenuBar.js:341 packages/app-desktop/gui/Root.js:100
+#: packages/app-desktop/gui/MenuBar.js:340 packages/app-desktop/gui/Root.js:100
 msgid "Options"
 msgstr "گزینه ها"
 
@@ -716,17 +711,17 @@ msgstr ""
 msgid "Save"
 msgstr "ذخیره"
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:436
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:410
 msgid ""
 "Safe mode is currently active. Note rendering and all plugins are "
 "temporarily disabled."
 msgstr ""
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:438
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:412
 msgid "Disable safe mode and restart"
 msgstr ""
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:442
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:416
 #, fuzzy
 msgid ""
 "The sync target needs to be upgraded before Joplin can sync. The operation "
@@ -737,26 +732,38 @@ msgstr ""
 "ممکن است چند دقیقه طول بکشد و برنامه باید دوباره راه اندازی شود. برای ادامه "
 "لطفا بر روی لینک کلیک کنید."
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:444
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:418
 #, fuzzy
 msgid "Restart and upgrade"
 msgstr "کلید‌های اصلی به ارتقا نیاز دارند"
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:448
-msgid "Some items cannot be decrypted."
-msgstr "بعضی از موارد نمی‌توانند رمزگشایی شوند."
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:422
+msgid "Some items cannot be synchronised."
+msgstr "بعضی از موارد نمی‌توانند همگام‌سازی شوند."
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:450
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:456
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:478
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:424
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:430
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:442
 msgid "View them now"
 msgstr "هم‌اکنون ببینید"
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:454
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:428
+msgid "Some items cannot be decrypted."
+msgstr "بعضی از موارد نمی‌توانند رمزگشایی شوند."
+
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:434
+msgid "One or more master keys need a password."
+msgstr "یک یا چند کلید اصلی به یک گذرواژه نیاز دارند."
+
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:436
+msgid "Set the password"
+msgstr "گذرواژه را تعیین کنید"
+
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:440
 msgid "One of your master keys use an obsolete encryption method."
 msgstr "یکی از کلید‌های اصلی شما از یک روش رمزنگاری منسوخ استفاده می‌کند."
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:460
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:446
 msgid ""
 "The default encryption method has been changed, you should re-encrypt your "
 "data."
@@ -764,36 +771,11 @@ msgstr ""
 "روش رمزگذاری پیش فرض تغییر یافته است،‌ شما باید داده خود را دوباره رمزگذاری "
 "کنید."
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:462
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:448
 msgid "More info"
 msgstr "اطلاعات بیشتر"
 
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:468
-#, javascript-format
-msgid "%s (%s) would like to share a notebook with you."
-msgstr ""
-
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:470
-msgid "Accept"
-msgstr ""
-
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:472
-msgid "Reject"
-msgstr ""
-
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:476
-msgid "Some items cannot be synchronised."
-msgstr "بعضی از موارد نمی‌توانند همگام‌سازی شوند."
-
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:482
-msgid "One or more master keys need a password."
-msgstr "یک یا چند کلید اصلی به یک گذرواژه نیاز دارند."
-
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:484
-msgid "Set the password"
-msgstr "گذرواژه را تعیین کنید"
-
-#: packages/app-desktop/gui/MainScreen/MainScreen.js:607
+#: packages/app-desktop/gui/MainScreen/MainScreen.js:570
 msgid "Use the arrows to move the layout items. Press \"Escape\" to exit."
 msgstr ""
 
@@ -862,11 +844,6 @@ msgstr "تغییر وضعیت قالب ویرایشگر"
 #, fuzzy
 msgid "Toggle editors"
 msgstr "تغییر وضعیت قالب ویرایشگر"
-
-#: packages/app-desktop/gui/MainScreen/commands/showShareFolderDialog.js:16
-#, fuzzy
-msgid "Share notebook..."
-msgstr "به اشتراک گذاری یادداشت..."
 
 #: packages/app-desktop/gui/MainScreen/commands/toggleLayoutMoveMode.js:16
 msgid "Change application layout"
@@ -1028,118 +1005,118 @@ msgstr ""
 msgid "Renew token"
 msgstr ""
 
-#: packages/app-desktop/gui/MenuBar.js:167
+#: packages/app-desktop/gui/MenuBar.js:166
 #, javascript-format
 msgid "Importing from \"%s\" as \"%s\" format. Please wait..."
 msgstr "در حال وارد کردن از «%s» با فرمت «%s». لطفا صبر کنید..."
 
-#: packages/app-desktop/gui/MenuBar.js:288 packages/app-desktop/gui/Root.js:102
+#: packages/app-desktop/gui/MenuBar.js:287 packages/app-desktop/gui/Root.js:102
 msgid "Synchronisation Status"
 msgstr "وضعیت همگام‌سازی"
 
-#: packages/app-desktop/gui/MenuBar.js:307
+#: packages/app-desktop/gui/MenuBar.js:306
 msgid "Create note from template"
 msgstr "ساخت یادداشت از الگو"
 
-#: packages/app-desktop/gui/MenuBar.js:312
+#: packages/app-desktop/gui/MenuBar.js:311
 msgid "Create to-do from template"
 msgstr "ساخت فهرست کار از الگو"
 
-#: packages/app-desktop/gui/MenuBar.js:323
+#: packages/app-desktop/gui/MenuBar.js:322
 msgid "Open template directory"
 msgstr "بازکردن پوشه الگو"
 
-#: packages/app-desktop/gui/MenuBar.js:328
+#: packages/app-desktop/gui/MenuBar.js:327
 msgid "Refresh templates"
 msgstr "تازه‌سازی الگو‌‌ها"
 
-#: packages/app-desktop/gui/MenuBar.js:354
+#: packages/app-desktop/gui/MenuBar.js:353
 msgid "Note attachments..."
 msgstr "پیوست‌های فایل..."
 
-#: packages/app-desktop/gui/MenuBar.js:385
-#: packages/app-desktop/gui/MenuBar.js:457
-#: packages/app-desktop/gui/MenuBar.js:749
+#: packages/app-desktop/gui/MenuBar.js:384
+#: packages/app-desktop/gui/MenuBar.js:456
+#: packages/app-desktop/gui/MenuBar.js:748
 msgid "&File"
 msgstr "&فایل"
 
-#: packages/app-desktop/gui/MenuBar.js:391
-#: packages/app-desktop/gui/MenuBar.js:671
+#: packages/app-desktop/gui/MenuBar.js:390
+#: packages/app-desktop/gui/MenuBar.js:670
 msgid "About Joplin"
 msgstr "درباره جاپلین"
 
-#: packages/app-desktop/gui/MenuBar.js:398
+#: packages/app-desktop/gui/MenuBar.js:397
 msgid "Preferences..."
 msgstr "تنظیمات..."
 
-#: packages/app-desktop/gui/MenuBar.js:408
-#: packages/app-desktop/gui/MenuBar.js:648
+#: packages/app-desktop/gui/MenuBar.js:407
+#: packages/app-desktop/gui/MenuBar.js:647
 msgid "Check for updates..."
 msgstr "بررسی برای ارتقا..."
 
-#: packages/app-desktop/gui/MenuBar.js:423
-#: packages/app-desktop/gui/MenuBar.js:472
+#: packages/app-desktop/gui/MenuBar.js:422
+#: packages/app-desktop/gui/MenuBar.js:471
 msgid "Templates"
 msgstr "الگو‌ها"
 
-#: packages/app-desktop/gui/MenuBar.js:434
-#: packages/app-desktop/gui/MenuBar.js:480
+#: packages/app-desktop/gui/MenuBar.js:433
+#: packages/app-desktop/gui/MenuBar.js:479
 msgid "Export all"
 msgstr "استخراج همه"
 
-#: packages/app-desktop/gui/MenuBar.js:446
+#: packages/app-desktop/gui/MenuBar.js:445
 #, javascript-format
 msgid "Hide %s"
 msgstr "پنهان کردن %s"
 
-#: packages/app-desktop/gui/MenuBar.js:503
-#: packages/app-desktop/gui/MenuBar.js:753
+#: packages/app-desktop/gui/MenuBar.js:502
+#: packages/app-desktop/gui/MenuBar.js:752
 msgid "&Edit"
 msgstr "&ویرایش"
 
-#: packages/app-desktop/gui/MenuBar.js:535
+#: packages/app-desktop/gui/MenuBar.js:534
 msgid "&View"
 msgstr "&نما"
 
-#: packages/app-desktop/gui/MenuBar.js:543
+#: packages/app-desktop/gui/MenuBar.js:542
 msgid "Layout button sequence"
 msgstr "توالی دکمه قالب"
 
-#: packages/app-desktop/gui/MenuBar.js:588
-#: packages/app-desktop/gui/MenuBar.js:594
+#: packages/app-desktop/gui/MenuBar.js:587
+#: packages/app-desktop/gui/MenuBar.js:593
 msgid "Zoom In"
 msgstr "بزرگنمایی"
 
-#: packages/app-desktop/gui/MenuBar.js:601
+#: packages/app-desktop/gui/MenuBar.js:600
 msgid "Zoom Out"
 msgstr "کوچک نمایی"
 
-#: packages/app-desktop/gui/MenuBar.js:610
+#: packages/app-desktop/gui/MenuBar.js:609
 msgid "&Go"
 msgstr ""
 
-#: packages/app-desktop/gui/MenuBar.js:622
+#: packages/app-desktop/gui/MenuBar.js:621
 msgid "&Note"
 msgstr "&یادداشت"
 
-#: packages/app-desktop/gui/MenuBar.js:631
+#: packages/app-desktop/gui/MenuBar.js:630
 msgid "&Tools"
 msgstr "&ابزارها"
 
-#: packages/app-desktop/gui/MenuBar.js:635
+#: packages/app-desktop/gui/MenuBar.js:634
 msgid "&Help"
 msgstr "&کمک"
 
-#: packages/app-desktop/gui/MenuBar.js:642
+#: packages/app-desktop/gui/MenuBar.js:641
 msgid "Joplin Forum"
 msgstr "انجمن Joplin"
 
-#: packages/app-desktop/gui/MenuBar.js:645
+#: packages/app-desktop/gui/MenuBar.js:644
 #: packages/app-mobile/components/screens/config.js:510
 msgid "Make a donation"
 msgstr "کمک کردن"
 
-#: packages/app-desktop/gui/MenuBar.js:657
+#: packages/app-desktop/gui/MenuBar.js:656
 msgid "Toggle development tools"
 msgstr "تغییر وضعیت ابزار توسعه"
 
@@ -1464,7 +1441,7 @@ msgid "Restart now"
 msgstr "هم‌اکنون دریافت کنید:"
 
 #: packages/app-desktop/gui/ConfigScreen/Sidebar.js:89
-#: packages/lib/models/Setting.js:1599
+#: packages/lib/models/Setting.js:1589
 msgid "Plugins"
 msgstr "پلاگین ها"
 
@@ -1566,14 +1543,14 @@ msgid "Lines"
 msgstr "خطوط"
 
 #: packages/app-desktop/gui/NoteContentPropertiesDialog.js:98
-#: packages/lib/models/Setting.js:501 packages/lib/models/Setting.js:502
-#: packages/lib/models/Setting.js:503
+#: packages/lib/models/Setting.js:496 packages/lib/models/Setting.js:497
+#: packages/lib/models/Setting.js:498
 msgid "Editor"
 msgstr "ویرایشگر"
 
 #: packages/app-desktop/gui/NoteContentPropertiesDialog.js:99
-#: packages/lib/models/Setting.js:501 packages/lib/models/Setting.js:502
-#: packages/lib/models/Setting.js:504
+#: packages/lib/models/Setting.js:496 packages/lib/models/Setting.js:497
+#: packages/lib/models/Setting.js:499
 msgid "Viewer"
 msgstr "بیننده"
 
@@ -1587,8 +1564,7 @@ msgid "Statistics"
 msgstr "آمار"
 
 #: packages/app-desktop/gui/NoteContentPropertiesDialog.js:113
-#: packages/app-desktop/gui/ShareNoteDialog.js:168
-#: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:257
+#: packages/app-desktop/gui/ShareNoteDialog.js:186
 #: packages/app-desktop/services/plugins/UserWebviewDialogButtonBar.js:24
 msgid "Close"
 msgstr "بستن"
@@ -1602,7 +1578,7 @@ msgid "View"
 msgstr "نما"
 
 #: packages/app-desktop/gui/NoteList/NoteList.js:162
-#: packages/lib/models/Setting.js:517
+#: packages/lib/models/Setting.js:512
 msgid "Sort notes by"
 msgstr "مرتب سازی یادداشت ها با"
 
@@ -1647,7 +1623,7 @@ msgid "Action"
 msgstr "عمل"
 
 #: packages/app-desktop/gui/ResourceScreen.js:43 packages/lib/path-utils.js:83
-#: packages/lib/path-utils.js:118 packages/lib/models/BaseItem.js:713
+#: packages/lib/path-utils.js:118 packages/lib/models/BaseItem.js:708
 msgid "Untitled"
 msgstr "بدون عنوان"
 
@@ -1676,94 +1652,36 @@ msgstr "منبعی یافت نشد!"
 msgid "Warning: not all resources shown for performance reasons (limit: %s)."
 msgstr ""
 
-#: packages/app-desktop/gui/ShareNoteDialog.js:147
+#: packages/app-desktop/gui/ShareNoteDialog.js:159
 msgid "Synchronising..."
 msgstr "در حال همگام سازی..."
 
-#: packages/app-desktop/gui/ShareNoteDialog.js:149
+#: packages/app-desktop/gui/ShareNoteDialog.js:161
 msgid "Generating link..."
 msgid_plural "Generating links..."
 msgstr[0] "در حال بوجود آوردن پیوند‌ها..."
 msgstr[1] "در حال بوجود آوردن پیوند..."
 
-#: packages/app-desktop/gui/ShareNoteDialog.js:151
+#: packages/app-desktop/gui/ShareNoteDialog.js:163
 msgid "Link has been copied to clipboard!"
 msgid_plural "Links have been copied to clipboard!"
 msgstr[0] "پیوند‌ها در کلیپ بورد کپی شدند!"
 msgstr[1] "پیوند در کلیپ بورد کپی شد!"
 
-#: packages/app-desktop/gui/ShareNoteDialog.js:158
+#: packages/app-desktop/gui/ShareNoteDialog.js:170
 msgid ""
 "Note: When a note is shared, it will no longer be encrypted on the server."
 msgstr ""
 
-#: packages/app-desktop/gui/ShareNoteDialog.js:163
+#: packages/app-desktop/gui/ShareNoteDialog.js:180
 msgid "Share Notes"
 msgstr "به اشتراک گذاری یادداشت‌ها"
 
-#: packages/app-desktop/gui/ShareNoteDialog.js:165
+#: packages/app-desktop/gui/ShareNoteDialog.js:182
 msgid "Copy Shareable Link"
 msgid_plural "Copy Shareable Links"
 msgstr[0] "کپی کردن پیوند قابل به اشتراک گذاری"
 msgstr[1] "اشتراک گذاری"
-
-#: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:138
-#, fuzzy
-msgid "Unshare"
-msgstr "اشتراک گذاری"
-
-#: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:180
-msgid ""
-"Delete this invitation? The recipient will no longer have access to this "
-"shared notebook."
-msgstr ""
-
-#: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:194
-msgid "Add recipient:"
-msgstr ""
-
-#: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:197
-#: packages/app-mobile/components/NoteBodyViewer/hooks/useOnResourceLongPress.js:28
-#: packages/app-mobile/components/screens/Note.js:796
-msgid "Share"
-msgstr "اشتراک گذاری"
-
-#: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:206
-msgid "Recipient has not yet accepted the invitation"
-msgstr ""
-
-#: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:207
-msgid "Recipient has rejected the invitation"
-msgstr ""
-
-#: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:208
-msgid "Recipient has accepted the invitation"
-msgstr ""
-
-#: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:218
-msgid "Recipients:"
-msgstr ""
-
-#: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:230
-#, fuzzy
-msgid "Synchronizing..."
-msgstr "در حال همگام سازی..."
-
-#: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:231
-#, fuzzy
-msgid "Sharing notebook..."
-msgstr "به اشتراک گذاری یادداشت..."
-
-#: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:241
-msgid ""
-"Unshare this notebook? The recipients will no longer have access to its "
-"content."
-msgstr ""
-
-#: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:251
-#, fuzzy
-msgid "Share Notebook"
-msgstr "به اشتراک گذاری یادداشت‌ها"
 
 #: packages/app-desktop/commands/toggleSafeMode.js:18
 #, fuzzy
@@ -1803,7 +1721,7 @@ msgstr "خطا در بازکردن یادداشت در ویرایشگر: %s"
 msgid "Open profile directory"
 msgstr "بازکردن پوشه الگو"
 
-#: packages/app-desktop/app.js:367
+#: packages/app-desktop/app.js:366
 #, javascript-format
 msgid "Open %s"
 msgstr "باز کردن %s"
@@ -1832,6 +1750,11 @@ msgstr "ذخیره هشدار"
 #, fuzzy
 msgid "Open"
 msgstr "باز کردن..."
+
+#: packages/app-mobile/components/NoteBodyViewer/hooks/useOnResourceLongPress.js:28
+#: packages/app-mobile/components/screens/Note.js:796
+msgid "Share"
+msgstr "اشتراک گذاری"
 
 #: packages/app-mobile/components/CameraView.js:158
 msgid "Permission to use camera"
@@ -2239,41 +2162,41 @@ msgstr "سایت Joplin"
 msgid "Cannot access %s"
 msgstr "نمی‌توان به %s دسترسی یافت"
 
-#: packages/lib/models/Folder.js:36 packages/lib/models/Note.js:36
+#: packages/lib/models/Folder.js:34 packages/lib/models/Note.js:36
 msgid "title"
 msgstr "عنوان"
 
-#: packages/lib/models/Folder.js:37 packages/lib/models/Note.js:37
+#: packages/lib/models/Folder.js:35 packages/lib/models/Note.js:37
 msgid "updated date"
 msgstr "تاریخ به‌روزرسانی"
 
-#: packages/lib/models/Folder.js:101
+#: packages/lib/models/Folder.js:102
 msgid "Conflicts"
 msgstr "تداخل ها"
 
-#: packages/lib/models/Folder.js:505
+#: packages/lib/models/Folder.js:393
 msgid "Cannot move notebook to this location"
 msgstr "دفترچه را نمیتوان به این مکان انتقال داد"
 
-#: packages/lib/models/Folder.js:557
+#: packages/lib/models/Folder.js:445
 #, javascript-format
 msgid "Notebooks cannot be named \"%s\", which is a reserved title."
 msgstr "دفترچه نمی‌تواند «%s» نام داشته باشد، این نام رزرو شده."
 
-#: packages/lib/models/Setting.js:103
+#: packages/lib/models/Setting.js:98
 msgid "yes"
 msgstr "بله"
 
-#: packages/lib/models/Setting.js:103 packages/lib/models/Setting.js:104
+#: packages/lib/models/Setting.js:98 packages/lib/models/Setting.js:99
 #, javascript-format
 msgid "(wysiwyg: %s)"
 msgstr ""
 
-#: packages/lib/models/Setting.js:104
+#: packages/lib/models/Setting.js:99
 msgid "no"
 msgstr "خیر"
 
-#: packages/lib/models/Setting.js:106
+#: packages/lib/models/Setting.js:101
 #, javascript-format
 msgid ""
 "Attention: If you change this location, make sure you copy all your content "
@@ -2281,474 +2204,478 @@ msgid ""
 "more details: %s"
 msgstr ""
 
-#: packages/lib/models/Setting.js:112
+#: packages/lib/models/Setting.js:107
 msgid "Light"
 msgstr "روشن"
 
-#: packages/lib/models/Setting.js:113
+#: packages/lib/models/Setting.js:108
 msgid "Dark"
 msgstr "تیره"
 
-#: packages/lib/models/Setting.js:114
+#: packages/lib/models/Setting.js:109
 msgid "Dracula"
 msgstr ""
 
-#: packages/lib/models/Setting.js:115
+#: packages/lib/models/Setting.js:110
 msgid "Solarised Light"
 msgstr ""
 
-#: packages/lib/models/Setting.js:116
+#: packages/lib/models/Setting.js:111
 msgid "Solarised Dark"
 msgstr ""
 
-#: packages/lib/models/Setting.js:117
+#: packages/lib/models/Setting.js:112
 msgid "Nord"
 msgstr ""
 
-#: packages/lib/models/Setting.js:118
+#: packages/lib/models/Setting.js:113
 msgid "Aritim Dark"
 msgstr ""
 
-#: packages/lib/models/Setting.js:119
+#: packages/lib/models/Setting.js:114
 msgid "OLED Dark"
 msgstr "OLED تیره"
 
-#: packages/lib/models/Setting.js:141
+#: packages/lib/models/Setting.js:136
 msgid "Synchronisation target"
 msgstr "هدف همگام‌سازی"
 
-#: packages/lib/models/Setting.js:143
+#: packages/lib/models/Setting.js:138
 msgid ""
 "The target to synchronise to. Each sync target may have additional "
 "parameters which are named as `sync.NUM.NAME` (all documented below)."
 msgstr ""
 
-#: packages/lib/models/Setting.js:176
+#: packages/lib/models/Setting.js:171
 msgid "Directory to synchronise with (absolute path)"
 msgstr ""
 
-#: packages/lib/models/Setting.js:188
+#: packages/lib/models/Setting.js:183
 msgid "Nextcloud WebDAV URL"
 msgstr "آدرس Nextcloud WebDAV"
 
-#: packages/lib/models/Setting.js:200
+#: packages/lib/models/Setting.js:195
 msgid "Nextcloud username"
 msgstr "نام کاربری Nextcloud"
 
-#: packages/lib/models/Setting.js:211
+#: packages/lib/models/Setting.js:206
 msgid "Nextcloud password"
 msgstr "گذرواژه Nextcloud"
 
-#: packages/lib/models/Setting.js:222
+#: packages/lib/models/Setting.js:217
 msgid "WebDAV URL"
 msgstr "آدرس WebDAV"
 
-#: packages/lib/models/Setting.js:234
+#: packages/lib/models/Setting.js:229
 msgid "WebDAV username"
 msgstr "نام کاربری WebDAV"
 
-#: packages/lib/models/Setting.js:245
+#: packages/lib/models/Setting.js:240
 msgid "WebDAV password"
 msgstr "گذرواژه WebDAV"
 
-#: packages/lib/models/Setting.js:264
+#: packages/lib/models/Setting.js:259
 msgid "AWS S3 bucket"
 msgstr ""
 
-#: packages/lib/models/Setting.js:276
+#: packages/lib/models/Setting.js:271
 #, fuzzy
 msgid "AWS S3 URL"
 msgstr "AWS S3"
 
-#: packages/lib/models/Setting.js:287
+#: packages/lib/models/Setting.js:282
 msgid "AWS key"
 msgstr ""
 
-#: packages/lib/models/Setting.js:298
+#: packages/lib/models/Setting.js:293
 msgid "AWS secret"
 msgstr ""
 
-#: packages/lib/models/Setting.js:309
+#: packages/lib/models/Setting.js:304
 msgid "Joplin Server URL"
 msgstr ""
 
-#: packages/lib/models/Setting.js:335
+#: packages/lib/models/Setting.js:319
 #, fuzzy
-msgid "Joplin Server email"
-msgstr "سایت Joplin"
+msgid "Joplin Server Directory"
+msgstr "پوشه استخراجی Joplin"
 
-#: packages/lib/models/Setting.js:346
+#: packages/lib/models/Setting.js:330
+msgid "Joplin Server username"
+msgstr ""
+
+#: packages/lib/models/Setting.js:341
 #, fuzzy
 msgid "Joplin Server password"
 msgstr "گذرواژه اصلی را وارد کنید:"
 
-#: packages/lib/models/Setting.js:358
+#: packages/lib/models/Setting.js:353
 msgid "Attachment download behaviour"
 msgstr "رفتار بارگیری پیوست"
 
-#: packages/lib/models/Setting.js:359
+#: packages/lib/models/Setting.js:354
 msgid ""
 "In \"Manual\" mode, attachments are downloaded only when you click on them. "
 "In \"Auto\", they are downloaded when you open the note. In \"Always\", all "
 "the attachments are downloaded whether you open the note or not."
 msgstr ""
 
-#: packages/lib/models/Setting.js:362
+#: packages/lib/models/Setting.js:357
 msgid "Always"
 msgstr "همیشه"
 
-#: packages/lib/models/Setting.js:363
+#: packages/lib/models/Setting.js:358
 msgid "Manual"
 msgstr "دستی"
 
-#: packages/lib/models/Setting.js:364
+#: packages/lib/models/Setting.js:359
 msgid "Auto"
 msgstr "خودکار"
 
-#: packages/lib/models/Setting.js:382
+#: packages/lib/models/Setting.js:377
 msgid "Max concurrent connections"
 msgstr "حداکثر اتصالات همزمان"
 
-#: packages/lib/models/Setting.js:395
+#: packages/lib/models/Setting.js:390
 msgid "Language"
 msgstr "زبان"
 
-#: packages/lib/models/Setting.js:406
+#: packages/lib/models/Setting.js:401
 msgid "Date format"
 msgstr "فرمت تاریخ"
 
-#: packages/lib/models/Setting.js:427
+#: packages/lib/models/Setting.js:422
 msgid "Time format"
 msgstr "فرمت ساعت"
 
-#: packages/lib/models/Setting.js:446
+#: packages/lib/models/Setting.js:441
 msgid "Theme"
 msgstr "پوسته"
 
-#: packages/lib/models/Setting.js:457
+#: packages/lib/models/Setting.js:452
 msgid "Automatically switch theme to match system theme"
 msgstr "به طور خودکار پوسته هماهنگ با پوسته سیستم تغییر کند"
 
-#: packages/lib/models/Setting.js:469
+#: packages/lib/models/Setting.js:464
 msgid "Preferred light theme"
 msgstr "تم ترجیحی روشن"
 
-#: packages/lib/models/Setting.js:483
+#: packages/lib/models/Setting.js:478
 msgid "Preferred dark theme"
 msgstr "تم ترجیحی تاریک"
 
-#: packages/lib/models/Setting.js:493
+#: packages/lib/models/Setting.js:488
 msgid "Show note counts"
 msgstr "نمایش تعداد یادداشت"
 
-#: packages/lib/models/Setting.js:501 packages/lib/models/Setting.js:503
-#: packages/lib/models/Setting.js:504
+#: packages/lib/models/Setting.js:496 packages/lib/models/Setting.js:498
+#: packages/lib/models/Setting.js:499
 msgid "Split View"
 msgstr "تقسیم نما"
 
-#: packages/lib/models/Setting.js:501
+#: packages/lib/models/Setting.js:496
 #, javascript-format
 msgid "%s / %s / %s"
 msgstr "%s / %s / %s"
 
-#: packages/lib/models/Setting.js:502 packages/lib/models/Setting.js:503
-#: packages/lib/models/Setting.js:504
+#: packages/lib/models/Setting.js:497 packages/lib/models/Setting.js:498
+#: packages/lib/models/Setting.js:499
 #, javascript-format
 msgid "%s / %s"
 msgstr "%s / %s"
 
-#: packages/lib/models/Setting.js:508
+#: packages/lib/models/Setting.js:503
 msgid "Uncompleted to-dos on top"
 msgstr "فهرست کار‌های کامل نشده در بالا"
 
-#: packages/lib/models/Setting.js:509
+#: packages/lib/models/Setting.js:504
 msgid "Show completed to-dos"
 msgstr "نمایش فهرست کار‌های کامل شده"
 
-#: packages/lib/models/Setting.js:535
+#: packages/lib/models/Setting.js:530
 msgid "Auto-pair braces, parenthesis, quotations, etc."
 msgstr ""
 
-#: packages/lib/models/Setting.js:538 packages/lib/models/Setting.js:557
+#: packages/lib/models/Setting.js:533 packages/lib/models/Setting.js:552
 msgid "Reverse sort order"
 msgstr "معکوس کردن ترتیب مرتب سازی"
 
-#: packages/lib/models/Setting.js:545
+#: packages/lib/models/Setting.js:540
 msgid "Sort notebooks by"
 msgstr "مرتب سازی دفترچه ها با"
 
-#: packages/lib/models/Setting.js:558
+#: packages/lib/models/Setting.js:553
 msgid "Save geo-location with notes"
 msgstr "ذخیره ژئولوکیشن با یادداشت‌ها"
 
-#: packages/lib/models/Setting.js:580
+#: packages/lib/models/Setting.js:575
 msgid "When creating a new to-do:"
 msgstr "زمان ساخت یک فهرست کار جدید:"
 
-#: packages/lib/models/Setting.js:583 packages/lib/models/Setting.js:599
+#: packages/lib/models/Setting.js:578 packages/lib/models/Setting.js:594
 msgid "Focus title"
 msgstr ""
 
-#: packages/lib/models/Setting.js:584 packages/lib/models/Setting.js:600
+#: packages/lib/models/Setting.js:579 packages/lib/models/Setting.js:595
 msgid "Focus body"
 msgstr ""
 
-#: packages/lib/models/Setting.js:596
+#: packages/lib/models/Setting.js:591
 msgid "When creating a new note:"
 msgstr "در زمان ایجاد یادداشت جدید:"
 
-#: packages/lib/models/Setting.js:629
+#: packages/lib/models/Setting.js:624
 msgid "Enable soft breaks"
 msgstr ""
 
-#: packages/lib/models/Setting.js:630
+#: packages/lib/models/Setting.js:625
 msgid "Enable typographer support"
 msgstr ""
 
-#: packages/lib/models/Setting.js:631
+#: packages/lib/models/Setting.js:626
 #, fuzzy
 msgid "Enable Linkify"
 msgstr "فعال سایز ثبت تاریخچه ی یادداشت"
 
-#: packages/lib/models/Setting.js:632
+#: packages/lib/models/Setting.js:627
 msgid "Enable math expressions"
 msgstr "فعال‌سازی عبارت‌های ریاضی"
 
-#: packages/lib/models/Setting.js:633
+#: packages/lib/models/Setting.js:628
 msgid "Enable Fountain syntax support"
 msgstr ""
 
-#: packages/lib/models/Setting.js:634
+#: packages/lib/models/Setting.js:629
 msgid "Enable Mermaid diagrams support"
 msgstr ""
 
-#: packages/lib/models/Setting.js:635
+#: packages/lib/models/Setting.js:630
 #, fuzzy
 msgid "Enable audio player"
 msgstr "فعال‌سازی شکلک markdown"
 
-#: packages/lib/models/Setting.js:636
+#: packages/lib/models/Setting.js:631
 msgid "Enable video player"
 msgstr ""
 
-#: packages/lib/models/Setting.js:637
+#: packages/lib/models/Setting.js:632
 msgid "Enable PDF viewer"
 msgstr ""
 
-#: packages/lib/models/Setting.js:638
+#: packages/lib/models/Setting.js:633
 msgid "Enable ==mark== syntax"
 msgstr ""
 
-#: packages/lib/models/Setting.js:639
+#: packages/lib/models/Setting.js:634
 msgid "Enable footnotes"
 msgstr "فعال سازی پاورقی"
 
-#: packages/lib/models/Setting.js:640
+#: packages/lib/models/Setting.js:635
 msgid "Enable table of contents extension"
 msgstr "فعال کردن افزونه ی لیست مطالب"
 
-#: packages/lib/models/Setting.js:641
+#: packages/lib/models/Setting.js:636
 msgid "Enable ~sub~ syntax"
 msgstr ""
 
-#: packages/lib/models/Setting.js:642
+#: packages/lib/models/Setting.js:637
 msgid "Enable ^sup^ syntax"
 msgstr ""
 
-#: packages/lib/models/Setting.js:643
+#: packages/lib/models/Setting.js:638
 msgid "Enable deflist syntax"
 msgstr ""
 
-#: packages/lib/models/Setting.js:644
+#: packages/lib/models/Setting.js:639
 msgid "Enable abbreviation syntax"
 msgstr ""
 
-#: packages/lib/models/Setting.js:645
+#: packages/lib/models/Setting.js:640
 msgid "Enable markdown emoji"
 msgstr "فعال‌سازی شکلک markdown"
 
-#: packages/lib/models/Setting.js:646
+#: packages/lib/models/Setting.js:641
 msgid "Enable ++insert++ syntax"
 msgstr ""
 
-#: packages/lib/models/Setting.js:647
+#: packages/lib/models/Setting.js:642
 msgid "Enable multimarkdown table extension"
 msgstr ""
 
-#: packages/lib/models/Setting.js:658
+#: packages/lib/models/Setting.js:653
 msgid "Show tray icon"
 msgstr ""
 
-#: packages/lib/models/Setting.js:660
+#: packages/lib/models/Setting.js:655
 msgid "Note: Does not work in all desktop environments."
 msgstr ""
 
-#: packages/lib/models/Setting.js:660
+#: packages/lib/models/Setting.js:655
 msgid ""
 "This will allow Joplin to run in the background. It is recommended to enable "
 "this setting so that your notes are constantly being synchronised, thus "
 "reducing the number of conflicts."
 msgstr ""
 
-#: packages/lib/models/Setting.js:664
+#: packages/lib/models/Setting.js:659
 msgid "Start application minimised in the tray icon"
 msgstr ""
 
-#: packages/lib/models/Setting.js:684
+#: packages/lib/models/Setting.js:674
 msgid "Editor font size"
 msgstr "سایز فونت ویرایشگر"
 
-#: packages/lib/models/Setting.js:691
+#: packages/lib/models/Setting.js:681
 msgid "Editor font"
 msgstr "فونت ویرایشگر"
 
-#: packages/lib/models/Setting.js:698 packages/lib/models/Setting.js:705
-#: packages/lib/models/Setting.js:851
+#: packages/lib/models/Setting.js:688 packages/lib/models/Setting.js:695
+#: packages/lib/models/Setting.js:841
 msgid "Default"
 msgstr "پیش فرض"
 
-#: packages/lib/models/Setting.js:716
+#: packages/lib/models/Setting.js:706
 msgid "Editor font family"
 msgstr "خانواده فونت ویرایشگر"
 
-#: packages/lib/models/Setting.js:717
+#: packages/lib/models/Setting.js:707
 msgid ""
 "Used for most text in the markdown editor. If not found, a generic "
 "proportional (variable width) font is used."
 msgstr ""
 
-#: packages/lib/models/Setting.js:726
+#: packages/lib/models/Setting.js:716
 #, fuzzy
 msgid "Editor monospace font family"
 msgstr "خانواده فونت ویرایشگر"
 
-#: packages/lib/models/Setting.js:727
+#: packages/lib/models/Setting.js:717
 msgid ""
 "Used where a fixed width font is needed to lay out text legibly (e.g. "
 "tables, checkboxes, code). If not found, a generic monospace (fixed width) "
 "font is used."
 msgstr ""
 
-#: packages/lib/models/Setting.js:748
+#: packages/lib/models/Setting.js:738
 msgid "Custom stylesheet for rendered Markdown"
 msgstr ""
 
-#: packages/lib/models/Setting.js:764
+#: packages/lib/models/Setting.js:754
 msgid "Custom stylesheet for Joplin-wide app styles"
 msgstr ""
 
-#: packages/lib/models/Setting.js:774
+#: packages/lib/models/Setting.js:764
 msgid "Re-upload local data to sync target"
 msgstr ""
 
-#: packages/lib/models/Setting.js:784
+#: packages/lib/models/Setting.js:774
 msgid "Delete local data and re-download from sync target"
 msgstr ""
 
-#: packages/lib/models/Setting.js:789
+#: packages/lib/models/Setting.js:779
 msgid "Automatically update the application"
 msgstr "به طور خودکار نرم‌افزار را به‌روز کن"
 
-#: packages/lib/models/Setting.js:790
+#: packages/lib/models/Setting.js:780
 msgid "Get pre-releases when checking for updates"
 msgstr ""
 
-#: packages/lib/models/Setting.js:790
+#: packages/lib/models/Setting.js:780
 #, javascript-format
 msgid "See the pre-release page for more details: %s"
 msgstr ""
 
-#: packages/lib/models/Setting.js:798
+#: packages/lib/models/Setting.js:788
 msgid "Synchronisation interval"
 msgstr "بازه همگام‌سازی"
 
-#: packages/lib/models/Setting.js:802 packages/lib/models/Setting.js:803
-#: packages/lib/models/Setting.js:804
+#: packages/lib/models/Setting.js:792 packages/lib/models/Setting.js:793
+#: packages/lib/models/Setting.js:794
 #, javascript-format
 msgid "%d minutes"
 msgstr "%d دقیقه"
 
-#: packages/lib/models/Setting.js:805
+#: packages/lib/models/Setting.js:795
 #, javascript-format
 msgid "%d hour"
 msgstr "%d ساعت"
 
-#: packages/lib/models/Setting.js:806 packages/lib/models/Setting.js:807
+#: packages/lib/models/Setting.js:796 packages/lib/models/Setting.js:797
 #, javascript-format
 msgid "%d hours"
 msgstr "%d ساعت"
 
-#: packages/lib/models/Setting.js:817
+#: packages/lib/models/Setting.js:807
 msgid "Synchronise only over WiFi connection"
 msgstr ""
 
-#: packages/lib/models/Setting.js:824
+#: packages/lib/models/Setting.js:814
 msgid "Text editor command"
 msgstr "دستور ویرایشگر متن"
 
-#: packages/lib/models/Setting.js:824
+#: packages/lib/models/Setting.js:814
 msgid ""
 "The editor command (may include arguments) that will be used to open a note. "
 "If none is provided it will try to auto-detect the default editor."
 msgstr ""
 
-#: packages/lib/models/Setting.js:825
+#: packages/lib/models/Setting.js:815
 msgid "Page size for PDF export"
 msgstr "اندازه صفحه برای استخراج PDF"
 
-#: packages/lib/models/Setting.js:827
+#: packages/lib/models/Setting.js:817
 msgid "A4"
 msgstr ""
 
-#: packages/lib/models/Setting.js:828
+#: packages/lib/models/Setting.js:818
 msgid "Letter"
 msgstr ""
 
-#: packages/lib/models/Setting.js:829
+#: packages/lib/models/Setting.js:819
 msgid "A3"
 msgstr ""
 
-#: packages/lib/models/Setting.js:830
+#: packages/lib/models/Setting.js:820
 msgid "A5"
 msgstr ""
 
-#: packages/lib/models/Setting.js:831
+#: packages/lib/models/Setting.js:821
 msgid "Tabloid"
 msgstr ""
 
-#: packages/lib/models/Setting.js:832
+#: packages/lib/models/Setting.js:822
 msgid "Legal"
 msgstr ""
 
-#: packages/lib/models/Setting.js:835
+#: packages/lib/models/Setting.js:825
 msgid "Page orientation for PDF export"
 msgstr "جهت صفحه برای استخراج PDF"
 
-#: packages/lib/models/Setting.js:837
+#: packages/lib/models/Setting.js:827
 msgid "Portrait"
 msgstr ""
 
-#: packages/lib/models/Setting.js:838
+#: packages/lib/models/Setting.js:828
 msgid "Landscape"
 msgstr ""
 
-#: packages/lib/models/Setting.js:848
+#: packages/lib/models/Setting.js:838
 msgid "Keyboard Mode"
 msgstr "حالت صفحه کلید"
 
-#: packages/lib/models/Setting.js:852
+#: packages/lib/models/Setting.js:842
 msgid "Emacs"
 msgstr ""
 
-#: packages/lib/models/Setting.js:853
+#: packages/lib/models/Setting.js:843
 msgid "Vim"
 msgstr ""
 
-#: packages/lib/models/Setting.js:876
+#: packages/lib/models/Setting.js:866
 msgid "Custom TLS certificates"
 msgstr ""
 
-#: packages/lib/models/Setting.js:877
+#: packages/lib/models/Setting.js:867
 msgid ""
 "Comma-separated list of paths to directories to load the certificates from, "
 "or path to individual cert files. For example: /my/cert_dir, /other/custom."
@@ -2756,49 +2683,49 @@ msgid ""
 "changes before clicking on \"Check synchronisation configuration\"."
 msgstr ""
 
-#: packages/lib/models/Setting.js:891
+#: packages/lib/models/Setting.js:881
 msgid "Ignore TLS certificate errors"
 msgstr ""
 
-#: packages/lib/models/Setting.js:900
+#: packages/lib/models/Setting.js:890
 msgid "Fail-safe"
 msgstr ""
 
-#: packages/lib/models/Setting.js:901
+#: packages/lib/models/Setting.js:891
 msgid ""
 "Fail-safe: Do not wipe out local data when sync target is empty (often the "
 "result of a misconfiguration or bug)"
 msgstr ""
 
-#: packages/lib/models/Setting.js:905
+#: packages/lib/models/Setting.js:895
 msgid ""
 "Specify the port that should be used by the API server. If not set, a "
 "default will be used."
 msgstr ""
 
-#: packages/lib/models/Setting.js:910
+#: packages/lib/models/Setting.js:900
 msgid "Enable note history"
 msgstr "فعال سایز ثبت تاریخچه ی یادداشت"
 
-#: packages/lib/models/Setting.js:920
+#: packages/lib/models/Setting.js:910
 msgid "days"
 msgstr "روز"
 
-#: packages/lib/models/Setting.js:920
+#: packages/lib/models/Setting.js:910
 #, javascript-format
 msgid "%d days"
 msgstr "%d روز"
 
-#: packages/lib/models/Setting.js:922
+#: packages/lib/models/Setting.js:912
 msgid "Keep note history for"
 msgstr "تاریخچه ی یادداشت را نگه دار به مدت"
 
-#: packages/lib/models/Setting.js:949
+#: packages/lib/models/Setting.js:939
 msgid "Notebook list growth factor"
 msgstr "فاکتور رشد لیست دفترچه"
 
-#: packages/lib/models/Setting.js:950 packages/lib/models/Setting.js:963
-#: packages/lib/models/Setting.js:976
+#: packages/lib/models/Setting.js:940 packages/lib/models/Setting.js:953
+#: packages/lib/models/Setting.js:966
 msgid ""
 "The factor property sets how the item will grow or shrink to fit the "
 "available space in its container with respect to the other items. Thus an "
@@ -2806,58 +2733,58 @@ msgid ""
 "factor of 1.Restart app to see changes."
 msgstr ""
 
-#: packages/lib/models/Setting.js:962
+#: packages/lib/models/Setting.js:952
 msgid "Note list growth factor"
 msgstr "فاکتور رشد لیست یادداشت"
 
-#: packages/lib/models/Setting.js:975
+#: packages/lib/models/Setting.js:965
 msgid "Note area growth factor"
 msgstr "فاکتور رشد منطقه یادداشت"
 
-#: packages/lib/models/Setting.js:1190
+#: packages/lib/models/Setting.js:1180
 #, javascript-format
 msgid "Invalid option value: \"%s\". Possible values are: %s."
 msgstr "مقدار گزینه نامعتبر: «%s». مقادیر احتمالی شامل: %s."
 
-#: packages/lib/models/Setting.js:1589
+#: packages/lib/models/Setting.js:1579
 msgid "General"
 msgstr "کلی"
 
-#: packages/lib/models/Setting.js:1591
+#: packages/lib/models/Setting.js:1581
 msgid "Synchronisation"
 msgstr "همگام‌سازی"
 
-#: packages/lib/models/Setting.js:1593
+#: packages/lib/models/Setting.js:1583
 msgid "Appearance"
 msgstr "ظاهر"
 
-#: packages/lib/models/Setting.js:1595
+#: packages/lib/models/Setting.js:1585
 msgid "Note"
 msgstr "یادداشت"
 
-#: packages/lib/models/Setting.js:1597
+#: packages/lib/models/Setting.js:1587
 #: packages/lib/services/interop/InteropService.js:49
 #: packages/lib/services/interop/InteropService.js:59
 msgid "Markdown"
 msgstr ""
 
-#: packages/lib/models/Setting.js:1601
+#: packages/lib/models/Setting.js:1591
 msgid "Application"
 msgstr "نرم‌افزار"
 
-#: packages/lib/models/Setting.js:1605
+#: packages/lib/models/Setting.js:1595
 msgid "Encryption"
 msgstr "رمزنگاری"
 
-#: packages/lib/models/Setting.js:1607
+#: packages/lib/models/Setting.js:1597
 msgid "Web Clipper"
 msgstr ""
 
-#: packages/lib/models/Setting.js:1609
+#: packages/lib/models/Setting.js:1599
 msgid "Keyboard Shortcuts"
 msgstr "کلید های میانبر"
 
-#: packages/lib/models/Setting.js:1616
+#: packages/lib/models/Setting.js:1606
 msgid ""
 "These plugins enhance the Markdown renderer with additional features. Please "
 "note that, while these features might be useful, they are not standard "
@@ -2868,7 +2795,7 @@ msgid ""
 "the WYSIWYG editor."
 msgstr ""
 
-#: packages/lib/models/Setting.js:1618
+#: packages/lib/models/Setting.js:1608
 #, javascript-format
 msgid "Notes and settings are stored in: %s"
 msgstr "یادداشت‌ها و تنظیمات در این محل ذخیره شده‌اند: %s"
@@ -2932,21 +2859,21 @@ msgstr "نمیتوان یادداشت را به دفترچه ی «%s» کپی ک
 msgid "Cannot move note to \"%s\" notebook"
 msgstr "نمیتوان یادداشت را به دفترچه ی «%s» انتقال داد"
 
-#: packages/lib/models/BaseItem.js:712
+#: packages/lib/models/BaseItem.js:707
 msgid "Encrypted"
 msgstr "رمزنگاری شده"
 
-#: packages/lib/models/BaseItem.js:773
+#: packages/lib/models/BaseItem.js:768
 msgid "Encrypted items cannot be modified"
 msgstr "موارد رمزنگاری شده نمی‌توانند تغییر پیدا کنند"
 
-#: packages/lib/BaseApplication.js:151 packages/lib/BaseApplication.js:163
-#: packages/lib/BaseApplication.js:195
+#: packages/lib/BaseApplication.js:150 packages/lib/BaseApplication.js:162
+#: packages/lib/BaseApplication.js:194
 #, javascript-format
 msgid "Usage: %s"
 msgstr "کارکرد: %s"
 
-#: packages/lib/BaseApplication.js:230
+#: packages/lib/BaseApplication.js:229
 #, javascript-format
 msgid "Unknown flag: %s"
 msgstr "پرچم ناشناخته: %s"
@@ -3030,69 +2957,69 @@ msgstr ""
 "نمی‌توان توکن را تازه‌سازی کرد: داده های احراز هویت پیدا نشدند. شروع دوباره "
 "همگام‌سازی ممکن است این مشکل را حل کند."
 
-#: packages/lib/Synchronizer.js:122
+#: packages/lib/Synchronizer.js:119
 #, javascript-format
 msgid "Created local items: %d."
 msgstr "موارد محلی ایجاد شده: %d."
 
-#: packages/lib/Synchronizer.js:124
+#: packages/lib/Synchronizer.js:121
 #, javascript-format
 msgid "Updated local items: %d."
 msgstr "موارد محلی به‌روز شده: %d."
 
-#: packages/lib/Synchronizer.js:126
+#: packages/lib/Synchronizer.js:123
 #, javascript-format
 msgid "Created remote items: %d."
 msgstr "موارد ریموت ایجاد شده: %d."
 
-#: packages/lib/Synchronizer.js:128
+#: packages/lib/Synchronizer.js:125
 #, javascript-format
 msgid "Updated remote items: %d."
 msgstr "موارد ریموت به‌روز شده: %d."
 
-#: packages/lib/Synchronizer.js:130
+#: packages/lib/Synchronizer.js:127
 #, javascript-format
 msgid "Deleted local items: %d."
 msgstr "موارد محلی حذف شده: %d."
 
-#: packages/lib/Synchronizer.js:132
+#: packages/lib/Synchronizer.js:129
 #, javascript-format
 msgid "Deleted remote items: %d."
 msgstr "موارد ریموت حذف شده: %d."
 
-#: packages/lib/Synchronizer.js:134
+#: packages/lib/Synchronizer.js:131
 #, javascript-format
 msgid "Fetched items: %d/%d."
 msgstr "آیتم های دریافت شده: %d از %d."
 
-#: packages/lib/Synchronizer.js:136
+#: packages/lib/Synchronizer.js:133
 msgid "Cancelling..."
 msgstr "در حال لغو..."
 
-#: packages/lib/Synchronizer.js:138
+#: packages/lib/Synchronizer.js:135
 #, javascript-format
 msgid "Completed: %s"
 msgstr "کامل شد: %s"
 
-#: packages/lib/Synchronizer.js:140
+#: packages/lib/Synchronizer.js:137
 #, javascript-format
 msgid "Last error: %s"
 msgstr "آخرین خطا: %s"
 
-#: packages/lib/Synchronizer.js:247
+#: packages/lib/Synchronizer.js:244
 msgid "Idle"
 msgstr "بیکار"
 
-#: packages/lib/Synchronizer.js:249
+#: packages/lib/Synchronizer.js:246
 msgid "In progress"
 msgstr "درحال انجام"
 
-#: packages/lib/Synchronizer.js:849
+#: packages/lib/Synchronizer.js:844
 msgid ""
 "Unknown item type downloaded - please upgrade Joplin to the latest version"
 msgstr ""
 
-#: packages/lib/JoplinServerApi.js:61
+#: packages/lib/JoplinServerApi.js:63
 #, javascript-format
 msgid ""
 "Could not connect to Joplin Server. Please check the Synchronisation options "
@@ -4035,10 +3962,6 @@ msgstr "یک فهرست کار را به عنوان انجام شده علامت
 #, javascript-format
 msgid "Note is not a to-do: \"%s\""
 msgstr "یادداشت یک فهرست کار نیست: «%s»"
-
-#, fuzzy
-#~ msgid "Joplin Server Directory"
-#~ msgstr "پوشه استخراجی Joplin"
 
 #, fuzzy
 #~ msgid "marked text"
