@@ -8,7 +8,7 @@
 
 // console.disableYellowBox = true
 
-import {YellowBox, AppRegistry} from 'react-native';
+import { YellowBox, AppRegistry } from 'react-native';
 YellowBox.ignoreWarnings([
 	'Require cycle: node_modules/react-native-',
 	'Require cycle: node_modules/rn-fetch-blob',
