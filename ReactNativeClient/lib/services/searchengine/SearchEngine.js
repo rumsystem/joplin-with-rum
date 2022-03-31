@@ -7,8 +7,11 @@ const ItemChangeUtils = require('lib/services/ItemChangeUtils');
 const { pregQuote, scriptType } = require('lib/string-utils.js');
 const removeDiacritics = require('diacritics').remove;
 const { sprintf } = require('sprintf-js');
+const filterParser = require('./filterParser').default;
+const queryBuilder = require('./queryBuilder').default;
 
 class SearchEngine {
+
 	constructor() {
 		this.dispatch = () => {};
 		this.logger_ = new Logger();
@@ -62,13 +65,20 @@ class SearchEngine {
 
 		while (noteIds.length) {
 			const currentIds = noteIds.splice(0, 100);
-			const notes = await Note.modelSelectAll(`SELECT id, title, body FROM notes WHERE id IN ("${currentIds.join('","')}") AND is_conflict = 0 AND encryption_applied = 0`);
+			const notes = await Note.modelSelectAll(`
+				SELECT ${SearchEngine.relevantFields}
+				FROM notes
+				WHERE id IN ("${currentIds.join('","')}") AND is_conflict = 0 AND encryption_applied = 0`);
 			const queries = [];
 
 			for (let i = 0; i < notes.length; i++) {
 				const note = notes[i];
 				const n = this.normalizeNote_(note);
-				queries.push({ sql: 'INSERT INTO notes_normalized(id, title, body) VALUES (?, ?, ?)', params: [n.id, n.title, n.body] });
+				queries.push({ sql: `
+				INSERT INTO notes_normalized(${SearchEngine.relevantFields})
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+				params: [n.id, n.title, n.body, n.user_created_time, n.user_updated_time, n.is_todo, n.todo_completed, n.parent_id, n.latitude, n.longitude, n.altitude, n.source_url] }
+				);
 			}
 
 			await this.db().transactionExecBatch(queries);
@@ -138,7 +148,11 @@ class SearchEngine {
 				if (!changes.length) break;
 
 				const noteIds = changes.map(a => a.item_id);
-				const notes = await Note.modelSelectAll(`SELECT id, title, body FROM notes WHERE id IN ("${noteIds.join('","')}") AND is_conflict = 0 AND encryption_applied = 0`);
+				const notes = await Note.modelSelectAll(`
+					SELECT ${SearchEngine.relevantFields}
+					FROM notes WHERE id IN ("${noteIds.join('","')}") AND is_conflict = 0 AND encryption_applied = 0`
+				);
+
 				const queries = [];
 
 				for (let i = 0; i < changes.length; i++) {
@@ -149,7 +163,10 @@ class SearchEngine {
 						const note = this.noteById_(notes, change.item_id);
 						if (note) {
 							const n = this.normalizeNote_(note);
-							queries.push({ sql: 'INSERT INTO notes_normalized(id, title, body) VALUES (?, ?, ?)', params: [change.item_id, n.title, n.body] });
+							queries.push({ sql: `
+							INSERT INTO notes_normalized(${SearchEngine.relevantFields})
+							VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+							params: [change.item_id, n.title, n.body, n.user_created_time, n.user_updated_time, n.is_todo, n.todo_completed, n.parent_id, n.latitude, n.longitude, n.altitude, n.source_url] });
 							report.inserted++;
 						}
 					} else if (change.type === ItemChange.TYPE_DELETE) {
@@ -235,6 +252,84 @@ class SearchEngine {
 		return occurenceCount / spread;
 	}
 
+
+
+	calculateWeightBM25_(rows) {
+		// https://www.sqlite.org/fts3.html#matchinfo
+		// pcnalx are the arguments passed to matchinfo
+		// p - The number of matchable phrases in the query.
+		// c - The number of user defined columns in the FTS table
+		// n - The number of rows in the FTS4 table.
+		// a - avg number of tokens in the text values stored in the column.
+		// l - For each column, the length of the value stored in the current
+		// row of the FTS4 table, in tokens.
+		// x - For each distinct combination of a phrase and table column, the
+		// following three values:
+		// hits_this_row
+		// hits_all_rows
+		// docs_with_hits
+
+		if (rows.length === 0) return;
+
+		const matchInfo = rows.map(row => new Uint32Array(row.matchinfo.buffer));
+		const generalInfo = matchInfo[0];
+
+		const K1 = 1.2;
+		const B = 0.75;
+
+		const TITLE_COLUMN = 1;
+		const BODY_COLUMN = 2;
+		const columns = [TITLE_COLUMN, BODY_COLUMN];
+		// const NUM_COLS = 12;
+
+		const numPhrases = generalInfo[0]; // p
+		const numColumns = generalInfo[1]; // c
+		const numRows = generalInfo[2]; // n
+
+		const avgTitleTokens = generalInfo[4]; // a
+		const avgBodyTokens = generalInfo[5];
+		const avgTokens = [null, avgTitleTokens, avgBodyTokens]; // we only need cols 1 and 2
+
+		const numTitleTokens = matchInfo.map(m => m[4 + numColumns]); // l
+		const numBodyTokens = matchInfo.map(m => m[5 + numColumns]);
+		const numTokens = [null, numTitleTokens, numBodyTokens];
+
+		const X = matchInfo.map(m => m.slice(27)); // x
+
+		const hitsThisRow = (array, c, p) => array[3 * (c + p * numColumns) + 0];
+		// const hitsAllRows = (array, c, p) => array[3 * (c + p*NUM_COLS) + 1];
+		const docsWithHits = (array, c, p) => array[3 * (c + p * numColumns) + 2];
+
+
+		// if a term occurs in over half the documents in the collection
+		// then this model gives a negative term weight, which is presumably undesirable.
+		// But, assuming the use of a stop list, this normally doesn't happen,
+		// and the value for each summand can be given a floor of 0.
+		const IDF = (n, N) => Math.max(Math.log((N - n + 0.5) / (n + 0.5)), 0);
+
+		// https://en.wikipedia.org/wiki/Okapi_BM25
+		const BM25 = (idf, freq, numTokens, avgTokens) => {
+			if (avgTokens === 0) {
+				return 0; // To prevent division by zero
+			}
+			return idf * (freq * (K1 + 1)) / (freq + K1 * (1 - B + B * (numTokens / avgTokens)));
+		};
+
+		for (let i = 0; i < rows.length; i++) {
+			const row = rows[i];
+			row.weight = 0;
+			for (let j = 0; j < numPhrases; j++) {
+				columns.forEach(column => {
+					const rowsWithHits = docsWithHits(X[i], column, j);
+					const frequencyHits = hitsThisRow(X[i], column, j);
+
+					const idf = IDF(rowsWithHits, numRows);
+					row.weight += BM25(idf, frequencyHits, numTokens[column][i], avgTokens[column]);
+				});
+			}
+		}
+	}
+
 	processBasicSearchResults_(rows, parsedQuery) {
 		const valueRegexs = parsedQuery.keys.includes('_') ? parsedQuery.terms['_'].map(term => term.valueRegex || term.value) : [];
 		const isTitleSearch = parsedQuery.keys.includes('title');
@@ -257,10 +352,10 @@ class SearchEngine {
 		if (isBasicSearchResults) {
 			this.processBasicSearchResults_(rows, parsedQuery);
 		} else {
+			this.calculateWeightBM25_(rows);
 			for (let i = 0; i < rows.length; i++) {
 				const row = rows[i];
 				const offsets = row.offsets.split(' ').map(o => Number(o));
-				row.weight = this.calculateWeight_(offsets, parsedQuery.termCount);
 				row.fields = this.fieldNamesFromOffsets_(offsets);
 			}
 		}
@@ -295,44 +390,20 @@ class SearchEngine {
 	}
 
 	parseQuery(query) {
-		const terms = { _: [] };
+		const trimQuotes = (str) => str.startsWith('"') ? str.substr(1, str.length - 2) : str;
 
-		let inQuote = false;
-		let currentCol = '_';
-		let currentTerm = '';
-		for (let i = 0; i < query.length; i++) {
-			const c = query[i];
-
-			if (c === '"') {
-				if (inQuote) {
-					terms[currentCol].push(currentTerm);
-					currentTerm = '';
-					inQuote = false;
-				} else {
-					inQuote = true;
-				}
-				continue;
-			}
-
-			if (c === ' ' && !inQuote) {
-				if (!currentTerm) continue;
-				terms[currentCol].push(currentTerm);
-				currentCol = '_';
-				currentTerm = '';
-				continue;
-			}
-
-			if (c === ':' && !inQuote) {
-				currentCol = currentTerm;
-				if (!terms[currentCol]) terms[currentCol] = [];
-				currentTerm = '';
-				continue;
-			}
-
-			currentTerm += c;
+		let allTerms = [];
+		try {
+			allTerms = filterParser(query);
+		} catch (error) {
+			console.warn(error);
 		}
 
-		if (currentTerm) terms[currentCol].push(currentTerm);
+		const textTerms = allTerms.filter(x => x.name === 'text').map(x => trimQuotes(x.value));
+		const titleTerms = allTerms.filter(x => x.name === 'title').map(x => trimQuotes(x.value));
+		const bodyTerms = allTerms.filter(x => x.name === 'body').map(x => trimQuotes(x.value));
+
+		const terms = { _: textTerms, 'title': titleTerms, 'body': bodyTerms };
 
 		// Filter terms:
 		// - Convert wildcards to regex
@@ -373,7 +444,8 @@ class SearchEngine {
 		return {
 			termCount: termCount,
 			keys: keys,
-			terms: terms,
+			terms: terms, // text terms
+			allTerms: allTerms,
 		};
 	}
 
@@ -432,54 +504,38 @@ class SearchEngine {
 		return SearchEngine.SEARCH_TYPE_FTS;
 	}
 
-	async search(query, options = null) {
+	async search(searchString, options = null) {
 		options = Object.assign({}, {
 			searchType: SearchEngine.SEARCH_TYPE_AUTO,
 		}, options);
 
-		query = this.normalizeText_(query);
+		searchString = this.normalizeText_(searchString);
 
-		const searchType = this.determineSearchType_(query, options.searchType);
-		const parsedQuery = this.parseQuery(query);
+		const searchType = this.determineSearchType_(searchString, options.searchType);
 
 		if (searchType === SearchEngine.SEARCH_TYPE_BASIC) {
 			// Non-alphabetical languages aren't support by SQLite FTS (except with extensions which are not available in all platforms)
-			const rows = await this.basicSearch(query);
+			const rows = await this.basicSearch(searchString);
+			const parsedQuery = this.parseQuery(searchString);
 			this.processResults_(rows, parsedQuery, true);
 			return rows;
-		} else { // SEARCH_TYPE_FTS
+		} else {
+			// SEARCH_TYPE_FTS
 			// FTS will ignore all special characters, like "-" in the index. So if
 			// we search for "this-phrase" it won't find it because it will only
 			// see "this phrase" in the index. Because of this, we remove the dashes
 			// when searching.
 			// https://github.com/laurent22/joplin/issues/1075#issuecomment-459258856
-			query = query.replace(/-/g, ' ');
 
-			// Note that when the search engine index is somehow corrupted, it might contain
-			// references to notes that don't exist. Not clear how it can happen, but anyway
-			// handle it here by checking if `user_updated_time` IS NOT NULL. Was causing this
-			// issue: https://discourse.joplinapp.org/t/how-to-recover-corrupted-database/9367
-			const sql = `
-				SELECT
-					notes_fts.id,
-					notes_fts.title AS normalized_title,
-					offsets(notes_fts) AS offsets,
-					notes.title,
-					notes.user_updated_time,
-					notes.is_todo,
-					notes.todo_completed,
-					notes.parent_id
-				FROM notes_fts
-				LEFT JOIN notes ON notes_fts.id = notes.id
-				WHERE notes_fts MATCH ?
-				AND notes.user_updated_time IS NOT NULL
-			`;
+			const parsedQuery = this.parseQuery(searchString);
+
 			try {
-				const rows = await this.db().selectAll(sql, [query]);
+				const { query, params } = queryBuilder(parsedQuery.allTerms);
+				const rows = await this.db().selectAll(query, params);
 				this.processResults_(rows, parsedQuery);
 				return rows;
 			} catch (error) {
-				this.logger().warn(`Cannot execute MATCH query: ${query}: ${error.message}`);
+				this.logger().warn(`Cannot execute MATCH query: ${searchString}: ${error.message}`);
 				return [];
 			}
 		}
@@ -503,6 +559,8 @@ class SearchEngine {
 		});
 	}
 }
+
+SearchEngine.relevantFields = 'id, title, body, user_created_time, user_updated_time, is_todo, todo_completed, parent_id, latitude, longitude, altitude, source_url';
 
 SearchEngine.instance_ = null;
 
