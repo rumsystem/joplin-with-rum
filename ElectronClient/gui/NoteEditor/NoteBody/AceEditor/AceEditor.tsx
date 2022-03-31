@@ -590,7 +590,7 @@ function AceEditor(props: NoteBodyEditorProps, ref: any) {
 				<AceEditorReact
 					value={props.content}
 					mode={props.contentMarkupLanguage === Note.MARKUP_LANGUAGE_HTML ? 'text' : 'markdown'}
-					theme={styles.editor.aceEditorTheme}
+					theme={styles.editor.editorTheme}
 					style={styles.editor}
 					width={`${width}px`}
 					fontSize={styles.editor.fontSize}
