@@ -1,5 +1,4 @@
 import { _ } from '../../locale';
-import { PluginStates } from '../plugins/reducer';
 
 export interface CustomImportContext {
 	sourcePath: string;
@@ -95,7 +94,6 @@ export interface ExportOptions {
 	// modulePath?: string;
 	target?: FileSystemItem;
 	includeConflicts?: boolean;
-	plugins?: PluginStates;
 }
 
 export interface ImportExportResult {

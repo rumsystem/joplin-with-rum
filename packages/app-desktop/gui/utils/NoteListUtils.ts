@@ -153,7 +153,6 @@ export default class NoteListUtils {
 							await InteropServiceHelper.export(props.dispatch.bind(this), module, {
 								sourceNoteIds: noteIds,
 								includeConflicts: props.inConflictFolder,
-								plugins: props.plugins,
 							});
 						},
 					})

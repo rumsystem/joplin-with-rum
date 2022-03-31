@@ -88,7 +88,6 @@ interface Props {
 	pluginMenus: any[];
 	['spellChecker.enabled']: boolean;
 	['spellChecker.language']: string;
-	plugins: PluginStates;
 }
 
 const commandNames: string[] = menuCommandNames();
@@ -234,11 +233,7 @@ function useMenu(props: Props) {
 					exportItems.push({
 						label: module.fullLabel(),
 						click: async () => {
-							await InteropServiceHelper.export(
-								(action: any) => props.dispatch(action),
-								module,
-								{ plugins: props.plugins }
-							);
+							await InteropServiceHelper.export((action: any) => props.dispatch(action), module);
 						},
 					});
 				}
@@ -476,7 +471,7 @@ function useMenu(props: Props) {
 					label: _('Import'),
 					submenu: importItems,
 				}, {
-					label: _('Export all'),
+					label: _('Export'),
 					submenu: exportItems,
 				}, {
 					type: 'separator',
@@ -509,6 +504,9 @@ function useMenu(props: Props) {
 					menuItemDic.textPaste,
 					menuItemDic.textSelectAll,
 					separator(),
+					menuItemDic['editor.undo'],
+					menuItemDic['editor.redo'],
+					separator(),
 					menuItemDic.textBold,
 					menuItemDic.textItalic,
 					menuItemDic.textLink,
@@ -516,6 +514,14 @@ function useMenu(props: Props) {
 					separator(),
 					menuItemDic.insertDateTime,
 					menuItemDic.attachFile,
+					separator(),
+					menuItemDic['editor.deleteLine'],
+					menuItemDic['editor.toggleComment'],
+					menuItemDic['editor.sortSelectedLines'],
+					menuItemDic['editor.indentLess'],
+					menuItemDic['editor.indentMore'],
+					menuItemDic['editor.swapLineDown'],
+					menuItemDic['editor.swapLineUp'],
 					separator(),
 					menuItemDic.focusSearch,
 					menuItemDic.showLocalSearch,
@@ -755,7 +761,7 @@ function useMenu(props: Props) {
 		} else {
 			setMenu(Menu.buildFromTemplate(template));
 		}
-	}, [props.routeName, props.pluginMenuItems, props.pluginMenus, keymapLastChangeTime, modulesLastChangeTime, props['spellChecker.language'], props['spellChecker.enabled'], props.plugins]);
+	}, [props.routeName, props.pluginMenuItems, props.pluginMenus, keymapLastChangeTime, modulesLastChangeTime, props['spellChecker.language'], props['spellChecker.enabled']]);
 
 	useEffect(() => {
 		const whenClauseContext = CommandService.instance().currentWhenClauseContext();
@@ -852,7 +858,6 @@ const mapStateToProps = (state: AppState) => {
 		pluginMenus: stateUtils.selectArrayShallow({ array: pluginUtils.viewsByType(state.pluginService.plugins, 'menu') }, 'menuBar.pluginMenus'),
 		['spellChecker.language']: state.settings['spellChecker.language'],
 		['spellChecker.enabled']: state.settings['spellChecker.enabled'],
-		plugins: state.pluginService.plugins,
 	};
 };
 
