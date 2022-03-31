@@ -546,7 +546,6 @@ class BaseApplication {
 
 		Setting.setConstant('env', initArgs.env);
 		Setting.setConstant('profileDir', profileDir);
-		Setting.setConstant('templateDir', profileDir + '/templates');
 		Setting.setConstant('resourceDirName', resourceDirName);
 		Setting.setConstant('resourceDir', resourceDir);
 		Setting.setConstant('tempDir', tempDir);

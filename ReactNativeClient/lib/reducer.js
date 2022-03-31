@@ -33,7 +33,6 @@ const defaultState = {
 	hasDisabledSyncItems: false,
 	newNote: null,
 	customCss: '',
-	templates: [],
 	collapsedFolderIds: [],
 	clipperServer: {
 		startState: 'idle',
@@ -713,12 +712,6 @@ const reducer = (state = defaultState, action) => {
 
 				newState = Object.assign({}, state);
 				newState.customCss = action.css;
-				break;
-
-			case 'TEMPLATE_UPDATE_ALL':
-
-				newState = Object.assign({}, state);
-				newState.templates = action.templates;
 				break;
         
 			case 'SET_NOTE_TAGS':

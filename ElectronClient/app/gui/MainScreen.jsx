@@ -74,13 +74,12 @@ class MainScreenComponent extends React.Component {
 	async doCommand(command) {
 		if (!command) return;
 
-		const createNewNote = async (template, isTodo) => {
+		const createNewNote = async (title, isTodo) => {
 			const folderId = Setting.value('activeFolderId');
 			if (!folderId) return;
 
 			const newNote = {
 				parent_id: folderId,
-				template: template,
 				is_todo: isTodo ? 1 : 0,
 			};
 
@@ -271,30 +270,6 @@ class MainScreenComponent extends React.Component {
 						if (newNote) {
 							await Note.save(newNote);
 							eventManager.emit('alarmChange', { noteId: note.id });
-						}
-
-						this.setState({ promptOptions: null });
-					}
-				},
-			});
-		} else if (command.name === 'selectTemplate') {
-			this.setState({
-				promptOptions: {
-					label: _('Template file:'),
-					inputType: 'dropdown',
-					value: this.props.templates[0], // Need to start with some value
-					autocomplete: this.props.templates,
-					onClose: async (answer) => {
-						if (answer) {
-							if (command.noteType === 'note' || command.noteType === 'todo') {
-								createNewNote(answer.value, command.noteType === 'todo');
-							} else {
-								this.props.dispatch({
-									type: 'WINDOW_COMMAND',
-									name: 'insertTemplate',
-									value: answer.value,
-								});
-							}
 						}
 
 						this.setState({ promptOptions: null });
@@ -548,7 +523,6 @@ const mapStateToProps = (state) => {
 		selectedNoteId: state.selectedNoteIds.length === 1 ? state.selectedNoteIds[0] : null,
 		plugins: state.plugins,
 		noteDevToolsVisible: state.noteDevToolsVisible,
-		templates: state.templates,
 	};
 };
 
