@@ -229,8 +229,6 @@ function pregQuote(str, delimiter = '') {
 }
 
 function surroundKeywords(keywords, text, prefix, suffix) {
-	if (!keywords.length) return text;
-
 	let regexString = keywords.map((k) => {
 		if (k.type === 'regex') {
 			return k.value;
