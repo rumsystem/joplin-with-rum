@@ -675,7 +675,6 @@ class SidebarComponent extends React.Component<Props, State> {
 				tooltip={tooltip}
 				disabled={disabled}
 				onClick={() => {
-					console.log('synchronize step 1');
 					void CommandService.instance().execute('synchronize', type !== 'sync');
 				}}
 			/>
