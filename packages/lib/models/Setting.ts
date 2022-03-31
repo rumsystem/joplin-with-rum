@@ -503,7 +503,7 @@ class Setting extends BaseModel {
 					return value ? rtrimSlashes(value) : '';
 				},
 				public: true,
-				label: () => _('AWS S3 bucket'),
+				label: () => _('S3 bucket'),
 				description: () => emptyDirWarning,
 				storage: SettingStorage.File,
 			},
@@ -518,7 +518,7 @@ class Setting extends BaseModel {
 					return value ? value.trim() : '';
 				},
 				public: true,
-				label: () => _('AWS S3 URL'),
+				label: () => _('S3 URL'),
 				storage: SettingStorage.File,
 			},
 			'sync.8.region': {
@@ -532,7 +532,7 @@ class Setting extends BaseModel {
 					return value ? value.trim() : '';
 				},
 				public: true,
-				label: () => _('AWS region'),
+				label: () => _('Region'),
 				storage: SettingStorage.File,
 			},
 			'sync.8.username': {
@@ -543,7 +543,7 @@ class Setting extends BaseModel {
 					return settings['sync.target'] == SyncTargetRegistry.nameToId('amazon_s3');
 				},
 				public: true,
-				label: () => _('AWS access key'),
+				label: () => _('Access Key'),
 				storage: SettingStorage.File,
 			},
 			'sync.8.password': {
@@ -554,7 +554,7 @@ class Setting extends BaseModel {
 					return settings['sync.target'] == SyncTargetRegistry.nameToId('amazon_s3');
 				},
 				public: true,
-				label: () => _('AWS secret key'),
+				label: () => _('Secret Key'),
 				secure: true,
 			},
 			'sync.8.forcePathStyle': {
@@ -565,7 +565,7 @@ class Setting extends BaseModel {
 					return settings['sync.target'] == SyncTargetRegistry.nameToId('amazon_s3');
 				},
 				public: true,
-				label: () => _('Force path style'),
+				label: () => _('Force Path Style'),
 				storage: SettingStorage.File,
 			},
 			'sync.9.path': {
@@ -864,7 +864,7 @@ class Setting extends BaseModel {
 				section: 'appearance',
 				public: true,
 				label: () => _('Show sort order buttons'),
-				// description: () => _('If true, sort order buttons (field + reverse) for notes are shown at the top of Note List.'),
+				description: () => _('If true, sort order buttons (field + reverse) for notes are shown at the top of Note List.'),
 				appTypes: [AppType.Desktop],
 			},
 			'notes.perFieldReversalEnabled': {
