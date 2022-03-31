@@ -369,7 +369,6 @@ class Api {
 				return Tag.tagsByNoteId(id);
 			} else if (link && link === 'resources') {
 				const note = await Note.load(id);
-				if (!note) throw new ErrorNotFound();
 				const resourceIds = await Note.linkedResourceIds(note.body);
 				const output = [];
 				const loadOptions = this.defaultLoadOptions_(request);
