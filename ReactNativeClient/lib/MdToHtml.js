@@ -3,6 +3,7 @@ const Entities = require('html-entities').AllHtmlEntities;
 const htmlentities = (new Entities()).encode;
 const Resource = require('lib/models/Resource.js');
 const ModelCache = require('lib/ModelCache');
+const ObjectUtils = require('lib/ObjectUtils');
 const { shim } = require('lib/shim.js');
 const { _ } = require('lib/locale');
 const md5 = require('md5');
@@ -372,14 +373,16 @@ class MdToHtml {
 
 		// Insert the extra CSS at the top of the HTML
 
-		const temp = ['<style>'];
-		for (let n in extraCssBlocks) {
-			if (!extraCssBlocks.hasOwnProperty(n)) continue;
-			temp.push(extraCssBlocks[n]);
-		}
-		temp.push('</style>');
+		if (!ObjectUtils.isEmpty(extraCssBlocks)) {
+			const temp = ['<style>'];
+			for (let n in extraCssBlocks) {
+				if (!extraCssBlocks.hasOwnProperty(n)) continue;
+				temp.push(extraCssBlocks[n]);
+			}
+			temp.push('</style>');
 
-		output = temp.concat(output);
+			output = temp.concat(output);
+		}
 
 		return output.join('');
 	}
