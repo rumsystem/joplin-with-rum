@@ -15,7 +15,6 @@ const defaultMarkdownButton = ({ item, getState, setState, color }) => {
 	);
 };
 
-// eslint-disable-next-line import/prefer-default-export
 export const renderFormatButtons = ({ getState, setState, color }, formats, markdownButton) => {
 	const list = (
 		<FlatList

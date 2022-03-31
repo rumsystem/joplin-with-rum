@@ -1,5 +1,3 @@
-import Async from 'react-async';
-
 const React = require('react');
 const Component = React.Component;
 const { Platform, View, Text } = require('react-native');
@@ -11,6 +9,8 @@ const { shim } = require('lib/shim');
 const { assetsToHeaders } = require('lib/joplin-renderer');
 const shared = require('lib/components/shared/note-screen-shared.js');
 const markupLanguageUtils = require('lib/markupLanguageUtils');
+
+import Async from 'react-async';
 
 class NoteBodyViewer extends Component {
 	constructor() {

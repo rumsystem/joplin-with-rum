@@ -1,5 +1,5 @@
-import { View, Platform, SafeAreaView, StyleSheet /* , StatusBar */ } from 'react-native';
 const React = require('react');
+import { View, Platform, SafeAreaView, StyleSheet /* , StatusBar */ } from 'react-native';
 // import DeviceInfo from 'react-native-device-info';
 
 // Untested! This should check if the device has a notch and, if it does, apply
