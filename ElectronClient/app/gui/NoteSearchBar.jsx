@@ -113,11 +113,25 @@ class NoteSearchBarComponent extends React.Component {
 		const previousButton = this.buttonIconComponent('fa-chevron-up', this.previousButton_click);
 		const nextButton = this.buttonIconComponent('fa-chevron-down', this.nextButton_click);
 
+		const theme = themeStyle(this.props.theme);
+		let backgroundColor = theme.backgroundColor;
+		if (this.props.resultCount === 0 && this.props.query.length >  0) {
+			backgroundColor = theme.warningBackgroundColor;
+		}
+
 		return (
 			<div style={this.props.style}>
 				<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
 					{closeButton}
-					<input placeholder={_('Search...')} value={this.state.query} onChange={this.searchInput_change} onKeyDown={this.searchInput_keyDown} ref="searchInput" type="text" style={{ width: 200, marginRight: 5 }}></input>
+					<input
+						placeholder={_('Search...')}
+						value={this.state.query}
+						onChange={this.searchInput_change}
+						onKeyDown={this.searchInput_keyDown}
+						ref="searchInput"
+						type="text"
+						style={{ width: 200, marginRight: 5, backgroundColor: backgroundColor }}
+					/>
 					{nextButton}
 					{previousButton}
 				</div>

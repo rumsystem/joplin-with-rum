@@ -89,7 +89,7 @@ class NoteTextComponent extends React.Component {
 		this.localSearchDefaultState = {
 			query: '',
 			selectedIndex: 0,
-			resultCount: 0,
+			result: { query: '', count: 0 },
 		};
 
 		this.state = {
@@ -312,6 +312,10 @@ class NoteTextComponent extends React.Component {
 					query: query,
 					selectedIndex: 0,
 					timestamp: Date.now(),
+					result: {
+						query: this.state.localSearch.result.query,
+						count: this.state.localSearch.result.count,
+					},
 				},
 			});
 		};
@@ -320,8 +324,8 @@ class NoteTextComponent extends React.Component {
 			const ls = Object.assign({}, this.state.localSearch);
 			ls.selectedIndex += inc;
 			ls.timestamp = Date.now();
-			if (ls.selectedIndex < 0) ls.selectedIndex = ls.resultCount - 1;
-			if (ls.selectedIndex >= ls.resultCount) ls.selectedIndex = 0;
+			if (ls.selectedIndex < 0) ls.selectedIndex = ls.result.count - 1;
+			if (ls.selectedIndex >= ls.result.count) ls.selectedIndex = 0;
 
 			this.setState({ localSearch: ls });
 		};
@@ -689,20 +693,12 @@ class NoteTextComponent extends React.Component {
 		if (newTags.length !== oldTags.length) return true;
 
 		for (let i = 0; i < newTags.length; ++i) {
-			let found = false;
 			let currNewTag = newTags[i];
 			for (let j = 0; j < oldTags.length; ++j) {
 				let currOldTag = oldTags[j];
-				if (currOldTag.id === currNewTag.id) {
-					found = true;
-					if (currOldTag.updated_time !== currNewTag.updated_time) {
-						return true;
-					}
-					break;
+				if (currOldTag.id === currNewTag.id && currOldTag.updated_time !== currNewTag.updated_time) {
+					return true;
 				}
-			}
-			if (!found) {
-				return true;
 			}
 		}
 
@@ -764,7 +760,8 @@ class NoteTextComponent extends React.Component {
 			reg.logger().error(s.join(':'));
 		} else if (msg === 'setMarkerCount') {
 			const ls = Object.assign({}, this.state.localSearch);
-			ls.resultCount = arg0;
+			ls.result.query = ls.query;
+			ls.result.count = arg0;
 			this.setState({ localSearch: ls });
 		} else if (msg.indexOf('markForDownload:') === 0) {
 			const s = msg.split(':');
@@ -1111,11 +1108,9 @@ class NoteTextComponent extends React.Component {
 		if (!command) return;
 
 		let fn = null;
-		let args = null;
 
 		if (command.name === 'exportPdf') {
 			fn = this.commandSavePdf;
-			args = {noteId: command.noteId};
 		} else if (command.name === 'print') {
 			fn = this.commandPrint;
 		}
@@ -1167,7 +1162,7 @@ class NoteTextComponent extends React.Component {
 
 		requestAnimationFrame(() => {
 			fn = fn.bind(this);
-			fn(args);
+			fn();
 		});
 	}
 
@@ -1175,7 +1170,9 @@ class NoteTextComponent extends React.Component {
 		if (this.state.showLocalSearch) {
 			this.noteSearchBar_.current.wrappedInstance.focus();
 		} else {
-			this.setState({ showLocalSearch: true });
+			this.setState({
+				showLocalSearch: true,
+				localSearch: Object.assign({}, this.localSearchDefaultState) });
 		}
 
 		this.props.dispatch({
@@ -1260,7 +1257,7 @@ class NoteTextComponent extends React.Component {
 		setTimeout(async () => {
 			if (target === 'pdf') {
 				try {
-					const pdfData = await InteropServiceHelper.exportNoteToPdf(options.noteId, {
+					const pdfData = await InteropServiceHelper.exportNoteToPdf(this.state.note.id, {
 						printBackground: true,
 						pageSize: Setting.value('export.pdfPageSize'),
 						landscape: Setting.value('export.pdfPageOrientation') === 'landscape',
@@ -1272,7 +1269,7 @@ class NoteTextComponent extends React.Component {
 				}
 			} else if (target === 'printer') {
 				try {
-					await InteropServiceHelper.printNote(options.noteId, {
+					await InteropServiceHelper.printNote(this.state.note.id, {
 						printBackground: true,
 					});
 				} catch (error) {
@@ -1286,20 +1283,18 @@ class NoteTextComponent extends React.Component {
 		}, 100);
 	}
 
-	async commandSavePdf(args) {
+	async commandSavePdf() {
 		try {
-			if (!this.state.note && !args.noteId) throw new Error(_('Only one note can be exported to PDF at a time.'));
-
-			const note = (!args.noteId ? this.state.note : await Note.load(args.noteId));
+			if (!this.state.note) throw new Error(_('Only one note can be printed or exported to PDF at a time.'));
 
 			const path = bridge().showSaveDialog({
 				filters: [{ name: _('PDF File'), extensions: ['pdf'] }],
-				defaultPath: safeFilename(note.title),
+				defaultPath: safeFilename(this.state.note.title),
 			});
 
 			if (!path) return;
 
-			await this.printTo_('pdf', { path: path, noteId: args.noteId });
+			await this.printTo_('pdf', { path: path });
 		} catch (error) {
 			bridge().showErrorMessageBox(error.message);
 		}
@@ -1307,9 +1302,7 @@ class NoteTextComponent extends React.Component {
 
 	async commandPrint() {
 		try {
-			if (!this.state.note) throw new Error(_('Only one note can be printed at a time.'));
-
-			await this.printTo_('printer', { noteId: this.state.note.id });
+			await this.printTo_('printer');
 		} catch (error) {
 			bridge().showErrorMessageBox(error.message);
 		}
@@ -2139,7 +2132,23 @@ class NoteTextComponent extends React.Component {
 			/>
 		);
 
-		const noteSearchBarComp = !this.state.showLocalSearch ? null : <NoteSearchBar ref={this.noteSearchBar_} style={{ display: 'flex', height: searchBarHeight, width: innerWidth, borderTop: `1px solid ${theme.dividerColor}` }} onChange={this.noteSearchBar_change} onNext={this.noteSearchBar_next} onPrevious={this.noteSearchBar_previous} onClose={this.noteSearchBar_close} />;
+		const noteSearchBarComp = !this.state.showLocalSearch ? null : (
+			<NoteSearchBar
+				ref={this.noteSearchBar_}
+				style={{
+					display: 'flex',
+					height: searchBarHeight,
+					width: innerWidth,
+					borderTop: `1px solid ${theme.dividerColor}`,
+				}}
+				query={this.state.localSearch.result.query}
+				resultCount={this.state.localSearch.result.count}
+				onChange={this.noteSearchBar_change}
+				onNext={this.noteSearchBar_next}
+				onPrevious={this.noteSearchBar_previous}
+				onClose={this.noteSearchBar_close}
+			/>
+		);
 
 		return (
 			<div style={rootStyle} onDrop={this.onDrop_}>
