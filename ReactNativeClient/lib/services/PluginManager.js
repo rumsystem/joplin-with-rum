@@ -1,4 +1,5 @@
 const Logger = require('lib/Logger').default;
+const KeymapService = require('lib/services/KeymapService').default;
 
 class PluginManager {
 	constructor() {
@@ -51,7 +52,6 @@ class PluginManager {
 		const p = this.pluginInstance_(event.pluginName);
 		p.onTrigger({
 			itemName: event.itemName,
-			userData: event.userData,
 		});
 	}
 
@@ -65,7 +65,7 @@ class PluginManager {
 
 			return {
 				Dialog: Class.Dialog,
-				props: Object.assign({}, this.dialogProps_(name), { userData: p.userData }),
+				props: this.dialogProps_(name),
 			};
 		}
 
@@ -81,24 +81,20 @@ class PluginManager {
 
 	menuItems() {
 		let output = [];
+		const keymapService = KeymapService.instance();
+
 		for (const name in this.plugins_) {
-			const menuItems = this.plugins_[name].Class.manifest.menuItems.slice();
+			const menuItems = this.plugins_[name].Class.manifest.menuItems;
 			if (!menuItems) continue;
 
-			for (let i = 0; i < menuItems.length; i++) {
-				const item = Object.assign({}, menuItems[i]);
-
+			for (const item of menuItems) {
 				item.click = () => {
 					this.onPluginMenuItemTrigger_({
 						pluginName: name,
 						itemName: item.name,
-						userData: item.userData,
 					});
 				};
-
-				item.accelerator = menuItems[i].accelerator();
-
-				menuItems[i] = item;
+				item.accelerator = keymapService.getAccelerator(name);
 			}
 
 			output = output.concat(menuItems);

@@ -16,7 +16,7 @@ const defaultKeymapItems = {
 		{ accelerator: 'Cmd+N', command: 'newNote' },
 		{ accelerator: 'Cmd+T', command: 'newTodo' },
 		{ accelerator: 'Cmd+S', command: 'synchronize' },
-		{ accelerator: '', command: 'print' },
+		{ accelerator: 'Cmd+P', command: 'print' },
 		{ accelerator: 'Cmd+H', command: 'hideApp' },
 		{ accelerator: 'Cmd+Q', command: 'quit' },
 		{ accelerator: 'Cmd+,', command: 'config' },
@@ -37,21 +37,20 @@ const defaultKeymapItems = {
 		{ accelerator: 'Shift+Cmd+L', command: 'focusElementNoteList' },
 		{ accelerator: 'Shift+Cmd+N', command: 'focusElementNoteTitle' },
 		{ accelerator: 'Shift+Cmd+B', command: 'focusElementNoteBody' },
-		{ accelerator: 'Option+Cmd+S', command: 'toggleSideBar' },
+		{ accelerator: 'Option+Cmd+S', command: 'toggleSidebar' },
 		{ accelerator: 'Option+Cmd+L', command: 'toggleNoteList' },
 		{ accelerator: 'Cmd+L', command: 'toggleVisiblePanes' },
 		{ accelerator: 'Cmd+0', command: 'zoomActualSize' },
 		{ accelerator: 'Cmd+E', command: 'toggleExternalEditing' },
 		{ accelerator: 'Option+Cmd+T', command: 'setTags' },
-		{ accelerator: 'Cmd+P', command: 'gotoAnything' },
-		{ accelerator: 'Shift+Cmd+P', command: 'commandPalette' },
+		{ accelerator: 'Cmd+G', command: 'gotoAnything' },
 		{ accelerator: 'F1', command: 'help' },
 	],
 	default: [
 		{ accelerator: 'Ctrl+N', command: 'newNote' },
 		{ accelerator: 'Ctrl+T', command: 'newTodo' },
 		{ accelerator: 'Ctrl+S', command: 'synchronize' },
-		{ accelerator: '', command: 'print' },
+		{ accelerator: 'Ctrl+P', command: 'print' },
 		{ accelerator: 'Ctrl+Q', command: 'quit' },
 		{ accelerator: 'Ctrl+Alt+I', command: 'insertTemplate' },
 		{ accelerator: 'Ctrl+C', command: 'textCopy' },
@@ -69,15 +68,14 @@ const defaultKeymapItems = {
 		{ accelerator: 'Ctrl+Shift+L', command: 'focusElementNoteList' },
 		{ accelerator: 'Ctrl+Shift+N', command: 'focusElementNoteTitle' },
 		{ accelerator: 'Ctrl+Shift+B', command: 'focusElementNoteBody' },
-		{ accelerator: 'F10', command: 'toggleSideBar' },
+		{ accelerator: 'F10', command: 'toggleSidebar' },
 		{ accelerator: 'F11', command: 'toggleNoteList' },
 		{ accelerator: 'Ctrl+L', command: 'toggleVisiblePanes' },
 		{ accelerator: 'Ctrl+0', command: 'zoomActualSize' },
 		{ accelerator: 'Ctrl+E', command: 'toggleExternalEditing' },
 		{ accelerator: 'Ctrl+Alt+T', command: 'setTags' },
 		{ accelerator: 'Ctrl+,', command: 'config' },
-		{ accelerator: 'Ctrl+P', command: 'gotoAnything' },
-		{ accelerator: 'Ctrl+Shift+P', command: 'commandPalette' },
+		{ accelerator: 'Ctrl+G', command: 'gotoAnything' },
 		{ accelerator: 'F1', command: 'help' },
 	],
 };
@@ -92,14 +90,13 @@ interface Keymap {
 }
 
 export default class KeymapService extends BaseService {
-
 	private keymap: Keymap;
 	private platform: string;
 	private customKeymapPath: string;
 	private defaultKeymapItems: KeymapItem[];
 	private lastSaveTime_:number;
 
-	public constructor() {
+	constructor() {
 		super();
 
 		this.lastSaveTime_ = Date.now();
@@ -109,11 +106,11 @@ export default class KeymapService extends BaseService {
 		this.initialize();
 	}
 
-	public get lastSaveTime():number {
+	get lastSaveTime():number {
 		return this.lastSaveTime_;
 	}
 
-	public initialize(platform: string = shim.platformName()) {
+	initialize(platform: string = shim.platformName()) {
 		this.platform = platform;
 
 		switch (platform) {
@@ -134,7 +131,7 @@ export default class KeymapService extends BaseService {
 		}
 	}
 
-	public async loadCustomKeymap(customKeymapPath: string) {
+	async loadCustomKeymap(customKeymapPath: string) {
 		this.customKeymapPath = customKeymapPath; // Useful for saving the changes later
 
 		if (await shim.fsDriver().exists(customKeymapPath)) {
@@ -146,7 +143,7 @@ export default class KeymapService extends BaseService {
 		}
 	}
 
-	public async saveCustomKeymap(customKeymapPath: string = this.customKeymapPath) {
+	async saveCustomKeymap(customKeymapPath: string = this.customKeymapPath) {
 		this.logger().info(`KeymapService: Saving keymap to file: ${customKeymapPath}`);
 
 		try {
@@ -164,7 +161,7 @@ export default class KeymapService extends BaseService {
 		}
 	}
 
-	public acceleratorExists(command: string) {
+	acceleratorExists(command: string) {
 		return !!this.keymap[command];
 	}
 
@@ -192,33 +189,33 @@ export default class KeymapService extends BaseService {
 		};
 	}
 
-	public setAccelerator(command: string, accelerator: string) {
+	setAccelerator(command: string, accelerator: string) {
 		this.keymap[command].accelerator = accelerator;
 	}
 
-	public getAccelerator(command: string) {
+	getAccelerator(command: string) {
 		const item = this.keymap[command];
 		if (!item) throw new Error(`KeymapService: "${command}" command does not exist!`);
 
 		return item.accelerator;
 	}
 
-	public getDefaultAccelerator(command: string) {
+	getDefaultAccelerator(command: string) {
 		const defaultItem = this.defaultKeymapItems.find((item => item.command === command));
 		if (!defaultItem) throw new Error(`KeymapService: "${command}" command does not exist!`);
 
 		return defaultItem.accelerator;
 	}
 
-	public getCommandNames() {
+	getCommandNames() {
 		return Object.keys(this.keymap);
 	}
 
-	public getKeymapItems() {
+	getKeymapItems() {
 		return Object.values(this.keymap);
 	}
 
-	public getCustomKeymapItems() {
+	getCustomKeymapItems() {
 		const customkeymapItems: KeymapItem[] = [];
 		this.defaultKeymapItems.forEach(({ command, accelerator }) => {
 			const currentAccelerator = this.getAccelerator(command);
@@ -239,11 +236,11 @@ export default class KeymapService extends BaseService {
 		return customkeymapItems;
 	}
 
-	public getDefaultKeymapItems() {
+	getDefaultKeymapItems() {
 		return [...this.defaultKeymapItems];
 	}
 
-	public overrideKeymap(customKeymapItems: KeymapItem[]) {
+	overrideKeymap(customKeymapItems: KeymapItem[]) {
 		try {
 			for (let i = 0; i < customKeymapItems.length; i++) {
 				const item = customKeymapItems[i];
@@ -287,7 +284,7 @@ export default class KeymapService extends BaseService {
 		}
 	}
 
-	public validateKeymap(proposedKeymapItem: KeymapItem = null) {
+	validateKeymap(proposedKeymapItem: KeymapItem = null) {
 		const usedAccelerators = new Set();
 
 		// Validate as if the proposed change is already present in the current keymap
@@ -315,7 +312,7 @@ export default class KeymapService extends BaseService {
 		}
 	}
 
-	public validateAccelerator(accelerator: string) {
+	validateAccelerator(accelerator: string) {
 		let keyFound = false;
 
 		const parts = accelerator.split('+');
@@ -337,7 +334,7 @@ export default class KeymapService extends BaseService {
 		if (!isValid) throw new Error(_('Accelerator "%s" is not valid.', accelerator));
 	}
 
-	public domToElectronAccelerator(event: KeyboardEvent<HTMLDivElement>) {
+	domToElectronAccelerator(event: KeyboardEvent<HTMLDivElement>) {
 		const parts = [];
 		const { key, ctrlKey, metaKey, altKey, shiftKey } = event;
 
@@ -361,7 +358,7 @@ export default class KeymapService extends BaseService {
 		return parts.join('+');
 	}
 
-	private static domToElectronKey(domKey: string) {
+	static domToElectronKey(domKey: string) {
 		let electronKey;
 
 		if (/^([a-z])$/.test(domKey)) {
@@ -401,7 +398,7 @@ export default class KeymapService extends BaseService {
 
 	private static instance_:KeymapService = null;
 
-	public static instance():KeymapService {
+	static instance():KeymapService {
 		if (this.instance_) return this.instance_;
 
 		this.instance_ = new KeymapService();
