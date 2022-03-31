@@ -2,6 +2,7 @@ const React = require('react'); const Component = React.Component;
 const { ListView, StyleSheet, View, Text, Button, FlatList } = require('react-native');
 const Setting = require('lib/models/Setting.js');
 const { connect } = require('react-redux');
+const { Log } = require('lib/log.js');
 const { reg } = require('lib/registry.js');
 const { ScreenHeader } = require('lib/components/screen-header.js');
 const { time } = require('lib/time-utils');

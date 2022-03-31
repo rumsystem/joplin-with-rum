@@ -449,9 +449,6 @@ msgstr ""
 msgid "Possible keys/values:"
 msgstr ""
 
-msgid "Type `joplin help` for usage information."
-msgstr ""
-
 msgid "Fatal error:"
 msgstr ""
 
@@ -493,14 +490,14 @@ msgstr ""
 msgid "Exporting to \"%s\" as \"%s\" format. Please wait..."
 msgstr ""
 
+msgid "File"
+msgstr ""
+
+msgid "Directory"
+msgstr ""
+
 #, javascript-format
 msgid "Importing from \"%s\" as \"%s\" format. Please wait..."
-msgstr ""
-
-msgid "PDF File"
-msgstr ""
-
-msgid "File"
 msgstr ""
 
 msgid "New note"
@@ -516,9 +513,6 @@ msgid "Import"
 msgstr ""
 
 msgid "Export"
-msgstr ""
-
-msgid "Print"
 msgstr ""
 
 #, javascript-format
@@ -567,9 +561,6 @@ msgstr ""
 msgid "Website and documentation"
 msgstr ""
 
-msgid "Make a donation"
-msgstr ""
-
 msgid "Check for updates..."
 msgstr ""
 
@@ -593,7 +584,11 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-msgid "Current version is up-to-date."
+#, javascript-format
+msgid ""
+"Release notes:\n"
+"\n"
+"%s"
 msgstr ""
 
 msgid "An update is available, do you want to download it now?"
@@ -603,6 +598,9 @@ msgid "Yes"
 msgstr ""
 
 msgid "No"
+msgstr ""
+
+msgid "Current version is up-to-date."
 msgstr ""
 
 msgid "Check synchronisation configuration"
@@ -897,7 +895,7 @@ msgid "Fetched items: %d/%d."
 msgstr ""
 
 #, javascript-format
-msgid "State: %s."
+msgid "State: \"%s\"."
 msgstr ""
 
 msgid "Cancelling..."
@@ -905,16 +903,6 @@ msgstr ""
 
 #, javascript-format
 msgid "Completed: %s"
-msgstr ""
-
-#, javascript-format
-msgid "Last error: %s"
-msgstr ""
-
-msgid "Idle"
-msgstr ""
-
-msgid "In progress"
 msgstr ""
 
 #, javascript-format
@@ -1087,9 +1075,6 @@ msgstr ""
 msgid "Evernote Export File"
 msgstr ""
 
-msgid "Directory"
-msgstr ""
-
 #, javascript-format
 msgid "Cannot load \"%s\" module for format \"%s\""
 msgstr ""
@@ -1191,15 +1176,6 @@ msgid "Confirm"
 msgstr ""
 
 msgid "Cancel synchronisation"
-msgstr ""
-
-msgid "New tags:"
-msgstr ""
-
-msgid "Type new tags or select from list"
-msgstr ""
-
-msgid "Joplin website"
 msgstr ""
 
 #, javascript-format

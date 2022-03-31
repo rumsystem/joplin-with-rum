@@ -1,7 +1,7 @@
 const BaseModel = require('lib/BaseModel.js');
+const { Log } = require('lib/log.js');
 const { sprintf } = require('sprintf-js');
 const BaseItem = require('lib/models/BaseItem.js');
-const ItemChange = require('lib/models/ItemChange.js');
 const Setting = require('lib/models/Setting.js');
 const { shim } = require('lib/shim.js');
 const { time } = require('lib/time-utils.js');
@@ -81,17 +81,7 @@ class Note extends BaseItem {
 	static defaultTitle(note) {
 		if (note.body && note.body.length) {
 			const lines = note.body.trim().split("\n");
-			let output = lines[0].trim();
-			// Remove the first #, *, etc.
-			while (output.length) {
-				const c = output[0];
-				if (['#', ' ', "\n", "\t", '*', '`', '-'].indexOf(c) >= 0) {
-					output = output.substr(1);
-				} else {
-					break;
-				}
-			}
-			return output.substr(0, 80).trim();
+			return lines[0].trim().substr(0, 80).trim();
 		}
 
 		return _('Untitled');
@@ -171,7 +161,7 @@ class Note extends BaseItem {
 	}
 
 	static previewFields() {
-		return ['id', 'title', 'body', 'is_todo', 'todo_completed', 'parent_id', 'updated_time', 'user_updated_time', 'user_created_time', 'encryption_applied'];
+		return ['id', 'title', 'body', 'is_todo', 'todo_completed', 'parent_id', 'updated_time', 'user_updated_time', 'encryption_applied'];
 	}
 
 	static previewFieldsSql() {
@@ -408,8 +398,6 @@ class Note extends BaseItem {
 
 		const note = await super.save(o, options);
 
-		ItemChange.add(BaseModel.TYPE_NOTE, note.id, isNew ? ItemChange.TYPE_CREATE : ItemChange.TYPE_UPDATE);
-
 		this.dispatch({
 			type: 'NOTE_UPDATE_ONE',
 			note: note,
@@ -425,22 +413,18 @@ class Note extends BaseItem {
 		return note;
 	}
 
-	// Not used?
+	static async delete(id, options = null) {
+		let r = await super.delete(id, options);
 
-	// static async delete(id, options = null) {
-	// 	let r = await super.delete(id, options);
+		this.dispatch({
+			type: 'NOTE_DELETE',
+			id: id,
+		});
+	}
 
-	// 	this.dispatch({
-	// 		type: 'NOTE_DELETE',
-	// 		id: id,
-	// 	});
-	// }
-
-	static async batchDelete(ids, options = null) {
-		const result = await super.batchDelete(ids, options);
+	static batchDelete(ids, options = null) {
+		const result = super.batchDelete(ids, options);
 		for (let i = 0; i < ids.length; i++) {
-			ItemChange.add(BaseModel.TYPE_NOTE, ids[i], ItemChange.TYPE_DELETE);
-
 			this.dispatch({
 				type: 'NOTE_DELETE',
 				id: ids[i],

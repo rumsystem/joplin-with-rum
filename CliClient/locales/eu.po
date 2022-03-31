@@ -503,10 +503,6 @@ msgstr "Lehenetsia: %s"
 msgid "Possible keys/values:"
 msgstr "Litezkeen balioak:"
 
-#, fuzzy
-msgid "Type `joplin help` for usage information."
-msgstr "Erakutsi erabilera datuak."
-
 msgid "Fatal error:"
 msgstr "Aio! Agur! :_( "
 
@@ -564,16 +560,15 @@ msgstr ""
 msgid "Exporting to \"%s\" as \"%s\" format. Please wait..."
 msgstr ""
 
+msgid "File"
+msgstr "Fitxategia"
+
+msgid "Directory"
+msgstr ""
+
 #, javascript-format
 msgid "Importing from \"%s\" as \"%s\" format. Please wait..."
 msgstr ""
-
-#, fuzzy
-msgid "PDF File"
-msgstr "Fitxategia"
-
-msgid "File"
-msgstr "Fitxategia"
 
 msgid "New note"
 msgstr "Ohar berria"
@@ -590,9 +585,6 @@ msgstr "Inportatu"
 #, fuzzy
 msgid "Export"
 msgstr "Inportatu"
-
-msgid "Print"
-msgstr ""
 
 #, javascript-format
 msgid "Hide %s"
@@ -640,10 +632,6 @@ msgstr "Laguntza"
 msgid "Website and documentation"
 msgstr "Web orria eta dokumentazioa (en)"
 
-#, fuzzy
-msgid "Make a donation"
-msgstr "Web orria eta dokumentazioa (en)"
-
 msgid "Check for updates..."
 msgstr ""
 
@@ -667,8 +655,12 @@ msgstr "OK"
 msgid "Cancel"
 msgstr "Utzi"
 
-msgid "Current version is up-to-date."
-msgstr ""
+#, fuzzy, javascript-format
+msgid ""
+"Release notes:\n"
+"\n"
+"%s"
+msgstr "Oharrak ezabatu?"
 
 msgid "An update is available, do you want to download it now?"
 msgstr ""
@@ -679,6 +671,9 @@ msgstr ""
 #, fuzzy
 msgid "No"
 msgstr "E"
+
+msgid "Current version is up-to-date."
+msgstr ""
 
 #, fuzzy
 msgid "Check synchronisation configuration"
@@ -1000,8 +995,8 @@ msgstr "Urruneko itemak ezabatuta: %d."
 msgid "Fetched items: %d/%d."
 msgstr "Itemak eskuratuta: %d%d."
 
-#, fuzzy, javascript-format
-msgid "State: %s."
+#, javascript-format
+msgid "State: \"%s\"."
 msgstr "Egoera: \"%s\"."
 
 msgid "Cancelling..."
@@ -1010,16 +1005,6 @@ msgstr "Bertan behera uzten..."
 #, javascript-format
 msgid "Completed: %s"
 msgstr "Osatuta: %s"
-
-#, fuzzy, javascript-format
-msgid "Last error: %s"
-msgstr "Aio! Agur! :_( "
-
-msgid "Idle"
-msgstr ""
-
-msgid "In progress"
-msgstr ""
 
 #, javascript-format
 msgid "Synchronisation is already in progress. State: %s"
@@ -1208,9 +1193,6 @@ msgstr ""
 msgid "Evernote Export File"
 msgstr "Evernotetik esportatutako fitxategiak"
 
-msgid "Directory"
-msgstr ""
-
 #, javascript-format
 msgid "Cannot load \"%s\" module for format \"%s\""
 msgstr ""
@@ -1317,15 +1299,6 @@ msgstr "Baieztatu"
 msgid "Cancel synchronisation"
 msgstr "Sinkronizazioa utzi"
 
-msgid "New tags:"
-msgstr ""
-
-msgid "Type new tags or select from list"
-msgstr ""
-
-msgid "Joplin website"
-msgstr ""
-
 #, javascript-format
 msgid "Master Key %s"
 msgstr "Pasahitz Nagusia %s"
@@ -1408,13 +1381,6 @@ msgstr "Oraindik ez duzu koadernorik. Sortu bat (+) botoian sakatuta."
 
 msgid "Welcome"
 msgstr "Ongi etorri!"
-
-#, fuzzy
-#~ msgid ""
-#~ "Release notes:\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr "Oharrak ezabatu?"
 
 #~ msgid "Imports an Evernote notebook file (.enex file)."
 #~ msgstr "Inportatu Evernote koaderno fitxategia (.enex fitxategia)."

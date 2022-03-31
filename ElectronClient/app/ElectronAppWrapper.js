@@ -110,12 +110,8 @@ class ElectronAppWrapper {
 		});
 	}
 
-	async quit() {
+	async exit() {
 		this.electronApp_.quit();
-	}
-
-	exit(errorCode = 0) {
-		this.electronApp_.exit(errorCode);
 	}
 
 	trayShown() {

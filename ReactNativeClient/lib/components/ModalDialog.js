@@ -30,21 +30,21 @@ class ModalDialog extends React.Component {
 				borderColor:theme.dividerColor,
 				margin: 20,
 				padding: 10,
-				borderRadius: 5,
 			},
 			modalContentWrapper2: {
+				paddingTop: 10,
 				flex:1,
 			},
 			title: {
 				borderBottomWidth: 1,
 				borderBottomColor: theme.dividerColor,
 				paddingBottom: 10,
-				fontWeight: 'bold',
 			},
 			buttonRow: {
 				flexDirection: 'row',
 				borderTopWidth: 1,
 				borderTopColor: theme.dividerColor,
+				paddingTop: 10,
 			},
 		};
 
@@ -54,22 +54,21 @@ class ModalDialog extends React.Component {
 
 	render() {
 		const ContentComponent = this.props.ContentComponent;
-		const buttonBarEnabled = this.props.buttonBarEnabled !== false;
 
 		return (
 			<View style={this.styles().modalWrapper}>
 				<Modal transparent={true} visible={true} onRequestClose={() => { }} >
-					<View elevation={10} style={this.styles().modalContentWrapper}>
-						<Text style={this.styles().title}>{this.props.title}</Text>
+					<View style={this.styles().modalContentWrapper}>
+						<Text style={this.styles().title}>Title</Text>
 						<View style={this.styles().modalContentWrapper2}>
 							{ContentComponent}
 						</View>
 						<View style={this.styles().buttonRow}>
 							<View style={{flex:1}}>
-								<Button disabled={!buttonBarEnabled} title={_('OK')} onPress={this.props.onOkPress}></Button>
+								<Button title={_('OK')} onPress={() => {}}></Button>
 							</View>
 							<View style={{flex:1, marginLeft: 5}}>
-								<Button disabled={!buttonBarEnabled} title={_('Cancel')} onPress={this.props.onCancelPress}></Button>
+								<Button title={_('Cancel')} onPress={() => {}}></Button>
 							</View>
 						</View>
 					</View>

@@ -76,10 +76,6 @@ const headerHtml = `<!doctype html>
 	table.screenshots td {
 		border: 1px solid #C2C2C2;
 	}
-	img[align="left"] {
-		margin-right: 10px;
-		margin-bottom: 10px;
-	}
 	.mobile-screenshot {
 		height: 40em;
 		padding: 1em;
@@ -309,17 +305,16 @@ async function main() {
 		selectedHome: 'selected',
 	});
 
-	renderFileToHtml(rootDir + '/readme/terminal.md', rootDir + '/docs/terminal/index.html', {
+	renderFileToHtml(rootDir + '/README_terminal.md', rootDir + '/docs/terminal/index.html', {
 		selectedTerminal: 'selected',
 	});
 
-	renderFileToHtml(rootDir + '/readme/desktop.md', rootDir + '/docs/desktop/index.html', {
+	renderFileToHtml(rootDir + '/README_desktop.md', rootDir + '/docs/desktop/index.html', {
 		selectedDesktop: 'selected',
 	});
 
-	renderFileToHtml(rootDir + '/readme/e2ee.md', rootDir + '/docs/help/e2ee/index.html', {});
-	renderFileToHtml(rootDir + '/readme/spec.md', rootDir + '/docs/help/spec/index.html', {});
-	renderFileToHtml(rootDir + '/readme/donate.md', rootDir + '/docs/donate/index.html', {});
+	renderFileToHtml(rootDir + '/README_e2ee.md', rootDir + '/docs/help/e2ee.html', {});
+	renderFileToHtml(rootDir + '/README_spec.md', rootDir + '/docs/help/spec.html', {});
 	
 }
 

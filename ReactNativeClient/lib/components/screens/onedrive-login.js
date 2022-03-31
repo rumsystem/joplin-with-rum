@@ -2,6 +2,7 @@ const React = require('react'); const Component = React.Component;
 const { View } = require('react-native');
 const { WebView, Button, Text } = require('react-native');
 const { connect } = require('react-redux');
+const { Log } = require('lib/log.js');
 const Setting = require('lib/models/Setting.js');
 const { ScreenHeader } = require('lib/components/screen-header.js');
 const { reg } = require('lib/registry.js');
@@ -43,6 +44,8 @@ class OneDriveLoginScreenComponent extends BaseScreenComponent {
 		const parsedUrl = parseUri(url);
 
 		if (!this.authCode_ && parsedUrl && parsedUrl.queryKey && parsedUrl.queryKey.code) {
+			Log.info('URL: ', url, parsedUrl.queryKey);
+
 			this.authCode_ = parsedUrl.queryKey.code
 
 			try {
@@ -57,8 +60,8 @@ class OneDriveLoginScreenComponent extends BaseScreenComponent {
 		}
 	}
 
-	async webview_error() {
-		alert('Could not load page. Please check your connection and try again.');
+	async webview_error(error) {
+		Log.error(error);
 	}
 
 	retryButton_click() {
@@ -90,7 +93,7 @@ class OneDriveLoginScreenComponent extends BaseScreenComponent {
 				<WebView
 					source={source}
 					onNavigationStateChange={(o) => { this.webview_load(o); }}
-					onError={() => { this.webview_error(); }}
+					onError={(error) => { this.webview_error(error); }}
 				/>
 				<Button title={_("Refresh")} onPress={() => { this.retryButton_click(); }}></Button>
 			</View>

@@ -21,7 +21,6 @@ const { shim } = require('lib/shim.js');
 const { _, setLocale, defaultLocale, closestSupportedLocale } = require('lib/locale.js');
 const os = require('os');
 const fs = require('fs-extra');
-const JoplinError = require('lib/JoplinError');
 const EventEmitter = require('events');
 const SyncTargetRegistry = require('lib/SyncTargetRegistry.js');
 const SyncTargetFilesystem = require('lib/SyncTargetFilesystem.js');
@@ -31,7 +30,6 @@ const SyncTargetNextcloud = require('lib/SyncTargetNextcloud.js');
 const SyncTargetWebDAV = require('lib/SyncTargetWebDAV.js');
 const EncryptionService = require('lib/services/EncryptionService');
 const DecryptionWorker = require('lib/services/DecryptionWorker');
-const BaseService = require('lib/services/BaseService');
 
 SyncTargetRegistry.addClass(SyncTargetFilesystem);
 SyncTargetRegistry.addClass(SyncTargetOneDrive);
@@ -97,14 +95,14 @@ class BaseApplication {
 			let nextArg = argv.length >= 2 ? argv[1] : null;
 			
 			if (arg == '--profile') {
-				if (!nextArg) throw new JoplinError(_('Usage: %s', '--profile <dir-path>'), 'flagError');
+				if (!nextArg) throw new Error(_('Usage: %s', '--profile <dir-path>'));
 				matched.profileDir = nextArg;
 				argv.splice(0, 2);
 				continue;
 			}
 
 			if (arg == '--env') {
-				if (!nextArg) throw new JoplinError(_('Usage: %s', '--env <dev|prod>'), 'flagError');
+				if (!nextArg) throw new Error(_('Usage: %s', '--env <dev|prod>'));
 				matched.env = nextArg;
 				argv.splice(0, 2);
 				continue;
@@ -135,14 +133,14 @@ class BaseApplication {
 			}
 
 			if (arg == '--log-level') {
-				if (!nextArg) throw new JoplinError(_('Usage: %s', '--log-level <none|error|warn|info|debug>'), 'flagError');
+				if (!nextArg) throw new Error(_('Usage: %s', '--log-level <none|error|warn|info|debug>'));
 				matched.logLevel = Logger.levelStringToId(nextArg);
 				argv.splice(0, 2);
 				continue;
 			}
 
 			if (arg.length && arg[0] == '-') {
-				throw new JoplinError(_('Unknown flag: %s', arg), 'flagError');
+				throw new Error(_('Unknown flag: %s', arg));
 			} else {
 				break;
 			}
@@ -260,7 +258,7 @@ class BaseApplication {
 		const newState = store.getState();
 		let refreshNotes = false;
 
-		if (action.type == 'FOLDER_SELECT' || action.type === 'FOLDER_DELETE' || (action.type === 'SEARCH_UPDATE' && newState.notesParentType === 'Folder')) {
+		if (action.type == 'FOLDER_SELECT' || action.type === 'FOLDER_DELETE') {
 			Setting.setValue('activeFolderId', newState.selectedFolderId);
 			this.currentFolder_ = newState.selectedFolderId ? await Folder.load(newState.selectedFolderId) : null;
 			refreshNotes = true;
@@ -427,7 +425,6 @@ class BaseApplication {
 			setLocale(Setting.value('locale'));
 		}
 
-		BaseService.logger_ = this.logger_;
 		EncryptionService.instance().setLogger(this.logger_);
 		BaseItem.encryptionService_ = EncryptionService.instance();
 		DecryptionWorker.instance().setLogger(this.logger_);

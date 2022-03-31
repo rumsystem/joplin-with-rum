@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-
 	<style>
 		body {
 			overflow: hidden;
@@ -15,18 +13,12 @@
 			padding-right: 10px;
 		}
 
-		mark {
-			background: #CF3F00;
-			color: white;
-		}
-
 		.katex { font-size: 1.3em; } /* This controls the global Katex font size*/
 	</style>
 </head>
 
 <body id="body">
 	<div id="hlScriptContainer"></div>
-	<div id="markScriptContainer"></div>
 	<div id="content" ondragstart="return false;" ondrop="return false;"></div>
 
 	<script>
@@ -46,7 +38,7 @@
 		const script = document.createElement('script');
 		script.onload = function () {
 			hljsLoaded = true;
-			applyHljs();
+	    	applyHljs();
 		};
 		script.src = 'highlight/highlight.pack.js';
 		document.getElementById('hlScriptContainer').appendChild(script);
@@ -168,36 +160,6 @@
 		setPercentScroll(percent);
 	});
 
-	let mark_ = null;
-	function setMarkers(keywords) {
-		if (!mark_) {
-			mark_ = new Mark(document.getElementById('content'), {
-				exclude: ['img'],
-				acrossElements: true,
-			});
-		}
-
-		mark_.mark(keywords);
-	}
-
-	let markLoaded_ = false;
-	ipcRenderer.on('setMarkers', (event, keywords) => {
-		if (!keywords.length && !markLoaded_) return;
-
-		if (!markLoaded_) {
-			const script = document.createElement('script');
-			script.onload = function() {
-				setMarkers(keywords);
-			};
-
-			script.src = '../../node_modules/mark.js/dist/mark.min.js';
-			document.getElementById('markScriptContainer').appendChild(script);
-			markLoaded_ = true;
-		} else {
-			setMarkers(keywords);
-		}
-	});
-
 	function maxScrollTop() {
 		return Math.max(0, contentElement.scrollHeight - contentElement.clientHeight);
 	}
@@ -219,11 +181,7 @@
 	});
 
 	document.addEventListener('contextmenu', function(event) {
-		let element = event.target;
-
-		// To handle right clicks on resource icons
-		if (element && !element.getAttribute('data-resource-id')) element = element.parentElement;
-
+		const element = event.target;
 		if (element && element.getAttribute('data-resource-id')) {
 			ipcRenderer.sendToHost('contextMenu', {
 				type: element.getAttribute('src') ? 'image' : 'link',

@@ -46,13 +46,6 @@ globalStyle.lineInput = {
 	backgroundColor: globalStyle.backgroundColor,
 };
 
-globalStyle.buttonRow = {
-	flexDirection: 'row',
-	borderTopWidth: 1,
-	borderTopColor: globalStyle.dividerColor,
-	paddingTop: 10,
-};
-
 let themeCache_ = {};
 
 function themeStyle(theme) {

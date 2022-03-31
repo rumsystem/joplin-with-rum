@@ -504,9 +504,6 @@ msgstr "Défaut : %s"
 msgid "Possible keys/values:"
 msgstr "Clefs/Valeurs possibles :"
 
-msgid "Type `joplin help` for usage information."
-msgstr "Tapez `Joplin help` pour afficher l'aide."
-
 msgid "Fatal error:"
 msgstr "Erreur fatale :"
 
@@ -564,15 +561,15 @@ msgstr ""
 msgid "Exporting to \"%s\" as \"%s\" format. Please wait..."
 msgstr "Exporter vers \"%s\" au format \"%s\". Veuillez patienter..."
 
+msgid "File"
+msgstr "Fichier"
+
+msgid "Directory"
+msgstr "Dossier"
+
 #, javascript-format
 msgid "Importing from \"%s\" as \"%s\" format. Please wait..."
 msgstr "Importer depuis \"%s\" au format \"%s\". Veuillez patienter..."
-
-msgid "PDF File"
-msgstr "Fichier PDF"
-
-msgid "File"
-msgstr "Fichier"
 
 msgid "New note"
 msgstr "Nouvelle note"
@@ -588,9 +585,6 @@ msgstr "Importer"
 
 msgid "Export"
 msgstr "Exporter"
-
-msgid "Print"
-msgstr "Imprimer"
 
 #, javascript-format
 msgid "Hide %s"
@@ -638,9 +632,6 @@ msgstr "Aide"
 msgid "Website and documentation"
 msgstr "Documentation en ligne"
 
-msgid "Make a donation"
-msgstr "Faire un don"
-
 msgid "Check for updates..."
 msgstr "Vérifier les mises à jour..."
 
@@ -664,8 +655,15 @@ msgstr "OK"
 msgid "Cancel"
 msgstr "Annuler"
 
-msgid "Current version is up-to-date."
-msgstr "La version actuelle est à jour."
+#, javascript-format
+msgid ""
+"Release notes:\n"
+"\n"
+"%s"
+msgstr ""
+"Notes de version :\n"
+"\n"
+"%s"
 
 msgid "An update is available, do you want to download it now?"
 msgstr ""
@@ -676,6 +674,9 @@ msgstr "Oui"
 
 msgid "No"
 msgstr "Non"
+
+msgid "Current version is up-to-date."
+msgstr "La version actuelle est à jour."
 
 msgid "Check synchronisation configuration"
 msgstr "Vérifier config synchronisation"
@@ -1000,8 +1001,8 @@ msgid "Fetched items: %d/%d."
 msgstr "Téléchargés : %d/%d."
 
 #, javascript-format
-msgid "State: %s."
-msgstr "État : %s."
+msgid "State: \"%s\"."
+msgstr "État : \"%s\"."
 
 msgid "Cancelling..."
 msgstr "Annulation..."
@@ -1009,16 +1010,6 @@ msgstr "Annulation..."
 #, javascript-format
 msgid "Completed: %s"
 msgstr "Terminé : %s"
-
-#, javascript-format
-msgid "Last error: %s"
-msgstr "Dernière erreur : %s"
-
-msgid "Idle"
-msgstr "Arrêté"
-
-msgid "In progress"
-msgstr "En cours"
 
 #, javascript-format
 msgid "Synchronisation is already in progress. State: %s"
@@ -1090,7 +1081,7 @@ msgid "Sort notes by"
 msgstr "Trier les notes par"
 
 msgid "Reverse sort order"
-msgstr "Inverser l'ordre"
+msgstr "Inverser l'ordre."
 
 msgid "Save geo-location with notes"
 msgstr "Enregistrer l'emplacement avec les notes"
@@ -1198,9 +1189,6 @@ msgstr "Dossier d'export Joplin"
 
 msgid "Evernote Export File"
 msgstr "Fichiers d'export Evernote"
-
-msgid "Directory"
-msgstr "Dossier"
 
 #, javascript-format
 msgid "Cannot load \"%s\" module for format \"%s\""
@@ -1312,15 +1300,6 @@ msgstr "Confirmer"
 msgid "Cancel synchronisation"
 msgstr "Annuler synchronisation"
 
-msgid "New tags:"
-msgstr "Nouvelles étiquettes :"
-
-msgid "Type new tags or select from list"
-msgstr "Entrez de nouvelles étiquettes ou sélectionnez de la liste"
-
-msgid "Joplin website"
-msgstr "Site web de Joplin"
-
 #, javascript-format
 msgid "Master Key %s"
 msgstr "Clef maître %s"
@@ -1405,15 +1384,6 @@ msgstr ""
 
 msgid "Welcome"
 msgstr "Bienvenue"
-
-#~ msgid ""
-#~ "Release notes:\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Notes de version :\n"
-#~ "\n"
-#~ "%s"
 
 #~ msgid "Imports an Evernote notebook file (.enex file)."
 #~ msgstr "Importer un carnet Evernote (fichier .enex)."

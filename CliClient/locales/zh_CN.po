@@ -471,10 +471,6 @@ msgstr "默认值: %s"
 msgid "Possible keys/values:"
 msgstr "可用键/值："
 
-#, fuzzy
-msgid "Type `joplin help` for usage information."
-msgstr "显示使用信息。"
-
 msgid "Fatal error:"
 msgstr "严重错误："
 
@@ -519,16 +515,15 @@ msgstr ""
 msgid "Exporting to \"%s\" as \"%s\" format. Please wait..."
 msgstr ""
 
+msgid "File"
+msgstr "文件"
+
+msgid "Directory"
+msgstr ""
+
 #, javascript-format
 msgid "Importing from \"%s\" as \"%s\" format. Please wait..."
 msgstr ""
-
-#, fuzzy
-msgid "PDF File"
-msgstr "文件"
-
-msgid "File"
-msgstr "文件"
 
 msgid "New note"
 msgstr "新笔记"
@@ -545,9 +540,6 @@ msgstr "导入"
 #, fuzzy
 msgid "Export"
 msgstr "导入"
-
-msgid "Print"
-msgstr ""
 
 #, javascript-format
 msgid "Hide %s"
@@ -596,10 +588,6 @@ msgstr "帮助"
 msgid "Website and documentation"
 msgstr "网站与文档"
 
-#, fuzzy
-msgid "Make a donation"
-msgstr "网站与文档"
-
 msgid "Check for updates..."
 msgstr ""
 
@@ -623,8 +611,12 @@ msgstr "确认"
 msgid "Cancel"
 msgstr "取消"
 
-msgid "Current version is up-to-date."
-msgstr ""
+#, fuzzy, javascript-format
+msgid ""
+"Release notes:\n"
+"\n"
+"%s"
+msgstr "是否删除笔记？"
 
 msgid "An update is available, do you want to download it now?"
 msgstr ""
@@ -635,6 +627,9 @@ msgstr ""
 #, fuzzy
 msgid "No"
 msgstr "否"
+
+msgid "Current version is up-to-date."
+msgstr ""
 
 #, fuzzy
 msgid "Check synchronisation configuration"
@@ -941,8 +936,8 @@ msgstr "已删除远程项目: %d。"
 msgid "Fetched items: %d/%d."
 msgstr "已新建本地项目: %d。"
 
-#, fuzzy, javascript-format
-msgid "State: %s."
+#, javascript-format
+msgid "State: \"%s\"."
 msgstr "状态：\"%s\"。"
 
 msgid "Cancelling..."
@@ -951,16 +946,6 @@ msgstr "正在取消..."
 #, javascript-format
 msgid "Completed: %s"
 msgstr "已完成：\"%s\""
-
-#, fuzzy, javascript-format
-msgid "Last error: %s"
-msgstr "严重错误："
-
-msgid "Idle"
-msgstr ""
-
-msgid "In progress"
-msgstr ""
 
 #, javascript-format
 msgid "Synchronisation is already in progress. State: %s"
@@ -1140,9 +1125,6 @@ msgstr ""
 msgid "Evernote Export File"
 msgstr "Evernote导出文件"
 
-msgid "Directory"
-msgstr ""
-
 #, javascript-format
 msgid "Cannot load \"%s\" module for format \"%s\""
 msgstr ""
@@ -1247,15 +1229,6 @@ msgstr "确认"
 msgid "Cancel synchronisation"
 msgstr "取消同步"
 
-msgid "New tags:"
-msgstr ""
-
-msgid "Type new tags or select from list"
-msgstr ""
-
-msgid "Joplin website"
-msgstr ""
-
 #, javascript-format
 msgid "Master Key %s"
 msgstr ""
@@ -1337,13 +1310,6 @@ msgstr "您当前没有任何笔记本。点击(+)按钮创建新笔记本。"
 
 msgid "Welcome"
 msgstr "欢迎"
-
-#, fuzzy
-#~ msgid ""
-#~ "Release notes:\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr "是否删除笔记？"
 
 #~ msgid "Imports an Evernote notebook file (.enex file)."
 #~ msgstr "导入Evernote笔记本文件（.enex文件）。"

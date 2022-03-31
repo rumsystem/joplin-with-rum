@@ -496,7 +496,7 @@ class AppGui {
 		cmd = cmd.trim();
 		if (!cmd.length) return;
 
-		// this.logger().debug('Got command: ' + cmd);
+		this.logger().info('Got command: ' + cmd);
 
 		try {			
 			let note = this.widget('noteList').currentItem;
@@ -757,7 +757,7 @@ class AppGui {
 				if (statusBar.promptActive) processShortcutKeys = false;
 
 				if (processShortcutKeys) {
-					this.logger().debug('Shortcut:', shortcutKey, keymapItem);
+					this.logger().info('Shortcut:', shortcutKey, keymapItem);
 
 					this.currentShortcutKeys_ = [];
 
