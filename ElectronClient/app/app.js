@@ -705,16 +705,6 @@ class Application extends BaseApplication {
 						});
 					},
 				}, {
-					label: _('Tags'),
-					screens: ['Main'],
-					accelerator: 'CommandOrControl+Alt+T',
-					click: () => {
-						this.dispatch({
-							type: 'WINDOW_COMMAND',
-							name: 'setTags',
-						});
-					},
-				}, {
 					type: 'separator',
 					screens: ['Main'],
 				}, {
