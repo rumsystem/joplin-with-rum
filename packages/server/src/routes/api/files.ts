@@ -1,5 +1,5 @@
 import { ErrorNotFound } from '../../utils/errors';
-import { File, Uuid } from '../../db';
+import { File } from '../../db';
 import { bodyFields, formParse } from '../../utils/requestUtils';
 import { SubPath, respondWithFileContent } from '../../utils/routeUtils';
 import Router from '../../utils/Router';
@@ -11,27 +11,30 @@ const router = new Router();
 
 router.get('api/files/:id', async (path: SubPath, ctx: AppContext) => {
 	const fileModel = ctx.models.file({ userId: ctx.owner.id });
-	const file: File = await fileModel.pathToFile(path.id);
-	return fileModel.toApiOutput(file);
+	const fileId = path.id;
+	const file: File = await fileModel.entityFromItemId(fileId);
+	const loadedFile = await fileModel.load(file.id);
+	if (!loadedFile) throw new ErrorNotFound();
+	return fileModel.toApiOutput(loadedFile);
 });
 
 router.patch('api/files/:id', async (path: SubPath, ctx: AppContext) => {
 	const fileModel = ctx.models.file({ userId: ctx.owner.id });
 	const fileId = path.id;
 	const inputFile: File = await bodyFields(ctx.req);
-	const existingFileId: Uuid = await fileModel.pathToFileId(fileId);
+	const existingFile: File = await fileModel.entityFromItemId(fileId);
 	const newFile = fileModel.fromApiInput(inputFile);
-	newFile.id = existingFileId;
+	newFile.id = existingFile.id;
 	return fileModel.toApiOutput(await fileModel.save(newFile));
 });
 
 router.del('api/files/:id', async (path: SubPath, ctx: AppContext) => {
 	const fileModel = ctx.models.file({ userId: ctx.owner.id });
-	// const fileId = path.id;
+	const fileId = path.id;
 	try {
-		const fileId: Uuid = await fileModel.pathToFileId(path.id, { mustExist: false });
-		if (!fileId) return;
-		await fileModel.delete(fileId);
+		const file: File = await fileModel.entityFromItemId(fileId, { mustExist: false });
+		if (!file.id) return;
+		await fileModel.delete(file.id);
 	} catch (error) {
 		if (error instanceof ErrorNotFound) {
 			// That's ok - a no-op
@@ -43,8 +46,9 @@ router.del('api/files/:id', async (path: SubPath, ctx: AppContext) => {
 
 router.get('api/files/:id/content', async (path: SubPath, ctx: AppContext) => {
 	const fileModel = ctx.models.file({ userId: ctx.owner.id });
-	const fileId: Uuid = await fileModel.pathToFileId(path.id);
-	const file = await fileModel.loadWithContent(fileId);
+	const fileId = path.id;
+	let file: File = await fileModel.entityFromItemId(fileId);
+	file = await fileModel.loadWithContent(file.id);
 	if (!file) throw new ErrorNotFound();
 	return respondWithFileContent(ctx.response, file);
 });
@@ -60,7 +64,7 @@ router.put('api/files/:id/content', async (path: SubPath, ctx: AppContext) => {
 	// https://github.com/laurent22/joplin/issues/4402
 	const buffer = result?.files?.file ? await fs.readFile(result.files.file.path) : Buffer.alloc(0);
 
-	const file: File = await fileModel.pathToFile(fileId, { mustExist: false, returnFullEntity: false });
+	const file: File = await fileModel.entityFromItemId(fileId, { mustExist: false });
 	file.content = buffer;
 	return fileModel.toApiOutput(await fileModel.save(file, { validationRules: { mustBeFile: true } }));
 });
@@ -68,7 +72,7 @@ router.put('api/files/:id/content', async (path: SubPath, ctx: AppContext) => {
 router.del('api/files/:id/content', async (path: SubPath, ctx: AppContext) => {
 	const fileModel = ctx.models.file({ userId: ctx.owner.id });
 	const fileId = path.id;
-	const file: File = await fileModel.pathToFile(fileId, { mustExist: false, returnFullEntity: false });
+	const file: File = await fileModel.entityFromItemId(fileId, { mustExist: false });
 	if (!file) return;
 	file.content = Buffer.alloc(0);
 	await fileModel.save(file, { validationRules: { mustBeFile: true } });
@@ -76,22 +80,22 @@ router.del('api/files/:id/content', async (path: SubPath, ctx: AppContext) => {
 
 router.get('api/files/:id/delta', async (path: SubPath, ctx: AppContext) => {
 	const fileModel = ctx.models.file({ userId: ctx.owner.id });
-	const dirId: Uuid = await fileModel.pathToFileId(path.id);
+	const dir: File = await fileModel.entityFromItemId(path.id, { mustExist: true });
 	const changeModel = ctx.models.change({ userId: ctx.owner.id });
-	return changeModel.byDirectoryId(dirId, requestChangePagination(ctx.query));
+	return changeModel.byDirectoryId(dir.id, requestChangePagination(ctx.query));
 });
 
 router.get('api/files/:id/children', async (path: SubPath, ctx: AppContext) => {
 	const fileModel = ctx.models.file({ userId: ctx.owner.id });
-	const parentId: Uuid = await fileModel.pathToFileId(path.id);
-	return fileModel.toApiOutput(await fileModel.childrens(parentId, requestPagination(ctx.query)));
+	const parent: File = await fileModel.entityFromItemId(path.id);
+	return fileModel.toApiOutput(await fileModel.childrens(parent.id, requestPagination(ctx.query)));
 });
 
 router.post('api/files/:id/children', async (path: SubPath, ctx: AppContext) => {
 	const fileModel = ctx.models.file({ userId: ctx.owner.id });
 	const child: File = fileModel.fromApiInput(await bodyFields(ctx.req));
-	const parentId: Uuid = await fileModel.pathToFileId(path.id);
-	child.parent_id = parentId;
+	const parent: File = await fileModel.entityFromItemId(path.id);
+	child.parent_id = parent.id;
 	return fileModel.toApiOutput(await fileModel.save(child));
 });
 

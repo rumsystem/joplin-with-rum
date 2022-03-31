@@ -21,7 +21,6 @@ module.exports = {
 				'packages/app-mobile/android/**/*',
 				'packages/app-mobile/ios/**/*',
 				'packages/lib/plugin_types/**/*',
-				'packages/server/**/*',
 			],
 		}).filter(f => !f.endsWith('.d.ts'));
 

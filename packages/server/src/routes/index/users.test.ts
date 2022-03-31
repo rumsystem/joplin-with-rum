@@ -1,6 +1,7 @@
 import { File, User } from '../../db';
 import routeHandler from '../../middleware/routeHandler';
-import { beforeAllDb, afterAllTests, beforeEachDb, koaAppContext, createUserAndSession, models, parseHtml, checkContextError } from '../../utils/testing/testUtils';
+import { checkContextError } from '../../utils/testing/apiUtils';
+import { beforeAllDb, afterAllTests, beforeEachDb, koaAppContext, createUserAndSession, models, parseHtml } from '../../utils/testing/testUtils';
 
 export async function postUser(sessionId: string, email: string, password: string): Promise<User> {
 	const context = await koaAppContext({

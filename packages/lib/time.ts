@@ -1,68 +1,66 @@
 import shim from './shim';
 const moment = require('moment');
 
-type ConditionHandler = ()=> boolean;
-
 class Time {
 
 	private dateFormat_: string = 'DD/MM/YYYY';
 	private timeFormat_: string = 'HH:mm';
 	private locale_: string = 'en-us';
 
-	public locale() {
+	locale() {
 		return this.locale_;
 	}
 
-	public setLocale(v: string) {
+	setLocale(v: string) {
 		moment.locale(v);
 		this.locale_ = v;
 	}
 
-	public dateFormat() {
+	dateFormat() {
 		return this.dateFormat_;
 	}
 
-	public setDateFormat(v: string) {
+	setDateFormat(v: string) {
 		this.dateFormat_ = v;
 	}
 
-	public timeFormat() {
+	timeFormat() {
 		return this.timeFormat_;
 	}
 
-	public setTimeFormat(v: string) {
+	setTimeFormat(v: string) {
 		this.timeFormat_ = v;
 	}
 
-	public use24HourFormat() {
+	use24HourFormat() {
 		return this.timeFormat() ? this.timeFormat().includes('HH') : true;
 	}
 
-	public formatDateToLocal(date: Date, format: string = null) {
+	formatDateToLocal(date: Date, format: string = null) {
 		return this.formatMsToLocal(date.getTime(), format);
 	}
 
-	public dateTimeFormat() {
+	dateTimeFormat() {
 		return `${this.dateFormat()} ${this.timeFormat()}`;
 	}
 
-	public unix() {
+	unix() {
 		return Math.floor(Date.now() / 1000);
 	}
 
-	public unixMs() {
+	unixMs() {
 		return Date.now();
 	}
 
-	public unixMsToObject(ms: number) {
+	unixMsToObject(ms: number) {
 		return new Date(ms);
 	}
 
-	public unixMsToS(ms: number) {
+	unixMsToS(ms: number) {
 		return Math.floor(ms / 1000);
 	}
 
-	public unixMsToIso(ms: number) {
+	unixMsToIso(ms: number) {
 		return (
 			`${moment
 				.unix(ms / 1000)
@@ -71,7 +69,7 @@ class Time {
 		);
 	}
 
-	public unixMsToIsoSec(ms: number) {
+	unixMsToIsoSec(ms: number) {
 		return (
 			`${moment
 				.unix(ms / 1000)
@@ -80,20 +78,20 @@ class Time {
 		);
 	}
 
-	public unixMsToLocalDateTime(ms: number) {
+	unixMsToLocalDateTime(ms: number) {
 		return moment.unix(ms / 1000).format('DD/MM/YYYY HH:mm');
 	}
 
-	public unixMsToLocalHms(ms: number) {
+	unixMsToLocalHms(ms: number) {
 		return moment.unix(ms / 1000).format('HH:mm:ss');
 	}
 
-	public formatMsToLocal(ms: number, format: string = null) {
+	formatMsToLocal(ms: number, format: string = null) {
 		if (format === null) format = this.dateTimeFormat();
 		return moment(ms).format(format);
 	}
 
-	public formatLocalToMs(localDateTime: any, format: string = null) {
+	formatLocalToMs(localDateTime: any, format: string = null) {
 		if (format === null) format = this.dateTimeFormat();
 		const m = moment(localDateTime, format);
 		if (m.isValid()) return m.toDate().getTime();
@@ -101,7 +99,7 @@ class Time {
 	}
 
 	// Mostly used as a utility function for the DateTime Electron component
-	public anythingToDateTime(o: any, defaultValue: Date = null) {
+	anythingToDateTime(o: any, defaultValue: Date = null) {
 		if (o && o.toDate) return o.toDate();
 		if (!o) return defaultValue;
 		let m = moment(o, time.dateTimeFormat());
@@ -110,7 +108,7 @@ class Time {
 		return m.isValid() ? m.toDate() : defaultValue;
 	}
 
-	public msleep(ms: number) {
+	msleep(ms: number) {
 		return new Promise((resolve: Function) => {
 			shim.setTimeout(() => {
 				resolve();
@@ -118,31 +116,18 @@ class Time {
 		});
 	}
 
-	public sleep(seconds: number) {
+	sleep(seconds: number) {
 		return this.msleep(seconds * 1000);
 	}
 
 
-	public goBackInTime(startDate: any, n: number, period: any) {
+	goBackInTime(startDate: any, n: number, period: any) {
 		// period is a string (eg. "day", "week", "month", "year" ), n is an integer
 		return moment(startDate).startOf(period).subtract(n, period).format('x');
 	}
 
-	public goForwardInTime(startDate: any, n: number, period: any) {
+	goForwardInTime(startDate: any, n: number, period: any) {
 		return moment(startDate).startOf(period).add(n, period).format('x');
-	}
-
-	public async waitTillCondition(condition: ConditionHandler) {
-		if (condition()) return;
-
-		return new Promise(resolve => {
-			const iid = setInterval(() => {
-				if (condition()) {
-					clearInterval(iid);
-					resolve(null);
-				}
-			}, 1000);
-		});
 	}
 
 }

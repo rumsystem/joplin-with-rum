@@ -1,4 +1,4 @@
-import utils, { ItemIdToUrlHandler } from '../utils';
+import utils from '../utils';
 const Entities = require('html-entities').AllHtmlEntities;
 const htmlentities = new Entities().encode;
 const urlUtils = require('../urlUtils.js');
@@ -12,7 +12,6 @@ export interface Options {
 	plainResourceRendering?: boolean;
 	postMessageSyntax?: string;
 	enableLongPress?: boolean;
-	itemIdToUrl?: ItemIdToUrlHandler;
 }
 
 export interface LinkReplacementResult {
@@ -66,8 +65,6 @@ export default function(href: string, options: Options = null): LinkReplacementR
 				resourceFullPath: null,
 			};
 		} else {
-			// If we are rendering a note link, we'll get here too, so in that
-			// case "resourceId" would actually be the note ID.
 			href = `joplin://${resourceId}`;
 			if (resourceHrefInfo.hash) href += `#${resourceHrefInfo.hash}`;
 			resourceIdAttr = `data-resource-id='${resourceId}'`;
@@ -112,13 +109,7 @@ export default function(href: string, options: Options = null): LinkReplacementR
 	if (title) attrHtml.push(`title='${htmlentities(title)}'`);
 	if (mime) attrHtml.push(`type='${htmlentities(mime)}'`);
 
-	let resourceFullPath = resource && options?.ResourceModel?.fullPath ? options.ResourceModel.fullPath(resource) : null;
-
-	if (resourceId && options.itemIdToUrl) {
-		const url = options.itemIdToUrl(resourceId);
-		attrHtml.push(`href='${htmlentities(url)}'`);
-		resourceFullPath = url;
-	} else if (options.plainResourceRendering || options.linkRenderingType === 2) {
+	if (options.plainResourceRendering || options.linkRenderingType === 2) {
 		icon = '';
 		attrHtml.push(`href='${htmlentities(href)}'`);
 	} else {
@@ -130,6 +121,6 @@ export default function(href: string, options: Options = null): LinkReplacementR
 		html: `<a ${attrHtml.join(' ')}>${icon}`,
 		resourceReady: true,
 		resource,
-		resourceFullPath: resourceFullPath,
+		resourceFullPath: resource && options?.ResourceModel?.fullPath ? options.ResourceModel.fullPath(resource) : null,
 	};
 }

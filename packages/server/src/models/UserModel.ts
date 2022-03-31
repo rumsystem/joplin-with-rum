@@ -3,7 +3,7 @@ import { User } from '../db';
 import * as auth from '../utils/auth';
 import { ErrorUnprocessableEntity, ErrorForbidden } from '../utils/errors';
 
-export default class UserModel extends BaseModel<User> {
+export default class UserModel extends BaseModel {
 
 	public get tableName(): string {
 		return 'users';

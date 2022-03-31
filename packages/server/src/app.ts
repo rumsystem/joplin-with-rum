@@ -8,12 +8,12 @@ import Logger, { LoggerWrapper, TargetType } from '@joplin/lib/Logger';
 import config, { initConfig, runningInDocker, EnvVariables } from './config';
 import { createDb, dropDb } from './tools/dbTools';
 import { dropTables, connectDb, disconnectDb, migrateDb, waitForConnection, sqliteFilePath } from './db';
+import modelFactory from './models/factory';
 import { AppContext, Env } from './utils/types';
 import FsDriverNode from '@joplin/lib/fs-driver-node';
 import routeHandler from './middleware/routeHandler';
 import notificationHandler from './middleware/notificationHandler';
 import ownerHandler from './middleware/ownerHandler';
-import setupAppContext from './utils/setupAppContext';
 
 const nodeEnvFile = require('node-env-file');
 const { shimInit } = require('@joplin/lib/shim-init-node.js');
@@ -77,8 +77,6 @@ async function main() {
 	});
 
 	await fs.mkdirp(config().logDir);
-	await fs.mkdirp(config().tempDir);
-
 	Logger.fsDriver_ = new FsDriverNode();
 	const globalLogger = new Logger();
 	// globalLogger.addTarget(TargetType.File, { path: `${config().logDir}/app.txt` });
@@ -116,6 +114,8 @@ async function main() {
 		appLogger().info('DB Config:', markPasswords(config().database));
 		if (config().database.client === 'sqlite3') appLogger().info('DB file:', sqliteFilePath(config().database.name));
 
+		const appContext = app.context as AppContext;
+
 		appLogger().info('Trying to connect to database...');
 		const connectionCheck = await waitForConnection(config().database);
 
@@ -123,9 +123,10 @@ async function main() {
 		delete connectionCheckLogInfo.connection;
 
 		appLogger().info('Connection check:', connectionCheckLogInfo);
-		const appContext = app.context as AppContext;
-
-		await setupAppContext(appContext, env, connectionCheck.connection, appLogger);
+		appContext.env = env;
+		appContext.db = connectionCheck.connection;
+		appContext.models = modelFactory(appContext.db, config().baseUrl);
+		appContext.appLogger = appLogger;
 
 		appLogger().info('Migrating database...');
 		await migrateDb(appContext.db);

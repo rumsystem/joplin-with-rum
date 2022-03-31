@@ -110,7 +110,7 @@ export default class Note extends BaseItem {
 		return BaseModel.TYPE_NOTE;
 	}
 
-	static linkedItemIds(body: string): string[] {
+	static linkedItemIds(body: string) {
 		if (!body || body.length <= 32) return [];
 
 		const links = urlUtils.extractResourceUrls(body);
@@ -319,8 +319,7 @@ export default class Note extends BaseItem {
 
 	static previewFieldsSql(fields: string[] = null) {
 		if (fields === null) fields = this.previewFields();
-		const escaped = this.db().escapeFields(fields);
-		return Array.isArray(escaped) ? escaped.join(',') : escaped;
+		return this.db().escapeFields(fields).join(',');
 	}
 
 	static async loadFolderNoteByField(folderId: string, field: string, value: any) {
