@@ -223,7 +223,7 @@ msgid ""
 "(including this console)."
 msgstr ""
 
-msgid "To maximise/minimise the console, press \"TC\"."
+msgid "To maximise/minimise the console, press \"tc\"."
 msgstr ""
 
 msgid "To enter command line mode, press \":\""
@@ -556,6 +556,9 @@ msgstr ""
 msgid "View"
 msgstr ""
 
+msgid "Toggle sidebar"
+msgstr ""
+
 msgid "Toggle editor layout"
 msgstr ""
 
@@ -688,7 +691,7 @@ msgstr ""
 
 msgid ""
 "For more information about End-To-End Encryption (E2EE) and advices on how "
-"to enable it please check the documentation"
+"to enable it please check the documentation:"
 msgstr ""
 
 msgid "Status"
@@ -1026,6 +1029,9 @@ msgstr ""
 msgid "Show tray icon"
 msgstr ""
 
+msgid "Note: Does not work in all desktop environments."
+msgstr ""
+
 msgid "Global zoom percentage"
 msgstr ""
 
@@ -1241,11 +1247,6 @@ msgid "Password cannot be empty"
 msgstr ""
 
 msgid "Enable"
-msgstr ""
-
-msgid ""
-"For more information about End-To-End Encryption (E2EE) and advices on how "
-"to enable it please check the documentation:"
 msgstr ""
 
 #, javascript-format

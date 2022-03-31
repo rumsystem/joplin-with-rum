@@ -248,8 +248,8 @@ msgstr ""
 "Utilisez les touches fléchées et page précédente/suivante pour faire défiler "
 "les listes et zones de texte (y compris cette console)."
 
-msgid "To maximise/minimise the console, press \"TC\"."
-msgstr "Pour maximiser ou minimiser la console, pressez \"TC\"."
+msgid "To maximise/minimise the console, press \"tc\"."
+msgstr "Pour maximiser ou minimiser la console, pressez \"tc\"."
 
 msgid "To enter command line mode, press \":\""
 msgstr "Pour démarrer le mode ligne de commande, pressez \":\""
@@ -631,6 +631,9 @@ msgstr "Chercher dans toutes les notes"
 msgid "View"
 msgstr "Affichage"
 
+msgid "Toggle sidebar"
+msgstr "Basculer barre latérale"
+
 msgid "Toggle editor layout"
 msgstr "Basculer l'agencement de l'éditeur"
 
@@ -779,10 +782,10 @@ msgstr ""
 
 msgid ""
 "For more information about End-To-End Encryption (E2EE) and advices on how "
-"to enable it please check the documentation"
+"to enable it please check the documentation:"
 msgstr ""
 "Pour plus d'informations sur l'encryption de bout en bout, ainsi que des "
-"conseils pour l'activer, veuillez consulter la documentation"
+"conseils pour l'activer, veuillez consulter la documentation :"
 
 msgid "Status"
 msgstr "État"
@@ -1137,6 +1140,9 @@ msgstr "Lors de la création d'une note :"
 msgid "Show tray icon"
 msgstr "Afficher icône dans la zone de notifications"
 
+msgid "Note: Does not work in all desktop environments."
+msgstr "Note : Ne fonctionne pas dans tous les environnements de bureau."
+
 msgid "Global zoom percentage"
 msgstr "Niveau de zoom"
 
@@ -1368,13 +1374,6 @@ msgstr "Mot de passe ne peut être vide"
 msgid "Enable"
 msgstr "Activer"
 
-msgid ""
-"For more information about End-To-End Encryption (E2EE) and advices on how "
-"to enable it please check the documentation:"
-msgstr ""
-"Pour plus d'informations sur l'encryption de bout en bout, ainsi que des "
-"conseils pour l'activer, veuillez consulter la documentation :"
-
 #, javascript-format
 msgid "The notebook could not be saved: %s"
 msgstr "Ce carnet n'a pas pu être sauvegardé : %s"
@@ -1445,6 +1444,13 @@ msgstr ""
 
 msgid "Welcome"
 msgstr "Bienvenue"
+
+#~ msgid ""
+#~ "For more information about End-To-End Encryption (E2EE) and advices on "
+#~ "how to enable it please check the documentation"
+#~ msgstr ""
+#~ "Pour plus d'informations sur l'encryption de bout en bout, ainsi que des "
+#~ "conseils pour l'activer, veuillez consulter la documentation"
 
 #~ msgid "Searches"
 #~ msgstr "Recherches"
