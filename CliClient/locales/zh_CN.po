@@ -135,7 +135,7 @@ msgid "Operation cancelled"
 msgstr "操作已取消"
 
 #, fuzzy
-msgid "Confirm password:"
+msgid "Confirm master password:"
 msgstr "输入主密码："
 
 #, fuzzy
@@ -454,12 +454,10 @@ msgstr "下载资源中..."
 msgid "Cancelling... Please wait."
 msgstr "正在取消... 请稍候。"
 
-#, fuzzy
 msgid ""
-"<tag-command> can be \"add\", \"remove\", \"list\", or \"notetags\" to "
-"assign or remove [tag] from [note], to list notes associated with [tag], or "
-"to list tags associated with [note]. The command `tag list` can be used to "
-"list all the tags (use -l for long option)."
+"<tag-command> can be \"add\", \"remove\" or \"list\" to assign or remove "
+"[tag] from [note], or to list the notes associated with [tag]. The command "
+"`tag list` can be used to list all the tags (use -l for long option)."
 msgstr ""
 "<tag-command> 可以是“add”、“remove”或者“list”， 用于从 [note] 中赋值或删除 "
 "[tag]，或者列出与 [tag] 相关的笔记。`tag list` 命令可以用于列出所有的标签（对"
@@ -651,10 +649,6 @@ msgstr "界面 (&V)"
 
 msgid "Toggle sidebar"
 msgstr "切换边栏"
-
-#, fuzzy
-msgid "Toggle note list"
-msgstr "笔记列表"
 
 msgid "Toggle editor layout"
 msgstr "切换编辑器布局"
@@ -986,10 +980,6 @@ msgstr "笔记“%s”已成功恢复到笔记本“%s”中。"
 msgid "This note has no history"
 msgstr "此笔记没有历史记录"
 
-#, javascript-format
-msgid "Unsupported link or message: %s"
-msgstr "不被支持的链接或信息：%s"
-
 msgid "Restore"
 msgstr "恢复"
 
@@ -1019,6 +1009,10 @@ msgstr "复制链接地址"
 
 msgid "This attachment is not downloaded or not decrypted yet."
 msgstr "该附件没有下载或者尚未解密。"
+
+#, javascript-format
+msgid "Unsupported link or message: %s"
+msgstr "不被支持的链接或信息：%s"
 
 #, javascript-format
 msgid ""
@@ -1430,9 +1424,6 @@ msgstr "Solarised Light风格"
 
 msgid "Solarised Dark"
 msgstr "Solarised Dark风格"
-
-msgid "Nord"
-msgstr ""
 
 msgid "Uncompleted to-dos on top"
 msgstr "将未完成的待办事项置顶"
@@ -1984,6 +1975,14 @@ msgstr "密码不可为空"
 msgid "Confirm password cannot be empty"
 msgstr "密码不可为空"
 
+#, fuzzy
+msgid "Confirm password:"
+msgstr "输入主密码："
+
+#, fuzzy
+msgid "Confirm password"
+msgstr "输入主密码："
+
 msgid "Enable"
 msgstr "启用"
 
@@ -2081,16 +2080,8 @@ msgid "Search"
 msgstr "搜索"
 
 #, fuzzy
-#~ msgid "Confirm master password:"
-#~ msgstr "输入主密码："
-
-#, fuzzy
-#~ msgid "Confirm password"
-#~ msgstr "输入主密码："
-
-#, fuzzy
-#~ msgid "Missing required argument: note"
-#~ msgstr "缺失所需参数：%s"
+#~ msgid "Toggle note list"
+#~ msgstr "笔记列表"
 
 #~ msgid "Starting to edit note. Close the editor to get back to the prompt."
 #~ msgstr "开始编辑笔记。关闭编辑器将回到提示符。"

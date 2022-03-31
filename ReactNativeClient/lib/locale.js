@@ -18,7 +18,6 @@ codeToLanguageE_['bi'] = 'Bislama';
 codeToLanguageE_['bn'] = 'Bangla';
 codeToLanguageE_['bo'] = 'Tibetan';
 codeToLanguageE_['br'] = 'Breton';
-codeToLanguageE_['bs'] = 'Bosnian';
 codeToLanguageE_['ca'] = 'Catalan';
 codeToLanguageE_['co'] = 'Corsican';
 codeToLanguageE_['cs'] = 'Czech';
