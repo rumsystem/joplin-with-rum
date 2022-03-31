@@ -1,1 +1,0 @@
-const Readability = require('readability-node').Readability;
