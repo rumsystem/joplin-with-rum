@@ -119,8 +119,9 @@ const markdownUtils = {
 		return title.replace(filterRegex, '').replace(mdLinkRegex, '$1').replace(emptyMdLinkRegex, '$1').substring(0,80);
 	},
 
-	stripMarkdown(text) {
-		return removeMarkdown(text, { gfm: false });
+	stripMarkdown(text, options = { gfm: false }) {
+		// Removes Markdown syntax elements from the given text
+		return removeMarkdown(text, options);
 	},
 };
 
