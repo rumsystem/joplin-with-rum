@@ -60,7 +60,7 @@ class FileApiDriverRum {
 		return {
 			path: object.Content.id,
 			// created_time: ,
-			updated_time: object.TimeStamp / 1000000,
+			updated_time: Math.floor(object.TimeStamp / 1000000),
 			isDir: false,
 		};
 	}
