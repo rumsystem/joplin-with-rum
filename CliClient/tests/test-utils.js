@@ -137,7 +137,6 @@ async function clearDatabase(id = null) {
 		'DELETE FROM settings',		
 		'DELETE FROM deleted_items',
 		'DELETE FROM sync_items',
-		'DELETE FROM notes_normalized',
 	];
 
 	await databases_[id].transactionExecBatch(queries);

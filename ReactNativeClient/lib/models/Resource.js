@@ -63,10 +63,6 @@ class Resource extends BaseItem {
 		return output + extension;
 	}
 
-	static baseDirectoryPath() {
-		return Setting.value('resourceDir');
-	}
-
 	static fullPath(resource, encryptedBlob = false) {
 		return Setting.value('resourceDir') + '/' + this.filename(resource, encryptedBlob);
 	}

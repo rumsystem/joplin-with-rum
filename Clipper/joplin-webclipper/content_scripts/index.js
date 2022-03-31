@@ -30,21 +30,6 @@
 		return output;
 	}
 
-	function getImageSizes(element) {
-		const images = element.getElementsByTagName('img');
-		const output = {};
-		for (let i = 0; i < images.length; i++) {
-			const img = images[i];
-			output[img.src] = {
-				width: img.width,
-				height: img.height,
-				naturalWidth: img.naturalWidth,
-				naturalHeight: img.naturalHeight,
-			};
-		}
-		return output;
-	}
-
 	// Cleans up element by removing all its invisible children (which we don't want to render as Markdown)
 	function cleanUpElement(element) {
 		const childNodes = element.childNodes;
@@ -89,7 +74,7 @@
 	async function prepareCommandResponse(command) {
 		console.info('Got command: ' + command.name);
 
-		const clippedContentResponse = (title, html, imageSizes) => {
+		const clippedContentResponse = (title, html) => {
 			return {
 				name: 'clippedContent',
 				title: title,
@@ -98,7 +83,6 @@
 				url: location.origin + location.pathname + location.search,
 				parent_id: command.parent_id,
 				tags: command.tags || '',
-				image_sizes: imageSizes,
 			};			
 		}
 
@@ -115,20 +99,20 @@
 				response.warning = 'Could not retrieve simplified version of page - full page has been saved instead.';
 				return response;
 			}
-			return clippedContentResponse(article.title, article.body, getImageSizes(document));
+			return clippedContentResponse(article.title, article.body);
 
 		} else if (command.name === "completePageHtml") {
 
 			const cleanDocument = document.body.cloneNode(true);
 			cleanUpElement(cleanDocument);
-			return clippedContentResponse(pageTitle(), cleanDocument.innerHTML, getImageSizes(document));
+			return clippedContentResponse(pageTitle(), cleanDocument.innerHTML);
 
 		} else if (command.name === "selectedHtml") {
 
 		    const range = window.getSelection().getRangeAt(0);
 		    const container = document.createElement('div');
 		    container.appendChild(range.cloneContents());
-		    return clippedContentResponse(pageTitle(), container.innerHTML, getImageSizes(document));
+		    return clippedContentResponse(pageTitle(), container.innerHTML);
 
 		} else if (command.name === 'screenshot') {
 

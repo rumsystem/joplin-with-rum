@@ -227,7 +227,7 @@ function themeStyle(theme) {
 		output = Object.assign({}, globalStyle, fontSizes, darkStyle);
 	}
 
-	// Note: All the theme specific things should go in addExtraStyles
+	// TODO: All the theme specific things should go in addExtraStyles
 	// so that their definition is not split between here and the
 	// beginning of the file. At least new styles should go in
 	// addExtraStyles.

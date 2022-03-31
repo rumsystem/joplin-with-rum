@@ -114,7 +114,7 @@ class NotesScreenComponent extends BaseScreenComponent {
 		if (props.notesParentType == 'Folder') {
 			notes = await Note.previews(props.selectedFolderId, options);
 		} else {
-			notes = await Tag.notes(props.selectedTagId, options);
+			notes = await Tag.notes(props.selectedTagId, options); // TODO: should also return previews
 		}
 
 		this.props.dispatch({
