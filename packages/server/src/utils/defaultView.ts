@@ -9,9 +9,6 @@ export default function(name: string, owner: User = null): View {
 		content: {
 			owner,
 		},
-		partials: [
-			'navbar',
-			'notifications',
-		],
+		partials: ['navbar'],
 	};
 }

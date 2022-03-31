@@ -43,7 +43,3 @@ export function contextSessionId(ctx: AppContext): string {
 	if (!id) throw new ErrorForbidden('Invalid or missing session');
 	return id;
 }
-
-export function isApiRequest(ctx: AppContext): boolean {
-	return ctx.path.indexOf('/api/') === 0;
-}

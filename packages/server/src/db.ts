@@ -19,9 +19,6 @@ const logger = Logger.create('db');
 const migrationDir = `${__dirname}/migrations`;
 const sqliteDbDir = pathUtils.dirname(__dirname);
 
-export const defaultAdminEmail = 'admin@localhost';
-export const defaultAdminPassword = 'admin';
-
 export type DbConnection = Knex;
 
 export interface DbConfigConnection {
@@ -131,17 +128,6 @@ export async function dropTables(db: DbConnection): Promise<void> {
 	}
 }
 
-export async function truncateTables(db: DbConnection): Promise<void> {
-	for (const tableName of allTableNames()) {
-		try {
-			await db(tableName).truncate();
-		} catch (error) {
-			if (isNoSuchTableError(error)) continue;
-			throw error;
-		}
-	}
-}
-
 function isNoSuchTableError(error: any): boolean {
 	if (error) {
 		// Postgres error: 42P01: undefined_table
@@ -193,11 +179,6 @@ export type Uuid = string;
 export enum ItemAddressingType {
 	Id = 1,
 	Path,
-}
-
-export enum NotificationLevel {
-	Important = 10,
-	Normal = 20,
 }
 
 export enum ItemType {
@@ -280,15 +261,6 @@ export interface ApiClient extends WithDates, WithUuid {
 	secret?: string;
 }
 
-export interface Notification extends WithDates, WithUuid {
-	owner_id?: Uuid;
-	level?: NotificationLevel;
-	key?: string;
-	message?: string;
-	read?: number;
-	canBeDismissed?: number;
-}
-
 export const databaseSchema: DatabaseTables = {
 	users: {
 		id: { type: 'string' },
@@ -345,17 +317,6 @@ export const databaseSchema: DatabaseTables = {
 		id: { type: 'string' },
 		name: { type: 'string' },
 		secret: { type: 'string' },
-		updated_time: { type: 'string' },
-		created_time: { type: 'string' },
-	},
-	notifications: {
-		id: { type: 'string' },
-		owner_id: { type: 'string' },
-		level: { type: 'number' },
-		key: { type: 'string' },
-		message: { type: 'string' },
-		read: { type: 'number' },
-		canBeDismissed: { type: 'number' },
 		updated_time: { type: 'string' },
 		created_time: { type: 'string' },
 	},

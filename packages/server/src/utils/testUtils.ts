@@ -1,4 +1,4 @@
-import { User, Session, DbConnection, connectDb, disconnectDb, File, truncateTables } from '../db';
+import { User, Session, DbConnection, connectDb, disconnectDb, File } from '../db';
 import { createDb } from '../tools/dbTools';
 import modelFactory from '../models/factory';
 import controllerFactory from '../controllers/factory';
@@ -35,8 +35,16 @@ export async function afterAllDb() {
 }
 
 export async function beforeEachDb() {
-	await truncateTables(db_);
+	await clearDatabase();
 }
+
+export const clearDatabase = async function(): Promise<void> {
+	await db_('sessions').truncate();
+	await db_('users').truncate();
+	await db_('permissions').truncate();
+	await db_('files').truncate();
+	await db_('changes').truncate();
+};
 
 export const testAssetDir = `${packageRootDir}/assets/tests`;
 
