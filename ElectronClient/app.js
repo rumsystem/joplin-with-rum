@@ -1082,7 +1082,6 @@ class Application extends BaseApplication {
 			},
 			help: {
 				label: _('&Help'),
-				role: 'help', // Makes it add the "Search" field on macOS
 				submenu: [{
 					label: _('Website and documentation'),
 					accelerator: 'F1',
