@@ -3,7 +3,7 @@ const { themeStyle } = require('lib/theme');
 
 class ToolbarSpace extends React.Component {
 	render() {
-		const theme = themeStyle(this.props.themeId);
+		const theme = themeStyle(this.props.theme);
 		const style = Object.assign({}, theme.toolbarStyle);
 		style.minWidth = style.height / 2;
 

@@ -17,7 +17,7 @@ class NoteSearchBarComponent extends React.Component {
 	}
 
 	style() {
-		const theme = themeStyle(this.props.themeId);
+		const theme = themeStyle(this.props.theme);
 
 		const style = {
 			root: Object.assign({}, theme.textStyle, {
@@ -34,7 +34,7 @@ class NoteSearchBarComponent extends React.Component {
 	}
 
 	buttonIconComponent(iconName, clickHandler, isEnabled) {
-		const theme = themeStyle(this.props.themeId);
+		const theme = themeStyle(this.props.theme);
 
 		const searchButton = {
 			paddingLeft: 4,
@@ -119,7 +119,7 @@ class NoteSearchBarComponent extends React.Component {
 		// backgroundColor needs to cached to a local variable to prevent the
 		// colour from blinking.
 		// For more info: https://github.com/laurent22/joplin/pull/2329#issuecomment-578376835
-		const theme = themeStyle(this.props.themeId);
+		const theme = themeStyle(this.props.theme);
 		if (!this.props.searching) {
 			if (this.props.resultCount === 0 && query.length >  0) {
 				this.backgroundColor = theme.warningBackgroundColor;
@@ -181,7 +181,7 @@ class NoteSearchBarComponent extends React.Component {
 
 const mapStateToProps = state => {
 	return {
-		themeId: state.settings.theme,
+		theme: state.settings.theme,
 	};
 };
 

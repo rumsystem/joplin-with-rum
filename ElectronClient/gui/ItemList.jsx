@@ -36,10 +36,6 @@ class ItemList extends React.Component {
 		return this.listRef.current ? this.listRef.current.offsetTop : 0;
 	}
 
-	offsetScroll() {
-		return this.scrollTop_;
-	}
-
 	UNSAFE_componentWillMount() {
 		this.updateStateItemIndexes();
 	}

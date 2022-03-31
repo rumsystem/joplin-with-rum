@@ -28,57 +28,57 @@ const declarations:CommandDeclaration[] = [
 	{
 		name: 'textBold',
 		label: () => _('Bold'),
-		iconName: 'icon-bold',
+		iconName: 'fa-bold',
 	},
 	{
 		name: 'textItalic',
 		label: () => _('Italic'),
-		iconName: 'icon-italic',
+		iconName: 'fa-italic',
 	},
 	{
 		name: 'textLink',
 		label: () => _('Hyperlink'),
-		iconName: 'icon-link',
+		iconName: 'fa-link',
 	},
 	{
 		name: 'textCode',
 		label: () => _('Code'),
-		iconName: 'icon-code',
+		iconName: 'fa-code',
 	},
 	{
 		name: 'attachFile',
 		label: () => _('Attach file'),
-		iconName: 'icon-attachment',
+		iconName: 'fa-paperclip',
 	},
 	{
 		name: 'textNumberedList',
 		label: () => _('Numbered List'),
-		iconName: 'icon-numbered-list',
+		iconName: 'fa-list-ol',
 	},
 	{
 		name: 'textBulletedList',
 		label: () => _('Bulleted List'),
-		iconName: 'icon-bulleted-list',
+		iconName: 'fa-list-ul',
 	},
 	{
 		name: 'textCheckbox',
 		label: () => _('Checkbox'),
-		iconName: 'icon-to-do-list',
+		iconName: 'fa-check-square',
 	},
 	{
 		name: 'textHeading',
 		label: () => _('Heading'),
-		iconName: 'icon-heading',
+		iconName: 'fa-heading',
 	},
 	{
 		name: 'textHorizontalRule',
 		label: () => _('Horizontal Rule'),
-		iconName: 'fas fa-ellipsis-h',
+		iconName: 'fa-ellipsis-h',
 	},
 	{
 		name: 'insertDateTime',
 		label: () => _('Insert Date Time'),
-		iconName: 'icon-add-date',
+		iconName: 'fa-calendar-plus',
 	},
 ];
 

@@ -6,12 +6,13 @@ const { uuid } = require('lib/uuid.js');
 
 export const declaration:CommandDeclaration = {
 	name: 'search',
-	iconName: 'icon-search',
 };
 
 export const runtime = (comp:any):CommandRuntime => {
 	return {
-		execute: async ({ query }:any) => {
+		execute: async ({ query, fuzzy }:any) => {
+			console.info('RUNTIME', query);
+
 			if (!comp.searchId_) comp.searchId_ = uuid.create();
 
 			comp.props.dispatch({
@@ -22,6 +23,7 @@ export const runtime = (comp:any):CommandRuntime => {
 					query_pattern: query,
 					query_folder_id: null,
 					type_: BaseModel.TYPE_SEARCH,
+					fuzzy: fuzzy,
 				},
 			});
 

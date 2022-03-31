@@ -1,32 +1,22 @@
 const React = require('react');
 const { connect } = require('react-redux');
 const { themeStyle } = require('lib/theme');
-const ToolbarButton = require('./ToolbarButton/ToolbarButton.js').default;
+const ToolbarButton = require('./ToolbarButton.min.js');
 const ToolbarSpace = require('./ToolbarSpace.min.js');
-const ToggleEditorsButton = require('./ToggleEditorsButton/ToggleEditorsButton.js').default;
 
 class ToolbarComponent extends React.Component {
 	render() {
-		const theme = themeStyle(this.props.themeId);
+		const theme = themeStyle(this.props.theme);
 
 		const style = Object.assign({
+			// height: theme.toolbarHeight,
 			display: 'flex',
 			flexDirection: 'row',
+			borderBottom: `1px solid ${theme.dividerColor}`,
 			boxSizing: 'border-box',
-			backgroundColor: theme.backgroundColor3,
-			padding: theme.toolbarPadding,
-			paddingRight: theme.mainPadding,
 		}, this.props.style);
 
-		const groupStyle = {
-			display: 'flex',
-			flexDirection: 'row',
-			boxSizing: 'border-box',
-		};
-
-		const leftItemComps = [];
-		const centerItemComps = [];
-		const rightItemComps = [];
+		const itemComps = [];
 
 		if (this.props.items) {
 			for (let i = 0; i < this.props.items.length; i++) {
@@ -40,47 +30,31 @@ class ToolbarComponent extends React.Component {
 				const props = Object.assign(
 					{
 						key: key,
-						themeId: this.props.themeId,
+						theme: this.props.theme,
 					},
 					o
 				);
 
 				if (this.props.disabled) props.disabled = true;
 
-				if (o.name === 'toggleEditors') {
-					rightItemComps.push(<ToggleEditorsButton
-						key={o.name}
-						value={'markdown'}
-						themeId={this.props.themeId}
-						toolbarButtonInfo={o}
-					/>);
-				} else if (itemType === 'button') {
-					const target = ['historyForward', 'historyBackward', 'startExternalEditing'].includes(o.name) ? leftItemComps : centerItemComps;
-					target.push(<ToolbarButton {...props} />);
+				if (itemType === 'button') {
+					itemComps.push(<ToolbarButton {...props} />);
 				} else if (itemType === 'separator') {
-					centerItemComps.push(<ToolbarSpace {...props} />);
+					itemComps.push(<ToolbarSpace {...props} />);
 				}
 			}
 		}
 
 		return (
 			<div className="editor-toolbar" style={style}>
-				<div style={groupStyle}>
-					{leftItemComps}
-				</div>
-				<div style={groupStyle}>
-					{centerItemComps}
-				</div>
-				<div style={Object.assign({}, groupStyle, { flex: 1, justifyContent: 'flex-end' })}>
-					{rightItemComps}
-				</div>
+				{itemComps}
 			</div>
 		);
 	}
 }
 
 const mapStateToProps = state => {
-	return { themeId: state.settings.theme };
+	return { theme: state.settings.theme };
 };
 
 const Toolbar = connect(mapStateToProps)(ToolbarComponent);

@@ -12,7 +12,7 @@ const { reg } = require('lib/registry.js');
 const { clipboard } = require('electron');
 
 interface ShareNoteDialogProps {
-	themeId: number,
+	theme: number,
 	noteIds: Array<string>,
 	onClose: Function,
 }
@@ -22,7 +22,7 @@ interface SharesMap {
 }
 
 function styles_(props:ShareNoteDialogProps) {
-	return buildStyle('ShareNoteDialog', props.themeId, (theme:any) => {
+	return buildStyle('ShareNoteDialog', props.theme, (theme:any) => {
 		return {
 			noteList: {
 				marginBottom: 10,
@@ -67,7 +67,7 @@ export default function ShareNoteDialog(props:ShareNoteDialogProps) {
 	const [shares, setShares] = useState<SharesMap>({});
 
 	const noteCount = notes.length;
-	const theme = themeStyle(props.themeId);
+	const theme = themeStyle(props.theme);
 	const styles = styles_(props);
 
 	useEffect(() => {
@@ -206,7 +206,7 @@ export default function ShareNoteDialog(props:ShareNoteDialogProps) {
 				<button disabled={['creating', 'synchronizing'].indexOf(sharesState) >= 0} style={styles.copyShareLinkButton} onClick={shareLinkButton_click}>{_n('Copy Shareable Link', 'Copy Shareable Links', noteCount)}</button>
 				<div style={theme.textStyle}>{statusMessage(sharesState)}</div>
 				{encryptionWarningMessage}
-				<DialogButtonRow themeId={props.themeId} onClick={buttonRow_click} okButtonShow={false} cancelButtonLabel={_('Close')}/>
+				<DialogButtonRow theme={props.theme} onClick={buttonRow_click} okButtonShow={false} cancelButtonLabel={_('Close')}/>
 			</div>
 		</div>
 	);
