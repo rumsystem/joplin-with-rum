@@ -1,25 +1,3 @@
-// NOTE: Notes for myself:
-// # tkWidgets methods and getters
-// innerheight: how much height the widget takes up
-// height: how much height the parent widget takes up
-// scrollTop_: index of scrolled lines from the top of the note
-// maxScrollTop_: Number of lines I can scroll from the top
-// scrollableHeight_: total height of the widget including what is not visible
-// scrollUp and scrollDown change the scrollTop_ variable by 1 (up -1, down +1) however, their values can be changed for however much you want to scroll
-// x/y will give you relative x/y to widget. absoluteX/absoluteY will give it to the terminal window
-// .renderedText includes line breaks but also regex of the links. .text is just plain text with non-wrapped line breaks (\n).
-
-// Blueprint:
-// I can get the lines with \n but that doesn't account for line wrap.
-// the rendered text link is wrapped: '\x1B[34m\x1B[4m' on either side. except 34m is 24m on the right
-
-// term():
-// you can use term.eraseArea() to erase the rectangle you need, then term('<string>') for whatever you want to write
-// term('string') writes the string wherever the cursor is.
-
-// Other:
-// Use stdout.(_(<command>)) as your console.log. It will show in the app console.
-
 const { Logger } = require('lib/logger.js');
 const Folder = require('lib/models/Folder.js');
 const BaseItem = require('lib/models/BaseItem.js');
@@ -34,7 +12,6 @@ const { reg } = require('lib/registry.js');
 const { _ } = require('lib/locale.js');
 const Entities = require('html-entities').AllHtmlEntities;
 const htmlentities = new Entities().encode;
-const open = require('open');
 
 const chalk = require('chalk');
 const tk = require('terminal-kit');
@@ -478,91 +455,6 @@ class AppGui {
 			} else {
 				this.stdout(_('Please select the note or notebook to be deleted first.'));
 			}
-
-		// NOTE: MY SHORTCUTS
-		} else if (cmd === 'next_link' || cmd === 'previous_link' || cmd === 'open_link') {
-			const noteText = this.widget('noteText');
-			const mainWindow = this.widget('mainWindow');
-			// const lines = noteText.renderedText_.split('\n');
-			// console.log(lines)
-
-			if (noteText.hasFocus) {
-				noteText.render();
-
-				const lines = noteText.renderedText_.split('\n');
-				// const link = /\\x1B\[[0-9]{2}m\\x1B\[[0-9]mhttp:\/\/[0-9.]+:[0-9]+\/[0-9]+\\x1B\[[0-9]{2}m\\x1B\[[0-9]{2}m/g;
-				const link = /http:\/\/[0-9.]+:[0-9]+\/[0-9]+/g;
-
-				// this.term_.moveTo(mainWindow.width - noteText.innerWidth + 1, 1);
-				this.term_.showCursor();
-
-				this.term_.term().getCursorLocation((error, x, y) => {
-					if (error) throw new Error('Could not get cursor index');
-
-					const cursorOffset = mainWindow.width - noteText.innerWidth + 1;
-					const innerX = x - cursorOffset;
-					const innerY = y;
-					const scrollHeight = noteText.scrollableHeight_ - 1;
-
-					const beginStr = lines[innerY].substr(0, innerX);
-					const endStr = lines[innerY].substr(innerX, lines[innerY].length - 1);
-
-					if (cmd !== 'previous_link') {
-						const matchesNext = [...beginStr.matchAll(link)];
-
-						if (cmd === 'open_link' && matchesNext.length) {
-
-							if (matchesNext[0].index  === innerX) {
-								console.log(matchesNext[0][0]);
-								open(matchesNext[0][0]);
-								return;
-							}
-
-						} else if (cmd === 'next_link' && matchesNext.length > 1) {
-							this.term_.term().moveTo(cursorOffset + matchesNext[1].index - 9, innerY);
-							this.term_.term().inverse(matchesNext[1][0]);
-							this.term_.term().move(-matchesNext[1][0].length, 0);
-							return;
-						}
-
-						if (cmd === 'open_link') return;
-
-					} else {
-						const matchesPrev = [...endStr.matchAll(link)];
-						if (matchesPrev.length) {
-							this.term_.moveTo(cursorOffset + matchesPrev[matchesPrev.length - 1].index - 9, innerY);
-							this.term_.term().inverse(matchesPrev[matchesPrev.length - 1][0]);
-							this.term_.move(-matchesPrev[matchesPrev.length - 1][0].length, 0);
-							return;
-						}
-					}
-
-					let i;
-					if (cmd === 'next_link') i === scrollHeight ? i = 0 : i = innerY + 1;
-					else i === 0 ? i = scrollHeight : i = innerY - 1;
-					for (; i !== innerY; (cmd === 'next_link' ? i++ : i--)) {
-						const matches = [...lines[i].matchAll(link)];
-
-						if (cmd === 'next_link') {
-							if (i === scrollHeight) i = 0;
-							if (matches.length) {
-								this.term_.term().moveTo(cursorOffset + matches[0].index - 9, i + 1);
-								this.term_.term().inverse(matches[0][0]);
-								this.term_.term().move(-matches[0][0].length, 0);
-								return;
-							}
-						} else {
-							if (i === 0) i = scrollHeight;
-							if (matches.length) {
-								this.term_.term().moveTo(cursorOffset + matches[matches.length - 1].index - 9, i + 1);
-								this.term_.term().inverse(matches[matches.length - 1][0]);
-								this.term_.term().move(-matches[matches.length - 1][0].length, 0);
-								return;
-							}
-						}
-					}
-				});
-			}
 		} else if (cmd === 'toggle_console') {
 			if (!this.consoleIsShown()) {
 				this.showConsole();
@@ -857,6 +749,7 @@ class AppGui {
 				// -------------------------------------------------------------------------
 				// Process shortcut and execute associated command
 				// -------------------------------------------------------------------------
+
 				const shortcutKey = this.currentShortcutKeys_.join('');
 				const keymapItem = this.keymapItemByKey(shortcutKey);
 
@@ -870,6 +763,7 @@ class AppGui {
 					this.logger().debug('Shortcut:', shortcutKey, keymapItem);
 
 					this.currentShortcutKeys_ = [];
+
 					if (keymapItem.type === 'function') {
 						this.processFunctionCommand(keymapItem.command);
 					} else if (keymapItem.type === 'prompt') {
