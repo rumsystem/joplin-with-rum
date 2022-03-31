@@ -92,9 +92,9 @@
 				name: 'clippedContent',
 				html: article.body,
 				title: article.title,
-				base_url: baseUrl(),
+				baseUrl: baseUrl(),
 				url: location.origin + location.pathname,
-				parent_id: command.parent_id,
+				parentId: command.parentId,
 			};
 
 		} else if (command.name === "completePageHtml") {
@@ -106,9 +106,9 @@
 				name: 'clippedContent',
 				html: cleanDocument.innerHTML,
 				title: pageTitle(),
-				base_url: baseUrl(),
+				baseUrl: baseUrl(),
 				url: location.origin + location.pathname,
-				parent_id: command.parent_id,
+				parentId: command.parentId,
 			};
 
 		} else if (command.name === 'screenshot') {
@@ -199,8 +199,6 @@
 				document.body.removeChild(selection);
 				document.body.removeChild(messageComp);
 
-				console.info('jopext: selectionArea:', selectionArea);
-
 				if (!selectionArea || !selectionArea.width || !selectionArea.height) return;
 
 				// Need to wait a bit before taking the screenshot to make sure
@@ -209,15 +207,15 @@
 				setTimeout(() => {
 					const content = {
 						title: pageTitle(),
-						crop_rect: selectionArea,
+						cropRect: selectionArea,
 						url: location.origin + location.pathname,
-						parent_id: command.parent_id,
+						parentId: command.parentId,
 					};
 
 					browser_.runtime.sendMessage({
 						name: 'screenshotArea',
 						content: content,
-						api_base_url: command.api_base_url,
+						apiBaseUrl: command.apiBaseUrl,
 					});
 				}, 100);
 			}
