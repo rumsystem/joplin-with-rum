@@ -61,19 +61,13 @@
 		const output = {};
 		for (let i = 0; i < images.length; i++) {
 			const img = images[i];
-			if (img.classList && img.classList.contains('joplin-clipper-hidden')) continue;
-
-			let src = imageSrc(img);
-			src = forceAbsoluteUrls ? absoluteUrl(src) : src;
-
-			if (!output[src]) output[src] = [];
-
-			output[src].push({
+			const src = forceAbsoluteUrls ? absoluteUrl(img.src) : img.src;
+			output[src] = {
 				width: img.width,
 				height: img.height,
 				naturalWidth: img.naturalWidth,
 				naturalHeight: img.naturalHeight,
-			});
+			};
 		}
 		return output;
 	}
@@ -92,29 +86,20 @@
 		return output;
 	}
 
-	// In general we should use currentSrc because that's the image that's currently displayed,
-	// especially within <picture> tags or with srcset. In these cases there can be multiple
-	// sources and the best one is probably the one being displayed, thus currentSrc.
-	function imageSrc(image) {
-		if (image.currentSrc) return image.currentSrc;
-		return image.src;
-	}
-
 	// Cleans up element by removing all its invisible children (which we don't want to render as Markdown)
 	// And hard-code the image dimensions so that the information can be used by the clipper server to
 	// display them at the right sizes in the notes.
-	function cleanUpElement(convertToMarkup, element, imageSizes, imageIndexes) {
+	function cleanUpElement(element, imageSizes) {
 		const childNodes = element.childNodes;
-		const hiddenNodes = [];
 
-		for (let i = 0; i < childNodes.length; i++) {
+		for (let i = childNodes.length - 1; i >= 0; i--) {
 			const node = childNodes[i];
 			const nodeName = node.nodeName.toLowerCase();
 
 			const isHidden = node && node.classList && node.classList.contains('joplin-clipper-hidden');
 
 			if (isHidden) {
-				hiddenNodes.push(node);
+				element.removeChild(node);
 			} else {
 
 				// If the data-joplin-clipper-value has been set earlier, create a new DIV element
@@ -127,24 +112,16 @@
 				}
 
 				if (nodeName === 'img') {
-					const src = absoluteUrl(imageSrc(node));
-					node.setAttribute('src', src);
-					if (!(src in imageIndexes)) imageIndexes[src] = 0;
-					const imageSize = imageSizes[src][imageIndexes[src]];
-					imageIndexes[src]++;
-					if (imageSize && convertToMarkup === 'markdown') {
+					node.src = absoluteUrl(node.src);
+					const imageSize = imageSizes[node.src];
+					if (imageSize) {
 						node.width = imageSize.width;
 						node.height = imageSize.height;
 					}
 				}
 
-				cleanUpElement(convertToMarkup, node, imageSizes, imageIndexes);
+				cleanUpElement(node, imageSizes);
 			}
-		}
-
-		for (const hiddenNode of hiddenNodes) {
-			if (!hiddenNode.parentNode) continue;
-			hiddenNode.parentNode.removeChild(hiddenNode);
 		}
 	}
 
@@ -155,11 +132,9 @@
 	function preProcessDocument(element) {
 		const childNodes = element.childNodes;
 
-		for (let i = childNodes.length - 1; i >= 0; i--) {
+		for (let i = 0; i < childNodes.length; i++) {
 			const node = childNodes[i];
 			const nodeName = node.nodeName.toLowerCase();
-			const nodeParent = node.parentNode;
-			const nodeParentName = nodeParent ? nodeParent.nodeName.toLowerCase() : '';
 
 			let isVisible = node.nodeType === 1 ? window.getComputedStyle(node).display !== 'none' : true;
 			if (isVisible && ['script', 'noscript', 'style', 'select', 'option', 'button'].indexOf(nodeName) >= 0) isVisible = false;
@@ -178,13 +153,7 @@
 				if (a && a.toLowerCase().indexOf('math/tex') >= 0) isVisible = true;
 			}
 
-			if (nodeName === 'source' && nodeParentName === 'picture') {
-				isVisible = false
-			}
-
-			if (node.nodeType === 8) { // Comments are just removed since we can't add a class
-				node.parentNode.removeChild(node);
-			} else if (!isVisible) {
+			if (!isVisible) {
 				node.classList.add('joplin-clipper-hidden');
 			} else {
 				preProcessDocument(node);
@@ -210,25 +179,19 @@
 	// Given a document, return a <style> tag that contains all the styles
 	// required to render the page. Not currently used but could be as an 
 	// option to clip pages as HTML.
-	function getStyleSheets(doc) {
-		const output = [];
+	function getStyleTag(doc) {
+		const styleText = [];
 		for (var i=0; i<doc.styleSheets.length; i++) {
-			var sheet = doc.styleSheets[i];
 			try {
+				var sheet = doc.styleSheets[i];
 				for (const cssRule of sheet.cssRules) {
-					output.push({ type: 'text', value: cssRule.cssText });
+					styleText.push(cssRule.cssText);
 				}
 			} catch (error) {
-				// Calling sheet.cssRules will throw a CORS error on Chrome if the stylesheet is on a different domain.
-				// In that case, we skip it and add it to the list of stylesheet URLs. These URls will be downloaded
-				// by the desktop application, since it doesn't have CORS restrictions.
-				console.info('Could not retrieve stylesheet now:', sheet.href);
-				console.info('It will downloaded by the main application.');
-				console.info(error);
-				output.push({ type: 'url', value: sheet.href });
+				console.warn(error);
 			}
 		}
-		return output;
+		return '<style>' + styleText.join('\n') + '</style>';
 	}
 
 	function documentForReadability() {
@@ -260,9 +223,7 @@
 	async function prepareCommandResponse(command) {
 		console.info('Got command: ' + command.name);
 
-		const convertToMarkup = command.preProcessFor ? command.preProcessFor : 'markdown';
-
-		const clippedContentResponse = (title, html, imageSizes, anchorNames, stylesheets) => {
+		const clippedContentResponse = (title, html, imageSizes, anchorNames) => {
 			return {
 				name: 'clippedContent',
 				title: title,
@@ -273,9 +234,6 @@
 				tags: command.tags || '',
 				image_sizes: imageSizes,
 				anchor_names: anchorNames,
-				source_command: Object.assign({}, command),
-				convert_to: convertToMarkup,
-				stylesheets: stylesheets,
 			};			
 		}
 
@@ -297,6 +255,7 @@
 		} else if (command.name === "isProbablyReaderable") {
 
 			const ok = isProbablyReaderable(documentForReadability());
+			console.info('isProbablyReaderable', ok);
 			return { name: 'isProbablyReaderable', value: ok };
 
 		} else if (command.name === "completePageHtml") {
@@ -307,11 +266,8 @@
 			// directly on the document, so we make a copy of it first.
 			const cleanDocument = document.body.cloneNode(true);
 			const imageSizes = getImageSizes(document, true);
-			const imageIndexes = {};
-			cleanUpElement(convertToMarkup, cleanDocument, imageSizes, imageIndexes);
-
-			const stylesheets = convertToMarkup === 'html' ? getStyleSheets(document) : null;
-			return clippedContentResponse(pageTitle(), cleanDocument.innerHTML, imageSizes, getAnchorNames(document), stylesheets);
+			cleanUpElement(cleanDocument, imageSizes);
+			return clippedContentResponse(pageTitle(), cleanDocument.innerHTML, imageSizes, getAnchorNames(document));
 
 		} else if (command.name === "selectedHtml") {
 
@@ -321,8 +277,7 @@
 			const container = document.createElement('div');
 			container.appendChild(range.cloneContents());
 			const imageSizes = getImageSizes(document, true);
-			const imageIndexes = {};
-			cleanUpElement(convertToMarkup, container, imageSizes, imageIndexes);
+			cleanUpElement(container, imageSizes);
 			return clippedContentResponse(pageTitle(), container.innerHTML, getImageSizes(document), getAnchorNames(document));
 
 		} else if (command.name === 'screenshot') {
