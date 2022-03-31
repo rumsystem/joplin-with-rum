@@ -13,7 +13,6 @@ const { StatusScreen } = require('./StatusScreen.min.js');
 const { ImportScreen } = require('./ImportScreen.min.js');
 const { ConfigScreen } = require('./ConfigScreen.min.js');
 const { EncryptionConfigScreen } = require('./EncryptionConfigScreen.min.js');
-const { ClipperConfigScreen } = require('./ClipperConfigScreen.min.js');
 const { Navigator } = require('./Navigator.min.js');
 
 const { app } = require('../app');
@@ -87,7 +86,6 @@ class RootComponent extends React.Component {
 			Config: { screen: ConfigScreen, title: () => _('Options') },
 			Status: { screen: StatusScreen, title: () => _('Synchronisation Status') },
 			EncryptionConfig: { screen: EncryptionConfigScreen, title: () => _('Encryption Options') },
-			ClipperConfig: { screen: ClipperConfigScreen, title: () => _('Clipper Options') },
 		};
 
 		return (
