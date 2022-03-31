@@ -140,28 +140,6 @@ export default class ReportService {
 		return output;
 	}
 
-	private addRetryAllHandler(section: ReportSection): ReportSection {
-		const retryHandlers: Function[] = [];
-
-		for (let i = 0; i < section.body.length; i++) {
-			const item: RerportItemOrString = section.body[i];
-			if (typeof item !== 'string' && item.canRetry) {
-				retryHandlers.push(item.retryHandler);
-			}
-		}
-
-		if (retryHandlers.length) {
-			section.canRetryAll = true;
-			section.retryAllHandler = async () => {
-				for (const retryHandler of retryHandlers) {
-					await retryHandler();
-				}
-			};
-		}
-
-		return section;
-	}
-
 	async status(syncTarget: number): Promise<ReportSection[]> {
 		const r = await this.syncStatus(syncTarget);
 		const sections: ReportSection[] = [];
@@ -197,8 +175,6 @@ export default class ReportService {
 
 			section.body.push({ type: ReportItemType.CloseList });
 
-			section = this.addRetryAllHandler(section);
-
 			sections.push(section);
 		}
 
@@ -224,7 +200,23 @@ export default class ReportService {
 				});
 			}
 
-			section = this.addRetryAllHandler(section);
+			const retryHandlers: Function[] = [];
+
+			for (let i = 0; i < section.body.length; i++) {
+				const item: RerportItemOrString = section.body[i];
+				if (typeof item !== 'string' && item.canRetry) {
+					retryHandlers.push(item.retryHandler);
+				}
+			}
+
+			if (retryHandlers.length > 1) {
+				section.canRetryAll = true;
+				section.retryAllHandler = async () => {
+					for (const retryHandler of retryHandlers) {
+						await retryHandler();
+					}
+				};
+			}
 
 			sections.push(section);
 		}
