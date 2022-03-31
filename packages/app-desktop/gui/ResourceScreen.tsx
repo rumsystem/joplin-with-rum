@@ -161,7 +161,7 @@ class ResourceScreenComponent extends React.Component<Props, State> {
 	}
 
 	componentDidMount() {
-		void this.reloadResources(this.state.sorting);
+		this.reloadResources(this.state.sorting);
 	}
 
 	onResourceDelete(resource: InnerResource) {
@@ -177,7 +177,7 @@ class ResourceScreenComponent extends React.Component<Props, State> {
 				bridge().showErrorMessageBox(error.message);
 			})
 			.finally(() => {
-				void this.reloadResources(this.state.sorting);
+				this.reloadResources(this.state.sorting);
 			});
 	}
 
@@ -200,7 +200,7 @@ class ResourceScreenComponent extends React.Component<Props, State> {
 			};
 		}
 		this.setState({ sorting: newSorting });
-		void this.reloadResources(newSorting);
+		this.reloadResources(newSorting);
 	}
 
 	render() {

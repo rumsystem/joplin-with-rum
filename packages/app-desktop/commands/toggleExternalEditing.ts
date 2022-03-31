@@ -17,9 +17,9 @@ export const runtime = (): CommandRuntime => {
 			if (!noteId) return;
 
 			if (context.state.watchedNoteFiles.includes(noteId)) {
-				void CommandService.instance().execute('stopExternalEditing', noteId);
+				CommandService.instance().execute('stopExternalEditing', noteId);
 			} else {
-				void CommandService.instance().execute('startExternalEditing', noteId);
+				CommandService.instance().execute('startExternalEditing', noteId);
 			}
 		},
 		enabledCondition: 'oneNoteSelected',
