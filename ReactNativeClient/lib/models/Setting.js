@@ -98,7 +98,6 @@ class Setting extends BaseModel {
 				};
 			}},
 			'noteVisiblePanes': { value: ['editor', 'viewer'], type: Setting.TYPE_ARRAY, public: false, appTypes: ['desktop'] },
-			'sidebarVisibility': { value: true, type: Setting.TYPE_BOOL, public: false, appTypes: ['desktop'] },
 			'showAdvancedOptions': { value: false, type: Setting.TYPE_BOOL, public: true, appTypes: ['mobile' ], label: () => _('Show advanced options') },
 			'sync.target': { value: SyncTargetRegistry.nameToId('dropbox'), type: Setting.TYPE_INT, isEnum: true, public: true, label: () => _('Synchronisation target'), description: (appType) => { return appType !== 'cli' ? null : _('The target to synchonise to. Each sync target may have additional parameters which are named as `sync.NUM.NAME` (all documented below).') }, options: () => {
 				return SyncTargetRegistry.idAndLabelPlainObject();
@@ -225,7 +224,7 @@ class Setting extends BaseModel {
 		if (!this.cache_) throw new Error('Settings have not been initialized!');
 
 		value = this.formatValue(key, value);
-
+		
 		for (let i = 0; i < this.cache_.length; i++) {
 			let c = this.cache_[i];
 			if (c.key == key) {
@@ -292,7 +291,7 @@ class Setting extends BaseModel {
 		if (md.type == Setting.TYPE_OBJECT) return value ? JSON.stringify(value) : '{}';
 		if (md.type == Setting.TYPE_STRING) return value ? value + '' : '';
 
-		throw new Error('Unhandled value type: ' + md.type);
+		throw new Error('Unhandled value type: ' + md.type);	
 	}
 
 	static formatValue(key, value) {
@@ -462,7 +461,7 @@ class Setting extends BaseModel {
 		}
 
 		await BaseModel.db().transactionExecBatch(queries);
-
+		
 		this.logger().info('Settings have been saved.');
 	}
 

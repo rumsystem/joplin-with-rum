@@ -38,7 +38,6 @@ const appDefaultState = Object.assign({}, defaultState, {
 	fileToImport: null,
 	windowCommand: null,
 	noteVisiblePanes: ['editor', 'viewer'],
-	sidebarVisibility: true,
 	windowContentSize: bridge().windowContentSize(),
 });
 
@@ -86,7 +85,7 @@ class Application extends BaseApplication {
 
 						action = newAction;
 					}
-
+					
 					if (!goingBack) newNavHistory.push(currentRoute);
 					newState.navHistory = newNavHistory
 					newState.route = action;
@@ -124,20 +123,9 @@ class Application extends BaseApplication {
 					break;
 
 				case 'NOTE_VISIBLE_PANES_SET':
-
+				
 					newState = Object.assign({}, state);
 					newState.noteVisiblePanes = action.panes;
-					break;
-
-				case 'SIDEBAR_VISIBILITY_TOGGLE':
-
-					newState = Object.assign({}, state);
-					newState.sidebarVisibility = !state.sidebarVisibility;
-					break;
-
-				case 'SIDEBAR_VISIBILITY_SET':
-					newState = Object.assign({}, state);
-					newState.sidebarVisibility = action.visibility;
 					break;
 
 			}
@@ -182,10 +170,6 @@ class Application extends BaseApplication {
 			Setting.setValue('noteVisiblePanes', newState.noteVisiblePanes);
 		}
 
-		if (['SIDEBAR_VISIBILITY_TOGGLE', 'SIDEBAR_VISIBILITY_SET'].indexOf(action.type) >= 0) {
-			Setting.setValue('sidebarVisibility', newState.sidebarVisibility);
-		}
-
 		return result;
 	}
 
@@ -211,7 +195,7 @@ class Application extends BaseApplication {
 					Setting.setValue('notes.sortOrder.field', field);
 					this.refreshMenu();
 				}
-			});
+			});		
 		}
 
 		const importItems = [];
@@ -289,7 +273,7 @@ class Application extends BaseApplication {
 				this.dispatch({
 					type: 'WINDOW_COMMAND',
 					name: 'exportPdf',
-				});
+				});				
 			}
 		});
 
@@ -365,17 +349,17 @@ class Application extends BaseApplication {
 				label: _('Edit'),
 				submenu: [{
 					label: _('Copy'),
-					screens: ['Main', 'OneDriveLogin', 'Config', 'EncryptionConfig'],
+					//screens: ['Main', 'OneDriveLogin', 'Config', 'EncryptionConfig'],
 					role: 'copy',
 					accelerator: 'CommandOrControl+C',
 				}, {
 					label: _('Cut'),
-					screens: ['Main', 'OneDriveLogin', 'Config', 'EncryptionConfig'],
+					//screens: ['Main', 'OneDriveLogin', 'Config', 'EncryptionConfig'],
 					role: 'cut',
 					accelerator: 'CommandOrControl+X',
 				}, {
 					label: _('Paste'),
-					screens: ['Main', 'OneDriveLogin', 'Config', 'EncryptionConfig'],
+					//screens: ['Main', 'OneDriveLogin', 'Config', 'EncryptionConfig'],
 					role: 'paste',
 					accelerator: 'CommandOrControl+V',
 				}, {
@@ -612,7 +596,7 @@ class Application extends BaseApplication {
 					bridge().checkForUpdates(true, bridge().window(), this.checkForUpdateLoggerPath());
 				}
 			}
-
+			
 			// Initial check on startup
 			setTimeout(() => { runAutoUpdateCheck() }, 5000);
 			// Then every x hours
