@@ -6,7 +6,7 @@ const TagItem = require('./TagItem.min.js');
 class TagListComponent extends React.Component {
 	render() {
 		const style = Object.assign({}, this.props.style);
-		const theme = themeStyle(this.props.themeId);
+		const theme = themeStyle(this.props.theme);
 		const tags = this.props.items;
 
 		style.display = 'flex';
@@ -15,13 +15,11 @@ class TagListComponent extends React.Component {
 		style.boxSizing = 'border-box';
 		style.fontSize = theme.fontSize;
 		style.whiteSpace = 'nowrap';
-		// style.height = 40;
-		style.paddingTop = 8;
-		style.paddingBottom = 8;
+		style.height = 25;
 
 		const tagItems = [];
 		if (tags && tags.length > 0) {
-
+			// Sort by id for now, but probably needs to be changed in the future.
 			tags.sort((a, b) => {
 				return a.title < b.title ? -1 : +1;
 			});
@@ -44,7 +42,7 @@ class TagListComponent extends React.Component {
 }
 
 const mapStateToProps = state => {
-	return { themeId: state.settings.theme };
+	return { theme: state.settings.theme };
 };
 
 const TagList = connect(mapStateToProps)(TagListComponent);

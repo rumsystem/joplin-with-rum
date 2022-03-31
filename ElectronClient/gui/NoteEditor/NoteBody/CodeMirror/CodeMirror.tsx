@@ -48,6 +48,7 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 	props_onChangeRef.current = props.onChange;
 	const contentKeyHasChangedRef = useRef(false);
 	contentKeyHasChangedRef.current = previousContentKey !== props.contentKey;
+	const theme = themeStyle(props.theme);
 
 	const rootSize = useRootSize({ rootRef });
 
@@ -350,8 +351,6 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 	}, [styles.editor.codeMirrorTheme]);
 
 	useEffect(() => {
-		const theme = themeStyle(props.themeId);
-
 		const element = document.createElement('style');
 		element.setAttribute('id', 'codemirrorStyle');
 		document.head.appendChild(element);
@@ -421,7 +420,7 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 		return () => {
 			document.head.removeChild(element);
 		};
-	}, [props.themeId]);
+	}, [props.theme]);
 
 	const webview_domReady = useCallback(() => {
 		setWebviewReady(true);
@@ -550,7 +549,7 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 					value={props.content}
 					ref={editorRef}
 					mode={props.contentMarkupLanguage === Note.MARKUP_LANGUAGE_HTML ? 'xml' : 'joplin-markdown'}
-					codeMirrorTheme={styles.editor.codeMirrorTheme}
+					theme={styles.editor.codeMirrorTheme}
 					style={styles.editor}
 					readOnly={props.visiblePanes.indexOf('editor') < 0}
 					autoMatchBraces={Setting.value('editor.autoMatchingBraces')}
@@ -581,7 +580,7 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 		<div style={styles.root} ref={rootRef}>
 			<div style={styles.rowToolbar}>
 				<Toolbar
-					themeId={props.themeId}
+					theme={props.theme}
 					dispatch={props.dispatch}
 					disabled={editorReadOnly}
 				/>

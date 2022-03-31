@@ -790,17 +790,13 @@ const reducer = (state = defaultState, action) => {
 			break;
 
 		case 'TAG_SELECT':
-
-			if (state.selectedTagId !== action.id) {
-				newState = Object.assign({}, state);
-				newState.selectedTagId = action.id;
-				if (!action.id) {
-					newState.notesParentType = defaultNotesParentType(state, 'Tag');
-				} else {
-					newState.notesParentType = 'Tag';
-				}
-				newState.selectedNoteIds = [];
+			newState.selectedTagId = action.id;
+			if (!action.id) {
+				newState.notesParentType = defaultNotesParentType(state, 'Tag');
+			} else {
+				newState.notesParentType = 'Tag';
 			}
+			newState.selectedNoteIds = [];
 			break;
 
 		case 'TAG_UPDATE_ONE':
