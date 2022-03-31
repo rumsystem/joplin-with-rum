@@ -571,8 +571,9 @@ msgstr "Exportando el formato de \"%s\" a \"%s\". Por favor espere..."
 msgid "Importing from \"%s\" as \"%s\" format. Please wait..."
 msgstr "Importando el formato de \"%s\" a \"%s\". Por favor espere..."
 
+#, fuzzy
 msgid "PDF File"
-msgstr "Archivo PDF"
+msgstr "Archivo"
 
 msgid "File"
 msgstr "Archivo"
@@ -593,7 +594,7 @@ msgid "Export"
 msgstr "Exportar"
 
 msgid "Print"
-msgstr "Imprimir"
+msgstr ""
 
 #, javascript-format
 msgid "Hide %s"
@@ -1004,15 +1005,15 @@ msgstr "Cancelando..."
 msgid "Completed: %s"
 msgstr "Completado: %s"
 
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Last error: %s"
-msgstr "Último error: %s"
+msgstr "Error fatal:"
 
 msgid "Idle"
-msgstr "Espera"
+msgstr ""
 
 msgid "In progress"
-msgstr "En progreso"
+msgstr ""
 
 #, javascript-format
 msgid "Synchronisation is already in progress. State: %s"
