@@ -11,23 +11,21 @@ import styles_ from './styles';
 import { RenderedBody, defaultRenderedBody } from './utils/types';
 import NoteTextViewer  from '../../../NoteTextViewer';
 import Editor from './Editor';
-import usePluginServiceRegistration from '../../utils/usePluginServiceRegistration';
-import Setting from 'lib/models/Setting';
-import { _ } from 'lib/locale';
 
 //  @ts-ignore
-const bridge = require('electron').remote.require('./bridge').default;
+const { bridge } = require('electron').remote.require('./bridge');
 //  @ts-ignore
 const Note = require('lib/models/Note.js');
 const { clipboard } = require('electron');
+const Setting = require('lib/models/Setting.js');
 const shared = require('lib/components/shared/note-screen-shared.js');
 const Menu = bridge().Menu;
 const MenuItem = bridge().MenuItem;
-const markdownUtils = require('lib/markdownUtils').default;
+const markdownUtils = require('lib/markdownUtils');
+const { _ } = require('lib/locale');
 const { reg } = require('lib/registry.js');
 const dialogs = require('../../../dialogs');
 const { themeStyle } = require('lib/theme');
-const shim = require('lib/shim').default;
 
 function markupRenderOptions(override: any = null) {
 	return { ...override };
@@ -53,8 +51,6 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 	contentKeyHasChangedRef.current = previousContentKey !== props.contentKey;
 
 	const rootSize = useRootSize({ rootRef });
-
-	usePluginServiceRegistration(ref);
 
 	const { resetScroll, editor_scroll, setEditorPercentScroll, setViewerPercentScroll } = useScrollHandler(editorRef, webviewRef, props.onScroll);
 
@@ -143,25 +139,8 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 					commandProcessed = false;
 				}
 
-				let commandOutput = null;
-
 				if (!commandProcessed) {
-					const selectedText = () => {
-						if (!editorRef.current) return '';
-						const selections = editorRef.current.getSelections();
-						return selections.length ? selections[0] : '';
-					};
-
 					const commands: any = {
-						selectedText: () => {
-							return selectedText();
-						},
-						selectedHtml: () => {
-							return selectedText();
-						},
-						replaceSelection: (value:any) => {
-							return editorRef.current.replaceSelection(value);
-						},
 						textBold: () => wrapSelectionWithStrings('**', '**', _('strong text')),
 						textItalic: () => wrapSelectionWithStrings('*', '*', _('emphasised text')),
 						textLink: async () => {
@@ -206,13 +185,14 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 					};
 
 					if (commands[cmd.name]) {
-						commandOutput = commands[cmd.name](cmd.value);
+						commands[cmd.name](cmd.value);
 					} else {
 						reg.logger().warn('CodeMirror: unsupported Joplin command: ', cmd);
+						return false;
 					}
 				}
 
-				return commandOutput;
+				return true;
 			},
 		};
 	}, [props.content, addListItem, wrapSelectionWithStrings, setEditorPercentScroll, setViewerPercentScroll, resetScroll, renderedBody]);
@@ -492,7 +472,7 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 
 		const interval = contentKeyHasChangedRef.current ? 0 : 500;
 
-		const timeoutId = shim.setTimeout(async () => {
+		const timeoutId = setTimeout(async () => {
 			let bodyToRender = props.content;
 
 			if (!bodyToRender.trim() && props.visiblePanes.indexOf('viewer') >= 0 && props.visiblePanes.indexOf('editor') < 0) {
@@ -507,7 +487,7 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 
 		return () => {
 			cancelled = true;
-			shim.clearTimeout(timeoutId);
+			clearTimeout(timeoutId);
 		};
 	}, [props.content, props.contentMarkupLanguage, props.visiblePanes, props.resourceInfos, props.markupToHtml]);
 
@@ -635,8 +615,7 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 			<div style={styles.rowToolbar}>
 				<Toolbar
 					themeId={props.themeId}
-					// dispatch={props.dispatch}
-					// plugins={props.plugins}
+					dispatch={props.dispatch}
 				/>
 				{props.noteToolbar}
 			</div>

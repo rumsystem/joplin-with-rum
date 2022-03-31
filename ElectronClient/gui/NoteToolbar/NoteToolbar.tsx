@@ -1,15 +1,28 @@
 import * as React from 'react';
-import CommandService from 'lib/services/CommandService';
+import { useEffect, useState } from 'react';
+import CommandService from '../../lib/services/CommandService';
 import ToolbarBase from '../ToolbarBase';
-import { utils as pluginUtils } from 'lib/services/plugins/reducer';
-import ToolbarButtonUtils, { ToolbarButtonInfo } from 'lib/services/commands/ToolbarButtonUtils';
 const { connect } = require('react-redux');
 const { buildStyle } = require('lib/theme');
+// const Folder = require('lib/models/Folder');
+// const { _ } = require('lib/locale');
+// const { substrWithEllipsis } = require('lib/string-utils');
+
+interface ButtonClickEvent {
+	name: string,
+}
 
 interface NoteToolbarProps {
 	themeId: number,
 	style: any,
-	toolbarButtonInfos: ToolbarButtonInfo[],
+	folders: any[],
+	watchedNoteFiles: string[],
+	backwardHistoryNotes: any[],
+	forwardHistoryNotes: any[],
+	notesParentType: string,
+	note: any,
+	dispatch: Function,
+	onButtonClick(event:ButtonClickEvent):void,
 }
 
 function styles_(props:NoteToolbarProps) {
@@ -26,18 +39,38 @@ function styles_(props:NoteToolbarProps) {
 
 function NoteToolbar(props:NoteToolbarProps) {
 	const styles = styles_(props);
-	return <ToolbarBase style={styles.root} items={props.toolbarButtonInfos} />;
-}
+	const [toolbarItems, setToolbarItems] = useState([]);
 
-const toolbarButtonUtils = new ToolbarButtonUtils(CommandService.instance());
+	const cmdService = CommandService.instance();
+
+	function updateToolbarItems() {
+		const output = [];
+
+		output.push(cmdService.commandToToolbarButton('editAlarm'));
+		output.push(cmdService.commandToToolbarButton('toggleVisiblePanes'));
+		output.push(cmdService.commandToToolbarButton('showNoteProperties'));
+
+		setToolbarItems(output);
+	}
+
+	useEffect(() => {
+		updateToolbarItems();
+		cmdService.on('commandsEnabledStateChange', updateToolbarItems);
+		return () => {
+			cmdService.off('commandsEnabledStateChange', updateToolbarItems);
+		};
+	}, []);
+
+	return <ToolbarBase style={styles.root} items={toolbarItems} />;
+}
 
 const mapStateToProps = (state:any) => {
 	return {
-		toolbarButtonInfos: toolbarButtonUtils.commandsToToolbarButtons(state, [
-			'editAlarm',
-			'toggleVisiblePanes',
-			'showNoteProperties',
-		].concat(pluginUtils.commandNamesFromViews(state.pluginService.plugins, 'noteToolbar'))),
+		folders: state.folders,
+		watchedNoteFiles: state.watchedNoteFiles,
+		backwardHistoryNotes: state.backwardHistoryNotes,
+		forwardHistoryNotes: state.forwardHistoryNotes,
+		notesParentType: state.notesParentType,
 	};
 };
 

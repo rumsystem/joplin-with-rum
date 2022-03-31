@@ -1,13 +1,13 @@
 const BaseModel = require('lib/BaseModel.js');
 const { Database } = require('lib/database.js');
-const Setting = require('lib/models/Setting').default;
+const Setting = require('lib/models/Setting.js');
 const ItemChange = require('lib/models/ItemChange.js');
 const JoplinError = require('lib/JoplinError.js');
 const { time } = require('lib/time-utils.js');
 const { sprintf } = require('sprintf-js');
-const { _ } = require('lib/locale');
+const { _ } = require('lib/locale.js');
 const moment = require('moment');
-const markdownUtils = require('lib/markdownUtils').default;
+const markdownUtils = require('lib/markdownUtils');
 
 class BaseItem extends BaseModel {
 	static useUuid() {

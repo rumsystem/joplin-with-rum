@@ -1,4 +1,4 @@
-const Logger = require('lib/Logger').default;
+const { Logger } = require('lib/logger.js');
 
 class ReactLogger extends Logger {}
 

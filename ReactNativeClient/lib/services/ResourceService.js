@@ -3,10 +3,10 @@ const NoteResource = require('lib/models/NoteResource');
 const Note = require('lib/models/Note');
 const Resource = require('lib/models/Resource');
 const BaseModel = require('lib/BaseModel');
-const BaseService = require('lib/services/BaseService').default;
+const BaseService = require('lib/services/BaseService');
 const SearchEngine = require('lib/services/searchengine/SearchEngine');
-const Setting = require('lib/models/Setting').default;
-const shim = require('lib/shim').default;
+const Setting = require('lib/models/Setting');
+const { shim } = require('lib/shim');
 const ItemChangeUtils = require('lib/services/ItemChangeUtils');
 const { sprintf } = require('sprintf-js');
 
@@ -160,7 +160,7 @@ class ResourceService extends BaseService {
 		this.isRunningInBackground_ = true;
 		const service = this.instance();
 
-		service.maintenanceTimer1_ = shim.setTimeout(() => {
+		service.maintenanceTimer1_ = setTimeout(() => {
 			service.maintenance();
 		}, 1000 * 30);
 
@@ -171,7 +171,7 @@ class ResourceService extends BaseService {
 
 	async cancelTimers() {
 		if (this.maintenanceTimer1_) {
-			shim.clearTimeout(this.maintenanceTimer1);
+			clearTimeout(this.maintenanceTimer1);
 			this.maintenanceTimer1_ = null;
 		}
 		if (this.maintenanceTimer2_) {
@@ -180,9 +180,9 @@ class ResourceService extends BaseService {
 		}
 
 		return new Promise((resolve) => {
-			const iid = shim.setInterval(() => {
+			const iid = setInterval(() => {
 				if (!this.maintenanceCalls_.length) {
-					shim.clearInterval(iid);
+					clearInterval(iid);
 					resolve();
 				}
 			}, 100);

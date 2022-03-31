@@ -1,4 +1,4 @@
-const Setting = require('lib/models/Setting').default;
+const Setting = require('lib/models/Setting');
 const ItemChange = require('lib/models/ItemChange');
 
 class ItemChangeUtils {

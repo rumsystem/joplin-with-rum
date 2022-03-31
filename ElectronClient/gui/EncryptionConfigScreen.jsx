@@ -1,20 +1,19 @@
 const React = require('react');
 const { connect } = require('react-redux');
-const Setting = require('lib/models/Setting').default;
+const Setting = require('lib/models/Setting');
 const EncryptionService = require('lib/services/EncryptionService');
 const { themeStyle } = require('lib/theme');
-const { _ } = require('lib/locale');
+const { _ } = require('lib/locale.js');
 const { time } = require('lib/time-utils.js');
-const shim = require('lib/shim').default;
+const { shim } = require('lib/shim');
 const dialogs = require('./dialogs');
 const shared = require('lib/components/shared/encryption-config-shared.js');
-const bridge = require('electron').remote.require('./bridge').default;
+const { bridge } = require('electron').remote.require('./bridge');
 
 class EncryptionConfigScreenComponent extends React.Component {
-	constructor(props) {
-		super(props);
-
-		shared.constructor(this, props);
+	constructor() {
+		super();
+		shared.constructor(this);
 	}
 
 	componentWillUnmount() {
@@ -53,7 +52,7 @@ class EncryptionConfigScreenComponent extends React.Component {
 			return shared.onPasswordChange(this, mk, event.target.value);
 		};
 
-		const password = this.state.passwords[mk.id] ? this.state.passwords[mk.id] : '';
+		const password = this.props.passwords[mk.id] ? this.props.passwords[mk.id] : '';
 		const active = this.props.activeMasterKeyId === mk.id ? '✔' : '';
 		const passwordOk = this.state.passwordChecks[mk.id] === true ? '✔' : '❌';
 

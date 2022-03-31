@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import CommandService from 'lib/services/CommandService';
-import shim from 'lib/shim';
+const { shim } = require('lib/shim.js');
 
 export default function useKeymap(CodeMirror: any) {
 

@@ -1,5 +1,4 @@
 const EncryptionService = require('lib/services/EncryptionService.js');
-const shim = require('lib/shim').default;
 
 class BaseSyncTarget {
 	constructor(db, options = null) {
@@ -88,13 +87,13 @@ class BaseSyncTarget {
 		if (this.initState_ == 'started') {
 			// Synchronizer is already being initialized, so wait here till it's done.
 			return new Promise((resolve, reject) => {
-				const iid = shim.setInterval(() => {
+				const iid = setInterval(() => {
 					if (this.initState_ == 'ready') {
-						shim.clearInterval(iid);
+						clearInterval(iid);
 						resolve(this.synchronizer_);
 					}
 					if (this.initState_ == 'error') {
-						shim.clearInterval(iid);
+						clearInterval(iid);
 						reject(new Error('Could not initialise synchroniser'));
 					}
 				}, 1000);

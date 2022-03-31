@@ -1,8 +1,8 @@
-const markdownUtils = require('lib/markdownUtils').default;
+const markdownUtils = require('lib/markdownUtils');
 const htmlUtils = require('lib/htmlUtils');
-const Setting = require('lib/models/Setting').default;
+const Setting = require('lib/models/Setting');
 const Resource = require('lib/models/Resource');
-const shim = require('lib/shim').default;
+const { shim } = require('lib/shim');
 const { MarkupToHtml } = require('lib/joplin-renderer');
 
 class MarkupLanguageUtils {

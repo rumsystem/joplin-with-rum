@@ -1,10 +1,10 @@
 const { BaseCommand } = require('./base-command.js');
 const { app } = require('./app.js');
-const { _ } = require('lib/locale');
+const { _ } = require('lib/locale.js');
 const { OneDriveApiNodeUtils } = require('lib/onedrive-api-node-utils.js');
-const Setting = require('lib/models/Setting').default;
+const Setting = require('lib/models/Setting.js');
 const ResourceFetcher = require('lib/services/ResourceFetcher');
-const Synchronizer = require('lib/Synchronizer').default;
+const { Synchronizer } = require('lib/synchronizer.js');
 const { reg } = require('lib/registry.js');
 const { cliUtils } = require('./cli-utils.js');
 const md5 = require('md5');

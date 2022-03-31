@@ -1,7 +1,7 @@
 const React = require('react');
-const bridge = require('electron').remote.require('./bridge').default;
+const { bridge } = require('electron').remote.require('./bridge');
 const styleSelector = require('./style/ExtensionBadge');
-const { _ } = require('lib/locale');
+const { _ } = require('lib/locale.js');
 
 function platformAssets(type) {
 	if (type === 'firefox') {

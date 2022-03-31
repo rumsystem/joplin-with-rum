@@ -1,12 +1,9 @@
 import { CommandDeclaration } from '../../../lib/services/CommandService';
-import { _ } from 'lib/locale';
+const { _ } = require('lib/locale');
 
 const declarations:CommandDeclaration[] = [
 	{
 		name: 'insertText',
-	},
-	{
-		name: 'scrollToHash',
 	},
 	{
 		name: 'textCopy',
@@ -82,12 +79,6 @@ const declarations:CommandDeclaration[] = [
 		name: 'insertDateTime',
 		label: () => _('Insert Date Time'),
 		iconName: 'icon-add-date',
-	},
-	{
-		name: 'selectedText',
-	},
-	{
-		name: 'replaceSelection',
 	},
 ];
 

@@ -1,4 +1,4 @@
-const BaseService = require('lib/services/BaseService').default;
+const BaseService = require('lib/services/BaseService');
 const Migration = require('lib/models/Migration');
 
 class MigrationService extends BaseService {

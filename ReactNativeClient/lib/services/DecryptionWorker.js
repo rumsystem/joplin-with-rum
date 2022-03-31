@@ -3,9 +3,8 @@ const BaseModel = require('lib/BaseModel');
 const MasterKey = require('lib/models/MasterKey');
 const Resource = require('lib/models/Resource');
 const ResourceService = require('lib/services/ResourceService');
-const Logger = require('lib/Logger').default;
+const { Logger } = require('lib/logger.js');
 const EventEmitter = require('events');
-const shim = require('lib/shim').default;
 
 class DecryptionWorker {
 	constructor() {
@@ -65,7 +64,7 @@ class DecryptionWorker {
 	async scheduleStart() {
 		if (this.scheduleId_) return;
 
-		this.scheduleId_ = shim.setTimeout(() => {
+		this.scheduleId_ = setTimeout(() => {
 			this.scheduleId_ = null;
 			this.start({
 				masterKeyNotLoadedHandler: 'dispatch',
@@ -281,16 +280,16 @@ class DecryptionWorker {
 	async destroy() {
 		this.eventEmitter_.removeAllListeners();
 		if (this.scheduleId_) {
-			shim.clearTimeout(this.scheduleId_);
+			clearTimeout(this.scheduleId_);
 			this.scheduleId_ = null;
 		}
 		this.eventEmitter_ = null;
 		DecryptionWorker.instance_ = null;
 
 		return new Promise((resolve) => {
-			const iid = shim.setInterval(() => {
+			const iid = setInterval(() => {
 				if (!this.startCalls_.length) {
-					shim.clearInterval(iid);
+					clearInterval(iid);
 					resolve();
 				}
 			}, 100);

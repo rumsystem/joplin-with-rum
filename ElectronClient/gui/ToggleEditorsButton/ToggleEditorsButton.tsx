@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styles_ from './styles';
-import { ToolbarButtonInfo } from 'lib/services/commands/ToolbarButtonUtils';
+import { ToolbarButtonInfo } from 'lib/services/CommandService';
 
 export enum Value {
 	Markdown = 'markdown',

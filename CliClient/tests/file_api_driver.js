@@ -2,12 +2,12 @@
 
 require('app-module-path').addPath(__dirname);
 
-const uuid = require('lib/uuid').default;
+const { uuid } = require('lib/uuid.js');
 const { time } = require('lib/time-utils.js');
 const { asyncTest, sleep, fileApi, fileContentEqual, checkThrowAsync } = require('test-utils.js');
-const shim = require('lib/shim').default;
+const { shim } = require('lib/shim.js');
 const fs = require('fs-extra');
-const Setting = require('lib/models/Setting').default;
+const Setting = require('lib/models/Setting.js');
 
 process.on('unhandledRejection', (reason, p) => {
 	console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
