@@ -89,6 +89,7 @@ class NoteTextComponent extends React.Component {
 		this.localSearchDefaultState = {
 			query: '',
 			selectedIndex: 0,
+			resultQuery: '',
 			resultCount: 0,
 		};
 
@@ -312,6 +313,8 @@ class NoteTextComponent extends React.Component {
 					query: query,
 					selectedIndex: 0,
 					timestamp: Date.now(),
+					resultQuery: this.state.localSearch.resultQuery,
+					resultCount: this.state.localSearch.resultCount,
 				},
 			});
 		};
@@ -764,6 +767,7 @@ class NoteTextComponent extends React.Component {
 			reg.logger().error(s.join(':'));
 		} else if (msg === 'setMarkerCount') {
 			const ls = Object.assign({}, this.state.localSearch);
+			ls.resultQuery = ls.query;
 			ls.resultCount = arg0;
 			this.setState({ localSearch: ls });
 		} else if (msg.indexOf('markForDownload:') === 0) {
@@ -1175,7 +1179,9 @@ class NoteTextComponent extends React.Component {
 		if (this.state.showLocalSearch) {
 			this.noteSearchBar_.current.wrappedInstance.focus();
 		} else {
-			this.setState({ showLocalSearch: true });
+			this.setState({
+				showLocalSearch: true,
+				localSearch: Object.assign({}, this.localSearchDefaultState) });
 		}
 
 		this.props.dispatch({
@@ -2139,7 +2145,24 @@ class NoteTextComponent extends React.Component {
 			/>
 		);
 
-		const noteSearchBarComp = !this.state.showLocalSearch ? null : <NoteSearchBar ref={this.noteSearchBar_} style={{ display: 'flex', height: searchBarHeight, width: innerWidth, borderTop: `1px solid ${theme.dividerColor}` }} onChange={this.noteSearchBar_change} onNext={this.noteSearchBar_next} onPrevious={this.noteSearchBar_previous} onClose={this.noteSearchBar_close} />;
+		const noteSearchBarComp = !this.state.showLocalSearch ? null : (
+			<NoteSearchBar
+				ref={this.noteSearchBar_}
+				style={{
+					display: 'flex',
+					height: searchBarHeight,
+					width: innerWidth,
+					borderTop: `1px solid ${theme.dividerColor}`,
+				}}
+				resultQuery={this.state.localSearch.resultQuery}
+				resultCount={this.state.localSearch.resultCount}
+				selectedIndex={this.state.localSearch.selectedIndex}
+				onChange={this.noteSearchBar_change}
+				onNext={this.noteSearchBar_next}
+				onPrevious={this.noteSearchBar_previous}
+				onClose={this.noteSearchBar_close}
+			/>
+		);
 
 		return (
 			<div style={rootStyle} onDrop={this.onDrop_}>
