@@ -23,7 +23,6 @@ const defaultState = {
 	syncReport: {},
 	searchQuery: '',
 	settings: {},
-	sharedData: null,
 	appState: 'starting',
 	hasDisabledSyncItems: false,
 	newNote: null,
