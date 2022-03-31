@@ -14,9 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0\n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
+"X-Generator: Poedit 2.3\n"
 
 #: packages/app-cli/app/app-gui.js:452
 msgid "To delete a tag, untag the associated notes."
@@ -137,8 +135,6 @@ msgid ""
 "Runs the commands contained in the text file. There should be one command "
 "per line."
 msgstr ""
-"Menjalankan perintah yang terkandung dalam file teks. Harus ada satu "
-"perintah per baris."
 
 #: packages/app-cli/app/command-cat.js:14
 msgid "Displays the given note."
@@ -941,11 +937,11 @@ msgstr "Unduh"
 
 #: packages/app-desktop/checkForUpdates.js:189
 msgid "Skip this version"
-msgstr "Lewatkan versi ini"
+msgstr ""
 
 #: packages/app-desktop/checkForUpdates.js:189
 msgid "Full changelog"
-msgstr "Full Changelog"
+msgstr ""
 
 #: packages/app-desktop/commands/copyDevCommand.js:18
 msgid "Copy dev mode command to clipboard"
@@ -969,11 +965,12 @@ msgstr "Ubah pengeditan eksternal"
 
 #: packages/app-desktop/commands/toggleExternalEditing.js:37
 msgid "Stop"
-msgstr "Berhenti"
+msgstr ""
 
 #: packages/app-desktop/commands/toggleSafeMode.js:18
+#, fuzzy
 msgid "Toggle safe mode"
-msgstr "Alihkan ke mode aman"
+msgstr "Alihkan bilah samping"
 
 #: packages/app-desktop/gui/ClipperConfigScreen.min.js:40
 msgid "Token has been copied to the clipboard!"
@@ -981,7 +978,7 @@ msgstr "Token telah disalin ke papan klip!"
 
 #: packages/app-desktop/gui/ClipperConfigScreen.min.js:44
 msgid "Are you sure you want to renew the authorisation token?"
-msgstr "Yakin ingin memperpanjang token otorisasi?"
+msgstr ""
 
 #: packages/app-desktop/gui/ClipperConfigScreen.min.js:84
 msgid "The web clipper service is enabled and set to auto-start."
@@ -1065,7 +1062,7 @@ msgstr ""
 
 #: packages/app-desktop/gui/ClipperConfigScreen.min.js:222
 msgid "Renew token"
-msgstr "Perbaharui Token"
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/ButtonBar.js:27
 msgid "Apply"
@@ -1093,7 +1090,7 @@ msgstr "Perlihatkan pengaturan lanjutan"
 
 #: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:392
 msgid "Path:"
-msgstr "Lokasi:"
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/ConfigScreen.js:397
 msgid "Browse..."
@@ -1190,12 +1187,13 @@ msgid "You do not have any installed plugin."
 msgstr "Anda tidak punya plugin yang dipasang."
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginsStates.js:232
+#, fuzzy
 msgid "Could not connect to plugin repository"
-msgstr "Tidak dapat terhubung ke repositori plugin"
+msgstr "Tidak dapat memasang plugin: %s"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginsStates.js:234
 msgid "Try again"
-msgstr "Coba lagi"
+msgstr ""
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginsStates.js:242
 msgid "Plugin tools"
@@ -1528,7 +1526,7 @@ msgstr "Tutup jendela"
 #: packages/app-desktop/gui/KeymapConfig/utils/getLabel.js:28
 #: packages/app-desktop/plugins/GotoAnything.js:487
 msgid "Command palette"
-msgstr "Perintah pallete"
+msgstr ""
 
 #: packages/app-desktop/gui/KeymapConfig/utils/getLabel.js:30
 msgid "Preferences"
@@ -1548,12 +1546,10 @@ msgid ""
 "Safe mode is currently active. Note rendering and all plugins are "
 "temporarily disabled."
 msgstr ""
-"Mode aman sedang aktif. Catatan render dan semua plugin dinonaktifkan untuk "
-"sementara."
 
 #: packages/app-desktop/gui/MainScreen/MainScreen.js:459
 msgid "Disable safe mode and restart"
-msgstr "Nonaktifkan mode aman dan mulai ulang"
+msgstr ""
 
 #: packages/app-desktop/gui/MainScreen/MainScreen.js:462
 msgid ""
@@ -1597,16 +1593,16 @@ msgstr "Info lain"
 #: packages/app-desktop/gui/MainScreen/MainScreen.js:476
 #, javascript-format
 msgid "%s (%s) would like to share a notebook with you."
-msgstr "%s (%s) ingin berbagi buku catatan dengan Anda."
+msgstr ""
 
 #: packages/app-desktop/gui/MainScreen/MainScreen.js:476
 msgid "Accept"
-msgstr "Terima"
+msgstr ""
 
 #: packages/app-desktop/gui/MainScreen/MainScreen.js:476
 #: packages/app-desktop/gui/Root.js:113
 msgid "Reject"
-msgstr "Tolak"
+msgstr ""
 
 #: packages/app-desktop/gui/MainScreen/MainScreen.js:479
 msgid "Some items cannot be synchronised."
@@ -1721,12 +1717,14 @@ msgid "Note properties"
 msgstr "Properti catatan"
 
 #: packages/app-desktop/gui/MainScreen/commands/showShareFolderDialog.js:16
+#, fuzzy
 msgid "Share notebook..."
-msgstr "Bagikan buku catatan…"
+msgstr "Bagikan catatan..."
 
 #: packages/app-desktop/gui/MainScreen/commands/showShareNoteDialog.js:16
+#, fuzzy
 msgid "Publish note..."
-msgstr "Publikasikan catatan…"
+msgstr "Bagikan catatan..."
 
 #: packages/app-desktop/gui/MainScreen/commands/showSpellCheckerMenu.js:19
 #: packages/lib/services/spellChecker/SpellCheckerService.js:180
@@ -1848,7 +1846,7 @@ msgstr "Perkecil"
 
 #: packages/app-desktop/gui/MenuBar.js:619
 msgid "&Go"
-msgstr "&Pergi"
+msgstr ""
 
 #: packages/app-desktop/gui/MenuBar.js:625
 #: packages/app-desktop/gui/NoteEditor/commands/focusElementNoteBody.js:17
@@ -1859,8 +1857,9 @@ msgid "Focus"
 msgstr "Fokus"
 
 #: packages/app-desktop/gui/MenuBar.js:631
+#, fuzzy
 msgid "Note&book"
-msgstr "Catatan & Buku"
+msgstr "Buku catatan"
 
 #: packages/app-desktop/gui/MenuBar.js:637
 msgid "&Note"
@@ -1982,11 +1981,11 @@ msgstr "Lampirkan berkas"
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:530
 msgid "Code Block"
-msgstr "Block Kode"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:539
 msgid "Inline Code"
-msgstr "Baris Kode"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/TinyMCE.js:554
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:83
@@ -2021,23 +2020,23 @@ msgstr "Ubah"
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/utils/setupToolbarButtons.js:17
 msgid "Highlight"
-msgstr "Sorotan"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/utils/setupToolbarButtons.js:22
 msgid "Strikethrough"
-msgstr "Dicoret"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/utils/setupToolbarButtons.js:27
 msgid "Insert"
-msgstr "Menyisipkan"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/utils/setupToolbarButtons.js:33
 msgid "Superscript"
-msgstr "Tulisan kecil di atas garis"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/TinyMCE/utils/setupToolbarButtons.js:39
 msgid "Subscript"
-msgstr "Tulisan kecil di bawah garis"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteEditor.js:285
 msgid "Click to add tags..."
@@ -2131,11 +2130,12 @@ msgstr "Garis Horisontal"
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:88
 msgid "Delete line"
-msgstr "Hapus baris"
+msgstr "Hapus catatan"
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:92
+#, fuzzy
 msgid "Duplicate line"
-msgstr "Baris duplikat"
+msgstr "Buat duplikat"
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:96
 msgid "Undo"
@@ -2163,11 +2163,11 @@ msgstr "Sortir baris terpilih"
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:120
 msgid "Swap line up"
-msgstr "Tukar baris ke atas"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/commands/editorCommandDeclarations.js:124
 msgid "Swap line down"
-msgstr "Tukar baris ke bawah"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/commands/focusElementNoteBody.js:16
 msgid "Note body"
@@ -2346,16 +2346,18 @@ msgstr ""
 "(batas: %s)."
 
 #: packages/app-desktop/gui/Root.js:98
+#, fuzzy
 msgid "Confirmation"
-msgstr "Konfirmasi"
+msgstr "Konfigurasi"
 
 #: packages/app-desktop/gui/Root.js:111
 msgid "The Web Clipper needs your authorisation to access your data."
-msgstr "Web Clipper membutuhkan otorisasi Anda untuk mengakses data Anda."
+msgstr ""
 
 #: packages/app-desktop/gui/Root.js:112
+#, fuzzy
 msgid "Grant authorisation"
-msgstr "Berikan otorisasi"
+msgstr "Token otorisasi:"
 
 #: packages/app-desktop/gui/Root.js:136
 msgid "OneDrive Login"
@@ -2370,20 +2372,19 @@ msgid "Note attachments"
 msgstr "Lampiran catatan"
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:141
+#, fuzzy
 msgid "Unshare"
-msgstr "Berhenti berbagi"
+msgstr "Bagikan"
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:183
 msgid ""
 "Delete this invitation? The recipient will no longer have access to this "
 "shared notebook."
 msgstr ""
-"Hapus undangan ini? Penerima tidak akan lagi memiliki akses ke buku catatan "
-"bersama ini."
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:197
 msgid "Add recipient:"
-msgstr "Tambah penerima:"
+msgstr ""
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:200
 #: packages/app-mobile/components/NoteBodyViewer/hooks/useOnResourceLongPress.js:28
@@ -2393,43 +2394,45 @@ msgstr "Bagikan"
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:209
 msgid "Recipient has not yet accepted the invitation"
-msgstr "Penerima belum menerima undangan"
+msgstr ""
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:210
 msgid "Recipient has rejected the invitation"
-msgstr "Penerima telah menolak undangan"
+msgstr ""
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:211
 msgid "Recipient has accepted the invitation"
-msgstr "Penerima telah menerima undangan"
+msgstr ""
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:221
 msgid "Recipients:"
-msgstr "Penerima:"
+msgstr ""
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:233
+#, fuzzy
 msgid "Synchronizing..."
-msgstr "Menyinkronkan…"
+msgstr "Menyinkronkan..."
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:234
+#, fuzzy
 msgid "Sharing notebook..."
-msgstr "Berbagi buku catatan…"
+msgstr "Bagikan catatan..."
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:244
 msgid ""
 "Unshare this notebook? The recipients will no longer have access to its "
 "content."
 msgstr ""
-"Batalkan berbagi buku catatan ini? Penerima tidak akan lagi memiliki akses "
-"ke kontennya."
 
 #: packages/app-desktop/gui/ShareFolderDialog/ShareFolderDialog.js:254
+#, fuzzy
 msgid "Share Notebook"
-msgstr "Bagikan Buku Catatan"
+msgstr "Bagikan catatan"
 
 #: packages/app-desktop/gui/ShareNoteDialog.js:144
+#, fuzzy
 msgid "Unpublish note"
-msgstr "Batalkan publikasi catatan"
+msgstr "Bagikan"
 
 #: packages/app-desktop/gui/ShareNoteDialog.js:171
 msgid "Synchronising..."
@@ -2454,7 +2457,7 @@ msgstr ""
 
 #: packages/app-desktop/gui/ShareNoteDialog.js:187
 msgid "Publish Notes"
-msgstr "Publikasikan Catatan"
+msgstr ""
 
 #: packages/app-desktop/gui/ShareNoteDialog.js:189
 msgid "Copy Shareable Link"
@@ -2534,10 +2537,12 @@ msgid "Retry"
 msgstr "Coba lagi"
 
 #: packages/app-desktop/gui/StatusScreen/StatusScreen.js:137
+#, fuzzy
 msgid "Advanced tools"
 msgstr "Opsi lanjutan"
 
 #: packages/app-desktop/gui/StatusScreen/StatusScreen.js:139
+#, fuzzy
 msgid "Export debug report"
 msgstr "Ekspor Laporan Debug"
 
@@ -2748,7 +2753,7 @@ msgstr "Situs web Joplin"
 
 #: packages/app-mobile/components/screens/ConfigScreen.js:435
 msgid "Privacy Policy"
-msgstr "Kebijakan privasi"
+msgstr ""
 
 #: packages/app-mobile/components/screens/ConfigScreen.js:439
 #, javascript-format
@@ -2965,7 +2970,7 @@ msgstr "Buku Catatan Baru"
 
 #: packages/app-mobile/components/side-menu-content.js:351
 msgid "Mobile data - auto-sync disabled"
-msgstr "Data seluler - sinkronisasi otomatis dinonaktifkan"
+msgstr ""
 
 #: packages/lib/BaseApplication.js:152 packages/lib/BaseApplication.js:164
 #: packages/lib/BaseApplication.js:196
@@ -2993,7 +2998,7 @@ msgstr ""
 
 #: packages/lib/SyncTargetAmazonS3.js:28
 msgid "AWS S3"
-msgstr "AWS S3"
+msgstr ""
 
 #: packages/lib/SyncTargetDropbox.js:25
 msgid "Dropbox"
@@ -3004,8 +3009,9 @@ msgid "File system"
 msgstr "Sistem berkas"
 
 #: packages/lib/SyncTargetJoplinCloud.js:28
+#, fuzzy
 msgid "Joplin Cloud"
-msgstr "Joplin Cloud"
+msgstr "Forum Joplin"
 
 #: packages/lib/SyncTargetJoplinServer.js:57
 msgid "Joplin Server"
@@ -3063,9 +3069,9 @@ msgid "Cancelling..."
 msgstr "Membatalkan..."
 
 #: packages/lib/Synchronizer.js:156
-#, javascript-format
+#, fuzzy, javascript-format
 msgid "Completed: %s (%s)"
-msgstr "Telah Selesai: %s (%s)"
+msgstr "Selesai: %s"
 
 #: packages/lib/Synchronizer.js:158
 #, javascript-format
@@ -3343,39 +3349,42 @@ msgstr "Kata sandi WebDAV"
 
 #: packages/lib/models/Setting.js:270
 msgid "AWS S3 bucket"
-msgstr "AWS S3 bucket"
+msgstr ""
 
 #: packages/lib/models/Setting.js:282
 msgid "AWS S3 URL"
-msgstr "AWS S3 URL"
+msgstr ""
 
 #: packages/lib/models/Setting.js:293
 msgid "AWS key"
-msgstr "AWS key"
+msgstr ""
 
 #: packages/lib/models/Setting.js:304
 msgid "AWS secret"
-msgstr "AWS secret"
+msgstr ""
 
 #: packages/lib/models/Setting.js:315
 msgid "Joplin Server URL"
 msgstr "URL Server Joplin"
 
 #: packages/lib/models/Setting.js:333
+#, fuzzy
 msgid "Joplin Server email"
-msgstr "Email Server Joplin"
+msgstr "Server Joplin"
 
 #: packages/lib/models/Setting.js:344
 msgid "Joplin Server password"
 msgstr "Kata sandi Server Joplin"
 
 #: packages/lib/models/Setting.js:371
+#, fuzzy
 msgid "Joplin Cloud email"
-msgstr "Email Joplin Cloud"
+msgstr "Server Joplin"
 
 #: packages/lib/models/Setting.js:382
+#, fuzzy
 msgid "Joplin Cloud password"
-msgstr "Kata sandi Joplin Cloud"
+msgstr "Kata sandi Server Joplin"
 
 #: packages/lib/models/Setting.js:394
 msgid "Attachment download behaviour"
@@ -3615,8 +3624,6 @@ msgid ""
 "Used for most text in the markdown editor. If not found, a generic "
 "proportional (variable width) font is used."
 msgstr ""
-"Digunakan untuk sebagian besar teks di editor penurunan harga. Jika tidak "
-"ditemukan, font proporsional (lebar variabel) generik digunakan."
 
 #: packages/lib/models/Setting.js:764
 msgid "Editor monospace font family"
@@ -3628,9 +3635,6 @@ msgid ""
 "tables, checkboxes, code). If not found, a generic monospace (fixed width) "
 "font is used."
 msgstr ""
-"Digunakan di mana font lebar tetap diperlukan untuk meletakkan teks dengan "
-"jelas (misalnya tabel, kotak centang, kode). Jika tidak ditemukan, font "
-"monospace generik (lebar tetap) digunakan."
 
 #: packages/lib/models/Setting.js:786
 msgid "Custom stylesheet for rendered Markdown"
@@ -3642,11 +3646,11 @@ msgstr "Lembar gaya khusus untuk gaya keseluruhan aplikasi Joplin"
 
 #: packages/lib/models/Setting.js:812
 msgid "Re-upload local data to sync target"
-msgstr "Unggah ulang data lokal untuk menyinkronkan target"
+msgstr ""
 
 #: packages/lib/models/Setting.js:822
 msgid "Delete local data and re-download from sync target"
-msgstr "Hapus data lokal dan unduh ulang dari target sinkronisasi"
+msgstr ""
 
 #: packages/lib/models/Setting.js:827
 msgid "Automatically update the application"
@@ -3683,7 +3687,7 @@ msgstr "%d jam"
 
 #: packages/lib/models/Setting.js:855
 msgid "Synchronise only over WiFi connection"
-msgstr "Sinkronkan hanya melalui koneksi WiFi"
+msgstr ""
 
 #: packages/lib/models/Setting.js:862
 msgid "Text editor command"
@@ -4216,16 +4220,15 @@ msgstr ""
 
 #: packages/server/dist/models/UserModel.js:189
 #: packages/server/dist/models/UserModel.js:194
+#, fuzzy
 msgid "attachment"
-msgstr "lampiran"
+msgstr "Lampiran"
 
 #: packages/server/dist/models/UserModel.js:189
 #, javascript-format
 msgid ""
 "Cannot save %s \"%s\" because it is larger than than the allowed limit (%s)"
 msgstr ""
-"Tidak dapat menyimpan %s “%s” karena lebih besar dari batas yang diizinkan "
-"(%s)"
 
 #: packages/server/dist/models/UserModel.js:194
 #, javascript-format
@@ -4233,8 +4236,6 @@ msgid ""
 "Cannot save %s \"%s\" because it would go over the total allowed size (%s) "
 "for this account"
 msgstr ""
-"Tidak dapat menyimpan %s “%s” karena akan melebihi ukuran total yang "
-"diizinkan (%s) untuk akun ini"
 
 #~ msgid "Share Notes"
 #~ msgstr "Bagikan catatan"
