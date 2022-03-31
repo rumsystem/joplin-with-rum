@@ -176,12 +176,17 @@ class NoteListComponent extends React.Component {
 		}
 
 		menu.append(new MenuItem({label: _('Delete'), click: async () => {
-			const ok = bridge().showConfirmMessageBox(noteIds.length > 1 ? _('Delete notes?') : _('Delete note?'));
-			if (!ok) return;
-			await Note.batchDelete(noteIds);
+			await this.confirmDeleteNotes(noteIds);
 		}}));
 
 		menu.popup(bridge().window());
+	}
+
+	async confirmDeleteNotes(noteIds) {
+		if (!noteIds.length) return;
+		const ok = bridge().showConfirmMessageBox(noteIds.length > 1 ? _('Delete notes?') : _('Delete note?'));
+		if (!ok) return;
+		await Note.batchDelete(noteIds);
 	}
 
 	itemRenderer(item) {
@@ -337,10 +342,38 @@ class NoteListComponent extends React.Component {
 		return null;
 	}
 
-	onKeyDown(event) {
+	doCommand(command) {
+		if (!command) return;
+
+		let commandProcessed = true;
+
+		if (command.name === 'focusElement' && command.target === 'noteList') {
+			if (this.props.selectedNoteIds.length) {
+				const ref = this.itemAnchorRef(this.props.selectedNoteIds[0]);
+				if (ref) ref.focus();
+			}
+		} else {
+			commandProcessed = false;
+		}
+
+		if (commandProcessed) {
+			this.props.dispatch({
+				type: 'WINDOW_COMMAND',
+				name: null,
+			});
+		}
+	}
+
+	componentDidUpdate(prevProps, prevState, snapshot) {
+		if (prevProps.windowCommand !== this.props.windowCommand) {
+			this.doCommand(this.props.windowCommand);
+		}
+	}
+
+	async onKeyDown(event) {
 		const keyCode = event.keyCode;
 		const noteIds = this.props.selectedNoteIds;
-		
+
 		if (noteIds.length === 1 && (keyCode === 40 || keyCode === 38)) { // DOWN / UP
 			const noteId = noteIds[0];
 			let noteIndex = BaseModel.modelIndexById(this.props.notes, noteId);
@@ -360,24 +393,66 @@ class NoteListComponent extends React.Component {
 
 			this.itemListRef.current.makeItemIndexVisible(noteIndex);
 
-			// - We need to focus the item manually otherwise focus might be lost when the
-			//   list is scrolled and items within it are being rebuilt.
-			// - We need to use an interval because when leaving the arrow pressed, the rendering
-			//   of items might lag behind and so the ref is not yet available at this point.
-			if (!this.itemAnchorRef(newSelectedNote.id)) {
-				if (this.focusItemIID_) clearInterval(this.focusItemIID_);
-				this.focusItemIID_ = setInterval(() => {
-					if (this.itemAnchorRef(newSelectedNote.id)) {
-						this.itemAnchorRef(newSelectedNote.id).focus();
-						clearInterval(this.focusItemIID_)
-						this.focusItemIID_ = null;
-					}
-				}, 10);
-			} else {
-				this.itemAnchorRef(newSelectedNote.id).focus();
-			}
+			this.focusNoteId_(newSelectedNote.id);
 
 			event.preventDefault();
+		}
+
+		if (noteIds.length && keyCode === 46) { // DELETE
+			event.preventDefault();
+			await this.confirmDeleteNotes(noteIds);
+		}
+
+		if (noteIds.length && keyCode === 32) { // SPACE
+			event.preventDefault();
+
+			const notes = BaseModel.modelsByIds(this.props.notes, noteIds);
+			const todos = notes.filter(n => !!n.is_todo);
+			if (!todos.length) return;
+
+			for (let i = 0; i < todos.length; i++) {
+				const toggledTodo = Note.toggleTodoCompleted(todos[i]);
+				await Note.save(toggledTodo);
+			}
+
+			this.focusNoteId_(todos[0].id);
+		}
+
+		if (keyCode === 9) { // TAB
+			event.preventDefault();
+
+			if (event.shiftKey) {
+				this.props.dispatch({
+					type: 'WINDOW_COMMAND',
+					name: 'focusElement',
+					target: 'sideBar',
+				});
+			} else {
+				this.props.dispatch({
+					type: 'WINDOW_COMMAND',
+					name: 'focusElement',
+					target: 'noteTitle',
+				});
+			}
+		}
+	}
+
+	focusNoteId_(noteId) {
+		// - We need to focus the item manually otherwise focus might be lost when the
+		//   list is scrolled and items within it are being rebuilt.
+		// - We need to use an interval because when leaving the arrow pressed, the rendering
+		//   of items might lag behind and so the ref is not yet available at this point.
+		if (!this.itemAnchorRef(noteId)) {
+			if (this.focusItemIID_) clearInterval(this.focusItemIID_);
+			this.focusItemIID_ = setInterval(() => {
+				if (this.itemAnchorRef(noteId)) {
+					this.itemAnchorRef(noteId).focus();
+					clearInterval(this.focusItemIID_)
+					this.focusItemIID_ = null;
+				}
+			}, 10);
+		} else {
+			this.itemAnchorRef(noteId).focus();
 		}
 	}
 
@@ -432,6 +507,7 @@ const mapStateToProps = (state) => {
 		searches: state.searches,
 		selectedSearchId: state.selectedSearchId,
 		watchedNoteFiles: state.watchedNoteFiles,
+		windowCommand: state.windowCommand,
 	};
 };
 
