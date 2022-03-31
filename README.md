@@ -1,6 +1,6 @@
 # Joplin
 
-[![Donate](https://joplin.cozic.net/images/badges/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=E8JMYD2LQ8MMA&lc=GB&item_name=Joplin+Development&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted) [![Donate with Bitcoin](https://joplin.cozic.net/images/badges/Donate-Bitcoin.svg)](https://joplin.cozic.net/donate/#bitcoin) [![Travis Build Status](https://travis-ci.org/laurent22/joplin.svg?branch=master)](https://travis-ci.org/laurent22/joplin) [![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/github/laurent22/joplin?branch=master&passingText=master%20-%20OK&svg=true)](https://ci.appveyor.com/project/laurent22/joplin)
+[![Donate](https://joplin.cozic.net/images/badges/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=E8JMYD2LQ8MMA&lc=GB&item_name=Joplin+Development&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted) [![Become a patron](https://joplin.cozic.net/images/badges/Patreon-Badge.svg)](https://www.patreon.com/joplin) [![Travis Build Status](https://travis-ci.org/laurent22/joplin.svg?branch=master)](https://travis-ci.org/laurent22/joplin) [![Appveyor Build Status](https://ci.appveyor.com/api/projects/status/github/laurent22/joplin?branch=master&passingText=master%20-%20OK&svg=true)](https://ci.appveyor.com/project/laurent22/joplin)
 
 Joplin is a free, open source note taking and to-do application, which can handle a large number of notes organised into notebooks. The notes are searchable, can be copied, tagged and modified either from the applications directly or from your own text editor. The notes are in [Markdown format](#markdown).
 
@@ -25,12 +25,6 @@ macOS          | <a href='https://github.com/laurent22/joplin/releases/download/
 Linux          | <a href='https://github.com/laurent22/joplin/releases/download/v1.0.105/Joplin-1.0.105-x86_64.AppImage'><img alt='Get it on Linux' height="40px" src='https://joplin.cozic.net/images/BadgeLinux.png'/></a> | An Arch Linux package<br>[is also available](#terminal-application).
 
 The [portable application](https://en.wikipedia.org/wiki/Portable_application) allows installing the software on a portable device such as a USB key. Simply copy the file JoplinPortable.exe in any directory on that USB key ; the application will then create a directory called "JoplinProfile" next to the executable file.
-
-### Install and Update Ubuntu/Debian (Gnome Shell)
-
-``` sh
-wget -O - https://raw.githubusercontent.com/laurent22/joplin/master/install_ubuntu.sh | bash
-```
 
 ## Mobile applications
 
