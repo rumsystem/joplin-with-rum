@@ -56,6 +56,7 @@ import SyncTargetNone from './SyncTargetNone';
 import { setRSA } from './services/e2ee/ppk';
 import RSA from './services/e2ee/RSA.node';
 import Resource from './models/Resource';
+// import QuorumSDK from 'quorum-sdk-electron-renderer';
 
 const appLogger: LoggerWrapper = Logger.create('App');
 
@@ -823,6 +824,16 @@ export default class BaseApplication {
 			// Setting.setValue('sync.10.userContentPath', 'https://joplinusercontent.com');
 			Setting.setValue('sync.10.path', 'http://api.joplincloud.local:22300');
 			Setting.setValue('sync.10.userContentPath', 'http://joplinusercontent.local:22300');
+		}
+
+		if (Setting.value('sync.target') === 2) {
+			console.log('hw: use rum system');
+			console.log('start rum');
+			// (async () => {
+			// const QuorumClient = new QuorumSDK();
+			// await QuorumClient.up();
+			// console.log('Quorum client started !');
+			// })();
 		}
 
 		// For now always disable fuzzy search due to performance issues:

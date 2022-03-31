@@ -3169,7 +3169,7 @@ __metadata:
     node-rsa: ^1.1.1
     promise: ^7.1.1
     query-string: 4.3.4
-    quorum-sdk-electron-renderer: ^1.0.2
+    quorum-sdk-electron-renderer: ^1.0.3
     re-reselect: ^4.0.0
     read-chunk: ^2.1.0
     redux: ^3.7.2
@@ -24776,6 +24776,19 @@ __metadata:
     electron-store: ^8.0.1
     query-string: ^7.1.1
   checksum: b244cc57430095e967f6057ff3977c796098c50e563c0505d23af4633f808925e2aa729dc13a48fe97615757c496343434be4325fb0752f92eefdb2f010a0ced
+  languageName: node
+  linkType: hard
+
+"quorum-sdk-electron-renderer@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "quorum-sdk-electron-renderer@npm:1.0.3"
+  dependencies:
+    "@electron/remote": ^2.0.5
+    dexie: ^3.2.0
+    electron: 16.0.8
+    electron-store: ^8.0.1
+    query-string: ^7.1.1
+  checksum: 33fe07869d98fe386e5ee47cefaa521618af252b993773dfa3f9c3db02088a1f7674ddbaa63420c0b01708a099f02bf4b9cad61a5edf9f17db8e0e524f23031c
   languageName: node
   linkType: hard
 
