@@ -505,11 +505,6 @@ class Application extends BaseApplication {
 			void QuorumServer.instance().start();
 		}
 
-		if (Setting.value('sync.target') === 11) {
-			console.log('start rum system...');
-			QuorumServer.instance().start();
-		}
-
 		const clipperLogger = new Logger();
 		clipperLogger.addTarget(TargetType.File, { path: `${Setting.value('profileDir')}/log-clipper.txt` });
 		clipperLogger.addTarget(TargetType.Console);
