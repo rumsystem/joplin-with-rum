@@ -347,12 +347,6 @@ function useMenu(props: Props) {
 				}
 			}
 
-			importItems.push({ type: 'separator' });
-			importItems.push({
-				label: _('Other applications...'),
-				click: () => { void bridge().openExternal('https://discourse.joplinapp.org/t/importing-notes-from-other-notebook-applications/22425'); },
-			});
-
 			exportItems.push(
 				menuItemDic.exportPdf
 			);
@@ -465,10 +459,10 @@ function useMenu(props: Props) {
 							routeName: 'Config',
 						});
 					},
-				// }, {
-					// label: _('Check for updates...'),
-					// visible: shim.isMac() ? true : false,
-					// click: () => _checkForUpdates(),
+				}, {
+					label: _('Check for updates...'),
+					visible: shim.isMac() ? true : false,
+					click: () => _checkForUpdates(),
 				}, {
 					type: 'separator',
 					visible: shim.isMac() ? true : false,
