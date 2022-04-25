@@ -7,7 +7,7 @@ import Note from '../../models/Note';
 import Tag from '../../models/Tag';
 import Resource from '../../models/Resource';
 import * as fs from 'fs-extra';
-import { FolderEntity, NoteEntity, ResourceEntity } from '../database/types';
+import { NoteEntity, ResourceEntity } from '../database/types';
 import { ModelType } from '../../BaseModel';
 const ArrayUtils = require('../../ArrayUtils');
 
@@ -520,11 +520,8 @@ describe('services_InteropService', function() {
 	}));
 
 	it('should not export certain note properties', (async () => {
-		const folder = await Folder.save({ title: 'folder', share_id: 'some_id', is_shared: 1 });
-		let note = await Note.save({ title: 'note', is_shared: 1, share_id: 'someid', parent_id: folder.id });
-		note = await shim.attachFileToNote(note, `${supportDir}/photo.jpg`);
-		const resourceId = (await Note.linkedResourceIds(note.body))[0];
-		await Resource.save({ id: resourceId, share_id: 'some_id', is_shared: 1 });
+		const folder = await Folder.save({ title: 'folder' });
+		await Note.save({ title: 'note', is_shared: 1, share_id: 'someid', parent_id: folder.id });
 
 		const service = InteropService.instance();
 		const { result, module } = memoryExportModule();
@@ -537,14 +534,6 @@ describe('services_InteropService', function() {
 		const exportedNote = (result.items.find(i => i.type === ModelType.Note)).object as NoteEntity;
 		expect(exportedNote.share_id).toBe('');
 		expect(exportedNote.is_shared).toBe(0);
-
-		const exportedFolder = (result.items.find(i => i.type === ModelType.Folder)).object as FolderEntity;
-		expect(exportedFolder.share_id).toBe('');
-		expect(exportedFolder.is_shared).toBe(0);
-
-		const exportedResource = (result.items.find(i => i.type === ModelType.Resource)).object as ResourceEntity;
-		expect(exportedResource.share_id).toBe('');
-		expect(exportedResource.is_shared).toBe(0);
 	}));
 
 	it('should allow registering new import modules', (async () => {
