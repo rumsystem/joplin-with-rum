@@ -1,25 +1,19 @@
-### Build stage
+# =============================================================================
+# Build stage
+# =============================================================================
+
 FROM node:16-bullseye AS builder
 
 RUN apt-get update \
     && apt-get install -y \
-    python \
+    python tini \
     && rm -rf /var/lib/apt/lists/*
-
-# Download the init tool Tini and make it executable for use in the final image
-ADD https://github.com/krallin/tini/releases/download/v0.19.0/tini-static /tini
-RUN chmod u+x /tini
 
 # Enables Yarn
 RUN corepack enable
 
-RUN echo "Node: $(node --version)"
-RUN echo "Npm: $(npm --version)"
-RUN echo "Yarn: $(yarn --version)"
-
 WORKDIR /build
 
-COPY .yarn/patches ./.yarn/patches
 COPY .yarn/plugins ./.yarn/plugins
 COPY .yarn/releases ./.yarn/releases
 COPY package.json .
@@ -52,7 +46,11 @@ RUN BUILD_SEQUENCIAL=1 yarn install --inline-builds \
     && yarn cache clean \
     && rm -rf .yarn/berry
 
-### Final image
+# =============================================================================
+# Final stage - we copy only the relevant files from the build stage and start
+# from a smaller base image.
+# =============================================================================
+
 FROM node:16-bullseye-slim
 
 ARG user=joplin
@@ -61,7 +59,7 @@ RUN useradd --create-home --shell /bin/bash $user
 USER $user
 
 COPY --chown=$user:$user --from=builder /build/packages /home/$user/packages
-COPY --chown=$user:$user --from=builder /tini /usr/local/bin/tini
+COPY --chown=$user:$user --from=builder /usr/bin/tini /usr/local/bin/tini
 
 ENV NODE_ENV=production
 ENV RUNNING_IN_DOCKER=1

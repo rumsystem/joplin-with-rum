@@ -2020,6 +2020,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.17.2":
+  version: 7.17.2
+  resolution: "@babel/runtime@npm:7.17.2"
+  dependencies:
+    regenerator-runtime: ^0.13.4
+  checksum: a48702d271ecc59c09c397856407afa29ff980ab537b3da58eeee1aeaa0f545402d340a1680c9af58aec94dfdcbccfb6abb211991b74686a86d03d3f6956cacd
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.0.0, @babel/template@npm:^7.16.0, @babel/template@npm:^7.3.3":
   version: 7.16.0
   resolution: "@babel/template@npm:7.16.0"
@@ -2296,7 +2305,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@electron/get@npm:^1.0.1":
+"@electron/get@npm:^1.0.1, @electron/get@npm:^1.13.0":
   version: 1.13.1
   resolution: "@electron/get@npm:1.13.1"
   dependencies:
@@ -2324,6 +2333,15 @@ __metadata:
   peerDependencies:
     electron: ">= 10.0.0-beta.1"
   checksum: 0d363d8c41d21041b0ba294f538bb7cabf6e7cc7719910634be4bc3318f090a0acdcf079c90199f2a739418ef72664bf97eb260ec81053f48464cb5dd1871e67
+  languageName: node
+  linkType: hard
+
+"@electron/remote@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "@electron/remote@npm:2.0.5"
+  peerDependencies:
+    electron: ">= 13.0.0"
+  checksum: 2c0b02ad6624736a628dd7c8e883cb155a621fbde67f90c939cf0223a29777b729b1fb6ceb305d3f982516342b90ede6a1baf0460301b7ebbf01f3a8edca9177
   languageName: node
   linkType: hard
 
@@ -2937,6 +2955,8 @@ __metadata:
     node-notifier: ^8.0.0
     node-rsa: ^1.1.1
     pretty-bytes: ^5.3.0
+    quorum-sdk-electron-main: ^1.0.4
+    quorum-sdk-electron-renderer: ^1.0.2
     re-resizable: ^6.5.4
     react: 16.13.1
     react-datetime: ^2.14.0
@@ -3107,6 +3127,7 @@ __metadata:
   dependencies:
     "@aws-sdk/client-s3": ^3.34.0
     "@aws-sdk/s3-request-presigner": ^3.34.0
+    "@babel/runtime": ^7.17.2
     "@joplin/fork-htmlparser2": ^4.1.39
     "@joplin/fork-sax": ^1.2.43
     "@joplin/fork-uslug": ^1.0.4
@@ -3158,6 +3179,7 @@ __metadata:
     node-rsa: ^1.1.1
     promise: ^7.1.1
     query-string: 4.3.4
+    quorum-sdk-electron-renderer: ^1.0.3
     re-reselect: ^4.0.0
     read-chunk: ^2.1.0
     redux: ^3.7.2
@@ -3305,7 +3327,7 @@ __metadata:
     markdown-it-footnote: ^3.0.2
     markdown-it-ins: ^3.0.0
     markdown-it-mark: ^3.0.0
-    markdown-it-multimd-table: ^4.0.1
+    markdown-it-multimd-table: ^4.1.2
     markdown-it-sub: ^1.0.0
     markdown-it-sup: ^1.0.0
     markdown-it-toc-done-right: ^4.1.0
@@ -6451,6 +6473,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ajv-formats@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "ajv-formats@npm:2.1.1"
+  dependencies:
+    ajv: ^8.0.0
+  peerDependencies:
+    ajv: ^8.0.0
+  peerDependenciesMeta:
+    ajv:
+      optional: true
+  checksum: 4a287d937f1ebaad4683249a4c40c0fa3beed30d9ddc0adba04859026a622da0d317851316ea64b3680dc60f5c3c708105ddd5d5db8fe595d9d0207fd19f90b7
+  languageName: node
+  linkType: hard
+
 "ajv-keywords@npm:^1.0.0":
   version: 1.5.1
   resolution: "ajv-keywords@npm:1.5.1"
@@ -6488,6 +6524,18 @@ __metadata:
     json-schema-traverse: ^0.4.1
     uri-js: ^4.2.2
   checksum: 874972efe5c4202ab0a68379481fbd3d1b5d0a7bd6d3cc21d40d3536ebff3352a2a1fabb632d4fd2cc7fe4cbdcd5ed6782084c9bbf7f32a1536d18f9da5007d4
+  languageName: node
+  linkType: hard
+
+"ajv@npm:^8.0.0, ajv@npm:^8.6.3":
+  version: 8.10.0
+  resolution: "ajv@npm:8.10.0"
+  dependencies:
+    fast-deep-equal: ^3.1.1
+    json-schema-traverse: ^1.0.0
+    require-from-string: ^2.0.2
+    uri-js: ^4.2.2
+  checksum: 3594728ef1e31219ef97bfacb203d0d72db8ad5c35d6d0578e38ee453e4537c2bf927dad144bb84b0c893f661d71b58337d4643e8ee2f2a6e1d63b041c92fe82
   languageName: node
   linkType: hard
 
@@ -7327,6 +7375,13 @@ __metadata:
   bin:
     atob: bin/atob.js
   checksum: dfeeeb70090c5ebea7be4b9f787f866686c645d9f39a0d184c817252d0cf08455ed25267d79c03254d3be1f03ac399992a792edcd5ffb9c91e097ab5ef42833a
+  languageName: node
+  linkType: hard
+
+"atomically@npm:^1.7.0":
+  version: 1.7.0
+  resolution: "atomically@npm:1.7.0"
+  checksum: 991153b17334597f93b58e831bea9851e57ed9cd41d8f33991be063f170b5cc8ec7ff8605f3eb95c1d389c2ad651039e9eb8f2b795e24833c2ceb944f347373a
   languageName: node
   linkType: hard
 
@@ -9827,6 +9882,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"conf@npm:^10.0.3":
+  version: 10.1.1
+  resolution: "conf@npm:10.1.1"
+  dependencies:
+    ajv: ^8.6.3
+    ajv-formats: ^2.1.1
+    atomically: ^1.7.0
+    debounce-fn: ^4.0.0
+    dot-prop: ^6.0.1
+    env-paths: ^2.2.1
+    json-schema-typed: ^7.0.3
+    onetime: ^5.1.2
+    pkg-up: ^3.1.0
+    semver: ^7.3.5
+  checksum: f67fd7b33b39b76e1b62316d4ed5943f9ac95a774f5a86a63aea2c594ff5b4ba7673bf6d42f806a23c07248e90f4699b24321640b1dffaf2d81d10d56476a203
+  languageName: node
+  linkType: hard
+
 "config-chain@npm:^1.1.11":
   version: 1.1.13
   resolution: "config-chain@npm:1.1.13"
@@ -11260,6 +11333,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"debounce-fn@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "debounce-fn@npm:4.0.0"
+  dependencies:
+    mimic-fn: ^3.0.0
+  checksum: 7bf8d142b46a88453bbd6eda083f303049b4c8554af5114bdadfc2da56031030664360e81211ae08b708775e6904db7e6d72a421c4ff473344f4521c2c5e4a22
+  languageName: node
+  linkType: hard
+
 "debounce@npm:^1.2.0":
   version: 1.2.1
   resolution: "debounce@npm:1.2.1"
@@ -11872,6 +11954,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dexie@npm:^3.2.0":
+  version: 3.2.1
+  resolution: "dexie@npm:3.2.1"
+  checksum: ba2608005de06b129460cd6c3bfc2ca22a8bcccc0d319b621775b93c82e932f2292b59843dffbecc32549aca789af1497b253b7082cf3da6d3c34eca99887283
+  languageName: node
+  linkType: hard
+
 "dezalgo@npm:^1.0.0":
   version: 1.0.3
   resolution: "dezalgo@npm:1.0.3"
@@ -12200,6 +12289,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dot-prop@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "dot-prop@npm:6.0.1"
+  dependencies:
+    is-obj: ^2.0.0
+  checksum: 0f47600a4b93e1dc37261da4e6909652c008832a5d3684b5bf9a9a0d3f4c67ea949a86dceed9b72f5733ed8e8e6383cc5958df3bbd0799ee317fd181f2ece700
+  languageName: node
+  linkType: hard
+
 "dotenv-expand@npm:^5.1.0":
   version: 5.1.0
   resolution: "dotenv-expand@npm:5.1.0"
@@ -12375,6 +12473,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"electron-log@npm:^4.4.6":
+  version: 4.4.6
+  resolution: "electron-log@npm:4.4.6"
+  checksum: cb385a3d220eaf13ff5a7d7ae2f6421ee6b4a3cf9c4026ae66dad37fc005c04ef224a511a01731c489c82a8ed78202dd6ead99e93d0fe951bdc215684df0b3b5
+  languageName: node
+  linkType: hard
+
 "electron-notarize@npm:^1.0.0":
   version: 1.1.1
   resolution: "electron-notarize@npm:1.1.1"
@@ -12441,6 +12546,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"electron-store@npm:^8.0.1":
+  version: 8.0.1
+  resolution: "electron-store@npm:8.0.1"
+  dependencies:
+    conf: ^10.0.3
+    type-fest: ^1.0.2
+  checksum: 3d708598c554c55ede73569879c9e538b4a644a693af9e5fd49d3c091e1ee6d2a32b6a4d6a1834a4f116a59724a7263ddebd42ded1e15119303b3132c4194a38
+  languageName: node
+  linkType: hard
+
 "electron-to-chromium@npm:^1.3.896":
   version: 1.4.11
   resolution: "electron-to-chromium@npm:1.4.11"
@@ -12476,6 +12591,19 @@ __metadata:
   bin:
     electron: cli.js
   checksum: 8b17f8cabba2b6842e71e11a8889f366712f32219d35c49f093d69939ff78c22b0e0870ec1a4ab851270015e43f00f9d759b0283998fd2d3065c8c20eca8b597
+  languageName: node
+  linkType: hard
+
+"electron@npm:16.0.8":
+  version: 16.0.8
+  resolution: "electron@npm:16.0.8"
+  dependencies:
+    "@electron/get": ^1.13.0
+    "@types/node": ^14.6.2
+    extract-zip: ^1.0.3
+  bin:
+    electron: cli.js
+  checksum: 9d3a2e1c3e6dcfdce25b4d9e1ef9dfe736354f9c3605945cfc5b1568862b69ad0a81e402cfaf09c2f51615b64bc3585ef4828a013437b9506cd0dbff3e6db903
   languageName: node
   linkType: hard
 
@@ -12622,7 +12750,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"env-paths@npm:^2.2.0":
+"env-paths@npm:^2.2.0, env-paths@npm:^2.2.1":
   version: 2.2.1
   resolution: "env-paths@npm:2.2.1"
   checksum: 65b5df55a8bab92229ab2b40dad3b387fad24613263d103a97f91c9fe43ceb21965cd3392b1ccb5d77088021e525c4e0481adb309625d0cb94ade1d1fb8dc17e
@@ -15038,6 +15166,13 @@ __metadata:
   version: 4.2.0
   resolution: "get-port@npm:4.2.0"
   checksum: 6c9a452b2d6e81fe36781a69ed201883d37c02f141ba5770eaef3eca768ca38777c2eba4bec303f6b8c3f45f29036f95d5606b255f613320a6b4b680e1975c07
+  languageName: node
+  linkType: hard
+
+"get-port@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "get-port@npm:5.1.1"
+  checksum: 0162663ffe5c09e748cd79d97b74cd70e5a5c84b760a475ce5767b357fb2a57cb821cee412d646aa8a156ed39b78aab88974eddaa9e5ee926173c036c0713787
   languageName: node
   linkType: hard
 
@@ -18918,6 +19053,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"json-schema-typed@npm:^7.0.3":
+  version: 7.0.3
+  resolution: "json-schema-typed@npm:7.0.3"
+  checksum: e861b19e97e3cc2b29a429147890157827eeda16ab639a0765b935cf3e22aeb6abbba108e23aef442da806bb1f402bdff21da9c5cb30015f8007594565e110b5
+  languageName: node
+  linkType: hard
+
 "json-schema@npm:0.4.0":
   version: 0.4.0
   resolution: "json-schema@npm:0.4.0"
@@ -20420,6 +20562,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"markdown-it-multimd-table@npm:^4.1.2":
+  version: 4.1.2
+  resolution: "markdown-it-multimd-table@npm:4.1.2"
+  dependencies:
+    markdown-it: ^12.3.2
+  checksum: 8f4bff21c085732502803509d61dcb6035dde01670487c2033aa55941156013bdf126e923c11bc5c5eeba1d49dfa6a72bbbedd13bdb7a9df7ee2f0bc1a025e45
+  languageName: node
+  linkType: hard
+
 "markdown-it-sub@npm:^1.0.0":
   version: 1.0.0
   resolution: "markdown-it-sub@npm:1.0.0"
@@ -20483,6 +20634,21 @@ __metadata:
   bin:
     markdown-it: bin/markdown-it.js
   checksum: 8e3d6646edf8e7ef19ed707c59d16741bd40804f1e7567407efd2f346ae0f7ddcdeada83e7affebd21b9d7d947b27fc60fd795a970461785030a4e52e750122b
+  languageName: node
+  linkType: hard
+
+"markdown-it@npm:^12.3.2":
+  version: 12.3.2
+  resolution: "markdown-it@npm:12.3.2"
+  dependencies:
+    argparse: ^2.0.1
+    entities: ~2.1.0
+    linkify-it: ^3.0.1
+    mdurl: ^1.0.1
+    uc.micro: ^1.0.5
+  bin:
+    markdown-it: bin/markdown-it.js
+  checksum: 890555711c1c00fa03b936ca2b213001a3b9b37dea140d8445ae4130ce16628392aad24b12e2a0a9935336ca5951f2957a38f4e5309a2e38eab44e25ff32a41e
   languageName: node
   linkType: hard
 
@@ -21238,6 +21404,13 @@ __metadata:
   version: 2.1.0
   resolution: "mimic-fn@npm:2.1.0"
   checksum: d2421a3444848ce7f84bd49115ddacff29c15745db73f54041edc906c14b131a38d05298dae3081667627a59b2eb1ca4b436ff2e1b80f69679522410418b478a
+  languageName: node
+  linkType: hard
+
+"mimic-fn@npm:^3.0.0":
+  version: 3.1.0
+  resolution: "mimic-fn@npm:3.1.0"
+  checksum: f7b167f9115b8bbdf2c3ee55dce9149d14be9e54b237259c4bc1d8d0512ea60f25a1b323f814eb1fe8f5a541662804bcfcfff3202ca58df143edb986849d58db
   languageName: node
   linkType: hard
 
@@ -22175,6 +22348,13 @@ __metadata:
   version: 1.15.0
   resolution: "node-stream-zip@npm:1.15.0"
   checksum: 0b73ffbb09490e479c8f47038d7cba803e6242618fbc1b71c26782009d388742ed6fb5ce6e9d31f528b410249e7eb1c6e7534e9d3792a0cafd99813ac5a35107
+  languageName: node
+  linkType: hard
+
+"node-watch@npm:^0.7.2":
+  version: 0.7.3
+  resolution: "node-watch@npm:0.7.3"
+  checksum: c745482f720613415153b9065383b77d21f2ef60ceabf64f779c1452b1dcbb8d08c71f650b93f3c1d84524371321f92a15fda468745872cacffec8289741d51a
   languageName: node
   linkType: hard
 
@@ -24513,6 +24693,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"query-string@npm:^7.1.1":
+  version: 7.1.1
+  resolution: "query-string@npm:7.1.1"
+  dependencies:
+    decode-uri-component: ^0.2.0
+    filter-obj: ^1.1.0
+    split-on-first: ^1.0.0
+    strict-uri-encode: ^2.0.0
+  checksum: b227d1f588ae93f9f0ad078c6b811295fa151dc5a160a03bb2bac5fa0e6919cb1daa570aad1d288e77c8e89fde5362ba505b1014e6e793da9b1e885b59a690a6
+  languageName: node
+  linkType: hard
+
 "querystring-es3@npm:~0.2.0":
   version: 0.2.1
   resolution: "querystring-es3@npm:0.2.1"
@@ -24568,6 +24760,45 @@ __metadata:
   version: 5.1.1
   resolution: "quick-lru@npm:5.1.1"
   checksum: a516faa25574be7947969883e6068dbe4aa19e8ef8e8e0fd96cddd6d36485e9106d85c0041a27153286b0770b381328f4072aa40d3b18a19f5f7d2b78b94b5ed
+  languageName: node
+  linkType: hard
+
+"quorum-sdk-electron-main@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "quorum-sdk-electron-main@npm:1.0.4"
+  dependencies:
+    electron: 16.0.8
+    electron-log: ^4.4.6
+    electron-store: ^8.0.1
+    get-port: ^5.1.1
+    node-watch: ^0.7.2
+  checksum: bac0c6ab4e6c78fea70c17b36bdee5cc533e311b26b43abe35f182bffd1b0c710fd71648890dc1fecbf5704bc3ea313531806fc69132176373025c8256bbaa51
+  languageName: node
+  linkType: hard
+
+"quorum-sdk-electron-renderer@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "quorum-sdk-electron-renderer@npm:1.0.2"
+  dependencies:
+    "@electron/remote": ^2.0.5
+    dexie: ^3.2.0
+    electron: 16.0.8
+    electron-store: ^8.0.1
+    query-string: ^7.1.1
+  checksum: b244cc57430095e967f6057ff3977c796098c50e563c0505d23af4633f808925e2aa729dc13a48fe97615757c496343434be4325fb0752f92eefdb2f010a0ced
+  languageName: node
+  linkType: hard
+
+"quorum-sdk-electron-renderer@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "quorum-sdk-electron-renderer@npm:1.0.3"
+  dependencies:
+    "@electron/remote": ^2.0.5
+    dexie: ^3.2.0
+    electron: 16.0.8
+    electron-store: ^8.0.1
+    query-string: ^7.1.1
+  checksum: 33fe07869d98fe386e5ee47cefaa521618af252b993773dfa3f9c3db02088a1f7674ddbaa63420c0b01708a099f02bf4b9cad61a5edf9f17db8e0e524f23031c
   languageName: node
   linkType: hard
 
@@ -29489,6 +29720,13 @@ __metadata:
   version: 0.8.1
   resolution: "type-fest@npm:0.8.1"
   checksum: d61c4b2eba24009033ae4500d7d818a94fd6d1b481a8111612ee141400d5f1db46f199c014766b9fa9b31a6a7374d96fc748c6d688a78a3ce5a33123839becb7
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^1.0.2":
+  version: 1.4.0
+  resolution: "type-fest@npm:1.4.0"
+  checksum: b011c3388665b097ae6a109a437a04d6f61d81b7357f74cbcb02246f2f5bd72b888ae33631b99871388122ba0a87f4ff1c94078e7119ff22c70e52c0ff828201
   languageName: node
   linkType: hard
 

@@ -35,6 +35,7 @@ const SyncTargetNextcloud = require('./SyncTargetNextcloud.js');
 const SyncTargetWebDAV = require('./SyncTargetWebDAV.js');
 const SyncTargetDropbox = require('./SyncTargetDropbox.js');
 const SyncTargetAmazonS3 = require('./SyncTargetAmazonS3.js');
+const SyncTargetRumsystem = require('./SyncTargetRumsystem.js');
 import EncryptionService from './services/e2ee/EncryptionService';
 import ResourceFetcher from './services/ResourceFetcher';
 import SearchEngineUtils from './services/searchengine/SearchEngineUtils';
@@ -54,6 +55,8 @@ import { loadMasterKeysFromSettings, migrateMasterPassword } from './services/e2
 import SyncTargetNone from './SyncTargetNone';
 import { setRSA } from './services/e2ee/ppk';
 import RSA from './services/e2ee/RSA.node';
+import Resource from './models/Resource';
+import QuorumSDK from 'quorum-sdk-electron-renderer';
 
 const appLogger: LoggerWrapper = Logger.create('App');
 
@@ -737,6 +740,7 @@ export default class BaseApplication {
 		SyncTargetRegistry.addClass(SyncTargetAmazonS3);
 		SyncTargetRegistry.addClass(SyncTargetJoplinServer);
 		SyncTargetRegistry.addClass(SyncTargetJoplinCloud);
+		SyncTargetRegistry.addClass(SyncTargetRumsystem);
 
 		try {
 			await shim.fsDriver().remove(tempDir);
@@ -822,6 +826,34 @@ export default class BaseApplication {
 			Setting.setValue('sync.10.userContentPath', 'http://joplinusercontent.local:22300');
 		}
 
+		if (Setting.value('sync.target') === 11) {
+			console.log('start rum system...');
+			(async () => {
+				try {
+					const QuorumClient = new QuorumSDK();
+					await QuorumClient.up();
+					console.log('Quorum client started !');
+					console.log(QuorumClient);
+					window.QuorumClient = QuorumClient;
+					const groups = await QuorumClient.Group.list() || [];
+					if (groups.length > 0) {
+						Setting.setValue('sync.11.group', groups[0]);
+					} else {
+						const group = await QuorumClient.Group.create({
+							group_name: 'joplin',
+							consensus_type: 'poa',
+							encryption_type: 'public',
+							app_key: 'group_note',
+						});
+						Setting.setValue('sync.11.group', group);
+					}
+					console.log(Setting.value('sync.11.group'));
+				} catch (e) {
+					console.log(e);
+				}
+			})();
+		}
+
 		// For now always disable fuzzy search due to performance issues:
 		// https://discourse.joplinapp.org/t/1-1-4-keyboard-locks-up-while-typing/11231/11
 		// https://discourse.joplinapp.org/t/serious-lagging-when-there-are-tens-of-thousands-of-notes/11215/23
@@ -855,6 +887,7 @@ export default class BaseApplication {
 
 		BaseItem.encryptionService_ = EncryptionService.instance();
 		BaseItem.shareService_ = ShareService.instance();
+		Resource.shareService_ = ShareService.instance();
 		DecryptionWorker.instance().setLogger(globalLogger);
 		DecryptionWorker.instance().setEncryptionService(EncryptionService.instance());
 		DecryptionWorker.instance().setKvStore(KvStore.instance());

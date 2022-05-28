@@ -16,6 +16,7 @@
     "test-ci": "yarn test"
   },
   "devDependencies": {
+    "@babel/runtime": "^7.17.2",
     "@types/fs-extra": "^9.0.6",
     "@types/jest": "^26.0.15",
     "@types/js-yaml": "^4.0.2",
@@ -73,6 +74,7 @@
     "node-rsa": "^1.1.1",
     "promise": "^7.1.1",
     "query-string": "4.3.4",
+    "quorum-sdk-electron-renderer": "^1.0.3",
     "re-reselect": "^4.0.0",
     "read-chunk": "^2.1.0",
     "redux": "^3.7.2",
