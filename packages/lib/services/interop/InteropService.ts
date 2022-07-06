@@ -9,6 +9,7 @@ import Resource from '../../models/Resource';
 import Folder from '../../models/Folder';
 import NoteTag from '../../models/NoteTag';
 import Note from '../../models/Note';
+import { NoteEntity } from '../database/types';
 const ArrayUtils = require('../../ArrayUtils');
 const { sprintf } = require('sprintf-js');
 const { fileExtension } = require('../../path-utils');
@@ -27,19 +28,19 @@ export default class InteropService {
 		return this.instance_;
 	}
 
-	public constructor() {
+	constructor() {
 		this.eventEmitter_ = new EventEmitter();
 	}
 
-	public on(eventName: string, callback: Function) {
+	on(eventName: string, callback: Function) {
 		return this.eventEmitter_.on(eventName, callback);
 	}
 
-	public off(eventName: string, callback: Function) {
+	off(eventName: string, callback: Function) {
 		return this.eventEmitter_.removeListener(eventName, callback);
 	}
 
-	public modules() {
+	modules() {
 		if (!this.defaultModules_) {
 			const importModules: Module[] = [
 				{
@@ -156,7 +157,7 @@ export default class InteropService {
 	// or exporters, such as ENEX. In this case, the one marked as "isDefault"
 	// is returned. This is useful to auto-detect the module based on the format.
 	// For more precise matching, newModuleFromPath_ should be used.
-	private findModuleByFormat_(type: ModuleType, format: string, target: FileSystemItem = null, outputFormat: ImportModuleOutputFormat = null) {
+	findModuleByFormat_(type: ModuleType, format: string, target: FileSystemItem = null, outputFormat: ImportModuleOutputFormat = null) {
 		const modules = this.modules();
 		const matches = [];
 		for (let i = 0; i < modules.length; i++) {
@@ -203,7 +204,7 @@ export default class InteropService {
 	 * https://github.com/laurent22/joplin/pull/1795#discussion_r322379121) but
 	 * we can do it if it ever becomes necessary.
 	 */
-	private newModuleByFormat_(type: ModuleType, format: string, outputFormat: ImportModuleOutputFormat = ImportModuleOutputFormat.Markdown) {
+	newModuleByFormat_(type: ModuleType, format: string, outputFormat: ImportModuleOutputFormat = ImportModuleOutputFormat.Markdown) {
 		const moduleMetadata = this.findModuleByFormat_(type, format, null, outputFormat);
 		if (!moduleMetadata) throw new Error(_('Cannot load "%s" module for format "%s" and output "%s"', type, format, outputFormat));
 
@@ -229,7 +230,7 @@ export default class InteropService {
 	 *
 	 * https://github.com/laurent22/joplin/pull/1795#pullrequestreview-281574417
 	 */
-	private newModuleFromPath_(type: ModuleType, options: any) {
+	newModuleFromPath_(type: ModuleType, options: any) {
 		const moduleMetadata = this.findModuleByFormat_(type, options.format, options.target);
 		if (!moduleMetadata) throw new Error(_('Cannot load "%s" module for format "%s" and target "%s"', type, options.format, options.target));
 
@@ -246,9 +247,32 @@ export default class InteropService {
 		output.setMetadata({ options, ...moduleMetadata });
 
 		return output;
+
+		// let modulePath = options && options.modulePath ? options.modulePath : '';
+
+		// if (!modulePath) {
+		// 	const moduleMetadata = this.findModuleByFormat_(type, options.format, options.target);
+		// 	if (!moduleMetadata) throw new Error(_('Cannot load "%s" module for format "%s" and target "%s"', type, options.format, options.target));
+		// 	modulePath = this.modulePath(moduleMetadata);
+		// }
+
+		// const moduleMetadata = this.findModuleByFormat_(type, options.format, options.target);
+
+		// let output = null;
+
+		// if (moduleMetadata.isCustom) {
+		// 	output = this.newModuleFromCustomFactory(moduleMetadata);
+		// } else {
+		// 	const ModuleClass = shim.requireDynamic(modulePath).default;
+		// 	output = new ModuleClass();
+		// }
+
+		// output.setMetadata({ options, ...moduleMetadata });
+
+		// return output;
 	}
 
-	private moduleByFileExtension_(type: ModuleType, ext: string) {
+	moduleByFileExtension_(type: ModuleType, ext: string) {
 		ext = ext.toLowerCase();
 
 		const modules = this.modules();
@@ -296,16 +320,12 @@ export default class InteropService {
 		return result;
 	}
 
-	private normalizeItemForExport(_itemType: ModelType, item: any): any {
-		const override: any = {};
-		if ('is_shared' in item) override.is_shared = 0;
-		if ('share_id' in item) override.share_id = '';
-
-		if (Object.keys(override).length) {
-			return {
-				...item,
-				...override,
-			};
+	private normalizeItemForExport(itemType: ModelType, item: any): any {
+		if (itemType === ModelType.Note) {
+			const output: NoteEntity = { ...item };
+			output.is_shared = 0;
+			output.share_id = '';
+			return output;
 		} else {
 			return item;
 		}
@@ -413,9 +433,9 @@ export default class InteropService {
 
 				const ItemClass = BaseItem.getClassByItemType(itemType);
 				const itemOrId = itemsToExport[i].itemOrId;
-				const rawItem = typeof itemOrId === 'object' ? itemOrId : await ItemClass.load(itemOrId);
+				const item = this.normalizeItemForExport(itemType, typeof itemOrId === 'object' ? itemOrId : await ItemClass.load(itemOrId));
 
-				if (!rawItem) {
+				if (!item) {
 					if (itemType === BaseModel.TYPE_RESOURCE) {
 						result.warnings.push(sprintf('A resource that does not exist is referenced in a note. The resource was skipped. Resource ID: %s', itemOrId));
 					} else {
@@ -423,8 +443,6 @@ export default class InteropService {
 					}
 					continue;
 				}
-
-				const item = this.normalizeItemForExport(itemType, rawItem);
 
 				if (item.encryption_applied || item.encryption_blob_encrypted) {
 					result.warnings.push(sprintf('This item is currently encrypted: %s "%s" (%s) and was not exported. You may wait for it to be decrypted and try again.', BaseModel.modelTypeToName(itemType), item.title ? item.title : item.id, item.id));

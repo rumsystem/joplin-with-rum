@@ -666,7 +666,6 @@ class SidebarComponent extends React.Component<Props, State> {
 				iconAnimation={iconAnimation}
 				title={label}
 				onClick={() => {
-					console.log('synchronize step 1');
 					void CommandService.instance().execute('synchronize', type !== 'sync');
 				}}
 			/>
