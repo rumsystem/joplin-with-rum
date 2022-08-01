@@ -92,8 +92,7 @@ export default class NotificationModel extends BaseModel<Notification> {
 		return this.add(userId, NotificationKey.Any, NotificationLevel.Normal, message);
 	}
 
-	public async addError(userId: Uuid, error: string | Error) {
-		const message = typeof error === 'string' ? error : error.message;
+	public async addError(userId: Uuid, message: string) {
 		return this.add(userId, NotificationKey.Any, NotificationLevel.Error, message);
 	}
 

@@ -51,7 +51,6 @@ async function getDonateLinks() {
 
 function replaceGitHubByWebsiteLinks(md: string) {
 	return md
-		.replace(/https:\/\/github.com\/laurent22\/joplin\/blob\/dev\/readme\/(.*?)\/index\.md(#[^\s)]+|)/g, '/$1/$2')
 		.replace(/https:\/\/github.com\/laurent22\/joplin\/blob\/dev\/readme\/(.*?)\.md(#[^\s)]+|)/g, '/$1/$2')
 		.replace(/https:\/\/github.com\/laurent22\/joplin\/blob\/dev\/README\.md(#[^\s)]+|)/g, '/help/$1')
 		.replace(/https:\/\/raw.githubusercontent.com\/laurent22\/joplin\/dev\/Assets\/WebsiteAssets\/(.*?)/g, '/$1');
@@ -168,10 +167,6 @@ function makeHomePageMd() {
 	// while MarkdownIt doesn't and will in fact display the \. So we remove it here.
 	md = md.replace(/\\\| bash/g, '| bash');
 
-	// We strip-off the donate links because they are added back (with proper
-	// classes and CSS).
-	md = md.replace(donateLinksRegex_, '');
-
 	return md;
 }
 
@@ -217,19 +212,14 @@ async function main() {
 	const assetUrls = await getAssetUrls();
 
 	const readmeMd = makeHomePageMd();
-	const donateLinksMd = await getDonateLinks();
+
+	// await updateDownloadPage(readmeMd);
 
 	// =============================================================
 	// HELP PAGE
 	// =============================================================
 
-	renderPageToHtml(readmeMd, `${docDir}/help/index.html`, {
-		sourceMarkdownFile: 'README.md',
-		donateLinksMd,
-		partials,
-		sponsors,
-		assetUrls,
-	});
+	renderPageToHtml(readmeMd, `${docDir}/help/index.html`, { sourceMarkdownFile: 'README.md', partials, sponsors, assetUrls });
 
 	// =============================================================
 	// FRONT PAGE
@@ -289,6 +279,7 @@ async function main() {
 
 	const mdFiles = glob.sync(`${readmeDir}/**/*.md`).map((f: string) => f.substr(rootDir.length + 1));
 	const sources = [];
+	const donateLinksMd = await getDonateLinks();
 
 	const makeTargetFilePath = (input: string): string => {
 		if (isNewsFile(input)) {
@@ -300,20 +291,7 @@ async function main() {
 			// "docs/spec/interop_with_frontmatter/index.html" and prefix it
 			// with the website repo full path.
 
-			console.info('input', input);
-
-			let s = `${docDir}/${input}`;
-			if (s.endsWith('index.md')) {
-				s = s.replace(/index\.md/, 'index.html');
-			} else {
-				s = s.replace(/\.md/, '/index.html');
-			}
-
-			s = s.replace(/readme\//, '');
-
-			console.info('OUTPUT', s);
-
-			return s;
+			return `${docDir}/${input.replace(/\.md/, '/index.html').replace(/readme\//, '')}`;
 		}
 	};
 

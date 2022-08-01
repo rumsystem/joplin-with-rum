@@ -1,6 +1,6 @@
 const React = require('react');
 const Component = React.Component;
-const { Easing, Animated, TouchableOpacity, Text, StyleSheet, ScrollView, View, Alert, Image } = require('react-native');
+const { Easing, Animated, TouchableOpacity, Text, StyleSheet, ScrollView, View, Alert } = require('react-native');
 const { connect } = require('react-redux');
 const Icon = require('react-native-vector-icons/Ionicons').default;
 const Folder = require('@joplin/lib/models/Folder').default;
@@ -74,7 +74,7 @@ class SideMenuContentComponent extends Component {
 
 		styles.folderButton = Object.assign({}, styles.button);
 		styles.folderButton.paddingLeft = 0;
-		styles.folderButtonText = Object.assign({}, styles.buttonText, { paddingLeft: 0 });
+		styles.folderButtonText = Object.assign({}, styles.buttonText);
 		styles.folderButtonSelected = Object.assign({}, styles.folderButton);
 		styles.folderButtonSelected.backgroundColor = theme.selectedColor;
 		styles.folderIcon = Object.assign({}, theme.icon);
@@ -219,18 +219,6 @@ class SideMenuContentComponent extends Component {
 		if (actionDone === 'auth') this.props.dispatch({ type: 'SIDE_MENU_CLOSE' });
 	}
 
-	renderFolderIcon(theme, folderIcon) {
-		if (!folderIcon) return null;
-
-		if (folderIcon.type === 1) { // FolderIconType.Emoji
-			return <Text style={{ fontSize: theme.fontSize, marginRight: 4 }}>{folderIcon.emoji}</Text>;
-		} else if (folderIcon.type === 2) { // FolderIconType.DataUrl
-			return <Image style={{ width: 20, height: 20, marginRight: 4, resizeMode: 'contain' }} source={{ uri: folderIcon.dataUrl }}/>;
-		} else {
-			throw new Error(`Unsupported folder icon type: ${folderIcon.type}`);
-		}
-	}
-
 	renderFolderItem(folder, selected, hasChildren, depth) {
 		const theme = themeStyle(this.props.themeId);
 
@@ -240,7 +228,6 @@ class SideMenuContentComponent extends Component {
 			height: 36,
 			alignItems: 'center',
 			paddingRight: theme.marginRight,
-			paddingLeft: 10,
 		};
 		if (selected) folderButtonStyle.backgroundColor = theme.selectedColor;
 		folderButtonStyle.paddingLeft = depth * 10 + theme.marginLeft;
@@ -266,6 +253,7 @@ class SideMenuContentComponent extends Component {
 		);
 
 		const folderIcon = Folder.unserializeIcon(folder.icon);
+		const icon = folderIcon ? `${folderIcon.emoji} ` : '';
 
 		return (
 			<View key={folder.id} style={{ flex: 1, flexDirection: 'row' }}>
@@ -279,9 +267,8 @@ class SideMenuContentComponent extends Component {
 					}}
 				>
 					<View style={folderButtonStyle}>
-						{this.renderFolderIcon(theme, folderIcon)}
 						<Text numberOfLines={1} style={this.styles().folderButtonText}>
-							{Folder.displayTitle(folder)}
+							{icon + Folder.displayTitle(folder)}
 						</Text>
 					</View>
 				</TouchableOpacity>

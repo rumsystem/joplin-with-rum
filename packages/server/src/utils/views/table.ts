@@ -36,22 +36,18 @@ interface HeaderView {
 	iconDir: string;
 }
 
-export type RowItemRenderCallback = ()=> string;
-
 interface RowItem {
 	value: string;
 	checkbox?: boolean;
 	url?: string;
 	stretch?: boolean;
 	hint?: string;
-	render?: RowItemRenderCallback;
 }
 
 export type Row = RowItem[];
 
 interface RowItemView {
 	value: string;
-	valueHtml: string;
 	classNames: string[];
 	url: string;
 	checkbox: boolean;
@@ -100,7 +96,6 @@ function makeRowView(row: Row): RowView {
 	return row.map(rowItem => {
 		return {
 			value: rowItem.value,
-			valueHtml: rowItem.render ? rowItem.render() : '',
 			classNames: [rowItem.stretch ? 'stretch' : 'nowrap'],
 			url: rowItem.url,
 			checkbox: rowItem.checkbox,

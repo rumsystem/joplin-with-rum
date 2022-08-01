@@ -446,9 +446,8 @@ class Application extends BaseApplication {
 
 		await this.checkForLegacyTemplates();
 
-		// Note: Auto-update is a misnomer in the code.
-		// The code below only checks, if a new version is available.
-		// We only allow Windows and macOS users to automatically check for updates
+		// Note: Auto-update currently doesn't work in Linux: it downloads the update
+		// but then doesn't install it on exit.
 		if (shim.isWindows() || shim.isMac()) {
 			const runAutoUpdateCheck = () => {
 				if (Setting.value('autoUpdateEnabled')) {

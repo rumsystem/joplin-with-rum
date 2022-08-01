@@ -67,7 +67,7 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 
 	usePluginServiceRegistration(ref);
 
-	const { resetScroll, editor_scroll, setEditorPercentScroll, setViewerPercentScroll, editor_resize, editor_update, getLineScrollPercent,
+	const { resetScroll, editor_scroll, setEditorPercentScroll, setViewerPercentScroll, editor_resize,
 	} = useScrollHandler(editorRef, webviewRef, props.onScroll);
 
 	const codeMirror_change = useCallback((newBody: string) => {
@@ -576,14 +576,9 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 		const arg0 = args && args.length >= 1 ? args[0] : null;
 
 		if (msg.indexOf('checkboxclick:') === 0) {
-			const { line, from, to } = shared.toggleCheckboxRange(msg, props.content);
+			const newBody = shared.toggleCheckbox(msg, props.content);
 			if (editorRef.current) {
-				// To cancel CodeMirror's layout drift, the scroll position
-				// is recorded before updated, and then it is restored.
-				// Ref. https://github.com/laurent22/joplin/issues/5890
-				const percent = getLineScrollPercent();
-				editorRef.current.replaceRange(line, from, to);
-				setEditorPercentScroll(percent);
+				editorRef.current.updateBody(newBody);
 			}
 		} else if (msg === 'percentScroll') {
 			const percent = arg0;
@@ -843,7 +838,6 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 					onEditorPaste={onEditorPaste}
 					isSafeMode={props.isSafeMode}
 					onResize={editor_resize}
-					onUpdate={editor_update}
 				/>
 			</div>
 		);

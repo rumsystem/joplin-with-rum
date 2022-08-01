@@ -97,7 +97,8 @@ class HtmlUtils {
 		return selfClosingElements.includes(tagName.toLowerCase());
 	}
 
-	public stripHtml(html: string) {
+	// TODO: copied from @joplin/lib
+	stripHtml(html: string) {
 		const output: string[] = [];
 
 		const tagStack: string[] = [];
@@ -129,14 +130,7 @@ class HtmlUtils {
 		parser.write(html);
 		parser.end();
 
-		// In general, we want to get back plain text from this function, so all
-		// HTML entities are decoded. Howver, to prevent XSS attacks, we
-		// re-encode all the "<" characters, which should break any attempt to
-		// inject HTML tags.
-
-		return output.join('')
-			.replace(/\s+/g, ' ')
-			.replace(/</g, '&lt;');
+		return output.join('').replace(/\s+/g, ' ');
 	}
 
 	public sanitizeHtml(html: string, options: any = null) {
