@@ -12,8 +12,10 @@ export const declaration: CommandDeclaration = {
 // Note that this command actually acts as a toggle - it starts or cancels
 // synchronisation depending on the "syncStarted" parameter
 export const runtime = (): CommandRuntime => {
+	console.log('get synchronize runtime');
 	return {
 		execute: async (context: CommandContext, syncStarted: boolean = null) => {
+		  console.log('synchronize step 3');
 			syncStarted = syncStarted === null ? context.state.syncStarted : syncStarted;
 
 			const action = syncStarted ? 'cancel' : 'start';
@@ -35,7 +37,7 @@ export const runtime = (): CommandRuntime => {
 					return 'auth';
 				}
 
-				reg.logger().info('Not authentified with sync target - please check your credential.');
+				reg.logger().error('Not authenticated with sync target - please check your credentials.');
 				return 'error';
 			}
 
@@ -43,8 +45,13 @@ export const runtime = (): CommandRuntime => {
 			try {
 				sync = await reg.syncTarget().synchronizer();
 			} catch (error) {
-				reg.logger().info('Could not acquire synchroniser:');
-				reg.logger().info(error);
+				reg.logger().error('Could not initialise synchroniser: ');
+				reg.logger().error(error);
+				error.message = `Could not initialise synchroniser: ${error.message}`;
+				utils.store.dispatch({
+					type: 'SYNC_REPORT_UPDATE',
+					report: { errors: [error] },
+				});
 				return 'error';
 			}
 

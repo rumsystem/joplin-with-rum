@@ -12,7 +12,8 @@
 				</a>
 			</div>
 			<div class="col-9 text-right d-none d-md-block">
-				<a href="{{baseUrl}}/news/" class="fw500">What's New</a>
+				{{> twitterLink}}
+				<a href="{{baseUrl}}/news/" class="fw500">News</a>
 				<a href="{{baseUrl}}/help/" class="fw500">Help</a>
 				<a href="{{forumUrl}}" class="fw500">Forum</a>
 				{{#showJoplinCloudLinks}}
@@ -21,6 +22,7 @@
 				{{> supportButton}}
 			</div>
 			<div class="col-9 text-right d-block d-md-none navbar-mobile-content">
+				{{> twitterLink}}
 				{{> supportButton}}
 
 				<span class="pointer"
@@ -43,7 +45,7 @@
 						</div>
 
 						<div class="text-center menu-mobile-top">
-							<a href="{{baseUrl}}/news/" class="fw500 mobile-menu-link">What's New</a>
+							<a href="{{baseUrl}}/news/" class="fw500 mobile-menu-link">News</a>
 							<a href="{{baseUrl}}/help/" class="fw500 mobile-menu-link">Help</a>
 							<a href="{{forumUrl}}" class="fw500 mobile-menu-link">Forum</a>
 						</div>
@@ -59,6 +61,8 @@
 					{{#showToc}}
 						<div id="toc-mobile">{{{tocHtml}}}</div>
 					{{/showToc}}
+
+					{{> socialFeeds}}
 					
 					<div>
 						<p class="light-blue mobile-menu-link-bottom text-center">

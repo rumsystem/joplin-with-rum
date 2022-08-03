@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useRef, useEffect } from 'react';
 import { _ } from '@joplin/lib/locale';
 import DialogButtonRow, { ClickEvent } from '../DialogButtonRow';
 import Dialog from '../Dialog';
@@ -8,9 +8,11 @@ import StyledInput from '../style/StyledInput';
 import { IconSelector, ChangeEvent } from './IconSelector';
 import useAsyncEffect, { AsyncEffectEvent } from '@joplin/lib/hooks/useAsyncEffect';
 import Folder from '@joplin/lib/models/Folder';
-import { FolderEntity, FolderIcon } from '@joplin/lib/services/database/types';
+import { FolderEntity, FolderIcon, FolderIconType } from '@joplin/lib/services/database/types';
 import Button from '../Button/Button';
 import bridge from '../../services/bridge';
+import shim from '@joplin/lib/shim';
+import FolderIconBox from '../FolderIconBox';
 
 interface Props {
 	themeId: number;
@@ -22,6 +24,7 @@ interface Props {
 export default function(props: Props) {
 	const [folderTitle, setFolderTitle] = useState('');
 	const [folderIcon, setFolderIcon] = useState<FolderIcon>();
+	const titleInputRef = useRef(null);
 
 	const isNew = !props.folderId;
 
@@ -40,6 +43,14 @@ export default function(props: Props) {
 			name: 'editFolder',
 		});
 	}, [props.dispatch]);
+
+	useEffect(() => {
+		titleInputRef.current.focus();
+
+		setTimeout(() => {
+			titleInputRef.current.select();
+		}, 100);
+	}, []);
 
 	const onButtonRowClick = useCallback(async (event: ClickEvent) => {
 		if (event.buttonName === 'cancel') {
@@ -84,23 +95,54 @@ export default function(props: Props) {
 		setFolderIcon(null);
 	}, []);
 
+	const onBrowseClick = useCallback(async () => {
+		const filePaths = await bridge().showOpenDialog({
+			filters: [
+				{
+					name: _('Images'),
+					extensions: ['jpg', 'jpeg', 'png'],
+				},
+			],
+		});
+		if (filePaths.length !== 1) return;
+		const filePath = filePaths[0];
+
+		try {
+			const dataUrl = await shim.imageToDataUrl(filePath, 256);
+			setFolderIcon(icon => {
+				return {
+					...icon,
+					emoji: '',
+					name: '',
+					type: FolderIconType.DataUrl,
+					dataUrl,
+				};
+			});
+		} catch (error) {
+			await bridge().showErrorMessageBox(error.message);
+		}
+	}, []);
+
 	function renderForm() {
 		return (
 			<div>
 				<div className="form">
 					<div className="form-input-group">
 						<label>{_('Title')}</label>
-						<StyledInput type="text" value={folderTitle} onChange={onFolderTitleChange}/>
+						<StyledInput type="text" ref={titleInputRef} value={folderTitle} onChange={onFolderTitleChange}/>
 					</div>
 
 					<div className="form-input-group">
 						<label>{_('Icon')}</label>
 						<div className="icon-selector-row">
+							{ folderIcon && <div className="foldericon"><FolderIconBox folderIcon={folderIcon} /></div> }
 							<IconSelector
+								title={_('Select emoji...')}
 								icon={folderIcon}
 								onChange={onFolderIconChange}
 							/>
-							<Button ml={1} title={_('Clear')} onClick={onClearClick}/>
+							<Button ml={1} title={_('Select file...')} onClick={onBrowseClick}/>
+							{ folderIcon && <Button ml={1} title={_('Clear')} onClick={onClearClick}/> }
 						</div>
 					</div>
 				</div>
