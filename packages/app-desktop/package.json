@@ -1,6 +1,6 @@
 {
   "name": "@joplin/app-desktop",
-  "version": "2.7.13",
+  "version": "2.7.8",
   "description": "Joplin for Desktop",
   "main": "main.js",
   "private": true,
@@ -13,8 +13,7 @@
     "watch": "tsc --watch --preserveWatchOutput --project tsconfig.json",
     "start": "gulp build && electron . --env dev --log-level debug --no-welcome --open-dev-tools",
     "test": "jest",
-    "test-ci": "yarn test",
-    "package:mac": "cross-env CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder build --mac --publish never"
+    "test-ci": "yarn test"
   },
   "repository": {
     "type": "git",
@@ -63,11 +62,7 @@
         }
       ],
       "extraResources": [
-        "build-win/icons/*",
-        {
-          "from": "node_modules/quorum-sdk-electron-main/quorum_bin/quorum_darwin",
-          "to": "quorum_bin/quorum_darwin"
-        }
+        "build-win/icons/*"
       ]
     },
     "nsis": {
@@ -93,14 +88,7 @@
             "CFBundleURLName": "org.joplinapp.x-callback-url"
           }
         ]
-      },
-      "extraResources": [
-        "build-win/icons/*",
-        {
-          "from": "node_modules/quorum-sdk-electron-main/quorum_bin/quorum_darwin",
-          "to": "quorum_bin/quorum_darwin"
-        }
-      ]
+      }
     },
     "linux": {
       "icon": "../../Assets/LinuxIcons",
@@ -109,14 +97,7 @@
         "Icon": "joplin",
         "MimeType": "x-scheme-handler/joplin;"
       },
-      "target": "AppImage",
-      "extraResources": [
-        "build-win/icons/*",
-        {
-          "from": "node_modules/quorum-sdk-electron-main/quorum_bin/quorum_darwin",
-          "to": "quorum_bin/quorum_darwin"
-        }
-      ]
+      "target": "AppImage"
     },
     "dmg": {
       "writeUpdateInfo": false
@@ -135,7 +116,6 @@
     "app-builder-bin": "^1.9.11",
     "babel-cli": "^6.26.0",
     "babel-preset-react": "^6.24.1",
-    "cross-env": "^7.0.3",
     "electron": "14.1.0",
     "electron-builder": "^22.11.7",
     "electron-notarize": "^1.0.0",
@@ -178,8 +158,6 @@
     "node-notifier": "^8.0.0",
     "node-rsa": "^1.1.1",
     "pretty-bytes": "^5.3.0",
-    "quorum-sdk-electron-main": "^1.0.4",
-    "quorum-sdk-electron-renderer": "^1.0.2",
     "re-resizable": "^6.5.4",
     "react": "16.13.1",
     "react-datetime": "^2.14.0",

@@ -29,7 +29,6 @@ import { reg } from '@joplin/lib/registry';
 const packageInfo = require('./packageInfo.js');
 import DecryptionWorker from '@joplin/lib/services/DecryptionWorker';
 import ClipperServer from '@joplin/lib/ClipperServer';
-import QuorumServer from '@joplin/lib/QuorumServer';
 const { webFrame } = require('electron');
 const Menu = bridge().Menu;
 const PluginManager = require('@joplin/lib/services/PluginManager');
@@ -382,9 +381,6 @@ class Application extends BaseApplication {
 		}
 
 		for (const command of globalCommands) {
-			if (command.declaration.name === 'synchronize') {
-				console.log('start register synchronize...');
-			}
 			CommandService.instance().registerDeclaration(command.declaration);
 			CommandService.instance().registerRuntime(command.declaration.name, command.runtime());
 		}
@@ -492,17 +488,6 @@ class Application extends BaseApplication {
 
 				void DecryptionWorker.instance().scheduleStart();
 			});
-		}
-
-		const quorumLogger = new Logger();
-		quorumLogger.addTarget(TargetType.File, { path: `${Setting.value('profileDir')}/log-quorum.txt` });
-		quorumLogger.addTarget(TargetType.Console);
-
-		QuorumServer.instance().setLogger(quorumLogger);
-		QuorumServer.instance().setDispatch(this.store().dispatch);
-
-		if (Setting.value('sync.target') === 11) {
-			void QuorumServer.instance().start();
 		}
 
 		const clipperLogger = new Logger();
