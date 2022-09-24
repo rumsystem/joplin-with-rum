@@ -262,8 +262,8 @@ msgstr "Điền tiêu đề"
 msgid "Add to dictionary"
 msgstr "Thêm vào từ điển"
 
-#: packages/server/src/services/MustacheService.ts:186
-#: packages/server/src/services/MustacheService.ts:310
+#: packages/server/src/services/MustacheService.ts:182
+#: packages/server/src/services/MustacheService.ts:301
 msgid "Admin"
 msgstr ""
 
@@ -392,10 +392,6 @@ msgstr "Mã ủy quyền:"
 #: packages/lib/models/Setting.ts:667
 msgid "Auto"
 msgstr "Auto"
-
-#: packages/server/src/services/TaskService.ts:39
-msgid "Auto-add disabled accounts for deletion"
-msgstr ""
 
 #: packages/lib/models/Setting.ts:853
 msgid "Auto-pair braces, parenthesis, quotations, etc."
@@ -706,10 +702,6 @@ msgstr "Giải mã hoàn tất."
 msgid "Completed: %s (%s)"
 msgstr "Đã hoàn thành: %s (%s)"
 
-#: packages/server/src/services/TaskService.ts:37
-msgid "Compress old changes"
-msgstr ""
-
 #: packages/app-mobile/components/screens/ConfigScreen.tsx:637
 #: packages/app-mobile/components/side-menu-content.js:319
 msgid "Configuration"
@@ -1017,16 +1009,6 @@ msgstr "Xóa"
 #: packages/app-desktop/gui/ResourceScreen.tsx:169
 msgid "Delete attachment \"%s\"?"
 msgstr "Xoá tệp đính kèm \"%s\"?"
-
-#: packages/server/src/services/TaskService.ts:36
-#, fuzzy
-msgid "Delete expired sessions"
-msgstr "Bật hỗ trợ toán học"
-
-#: packages/server/src/services/TaskService.ts:31
-#, fuzzy
-msgid "Delete expired tokens"
-msgstr "Xóa số note này %d?"
 
 #: packages/app-desktop/gui/NoteEditor/editorCommandDeclarations.ts:88
 msgid "Delete line"
@@ -1343,15 +1325,6 @@ msgstr "\"text\" hoặc \"json\""
 #: packages/lib/models/Setting.ts:1257
 msgid "Emacs"
 msgstr "Emacs"
-
-#: packages/server/src/routes/admin/emails.ts:125
-msgid "Email"
-msgstr ""
-
-#: packages/server/src/routes/admin/emails.ts:109
-#: packages/server/src/services/MustacheService.ts:155
-msgid "Emails"
-msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.tsx:194
 msgid "emphasised text"
@@ -1774,7 +1747,7 @@ msgstr "Cung cấp uỷ quyền"
 msgid "Heading"
 msgstr "Tiêu đề"
 
-#: packages/server/src/services/MustacheService.ts:308
+#: packages/server/src/services/MustacheService.ts:299
 msgid "Help"
 msgstr "Trợ giúp"
 
@@ -1794,8 +1767,8 @@ msgstr "Ẩn Joplin"
 msgid "Highlight"
 msgstr "Nổi bật"
 
-#: packages/server/src/services/MustacheService.ts:170
-#: packages/server/src/services/MustacheService.ts:303
+#: packages/server/src/services/MustacheService.ts:166
+#: packages/server/src/services/MustacheService.ts:294
 msgid "Home"
 msgstr ""
 
@@ -2022,8 +1995,8 @@ msgstr "In nghiêng"
 msgid "Item \"%s\" could not be downloaded: %s"
 msgstr "Mục \"%s\" không thể tải về: %s"
 
-#: packages/server/src/services/MustacheService.ts:178
-#: packages/server/src/services/MustacheService.ts:305
+#: packages/server/src/services/MustacheService.ts:174
+#: packages/server/src/services/MustacheService.ts:296
 msgid "Items"
 msgstr ""
 
@@ -2217,7 +2190,7 @@ msgstr ""
 
 #: packages/app-mobile/components/screens/ConfigScreen.tsx:521
 #: packages/app-mobile/components/screens/log.js:100
-#: packages/server/src/services/MustacheService.ts:306
+#: packages/server/src/services/MustacheService.ts:297
 msgid "Log"
 msgstr "Nhật ký"
 
@@ -2237,11 +2210,11 @@ msgstr "Đăng nhập với Dropbox"
 msgid "Login with OneDrive"
 msgstr "Đăng nhập với OneDrive"
 
-#: packages/server/src/services/MustacheService.ts:309
+#: packages/server/src/services/MustacheService.ts:300
 msgid "Logout"
 msgstr ""
 
-#: packages/server/src/services/MustacheService.ts:182
+#: packages/server/src/services/MustacheService.ts:178
 msgid "Logs"
 msgstr ""
 
@@ -2907,18 +2880,6 @@ msgstr "In"
 #: packages/app-mobile/components/screens/ConfigScreen.tsx:611
 msgid "Privacy Policy"
 msgstr "Điều khoản riêng tư"
-
-#: packages/server/src/services/TaskService.ts:35
-msgid "Process failed payment subscriptions"
-msgstr ""
-
-#: packages/server/src/services/TaskService.ts:33
-msgid "Process oversized accounts"
-msgstr ""
-
-#: packages/server/src/services/TaskService.ts:38
-msgid "Process user deletions"
-msgstr ""
 
 #: packages/server/src/routes/admin/users.ts:168
 msgid "Profile"
@@ -3625,7 +3586,7 @@ msgid "Take photo"
 msgstr "Chụp ảnh"
 
 #: packages/server/src/services/MustacheService.ts:151
-#: packages/server/src/services/MustacheService.ts:307
+#: packages/server/src/services/MustacheService.ts:298
 msgid "Tasks"
 msgstr ""
 
@@ -4216,11 +4177,6 @@ msgstr "Cập nhật"
 msgid "Update profile"
 msgstr "Export hồ sơ"
 
-#: packages/server/src/services/TaskService.ts:32
-#, fuzzy
-msgid "Update total sizes"
-msgstr "Số mục được cập nhật trên máy: %d."
-
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginBox.tsx:208
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginBox.tsx:209
 #: packages/app-desktop/gui/NotePropertiesDialog.min.js:30
@@ -4330,7 +4286,7 @@ msgstr ""
 
 #: packages/server/src/routes/admin/users.ts:107
 #: packages/server/src/services/MustacheService.ts:143
-#: packages/server/src/services/MustacheService.ts:304
+#: packages/server/src/services/MustacheService.ts:295
 msgid "Users"
 msgstr ""
 

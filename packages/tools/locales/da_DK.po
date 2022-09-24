@@ -263,14 +263,14 @@ msgstr "Tilføj titel"
 msgid "Add to dictionary"
 msgstr "Tilføj til ordbog"
 
-#: packages/server/src/services/MustacheService.ts:186
-#: packages/server/src/services/MustacheService.ts:310
+#: packages/server/src/services/MustacheService.ts:182
+#: packages/server/src/services/MustacheService.ts:301
 msgid "Admin"
-msgstr "Admin"
+msgstr ""
 
 #: packages/server/src/routes/admin/dashboard.ts:10
 msgid "Admin dashboard"
-msgstr "Kontrolpanel til administration"
+msgstr ""
 
 #: packages/app-desktop/gui/ClipperConfigScreen.min.js:189
 #: packages/app-desktop/gui/ClipperConfigScreen.tsx:147
@@ -393,17 +393,14 @@ msgstr "Autoriseringstoken:"
 msgid "Auto"
 msgstr "Auto"
 
-#: packages/server/src/services/TaskService.ts:39
-msgid "Auto-add disabled accounts for deletion"
-msgstr ""
-
 #: packages/lib/models/Setting.ts:853
 msgid "Auto-pair braces, parenthesis, quotations, etc."
 msgstr "Auto-par klammer, parenteser, citater, etc."
 
 #: packages/lib/models/Setting.ts:1193
+#, fuzzy
 msgid "Automatically check for updates"
-msgstr "Tjek automatisk efter opdateringer"
+msgstr "Tjek om der er opdateringer.."
 
 #: packages/lib/models/Setting.ts:770
 msgid "Automatically switch theme to match system theme"
@@ -707,10 +704,6 @@ msgstr "Dekryptering færdig."
 msgid "Completed: %s (%s)"
 msgstr "Fuldført: %s (%s)"
 
-#: packages/server/src/services/TaskService.ts:37
-msgid "Compress old changes"
-msgstr ""
-
 #: packages/app-mobile/components/screens/ConfigScreen.tsx:637
 #: packages/app-mobile/components/side-menu-content.js:319
 msgid "Configuration"
@@ -771,8 +764,9 @@ msgid "Copy external link"
 msgstr "Kopiér eksternt link"
 
 #: packages/app-desktop/gui/NoteEditor/utils/contextMenu.ts:134
+#, fuzzy
 msgid "Copy image"
-msgstr "Kopier billede"
+msgstr "Kopier token"
 
 #: packages/app-desktop/gui/NoteEditor/utils/contextMenu.ts:172
 msgid "Copy Link Address"
@@ -866,12 +860,14 @@ msgid "Create a notebook"
 msgstr "Opret en notesbog"
 
 #: packages/app-desktop/gui/EditFolderDialog/Dialog.tsx:128
+#, fuzzy
 msgid "Create notebook"
-msgstr "Opret notesbog"
+msgstr "Opret en notesbog"
 
 #: packages/server/src/routes/admin/users.ts:171
+#, fuzzy
 msgid "Create user"
-msgstr "Opret bruger"
+msgstr "Oprettet: %s"
 
 #: packages/app-desktop/gui/NotePropertiesDialog.min.js:29
 msgid "Created"
@@ -963,7 +959,7 @@ msgstr "Mørkt"
 
 #: packages/server/src/services/MustacheService.ts:139
 msgid "Dashboard"
-msgstr "Kontrolpanel"
+msgstr ""
 
 #: packages/app-mobile/components/screens/ConfigScreen.tsx:625
 msgid "Database v%s"
@@ -1018,16 +1014,6 @@ msgstr "Slet"
 #: packages/app-desktop/gui/ResourceScreen.tsx:169
 msgid "Delete attachment \"%s\"?"
 msgstr "Slet venhæftning \"%s\"?"
-
-#: packages/server/src/services/TaskService.ts:36
-#, fuzzy
-msgid "Delete expired sessions"
-msgstr "Slå matematiske udtryk til"
-
-#: packages/server/src/services/TaskService.ts:31
-#, fuzzy
-msgid "Delete expired tokens"
-msgstr "Slet disse %d noter?"
 
 #: packages/app-desktop/gui/NoteEditor/editorCommandDeclarations.ts:88
 msgid "Delete line"
@@ -1341,15 +1327,6 @@ msgstr "Enten \"text\" eller \"json\""
 #: packages/lib/models/Setting.ts:1257
 msgid "Emacs"
 msgstr "Emacs"
-
-#: packages/server/src/routes/admin/emails.ts:125
-msgid "Email"
-msgstr ""
-
-#: packages/server/src/routes/admin/emails.ts:109
-#: packages/server/src/services/MustacheService.ts:155
-msgid "Emails"
-msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.tsx:194
 msgid "emphasised text"
@@ -1769,7 +1746,7 @@ msgstr "Giv tilladelse"
 msgid "Heading"
 msgstr "Overskrift"
 
-#: packages/server/src/services/MustacheService.ts:308
+#: packages/server/src/services/MustacheService.ts:299
 msgid "Help"
 msgstr "Hjælp"
 
@@ -1789,8 +1766,8 @@ msgstr "Skjul Joplin"
 msgid "Highlight"
 msgstr "Fremhæv"
 
-#: packages/server/src/services/MustacheService.ts:170
-#: packages/server/src/services/MustacheService.ts:303
+#: packages/server/src/services/MustacheService.ts:166
+#: packages/server/src/services/MustacheService.ts:294
 msgid "Home"
 msgstr "Hjem"
 
@@ -2014,8 +1991,8 @@ msgstr "Kursiv"
 msgid "Item \"%s\" could not be downloaded: %s"
 msgstr "Emnet \"%s\" kunne ikke downloades: %s"
 
-#: packages/server/src/services/MustacheService.ts:178
-#: packages/server/src/services/MustacheService.ts:305
+#: packages/server/src/services/MustacheService.ts:174
+#: packages/server/src/services/MustacheService.ts:296
 msgid "Items"
 msgstr "Emner"
 
@@ -2211,7 +2188,7 @@ msgstr ""
 
 #: packages/app-mobile/components/screens/ConfigScreen.tsx:521
 #: packages/app-mobile/components/screens/log.js:100
-#: packages/server/src/services/MustacheService.ts:306
+#: packages/server/src/services/MustacheService.ts:297
 msgid "Log"
 msgstr "Log"
 
@@ -2231,13 +2208,13 @@ msgstr "Log på med Dropbox"
 msgid "Login with OneDrive"
 msgstr "Log på med OneDrive"
 
-#: packages/server/src/services/MustacheService.ts:309
+#: packages/server/src/services/MustacheService.ts:300
 msgid "Logout"
 msgstr "Log ud"
 
-#: packages/server/src/services/MustacheService.ts:182
+#: packages/server/src/services/MustacheService.ts:178
 msgid "Logs"
-msgstr "Logfiler"
+msgstr ""
 
 #: packages/app-desktop/gui/MenuBar.tsx:710
 #: packages/app-mobile/components/screens/ConfigScreen.tsx:583
@@ -2894,22 +2871,9 @@ msgstr "Udskriv"
 msgid "Privacy Policy"
 msgstr "Privatlivspolitik"
 
-#: packages/server/src/services/TaskService.ts:35
-msgid "Process failed payment subscriptions"
-msgstr ""
-
-#: packages/server/src/services/TaskService.ts:33
-msgid "Process oversized accounts"
-msgstr ""
-
-#: packages/server/src/services/TaskService.ts:38
-#, fuzzy
-msgid "Process user deletions"
-msgstr "Brugersletninger"
-
 #: packages/server/src/routes/admin/users.ts:168
 msgid "Profile"
-msgstr "Profil"
+msgstr ""
 
 #: packages/lib/versionInfo.ts:26
 msgid "Profile Version: %s"
@@ -3602,7 +3566,7 @@ msgid "Take photo"
 msgstr "Tag et foto"
 
 #: packages/server/src/services/MustacheService.ts:151
-#: packages/server/src/services/MustacheService.ts:307
+#: packages/server/src/services/MustacheService.ts:298
 msgid "Tasks"
 msgstr "Opgaver"
 
@@ -4193,13 +4157,9 @@ msgstr "Opdater"
 
 #: packages/server/src/routes/admin/users.ts:171
 #: packages/server/src/routes/index/users.ts:89
-msgid "Update profile"
-msgstr "Opdater profil"
-
-#: packages/server/src/services/TaskService.ts:32
 #, fuzzy
-msgid "Update total sizes"
-msgstr "Opdaterede lokale emner: %d."
+msgid "Update profile"
+msgstr "Eksporter profil"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginBox.tsx:208
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginBox.tsx:209
@@ -4307,11 +4267,11 @@ msgstr ""
 
 #: packages/server/src/services/MustacheService.ts:147
 msgid "User deletions"
-msgstr "Brugersletninger"
+msgstr ""
 
 #: packages/server/src/routes/admin/users.ts:107
 #: packages/server/src/services/MustacheService.ts:143
-#: packages/server/src/services/MustacheService.ts:304
+#: packages/server/src/services/MustacheService.ts:295
 msgid "Users"
 msgstr "Brugere"
 

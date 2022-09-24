@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 2.4.3\n"
 
 #: packages/app-mobile/components/screens/ConfigScreen.tsx:565
 msgid "- Camera: to allow taking a picture and attaching it to a note."
@@ -263,14 +263,14 @@ msgstr "Başlık ekle"
 msgid "Add to dictionary"
 msgstr "Sözlüğe ekle"
 
-#: packages/server/src/services/MustacheService.ts:186
-#: packages/server/src/services/MustacheService.ts:310
+#: packages/server/src/services/MustacheService.ts:182
+#: packages/server/src/services/MustacheService.ts:301
 msgid "Admin"
-msgstr "Yönetici"
+msgstr ""
 
 #: packages/server/src/routes/admin/dashboard.ts:10
 msgid "Admin dashboard"
-msgstr "Yönetici paneli"
+msgstr ""
 
 #: packages/app-desktop/gui/ClipperConfigScreen.min.js:189
 #: packages/app-desktop/gui/ClipperConfigScreen.tsx:147
@@ -395,17 +395,14 @@ msgstr "Yetkilendirme anahtarı:"
 msgid "Auto"
 msgstr "Otomatik"
 
-#: packages/server/src/services/TaskService.ts:39
-msgid "Auto-add disabled accounts for deletion"
-msgstr ""
-
 #: packages/lib/models/Setting.ts:853
 msgid "Auto-pair braces, parenthesis, quotations, etc."
 msgstr "Parantez, çift tırnak gibi değerlerin çiftlerini otomatik ekle."
 
 #: packages/lib/models/Setting.ts:1193
+#, fuzzy
 msgid "Automatically check for updates"
-msgstr "Otomatik olarak güncellemeleri denetle"
+msgstr "Güncellemeleri kontrol et..."
 
 #: packages/lib/models/Setting.ts:770
 msgid "Automatically switch theme to match system theme"
@@ -542,6 +539,7 @@ msgstr ""
 "tekrar başlatmak sorunu çözebilir."
 
 #: packages/server/src/models/UserModel.ts:213
+#, fuzzy
 msgid "Cannot save %s \"%s\" because it is larger than the allowed limit (%s)"
 msgstr "%s \"%s\" kaydedilemedi, çünkü izin verilen limitten (%s) daha büyük"
 
@@ -559,8 +557,6 @@ msgid ""
 "enabled end-to-end encryption. They may do so from the screen Configuration "
 "> Encryption."
 msgstr ""
-"Şifrelenmiş not defteri %s ile paylaşılamadı, çünkü alıcı uçtan uca "
-"şifreleme aktifleştirmemiş. Ayarlar > Şifreleme kısmından bu ayarı açabilir."
 
 #: packages/app-desktop/gui/MainScreen/commands/toggleLayoutMoveMode.ts:7
 msgid "Change application layout"
@@ -708,10 +704,6 @@ msgstr "Şifre çözümü tamamlandı."
 msgid "Completed: %s (%s)"
 msgstr "Tamamlandı: %s (%s)"
 
-#: packages/server/src/services/TaskService.ts:37
-msgid "Compress old changes"
-msgstr ""
-
 #: packages/app-mobile/components/screens/ConfigScreen.tsx:637
 #: packages/app-mobile/components/side-menu-content.js:319
 msgid "Configuration"
@@ -743,8 +735,9 @@ msgid "Conflicts (attachments)"
 msgstr "Çakışmalar (ek dosyalar)"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/SearchPlugins.tsx:108
+#, fuzzy
 msgid "Content provided by %s"
-msgstr "İçerik %s tarafından sağlandı"
+msgstr "İçerik özellikleri"
 
 #: packages/app-mobile/components/screens/Note.tsx:938
 msgid "Convert to note"
@@ -768,12 +761,14 @@ msgstr "Geliştirici modu komutunu panoya kopyala"
 #: packages/app-desktop/gui/Sidebar/Sidebar.tsx:350
 #: packages/app-desktop/gui/Sidebar/Sidebar.tsx:364
 #: packages/app-desktop/gui/utils/NoteListUtils.ts:139
+#, fuzzy
 msgid "Copy external link"
-msgstr "Harici bağlantıyı kopyala"
+msgstr "Dış düzenlemeyi durdur"
 
 #: packages/app-desktop/gui/NoteEditor/utils/contextMenu.ts:134
+#, fuzzy
 msgid "Copy image"
-msgstr "Resmi kopyala"
+msgstr "Anahtarı kopyala"
 
 #: packages/app-desktop/gui/NoteEditor/utils/contextMenu.ts:172
 msgid "Copy Link Address"
@@ -826,8 +821,9 @@ msgstr ""
 "%s"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginsStates.tsx:302
+#, fuzzy
 msgid "Could not connect to plugin repository."
-msgstr "Eklenti sunucusuna bağlanılamadı."
+msgstr "Eklenti sunucusuna bağlanılamadı"
 
 #: packages/app-desktop/InteropServiceHelper.ts:190
 msgid "Could not export notes: %s"
@@ -844,10 +840,6 @@ msgid ""
 "\n"
 "The error was: \"%s\""
 msgstr ""
-"Davetiyeye cevap verilemedi. Lütfen yeniden deneyin, ya da eğer hala "
-"paylaşımdaysa not defteri sahibiyle bu durumu paylaşın.\n"
-"\n"
-"Hata mesajı: \"%s\""
 
 #: packages/lib/components/EncryptionConfigScreen/utils.ts:219
 msgid "Could not upgrade master key: %s"
@@ -858,20 +850,20 @@ msgid ""
 "Could not verify the share status of this notebook - aborting. Please try "
 "again when you are connected to the internet."
 msgstr ""
-"Bu not defterinin paylaşım durumu doğrulanamadı, bu sebeple işlem iptal "
-"ediliyor. Lütfen internet bağlantınız varken bu işlemi yeniden deneyin."
 
 #: packages/app-mobile/components/note-list.js:101
 msgid "Create a notebook"
 msgstr "Yeni bir not defteri oluşturur"
 
 #: packages/app-desktop/gui/EditFolderDialog/Dialog.tsx:128
+#, fuzzy
 msgid "Create notebook"
-msgstr "Not defteri oluştur"
+msgstr "Yeni bir not defteri oluşturur"
 
 #: packages/server/src/routes/admin/users.ts:171
+#, fuzzy
 msgid "Create user"
-msgstr "Kullanıcı oluştur"
+msgstr "Oluşturulma: %s"
 
 #: packages/app-desktop/gui/NotePropertiesDialog.min.js:29
 msgid "Created"
@@ -963,7 +955,7 @@ msgstr "Karanlık"
 
 #: packages/server/src/services/MustacheService.ts:139
 msgid "Dashboard"
-msgstr "Kontrol Paneli"
+msgstr ""
 
 #: packages/app-mobile/components/screens/ConfigScreen.tsx:625
 msgid "Database v%s"
@@ -1018,16 +1010,6 @@ msgstr "Sil"
 #: packages/app-desktop/gui/ResourceScreen.tsx:169
 msgid "Delete attachment \"%s\"?"
 msgstr "\"%s\" eki silinsin mi?"
-
-#: packages/server/src/services/TaskService.ts:36
-#, fuzzy
-msgid "Delete expired sessions"
-msgstr "Matematik ifadelerini etkinleştir"
-
-#: packages/server/src/services/TaskService.ts:31
-#, fuzzy
-msgid "Delete expired tokens"
-msgstr "Bu %d not silinsin mi?"
 
 #: packages/app-desktop/gui/NoteEditor/editorCommandDeclarations.ts:88
 msgid "Delete line"
@@ -1218,14 +1200,17 @@ msgid "Do not ask for confirmation."
 msgstr "Onay için sorma."
 
 #: packages/lib/components/EncryptionConfigScreen/utils.ts:56
+#, fuzzy
 msgid ""
 "Do not lose the password as, for security purposes, this will be the *only* "
 "way to decrypt the data! To enable encryption, please enter your password "
 "below."
 msgstr ""
-"Şifrenizi kaybetmeyin, verilerinizin şifresini çözmenin \"*tek yolu* bu "
-"şifreyi girmek olacaktır. Şifrelemeyi etkinleştirmek için lütfen parolanızı "
-"aşağıya girin."
+"Şifrelemeyi aktif etmek *tüm* notlarınızın ve eklerinizin yeniden senkronize "
+"edileceği ve senkronizasyon hedefine şifrelenmiş olarak gönderileceği "
+"anlamına gelir. Şifrenizi kaybetmeyin, verilerinizin şifresini çözmenin "
+"\"*tek yolu* bu şifreyi girmek olacaktır. Şifrelemeyi etkinleştirmek için "
+"lütfen parolanızı aşağıya girin."
 
 #: packages/app-desktop/checkForUpdates.ts:199
 msgid "Download"
@@ -1342,15 +1327,6 @@ msgstr "\"metin\" ya da \"json\""
 msgid "Emacs"
 msgstr "Emacs"
 
-#: packages/server/src/routes/admin/emails.ts:125
-msgid "Email"
-msgstr ""
-
-#: packages/server/src/routes/admin/emails.ts:109
-#: packages/server/src/services/MustacheService.ts:155
-msgid "Emails"
-msgstr ""
-
 #: packages/app-desktop/gui/NoteEditor/NoteBody/CodeMirror/CodeMirror.tsx:194
 msgid "emphasised text"
 msgstr "vurgulanan metin"
@@ -1457,13 +1433,14 @@ msgid "Enabled"
 msgstr "Etkin"
 
 #: packages/lib/components/EncryptionConfigScreen/utils.ts:51
+#, fuzzy
 msgid ""
 "Enabling encryption means *all* your notes and attachments are going to be "
 "re-synchronised and sent encrypted to the sync target."
 msgstr ""
-"Şifrelemeyi devre devreye alırsanız *tüm* notlarınızın ve eklerinizin "
-"yeniden senkronize edileceği ve senkronizasyon hedefine şifrelenmemiş olarak "
-"gönderileceği anlamına gelir."
+"Şifrelemeyi devre dışı bırakmak *tüm* notlarınızın ve eklerinizin yeniden "
+"senkronize edileceği ve senkronizasyon hedefine şifrelenmemiş olarak "
+"gönderileceği anlamına gelir. Devam etmek istiyor musunuz?"
 
 #: packages/lib/models/BaseItem.ts:808
 msgid "Encrypted"
@@ -1492,16 +1469,19 @@ msgid "Encryption is: %s"
 msgstr "Şifreleme: %s"
 
 #: packages/app-desktop/gui/EncryptionConfigScreen/EncryptionConfigScreen.tsx:172
+#, fuzzy
 msgid "Encryption keys"
-msgstr "Şifreleme anahtarları"
-
-#: packages/app-desktop/gui/EncryptionConfigScreen/EncryptionConfigScreen.tsx:249
-msgid "Encryption:"
 msgstr "Şifreleme:"
 
+#: packages/app-desktop/gui/EncryptionConfigScreen/EncryptionConfigScreen.tsx:249
+#, fuzzy
+msgid "Encryption:"
+msgstr "Şifreleme"
+
 #: packages/app-desktop/gui/EncryptionConfigScreen/EncryptionConfigScreen.tsx:247
+#, fuzzy
 msgid "End-to-end encryption"
-msgstr "Uçtan uca şifreleme"
+msgstr "Şifrelemeyi etkinleştir"
 
 #: packages/app-mobile/components/screens/dropbox-login.js:66
 msgid "Enter code here"
@@ -1704,7 +1684,7 @@ msgstr ""
 
 #: packages/lib/models/Setting.ts:568
 msgid "Force path style"
-msgstr "Zorlanan yol biçimi"
+msgstr ""
 
 #: packages/lib/commands/historyForward.ts:6
 msgid "Forward"
@@ -1729,8 +1709,9 @@ msgid "General"
 msgstr "Genel"
 
 #: packages/app-desktop/gui/EncryptionConfigScreen/EncryptionConfigScreen.tsx:252
+#, fuzzy
 msgid "Generated"
-msgstr "Oluşturma"
+msgstr "Genel"
 
 #: packages/app-desktop/gui/ShareNoteDialog.tsx:207
 msgid "Generating link..."
@@ -1773,7 +1754,7 @@ msgstr "Yetkilendirme ver"
 msgid "Heading"
 msgstr "Başlık"
 
-#: packages/server/src/services/MustacheService.ts:308
+#: packages/server/src/services/MustacheService.ts:299
 msgid "Help"
 msgstr "Yardım"
 
@@ -1782,8 +1763,9 @@ msgid "Hide %s"
 msgstr "Şunu Gizle: %s"
 
 #: packages/app-desktop/gui/EncryptionConfigScreen/EncryptionConfigScreen.tsx:172
+#, fuzzy
 msgid "Hide disabled keys"
-msgstr "İnaktif anahtarları gizle"
+msgstr "İnaktif ana anahtarları gizle"
 
 #: packages/app-desktop/gui/KeymapConfig/utils/getLabel.ts:22
 msgid "Hide Joplin"
@@ -1793,10 +1775,10 @@ msgstr "Joplin'i Gizle"
 msgid "Highlight"
 msgstr "Vurgula"
 
-#: packages/server/src/services/MustacheService.ts:170
-#: packages/server/src/services/MustacheService.ts:303
+#: packages/server/src/services/MustacheService.ts:166
+#: packages/server/src/services/MustacheService.ts:294
 msgid "Home"
-msgstr "Ana sayfa"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/editorCommandDeclarations.ts:78
 msgid "Horizontal Rule"
@@ -2009,8 +1991,9 @@ msgid "Invalid option value: \"%s\". Possible values are: %s."
 msgstr "Geçersiz seçenek değeri:  \"%s\". Mümkün değerler: %s."
 
 #: packages/app-cli/app/command-e2ee.ts:46
+#, fuzzy
 msgid "Invalid password"
-msgstr "Hatalı parola"
+msgstr "Yanlış cevap: %s"
 
 #: packages/app-desktop/gui/NoteEditor/editorCommandDeclarations.ts:38
 msgid "Italic"
@@ -2020,10 +2003,10 @@ msgstr "İtalik"
 msgid "Item \"%s\" could not be downloaded: %s"
 msgstr "\"%s\" öğesi indirilemedi: %s"
 
-#: packages/server/src/services/MustacheService.ts:178
-#: packages/server/src/services/MustacheService.ts:305
+#: packages/server/src/services/MustacheService.ts:174
+#: packages/server/src/services/MustacheService.ts:296
 msgid "Items"
-msgstr "Öğeler"
+msgstr ""
 
 #: packages/lib/services/ReportService.ts:208
 msgid "Items that cannot be decrypted"
@@ -2136,8 +2119,9 @@ msgid "Keychain Supported: %s"
 msgstr "Keychain Desteği: %s"
 
 #: packages/app-desktop/gui/EncryptionConfigScreen/EncryptionConfigScreen.tsx:71
+#, fuzzy
 msgid "Keys that need upgrading"
-msgstr "Güncellenmesi gereken anahtarlar"
+msgstr "Ana anahtarların güncellenmesi lazım"
 
 #: packages/lib/models/Setting.ts:1242
 msgid "Landscape"
@@ -2164,8 +2148,9 @@ msgid "Layout button sequence"
 msgstr "Düzen butonu sıralaması"
 
 #: packages/app-desktop/gui/MainScreen/commands/leaveSharedFolder.ts:10
+#, fuzzy
 msgid "Leave notebook..."
-msgstr "Not defterinden ayrıl"
+msgstr "No deferini paylaş..."
 
 #: packages/lib/models/Setting.ts:1236
 msgid "Legal"
@@ -2200,8 +2185,9 @@ msgid "List item"
 msgstr "Öğeyi listele"
 
 #: packages/app-mobile/components/screens/encryption-config.tsx:212
+#, fuzzy
 msgid "Loaded"
-msgstr "Yüklenme"
+msgstr "İndirildi"
 
 #: packages/app-desktop/gui/NotePropertiesDialog.min.js:32
 msgid "Location"
@@ -2218,7 +2204,7 @@ msgstr ""
 
 #: packages/app-mobile/components/screens/ConfigScreen.tsx:521
 #: packages/app-mobile/components/screens/log.js:100
-#: packages/server/src/services/MustacheService.ts:306
+#: packages/server/src/services/MustacheService.ts:297
 msgid "Log"
 msgstr "Log"
 
@@ -2238,13 +2224,13 @@ msgstr "Dropbox ile giriş yap"
 msgid "Login with OneDrive"
 msgstr "OneDrive ile giriş yapın"
 
-#: packages/server/src/services/MustacheService.ts:309
+#: packages/server/src/services/MustacheService.ts:300
 msgid "Logout"
-msgstr "Çıkış Yap"
+msgstr ""
 
-#: packages/server/src/services/MustacheService.ts:182
+#: packages/server/src/services/MustacheService.ts:178
 msgid "Logs"
-msgstr "Kayıtlar"
+msgstr ""
 
 #: packages/app-desktop/gui/MenuBar.tsx:710
 #: packages/app-mobile/components/screens/ConfigScreen.tsx:583
@@ -2252,12 +2238,14 @@ msgid "Make a donation"
 msgstr "Bağış yapın"
 
 #: packages/app-desktop/gui/MasterPasswordDialog/Dialog.tsx:212
+#, fuzzy
 msgid "Manage master password"
-msgstr "Ana parolayı yönet"
+msgstr "Ana parolayı girin:"
 
 #: packages/lib/commands/openMasterPasswordDialog.ts:6
+#, fuzzy
 msgid "Manage master password..."
-msgstr "Ana parolayı yönet..."
+msgstr "Ana parolayı girin:"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginsStates.tsx:314
 msgid "Manage your plugins"
@@ -2265,12 +2253,13 @@ msgstr "Eklentileri yönet"
 
 #. `generate-ppk`
 #: packages/app-cli/app/command-e2ee.ts:20
+#, fuzzy
 msgid ""
 "Manages E2EE configuration. Commands are `enable`, `disable`, `decrypt`, "
 "`status`, `decrypt-file`, and `target-status`."
 msgstr ""
-"Uçtan Uca Şifreleme ayarını yönetir. Komutlar: `enable`, `disable`, "
-"`decrypt`, `status`, `decrypt-file` ve `target-status`."
+"Uçtan Uca Şifreleme ayarını yönetir. Komutlar `enable`, `disable`, "
+"`decrypt`, `status`, `decrypt-file` and `target-status`."
 
 #: packages/lib/models/Setting.ts:666
 msgid "Manual"
@@ -2285,7 +2274,7 @@ msgstr "Markdown"
 #: packages/lib/services/interop/InteropService.ts:120
 #: packages/lib/services/interop/InteropService.ts:67
 msgid "Markdown + Front Matter"
-msgstr "Markdown + Front Matter"
+msgstr ""
 
 #: packages/app-cli/app/command-done.js:14
 msgid "Marks a to-do as done."
@@ -2306,21 +2295,24 @@ msgstr "Ana Anahtar %s"
 #: packages/app-desktop/gui/EncryptionConfigScreen/EncryptionConfigScreen.tsx:133
 #: packages/app-desktop/gui/EncryptionConfigScreen/EncryptionConfigScreen.tsx:277
 #: packages/app-mobile/components/screens/encryption-config.tsx:102
+#, fuzzy
 msgid "Master password"
-msgstr "Ana parola"
+msgstr "Ana parolayı girin:"
 
 #: packages/app-desktop/gui/EncryptionConfigScreen/EncryptionConfigScreen.tsx:278
 #: packages/app-mobile/components/screens/encryption-config.tsx:211
+#, fuzzy
 msgid "Master password:"
-msgstr "Ana parola:"
+msgstr "Ana parolayı girin:"
 
 #: packages/lib/models/Setting.ts:689
 msgid "Max concurrent connections"
 msgstr "Maksimum aynı anda bağlantı"
 
 #: packages/app-desktop/gui/EncryptionConfigScreen/EncryptionConfigScreen.tsx:324
+#, fuzzy
 msgid "Missing keys"
-msgstr "Eksik anahtarar"
+msgstr "Eksik Ana Anahtar"
 
 #: packages/app-mobile/components/screens/encryption-config.tsx:271
 msgid "Missing Master Keys"
@@ -2496,7 +2488,7 @@ msgstr "İndirilmeyen"
 
 #: packages/app-desktop/gui/EncryptionConfigScreen/EncryptionConfigScreen.tsx:252
 msgid "Not generated"
-msgstr "Oluşturulmamış"
+msgstr ""
 
 #: packages/app-desktop/gui/NoteEditor/NoteTitle/NoteTitleBar.tsx:110
 #: packages/server/src/models/UserModel.ts:214
@@ -2572,8 +2564,9 @@ msgid "Note&book"
 msgstr "Not&defteri"
 
 #: packages/lib/models/Setting.ts:2143
+#, fuzzy
 msgid "Notebook"
-msgstr "Not defteri"
+msgstr "Not defterleri"
 
 #: packages/lib/models/Setting.ts:1378
 msgid "Notebook list growth factor"
@@ -2594,8 +2587,9 @@ msgstr "Not defterine ayrılmış bir başlık adı olan \"%s\" adı verilemez."
 
 #: packages/app-desktop/gui/MainScreen/commands/toggleNotesSortOrderField.ts:8
 #: packages/app-desktop/gui/MainScreen/commands/toggleNotesSortOrderReverse.ts:9
+#, fuzzy
 msgid "Notes"
-msgstr "Notlar"
+msgstr "Not"
 
 #: packages/lib/models/Setting.ts:2159
 msgid "Notes and settings are stored in: %s"
@@ -2757,7 +2751,7 @@ msgstr "Kamera kullanımı için izin"
 
 #: packages/app-desktop/gui/EncryptionConfigScreen/EncryptionConfigScreen.tsx:271
 msgid "Please click on \"%s\" to proceed"
-msgstr "Lütfen devam etmek için \"%s\" tuşuna basın"
+msgstr ""
 
 #: packages/lib/components/EncryptionConfigScreen/utils.ts:65
 msgid ""
@@ -2776,8 +2770,6 @@ msgid ""
 "Please note that if it is a large notebook, it may take a few minutes for "
 "all the notes to show up on the recipient's device."
 msgstr ""
-"Not defterleri büyük olabilir, ve de bu sebeple alıcı tarafın cihazında tüm "
-"notların gözükmesi birkaç dakikayı bulabilir. Bunu lütfen dikkate alın."
 
 #: packages/lib/onedrive-api-node-utils.js:116
 msgid ""
@@ -2899,22 +2891,9 @@ msgstr "Yazdır"
 msgid "Privacy Policy"
 msgstr "Gizlilik Politikası"
 
-#: packages/server/src/services/TaskService.ts:35
-msgid "Process failed payment subscriptions"
-msgstr ""
-
-#: packages/server/src/services/TaskService.ts:33
-msgid "Process oversized accounts"
-msgstr ""
-
-#: packages/server/src/services/TaskService.ts:38
-#, fuzzy
-msgid "Process user deletions"
-msgstr "Kullancı silmeleri"
-
 #: packages/server/src/routes/admin/users.ts:168
 msgid "Profile"
-msgstr "Profil"
+msgstr ""
 
 #: packages/lib/versionInfo.ts:26
 msgid "Profile Version: %s"
@@ -2926,7 +2905,7 @@ msgstr "Özellikler"
 
 #: packages/app-desktop/gui/EncryptionConfigScreen/EncryptionConfigScreen.tsx:252
 msgid "Public-private key pair:"
-msgstr "Açık - gizli anahtar çifti:"
+msgstr ""
 
 #: packages/app-desktop/gui/MainScreen/commands/showShareNoteDialog.ts:6
 msgid "Publish note..."
@@ -3034,8 +3013,9 @@ msgstr "Jetonu yenile"
 
 #: packages/app-desktop/gui/MasterPasswordDialog/Dialog.tsx:212
 #: packages/app-desktop/gui/MasterPasswordDialog/Dialog.tsx:213
+#, fuzzy
 msgid "Reset master password"
-msgstr "Ana parolayı sıfırla"
+msgstr "Ana parolayı girin:"
 
 #: packages/app-cli/app/command-import.js:51
 #: packages/app-desktop/gui/ImportScreen.min.js:72
@@ -3097,27 +3077,31 @@ msgstr ""
 
 #: packages/lib/SyncTargetAmazonS3.js:28
 msgid "S3"
-msgstr "S3"
+msgstr ""
 
 #: packages/lib/models/Setting.ts:546
+#, fuzzy
 msgid "S3 access key"
-msgstr "S3 erişim anahtarı"
+msgstr "AWS anahtarı"
 
 #: packages/lib/models/Setting.ts:506
+#, fuzzy
 msgid "S3 bucket"
-msgstr "S3 deposu"
+msgstr "AWS S3 deposu"
 
 #: packages/lib/models/Setting.ts:535
 msgid "S3 region"
-msgstr "S3 bölgesi"
+msgstr ""
 
 #: packages/lib/models/Setting.ts:557
+#, fuzzy
 msgid "S3 secret key"
-msgstr "S3 gizli anahtarı"
+msgstr "AWS gizli anahtarı"
 
 #: packages/lib/models/Setting.ts:521
+#, fuzzy
 msgid "S3 URL"
-msgstr "S3 URL"
+msgstr "AWS S3 URL"
 
 #: packages/app-desktop/gui/MainScreen/MainScreen.tsx:579
 msgid ""
@@ -3217,12 +3201,11 @@ msgid "Set alarm:"
 msgstr "Alarm kur:"
 
 #: packages/lib/models/Setting.ts:1125
+#, fuzzy
 msgid ""
 "Set it to 0 to make it take the complete available space. Recommended width "
 "is 600."
-msgstr ""
-"0 olarak belirtmeniz durumunda tüm uygun boş alanı kullanacaktır. Önerilen "
-"genişlik değeri 600."
+msgstr "0 olarak belirtmeniz durumunda tüm uygun boş alanı kullanacaktır."
 
 #: packages/app-desktop/gui/MainScreen/MainScreen.tsx:627
 msgid "Set the password"
@@ -3275,16 +3258,18 @@ msgid "Show completed to-dos"
 msgstr "Tamamlanan yapılacaklar listesini göster"
 
 #: packages/app-desktop/gui/EncryptionConfigScreen/EncryptionConfigScreen.tsx:172
+#, fuzzy
 msgid "Show disabled keys"
-msgstr "İnaktif anahtarları görüntüle"
+msgstr "İnaktif ana anahtarları görüntüle"
 
 #: packages/lib/models/Setting.ts:810
 msgid "Show note counts"
 msgstr "Not sayacını göster"
 
 #: packages/lib/models/Setting.ts:866
+#, fuzzy
 msgid "Show sort order buttons"
-msgstr "Not sıralama butonlarını göster"
+msgstr "Not sayacını göster"
 
 #: packages/lib/models/Setting.ts:1042
 msgid "Show tray icon"
@@ -3615,9 +3600,9 @@ msgid "Take photo"
 msgstr "Fotoğraf çek"
 
 #: packages/server/src/services/MustacheService.ts:151
-#: packages/server/src/services/MustacheService.ts:307
+#: packages/server/src/services/MustacheService.ts:298
 msgid "Tasks"
-msgstr "Görevler"
+msgstr ""
 
 #: packages/lib/models/Setting.ts:1228
 msgid "Text editor command"
@@ -3714,14 +3699,15 @@ msgid "The following attachments are being watched for changes:"
 msgstr "Şu ek dosyaları değişiklikler için izlenmekte:"
 
 #: packages/app-desktop/gui/EncryptionConfigScreen/EncryptionConfigScreen.tsx:72
+#, fuzzy
 msgid ""
 "The following keys use an out-dated encryption algorithm and it is "
 "recommended to upgrade them. The upgraded key will still be able to decrypt "
 "and encrypt your data as usual."
 msgstr ""
-"Mevcut anahtarlarınız eski bir şifreleme algoritmasını kullanıyor, bu "
-"sebeple güncellenmesi gerekir. Güncellenen şifreleme ahatarları eskisi gibi "
-"verinizi şifreleme ve şifre çözmede kullanılacaktır."
+"Mevcut ana anahtarlarınız eski bir şifreleme algoritmasını kullanıyor, bu "
+"sebeple güncellenmesi gerekir. Güncellenen ana şifreleme ahatarları eskisi "
+"gibi verinizi şifreleme ve şifre çözmede kullanılacaktır."
 
 #: packages/app-mobile/components/screens/Note.tsx:196
 msgid "The Joplin mobile app does not currently support this type of link: %s"
@@ -3733,16 +3719,15 @@ msgid ""
 "The Joplin team has vetted this plugin and it meets our standards for "
 "security and performance."
 msgstr ""
-"Joplin ekibi bu eklentinin güvenlik ve performans konusunda standartlarını "
-"sağladığını beyan eder."
 
 #: packages/app-desktop/gui/EncryptionConfigScreen/EncryptionConfigScreen.tsx:325
+#, fuzzy
 msgid ""
 "The keys with these IDs are used to encrypt some of your items, however the "
 "application does not currently have access to them. It is likely they will "
 "eventually be downloaded via synchronisation."
 msgstr ""
-"Bu kimlikleri olan anahtarlar öğelerinizden bazılarını şifrelemek için "
+"Bu kimlikleri olan ana anahtarlar öğelerinizden bazılarını şifrelemek için "
 "kullanılır, ancak uygulama şu anda bunlara erişemez. Büyük olasılıkla "
 "senkronizasyon yoluyla indirilmeleri sağlanacaktır."
 
@@ -3783,9 +3768,6 @@ msgid ""
 "\n"
 "The error was: \"%s\""
 msgstr ""
-"Alıcı listeden çıkarılamadı. Lütfen yeniden deneyin.\n"
-"\n"
-"Hata mesajı: \"%s\""
 
 #: packages/app-desktop/gui/MainScreen/MainScreen.tsx:585
 msgid ""
@@ -3799,10 +3781,11 @@ msgstr ""
 "işlemi başlatmak için lütfen linke tıklayın."
 
 #: packages/app-mobile/components/screen-header.js:461
+#, fuzzy
 msgid "The sync target needs to be upgraded. Press this banner to proceed."
 msgstr ""
-"Senkronizasyon hedefinin güncellenmesi gerekmekte. Devam etmek için bu "
-"butona basın"
+"Senkronizasyon hedefinin güncellenmesi gerekmekte. Devam etmek için `%s` "
+"çalıştırın."
 
 #: packages/lib/models/Tag.ts:204
 msgid "The tag \"%s\" already exists. Please choose a different name."
@@ -3987,12 +3970,11 @@ msgid "This will open a new screen. Save your current changes?"
 msgstr "Yeni bir pencere açılacak. Değişiklikler kaydedilsin mi?"
 
 #: packages/app-desktop/gui/MainScreen/commands/leaveSharedFolder.ts:16
+#, fuzzy
 msgid ""
 "This will remove the notebook from your collection and you will no longer "
 "have access to its content. Do you wish to continue?"
-msgstr ""
-"Bu işlem not defterini koleksiyonunuzdan kaldıracak, ve de içeriğine artık "
-"erişemeyeceksiniz. Devam etmek istiyor musunuz?"
+msgstr "Not paylaşımı kaldırılsın mı? Alıcı artık not içeriğine erişemeyecek."
 
 #: packages/lib/models/Setting.ts:738
 msgid "Time format"
@@ -4017,8 +3999,9 @@ msgstr ""
 "aşağıdaki adımları izleyin:"
 
 #: packages/lib/components/EncryptionConfigScreen/utils.ts:54
+#, fuzzy
 msgid "To continue, please enter your master password below."
-msgstr "Devam etmek için lütfen aşağıya ana parolanızı girin"
+msgstr "Ana parolayı girin:"
 
 #: packages/app-cli/app/app-gui.js:452
 msgid "To delete a tag, untag the associated notes."
@@ -4096,8 +4079,9 @@ msgid "Toggle note list"
 msgstr "Not listesini aç/kapat"
 
 #: packages/app-desktop/gui/MainScreen/commands/togglePerFolderSortOrder.ts:7
+#, fuzzy
 msgid "Toggle own sort order"
-msgstr "Kendi Özel sıralamanı aç / kapat"
+msgstr "Güvenli modu aç / kapat"
 
 #: packages/app-desktop/commands/toggleSafeMode.ts:8
 msgid "Toggle safe mode"
@@ -4108,8 +4092,9 @@ msgid "Toggle sidebar"
 msgstr "Kenar çubuğunu aç / kapat"
 
 #: packages/app-desktop/gui/MainScreen/commands/toggleNotesSortOrderField.ts:7
+#, fuzzy
 msgid "Toggle sort order field"
-msgstr "Sıralama alanine aç / kapat"
+msgstr "Güvenli modu aç / kapat"
 
 #: packages/app-desktop/gui/ClipperConfigScreen.min.js:40
 #: packages/app-desktop/gui/ClipperConfigScreen.tsx:41
@@ -4213,13 +4198,9 @@ msgstr "Güncelle"
 
 #: packages/server/src/routes/admin/users.ts:171
 #: packages/server/src/routes/index/users.ts:89
-msgid "Update profile"
-msgstr "Profili güncelle"
-
-#: packages/server/src/services/TaskService.ts:32
 #, fuzzy
-msgid "Update total sizes"
-msgstr "Güncellenen yerel öğeler: %d."
+msgid "Update profile"
+msgstr "Profili dışarı aktar"
 
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginBox.tsx:208
 #: packages/app-desktop/gui/ConfigScreen/controls/plugins/PluginBox.tsx:209
@@ -4328,13 +4309,13 @@ msgstr ""
 
 #: packages/server/src/services/MustacheService.ts:147
 msgid "User deletions"
-msgstr "Kullancı silmeleri"
+msgstr ""
 
 #: packages/server/src/routes/admin/users.ts:107
 #: packages/server/src/services/MustacheService.ts:143
-#: packages/server/src/services/MustacheService.ts:304
+#: packages/server/src/services/MustacheService.ts:295
 msgid "Users"
-msgstr "Kullanıcılar"
+msgstr ""
 
 #: packages/app-desktop/gui/EncryptionConfigScreen/EncryptionConfigScreen.tsx:182
 msgid "Valid"
@@ -4485,16 +4466,12 @@ msgstr "Veriniz yeniden şifrelenecek ve senkron edilecek."
 #: packages/app-desktop/gui/EncryptionConfigScreen/EncryptionConfigScreen.tsx:271
 msgid "Your master password is needed to decrypt some of your data."
 msgstr ""
-"Verilerinizin bir kısmının şifrelemesinin çözülmesi için ana parolanız "
-"gerekmektedir."
 
 #: packages/app-cli/app/command-sync.ts:242
 msgid ""
 "Your password is needed to decrypt some of your data. Type `:e2ee decrypt` "
 "to set it."
 msgstr ""
-"Verilerinizin bir kısmının şifrelelemesinin çözülmesi için ana parolanız "
-"gerekmektedir. `:e2ee decrypt` yazarak ayarlayabilirsiniz."
 
 #: packages/app-mobile/components/CameraView.tsx:189
 msgid "Your permission to use your camera is required."
