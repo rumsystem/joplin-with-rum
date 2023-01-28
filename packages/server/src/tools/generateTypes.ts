@@ -36,7 +36,6 @@ const config = {
 		'main.users': 'WithDates, WithUuid',
 		'main.events': 'WithUuid',
 		'main.user_deletions': 'WithDates',
-		'main.backup_items': 'WithCreatedDate',
 	},
 };
 
@@ -63,8 +62,6 @@ const propertyTypes: Record<string, string> = {
 	'user_deletions.start_time': 'number',
 	'user_deletions.end_time': 'number',
 	'user_deletions.scheduled_time': 'number',
-	'users.disabled_time': 'number',
-	'backup_items.content': 'Buffer',
 };
 
 function insertContentIntoFile(filePath: string, markerOpen: string, markerClose: string, contentToInsert: string): void {
@@ -93,10 +90,6 @@ function createTypeString(table: any) {
 
 		if (table.extends && table.extends.indexOf('WithDates') >= 0) {
 			if (['created_time', 'updated_time'].includes(name)) continue;
-		}
-
-		if (table.extends && table.extends.indexOf('WithCreatedDate') >= 0) {
-			if (['created_time'].includes(name)) continue;
 		}
 
 		if (table.extends && table.extends.indexOf('WithUuid') >= 0) {

@@ -10,7 +10,6 @@ import personalizedUserContentBaseUrl from '@joplin/lib/services/joplinServer/pe
 import Logger from '@joplin/lib/Logger';
 import dbuuid from '../utils/dbuuid';
 import { defaultPagination, PaginatedResults, Pagination } from './utils/pagination';
-import { unique } from '../utils/array';
 
 const logger = Logger.create('BaseModel');
 
@@ -166,10 +165,6 @@ export default abstract class BaseModel<T> {
 		return true;
 	}
 
-	protected hasUpdatedTime(): boolean {
-		return this.autoTimestampEnabled();
-	}
-
 	protected get hasParentId(): boolean {
 		return false;
 	}
@@ -319,7 +314,7 @@ export default abstract class BaseModel<T> {
 			if (isNew) {
 				(toSave as WithDates).created_time = timestamp;
 			}
-			if (this.hasUpdatedTime()) (toSave as WithDates).updated_time = timestamp;
+			(toSave as WithDates).updated_time = timestamp;
 		}
 
 		if (options.skipValidation !== true) object = await this.validate(object, { isNew: isNew, rules: options.validationRules ? options.validationRules : {} });
@@ -344,7 +339,6 @@ export default abstract class BaseModel<T> {
 
 	public async loadByIds(ids: string[], options: LoadOptions = {}): Promise<T[]> {
 		if (!ids.length) return [];
-		ids = unique(ids);
 		return this.db(this.tableName).select(options.fields || this.defaultFields).whereIn('id', ids);
 	}
 

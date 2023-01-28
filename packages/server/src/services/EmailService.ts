@@ -8,9 +8,13 @@ import { errorToString } from '../utils/errors';
 import EmailModel from '../models/EmailModel';
 import { markdownBodyToHtml, markdownBodyToPlainText } from './email/utils';
 import { MailerSecurity } from '../env';
-import { senderInfo } from '../models/utils/email';
 
 const logger = Logger.create('EmailService');
+
+interface Participant {
+	name: string;
+	email: string;
+}
 
 export default class EmailService extends BaseService {
 
@@ -19,7 +23,7 @@ export default class EmailService extends BaseService {
 	private async transport(): Promise<Mail> {
 		if (!this.transport_) {
 			try {
-				if (!senderInfo(EmailSender.NoReply).email) {
+				if (!this.senderInfo(EmailSender.NoReply).email) {
 					throw new Error('No-reply email must be set for email service to work (Set env variable MAILER_NOREPLY_EMAIL)');
 				}
 
@@ -54,6 +58,24 @@ export default class EmailService extends BaseService {
 		return this.transport_;
 	}
 
+	private senderInfo(senderId: EmailSender): Participant {
+		if (senderId === EmailSender.NoReply) {
+			return {
+				name: this.config.mailer.noReplyName,
+				email: this.config.mailer.noReplyEmail,
+			};
+		}
+
+		if (senderId === EmailSender.Support) {
+			return {
+				name: this.config.supportName,
+				email: this.config.supportEmail,
+			};
+		}
+
+		throw new Error(`Invalid sender ID: ${senderId}`);
+	}
+
 	private escapeEmailField(f: string): string {
 		return f.replace(/[\n\r"<>]/g, '');
 	}
@@ -77,7 +99,7 @@ export default class EmailService extends BaseService {
 			const transport = await this.transport();
 
 			for (const email of emails) {
-				const sender = senderInfo(email.sender_id);
+				const sender = this.senderInfo(email.sender_id);
 
 				const mailOptions: Mail.Options = {
 					from: this.formatNameAndEmail(sender.email, sender.name),
