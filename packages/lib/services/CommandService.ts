@@ -162,6 +162,9 @@ export default class CommandService extends BaseService {
 	}
 
 	public commandByName(name: string, options: CommandByNameOptions = null): Command {
+		if (name === 'synchronize') {
+			console.log('synchronize step 3');
+		}
 		options = {
 			mustExist: true,
 			runtimeMustBeRegistered: false,
@@ -180,6 +183,9 @@ export default class CommandService extends BaseService {
 	}
 
 	public registerDeclaration(declaration: CommandDeclaration) {
+		if (declaration.name === 'synchronize') {
+			console.log('register synchronize step 1');
+		}
 		declaration = { ...declaration };
 		if (!declaration.label) declaration.label = '';
 		if (!declaration.iconName) declaration.iconName = '';
@@ -190,6 +196,9 @@ export default class CommandService extends BaseService {
 	}
 
 	public registerRuntime(commandName: string, runtime: CommandRuntime) {
+		if (commandName === 'synchronize') {
+			console.log('register synchronize step 2');
+		}
 		if (typeof commandName !== 'string') throw new Error(`Command name must be a string. Got: ${JSON.stringify(commandName)}`);
 
 		const command = this.commandByName(commandName);
@@ -227,6 +236,9 @@ export default class CommandService extends BaseService {
 	}
 
 	public async execute(commandName: string, ...args: any[]): Promise<any | void> {
+		if (commandName === 'synchronize') {
+			console.log('synchronize step 2');
+		}
 		const command = this.commandByName(commandName);
 		// Some commands such as "showModalMessage" can be executed many
 		// times per seconds, so we should only display this message in
