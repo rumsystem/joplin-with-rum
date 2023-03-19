@@ -219,8 +219,6 @@ then
 	Type=Application
 	Categories=Office;
 	MimeType=x-scheme-handler/joplin;
-	X-GNOME-SingleWindow=true // should be removed eventually as it was upstream to be an XDG specification
-	SingleMainWindow=true
 	EOF
     
     # Update application icons

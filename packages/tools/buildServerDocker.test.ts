@@ -15,6 +15,8 @@ describe('buildServerDocker', function() {
 			const actual = getVersionFromTag(tagName, isPreRelease);
 			expect(actual).toBe(expected);
 		}
+
+		expect(() => getVersionFromTag('app-cli-v1.0.0', false)).toThrow();
 	});
 
 	test('should check if it is a pre-release', async () => {

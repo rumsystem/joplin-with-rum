@@ -62,7 +62,7 @@ import ShareService from '@joplin/lib/services/share/ShareService';
 import checkForUpdates from './checkForUpdates';
 import { AppState } from './app.reducer';
 import syncDebugLog from '@joplin/lib/services/synchronizer/syncDebugLog';
-import eventManager from '@joplin/lib/eventManager';
+import eventManager from '../lib/eventManager';
 // import { runIntegrationTests } from '@joplin/lib/services/e2ee/ppkTestUtils';
 
 const pluginClasses = [
@@ -381,9 +381,6 @@ class Application extends BaseApplication {
 		}
 
 		for (const command of globalCommands) {
-			if (command.declaration.name === 'synchronize') {
-				console.log('start register synchronize...');
-			}
 			CommandService.instance().registerDeclaration(command.declaration);
 			CommandService.instance().registerRuntime(command.declaration.name, command.runtime());
 		}
@@ -449,9 +446,8 @@ class Application extends BaseApplication {
 
 		await this.checkForLegacyTemplates();
 
-		// Note: Auto-update is a misnomer in the code.
-		// The code below only checks, if a new version is available.
-		// We only allow Windows and macOS users to automatically check for updates
+		// Note: Auto-update currently doesn't work in Linux: it downloads the update
+		// but then doesn't install it on exit.
 		if (shim.isWindows() || shim.isMac()) {
 			const runAutoUpdateCheck = () => {
 				if (Setting.value('autoUpdateEnabled')) {

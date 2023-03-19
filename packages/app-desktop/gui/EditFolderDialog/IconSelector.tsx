@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback, useRef } from 'react';
 import useAsyncEffect, { AsyncEffectEvent } from '@joplin/lib/hooks/useAsyncEffect';
 import { loadScript } from '../utils/loadScript';
 import Button from '../Button/Button';
-import { FolderIcon, FolderIconType } from '@joplin/lib/services/database/types';
+import { FolderIcon } from '@joplin/lib/services/database/types';
 import bridge from '../../services/bridge';
 
 export interface ChangeEvent {
@@ -15,7 +15,6 @@ type ChangeHandler = (event: ChangeEvent)=> void;
 interface Props {
 	onChange: ChangeHandler;
 	icon: FolderIcon | null;
-	title: string;
 }
 
 export const IconSelector = (props: Props) => {
@@ -63,7 +62,7 @@ export const IconSelector = (props: Props) => {
 		});
 
 		const onEmoji = (selection: FolderIcon) => {
-			props.onChange({ value: { ...selection, type: FolderIconType.Emoji } });
+			props.onChange({ value: selection });
 		};
 
 		p.on('emoji', onEmoji);
@@ -79,25 +78,16 @@ export const IconSelector = (props: Props) => {
 		picker.togglePicker(buttonRef.current);
 	}, [picker]);
 
-	// const buttonText = props.icon ? props.icon.emoji : '...';
+	const buttonText = props.icon ? props.icon.emoji : '...';
 
 	return (
 		<Button
 			disabled={!picker}
 			ref={buttonRef}
 			onClick={onClick}
-			title={props.title}
+			title={buttonText}
+			isSquare={true}
+			fontSize={20}
 		/>
 	);
-
-	// return (
-	// 	<Button
-	// 		disabled={!picker}
-	// 		ref={buttonRef}
-	// 		onClick={onClick}
-	// 		title={buttonText}
-	// 		isSquare={true}
-	// 		fontSize={20}
-	// 	/>
-	// );
 };

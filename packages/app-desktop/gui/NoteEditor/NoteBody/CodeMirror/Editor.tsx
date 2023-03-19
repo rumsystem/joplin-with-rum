@@ -94,7 +94,6 @@ export interface EditorProps {
 	onEditorPaste: any;
 	isSafeMode: boolean;
 	onResize: any;
-	onUpdate: any;
 }
 
 function Editor(props: EditorProps, ref: any) {
@@ -149,14 +148,6 @@ function Editor(props: EditorProps, ref: any) {
 		event.dataTransfer.dropEffect = 'copy';
 	}, []);
 
-	const editor_resize = useCallback((cm: any) => {
-		props.onResize(cm);
-	}, [props.onResize]);
-
-	const editor_update = useCallback((cm: any) => {
-		props.onUpdate(cm);
-	}, [props.onUpdate]);
-
 	useEffect(() => {
 		if (!editorParent.current) return () => {};
 
@@ -199,8 +190,7 @@ function Editor(props: EditorProps, ref: any) {
 		cm.on('paste', editor_paste);
 		cm.on('drop', editor_drop);
 		cm.on('dragover', editor_drag);
-		cm.on('refresh', editor_resize);
-		cm.on('update', editor_update);
+		cm.on('refresh', props.onResize);
 
 		// It's possible for searchMarkers to be available before the editor
 		// In these cases we set the markers asap so the user can see them as
@@ -214,8 +204,7 @@ function Editor(props: EditorProps, ref: any) {
 			cm.off('paste', editor_paste);
 			cm.off('drop', editor_drop);
 			cm.off('dragover', editor_drag);
-			cm.off('refresh', editor_resize);
-			cm.off('update', editor_update);
+			cm.off('refresh', props.onResize);
 			editorParent.current.removeChild(cm.getWrapperElement());
 			setEditor(null);
 		};
