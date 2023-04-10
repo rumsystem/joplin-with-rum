@@ -67,7 +67,7 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 
 	usePluginServiceRegistration(ref);
 
-	const { resetScroll, editor_scroll, setEditorPercentScroll, setViewerPercentScroll, editor_resize,
+	const { resetScroll, editor_scroll, setEditorPercentScroll, setViewerPercentScroll, editor_resize, editor_update, getLineScrollPercent,
 	} = useScrollHandler(editorRef, webviewRef, props.onScroll);
 
 	const codeMirror_change = useCallback((newBody: string) => {
@@ -515,8 +515,9 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 				color: ${theme.searchMarkerColor} !important;
 			}
 
+			/* We need !important because the search marker is overridden by CodeMirror's own text selection marker */
 			.cm-search-marker-selected {
-				background: ${theme.selectedColor2};
+				background: ${theme.selectedColor2} !important;
 				color: ${theme.color2} !important;
 			}
 
@@ -576,9 +577,14 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 		const arg0 = args && args.length >= 1 ? args[0] : null;
 
 		if (msg.indexOf('checkboxclick:') === 0) {
-			const newBody = shared.toggleCheckbox(msg, props.content);
+			const { line, from, to } = shared.toggleCheckboxRange(msg, props.content);
 			if (editorRef.current) {
-				editorRef.current.updateBody(newBody);
+				// To cancel CodeMirror's layout drift, the scroll position
+				// is recorded before updated, and then it is restored.
+				// Ref. https://github.com/laurent22/joplin/issues/5890
+				const percent = getLineScrollPercent();
+				editorRef.current.replaceRange(line, from, to);
+				setEditorPercentScroll(percent);
 			}
 		} else if (msg === 'percentScroll') {
 			const percent = arg0;
@@ -838,6 +844,7 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 					onEditorPaste={onEditorPaste}
 					isSafeMode={props.isSafeMode}
 					onResize={editor_resize}
+					onUpdate={editor_update}
 				/>
 			</div>
 		);

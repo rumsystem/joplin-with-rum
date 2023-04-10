@@ -35,6 +35,7 @@ const SyncTargetNextcloud = require('./SyncTargetNextcloud.js');
 const SyncTargetWebDAV = require('./SyncTargetWebDAV.js');
 const SyncTargetDropbox = require('./SyncTargetDropbox.js');
 const SyncTargetAmazonS3 = require('./SyncTargetAmazonS3.js');
+const SyncTargetRumsystem = require('./SyncTargetRumsystem.js');
 import EncryptionService from './services/e2ee/EncryptionService';
 import ResourceFetcher from './services/ResourceFetcher';
 import SearchEngineUtils from './services/searchengine/SearchEngineUtils';
@@ -54,6 +55,7 @@ import { loadMasterKeysFromSettings, migrateMasterPassword } from './services/e2
 import SyncTargetNone from './SyncTargetNone';
 import { setRSA } from './services/e2ee/ppk';
 import RSA from './services/e2ee/RSA.node';
+import Resource from './models/Resource';
 
 const appLogger: LoggerWrapper = Logger.create('App');
 
@@ -737,6 +739,7 @@ export default class BaseApplication {
 		SyncTargetRegistry.addClass(SyncTargetAmazonS3);
 		SyncTargetRegistry.addClass(SyncTargetJoplinServer);
 		SyncTargetRegistry.addClass(SyncTargetJoplinCloud);
+		SyncTargetRegistry.addClass(SyncTargetRumsystem);
 
 		try {
 			await shim.fsDriver().remove(tempDir);
@@ -855,6 +858,7 @@ export default class BaseApplication {
 
 		BaseItem.encryptionService_ = EncryptionService.instance();
 		BaseItem.shareService_ = ShareService.instance();
+		Resource.shareService_ = ShareService.instance();
 		DecryptionWorker.instance().setLogger(globalLogger);
 		DecryptionWorker.instance().setEncryptionService(EncryptionService.instance());
 		DecryptionWorker.instance().setKvStore(KvStore.instance());
