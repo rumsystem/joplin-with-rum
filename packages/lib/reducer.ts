@@ -35,10 +35,6 @@ interface StateClipperServer {
 	port: number;
 }
 
-interface StateQuorumServer {
-	startState: string;
-}
-
 interface StateDecryptionWorker {
 	state: string;
 	itemIndex: number;
@@ -85,7 +81,6 @@ export interface State {
 	hasLegacyTemplates: boolean;
 	collapsedFolderIds: string[];
 	clipperServer: StateClipperServer;
-	quorumServer: StateQuorumServer;
 	decryptionWorker: StateDecryptionWorker;
 	selectedNoteTags: any[];
 	resourceFetcher: StateResourceFetcher;
@@ -142,9 +137,6 @@ export const defaultState: State = {
 	clipperServer: {
 		startState: 'idle',
 		port: null,
-	},
-	quorumServer: {
-		startState: 'idle',
 	},
 	decryptionWorker: {
 		state: 'idle',
@@ -1106,14 +1098,6 @@ const reducer = produce((draft: Draft<State> = defaultState, action: any) => {
 				if ('startState' in action) clipperServer.startState = action.startState;
 				if ('port' in action) clipperServer.port = action.port;
 				draft.clipperServer = clipperServer;
-			}
-			break;
-
-		case 'QUORUM_SERVER_SET':
-			{
-				const quorumServer = Object.assign({}, draft.quorumServer);
-				if ('startState' in action) quorumServer.startState = action.startState;
-				draft.quorumServer = quorumServer;
 			}
 			break;
 

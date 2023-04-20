@@ -2020,15 +2020,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.17.2":
-  version: 7.17.2
-  resolution: "@babel/runtime@npm:7.17.2"
-  dependencies:
-    regenerator-runtime: ^0.13.4
-  checksum: a48702d271ecc59c09c397856407afa29ff980ab537b3da58eeee1aeaa0f545402d340a1680c9af58aec94dfdcbccfb6abb211991b74686a86d03d3f6956cacd
-  languageName: node
-  linkType: hard
-
 "@babel/template@npm:^7.0.0, @babel/template@npm:^7.16.0, @babel/template@npm:^7.3.3":
   version: 7.16.0
   resolution: "@babel/template@npm:7.16.0"
@@ -2932,7 +2923,6 @@ __metadata:
     color: ^3.1.2
     compare-versions: ^3.2.1
     countable: ^3.0.1
-    cross-env: ^7.0.3
     debounce: ^1.2.0
     electron: 14.1.0
     electron-builder: ^22.11.7
@@ -3128,7 +3118,6 @@ __metadata:
   dependencies:
     "@aws-sdk/client-s3": ^3.34.0
     "@aws-sdk/s3-request-presigner": ^3.34.0
-    "@babel/runtime": ^7.17.2
     "@joplin/fork-htmlparser2": ^4.1.39
     "@joplin/fork-sax": ^1.2.43
     "@joplin/fork-uslug": ^1.0.4
@@ -3180,7 +3169,7 @@ __metadata:
     node-rsa: ^1.1.1
     promise: ^7.1.1
     query-string: 4.3.4
-    quorum-sdk-electron-renderer: ^1.0.3
+    quorum-sdk-electron-renderer: ^1.0.2
     re-reselect: ^4.0.0
     read-chunk: ^2.1.0
     redux: ^3.7.2
@@ -10354,18 +10343,6 @@ __metadata:
     cross-env: src/bin/cross-env.js
     cross-env-shell: src/bin/cross-env-shell.js
   checksum: 1b2d532ad7beff8017db7c28fbee8f902377969b8090cd2b8716ec93bef958bb2838cd061c89c30e904d72f3ff7d3a4e80f0d762b14e60e8191a576be1376578
-  languageName: node
-  linkType: hard
-
-"cross-env@npm:^7.0.3":
-  version: 7.0.3
-  resolution: "cross-env@npm:7.0.3"
-  dependencies:
-    cross-spawn: ^7.0.1
-  bin:
-    cross-env: src/bin/cross-env.js
-    cross-env-shell: src/bin/cross-env-shell.js
-  checksum: 26f2f3ea2ab32617f57effb70d329c2070d2f5630adc800985d8b30b56e8bf7f5f439dd3a0358b79cee6f930afc23cf8e23515f17ccfb30092c6b62c6b630a79
   languageName: node
   linkType: hard
 
@@ -24799,19 +24776,6 @@ __metadata:
     electron-store: ^8.0.1
     query-string: ^7.1.1
   checksum: b244cc57430095e967f6057ff3977c796098c50e563c0505d23af4633f808925e2aa729dc13a48fe97615757c496343434be4325fb0752f92eefdb2f010a0ced
-  languageName: node
-  linkType: hard
-
-"quorum-sdk-electron-renderer@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "quorum-sdk-electron-renderer@npm:1.0.3"
-  dependencies:
-    "@electron/remote": ^2.0.5
-    dexie: ^3.2.0
-    electron: 16.0.8
-    electron-store: ^8.0.1
-    query-string: ^7.1.1
-  checksum: 33fe07869d98fe386e5ee47cefaa521618af252b993773dfa3f9c3db02088a1f7674ddbaa63420c0b01708a099f02bf4b9cad61a5edf9f17db8e0e524f23031c
   languageName: node
   linkType: hard
 
