@@ -12,8 +12,10 @@ export const declaration: CommandDeclaration = {
 // Note that this command actually acts as a toggle - it starts or cancels
 // synchronisation depending on the "syncStarted" parameter
 export const runtime = (): CommandRuntime => {
+	console.log('get synchronize runtime');
 	return {
 		execute: async (context: CommandContext, syncStarted: boolean = null) => {
+		  console.log('synchronize step 3');
 			syncStarted = syncStarted === null ? context.state.syncStarted : syncStarted;
 
 			const action = syncStarted ? 'cancel' : 'start';

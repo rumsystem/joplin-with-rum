@@ -381,6 +381,9 @@ class Application extends BaseApplication {
 		}
 
 		for (const command of globalCommands) {
+			if (command.declaration.name === 'synchronize') {
+				console.log('start register synchronize...');
+			}
 			CommandService.instance().registerDeclaration(command.declaration);
 			CommandService.instance().registerRuntime(command.declaration.name, command.runtime());
 		}
