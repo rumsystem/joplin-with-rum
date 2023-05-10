@@ -372,7 +372,7 @@ class Setting extends BaseModel {
 			},
 
 			'sync.target': {
-				value: 0,
+				value: 11,
 				type: SettingItemType.Int,
 				isEnum: true,
 				public: true,
@@ -650,26 +650,6 @@ class Setting extends BaseModel {
 			},
 
 			'sync.11.group': { value: {}, type: SettingItemType.Object, public: false },
-
-			'sync.11.path': {
-				value: '',
-				type: SettingItemType.String,
-				section: 'sync',
-				show: (settings: any) => {
-					try {
-						return settings['sync.target'] == SyncTargetRegistry.nameToId('rumsystem');
-					} catch (error) {
-						return false;
-					}
-				},
-				filter: (value: any) => {
-					return value ? rtrimSlashes(value) : '';
-				},
-				public: true,
-				label: () => _('Directory to synchronise with (absolute path)'),
-				description: () => emptyDirWarning,
-				storage: SettingStorage.File,
-			},
 
 			'sync.5.syncTargets': { value: {}, type: SettingItemType.Object, public: false },
 
@@ -1215,7 +1195,7 @@ class Setting extends BaseModel {
 			},
 
 
-			autoUpdateEnabled: { value: true, type: SettingItemType.Bool, storage: SettingStorage.File, section: 'application', public: platform !== 'linux', appTypes: [AppType.Desktop], label: () => _('Automatically check for updates') },
+			autoUpdateEnabled: { value: false, type: SettingItemType.Bool, storage: SettingStorage.File, section: 'application', public: platform !== 'linux', appTypes: [AppType.Desktop], label: () => _('Automatically check for updates') },
 			'autoUpdate.includePreReleases': { value: false, type: SettingItemType.Bool, section: 'application', storage: SettingStorage.File, public: true, appTypes: [AppType.Desktop], label: () => _('Get pre-releases when checking for updates'), description: () => _('See the pre-release page for more details: %s', 'https://joplinapp.org/prereleases') },
 			'clipperServer.autoStart': { value: false, type: SettingItemType.Bool, storage: SettingStorage.File, public: false },
 			'sync.interval': {

@@ -50,6 +50,8 @@ interface Props {
 	tags: any[];
 	syncStarted: boolean;
 	plugins: PluginStates;
+	syncTarget: number;
+	quorumServerState: string;
 }
 
 interface State {
@@ -657,6 +659,11 @@ class SidebarComponent extends React.Component<Props, State> {
 	renderSynchronizeButton(type: string) {
 		const label = type === 'sync' ? _('Synchronise') : _('Cancel');
 		const iconAnimation = type !== 'sync' ? 'icon-infinite-rotation 1s linear infinite' : '';
+		const disabled = this.props.syncTarget === 11 && this.props.quorumServerState !== 'started';
+		const tooltip = disabled ?
+			((this.props.quorumServerState === 'idle' && 'quorum server has stopped.') ||
+			(this.props.quorumServerState === 'starting' && 'quorum server is starting.')) :
+			'';
 
 		return (
 			<StyledSynchronizeButton
@@ -665,8 +672,9 @@ class SidebarComponent extends React.Component<Props, State> {
 				key="sync_button"
 				iconAnimation={iconAnimation}
 				title={label}
+				tooltip={tooltip}
+				disabled={disabled}
 				onClick={() => {
-					console.log('synchronize step 1');
 					void CommandService.instance().execute('synchronize', type !== 'sync');
 				}}
 			/>
@@ -800,6 +808,8 @@ const mapStateToProps = (state: AppState) => {
 		decryptionWorker: state.decryptionWorker,
 		resourceFetcher: state.resourceFetcher,
 		plugins: state.pluginService.plugins,
+		syncTarget: state.settings['sync.target'],
+		quorumServerState: state.quorumServer.startState
 	};
 };
 

@@ -1,5 +1,6 @@
 const { basicDelta } = require('./file-api');
 const Setting = require('./models/Setting').default;
+const QuorumServer = require('./QuorumServer').default;
 
 class FileApiDriverRum {
 	fsErrorToJsError_(error, path = null) {
@@ -16,13 +17,13 @@ class FileApiDriverRum {
 	}
 
 	isLocalFile(path) {
-		if (/^\.resource.*$/.test(path) || /^\.sync.*$/.test(path) || /^\.lock.*$/.test(path) || /^temp.*$/.test(path) || /^locks.*$/.test(path)) return true;
+		if (/^\.resource.*$/.test(path) || /^\.sync.*$/.test(path) || /^\.lock.*$/.test(path) || /^temp.*$/.test(path)) return true;
 		return false;
 	}
 
 	localFileFullPath(path) {
 		const output = [];
-		const syncPath = Setting.value('sync.11.path');
+		const syncPath = `${Setting.value('profileDir')}/rumsystemSyncLocalFiles`;
 		if (syncPath) output.push(syncPath);
 		if (path) output.push(path);
 		return output.join('/');
@@ -30,9 +31,8 @@ class FileApiDriverRum {
 
 	// mix done
 	async stat(path) {
-		console.log('test stat');
-		console.log(path);
-		console.log(this.isLocalFile(path));
+		console.log('stat: ', path);
+		console.log('save in local: ', this.isLocalFile(path));
 		if (this.isLocalFile(path) || !path) {
 			try {
 				path = this.localFileFullPath(path);
@@ -45,7 +45,7 @@ class FileApiDriverRum {
 			}
 		} else {
 			try {
-				const QuorumClient = window.QuorumClient;
+				const QuorumClient = QuorumServer.instance().client();
 				let object = await QuorumClient.Object.get(path);
 				console.log(object);
 				if (!object) return null;
@@ -107,9 +107,8 @@ class FileApiDriverRum {
 
 	// mix done
 	async delta(path, options) {
-		console.log('test delta');
-		console.log(path);
-		console.log(this.isLocalFile(path));
+		console.log('delta: ', path);
+		console.log('save in local: ', this.isLocalFile(path));
 
 		const getDirStats = async path => {
 			const result = await this.list(path);
@@ -122,9 +121,8 @@ class FileApiDriverRum {
 
 	// mix done
 	async list(path) {
-		console.log('test list');
-		console.log(path);
-		console.log(this.isLocalFile(path));
+		console.log('list: ', path);
+		console.log('save in local: ', this.isLocalFile(path));
 		const getFileSystemList = async (path) => {
 			try {
 				path = this.localFileFullPath(path);
@@ -139,7 +137,7 @@ class FileApiDriverRum {
 		}
 		const getRumSystemList = async (path) => {
 			try {
-				const QuorumClient = window.QuorumClient;
+				const QuorumClient = QuorumServer.instance().client();
 				let objects = await QuorumClient.Object.list();
 				if (path) {
 					const reg = new RegExp('^' + path);
@@ -178,9 +176,8 @@ class FileApiDriverRum {
 
 	// mix done
 	async get(path, options) {
-		console.log('test get');
-		console.log(path);
-		console.log(this.isLocalFile(path));
+		console.log('get: ', path);
+		console.log('save in local: ', this.isLocalFile(path));
 		let output = null;
 		if (this.isLocalFile(path) || !path) {
 			path = this.localFileFullPath(path);
@@ -199,7 +196,7 @@ class FileApiDriverRum {
 			}
 		} else {
 			try {
-				const QuorumClient = window.QuorumClient;
+				const QuorumClient = QuorumServer.instance().client();
 				const object = await QuorumClient.Object.get(path);
 				output = object?.Content?.content || null;
 				console.log(output);
@@ -215,8 +212,7 @@ class FileApiDriverRum {
 
 	// mix done
 	async mkdir(path) {
-		console.log('test mkdir');
-		console.log(path);
+		console.log('mkdir: ', path);
 		if (this.isLocalFile(path) || !path) {
 			path = this.localFileFullPath(path);
 			if (await this.fsDriver().exists(path)) return;
@@ -232,8 +228,8 @@ class FileApiDriverRum {
 
 	// mix done
 	async put(path, content, options = null) {
-		console.log('test put');
-		console.log(path);
+		console.log('put: ', path);
+		console.log('save in local: ', this.isLocalFile(path));
 		if (!options) options = {};
 		if (this.isLocalFile(path) || !path) {
 			path = this.localFileFullPath(path);
@@ -252,7 +248,7 @@ class FileApiDriverRum {
 			if (options.source === 'file') {
 				try {
 					const content = await this.fsDriver().readFile(options.path);
-					const QuorumClient = window.QuorumClient;
+					const QuorumClient = QuorumServer.instance().client();
 					const group = Setting.value('sync.11.group');
 					const object = await QuorumClient.Object.put(group.user_pubkey, {
 						type: 'Add',
@@ -271,7 +267,7 @@ class FileApiDriverRum {
 			}
 
 			try {
-				const QuorumClient = window.QuorumClient;
+				const QuorumClient = QuorumServer.instance().client();
 				const group = Setting.value('sync.11.group');
 				const object = await QuorumClient.Object.put(group.user_pubkey, {
 					type: 'Add',
@@ -291,9 +287,8 @@ class FileApiDriverRum {
 
 	// mix done
 	async delete(path) {
-		console.log('test delete');
-		console.log(path);
-		console.log(this.isLocalFile(path));
+		console.log('delete: ', path);
+		console.log('save in local: ', this.isLocalFile(path));
 		if (this.isLocalFile(path) || !path) {
 			try {
 				path = this.localFileFullPath(path);
@@ -303,7 +298,7 @@ class FileApiDriverRum {
 			}
 		} else {
 			try {
-				const QuorumClient = window.QuorumClient;
+				const QuorumClient = QuorumServer.instance().client();
 				await QuorumClient.Object.delete(Setting.value('sync.11.group').group_id, path);
 			} catch (error) {
 				console.log(error);
@@ -313,8 +308,7 @@ class FileApiDriverRum {
 
 	// mix done
 	async move(oldPath, newPath) {
-		console.log('test move');
-		console.log(oldPath, newPath);
+		console.log('move from: ', oldPath, ' to: ', newPath);
 		if (oldPath === newPath) return;
 		try {
 			const content = await this.get(oldPath);
@@ -333,12 +327,11 @@ class FileApiDriverRum {
 	// mix done
 	async clearRoot(baseDir) {
 		baseDir = this.localFileFullPath(baseDir);
-		console.log('test clearRoot');
-		console.log(baseDir);
+		console.log('clearRoot: ', baseDir);
 		await this.fsDriver().remove(baseDir);
 		await this.fsDriver().mkdir(baseDir);
 		try {
-			const QuorumClient = window.QuorumClient;
+			const QuorumClient = QuorumServer.instance().client();
 			const { group_id } = Setting.value('sync.11.group');
 			const objects = await QuorumClient.Object.list();
 			console.log(objects);
