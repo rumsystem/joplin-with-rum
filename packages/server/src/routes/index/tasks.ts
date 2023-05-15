@@ -16,7 +16,7 @@ const prettyCron = require('prettycron');
 
 const router: Router = new Router(RouteType.Web);
 
-router.post('admin/tasks', async (_path: SubPath, ctx: AppContext) => {
+router.post('tasks', async (_path: SubPath, ctx: AppContext) => {
 	const user = ctx.joplin.owner;
 	if (!user.is_admin) throw new ErrorForbidden();
 
@@ -52,7 +52,7 @@ router.post('admin/tasks', async (_path: SubPath, ctx: AppContext) => {
 	return redirect(ctx, makeUrl(UrlType.Tasks));
 });
 
-router.get('admin/tasks', async (_path: SubPath, ctx: AppContext) => {
+router.get('tasks', async (_path: SubPath, ctx: AppContext) => {
 	const user = ctx.joplin.owner;
 	if (!user.is_admin) throw new ErrorForbidden();
 
@@ -126,7 +126,7 @@ router.get('admin/tasks', async (_path: SubPath, ctx: AppContext) => {
 	};
 
 	return {
-		...defaultView('admin/tasks', 'Tasks'),
+		...defaultView('tasks', 'Tasks'),
 		content: {
 			itemTable: makeTableView(table),
 			postUrl: makeUrl(UrlType.Tasks),

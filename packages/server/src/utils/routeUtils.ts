@@ -6,7 +6,6 @@ import { AppContext, HttpMethod, RouteType } from './types';
 import { URL } from 'url';
 import { csrfCheck } from './csrf';
 import { contextSessionId } from './requestUtils';
-import { stripOffQueryParameters } from './urlUtils';
 
 const { ltrimSlashes, rtrimSlashes } = require('@joplin/lib/path-utils');
 
@@ -113,12 +112,6 @@ export function isPathBasedAddressing(fileId: string): boolean {
 	return fileId.indexOf(':') >= 0;
 }
 
-export const urlMatchesSchema = (url: string, schema: string): boolean => {
-	url = stripOffQueryParameters(url);
-	const regex = new RegExp(`${schema.replace(/:id/, '[a-zA-Z0-9]+')}$`);
-	return !!url.match(regex);
-};
-
 // Allows parsing the two types of paths supported by the API:
 //
 // root:/Documents/MyFile.md:/content
@@ -196,12 +189,7 @@ function disabledAccountCheck(route: MatchedRoute, user: User) {
 	if (route.subPath.schema.startsWith('api/')) throw new ErrorForbidden(`This account is disabled. Please login to ${config().baseUrl} for more information.`);
 }
 
-interface ExecRequestResult {
-	response: any;
-	path: SubPath;
-}
-
-export async function execRequest(routes: Routers, ctx: AppContext): Promise<ExecRequestResult> {
+export async function execRequest(routes: Routers, ctx: AppContext) {
 	const match = findMatchingRoute(ctx.path, routes);
 	if (!match) throw new ErrorNotFound();
 
@@ -227,10 +215,7 @@ export async function execRequest(routes: Routers, ctx: AppContext): Promise<Exe
 	await csrfCheck(ctx, isPublicRoute);
 	disabledAccountCheck(match, ctx.joplin.owner);
 
-	return {
-		response: await endPoint.handler(match.subPath, ctx),
-		path: match.subPath,
-	};
+	return endPoint.handler(match.subPath, ctx);
 }
 
 // In a path such as "/api/files/SOME_ID/content" we want to find:
@@ -238,10 +223,6 @@ export async function execRequest(routes: Routers, ctx: AppContext): Promise<Exe
 // - The ID: "SOME_ID"
 // - The link: "content"
 export function findMatchingRoute(path: string, routes: Routers): MatchedRoute {
-	// Enforce that path starts with "/" because if it doesn't, the function
-	// will return strange but valid results.
-	if (path.length && path[0] !== '/') throw new Error(`Expected path to start with "/": ${path}`);
-
 	const splittedPath = path.split('/');
 
 	// Because the path starts with "/", we remove the first element, which is

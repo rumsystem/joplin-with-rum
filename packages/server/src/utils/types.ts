@@ -7,7 +7,7 @@ import { Account } from '../models/UserModel';
 import { Services } from '../services/types';
 import { Routers } from './routeUtils';
 import { DbConnection } from '../db';
-import { EnvVariables, MailerSecurity } from '../env';
+import { MailerSecurity } from '../env';
 
 export enum Env {
 	Dev = 'dev',
@@ -130,7 +130,7 @@ export interface StorageDriverConfig {
 	bucket?: string;
 }
 
-export interface Config extends EnvVariables {
+export interface Config {
 	appVersion: string;
 	appName: string;
 	env: Env;
@@ -144,7 +144,6 @@ export interface Config extends EnvVariables {
 	tempDir: string;
 	baseUrl: string;
 	apiBaseUrl: string;
-	adminBaseUrl: string;
 	userContentBaseUrl: string;
 	joplinAppBaseUrl: string;
 	signupEnabled: boolean;

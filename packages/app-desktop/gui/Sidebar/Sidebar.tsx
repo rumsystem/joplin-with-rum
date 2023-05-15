@@ -17,12 +17,11 @@ import Folder from '@joplin/lib/models/Folder';
 import Note from '@joplin/lib/models/Note';
 import Tag from '@joplin/lib/models/Tag';
 import Logger from '@joplin/lib/Logger';
-import { FolderEntity, FolderIcon } from '@joplin/lib/services/database/types';
+import { FolderEntity } from '@joplin/lib/services/database/types';
 import stateToWhenClauseContext from '../../services/commands/stateToWhenClauseContext';
 import { store } from '@joplin/lib/reducer';
 import PerFolderSortOrderService from '../../services/sortOrder/PerFolderSortOrderService';
 import { getFolderCallbackUrl, getTagCallbackUrl } from '@joplin/lib/callbackUrlUtils';
-import FolderIconBox from '../FolderIconBox';
 const { connect } = require('react-redux');
 const shared = require('@joplin/lib/components/shared/side-menu-shared.js');
 const { themeStyle } = require('@joplin/lib/theme');
@@ -50,8 +49,6 @@ interface Props {
 	tags: any[];
 	syncStarted: boolean;
 	plugins: PluginStates;
-	syncTarget: number;
-	quorumServerState: string;
 }
 
 interface State {
@@ -80,18 +77,14 @@ function ExpandLink(props: any) {
 	);
 }
 
-const renderFolderIcon = (folderIcon: FolderIcon) => {
-	if (!folderIcon) return null;
-
-	return <div style={{ marginRight: 5, display: 'flex' }}><FolderIconBox folderIcon={folderIcon}/></div>;
-};
-
 function FolderItem(props: any) {
 	const { hasChildren, isExpanded, parentId, depth, selected, folderId, folderTitle, folderIcon, anchorRef, noteCount, onFolderDragStart_, onFolderDragOver_, onFolderDrop_, itemContextMenu, folderItem_click, onFolderToggleClick_, shareId } = props;
 
 	const noteCountComp = noteCount ? <StyledNoteCount className="note-count-label">{noteCount}</StyledNoteCount> : null;
 
 	const shareIcon = shareId && !parentId ? <StyledShareIcon className="fas fa-share-alt"></StyledShareIcon> : null;
+
+	const icon = folderIcon ? <span style={{ fontSize: 20, marginRight: 5 }}>{folderIcon.emoji}</span> : null;
 
 	return (
 		<StyledListItem depth={depth} selected={selected} className={`list-item-container list-item-depth-${depth} ${selected ? 'selected' : ''}`} onDragStart={onFolderDragStart_} onDragOver={onFolderDragOver_} onDrop={onFolderDrop_} draggable={true} data-folder-id={folderId}>
@@ -112,7 +105,7 @@ function FolderItem(props: any) {
 				}}
 				onDoubleClick={onFolderToggleClick_}
 			>
-				{renderFolderIcon(folderIcon)}<span className="title" style={{ lineHeight: 0 }}>{folderTitle}</span>
+				{icon}<span className="title" style={{ lineHeight: 0 }}>{folderTitle}</span>
 				{shareIcon} {noteCountComp}
 			</StyledListItemAnchor>
 		</StyledListItem>
@@ -659,11 +652,6 @@ class SidebarComponent extends React.Component<Props, State> {
 	renderSynchronizeButton(type: string) {
 		const label = type === 'sync' ? _('Synchronise') : _('Cancel');
 		const iconAnimation = type !== 'sync' ? 'icon-infinite-rotation 1s linear infinite' : '';
-		const disabled = this.props.syncTarget === 11 && this.props.quorumServerState !== 'started';
-		const tooltip = disabled ?
-			((this.props.quorumServerState === 'idle' && 'quorum server has stopped.') ||
-			(this.props.quorumServerState === 'starting' && 'quorum server is starting.')) :
-			'';
 
 		return (
 			<StyledSynchronizeButton
@@ -672,8 +660,6 @@ class SidebarComponent extends React.Component<Props, State> {
 				key="sync_button"
 				iconAnimation={iconAnimation}
 				title={label}
-				tooltip={tooltip}
-				disabled={disabled}
 				onClick={() => {
 					void CommandService.instance().execute('synchronize', type !== 'sync');
 				}}
@@ -808,8 +794,6 @@ const mapStateToProps = (state: AppState) => {
 		decryptionWorker: state.decryptionWorker,
 		resourceFetcher: state.resourceFetcher,
 		plugins: state.pluginService.plugins,
-		syncTarget: state.settings['sync.target'],
-		quorumServerState: state.quorumServer.startState
 	};
 };
 
