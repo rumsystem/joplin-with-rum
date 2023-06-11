@@ -48,7 +48,9 @@ The current documentation (under [joplinapp.org/help](https://joplinapp.org/help
 
 We would like to improve this by splitting the main readme into smaller sections, have a new menu that would reorganise the help into various topics, and of course the build script will need to be updated.
 
-A good part of this project will be about researching how other projects organise their documentation, proposing a way that would work well for Joplin, and discussing your ideas with the mentors and users. This is still a technical project though since you will need to deal with TypeScript, Markdown, HTML and CSS (and any other technology that might help) to build the new documentation.
+A good part of this project will be about researching how other projects organise their documentation, proposing a way that would work well for Joplin, and discussing your ideas with the mentors and users. You will need to be proactive and propose your own solution on how to structure the documentation - which sections and sub-sections should be created, how to split the existing README into smaller parts, etc.
+
+This is still a technical project though since you will need to deal with TypeScript, Markdown, HTML and CSS (and any other technology that might help) to build the new documentation.
 
 Difficulty Level: High
 
@@ -134,6 +136,36 @@ Those are just ideas and we're open to hearing more from you.
 Difficulty Level: Medium
 
 Skills Required: Typescript, CSS, GitHub Actions.
+
+## 12. Email plugin
+
+Create a plugin to fetch mail via IMAP and convert messages to notes (including attachments). The plugin should be able to filter what messages it donwloads, e.g. based on the folder.
+
+Additional features to consider:
+- support more than one account
+- convert HTML to Markdown
+- delete/move received emails
+
+Difficulty Level: Medium
+
+Skills Required: TypeScript, JavaScript.
+
+## 13. Desktop application integration testing
+
+The desktop app front end has a few unit tests to verify things like React hooks and certain utility functions. However we currently have no integration testing to verify for example that a change in one component didn't break something in another component. This project would be about setting up this integration testing for the desktop app. You would do the setup and probably also write a few tests to demonstrate that it's working as expected. More info at https://www.electronjs.org/docs/latest/tutorial/automated-testing
+
+Difficulty Level: High
+
+Skills Required: TypeScript, JavaScript, Electron.
+
+## 14. Client settings sync
+
+Whenever settings are changed on one client these are not replicated to other clients connected to the same sync target.
+This project would be about creating synchronisation between clients to allow a single configuration rather than having to set them up separately on each e.g. keyboard shortcuts, installed plugins, Markdown plugins, note history etc.
+
+Difficulty Level: High
+
+Skills Required: TypeScript, JavaScript
 
 # More info
 
