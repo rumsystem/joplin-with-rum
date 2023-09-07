@@ -54,7 +54,6 @@ import { loadMasterKeysFromSettings, migrateMasterPassword } from './services/e2
 import SyncTargetNone from './SyncTargetNone';
 import { setRSA } from './services/e2ee/ppk';
 import RSA from './services/e2ee/RSA.node';
-import Resource from './models/Resource';
 
 const appLogger: LoggerWrapper = Logger.create('App');
 
@@ -856,7 +855,6 @@ export default class BaseApplication {
 
 		BaseItem.encryptionService_ = EncryptionService.instance();
 		BaseItem.shareService_ = ShareService.instance();
-		Resource.shareService_ = ShareService.instance();
 		DecryptionWorker.instance().setLogger(globalLogger);
 		DecryptionWorker.instance().setEncryptionService(EncryptionService.instance());
 		DecryptionWorker.instance().setKvStore(KvStore.instance());

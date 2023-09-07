@@ -35,7 +35,7 @@ export const runtime = (): CommandRuntime => {
 					return 'auth';
 				}
 
-				reg.logger().error('Not authenticated with sync target - please check your credentials.');
+				reg.logger().info('Not authentified with sync target - please check your credential.');
 				return 'error';
 			}
 
@@ -43,13 +43,8 @@ export const runtime = (): CommandRuntime => {
 			try {
 				sync = await reg.syncTarget().synchronizer();
 			} catch (error) {
-				reg.logger().error('Could not initialise synchroniser: ');
-				reg.logger().error(error);
-				error.message = `Could not initialise synchroniser: ${error.message}`;
-				utils.store.dispatch({
-					type: 'SYNC_REPORT_UPDATE',
-					report: { errors: [error] },
-				});
+				reg.logger().info('Could not acquire synchroniser:');
+				reg.logger().info(error);
 				return 'error';
 			}
 

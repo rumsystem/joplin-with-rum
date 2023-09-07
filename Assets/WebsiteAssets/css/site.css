@@ -307,7 +307,7 @@ p,
 div.navbar-mobile-content a.sponsor-button {
 	padding: 4px 12px;
 	font-size: 0.9em;
-	margin-right: 0.5em;
+	margin-right: 1em;
 }
 
 #nav-section.white-bg a {
@@ -670,9 +670,9 @@ footer .bottom-links-row p {
     margin-right: auto;
 }
 
-.news-page .main-content img,
-.news-item-page .main-content img {
-	max-width: 100%;
+.news-page     img,
+.news-item-page img {
+	max-width: 650px;
 }
 
 /*****************************************************************
@@ -729,23 +729,6 @@ footer .bottom-links-row p {
 }
 
 /*****************************************************************
- MEDIUM VIEW
- - Make menu bar elements smaller and closer to each others
-   so that everything fit.
-*****************************************************************/
-
-@media (max-width: 990px) {
-	#nav-section > .container {
-		max-width: 960px;
-	}
-
-	#nav-section .button-link {
-		padding: 4px 10px;
-		font-size: 15px;
-	}
-}
-
-/*****************************************************************
  NARROW VIEW
  - Top right menu is displayed
  - Sections are changed: columns with text, then button, then image
@@ -755,23 +738,6 @@ footer .bottom-links-row p {
 		position: relative;
 		min-height: 100vh;
 		padding-bottom: 130px;
-	}
-
-	#menu-mobile .social-links {
-		display: flex;
-		justify-content: center;
-		margin-top: 20px;
-	}
-
-	#menu-mobile .social-links a {
-		margin-left: 15px;
-		font-size: 20px;
-	}
-
-	#menu-mobile .social-links .social-link-mastodon,
-	#menu-mobile .social-links .social-link-reddit,
-	#menu-mobile .social-links .social-link-patreon {
-		display: none;
 	}
 
 	.front-page h1 {
@@ -891,7 +857,7 @@ footer .bottom-links-row p {
 	}
 
 	#menu-mobile .button-link {
-		padding: 4px 12px;
+		padding: 10px 15px;
 		font-size: 16px;
 		margin-left: 0px;
 	}
@@ -935,25 +901,6 @@ footer .bottom-links-row p {
 		padding-top: 30px;
 		padding-bottom: 30px;
 	}
-}
-
-/*****************************************************************
- VERY NARROW VIEW
- eg for Galaxy Fold
-*****************************************************************/
-
-@media (max-width: 350px) {
-
-	#nav-section .navbar-mobile-content a.sponsor-button {
-		background-color: transparent;
-		color: #0557ba !important;
-		font-size: 18px;
-	}
-
-	#nav-section .navbar-mobile-content a.sponsor-button .sponsor-button-label {
-		display: none;
-	}
-
 }
 
 /*****************************************************************

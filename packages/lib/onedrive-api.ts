@@ -89,7 +89,6 @@ export default class OneDriveApi {
 			scope: 'files.readwrite offline_access sites.readwrite.all',
 			response_type: 'code',
 			redirect_uri: redirectUri,
-			prompt: 'login',
 		};
 		return `https://login.microsoftonline.com/common/oauth2/v2.0/authorize?${stringify(query)}`;
 	}

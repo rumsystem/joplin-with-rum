@@ -19,7 +19,6 @@ utils.execCommandVerbose = function(commandName, args = []) {
 	console.info(`> ${commandName}`, args && args.length ? args : '');
 	const promise = execa(commandName, args);
 	promise.stdout.pipe(process.stdout);
-	promise.stderr.pipe(process.stderr);
 	return promise;
 };
 

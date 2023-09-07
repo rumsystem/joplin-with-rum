@@ -7,28 +7,15 @@ import { AppContext } from '../../utils/types';
 import uuidgen from '../../utils/uuidgen';
 import { postHandlers } from './stripe';
 
-interface StripeOptions {
-	userEmail?: string;
-}
-
-function mockStripe(options: StripeOptions = null) {
-	options = {
-		userEmail: 'toto@example.com',
-		...options,
-	};
-
+function mockStripe(overrides: any = null) {
 	return {
 		customers: {
-			retrieve: async () => {
-				return {
-					name: 'Toto',
-					email: options.userEmail,
-				};
-			},
+			retrieve: jest.fn(),
 		},
 		subscriptions: {
 			del: jest.fn(),
 		},
+		...overrides,
 	};
 }
 
@@ -38,12 +25,11 @@ interface WebhookOptions {
 	subscriptionId?: string;
 	customerId?: string;
 	sessionId?: string;
-	userEmail?: string;
 }
 
 async function simulateWebhook(ctx: AppContext, type: string, object: any, options: WebhookOptions = {}) {
 	options = {
-		stripe: mockStripe({ userEmail: options.userEmail }),
+		stripe: mockStripe(),
 		eventId: uuidgen(),
 		...options,
 	};
@@ -57,7 +43,7 @@ async function simulateWebhook(ctx: AppContext, type: string, object: any, optio
 	}, false);
 }
 
-async function createUserViaSubscription(ctx: AppContext, options: WebhookOptions = {}) {
+async function createUserViaSubscription(ctx: AppContext, userEmail: string, options: WebhookOptions = {}) {
 	options = {
 		subscriptionId: `sub_${uuidgen()}`,
 		customerId: `cus_${uuidgen()}`,
@@ -68,15 +54,12 @@ async function createUserViaSubscription(ctx: AppContext, options: WebhookOption
 	const stripePrice = findPrice(stripeConfig().prices, { accountType: 2, period: PricePeriod.Monthly });
 	await models().keyValue().setValue(`stripeSessionToPriceId::${stripeSessionId}`, stripePrice.id);
 
-	await simulateWebhook(ctx, 'customer.subscription.created', {
-		id: options.subscriptionId,
+	await simulateWebhook(ctx, 'checkout.session.completed', {
+		id: stripeSessionId,
 		customer: options.customerId,
-		items: {
-			data: [
-				{
-					price: stripePrice,
-				},
-			],
+		subscription: options.subscriptionId,
+		customer_details: {
+			email: userEmail,
 		},
 	}, options);
 }
@@ -100,7 +83,7 @@ describe('index/stripe', function() {
 		const startTime = Date.now();
 
 		const ctx = await koaAppContext();
-		await createUserViaSubscription(ctx, { userEmail: 'toto@example.com', subscriptionId: 'sub_123' });
+		await createUserViaSubscription(ctx, 'toto@example.com', { subscriptionId: 'sub_123' });
 
 		const user = await models().user().loadByEmail('toto@example.com');
 		expect(user.account_type).toBe(AccountType.Pro);
@@ -115,11 +98,11 @@ describe('index/stripe', function() {
 
 	test('should not process the same event twice', async function() {
 		const ctx = await koaAppContext();
-		await createUserViaSubscription(ctx, { userEmail: 'toto@example.com', eventId: 'evt_1' });
+		await createUserViaSubscription(ctx, 'toto@example.com', { eventId: 'evt_1' });
 		const v = await models().keyValue().value('stripeEventDone::evt_1');
 		expect(v).toBe(1);
 		// This event should simply be skipped
-		await expectNotThrow(async () => createUserViaSubscription(ctx, { userEmail: 'toto@example.com', eventId: 'evt_1' }));
+		await expectNotThrow(async () => createUserViaSubscription(ctx, 'toto@example.com', { eventId: 'evt_1' }));
 	});
 
 	test('should check if it is a beta user', async function() {
@@ -153,7 +136,7 @@ describe('index/stripe', function() {
 		const ctx = await koaAppContext();
 		const user = await models().user().save({ email: 'toto@example.com', password: uuidgen() });
 		expect(await models().subscription().byUserId(user.id)).toBeFalsy();
-		await createUserViaSubscription(ctx, { userEmail: 'toto@example.com', subscriptionId: 'sub_123' });
+		await createUserViaSubscription(ctx, 'toto@example.com', { subscriptionId: 'sub_123' });
 
 		const sub = await models().subscription().byUserId(user.id);
 		expect(sub).toBeTruthy();
@@ -164,13 +147,13 @@ describe('index/stripe', function() {
 		const stripe = mockStripe();
 		const ctx = await koaAppContext();
 
-		await createUserViaSubscription(ctx, { userEmail: 'toto@example.com', stripe });
+		await createUserViaSubscription(ctx, 'toto@example.com', { stripe });
 		expect((await models().user().all()).length).toBe(1);
 		const user = (await models().user().all())[0];
 		const subBefore = await models().subscription().byUserId(user.id);
 		expect(stripe.subscriptions.del).toHaveBeenCalledTimes(0);
 
-		await createUserViaSubscription(ctx, { userEmail: 'toto@example.com', stripe });
+		await createUserViaSubscription(ctx, 'toto@example.com', { stripe });
 		expect((await models().user().all()).length).toBe(1);
 		const subAfter = await models().subscription().byUserId(user.id);
 		expect(stripe.subscriptions.del).toHaveBeenCalledTimes(1);
@@ -182,7 +165,7 @@ describe('index/stripe', function() {
 		const stripe = mockStripe();
 		const ctx = await koaAppContext();
 
-		await createUserViaSubscription(ctx, { userEmail: 'toto@example.com', stripe, subscriptionId: 'sub_init' });
+		await createUserViaSubscription(ctx, 'toto@example.com', { stripe, subscriptionId: 'sub_init' });
 		await simulateWebhook(ctx, 'customer.subscription.deleted', { id: 'sub_init' });
 
 		const user = (await models().user().all())[0];
@@ -195,14 +178,14 @@ describe('index/stripe', function() {
 		const stripe = mockStripe();
 		const ctx = await koaAppContext();
 
-		await createUserViaSubscription(ctx, { userEmail: 'toto@example.com', stripe, subscriptionId: 'sub_init' });
+		await createUserViaSubscription(ctx, 'toto@example.com', { stripe, subscriptionId: 'sub_init' });
 		const user = (await models().user().all())[0];
 		const sub = await models().subscription().byUserId(user.id);
 		expect(sub.stripe_subscription_id).toBe('sub_init');
 
 		await simulateWebhook(ctx, 'customer.subscription.deleted', { id: 'sub_init' });
 
-		await createUserViaSubscription(ctx, { userEmail: 'toto@example.com', stripe, subscriptionId: 'cus_recreate' });
+		await createUserViaSubscription(ctx, 'toto@example.com', { stripe, subscriptionId: 'cus_recreate' });
 
 		{
 			const user = (await models().user().all())[0];
@@ -217,7 +200,7 @@ describe('index/stripe', function() {
 		const stripe = mockStripe();
 		const ctx = await koaAppContext();
 
-		await createUserViaSubscription(ctx, { userEmail: 'toto@example.com', stripe, subscriptionId: 'sub_init' });
+		await createUserViaSubscription(ctx, 'toto@example.com', { stripe, subscriptionId: 'sub_init' });
 		let user = (await models().user().all())[0];
 		await models().user().save({
 			id: user.id,
@@ -242,15 +225,23 @@ describe('index/stripe', function() {
 		// - Then a new subscription is attached to the user on Stripe
 		// => In that case, the sub should be attached to the user on Joplin Server
 
-		const stripe = mockStripe({ userEmail: 'toto@example.com' });
+		const stripe = mockStripe({
+			customers: {
+				retrieve: async () => {
+					return {
+						name: 'Toto',
+						email: 'toto@example.com',
+					};
+				},
+			},
+		});
 
 		const ctx = await koaAppContext();
 
-		await createUserViaSubscription(ctx, {
+		await createUserViaSubscription(ctx, 'toto@example.com', {
 			stripe,
 			subscriptionId: 'sub_1',
 			customerId: 'cus_toto',
-			userEmail: 'toto@example.com',
 		});
 		await simulateWebhook(ctx, 'customer.subscription.deleted', { id: 'sub_1' });
 
@@ -284,15 +275,23 @@ describe('index/stripe', function() {
 		// (when a user accidentally subscribe multiple times), and we don't
 		// want that newly, valid, subscription to be cancelled as a duplicate.
 
-		const stripe = mockStripe({ userEmail: 'toto@example.com' });
+		const stripe = mockStripe({
+			customers: {
+				retrieve: async () => {
+					return {
+						name: 'Toto',
+						email: 'toto@example.com',
+					};
+				},
+			},
+		});
 
 		const ctx = await koaAppContext();
 
-		await createUserViaSubscription(ctx, {
+		await createUserViaSubscription(ctx, 'toto@example.com', {
 			stripe,
 			subscriptionId: 'sub_1',
 			customerId: 'cus_toto',
-			userEmail: 'toto@example.com',
 		});
 
 		const stripePrice = findPrice(stripeConfig().prices, { accountType: 1, period: PricePeriod.Monthly });

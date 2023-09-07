@@ -248,7 +248,7 @@ shared.toggleIsTodo_onPress = function(comp) {
 	comp.setState(newState);
 };
 
-function toggleCheckboxLine(ipcMessage, noteBody) {
+shared.toggleCheckbox = function(ipcMessage, noteBody) {
 	const newBody = noteBody.split('\n');
 	const p = ipcMessage.split(':');
 	const lineIndex = Number(p[p.length - 1]);
@@ -281,18 +281,7 @@ function toggleCheckboxLine(ipcMessage, noteBody) {
 	} else {
 		line = line.replace(/- \[x\] /i, '- [ ] ');
 	}
-	return [newBody, lineIndex, line];
-}
 
-shared.toggleCheckboxRange = function(ipcMessage, noteBody) {
-	const [lineIndex, line] = toggleCheckboxLine(ipcMessage, noteBody).slice(1);
-	const from = { line: lineIndex, ch: 0 };
-	const to = { line: lineIndex, ch: line.length };
-	return { line, from, to };
-};
-
-shared.toggleCheckbox = function(ipcMessage, noteBody) {
-	const [newBody, lineIndex, line] = toggleCheckboxLine(ipcMessage, noteBody);
 	newBody[lineIndex] = line;
 	return newBody.join('\n');
 };
