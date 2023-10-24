@@ -66,7 +66,7 @@ function mailerConfigFromEnv(env: EnvVariables): MailerConfig {
 		enabled: env.MAILER_ENABLED,
 		host: env.MAILER_HOST,
 		port: env.MAILER_PORT,
-		secure: env.MAILER_SECURE,
+		security: env.MAILER_SECURITY,
 		authUser: env.MAILER_AUTH_USER,
 		authPassword: env.MAILER_AUTH_PASSWORD,
 		noReplyName: env.MAILER_NOREPLY_NAME,
@@ -106,6 +106,7 @@ export async function initConfig(envType: Env, env: EnvVariables, overrides: any
 	const supportEmail = env.SUPPORT_EMAIL;
 
 	config_ = {
+		...env,
 		appVersion: packageJson.version,
 		appName,
 		isJoplinCloud: apiBaseUrl.includes('.joplincloud.com') || apiBaseUrl.includes('.joplincloud.local'),
@@ -120,6 +121,7 @@ export async function initConfig(envType: Env, env: EnvVariables, overrides: any
 		stripe: stripeConfigFromEnv(stripePublicConfig, env),
 		port: appPort,
 		baseUrl,
+		adminBaseUrl: `${baseUrl}/admin`,
 		showErrorStackTraces: env.ERROR_STACK_TRACES,
 		apiBaseUrl,
 		userContentBaseUrl: env.USER_CONTENT_BASE_URL ? env.USER_CONTENT_BASE_URL : baseUrl,

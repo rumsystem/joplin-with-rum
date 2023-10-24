@@ -89,6 +89,7 @@ interface Props {
 	['spellChecker.language']: string;
 	plugins: PluginStates;
 	customCss: string;
+	locale: string;
 }
 
 const commandNames: string[] = menuCommandNames();
@@ -249,7 +250,11 @@ function useMenu(props: Props) {
 			const keymapService = KeymapService.instance();
 
 			const pluginCommandNames = props.pluginMenuItems.map((view: any) => view.commandName);
-			const menuItemDic = menuUtils.commandsToMenuItems(commandNames.concat(pluginCommandNames), (commandName: string) => onMenuItemClickRef.current(commandName));
+			const menuItemDic = menuUtils.commandsToMenuItems(
+				commandNames.concat(pluginCommandNames),
+				(commandName: string) => onMenuItemClickRef.current(commandName),
+				props.locale
+			);
 
 			const quitMenuItem = {
 				label: _('Quit'),
@@ -341,6 +346,12 @@ function useMenu(props: Props) {
 					}
 				}
 			}
+
+			importItems.push({ type: 'separator' });
+			importItems.push({
+				label: _('Other applications...'),
+				click: () => { void bridge().openExternal('https://discourse.joplinapp.org/t/importing-notes-from-other-notebook-applications/22425'); },
+			});
 
 			exportItems.push(
 				menuItemDic.exportPdf
@@ -830,7 +841,7 @@ function useMenu(props: Props) {
 			clearTimeout(timeoutId);
 			timeoutId = null;
 		};
-	}, [props.routeName, props.pluginMenuItems, props.pluginMenus, keymapLastChangeTime, modulesLastChangeTime, props['spellChecker.language'], props['spellChecker.enabled'], props.plugins, props.customCss]);
+	}, [props.routeName, props.pluginMenuItems, props.pluginMenus, keymapLastChangeTime, modulesLastChangeTime, props['spellChecker.language'], props['spellChecker.enabled'], props.plugins, props.customCss, props.locale]);
 
 	useMenuStates(menu, props);
 
@@ -872,6 +883,7 @@ const mapStateToProps = (state: AppState) => {
 
 	return {
 		menuItemProps: menuUtils.commandsToMenuItemProps(commandNames.concat(pluginCommandNames(state.pluginService.plugins)), whenClauseContext),
+		locale: state.settings.locale,
 		routeName: state.route.routeName,
 		selectedFolderId: state.selectedFolderId,
 		layoutButtonSequence: state.settings.layoutButtonSequence,

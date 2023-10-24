@@ -7,13 +7,10 @@ import { Email, EmailSender } from '../services/database/types';
 import { errorToString } from '../utils/errors';
 import EmailModel from '../models/EmailModel';
 import { markdownBodyToHtml, markdownBodyToPlainText } from './email/utils';
+import { MailerSecurity } from '../env';
+import { senderInfo } from '../models/utils/email';
 
 const logger = Logger.create('EmailService');
-
-interface Participant {
-	name: string;
-	email: string;
-}
 
 export default class EmailService extends BaseService {
 
@@ -22,13 +19,19 @@ export default class EmailService extends BaseService {
 	private async transport(): Promise<Mail> {
 		if (!this.transport_) {
 			try {
-				if (!this.senderInfo(EmailSender.NoReply).email) {
+				if (!senderInfo(EmailSender.NoReply).email) {
 					throw new Error('No-reply email must be set for email service to work (Set env variable MAILER_NOREPLY_EMAIL)');
 				}
+
+				// NodeMailer's TLS options are weird:
+				// https://nodemailer.com/smtp/#tls-options
+
 				const options: SMTPTransport.Options = {
 					host: this.config.mailer.host,
 					port: this.config.mailer.port,
-					secure: this.config.mailer.secure,
+					secure: this.config.mailer.security === MailerSecurity.Tls,
+					ignoreTLS: this.config.mailer.security === MailerSecurity.None,
+					requireTLS: this.config.mailer.security === MailerSecurity.Starttls,
 				};
 				if (this.config.mailer.authUser || this.config.mailer.authPassword) {
 					options.auth = {
@@ -49,24 +52,6 @@ export default class EmailService extends BaseService {
 		}
 
 		return this.transport_;
-	}
-
-	private senderInfo(senderId: EmailSender): Participant {
-		if (senderId === EmailSender.NoReply) {
-			return {
-				name: this.config.mailer.noReplyName,
-				email: this.config.mailer.noReplyEmail,
-			};
-		}
-
-		if (senderId === EmailSender.Support) {
-			return {
-				name: this.config.supportName,
-				email: this.config.supportEmail,
-			};
-		}
-
-		throw new Error(`Invalid sender ID: ${senderId}`);
 	}
 
 	private escapeEmailField(f: string): string {
@@ -92,7 +77,7 @@ export default class EmailService extends BaseService {
 			const transport = await this.transport();
 
 			for (const email of emails) {
-				const sender = this.senderInfo(email.sender_id);
+				const sender = senderInfo(email.sender_id);
 
 				const mailOptions: Mail.Options = {
 					from: this.formatNameAndEmail(sender.email, sender.name),
